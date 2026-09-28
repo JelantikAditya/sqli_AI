@@ -15,6 +15,8 @@ Impossible. Evaluasi utama membandingkan **FPR** sistem dengan/tanpa RAG dan
   masih dalam pengembangan mengikuti jadwal penelitian.
 
 Petunjuk menjalankan lab ada di [dvwa/README.md](dvwa/README.md).
+Notebook untuk memverifikasi koneksi dari runtime Google Colab ada di
+[notebooks/colab_dvwa_smoke.ipynb](notebooks/colab_dvwa_smoke.ipynb).
 
 ## Prinsip reproduksibilitas
 

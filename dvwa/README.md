@@ -71,6 +71,13 @@ komputer lokal dengan:
 python dvwa/check_tunnel.py https://ALAMAT-TUNNEL.trycloudflare.com
 ```
 
+Untuk uji lengkap dari runtime Colab, buka
+[`notebooks/colab_dvwa_smoke.ipynb`](../notebooks/colab_dvwa_smoke.ipynb)
+di Colab dan jalankan semua sel. Notebook meminta URL tunnel, token, dan
+password DVWA saat dijalankan. **Jangan simpan salinan notebook dengan output
+atau rahasia yang masih terisi.** Hasil yang diharapkan adalah penolakan 403
+tanpa token, login berhasil, dan empat level bertanda `OK`.
+
 Login browser lokal dapat tetap memakai `127.0.0.1:4280`. Sesi Colab terpisah,
 jadi level keamanan perlu disetel dan diverifikasi lagi pada sesi Colab.
 Tunnel ini hanya untuk eksperimen singkat; hentikan setelah dipakai:
