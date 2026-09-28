@@ -10,7 +10,8 @@ Impossible. Evaluasi utama membandingkan **FPR** sistem dengan/tanpa RAG dan
 
 - Lingkungan DVWA dan MariaDB berjalan melalui Docker Compose.
 - Empat level keamanan DVWA telah diuji melalui antarmuka web.
-- Tunnel sementara bertoken tersedia untuk akses Colab selama eksperimen.
+- Akses dari runtime Colab ke DVWA melalui tunnel bertoken sudah diverifikasi
+  pada 28 September 2026; [catatan uji](docs/progress-2026-09-28.md).
 - Komponen ZAP, LLM, retrieval, validasi payload, dan pengukuran FPR/PSR
   masih dalam pengembangan mengikuti jadwal penelitian.
 
