@@ -73,7 +73,10 @@ python dvwa/check_tunnel.py https://ALAMAT-TUNNEL.trycloudflare.com
 
 Untuk uji lengkap dari runtime Colab, buka
 [`notebooks/colab_dvwa_smoke.ipynb`](../notebooks/colab_dvwa_smoke.ipynb)
-di Colab dan jalankan semua sel. Notebook meminta URL tunnel, token, dan
+di Colab melalui tombol **Upload notebook**, lalu jalankan semua sel. Repository
+GitHub bersifat private, jadi tautan GitHub langsung ke Colab memerlukan
+otorisasi GitHub tambahan; unggah berkas lokal untuk menghindari izin tersebut.
+Notebook meminta URL tunnel, token, dan
 password DVWA saat dijalankan. **Jangan simpan salinan notebook dengan output
 atau rahasia yang masih terisi.** Hasil yang diharapkan adalah penolakan 403
 tanpa token, login berhasil, dan empat level bertanda `OK`.
