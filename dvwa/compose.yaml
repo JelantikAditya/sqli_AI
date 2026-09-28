@@ -1,0 +1,45 @@
+services:
+  dvwa:
+    image: ghcr.io/digininja/dvwa@sha256:ed35515e9111801e6e386a6fbb11165508cc7f72e0cb8da4dbb3df70182986c6
+    environment:
+      DB_SERVER: db
+      DEFAULT_SECURITY_LEVEL: low
+    depends_on:
+      - db
+    ports:
+      - "127.0.0.1:4280:80"
+    restart: unless-stopped
+
+  db:
+    image: mariadb@sha256:7f22313fc130a377a44999965bcb0a08dd5b21e8502824c1b864f792f9bc66ab
+    environment:
+      MYSQL_ROOT_PASSWORD: dvwa-local-only
+      MYSQL_DATABASE: dvwa
+      MYSQL_USER: dvwa
+      MYSQL_PASSWORD: p@ssw0rd
+    volumes:
+      - dvwa_db:/var/lib/mysql
+    restart: unless-stopped
+
+  gateway:
+    image: python:3.12-alpine
+    profiles: ["tunnel"]
+    command: ["python", "/app/gateway.py"]
+    environment:
+      LAB_TOKEN: ${LAB_TOKEN:-missing}
+    volumes:
+      - ./gateway.py:/app/gateway.py:ro
+    depends_on:
+      - dvwa
+    restart: unless-stopped
+
+  tunnel:
+    image: cloudflare/cloudflared:latest
+    profiles: ["tunnel"]
+    command: ["tunnel", "--no-autoupdate", "--url", "http://gateway:8080"]
+    depends_on:
+      - gateway
+    restart: unless-stopped
+
+volumes:
+  dvwa_db:

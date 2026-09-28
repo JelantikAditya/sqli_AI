@@ -1,0 +1,16 @@
+# Berkas proyek ChatGPT dan bahan referensi yang tidak menjadi kode penelitian.
+/sources/
+/AGENTS.md
+
+# Rahasia lokal dan hasil sementara.
+**/.env
+**/__pycache__/
+*.py[cod]
+.venv/
+.ipynb_checkpoints/
+*.log
+
+# Data eksperimen mentah dan model besar disimpan terpisah.
+/data/raw/
+/results/raw/
+/models/
