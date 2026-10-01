@@ -39,6 +39,30 @@ Matriks ini mengikuti 12 skenario di proposal (Bab 3, Tabel 3.2). Label positif/
 | S11 | Impossible | Boolean-based blind | SQL Injection blind (`/vulnerabilities/sqli_blind/`) | Negatif / kontrol | 3 |
 | S12 | Impossible | Time-based blind | SQL Injection blind (`/vulnerabilities/sqli_blind/`) | Negatif / kontrol | 3 |
 
+## Crawl terautentikasi dan peta injection point
+
+Database sampel diinisialisasi ulang melalui halaman setup DVWA karena login
+awal gagal; smoke test proyek setelahnya mengonfirmasi login serta level Low,
+Medium, High, dan Impossible. ZAP menggunakan form authentication dengan
+CSRF field DVWA (`user_token`) dan akun lokal default. Templat tanpa kredensial
+ada di [`dvwa/zap-auth.template.yaml`](../dvwa/zap-auth.template.yaml); nilai
+kredensial diberikan melalui environment saat runtime. Spider menemukan 41 URL
+dalam konteks yang dibatasi; laporan passive scan berisi 12 alert umum pada
+halaman login dan dua modul SQLi. Tidak ada alert SQLi, sesuai batas scan pasif;
+tidak dijalankan active scan atau payload SQLi.
+
+Validasi halaman melalui sesi login mengonfirmasi request form dasar berikut:
+
+| Modul | Path | Method | Parameter input | Tombol submit |
+| --- | --- | --- | --- | --- |
+| SQL Injection | `/vulnerabilities/sqli/` | GET | `id` | `Submit` |
+| SQL Injection blind | `/vulnerabilities/sqli_blind/` | GET | `id` | `Submit` |
+
+Ini memetakan injection point pada level sesi yang diperiksa. Perlu diperiksa
+lagi pada tiap level keamanan karena DVWA dapat mengubah lokasi/sumber input;
+matriks ground truth di atas masih merupakan label rancangan proposal, belum
+hasil konfirmasi eksploitabilitas.
+
 ## Langkah validasi sebelum eksperimen
 
 1. Login ke DVWA dan pastikan database telah diinisialisasi.
@@ -50,4 +74,4 @@ Matriks ini mengikuti 12 skenario di proposal (Bab 3, Tabel 3.2). Label positif/
 
 ## Rujukan implementasi ZAP
 
-ZAP Baseline Scan melakukan spider dan passive scan, tanpa serangan aktif. Dokumentasi resmi: [ZAP Docker User Guide](https://www.zaproxy.org/docs/docker/about/) dan [ZAP Baseline Scan](https://www.zaproxy.org/docs/docker/baseline-scan/).
+ZAP Baseline Scan melakukan spider dan passive scan, tanpa serangan aktif. Dokumentasi resmi: [ZAP Docker User Guide](https://www.zaproxy.org/docs/docker/about/) dan [ZAP Baseline Scan](https://www.zaproxy.org/docs/docker/baseline-scan/). Konfigurasi auth/spider mengikuti [Automation Framework — Environment](https://www.zaproxy.org/docs/desktop/addons/automation-framework/environment/), [Form-Based Authentication](https://www.zaproxy.org/docs/desktop/start/features/authmethods/), dan [Spider job](https://www.zaproxy.org/docs/desktop/addons/spider/automation/).

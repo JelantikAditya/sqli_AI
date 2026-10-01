@@ -1,0 +1,56 @@
+---
+env:
+  contexts:
+    - name: dvwa-sqli
+      urls:
+        - http://dvwa/login.php
+        - http://dvwa/vulnerabilities/sqli/
+        - http://dvwa/vulnerabilities/sqli_blind/
+      includePaths:
+        - '^http://dvwa/(login\.php(\?.*)?|vulnerabilities/(sqli|sqli_blind)/?(\?.*)?)$'
+      excludePaths:
+        - '^http://dvwa/login\.php\?logout$'
+      authentication:
+        method: form
+        parameters:
+          loginPageUrl: http://dvwa/login.php
+          loginRequestUrl: http://dvwa/login.php
+          loginRequestBody: 'username={%username%}&password={%password%}&Login=Login&user_token={%user_token%}'
+        verification:
+          method: response
+          loggedInRegex: 'Logout'
+          loggedOutRegex: 'name="username"'
+      sessionManagement:
+        method: cookie
+      users:
+        - name: dvwa-local-user
+          credentials:
+            username: ${dvwaUser}
+            password: ${dvwaPassword}
+  vars:
+    dvwaUser: ${DVWA_USERNAME}
+    dvwaPassword: ${DVWA_PASSWORD}
+  parameters:
+    failOnError: true
+    failOnWarning: false
+    progressToStdout: true
+jobs:
+  - type: spider
+    parameters:
+      context: dvwa-sqli
+      user: dvwa-local-user
+      url: http://dvwa/vulnerabilities/sqli/
+      maxDuration: 2
+      maxDepth: 5
+      maxChildren: 20
+      logoutAvoidance: true
+      postForm: true
+      processForm: true
+  - type: passiveScan-wait
+    parameters:
+      maxDuration: 2
+  - type: report
+    parameters:
+      template: traditional-json
+      reportDir: /zap/wrk/
+      reportFile: zap-auth-2026-10-01.json
