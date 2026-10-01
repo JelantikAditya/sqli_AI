@@ -21,6 +21,22 @@ services:
       - dvwa_db:/var/lib/mysql
     restart: unless-stopped
 
+  zap:
+    image: ghcr.io/zaproxy/zaproxy:stable
+    profiles: ["zap"]
+    environment:
+      DVWA_USERNAME: ${DVWA_USERNAME:-admin}
+      DVWA_PASSWORD: ${DVWA_PASSWORD:-password}
+      DVWA_SECURITY_LEVEL: ${DVWA_SECURITY_LEVEL:-high}
+      ZAP_REPORT_FILE: ${ZAP_REPORT_FILE:-zap-auth-latest.json}
+    volumes:
+      - ./zap-auth.template.yaml:/zap/wrk/zap-auth.template.yaml:ro
+      - ../results/zap:/zap/out:rw
+    command: ["zap.sh", "-cmd", "-autorun", "/zap/wrk/zap-auth.template.yaml"]
+    depends_on:
+      - dvwa
+    restart: "no"
+
   gateway:
     image: python:3.12-alpine
     profiles: ["tunnel"]

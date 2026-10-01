@@ -4,12 +4,13 @@ env:
     - name: dvwa-sqli
       urls:
         - http://dvwa/login.php
+        - http://dvwa/security.php
         - http://dvwa/vulnerabilities/sqli/
         - http://dvwa/vulnerabilities/sqli_blind/
         - http://dvwa/vulnerabilities/sqli/session-input.php
         - http://dvwa/vulnerabilities/sqli_blind/cookie-input.php
       includePaths:
-        - '^http://dvwa/(login\.php(\?.*)?|vulnerabilities/(sqli|sqli_blind)(/(session-input|cookie-input)\.php)?/?(\?.*)?)$'
+        - '^http://dvwa/(login\.php|security\.php|vulnerabilities/(sqli|sqli_blind)(/(session-input|cookie-input)\.php)?)(\?.*)?$'
       excludePaths:
         - '^http://dvwa/login\.php\?logout$'
       authentication:
@@ -17,10 +18,11 @@ env:
         parameters:
           loginPageUrl: http://dvwa/login.php
           loginRequestUrl: http://dvwa/login.php
-          loginRequestBody: 'username={%username%}&password={%password%}&Login=Login&user_token={%user_token%}'
+          # ZAP fills username/password and refreshes the recognized CSRF field.
+          loginRequestBody: 'username={%username%}&password={%password%}&Login=Login&user_token='
         verification:
           method: response
-          loggedInRegex: 'Logout'
+          loggedInRegex: '(?i)Logout'
           loggedOutRegex: 'name="username"'
       sessionManagement:
         method: cookie
@@ -32,22 +34,44 @@ env:
   vars:
     dvwaUser: ${DVWA_USERNAME}
     dvwaPassword: ${DVWA_PASSWORD}
+    dvwaSecurityLevel: ${DVWA_SECURITY_LEVEL}
+    zapReportFile: ${ZAP_REPORT_FILE}
+  configs:
+    # DVWA uses a non-default CSRF field name on the login and security forms.
+    anticsrf.tokens: user_token
   parameters:
     failOnError: true
     failOnWarning: false
     progressToStdout: true
 jobs:
-  # DVWA stores the security level in the session cookie. Set it explicitly
-  # for ZAP's own authenticated session; the user's browser session is separate.
+  # Prime ZAP's CSRF token cache, set the level in the scanner's own session,
+  # then assert that DVWA rendered that exact level as selected.
   - type: requestor
     parameters:
       user: dvwa-local-user
     requests:
-      - name: Set DVWA security level to High for the ZAP session
+      - name: Load DVWA security form in the authenticated ZAP session
+        url: http://dvwa/security.php
+        method: GET
+        responseCode: 200
+      - name: Set DVWA level for the authenticated ZAP session
         url: http://dvwa/security.php
         method: POST
-        data: 'security=high&seclev_submit=Submit'
+        data: 'security=${dvwaSecurityLevel}&seclev_submit=Submit&user_token='
         responseCode: 200
+      - name: Read back DVWA level in the authenticated ZAP session
+        url: http://dvwa/security.php
+        method: GET
+        responseCode: 200
+    tests:
+      - name: DVWA confirms the requested security level
+        type: url
+        url: http://dvwa/security.php
+        responseBodyRegex: '<option value="${dvwaSecurityLevel}" selected="selected">'
+        onFail: error
+
+  # First confirm authentication on target responses; a nonzero HTTP status
+  # alone is not proof that the protected SQLi pages were reached.
   - type: spider
     parameters:
       context: dvwa-sqli
@@ -59,8 +83,36 @@ jobs:
       logoutAvoidance: true
       postForm: true
       processForm: true
-  # Popup helpers used by DVWA at High: seed them explicitly so their POST
-  # forms are mapped even when the popup JavaScript is not traversed.
+    tests:
+      - name: ZAP authenticated successfully
+        type: stats
+        statistic: stats.auth.success
+        site: http://dvwa
+        operator: '>='
+        value: 1
+        onFail: error
+      - name: ZAP observed the logged-in indicator
+        type: stats
+        statistic: stats.auth.state.loggedin
+        site: http://dvwa
+        operator: '>='
+        value: 1
+        onFail: error
+
+  - type: spider
+    parameters:
+      context: dvwa-sqli
+      user: dvwa-local-user
+      url: http://dvwa/vulnerabilities/sqli_blind/
+      maxDuration: 2
+      maxDepth: 5
+      maxChildren: 20
+      logoutAvoidance: true
+      postForm: true
+      processForm: true
+
+  # High-level DVWA exposes input forms through these popup helpers. Seed them
+  # explicitly so discovery does not depend on the traditional spider running JS.
   - type: spider
     parameters:
       context: dvwa-sqli
@@ -72,6 +124,7 @@ jobs:
       logoutAvoidance: true
       postForm: true
       processForm: true
+
   - type: spider
     parameters:
       context: dvwa-sqli
@@ -83,8 +136,8 @@ jobs:
       logoutAvoidance: true
       postForm: true
       processForm: true
-  # Client Spider can traverse DOM-driven links/popups; keep it passive and
-  # bounded for this local DVWA lab.
+
+  # DOM spider complements explicit helper seeds, while remaining bounded and passive.
   - type: spiderClient
     parameters:
       context: dvwa-sqli
@@ -96,6 +149,7 @@ jobs:
       numberOfBrowsers: 1
       browserId: firefox-headless
       scopeCheck: Strict
+
   - type: spiderClient
     parameters:
       context: dvwa-sqli
@@ -107,11 +161,13 @@ jobs:
       numberOfBrowsers: 1
       browserId: firefox-headless
       scopeCheck: Strict
+
   - type: passiveScan-wait
     parameters:
       maxDuration: 2
+
   - type: report
     parameters:
       template: traditional-json
-      reportDir: /zap/wrk/
-      reportFile: zap-auth-2026-10-01.json
+      reportDir: /zap/out/
+      reportFile: ${zapReportFile}

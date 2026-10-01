@@ -31,6 +31,34 @@ python dvwa/check_levels.py
 Halaman login yang merespons belum membuktikan database sudah diinisialisasi.
 Pastikan tombol **Create / Reset Database** sudah dijalankan dan login berhasil.
 
+## Discovery ZAP terautentikasi
+
+Plan ZAP memakai form authentication dengan cookie session DVWA. Karena field
+CSRF DVWA bernama `user_token`, plan mendaftarkan nama tersebut ke ZAP, memuat
+form `security.php`, mengubah level pada sesi ZAP sendiri, lalu memeriksa HTML
+bahwa level yang diminta benar-benar terpilih. Uji statistik autentikasi juga
+menggagalkan run jika ZAP tidak membuktikan login. Pada level High, helper
+`session-input.php` dan `cookie-input.php` menjadi seed eksplisit; Client Spider
+melengkapi discovery alur berbasis popup.
+
+Jalankan discovery terautentikasi dan pasif terhadap instance lokal:
+
+```powershell
+.\dvwa\run_zap_discovery.ps1 -SecurityLevel high
+```
+
+Gunakan `low`, `medium`, atau `impossible` untuk level lainnya. Report JSON
+bertimestamp disimpan di `results/zap/`. Skrip memakai kredensial default DVWA
+(`admin` / `password`); jika diubah, isi `DVWA_USERNAME` dan `DVWA_PASSWORD` di
+`dvwa/.env` lokal. Jangan commit file tersebut. ZAP berjalan pada jaringan
+Compose `dvwa_default` dan hanya memindai service `dvwa` di lab ini.
+
+Plan ini hanya melakukan spidering dan passive scan, tanpa Active Scan atau
+payload SQLi. Bukti keberhasilan adalah exit code 0, pemeriksaan level lulus,
+dan tes statistik autentikasi ZAP lulus. Jumlah URL atau alert bukan ground
+truth SQLi; evaluasi tetap memakai validasi black-box di
+[`../docs/ground-truth-2026-10-01.md`](../docs/ground-truth-2026-10-01.md).
+
 ## Akses Colab melalui tunnel bertoken
 
 Tunnel sementara Cloudflare menuju gateway. Gateway mewajibkan header
