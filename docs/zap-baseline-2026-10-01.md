@@ -20,9 +20,9 @@
 
 Peringatan yang muncul terutama terkait header keamanan, atribut cookie, informasi server, dan konfigurasi lintas origin. ZAP melaporkan temuan sebagai peringatan baseline; semuanya perlu triase terhadap tujuan eksperimen sebelum dihitung sebagai kerentanan SQLi. Laporan HTML dan JSON lengkap berada lokal di `results/zap/` dan dikecualikan dari commit.
 
-## Matriks ground truth sementara
+## Matriks ground truth proposal
 
-Matriks ini mengikuti 12 skenario di proposal (Bab 3, Tabel 3.2). Label positif/negatif berasal dari level proteksi DVWA yang ditetapkan proposal; status per percobaan harus tetap dikonfirmasi melalui validasi manual sebelum masuk hitungan TP/FP/TN/FN.
+Matriks ini mengikuti 12 skenario di proposal (Bab 3, Tabel 3.2). Validasi black-box tiga replikasi per skenario mengonfirmasi label untuk instance DVWA yang diuji; rincian metode dan batas interpretasi ada di [laporan ground truth](ground-truth-2026-10-01.md).
 
 | ID | Level DVWA | Kelas | Modul DVWA untuk dipetakan | Ground truth proposal | Replikasi |
 | --- | --- | --- | --- | --- | ---: |
@@ -51,17 +51,19 @@ dalam konteks yang dibatasi; laporan passive scan berisi 12 alert umum pada
 halaman login dan dua modul SQLi. Tidak ada alert SQLi, sesuai batas scan pasif;
 tidak dijalankan active scan atau payload SQLi.
 
-Validasi halaman melalui sesi login mengonfirmasi request form dasar berikut:
+Validasi form pada level Low dan Impossible mengonfirmasi request dasar berikut:
 
 | Modul | Path | Method | Parameter input | Tombol submit |
 | --- | --- | --- | --- | --- |
 | SQL Injection | `/vulnerabilities/sqli/` | GET | `id` | `Submit` |
 | SQL Injection blind | `/vulnerabilities/sqli_blind/` | GET | `id` | `Submit` |
 
-Ini memetakan injection point pada level sesi yang diperiksa. Perlu diperiksa
-lagi pada tiap level keamanan karena DVWA dapat mengubah lokasi/sumber input;
-matriks ground truth di atas masih merupakan label rancangan proposal, belum
-hasil konfirmasi eksploitabilitas.
+Pada Medium, modul memakai POST dengan field `id` berupa select. Pada High,
+halaman SQLi membuka helper `session-input.php` (POST `id`), sedangkan halaman
+blind membuka `cookie-input.php` (POST `id` yang disimpan sebagai cookie).
+Karena helper High dibuka lewat popup JavaScript, spider tradisional belum
+memetakannya; endpoint tersebut dipetakan dari navigasi UI dan divalidasi
+terpisah. Detail per level ada di laporan ground truth.
 
 ## Langkah validasi sebelum eksperimen
 
@@ -70,7 +72,7 @@ hasil konfirmasi eksploitabilitas.
 3. Dari ZAP, jelajahi kedua modul SQLi setelah autentikasi untuk memperoleh request aktual, method, parameter, dan cookie sesi. Simpan hanya cookie yang sudah disamarkan.
 4. Uji pembanding benign dan input uji yang disetujui pada endpoint yang sama. Untuk boolean/time-based blind, ulangi pengukuran baseline agar variasi jaringan tidak disalahartikan sebagai sinyal.
 5. Validator manusia menetapkan apakah respons benar-benar menunjukkan injeksi. Jangan menjadikan alert ZAP tunggal sebagai ground truth.
-6. Jalankan 12 skenario × 3 replikasi sesuai proposal dan simpan level, endpoint, parameter, kelas SQLi, mode RAG, sumber payload, outcome, dan alasan validasi.
+6. Untuk pengujian utama, jalankan kembali 12 skenario × 3 replikasi dan simpan level, endpoint, parameter, kelas SQLi, mode RAG, sumber payload, outcome, dan alasan validasi.
 
 ## Rujukan implementasi ZAP
 
