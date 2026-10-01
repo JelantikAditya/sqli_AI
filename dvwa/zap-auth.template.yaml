@@ -6,8 +6,10 @@ env:
         - http://dvwa/login.php
         - http://dvwa/vulnerabilities/sqli/
         - http://dvwa/vulnerabilities/sqli_blind/
+        - http://dvwa/vulnerabilities/sqli/session-input.php
+        - http://dvwa/vulnerabilities/sqli_blind/cookie-input.php
       includePaths:
-        - '^http://dvwa/(login\.php(\?.*)?|vulnerabilities/(sqli|sqli_blind)/?(\?.*)?)$'
+        - '^http://dvwa/(login\.php(\?.*)?|vulnerabilities/(sqli|sqli_blind)(/(session-input|cookie-input)\.php)?/?(\?.*)?)$'
       excludePaths:
         - '^http://dvwa/login\.php\?logout$'
       authentication:
@@ -46,6 +48,54 @@ jobs:
       logoutAvoidance: true
       postForm: true
       processForm: true
+  # Popup helpers used by DVWA at High: seed them explicitly so their POST
+  # forms are mapped even when the popup JavaScript is not traversed.
+  - type: spider
+    parameters:
+      context: dvwa-sqli
+      user: dvwa-local-user
+      url: http://dvwa/vulnerabilities/sqli/session-input.php
+      maxDuration: 1
+      maxDepth: 2
+      maxChildren: 10
+      logoutAvoidance: true
+      postForm: true
+      processForm: true
+  - type: spider
+    parameters:
+      context: dvwa-sqli
+      user: dvwa-local-user
+      url: http://dvwa/vulnerabilities/sqli_blind/cookie-input.php
+      maxDuration: 1
+      maxDepth: 2
+      maxChildren: 10
+      logoutAvoidance: true
+      postForm: true
+      processForm: true
+  # Client Spider can traverse DOM-driven links/popups; keep it passive and
+  # bounded for this local DVWA lab.
+  - type: spiderClient
+    parameters:
+      context: dvwa-sqli
+      user: dvwa-local-user
+      url: http://dvwa/vulnerabilities/sqli/
+      maxDuration: 1
+      maxCrawlDepth: 3
+      maxChildren: 10
+      numberOfBrowsers: 1
+      browserId: firefox-headless
+      scopeCheck: Strict
+  - type: spiderClient
+    parameters:
+      context: dvwa-sqli
+      user: dvwa-local-user
+      url: http://dvwa/vulnerabilities/sqli_blind/
+      maxDuration: 1
+      maxCrawlDepth: 3
+      maxChildren: 10
+      numberOfBrowsers: 1
+      browserId: firefox-headless
+      scopeCheck: Strict
   - type: passiveScan-wait
     parameters:
       maxDuration: 2

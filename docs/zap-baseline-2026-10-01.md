@@ -61,9 +61,16 @@ Validasi form pada level Low dan Impossible mengonfirmasi request dasar berikut:
 Pada Medium, modul memakai POST dengan field `id` berupa select. Pada High,
 halaman SQLi membuka helper `session-input.php` (POST `id`), sedangkan halaman
 blind membuka `cookie-input.php` (POST `id` yang disimpan sebagai cookie).
-Karena helper High dibuka lewat popup JavaScript, spider tradisional belum
-memetakannya; endpoint tersebut dipetakan dari navigasi UI dan divalidasi
-terpisah. Detail per level ada di laporan ground truth.
+Untuk mengatasi popup JavaScript yang luput dari spider tradisional, kedua URL
+helper kini dimasukkan sebagai seed eksplisit dalam template ZAP; Client Spider
+juga dijalankan pada dua modul untuk mencoba menelusuri interaksi berbasis DOM.
+Run terautentikasi terbaru berhasil: spider tradisional melaporkan 46 URL,
+termasuk kedua helper; dua job Client Spider selesai; passive scan selesai dan
+laporan menghasilkan 14 alert umum. Crawl ini tetap passive-only dan bukan
+deteksi SQLi aktif. Karena kedua helper juga dapat dijangkau langsung pada
+level selain High, keberadaan endpoint dalam crawl tidak dengan sendirinya
+membuktikan konfigurasi level High; level dan perilaku kerentanannya divalidasi
+terpisah pada laporan ground truth.
 
 ## Langkah validasi sebelum eksperimen
 
@@ -76,4 +83,4 @@ terpisah. Detail per level ada di laporan ground truth.
 
 ## Rujukan implementasi ZAP
 
-ZAP Baseline Scan melakukan spider dan passive scan, tanpa serangan aktif. Dokumentasi resmi: [ZAP Docker User Guide](https://www.zaproxy.org/docs/docker/about/) dan [ZAP Baseline Scan](https://www.zaproxy.org/docs/docker/baseline-scan/). Konfigurasi auth/spider mengikuti [Automation Framework — Environment](https://www.zaproxy.org/docs/desktop/addons/automation-framework/environment/), [Form-Based Authentication](https://www.zaproxy.org/docs/desktop/start/features/authmethods/), dan [Spider job](https://www.zaproxy.org/docs/desktop/addons/spider/automation/).
+ZAP Baseline Scan melakukan spider dan passive scan, tanpa serangan aktif. Dokumentasi resmi: [ZAP Docker User Guide](https://www.zaproxy.org/docs/docker/about/) dan [ZAP Baseline Scan](https://www.zaproxy.org/docs/docker/baseline-scan/). Konfigurasi auth/spider mengikuti [Automation Framework — Environment](https://www.zaproxy.org/docs/desktop/addons/automation-framework/environment/), [Form-Based Authentication](https://www.zaproxy.org/docs/desktop/start/features/authmethods/), [Spider job](https://www.zaproxy.org/docs/desktop/addons/spider/automation/), serta [Client Spider job](https://www.zaproxy.org/docs/desktop/addons/client-side-integration/automation/).
