@@ -37,6 +37,17 @@ env:
     failOnWarning: false
     progressToStdout: true
 jobs:
+  # DVWA stores the security level in the session cookie. Set it explicitly
+  # for ZAP's own authenticated session; the user's browser session is separate.
+  - type: requestor
+    parameters:
+      user: dvwa-local-user
+    requests:
+      - name: Set DVWA security level to High for the ZAP session
+        url: http://dvwa/security.php
+        method: POST
+        data: 'security=high&seclev_submit=Submit'
+        responseCode: 200
   - type: spider
     parameters:
       context: dvwa-sqli
