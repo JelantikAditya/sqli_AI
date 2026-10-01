@@ -88,3 +88,29 @@ terverifikasi sebelum crawl per level diulang.
 ## Rujukan implementasi ZAP
 
 ZAP Baseline Scan melakukan spider dan passive scan, tanpa serangan aktif. Dokumentasi resmi: [ZAP Docker User Guide](https://www.zaproxy.org/docs/docker/about/) dan [ZAP Baseline Scan](https://www.zaproxy.org/docs/docker/baseline-scan/). Konfigurasi auth/spider mengikuti [Automation Framework — Environment](https://www.zaproxy.org/docs/desktop/addons/automation-framework/environment/), [Form-Based Authentication](https://www.zaproxy.org/docs/desktop/start/features/authmethods/), [requestor job](https://www.zaproxy.org/docs/desktop/addons/automation-framework/job-requestor/), [Spider job](https://www.zaproxy.org/docs/desktop/addons/spider/automation/), serta [Client Spider job](https://www.zaproxy.org/docs/desktop/addons/client-side-integration/automation/).
+## Perbaikan plan discovery — 1 Oktober 2026
+
+Template Automation Framework memakai Browser Based Authentication untuk
+menjalankan form login DVWA beserta CSRF-nya. Field CSRF `user_token` juga
+didaftarkan untuk form DVWA. Runner membuat ulang container web dengan level
+yang diminta sebagai default (container database dan volumenya tetap), lalu
+requestor memeriksa HTML `security.php` pada sesi autentikasi ZAP. Tes statistik
+`stats.auth.success` dan
+`stats.auth.state.loggedin` membuat plan gagal jika spider tidak membuktikan
+sesi login. Kedua helper High di-seed secara eksplisit dan Client Spider tetap
+dibatasi pada dua modul SQLi.
+
+Jalankan dengan `powershell -ExecutionPolicy Bypass -File dvwa/run_zap_discovery.ps1 -SecurityLevel high` (atau `low`, `medium`, `impossible`).
+Report JSON per run masuk ke `results/zap/`. Plan hanya memakai spider dan
+passive scan; tidak ada Active Scan atau payload SQLi.
+
+Run Low, Medium, High, dan Impossible berhasil pada 1 Oktober 2026. Keempatnya
+lulus pemeriksaan level, `stats.auth.success`, dan indikator `loggedin`. Spider
+utama menemukan 49 URL pada Low, Medium, dan Impossible serta 45 pada High;
+spider pendamping mengunjungi kedua helper High secara eksplisit. Passive report
+memuat 14 kategori alert pada Low/Medium/High, 15 pada Impossible, dan tidak
+memuat kategori SQL Injection. Ini adalah hasil discovery dan passive scan,
+bukan bukti bahwa target aman atau pengukuran FPR/PSR. JSON report dan plan
+bertimestamp tersimpan lokal di `results/zap/` dan diabaikan Git. Laporan awal
+dan koreksi interpretasi di atas tetap dibatasi pada bukti yang tersedia saat
+itu; hasil tervalidasi ini adalah run baru yang terpisah.
