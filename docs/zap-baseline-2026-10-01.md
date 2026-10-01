@@ -64,15 +64,17 @@ blind membuka `cookie-input.php` (POST `id` yang disimpan sebagai cookie).
 Untuk mengatasi popup JavaScript yang luput dari spider tradisional, kedua URL
 helper kini dimasukkan sebagai seed eksplisit dalam template ZAP; Client Spider
 juga dijalankan pada dua modul untuk mencoba menelusuri interaksi berbasis DOM.
-Karena sesi browser dan ZAP terpisah, template kini mengirim POST terautentikasi
-ke `security.php` untuk menyetel level sesi ZAP ke High sebelum crawl. Job
-requestor mendapat HTTP 200. Run terbaru berhasil: spider tradisional
-melaporkan hingga 46 URL, termasuk kedua helper; dua job Client Spider selesai;
-passive scan selesai dan laporan menghasilkan 14 alert umum. Crawl ini tetap
-passive-only dan bukan deteksi SQLi aktif. Karena kedua helper juga dapat
-dijangkau langsung pada level selain High, keberadaan endpoint dalam crawl
-tidak dengan sendirinya membuktikan konfigurasi level High; level dan perilaku
-kerentanannya divalidasi terpisah pada laporan ground truth.
+Catatan koreksi verifikasi (1 Oktober 2026): respons HTTP 200 dari request
+pengaturan level sebelumnya tidak membuktikan bahwa sesi ZAP berhasil login
+atau bahwa level High tersimpan. Pemeriksaan terbaru pada halaman `security.php`
+tidak menemukan indikator login `Logout` maupun teks level aktif High.
+Penyebab yang teridentifikasi: DVWA memakai CSRF token `user_token`, yang belum
+ditangani dengan benar pada autentikasi ZAP. Percobaan browser authentication
+headless juga belum lolos pemeriksaan tersebut. Karena itu angka URL dan alert
+dari crawl sebelumnya hanya bukti URL terjangkau dan passive alerts; hasil itu
+tidak boleh dilabeli crawl terautentikasi atau bukti bahwa sesi High telah
+digunakan. Crawl khusus Impossible belum dijalankan. Perlu autentikasi ZAP yang
+terverifikasi sebelum crawl per level diulang.
 
 ## Langkah validasi sebelum eksperimen
 
