@@ -14,12 +14,12 @@ env:
       excludePaths:
         - '^http://dvwa/login\.php\?logout$'
       authentication:
-        method: form
+        method: browser
         parameters:
           loginPageUrl: http://dvwa/login.php
-          loginRequestUrl: http://dvwa/login.php
-          # ZAP fills username/password and refreshes the recognized CSRF field.
-          loginRequestBody: 'username={%username%}&password={%password%}&Login=Login&user_token='
+          loginPageWait: 2
+          browserId: firefox-headless
+          steps: []
         verification:
           method: response
           loggedInRegex: '(?i)Logout'
@@ -34,32 +34,21 @@ env:
   vars:
     dvwaUser: ${DVWA_USERNAME}
     dvwaPassword: ${DVWA_PASSWORD}
-    dvwaSecurityLevel: ${DVWA_SECURITY_LEVEL}
-    zapReportFile: ${ZAP_REPORT_FILE}
   configs:
-    # DVWA uses a non-default CSRF field name on the login and security forms.
+    # DVWA uses this non-default CSRF field name on its forms.
     anticsrf.tokens: user_token
   parameters:
     failOnError: true
     failOnWarning: false
     progressToStdout: true
 jobs:
-  # Prime ZAP's CSRF token cache, set the level in the scanner's own session,
-  # then assert that DVWA rendered that exact level as selected.
+  # Read the security page in the authenticated ZAP session and assert that its
+  # fresh session inherited the requested container default.
   - type: requestor
     parameters:
       user: dvwa-local-user
     requests:
-      - name: Load DVWA security form in the authenticated ZAP session
-        url: http://dvwa/security.php
-        method: GET
-        responseCode: 200
-      - name: Set DVWA level for the authenticated ZAP session
-        url: http://dvwa/security.php
-        method: POST
-        data: 'security=${dvwaSecurityLevel}&seclev_submit=Submit&user_token='
-        responseCode: 200
-      - name: Read back DVWA level in the authenticated ZAP session
+      - name: Read DVWA security level in the authenticated ZAP session
         url: http://dvwa/security.php
         method: GET
         responseCode: 200
@@ -67,7 +56,8 @@ jobs:
       - name: DVWA confirms the requested security level
         type: url
         url: http://dvwa/security.php
-        responseBodyRegex: '<option value="${dvwaSecurityLevel}" selected="selected">'
+        operator: or
+        responseBodyRegex: '<option value="__DVWA_SECURITY_LEVEL__" selected="selected">'
         onFail: error
 
   # First confirm authentication on target responses; a nonzero HTTP status
@@ -170,4 +160,4 @@ jobs:
     parameters:
       template: traditional-json
       reportDir: /zap/out/
-      reportFile: ${zapReportFile}
+      reportFile: __ZAP_REPORT_FILE__

@@ -33,13 +33,14 @@ Pastikan tombol **Create / Reset Database** sudah dijalankan dan login berhasil.
 
 ## Discovery ZAP terautentikasi
 
-Plan ZAP memakai form authentication dengan cookie session DVWA. Karena field
-CSRF DVWA bernama `user_token`, plan mendaftarkan nama tersebut ke ZAP, memuat
-form `security.php`, mengubah level pada sesi ZAP sendiri, lalu memeriksa HTML
-bahwa level yang diminta benar-benar terpilih. Uji statistik autentikasi juga
-menggagalkan run jika ZAP tidak membuktikan login. Pada level High, helper
-`session-input.php` dan `cookie-input.php` menjadi seed eksplisit; Client Spider
-melengkapi discovery alur berbasis popup.
+Plan ZAP memakai browser authentication agar browser mengisi form login DVWA
+beserta token CSRF-nya. Runner menyiapkan level yang diminta sebagai default,
+membuat sesi ZAP baru, lalu memeriksa halaman `security.php` untuk memastikan
+level tersebut aktif pada sesi scanner. Runner membuat ulang container web
+DVWA saja; container database dan volumenya tetap berjalan. Uji statistik
+autentikasi juga menggagalkan run jika ZAP tidak membuktikan login. Pada level
+High, helper `session-input.php` dan `cookie-input.php` menjadi seed eksplisit;
+Client Spider melengkapi discovery alur berbasis popup.
 
 Jalankan discovery terautentikasi dan pasif terhadap instance lokal:
 

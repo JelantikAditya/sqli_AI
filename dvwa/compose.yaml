@@ -3,7 +3,7 @@ services:
     image: ghcr.io/digininja/dvwa@sha256:ed35515e9111801e6e386a6fbb11165508cc7f72e0cb8da4dbb3df70182986c6
     environment:
       DB_SERVER: db
-      DEFAULT_SECURITY_LEVEL: low
+      DEFAULT_SECURITY_LEVEL: ${DVWA_SECURITY_LEVEL:-low}
     depends_on:
       - db
     ports:
@@ -27,12 +27,10 @@ services:
     environment:
       DVWA_USERNAME: ${DVWA_USERNAME:-admin}
       DVWA_PASSWORD: ${DVWA_PASSWORD:-password}
-      DVWA_SECURITY_LEVEL: ${DVWA_SECURITY_LEVEL:-high}
-      ZAP_REPORT_FILE: ${ZAP_REPORT_FILE:-zap-auth-latest.json}
+      ZAP_PLAN_FILE: ${ZAP_PLAN_FILE:-zap-auth.template.yaml}
     volumes:
-      - ./zap-auth.template.yaml:/zap/wrk/zap-auth.template.yaml:ro
       - ../results/zap:/zap/out:rw
-    command: ["zap.sh", "-cmd", "-autorun", "/zap/wrk/zap-auth.template.yaml"]
+    command: ["zap.sh", "-cmd", "-autorun", "/zap/out/${ZAP_PLAN_FILE:-zap-auth.template.yaml}"]
     depends_on:
       - dvwa
     restart: "no"

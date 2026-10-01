@@ -13,9 +13,11 @@ Impossible. Evaluasi utama membandingkan **FPR** sistem dengan/tanpa RAG dan
 - Akses dari runtime Colab ke DVWA melalui tunnel bertoken sudah diverifikasi
   pada 28 September 2026; [catatan uji](docs/progress-2026-09-28.md).
 - Plan ZAP untuk discovery SQLi terautentikasi kini menangani `user_token`,
-  memverifikasi level sesi, dan mewajibkan bukti login sebelum melaporkan hasil;
-  [petunjuk run](dvwa/README.md#discovery-zap-terautentikasi). Eksekusi baru
-  belum diverifikasi karena Docker Desktop tidak aktif pada sesi terakhir.
+  memverifikasi level sesi, dan mewajibkan bukti login sebelum melaporkan hasil.
+  Run terautentikasi berhasil pada 1 Oktober 2026 untuk keempat level; detail
+  dan batas interpretasi ada di
+  [catatan ZAP](docs/zap-baseline-2026-10-01.md)
+  dan [petunjuk run](dvwa/README.md#discovery-zap-terautentikasi).
 - Komponen ZAP, LLM, retrieval, validasi payload, dan pengukuran FPR/PSR
   masih dalam pengembangan mengikuti jadwal penelitian.
 

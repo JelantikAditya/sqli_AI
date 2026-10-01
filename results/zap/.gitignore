@@ -2,5 +2,6 @@
 zap-*.html
 zap-*.json
 zap-*.log
+zap-discovery-*.yaml
 zap.yaml
 zap-auth.yaml
