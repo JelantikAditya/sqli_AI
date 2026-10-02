@@ -1,0 +1,147 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Normalized OWASP ZAP run",
+  "description": "A sanitized, normalized view of ZAP alert instances. It is discovery evidence, not a SQL injection verdict.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "run_metadata",
+    "summary",
+    "observations",
+    "candidate_injection_points",
+    "interpretation"
+  ],
+  "properties": {
+    "schema_version": { "const": "1.0.0" },
+    "run_metadata": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "run_id",
+        "source_report",
+        "generated_at",
+        "scanner_name",
+        "scanner_version",
+        "target_origin",
+        "security_level",
+        "scan_mode",
+        "authentication_status"
+      ],
+      "properties": {
+        "run_id": { "type": "string", "minLength": 1 },
+        "source_report": { "type": "string", "minLength": 1 },
+        "generated_at": { "type": ["string", "null"] },
+        "scanner_name": { "type": ["string", "null"] },
+        "scanner_version": { "type": ["string", "null"] },
+        "target_origin": { "type": ["string", "null"] },
+        "security_level": {
+          "enum": ["low", "medium", "high", "impossible", "unknown"]
+        },
+        "scan_mode": { "enum": ["passive", "active", "unknown"] },
+        "authentication_status": {
+          "enum": ["verified", "unverified", "unknown"]
+        }
+      }
+    },
+    "summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "alert_group_count",
+        "alert_instance_count",
+        "distinct_alert_uri_count",
+        "candidate_injection_point_count",
+        "sql_injection_alert_group_count",
+        "out_of_level_sqli_input_observation_count"
+      ],
+      "properties": {
+        "alert_group_count": { "type": "integer", "minimum": 0 },
+        "alert_instance_count": { "type": "integer", "minimum": 0 },
+        "distinct_alert_uri_count": { "type": "integer", "minimum": 0 },
+        "candidate_injection_point_count": { "type": "integer", "minimum": 0 },
+        "sql_injection_alert_group_count": { "type": "integer", "minimum": 0 },
+        "out_of_level_sqli_input_observation_count": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    },
+    "observations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["observation_id", "alert", "instance"],
+        "properties": {
+          "observation_id": { "type": "string", "minLength": 1 },
+          "alert": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["plugin_id", "name", "risk_code", "confidence_code"],
+            "properties": {
+              "plugin_id": { "type": ["string", "null"] },
+              "name": { "type": ["string", "null"] },
+              "risk_code": { "type": ["integer", "null"], "minimum": 0 },
+              "confidence_code": { "type": ["integer", "null"], "minimum": 0 }
+            }
+          },
+          "instance": {
+            "oneOf": [
+              { "type": "null" },
+              {
+                "type": "object",
+                "additionalProperties": false,
+                "required": ["uri", "method", "parameter"],
+                "properties": {
+                  "uri": { "type": ["string", "null"] },
+                  "method": { "type": ["string", "null"] },
+                  "parameter": { "type": ["string", "null"] }
+                }
+              }
+            ]
+          }
+        }
+      }
+    },
+    "candidate_injection_points": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "path",
+          "method",
+          "parameter",
+          "source_observation_id",
+          "scenario_ids",
+          "verification_status"
+        ],
+        "properties": {
+          "path": { "type": "string", "minLength": 1 },
+          "method": { "type": "string", "minLength": 1 },
+          "parameter": { "type": "string", "minLength": 1 },
+          "source_observation_id": { "type": "string", "minLength": 1 },
+          "scenario_ids": {
+            "type": "array",
+            "items": {
+              "enum": ["S1", "S2", "S3", "S4", "S5", "S6", "S7", "S8", "S9", "S10", "S11", "S12"]
+            },
+            "minItems": 1,
+            "uniqueItems": true
+          },
+          "verification_status": { "const": "unverified" }
+        }
+      }
+    },
+    "interpretation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["sql_injection_detection", "note"],
+      "properties": {
+        "sql_injection_detection": { "const": "not_assessed" },
+        "note": { "type": "string", "minLength": 1 }
+      }
+    }
+  }
+}

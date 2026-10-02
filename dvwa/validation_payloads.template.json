@@ -1,0 +1,12 @@
+{
+  "schema_version": "1.0.0",
+  "candidates": [
+    {
+      "candidate_id": "manual-s1-001",
+      "scenario_id": "S1",
+      "source": "manual",
+      "rag_mode": "not_applicable",
+      "payload": "REPLACE_WITH_RESEARCHER_APPROVED_PAYLOAD"
+    }
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Validation loop candidate payloads",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "candidates"],
+  "properties": {
+    "schema_version": { "const": "1.0.0" },
+    "candidates": {
+      "type": "array",
+      "maxItems": 10,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["candidate_id", "scenario_id", "source", "rag_mode"],
+        "properties": {
+          "candidate_id": { "type": "string", "minLength": 1 },
+          "scenario_id": { "enum": ["S1", "S2", "S3", "S4", "S5", "S6", "S7", "S8", "S9", "S10", "S11", "S12"] },
+          "source": { "enum": ["LLM", "SecLists", "manual"] },
+          "rag_mode": { "enum": ["on", "off", "not_applicable"] },
+          "provenance": { "type": "object" },
+          "payload": { "type": "string", "minLength": 1 },
+          "true_payload": { "type": "string", "minLength": 1 },
+          "false_payload": { "type": "string", "minLength": 1 }
+        },
+        "oneOf": [
+          { "required": ["payload"], "not": { "anyOf": [{"required":["true_payload"]},{"required":["false_payload"]}] } },
+          { "required": ["true_payload", "false_payload"], "not": { "required": ["payload"] } }
+        ]
+      }
+    }
+  }
+}

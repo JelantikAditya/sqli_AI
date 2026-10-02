@@ -1,0 +1,30 @@
+{
+  "schema_version": "1.0.0",
+  "target": {
+    "default_origin": "http://127.0.0.1:4280",
+    "allowed_hosts": ["127.0.0.1", "localhost", "::1"],
+    "allowed_port": 4280
+  },
+  "protocol": {
+    "default_repetitions": 3,
+    "max_repetitions": 3,
+    "max_candidates_per_run": 10,
+    "request_timeout_seconds": 15,
+    "time_signal_threshold_ms": 1500,
+    "benign_baseline_value": "1"
+  },
+  "scenarios": [
+    {"scenario_id":"S1","security_level":"low","sqli_type":"error-based","ground_truth":"positive","method":"GET","input_path":"/vulnerabilities/sqli/","result_path":"/vulnerabilities/sqli/","parameter":"id","probe_kind":"single_error"},
+    {"scenario_id":"S2","security_level":"low","sqli_type":"boolean-based blind","ground_truth":"positive","method":"GET","input_path":"/vulnerabilities/sqli_blind/","result_path":"/vulnerabilities/sqli_blind/","parameter":"id","probe_kind":"boolean_pair"},
+    {"scenario_id":"S3","security_level":"low","sqli_type":"time-based blind","ground_truth":"positive","method":"GET","input_path":"/vulnerabilities/sqli_blind/","result_path":"/vulnerabilities/sqli_blind/","parameter":"id","probe_kind":"single_time"},
+    {"scenario_id":"S4","security_level":"medium","sqli_type":"error-based","ground_truth":"positive","method":"POST","input_path":"/vulnerabilities/sqli/","result_path":"/vulnerabilities/sqli/","parameter":"id","probe_kind":"single_error"},
+    {"scenario_id":"S5","security_level":"medium","sqli_type":"boolean-based blind","ground_truth":"positive","method":"POST","input_path":"/vulnerabilities/sqli_blind/","result_path":"/vulnerabilities/sqli_blind/","parameter":"id","probe_kind":"boolean_pair"},
+    {"scenario_id":"S6","security_level":"medium","sqli_type":"time-based blind","ground_truth":"positive","method":"POST","input_path":"/vulnerabilities/sqli_blind/","result_path":"/vulnerabilities/sqli_blind/","parameter":"id","probe_kind":"single_time"},
+    {"scenario_id":"S7","security_level":"high","sqli_type":"error-based","ground_truth":"positive","method":"POST","input_path":"/vulnerabilities/sqli/session-input.php","result_path":"/vulnerabilities/sqli/","parameter":"id","probe_kind":"single_error"},
+    {"scenario_id":"S8","security_level":"high","sqli_type":"boolean-based blind","ground_truth":"positive","method":"POST","input_path":"/vulnerabilities/sqli_blind/cookie-input.php","result_path":"/vulnerabilities/sqli_blind/","parameter":"id","probe_kind":"boolean_pair"},
+    {"scenario_id":"S9","security_level":"high","sqli_type":"time-based blind","ground_truth":"positive","method":"POST","input_path":"/vulnerabilities/sqli_blind/cookie-input.php","result_path":"/vulnerabilities/sqli_blind/","parameter":"id","probe_kind":"single_time"},
+    {"scenario_id":"S10","security_level":"impossible","sqli_type":"error-based","ground_truth":"negative","method":"GET","input_path":"/vulnerabilities/sqli/","result_path":"/vulnerabilities/sqli/","parameter":"id","probe_kind":"single_error"},
+    {"scenario_id":"S11","security_level":"impossible","sqli_type":"boolean-based blind","ground_truth":"negative","method":"GET","input_path":"/vulnerabilities/sqli_blind/","result_path":"/vulnerabilities/sqli_blind/","parameter":"id","probe_kind":"boolean_pair"},
+    {"scenario_id":"S12","security_level":"impossible","sqli_type":"time-based blind","ground_truth":"negative","method":"GET","input_path":"/vulnerabilities/sqli_blind/","result_path":"/vulnerabilities/sqli_blind/","parameter":"id","probe_kind":"single_time"}
+  ]
+}

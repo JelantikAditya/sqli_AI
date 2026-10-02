@@ -60,6 +60,27 @@ dan tes statistik autentikasi ZAP lulus. Jumlah URL atau alert bukan ground
 truth SQLi; evaluasi tetap memakai validasi black-box di
 [`../docs/ground-truth-2026-10-01.md`](../docs/ground-truth-2026-10-01.md).
 
+## Validation loop SQLi terkontrol
+
+MVP validator menguji satu skenario ground truth per run terhadap DVWA lokal,
+menggunakan kandidat payload dari file JSON dan mencatat tiap request serta
+keputusan awal ke `results/raw/`. Parser ZAP dan validator membaca katalog
+bersama di [`experiment_scenarios.json`](experiment_scenarios.json), sehingga
+mapping level, endpoint, metode, dan ID skenario tidak diduplikasi.
+
+Ikuti [panduan validation loop](../docs/validation-loop.md) untuk membuat file
+kandidat lokal dan menjalankan satu skenario. File kandidat lokal dan hasil
+mentah diabaikan Git. Kandidat LLM/RAG dan SecLists belum diambil otomatis;
+label TP/FP/TN/FN yang dicatat masih provisional dan perlu validasi manusia.
+
+Untuk menyiapkan batch kandidat dengan provenance yang dapat diaudit, gunakan
+[`../docs/candidate-sources.md`](../docs/candidate-sources.md) dan
+`dvwa/prepare_candidate_batch.py`. Langkah ini memvalidasi metadata LLM/RAG
+atau kecocokan payload SecLists dengan file dan nomor baris sumber sebelum
+batch diberikan ke runner. Panduan yang sama menjelaskan indexing PDF ke Chroma,
+retrieval, serta generasi kandidat Qwen lokal. Komponen tersebut belum
+dijalankan terhadap Ollama.
+
 ## Akses Colab melalui tunnel bertoken
 
 Tunnel sementara Cloudflare menuju gateway. Gateway mewajibkan header
@@ -100,7 +121,23 @@ komputer lokal dengan:
 python dvwa/check_tunnel.py https://ALAMAT-TUNNEL.trycloudflare.com
 ```
 
-Untuk uji lengkap dari runtime Colab, buka
+Untuk menyiapkan Ollama/LangChain/Chroma dan membangun knowledge base RAG di runtime Colab, buka
+[`notebooks/colab_langchain_setup.ipynb`](../notebooks/colab_langchain_setup.ipynb)
+di Colab melalui tombol **Upload notebook**. Notebook ini melakukan smoke check
+model/embedding, membaca salinan PDF yang kamu unggah ke folder
+`MyDrive/TA-SQLi/references/`, membangun Chroma dengan LangChain, dan menyimpan
+arsip ZIP serta manifest provenance ke Google Drive. Chroma dipulihkan ke disk
+runtime `/content` saat sesi berjalan. Notebook juga membuat pasangan batch
+kandidat LLM RAG-off/RAG-on beserta audit prompt dan ID chunk retrieval.
+Pembuatan batch belum menjalankan payload; review manusia diperlukan sebelum
+batch diberikan ke runner. Bagian akhir notebook menyediakan runner tunnel
+bertoken yang membaca batch dari folder tersebut, meminta frasa konfirmasi
+sebelum request, dan menyimpan log JSONL ke `validation-logs/` tanpa URL,
+token, password, cookie, atau response body. Runner memulai dari satu
+replikasi dan membatasi maksimum tiga. Jalankan notebook smoke tunnel di bawah
+lebih dahulu.
+
+Untuk memeriksa tunnel, login, dan level DVWA, buka
 [`notebooks/colab_dvwa_smoke.ipynb`](../notebooks/colab_dvwa_smoke.ipynb)
 di Colab melalui tombol **Upload notebook**, lalu jalankan semua sel. Repository
 GitHub bersifat private, jadi tautan GitHub langsung ke Colab memerlukan

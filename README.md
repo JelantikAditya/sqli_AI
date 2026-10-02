@@ -18,12 +18,16 @@ Impossible. Evaluasi utama membandingkan **FPR** sistem dengan/tanpa RAG dan
   dan batas interpretasi ada di
   [catatan ZAP](docs/zap-baseline-2026-10-01.md)
   dan [petunjuk run](dvwa/README.md#discovery-zap-terautentikasi).
-- Komponen ZAP, LLM, retrieval, validasi payload, dan pengukuran FPR/PSR
-  masih dalam pengembangan mengikuti jadwal penelitian.
+- Parser ZAP, validation loop DVWA, batch builder, indexing/retrieval Chroma,
+  dan generator kandidat Qwen lokal sudah memiliki implementasi awal.
+  Pengujian formal dan pengukuran FPR/PSR belum dimulai; rincian progres ada di
+  [catatan progres rinci per 2 Oktober](docs/progress-2026-10-02.md).
 
 Petunjuk menjalankan lab ada di [dvwa/README.md](dvwa/README.md).
 Notebook untuk memverifikasi koneksi dari runtime Google Colab ada di
 [notebooks/colab_dvwa_smoke.ipynb](notebooks/colab_dvwa_smoke.ipynb).
+Rincian milestone awal juga tersedia di
+[catatan progres 28 September](docs/progress-2026-09-28.md).
 
 ## Prinsip reproduksibilitas
 

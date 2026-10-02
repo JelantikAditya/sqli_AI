@@ -4,6 +4,8 @@
 
 # Rahasia lokal dan hasil sementara.
 **/.env
+dvwa/validation_payloads.local.json
+dvwa/candidate_batch.local.json
 **/__pycache__/
 *.py[cod]
 .venv/
@@ -12,5 +14,6 @@
 
 # Data eksperimen mentah dan model besar disimpan terpisah.
 /data/raw/
+/data/vectorstore/
 /results/raw/
 /models/

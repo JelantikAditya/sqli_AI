@@ -1,0 +1,81 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Reproducible SQLi candidate batch",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "scenario_id", "source", "rag_mode", "provenance", "candidates"],
+  "properties": {
+    "schema_version": { "const": "1.0.0" },
+    "scenario_id": { "enum": ["S1", "S2", "S3", "S4", "S5", "S6", "S7", "S8", "S9", "S10", "S11", "S12"] },
+    "source": { "enum": ["LLM", "SecLists"] },
+    "rag_mode": { "enum": ["on", "off", "not_applicable"] },
+    "provenance": {
+      "type": "object",
+      "properties": {
+        "comparison_id": { "type": "string", "minLength": 1 },
+        "model": { "type": "string", "minLength": 1 },
+        "prompt_version": { "type": "string", "minLength": 1 },
+        "prompt_sha256": { "type": "string", "pattern": "^[0-9a-fA-F]{64}$" },
+        "temperature": { "type": "number", "minimum": 0 },
+        "seed": { "type": ["integer", "null"] },
+        "knowledge_base_id": { "type": ["string", "null"] },
+        "retrieved_chunk_ids": { "type": "array", "items": { "type": "string", "minLength": 1 } },
+        "retrieval_top_k": { "type": ["integer", "null"], "minimum": 1 },
+        "repository": { "type": "string", "minLength": 1 },
+        "revision": { "type": "string", "pattern": "^([0-9a-fA-F]{40}|[0-9a-fA-F]{64})$" },
+        "list_path": { "type": "string", "minLength": 1 },
+        "list_sha256": { "type": "string", "pattern": "^[0-9a-fA-F]{64}$" },
+        "source_line_number": { "type": "integer", "minimum": 1 },
+        "source_line_numbers": { "type": "array", "items": { "type": "integer", "minimum": 1 }, "minItems": 2, "maxItems": 2 }
+      }
+    },
+    "candidates": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 10,
+      "items": {
+        "type": "object",
+        "required": ["candidate_id"],
+        "properties": {
+          "candidate_id": { "type": "string", "minLength": 1 },
+          "payload": { "type": "string", "minLength": 1 },
+          "true_payload": { "type": "string", "minLength": 1 },
+          "false_payload": { "type": "string", "minLength": 1 },
+          "source_line_number": { "type": "integer", "minimum": 1 },
+          "source_line_numbers": {
+            "type": "array",
+            "items": { "type": "integer", "minimum": 1 },
+            "minItems": 2,
+            "maxItems": 2
+          }
+        },
+        "oneOf": [
+          { "required": ["payload"], "not": { "anyOf": [{"required":["true_payload"]},{"required":["false_payload"]}] } },
+          { "required": ["true_payload", "false_payload"], "not": { "required": ["payload"] } }
+        ]
+      }
+    }
+  },
+  "allOf": [
+    {
+      "if": { "properties": { "source": { "const": "SecLists" } } },
+      "then": { "properties": { "rag_mode": { "const": "not_applicable" } } }
+    },
+    {
+      "if": { "properties": { "source": { "const": "LLM" } } },
+      "then": {
+        "properties": { "rag_mode": { "enum": ["on", "off"] } },
+        "allOf": [
+          {
+            "if": { "properties": { "rag_mode": { "const": "on" } } },
+            "then": { "properties": { "provenance": { "required": ["comparison_id", "model", "prompt_version", "temperature", "seed", "knowledge_base_id", "retrieved_chunk_ids", "retrieval_top_k"], "properties": { "knowledge_base_id": { "type": "string", "minLength": 1 }, "retrieved_chunk_ids": { "minItems": 1 }, "retrieval_top_k": { "type": "integer", "minimum": 1 } } } } }
+          },
+          {
+            "if": { "properties": { "rag_mode": { "const": "off" } } },
+            "then": { "properties": { "provenance": { "required": ["comparison_id", "model", "prompt_version", "temperature", "seed", "knowledge_base_id", "retrieved_chunk_ids", "retrieval_top_k"], "properties": { "knowledge_base_id": { "type": "null" }, "retrieved_chunk_ids": { "maxItems": 0 }, "retrieval_top_k": { "type": "null" } } } } }
+          }
+        ]
+      }
+    }
+  ]
+}
