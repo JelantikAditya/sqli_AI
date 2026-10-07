@@ -14,6 +14,9 @@ from uuid import uuid4
 from prepare_candidate_batch import validate_batch
 from rag_pipeline import (
     ROOT,
+    QUERY_VERSION,
+    active_manifest_path,
+    injection_point_context,
     load_catalog,
     post_ollama,
     read_manifest,
@@ -22,7 +25,7 @@ from rag_pipeline import (
 )
 
 
-PROMPT_VERSION = "sqli-candidate-v1"
+PROMPT_VERSION = "sqli-candidate-v2"
 
 
 def parse_args() -> argparse.Namespace:
@@ -32,8 +35,10 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--comparison-id", required=True, help="Shared ID for paired RAG-on/off runs")
     parser.add_argument("--seed", type=int, required=True)
     parser.add_argument("--candidate-count", type=int, default=1)
-    parser.add_argument("--top-k", type=int, default=5)
-    parser.add_argument("--manifest", type=Path, help="Knowledge base manifest (required for RAG-on)")
+    parser.add_argument("--top-k", type=int, default=2)
+    parser.add_argument("--manifest", type=Path, help="Default: active proposal knowledge base")
+    parser.add_argument("--zap-report", type=Path, help="Normalized matching ZAP report; otherwise catalog smoke context")
+    parser.add_argument("--num-ctx", type=int, default=4096, help="Use the same context size for both RAG conditions")
     parser.add_argument("--model", default=os.environ.get("OLLAMA_LLM_MODEL", "qwen2.5:7b"))
     parser.add_argument("--temperature", type=float, default=0.0)
     return parser.parse_args()
@@ -82,15 +87,16 @@ def main() -> None:
         raise SystemExit("--comparison-id cannot be empty.")
 
     scenario = scenarios[args.scenario]
-    query = scenario_query(scenario)
+    if args.num_ctx < 2048:
+        raise SystemExit("--num-ctx must be at least 2048; check that the complete RAG prompt fits.")
+    point = injection_point_context(scenario, args.zap_report)
+    query = scenario_query(scenario, injection_point=point)
     retrieval = None
     if args.rag_mode == "on":
-        if args.manifest is None:
-            raise SystemExit("--manifest is required when --rag-mode on.")
         if not 1 <= args.top_k <= 10:
             raise SystemExit("--top-k must be between 1 and 10.")
-        manifest = read_manifest(args.manifest)
-        retrieval = retrieve_chunks(query, manifest, args.top_k)
+        manifest = read_manifest(args.manifest or active_manifest_path())
+        retrieval = retrieve_chunks(query, manifest, args.top_k, technique=scenario["sqli_type"])
         if not retrieval["chunks"]:
             raise SystemExit("RAG retrieval returned no chunks; candidate generation stopped.")
     elif args.manifest is not None:
@@ -109,12 +115,13 @@ def main() -> None:
         f"HTTP method: {scenario['method']}\nInput endpoint: {scenario['input_path']}\n"
         f"Result endpoint: {scenario['result_path']}\nParameter: {scenario['parameter']}\n"
         f"Probe kind: {scenario['probe_kind']}\n"
+        "Return parameter values, not URLs or full SQL statements. Adapt examples to the input context. "
+        "For Boolean probes return matched true/false conditions. For timing probes use a bounded delay. "
         "Candidate values will be sent only to the local DVWA instance after researcher review."
     )
     if retrieval:
         excerpt_text = "\n\n".join(
-            f"[chunk_id={item['chunk_id']} source={item['metadata'].get('source_path')} "
-            f"page={item['metadata'].get('page_number')}]\n{item['text']}"
+            f"[chunk_id={item['chunk_id']} entry_id={item['metadata']['entry_id']}]\n{item['text']}"
             for item in retrieval["chunks"]
         )
         user_message += (
@@ -136,7 +143,7 @@ def main() -> None:
             "messages": messages,
             "format": output_schema(scenario["probe_kind"], args.candidate_count),
             "stream": False,
-            "options": {"temperature": args.temperature, "seed": args.seed, "num_predict": 768},
+            "options": {"temperature": args.temperature, "seed": args.seed, "num_predict": 768, "num_ctx": args.num_ctx},
         },
         timeout=900,
     )
@@ -159,6 +166,9 @@ def main() -> None:
         "knowledge_base_id": retrieval["knowledge_base_id"] if retrieval else None,
         "retrieved_chunk_ids": [item["chunk_id"] for item in retrieval["chunks"]] if retrieval else [],
         "retrieval_top_k": args.top_k if retrieval else None,
+        "retrieval_query_version": QUERY_VERSION if retrieval else None,
+        "retrieval_policy_sha256": retrieval["selection_policy_sha256"] if retrieval else None,
+        "retrieval_curation_sha256": retrieval["curation_annotation_sha256"] if retrieval else None,
     }
     candidates = []
     for index, item in enumerate(generated, start=1):
@@ -199,6 +209,9 @@ def main() -> None:
         "comparison_id": args.comparison_id,
         "provenance": provenance,
         "messages": messages,
+        "query": query,
+        "injection_point": point,
+        "generation_options": {"num_ctx": args.num_ctx, "num_predict": 768},
         "retrieval": retrieval,
         "response_content": response["message"]["content"],
     }

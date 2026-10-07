@@ -77,9 +77,15 @@ Untuk menyiapkan batch kandidat dengan provenance yang dapat diaudit, gunakan
 [`../docs/candidate-sources.md`](../docs/candidate-sources.md) dan
 `dvwa/prepare_candidate_batch.py`. Langkah ini memvalidasi metadata LLM/RAG
 atau kecocokan payload SecLists dengan file dan nomor baris sumber sebelum
-batch diberikan ke runner. Panduan yang sama menjelaskan indexing PDF ke Chroma,
-retrieval, serta generasi kandidat Qwen lokal. Komponen tersebut belum
-dijalankan terhadap Ollama.
+batch diberikan ke runner. Panduan yang sama menjelaskan indexing JSON ke Chroma,
+retrieval, serta generasi kandidat Qwen lokal. Runtime Qwen, indexing diagnostik PDF,
+embedding, dan retrieval lokal sudah terverifikasi pada 7 Oktober; generator
+batch kandidat belum dijalankan. Bukti serta batas kualitas retrieval ada di
+[`../docs/progress-2026-10-07.md`](../docs/progress-2026-10-07.md).
+Jalur utama RAG kini memakai entri JSON dari OWASP WSTG v4.2 dan
+PayloadsAllTheThings SQL Injection; index PDF hanya uji diagnostik. Lihat
+[penyesuaian proposal](../docs/proposal-rag-2026-10-07.md)
+untuk sumber terkunci, build, retrieval injection point, dan batas verifikasi.
 
 ## Akses Colab melalui tunnel bertoken
 
@@ -124,8 +130,8 @@ python dvwa/check_tunnel.py https://ALAMAT-TUNNEL.trycloudflare.com
 Untuk menyiapkan Ollama/LangChain/Chroma dan membangun knowledge base RAG di runtime Colab, buka
 [`notebooks/colab_langchain_setup.ipynb`](../notebooks/colab_langchain_setup.ipynb)
 di Colab melalui tombol **Upload notebook**. Notebook ini melakukan smoke check
-model/embedding, membaca salinan PDF yang kamu unggah ke folder
-`MyDrive/TA-SQLi/references/`, membangun Chroma dengan LangChain, dan menyimpan
+model/embedding, membaca entri JSON dan sumber terkunci dari kode yang diunggah ke
+`MyDrive/TA-SQLi/project-code/`, membangun Chroma dengan LangChain, dan menyimpan
 arsip ZIP serta manifest provenance ke Google Drive. Chroma dipulihkan ke disk
 runtime `/content` saat sesi berjalan. Notebook juga membuat pasangan batch
 kandidat LLM RAG-off/RAG-on beserta audit prompt dan ID chunk retrieval.

@@ -1,4 +1,4 @@
-"""Extract read-only reference PDFs and index them in local ChromaDB."""
+"""Build proposal JSON knowledge; PDF indexing is an explicit diagnostic option."""
 
 from __future__ import annotations
 
@@ -7,15 +7,18 @@ import hashlib
 import json
 import re
 from datetime import datetime, timezone
+from importlib.metadata import version
 from pathlib import Path
 
-from rag_pipeline import ROOT, DEFAULT_EMBEDDING_MODEL, embed_texts, local_ollama_url
+from rag_pipeline import ROOT, DEFAULT_EMBEDDING_MODEL, embed_texts, embedding_input_format, local_ollama_url
 
 
 SCHEMA_VERSION = "1.0.0"
 
 
-def chunk_text(text: str, words_per_chunk: int, overlap_words: int) -> list[str]:
+def chunk_text(
+    text: str, words_per_chunk: int, overlap_words: int, max_chars_per_chunk: int = 1200
+) -> list[str]:
     words = text.split()
     if not words:
         return []
@@ -24,7 +27,21 @@ def chunk_text(text: str, words_per_chunk: int, overlap_words: int) -> list[str]
     for start in range(0, len(words), step):
         chunk = " ".join(words[start : start + words_per_chunk]).strip()
         if chunk:
-            chunks.append(chunk)
+            # PDF tables, URLs and unspaced text can exceed context despite a word limit.
+            # Split oversized windows with overlap; preserve all text rather than truncate.
+            char_overlap = max_chars_per_chunk * overlap_words // words_per_chunk
+            char_start = 0
+            while char_start < len(chunk):
+                char_end = min(char_start + max_chars_per_chunk, len(chunk))
+                if char_end < len(chunk):
+                    boundary = chunk.rfind(" ", char_start + max_chars_per_chunk // 2, char_end)
+                    if boundary != -1:
+                        char_end = boundary
+                chunks.append(chunk[char_start:char_end].strip())
+                if char_end == len(chunk):
+                    break
+                # Bound overlap by half this segment to guarantee forward progress.
+                char_start = char_end - min(char_overlap, (char_end - char_start) // 2)
         if start + words_per_chunk >= len(words):
             break
     return chunks
@@ -32,16 +49,24 @@ def chunk_text(text: str, words_per_chunk: int, overlap_words: int) -> list[str]
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--corpus", type=Path, default=ROOT / "knowledge/sqli-entries.json")
+    parser.add_argument("--experimental-pdf", action="store_true", help="Diagnostic PDF index; excluded from proposal generation")
     parser.add_argument("--sources", type=Path, default=ROOT / "sources")
     parser.add_argument("--embedding-model", default=DEFAULT_EMBEDDING_MODEL)
     parser.add_argument("--words-per-chunk", type=int, default=220)
     parser.add_argument("--overlap-words", type=int, default=40)
+    parser.add_argument("--max-chars-per-chunk", type=int, default=1200)
     parser.add_argument("--batch-size", type=int, default=16)
     return parser.parse_args()
 
 
 def main() -> None:
     args = parse_args()
+    if not args.experimental_pdf:
+        from build_structured_knowledge import build
+        manifest = build(args.corpus, args.embedding_model, args.batch_size)
+        print(f"Proposal knowledge base manifest: {manifest}")
+        return
     sources_dir = args.sources.resolve()
     allowed_sources = (ROOT / "sources").resolve()
     if not sources_dir.is_relative_to(allowed_sources):
@@ -50,6 +75,8 @@ def main() -> None:
         raise SystemExit("Use at least 50 words per chunk and overlap smaller than chunk size.")
     if args.batch_size < 1:
         raise SystemExit("--batch-size must be positive.")
+    if args.max_chars_per_chunk < 300:
+        raise SystemExit("--max-chars-per-chunk must be at least 300.")
     local_ollama_url()
 
     try:
@@ -74,7 +101,7 @@ def main() -> None:
         for page_number, page in enumerate(reader.pages, start=1):
             page_text = page.extract_text() or ""
             for chunk_index, content in enumerate(
-                chunk_text(page_text, args.words_per_chunk, args.overlap_words),
+                chunk_text(page_text, args.words_per_chunk, args.overlap_words, args.max_chars_per_chunk),
                 start=1,
             ):
                 stable_key = (
@@ -114,8 +141,12 @@ def main() -> None:
     build_config = {
         "schema_version": SCHEMA_VERSION,
         "embedding_model": args.embedding_model,
+        "embedding_input_format": embedding_input_format(args.embedding_model),
+        # Extractor versions can change decoded text; include them in the build ID.
+        "pdf_extractor_versions": {"pypdf": version("pypdf"), "fonttools": version("fonttools")},
         "words_per_chunk": args.words_per_chunk,
         "overlap_words": args.overlap_words,
+        "max_chars_per_chunk": args.max_chars_per_chunk,
         "source_fingerprint": source_fingerprint,
     }
     knowledge_base_id = "sqli-kb-" + hashlib.sha256(
@@ -135,6 +166,7 @@ def main() -> None:
         },
     )
 
+    print(f"Prepared {len(chunks)} chunks from {len(pdf_paths)} PDFs; indexing...", flush=True)
     for start in range(0, len(chunks), args.batch_size):
         batch = chunks[start : start + args.batch_size]
         vectors = embed_texts(args.embedding_model, [item["text"] for item in batch], args.batch_size)
@@ -144,9 +176,12 @@ def main() -> None:
             documents=[item["text"] for item in batch],
             metadatas=[item["metadata"] for item in batch],
         )
+        if start // args.batch_size % 10 == 0 or start + len(batch) == len(chunks):
+            print(f"Indexed {start + len(batch)}/{len(chunks)} chunks", flush=True)
 
     manifest = {
         **build_config,
+        "purpose": "experimental-pdf-smoke",
         "knowledge_base_id": knowledge_base_id,
         "collection_name": collection_name,
         "store_path": store_path.as_posix(),
@@ -162,6 +197,9 @@ def main() -> None:
         destination.write("\n")
     print(f"Knowledge base manifest: {manifest_path}")
     print(json.dumps({"knowledge_base_id": knowledge_base_id, "pdf_count": len(source_records), "page_count": manifest["page_count"], "chunk_count": len(chunks), "collection_name": collection_name}, ensure_ascii=False))
+    from rag_pipeline import read_manifest
+    from retrieval_selection import prepare_curation
+    print(f"Retrieval curation: {prepare_curation(read_manifest(manifest_path))}")
 
 
 if __name__ == "__main__":

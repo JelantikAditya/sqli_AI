@@ -1,3 +1,6 @@
 # Local knowledge-base extraction and persistent vector storage.
 pypdf>=5,<7
+# Decode embedded CFF/Type1 fonts in the project's reference PDFs.
+fonttools>=4,<5
 chromadb>=1,<2
+jsonschema>=4,<5

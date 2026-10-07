@@ -1,0 +1,90 @@
+{
+  "date": "2026-10-07",
+  "scope": "Technical development verification; not formal FPR/PSR evaluation.",
+  "runtime": {
+    "llm": "qwen2.5:7b",
+    "quantization": "Q4_K_M",
+    "embedding": "nomic-embed-text",
+    "embedding_dimensions": 768,
+    "python": "3.13",
+    "chromadb": "1.5.9"
+  },
+  "knowledge_base": {
+    "knowledge_base_id": "sqli-knowledge-ec9d1b2feda12dd3",
+    "corpus_sha256": "8e2aaf363b384eb686594b8968c38ae00fd078cfc9581d6a91d6617ba0ef4348",
+    "source_lock_sha256": "2c23da42f9db73c3241ca78e68da496b83ecdeb257bc46171e55fd69f3f6278b",
+    "entry_count": 9,
+    "sources": [
+      {
+        "source_id": "owasp-wstg",
+        "requested_ref": "v4.2",
+        "commit": "dd33419e10edb22b78d89325a6c2aad9f184e3a2"
+      },
+      {
+        "source_id": "payloadsallthethings",
+        "requested_ref": "master",
+        "commit": "3ac27901c711bdf3f5b65a7b1d1820a1f65bd09a"
+      }
+    ],
+    "query_version": "sqli-injection-point-query-v3",
+    "policy_sha256": "3aa86b99bfeebfed6ecce1466b8f1a6197b88c66024d3468f5afe4ab3afcd180",
+    "top_k": 2,
+    "researcher_review": "pending"
+  },
+  "retrieval_checks": [
+    {
+      "scenario_id": "S1",
+      "injection_point_source": "scenario-catalog-smoke",
+      "retrieved_entry_ids": [
+        "sqli-error-quote",
+        "sqli-error-message"
+      ]
+    },
+    {
+      "scenario_id": "S2",
+      "injection_point_source": "scenario-catalog-smoke",
+      "retrieved_entry_ids": [
+        "sqli-boolean-numeric",
+        "sqli-boolean-template"
+      ]
+    },
+    {
+      "scenario_id": "S3",
+      "injection_point_source": "scenario-catalog-smoke",
+      "retrieved_entry_ids": [
+        "sqli-time-repeated",
+        "sqli-time-conditional"
+      ]
+    },
+    {
+      "scenario_id": "S8",
+      "injection_point_source": "normalized-zap",
+      "retrieved_entry_ids": [
+        "sqli-boolean-numeric",
+        "sqli-boolean-template"
+      ]
+    },
+    {
+      "scenario_id": "S9",
+      "injection_point_source": "normalized-zap",
+      "retrieved_entry_ids": [
+        "sqli-time-repeated",
+        "sqli-time-conditional"
+      ]
+    }
+  ],
+  "checks": {
+    "original_pdf_hashes_unchanged": 15,
+    "unit_tests_passed": 14,
+    "colab_executed": false,
+    "candidate_generation_executed": false,
+    "dvwa_requests_sent": false
+  },
+  "pending": [
+    "Researcher review of nine curated knowledge entries",
+    "Qwen candidate generation with the new RAG context and token-budget verification",
+    "Colab execution verification",
+    "ZAP candidate injection point coverage for all scenarios",
+    "Paired RAG-off/on and SecLists experiments, human decisions, FPR/PSR"
+  ]
+}

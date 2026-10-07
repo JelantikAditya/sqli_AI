@@ -1,0 +1,6 @@
+# Preserve exact bytes of hash-locked knowledge data across Windows/Colab.
+knowledge/sources.lock.json -text whitespace=cr-at-eol
+knowledge/sqli-entries.json -text whitespace=cr-at-eol
+
+# Retrieval policy identities include source-file hashes.
+*.py text eol=lf

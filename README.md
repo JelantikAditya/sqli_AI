@@ -22,6 +22,14 @@ Impossible. Evaluasi utama membandingkan **FPR** sistem dengan/tanpa RAG dan
   dan generator kandidat Qwen lokal sudah memiliki implementasi awal.
   Pengujian formal dan pengukuran FPR/PSR belum dimulai; rincian progres ada di
   [catatan progres rinci per 2 Oktober](docs/progress-2026-10-02.md).
+- Pada 7 Oktober, Qwen 2.5 7B dan embedding Nomic berhasil diuji di laptop
+  lokal. Index 15 PDF merupakan uji diagnostik awal. Jalur utama kini memakai
+  sembilan entri JSON terstruktur dari OWASP WSTG v4.2 dan PayloadsAllTheThings
+  SQL Injection, sesuai proposal. Index aktif dan retrieval semantik sudah
+  diverifikasi lokal, termasuk koordinat report ZAP High. Notebook Colab
+  diperbarui tetapi belum dijalankan; review peneliti dan eksperimen formal
+  masih diperlukan. Lihat [penyesuaian RAG terhadap proposal](docs/proposal-rag-2026-10-07.md)
+  dan [laporan progres harian 7 Oktober](docs/progress-2026-10-07.md).
 
 Petunjuk menjalankan lab ada di [dvwa/README.md](dvwa/README.md).
 Notebook untuk memverifikasi koneksi dari runtime Google Colab ada di

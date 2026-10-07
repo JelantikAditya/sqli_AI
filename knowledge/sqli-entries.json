@@ -1,0 +1,413 @@
+{
+  "schema_version": "1.0.0",
+  "corpus_version": "proposal-sqli-v1",
+  "source_lock_path": "knowledge/sources.lock.json",
+  "source_lock_sha256": "2c23da42f9db73c3241ca78e68da496b83ecdeb257bc46171e55fd69f3f6278b",
+  "curation": {
+    "method": "editorial-structured-paraphrase",
+    "researcher_review": "pending",
+    "license": "CC-BY-SA-4.0",
+    "notes": "Structured by Codex from the locked OWASP WSTG v4.2 and PayloadsAllTheThings SQLi sections. Examples are labeled direct or adapted. Baseline, repeated controls, compatibility cautions and mitigation recommendations are editorial synthesis, not quoted requirements or verified target results. Contains no proposal labels, SecLists evaluation payloads or benchmark outcomes."
+  },
+  "entries": [
+    {
+      "entry_id": "sqli-error-quote",
+      "title": "Quote-induced SQL syntax error",
+      "vulnerability_type": "error-based",
+      "dbms": "generic",
+      "functional_semantics": "A quote can change the boundary of a SQL literal and cause the database parser to return a syntax error through the HTTP response.",
+      "root_cause": "Untrusted input is incorporated into SQL syntax rather than kept separate as bound data.",
+      "detection_method": "Vary one injection parameter while holding other inputs constant. Compare the normal response and candidate response for a new database-specific error, including errors present in HTML source.",
+      "payload_examples": [
+        {
+          "purpose": "syntax probe",
+          "value": "'",
+          "adaptation": "Single quote listed directly by both sources."
+        }
+      ],
+      "mitigation": "Use parameterized queries and least database privilege; avoid exposing detailed SQL errors. This is an editorial mitigation recommendation following the WSTG Remediation pointers.",
+      "limitations": "A generic HTTP 500 is not a database-specific error. The probe is diagnostic evidence, not proof that data extraction succeeded; a filtered quote can produce no signal.",
+      "source_refs": [
+        {
+          "source_id": "owasp-wstg",
+          "repository_path": "document/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05-Testing_for_SQL_Injection.md",
+          "section": "Detection Techniques",
+          "line_start": 46,
+          "line_end": 74
+        },
+        {
+          "source_id": "payloadsallthethings",
+          "repository_path": "SQL Injection/README.md",
+          "section": "Entry Point Detection",
+          "line_start": 46,
+          "line_end": 79
+        },
+        {
+          "source_id": "owasp-wstg",
+          "repository_path": "document/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05-Testing_for_SQL_Injection.md",
+          "section": "Remediation",
+          "line_start": 550,
+          "line_end": 555
+        }
+      ]
+    },
+    {
+      "entry_id": "sqli-error-message",
+      "title": "Interpret database-specific returned errors",
+      "vulnerability_type": "error-based",
+      "dbms": "MySQL-compatible",
+      "functional_semantics": "A malformed SQL literal can expose a database-specific parser message. Such a message helps infer SQL context without reading application source.",
+      "root_cause": "Untrusted input is incorporated into SQL syntax rather than kept separate as bound data.",
+      "detection_method": "Inspect the candidate response for a SQL syntax diagnostic and distinguish it from a generic application error or an error already present in the normal response.",
+      "payload_examples": [
+        {
+          "purpose": "quoted parameter probe",
+          "value": "1'",
+          "adaptation": "Benign numeric prefix added editorially to the quote probe in WSTG/PayloadsAllTheThings."
+        }
+      ],
+      "mitigation": "Use parameterized queries and least database privilege; avoid exposing detailed SQL errors. This is an editorial mitigation recommendation following the WSTG Remediation pointers.",
+      "limitations": "Error wording depends on engine, version and application error handling. Fingerprinting alone does not establish successful exploitation or a target vulnerability label.",
+      "source_refs": [
+        {
+          "source_id": "owasp-wstg",
+          "repository_path": "document/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05-Testing_for_SQL_Injection.md",
+          "section": "Errors Returned by the Application",
+          "line_start": 174,
+          "line_end": 216
+        },
+        {
+          "source_id": "payloadsallthethings",
+          "repository_path": "SQL Injection/README.md",
+          "section": "DBMS Identification Error Based",
+          "line_start": 112,
+          "line_end": 126
+        },
+        {
+          "source_id": "owasp-wstg",
+          "repository_path": "document/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05-Testing_for_SQL_Injection.md",
+          "section": "Remediation",
+          "line_start": 550,
+          "line_end": 555
+        }
+      ]
+    },
+    {
+      "entry_id": "sqli-error-xml",
+      "title": "MySQL-compatible deliberate XML error",
+      "vulnerability_type": "error-based",
+      "dbms": "MySQL-compatible",
+      "functional_semantics": "An invalid XPath argument to EXTRACTVALUE or UPDATEXML can deliberately raise a database error containing a chosen marker if the function is available.",
+      "root_cause": "Untrusted input is incorporated into SQL syntax rather than kept separate as bound data.",
+      "detection_method": "Compare with the normal response and look for the chosen marker inside the XML/XPath database error. A missing-function error must be distinguished from the intended marker-bearing diagnostic.",
+      "payload_examples": [
+        {
+          "purpose": "constant-marker XPath error",
+          "value": "1 AND EXTRACTVALUE(1,CONCAT(0x7e,'rag_marker'))-- -",
+          "adaptation": "Adapted from the MySQL error-based examples: added numeric input prefix and replaced extracted database data with a constant marker."
+        }
+      ],
+      "mitigation": "Use parameterized queries and least database privilege; avoid exposing detailed SQL errors. This is an editorial mitigation recommendation following the WSTG Remediation pointers.",
+      "limitations": "Function availability varies across MySQL/MariaDB versions. The payload is a syntax template requiring context adaptation, not a verified DVWA result.",
+      "source_refs": [
+        {
+          "source_id": "owasp-wstg",
+          "repository_path": "document/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05-Testing_for_SQL_Injection.md",
+          "section": "Error Based Exploitation Technique",
+          "line_start": 313,
+          "line_end": 333
+        },
+        {
+          "source_id": "payloadsallthethings",
+          "repository_path": "SQL Injection/MySQL Injection.md",
+          "section": "MYSQL Error Based",
+          "line_start": 221,
+          "line_end": 281
+        },
+        {
+          "source_id": "owasp-wstg",
+          "repository_path": "document/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05-Testing_for_SQL_Injection.md",
+          "section": "Remediation",
+          "line_start": 550,
+          "line_end": 555
+        }
+      ]
+    },
+    {
+      "entry_id": "sqli-boolean-numeric",
+      "title": "Paired numeric Boolean predicates",
+      "vulnerability_type": "boolean-based blind",
+      "dbms": "generic",
+      "functional_semantics": "A true or false predicate added to a numeric SQL expression can change whether matching rows are returned, yielding observable differences in HTTP content.",
+      "root_cause": "Untrusted input is incorporated into SQL syntax rather than kept separate as bound data.",
+      "detection_method": "Compare the same parameter and delivery method with a true predicate and a false predicate. Identify a repeatable difference in application content rather than assuming a particular HTTP status code.",
+      "payload_examples": [
+        {
+          "purpose": "true control",
+          "value": "1 AND 1=1",
+          "adaptation": "Numeric prefix adapted from the WSTG SELECT examples."
+        },
+        {
+          "purpose": "false control",
+          "value": "1 AND 1=2",
+          "adaptation": "Same prefix and structure; only predicate truth value differs."
+        }
+      ],
+      "mitigation": "Use parameterized queries and least database privilege; avoid exposing detailed SQL errors. This is an editorial mitigation recommendation following the WSTG Remediation pointers.",
+      "limitations": "Both controls must reach the same SQL expression. Unstable page content or a rejected input can mimic a difference without confirming predicate execution.",
+      "source_refs": [
+        {
+          "source_id": "owasp-wstg",
+          "repository_path": "document/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05-Testing_for_SQL_Injection.md",
+          "section": "SELECT Statement",
+          "line_start": 132,
+          "line_end": 152
+        },
+        {
+          "source_id": "payloadsallthethings",
+          "repository_path": "SQL Injection/README.md",
+          "section": "Entry Point Detection",
+          "line_start": 46,
+          "line_end": 79
+        },
+        {
+          "source_id": "owasp-wstg",
+          "repository_path": "document/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05-Testing_for_SQL_Injection.md",
+          "section": "Remediation",
+          "line_start": 550,
+          "line_end": 555
+        }
+      ]
+    },
+    {
+      "entry_id": "sqli-boolean-quoted",
+      "title": "Balanced Boolean predicates in a quoted input",
+      "vulnerability_type": "boolean-based blind",
+      "dbms": "generic",
+      "functional_semantics": "Closing a SQL string and adding a Boolean expression can yield two response classes. Balanced quotes allow the application remainder to close the final literal.",
+      "root_cause": "Untrusted input is incorporated into SQL syntax rather than kept separate as bound data.",
+      "detection_method": "Send structurally matched true and false values, then map their content to stable response classes. Keep other request fields unchanged and do not infer the hidden query as ground truth.",
+      "payload_examples": [
+        {
+          "purpose": "true control",
+          "value": "1' AND '1'='1",
+          "adaptation": "Adapted constant true predicate with the quote-balancing style of WSTG."
+        },
+        {
+          "purpose": "false control",
+          "value": "1' AND '1'='2",
+          "adaptation": "False predicate from WSTG Boolean example; only the predicate value changes."
+        }
+      ],
+      "mitigation": "Use parameterized queries and least database privilege; avoid exposing detailed SQL errors. This is an editorial mitigation recommendation following the WSTG Remediation pointers.",
+      "limitations": "The pattern assumes a compatible quoted SQL context. Parentheses and comment handling may require adaptation; identical responses are inconclusive.",
+      "source_refs": [
+        {
+          "source_id": "owasp-wstg",
+          "repository_path": "document/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05-Testing_for_SQL_Injection.md",
+          "section": "Boolean Exploitation Technique",
+          "line_start": 261,
+          "line_end": 311
+        },
+        {
+          "source_id": "payloadsallthethings",
+          "repository_path": "SQL Injection/README.md",
+          "section": "Boolean Based Injection",
+          "line_start": 256,
+          "line_end": 289
+        },
+        {
+          "source_id": "owasp-wstg",
+          "repository_path": "document/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05-Testing_for_SQL_Injection.md",
+          "section": "Remediation",
+          "line_start": 550,
+          "line_end": 555
+        }
+      ]
+    },
+    {
+      "entry_id": "sqli-boolean-template",
+      "title": "Stable response comparison for Boolean inference",
+      "vulnerability_type": "boolean-based blind",
+      "dbms": "MySQL-compatible",
+      "functional_semantics": "A character comparison can act as a Boolean predicate. Its result is inferred from stable portions of the response when raw pages contain changing content.",
+      "root_cause": "Untrusted input is incorporated into SQL syntax rather than kept separate as bound data.",
+      "detection_method": "First compare repeated equivalent requests. If dynamic fragments differ, compare a consistent response template. Then compare a matched true/false predicate pair on that template.",
+      "payload_examples": [
+        {
+          "purpose": "known true character control",
+          "value": "1 AND ASCII(SUBSTRING('a',1,1))=97",
+          "adaptation": "WSTG/PayloadsAllTheThings character-inference pattern adapted to a known constant instead of target data."
+        },
+        {
+          "purpose": "known false character control",
+          "value": "1 AND ASCII(SUBSTRING('a',1,1))=98",
+          "adaptation": "Same constant and query structure; comparison is false."
+        }
+      ],
+      "mitigation": "Use parameterized queries and least database privilege; avoid exposing detailed SQL errors. This is an editorial mitigation recommendation following the WSTG Remediation pointers.",
+      "limitations": "A content-length difference alone is insufficient when pages vary. Filtering must be applied consistently to both controls without removing the meaningful signal.",
+      "source_refs": [
+        {
+          "source_id": "owasp-wstg",
+          "repository_path": "document/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05-Testing_for_SQL_Injection.md",
+          "section": "Boolean Exploitation Technique",
+          "line_start": 261,
+          "line_end": 311
+        },
+        {
+          "source_id": "payloadsallthethings",
+          "repository_path": "SQL Injection/MySQL Injection.md",
+          "section": "MYSQL Blind With Substring Equivalent",
+          "line_start": 284,
+          "line_end": 300
+        },
+        {
+          "source_id": "owasp-wstg",
+          "repository_path": "document/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05-Testing_for_SQL_Injection.md",
+          "section": "Remediation",
+          "line_start": 550,
+          "line_end": 555
+        }
+      ]
+    },
+    {
+      "entry_id": "sqli-time-conditional",
+      "title": "Conditional SQL sleep in a numeric input",
+      "vulnerability_type": "time-based blind",
+      "dbms": "MySQL-compatible",
+      "functional_semantics": "IF evaluates a predicate and calls SLEEP only on the chosen branch. The induced delay supplies a timing signal when content and SQL errors reveal little.",
+      "root_cause": "Untrusted input is incorporated into SQL syntax rather than kept separate as bound data.",
+      "detection_method": "Measure the candidate against a structurally matched no-delay control using the same injection point. Change the predicate while retaining the delay duration and request structure.",
+      "payload_examples": [
+        {
+          "purpose": "delay condition",
+          "value": "1 AND IF(1=1,SLEEP(3),0)-- -",
+          "adaptation": "Conditional SLEEP pattern adapted from both sources; constant predicate and bounded three-second demonstration."
+        },
+        {
+          "purpose": "no-delay condition",
+          "value": "1 AND IF(1=2,SLEEP(3),0)-- -",
+          "adaptation": "Editorial matched false control for the same conditional pattern."
+        }
+      ],
+      "mitigation": "Use parameterized queries and least database privilege; avoid exposing detailed SQL errors. This is an editorial mitigation recommendation following the WSTG Remediation pointers.",
+      "limitations": "SQL context, engine function support and predicate evaluation affect whether SLEEP executes. Latency alone does not prove a conditional SQL delay.",
+      "source_refs": [
+        {
+          "source_id": "owasp-wstg",
+          "repository_path": "document/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05-Testing_for_SQL_Injection.md",
+          "section": "Time Delay Exploitation Technique",
+          "line_start": 361,
+          "line_end": 377
+        },
+        {
+          "source_id": "payloadsallthethings",
+          "repository_path": "SQL Injection/MySQL Injection.md",
+          "section": "Using Conditional Statements",
+          "line_start": 414,
+          "line_end": 420
+        },
+        {
+          "source_id": "owasp-wstg",
+          "repository_path": "document/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05-Testing_for_SQL_Injection.md",
+          "section": "Remediation",
+          "line_start": 550,
+          "line_end": 555
+        }
+      ]
+    },
+    {
+      "entry_id": "sqli-time-repeated",
+      "title": "Repeated timing comparison with a no-delay control",
+      "vulnerability_type": "time-based blind",
+      "dbms": "MySQL-compatible",
+      "functional_semantics": "A controlled conditional database delay should track predicate evaluation; unrelated network or server delay can produce slow HTTP responses without SQL injection.",
+      "root_cause": "Untrusted input is incorporated into SQL syntax rather than kept separate as bound data.",
+      "detection_method": "Use repeated candidate and no-delay control measurements at the same input. Compare their timing separation rather than treating a single slow response as proof. This repeated-control procedure is an editorial adaptation.",
+      "payload_examples": [
+        {
+          "purpose": "delay condition",
+          "value": "1' AND IF(1=1,SLEEP(3),0)-- -",
+          "adaptation": "Conditional SLEEP adapted to a quoted input; comment terminates the remaining literal."
+        },
+        {
+          "purpose": "no-delay condition",
+          "value": "1' AND IF(1=2,SLEEP(3),0)-- -",
+          "adaptation": "Same quoted-input structure with a false predicate."
+        }
+      ],
+      "mitigation": "Use parameterized queries and least database privilege; avoid exposing detailed SQL errors. This is an editorial mitigation recommendation following the WSTG Remediation pointers.",
+      "limitations": "Timing variance and timeouts can mask the difference. The source examples do not prescribe this project's decision threshold, repetitions, or ground-truth labels.",
+      "source_refs": [
+        {
+          "source_id": "owasp-wstg",
+          "repository_path": "document/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05-Testing_for_SQL_Injection.md",
+          "section": "Time Delay Exploitation Technique",
+          "line_start": 361,
+          "line_end": 377
+        },
+        {
+          "source_id": "payloadsallthethings",
+          "repository_path": "SQL Injection/README.md",
+          "section": "Time Based Injection",
+          "line_start": 301,
+          "line_end": 326
+        },
+        {
+          "source_id": "owasp-wstg",
+          "repository_path": "document/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05-Testing_for_SQL_Injection.md",
+          "section": "Remediation",
+          "line_start": 550,
+          "line_end": 555
+        }
+      ]
+    },
+    {
+      "entry_id": "sqli-time-subselect",
+      "title": "Conditional sleep inside a subselect",
+      "vulnerability_type": "time-based blind",
+      "dbms": "MySQL-compatible",
+      "functional_semantics": "A subselect can invoke SLEEP only when its WHERE predicate is satisfied. Comparing a satisfied and unsatisfied predicate exposes a timing difference without selecting target secrets.",
+      "root_cause": "Untrusted input is incorporated into SQL syntax rather than kept separate as bound data.",
+      "detection_method": "Keep the subselect, numeric input prefix and delay duration fixed; switch only the predicate. Compare observed timing with the no-delay control and account for ordinary request variation.",
+      "payload_examples": [
+        {
+          "purpose": "delay condition",
+          "value": "1 AND (SELECT SLEEP(3) FROM DUAL WHERE 1=1)#",
+          "adaptation": "Adapted from PayloadsAllTheThings: database-name predicate replaced with a constant and delay reduced to three seconds."
+        },
+        {
+          "purpose": "no-delay condition",
+          "value": "1 AND (SELECT SLEEP(3) FROM DUAL WHERE 1=2)#",
+          "adaptation": "Editorial false control using the same subselect structure."
+        }
+      ],
+      "mitigation": "Use parameterized queries and least database privilege; avoid exposing detailed SQL errors. This is an editorial mitigation recommendation following the WSTG Remediation pointers.",
+      "limitations": "A numeric context and compatible comment/subselect syntax are required. The number of evaluated rows and application logic can affect timing; no DVWA level is assumed vulnerable.",
+      "source_refs": [
+        {
+          "source_id": "owasp-wstg",
+          "repository_path": "document/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05-Testing_for_SQL_Injection.md",
+          "section": "Time Delay Exploitation Technique",
+          "line_start": 361,
+          "line_end": 377
+        },
+        {
+          "source_id": "payloadsallthethings",
+          "repository_path": "SQL Injection/MySQL Injection.md",
+          "section": "Using SLEEP in a Subselect",
+          "line_start": 375,
+          "line_end": 412
+        },
+        {
+          "source_id": "owasp-wstg",
+          "repository_path": "document/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05-Testing_for_SQL_Injection.md",
+          "section": "Remediation",
+          "line_start": 550,
+          "line_end": 555
+        }
+      ]
+    }
+  ]
+}

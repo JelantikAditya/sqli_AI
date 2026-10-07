@@ -15,5 +15,13 @@ dvwa/candidate_batch.local.json
 # Data eksperimen mentah dan model besar disimpan terpisah.
 /data/raw/
 /data/vectorstore/
+/knowledge/active-index.local.json
 /results/raw/
 /models/
+
+# Local runtime evidence, review extracts, bundles and temporary files.
+/outputs/ollama-local-smoke/
+/outputs/rag-local-smoke/
+/outputs/rag-retrieval-review/
+/outputs/proposal-rag/
+/tmp/

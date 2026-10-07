@@ -92,6 +92,9 @@ def validate_batch(batch: dict, source_list: Path | None) -> dict:
             "provider",
             "generation_config_id",
             "prompt_sha256",
+            "retrieval_query_version",
+            "retrieval_policy_sha256",
+            "retrieval_curation_sha256",
         }
         if "provider" in provenance and (
             not isinstance(provenance["provider"], str) or not provenance["provider"]
@@ -143,6 +146,17 @@ def validate_batch(batch: dict, source_list: Path | None) -> dict:
             r"[0-9a-fA-F]{64}", str(provenance["prompt_sha256"])
         ):
             raise ValueError("prompt_sha256 must be a 64-character SHA-256 digest.")
+        # Preserve selection provenance in runner logs; RAG-off carries no retrieval state.
+        for field in ("retrieval_query_version", "retrieval_policy_sha256", "retrieval_curation_sha256"):
+            if field not in provenance:
+                continue  # Existing batches remain readable.
+            value = provenance[field]
+            if rag_mode == "off" and value is not None:
+                raise ValueError(f"RAG-off requires {field} to be null.")
+            if rag_mode == "on" and (not isinstance(value, str) or not value):
+                raise ValueError(f"RAG-on requires a non-empty {field} when provided.")
+            if rag_mode == "on" and field.endswith("sha256") and not re.fullmatch(r"[0-9a-fA-F]{64}", value):
+                raise ValueError(f"{field} must be a SHA-256 digest.")
 
     unexpected_provenance = set(provenance) - allowed_provenance
     if unexpected_provenance:

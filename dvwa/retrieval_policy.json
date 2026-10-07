@@ -1,0 +1,19 @@
+{
+  "schema_version": "1.0.0",
+  "policy_version": "sqli-context-v1",
+  "candidate_pool_size": 100,
+  "lexical_expansion": true,
+  "minimum_selection_score": 6,
+  "duplicate_overlap_threshold": 0.4,
+  "excluded_source_paths": [
+    "sources/103062300037_I GUSTI AGUNG JELANTIK ADITYA BASKARA.pdf"
+  ],
+  "source_exclusion_reason": "The proposal contains experiment design and ground-truth labels; keep it separate from generator context.",
+  "excluded_sections": ["references", "mixed_references", "front_matter", "unclassified"],
+  "cue_weights": {
+    "technique": 2,
+    "primary_evidence": 6,
+    "response_observation": 1,
+    "validation": 1
+  }
+}
