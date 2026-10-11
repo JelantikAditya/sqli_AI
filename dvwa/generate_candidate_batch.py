@@ -212,6 +212,13 @@ def main() -> None:
         "query": query,
         "injection_point": point,
         "generation_options": {"num_ctx": args.num_ctx, "num_predict": 768},
+        "runtime_metrics": {
+            key: response.get(key)
+            for key in (
+                "done", "done_reason", "prompt_eval_count", "eval_count",
+                "total_duration", "load_duration", "prompt_eval_duration", "eval_duration",
+            )
+        },
         "retrieval": retrieval,
         "response_content": response["message"]["content"],
     }

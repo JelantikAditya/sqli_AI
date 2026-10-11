@@ -8,6 +8,9 @@ Impossible. Evaluasi utama membandingkan **FPR** sistem dengan/tanpa RAG dan
 
 ## Status
 
+- Arah kerja aktif per 11 Oktober: eksperimen dilakukan pada laptop lokal
+  sesuai arahan peneliti. Colab dan tunneling ditunda; tahapan integrasi serta
+  evaluasi ada di [rancangan kerja lokal](docs/rencana-kerja-lokal-2026-10-11.md).
 - Lingkungan DVWA dan MariaDB berjalan melalui Docker Compose.
 - Empat level keamanan DVWA telah diuji melalui antarmuka web.
 - Akses dari runtime Colab ke DVWA melalui tunnel bertoken sudah diverifikasi
@@ -30,6 +33,12 @@ Impossible. Evaluasi utama membandingkan **FPR** sistem dengan/tanpa RAG dan
   diperbarui tetapi belum dijalankan; review peneliti dan eksperimen formal
   masih diperlukan. Lihat [penyesuaian RAG terhadap proposal](docs/proposal-rag-2026-10-07.md)
   dan [laporan progres harian 7 Oktober](docs/progress-2026-10-07.md).
+- Pada 11 Oktober, review teknis sembilan entri selesai dan pasangan S1
+  RAG-off/on berhasil dibuat oleh Qwen lokal serta dieksekusi satu replikasi
+  pada DVWA Low. Kedua kandidat memunculkan SQL error baru terhadap baseline.
+  Review peneliti/validator masih pending; hasil ini adalah smoke integrasi,
+  belum FPR/PSR. Lihat [hasil smoke S1](docs/progress-2026-10-11.md)
+  dan [review korpus](docs/corpus-review-2026-10-11.md).
 
 Petunjuk menjalankan lab ada di [dvwa/README.md](dvwa/README.md).
 Notebook untuk memverifikasi koneksi dari runtime Google Colab ada di

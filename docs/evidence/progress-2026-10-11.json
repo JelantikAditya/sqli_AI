@@ -1,0 +1,70 @@
+{
+  "date": "2026-10-11",
+  "scope": "Local technical review and S1 integration smoke; not formal FPR/PSR evaluation.",
+  "comparison_id": "s1-local-smoke-20261011-pair01",
+  "runtime": {
+    "ollama_version": "0.40.2",
+    "docker_engine_version": "29.6.2",
+    "llm": "qwen2.5:7b",
+    "llm_digest": "845dbda0ea48ed749caafd9e6037047aa19acfcfd82e704d7ca97d631a0b697e",
+    "quantization": "Q4_K_M",
+    "embedding": "nomic-embed-text:latest",
+    "embedding_digest": "0a109f422b47e3a30ba2b10eca18548e944e8a23073ee3f3e947efcf3c45e59f"
+  },
+  "knowledge_base": {
+    "knowledge_base_id": "sqli-knowledge-ec9d1b2feda12dd3",
+    "corpus_sha256": "8e2aaf363b384eb686594b8968c38ae00fd078cfc9581d6a91d6617ba0ef4348",
+    "source_lock_sha256": "2c23da42f9db73c3241ca78e68da496b83ecdeb257bc46171e55fd69f3f6278b",
+    "entry_count": 9,
+    "technical_review": "completed_by_codex",
+    "researcher_review": "pending",
+    "retrieved_entry_ids": ["sqli-error-quote", "sqli-error-message"]
+  },
+  "generation_controls": {
+    "scenario_id": "S1",
+    "seed": 42,
+    "temperature": 0,
+    "num_ctx": 4096,
+    "num_predict": 768,
+    "candidate_count_per_condition": 1,
+    "controls_equal": true,
+    "base_prompt_equal": true,
+    "rag_off_isolated": true,
+    "injection_point_source": "scenario-catalog-smoke"
+  },
+  "generation": {
+    "off": {"prompt_tokens": 179, "output_tokens": 29, "total_duration_ns": 14938779700, "load_duration_ns": 11588343600, "done_reason": "stop"},
+    "on": {"prompt_tokens": 822, "output_tokens": 22, "total_duration_ns": 3110124300, "load_duration_ns": 24473500, "done_reason": "stop"}
+  },
+  "validation": {
+    "run_id": "20261011T103658Z-970525eb",
+    "observation_source": "authenticated-http-form-smoke",
+    "method": "GET",
+    "path": "/vulnerabilities/sqli/",
+    "parameter": "id",
+    "authentication_verified": true,
+    "security_level_verified": "low",
+    "replicates_per_condition": 1,
+    "off_system_signal": true,
+    "on_system_signal": true,
+    "both_baselines_show_record_without_sql_error": true,
+    "candidate_sql_error_excerpts": ["You have an error in your SQL syntax", "mysqli_sql_exception"],
+    "log_sha256": "87777c936e97237be911211663b6fe92c1a5b3ed19c04a17974376ac99dde602",
+    "human_validation": "pending"
+  },
+  "checks": {
+    "corpus_integrity_valid": true,
+    "unit_tests_passed": 17,
+    "candidate_generation_executed": true,
+    "dvwa_requests_sent": true,
+    "colab_executed": false,
+    "formal_evaluation_executed": false
+  },
+  "pending": [
+    "Researcher approval of corpus and operational definitions",
+    "Complete ZAP input coverage and formal Colab execution",
+    "LLM response analysis and bounded adaptive regeneration",
+    "SecLists comparison and blinded human validation",
+    "Formal scenario repetitions, FPR/PSR, CVSS and final reporting"
+  ]
+}
