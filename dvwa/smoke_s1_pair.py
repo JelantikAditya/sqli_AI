@@ -1,6 +1,7 @@
 """Verify the S1 web form and execute one local smoke replicate per LLM condition."""
 
 import argparse
+import hashlib
 import json
 import os
 import re
@@ -9,6 +10,7 @@ from html.parser import HTMLParser
 from pathlib import Path
 from urllib.parse import urljoin, urlsplit
 from uuid import uuid4
+from rag_pipeline import injection_point_context
 
 from validation_loop import (
     ROOT, DvwaClient, execute_candidate, load_json, load_local_env_file,
@@ -70,10 +72,45 @@ class EvidenceClient(DvwaClient):
         return response
 
 
+def verify_generation_audits(pair, audit_paths, scenario, zap_report=None):
+    """Cross-check payloads, controls, provenance and RAG isolation before HTTP."""
+    audits = {mode: load_json(path) for mode, path in audit_paths.items()}
+    points = []
+    for mode, audit in audits.items():
+        candidate = pair[mode]
+        if (audit.get("rag_mode") != mode or audit.get("scenario_id") != "S1"
+                or audit.get("provenance") != candidate["provenance"]):
+            raise ValueError("Generation audit does not match its candidate batch.")
+        messages = audit["messages"]
+        prompt_hash = hashlib.sha256(json.dumps(messages, sort_keys=True, ensure_ascii=False).encode()).hexdigest()
+        if prompt_hash != candidate["provenance"].get("prompt_sha256"):
+            raise ValueError("Generation prompt hash mismatch.")
+        generated = json.loads(audit["response_content"])["candidates"]
+        if len(generated) != 1 or generated[0].get("payload") != candidate["payload"]:
+            raise ValueError("Batch payload differs from the actual model output.")
+        points.append(audit["injection_point"])
+    if audits["off"]["generation_options"] != audits["on"]["generation_options"] or points[0] != points[1]:
+        raise ValueError("Unequal generation options or injection-point context.")
+    off_messages, on_messages = audits["off"]["messages"], audits["on"]["messages"]
+    if off_messages[0] != on_messages[0] or not on_messages[1]["content"].startswith(off_messages[1]["content"] + "\n\nUse the following retrieved excerpts"):
+        raise ValueError("RAG conditions do not share the same base prompt.")
+    if audits["off"].get("retrieval") is not None or not audits["on"].get("retrieval", {}).get("chunks"):
+        raise ValueError("RAG context isolation failed.")
+    if zap_report is not None:
+        actual = injection_point_context(scenario, zap_report, require_verified=True)
+        if points[0] != actual:
+            raise ValueError("Audit discovery context differs from the verified report.")
+    return {"generation_input_source": points[0]["source"], "injection_point": points[0],
+            "audit_sha256": {mode: hashlib.sha256(path.read_bytes()).hexdigest() for mode, path in audit_paths.items()}}
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--off-batch", type=Path, required=True)
     parser.add_argument("--on-batch", type=Path, required=True)
+    parser.add_argument("--off-audit", type=Path)
+    parser.add_argument("--on-audit", type=Path)
+    parser.add_argument("--zap-report", type=Path)
     parser.add_argument("--confirm-local-dvwa", action="store_true")
     args = parser.parse_args()
     if not args.confirm_local_dvwa:
@@ -92,6 +129,12 @@ def main():
             pair["off"]["provenance"][key] != pair["on"]["provenance"].get(key)
         ):
             raise ValueError(f"Missing or unequal generation control: {key}")
+
+    generation_evidence = {"generation_input_source": "not-recorded-in-batch"}
+    if args.off_audit or args.on_audit or args.zap_report:
+        if not args.off_audit or not args.on_audit:
+            raise ValueError("Supply both generation audits to verify discovery provenance.")
+        generation_evidence = verify_generation_audits(pair, {"off": args.off_audit, "on": args.on_audit}, scenario, args.zap_report)
 
     credentials = load_local_env_file()
     client = EvidenceClient(catalog["target"]["default_origin"], 15)
@@ -137,7 +180,7 @@ def main():
         "replicates_per_condition": 1, "system_signals": signals,
         "response_receipts": client.receipts, "human_validation": "pending",
         "validation_log": log_path.relative_to(ROOT).as_posix(),
-        "generation_input_source": "scenario-catalog-smoke",
+        **generation_evidence,
     }
     evidence_path.write_text(json.dumps(evidence, indent=2) + "\n", encoding="utf-8")
     print(json.dumps({"log": str(log_path), "evidence": str(evidence_path),

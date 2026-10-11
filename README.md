@@ -11,6 +11,12 @@ Impossible. Evaluasi utama membandingkan **FPR** sistem dengan/tanpa RAG dan
 - Arah kerja aktif per 11 Oktober: eksperimen dilakukan pada laptop lokal
   sesuai arahan peneliti. Colab dan tunneling ditunda; tahapan integrasi serta
   evaluasi ada di [rancangan kerja lokal](docs/rencana-kerja-lokal-2026-10-11.md).
+- Kelanjutan lokal pada 11 Oktober: protokol pilot tersedia, discovery HAR ZAP
+  mencakup koordinat S1-S12 pada empat level, dan pasangan S1 dengan input ZAP
+  terverifikasi sudah diuji sampai eksekusi. Loop adaptif dan evaluasi formal
+  tetap merupakan pekerjaan berikutnya. Lihat
+  [progres discovery lokal](docs/progress-local-discovery-2026-10-11.md)
+  dan [protokol evaluasi](docs/protokol-evaluasi-lokal.md).
 - Lingkungan DVWA dan MariaDB berjalan melalui Docker Compose.
 - Empat level keamanan DVWA telah diuji melalui antarmuka web.
 - Akses dari runtime Colab ke DVWA melalui tunnel bertoken sudah diverifikasi

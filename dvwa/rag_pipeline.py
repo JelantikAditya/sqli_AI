@@ -120,11 +120,13 @@ def active_manifest_path() -> Path:
     return path
 
 
-def injection_point_context(scenario: dict, zap_report: Path | None = None) -> dict:
+def injection_point_context(scenario: dict, zap_report: Path | None = None, *, require_verified: bool = False) -> dict:
     # Only safe coordinates enter the query; values, cookies and labels never do.
     point = {"method": scenario["method"], "path": scenario["input_path"],
              "parameter": scenario["parameter"], "source": "scenario-catalog-smoke"}
     if zap_report is None:
+        if require_verified:
+            raise ValueError("Verified discovery requires a normalized ZAP HAR report; catalog smoke fallback is disabled.")
         return point
     data = zap_report.read_bytes()
     report = json.loads(data)
@@ -135,6 +137,14 @@ def injection_point_context(scenario: dict, zap_report: Path | None = None) -> d
                 == (point["path"], point["method"], point["parameter"])]
     if not matching:
         raise ValueError("No matching injection point in this normalized ZAP report.")
+    if require_verified:
+        inventory = report.get("discovery_inventory", {})
+        matching = [item for item in matching if item.get("verification_status") == "verified" and item.get("discovery_source") == "zap-har"]
+        if (not matching or report.get("schema_version") != "1.1.0"
+                or report.get("run_metadata", {}).get("authentication_status") != "verified"
+                or inventory.get("authentication_status") != "verified"
+                or scenario["scenario_id"] not in inventory.get("covered_scenario_ids", [])):
+            raise ValueError("The selected injection point lacks session-verified ZAP HAR evidence.")
     return {**point, "source": "normalized-zap", "report_sha256": hashlib.sha256(data).hexdigest(),
             "source_observation_id": matching[0].get("source_observation_id"),
             "verification_status": matching[0].get("verification_status", "unverified")}
@@ -147,7 +157,7 @@ def scenario_query(scenario: dict, mode: str = "proposal", injection_point: dict
                 + f" Injection point: HTTP {point['method']}; input path {point['path']}; "
                 f"parameter {point['parameter']}; probe kind {scenario['probe_kind']}.")
     if mode == "focused":
-        # Transport and level stay in scenario metadata/the generator prompt. Retrieve
+        # Transport and level stay in evaluator metadata. Retrieve
         # general technique knowledge without feeding expected vulnerability labels.
         queries = {
             "error-based": (

@@ -1,0 +1,20 @@
+{
+  "schema_version": "1.0.0",
+  "protocol_id": "local-sqli-v1-pilot",
+  "status": "pilot",
+  "environment": "local-laptop",
+  "target_origin": "http://127.0.0.1:4280",
+  "method": "DAST-black-box",
+  "conditions": [
+    {"condition_id": "A", "source": "LLM", "rag_mode": "off", "scenario_ids": ["S1","S2","S3","S4","S5","S6","S7","S8","S9","S10","S11","S12"]},
+    {"condition_id": "B", "source": "LLM", "rag_mode": "on", "scenario_ids": ["S1","S2","S3","S4","S5","S6","S7","S8","S9","S10","S11","S12"]},
+    {"condition_id": "C", "source": "SecLists", "rag_mode": "not_applicable", "scenario_ids": ["S1","S2","S3","S4","S5","S6","S7","S8","S9"]}
+  ],
+  "replicate_seeds": [42,43,44],
+  "generation": {"model": "qwen2.5:7b", "temperature": 0, "num_ctx": 4096, "num_predict": 768, "top_k": 2, "candidate_budget": 10, "stop_on_success": false, "max_generation_retries_per_slot": 2, "exclude_labels_from_prompt": true},
+  "validation": {"request_timeout_seconds": 15, "execution": "serial", "confirmations_per_candidate": 3, "time_signal_threshold_ms": 1500, "timing_control": "matched-no-delay", "benign_baseline_value": "1", "error_success_definition": "new-sql-diagnostic-reproduced", "boolean_success_definition": "matched-true-false-content-reproduced", "time_success_definition": "matched-delay-reproduced", "invalid_session_is_attack_failure": false},
+  "replication": {"unit": "full-scenario-condition-run", "shared_discovery_for_llm_pair": true, "fresh_login_each_run": true, "reset": "dvwa-setup-http-before-each-condition-run", "discovery_refresh": "each-replicate"},
+  "metrics": {"fpr_conditions": ["A","B"], "fpr_unit": "scenario-condition-replicate", "psr_conditions": ["B","C"], "psr_unit": "logical-candidate", "boolean_pair_counts_as": 1, "timing_confirmations_count_as": 1, "zero_denominator": "undefined", "retain_system_prediction_before_review": true, "incomplete_budget": "exclude-run-and-report"},
+  "review": {"corpus_researcher_review": "pending", "independent_validator": "pending", "blind_condition_and_source": true},
+  "formal_gate": ["pilot-all-techniques-and-levels-passed", "researcher-corpus-decision-recorded", "runtime-manifest-frozen", "seclists-version-and-selection-frozen", "validator-protocol-ready", "local-methodology-recorded"]
+}

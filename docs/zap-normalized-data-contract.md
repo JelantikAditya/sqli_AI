@@ -1,6 +1,6 @@
 # Kontrak data normalisasi ZAP
 
-- Versi schema: `1.0.0`
+- Versi schema: `1.0.0` untuk alert lama; `1.1.0` untuk alert dan inventaris HAR.
 - Schema machine-readable: [`schemas/zap-normalized-run.schema.json`](../schemas/zap-normalized-run.schema.json)
 - Parser: [`dvwa/parse_zap_report.py`](../dvwa/parse_zap_report.py)
 
@@ -63,3 +63,42 @@ membuktikan ZAP menguji payload SQLi, tidak membuktikan kerentanan, dan tidak
 mewakili seluruh URL hasil crawl. Untuk evaluasi, gabungkan dengan ground truth
 dan hasil validation loop yang mencatat replikasi serta keputusan validator
 manusia.
+
+## Inventaris request/form pada jalur lokal
+
+Plan terbaru mengekspor HAR dengan job `export`, `source: all`, setelah discovery.
+Sumber `all` mencakup pesan yang dihasilkan ZAP, termasuk spider; `history` saja
+tidak cukup untuk jalur ini. Acuan: [ZAP Import/Export Automation](https://www.zaproxy.org/docs/desktop/addons/import-export/automation/).
+
+`dvwa/export_zap_inputs.py` membaca HAR secara offline. Field yang dipublikasikan
+hanya koordinat, nama field terpilih, status HTTP, dan referensi observation.
+Nilai parameter, cookie, token, teks halaman, dan body request tidak disalin.
+Schema inventaris ada di `schemas/zap-input-inventory.schema.json`.
+
+Koordinat menjadi `verified` jika respons terlindungi dan bukti level pada
+`security.php` berasal dari sesi PHP serta state cookie keamanan yang sama.
+Helper popup High tidak memiliki navigasi Logout; bukti login/level-nya berasal
+dari halaman security pada sesi yang sama, ditambah respons helper/form yang
+sesuai dan tidak berupa form login. Status verified hanya memverifikasi
+koordinat input, bukan SQLi.
+
+`discovery_inventory` menyimpan `covered_scenario_ids` dan
+`missing_scenario_ids`. Dua injection point per level mencakup tiga skenario
+karena endpoint blind digunakan untuk boolean dan timing. Cakupan ini tidak
+berarti seluruh aplikasi telah dijelajahi.
+
+Runner PowerShell menghasilkan alert JSON, HAR, log, dan report normalized
+dengan run stem yang sama. Ia gagal bila autentikasi/level atau cakupan input
+tidak lengkap. Seluruh artefak runtime tersebut diabaikan Git.
+
+```powershell
+.\.venv\Scripts\python.exe dvwa/parse_zap_report.py `
+  results/zap/zap-discovery-low-<timestamp>.json `
+  --har-report results/zap/zap-discovery-low-<timestamp>.har `
+  --security-level low --scan-mode passive --require-complete-inputs
+```
+
+Untuk generator lokal, tambahkan `--zap-report <normalized-report>` dan
+`--require-verified-discovery`. Mode ini menolak fallback katalog dan kandidat
+alert yang belum terverifikasi. Jalur lama tetap tersedia untuk smoke/riwayat;
+jangan pakai fallback tersebut sebagai input discovery formal.

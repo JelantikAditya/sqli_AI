@@ -156,6 +156,15 @@ jobs:
     parameters:
       maxDuration: 2
 
+  # Export ALL messages, including spider-generated requests and response forms.
+  # HAR contains local session data; keep it ignored, normalize before sharing.
+  - type: export
+    parameters:
+      context: dvwa-sqli
+      type: har
+      source: all
+      fileName: /zap/out/__ZAP_HAR_FILE__
+
   - type: report
     parameters:
       template: traditional-json

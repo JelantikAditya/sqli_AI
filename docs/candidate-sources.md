@@ -78,6 +78,16 @@ verifikasi, serta instruksi Colab ada di
 
 ## Menghasilkan pasangan kandidat LLM RAG-off/RAG-on
 
+Jalur lokal terbaru memakai `sqli-candidate-v3-black-box`: scenario ID, level,
+dan ground truth tidak disisipkan ke prompt. Untuk input discovery yang
+terverifikasi, gunakan `--zap-report <report-normalized>` bersama
+`--require-verified-discovery` pada kedua kondisi. Flag tersebut menolak
+fallback katalog serta koordinat alert-only yang belum terverifikasi.
+
+Report dihasilkan oleh `dvwa/run_zap_discovery.ps1` dari alert JSON dan HAR pada
+run yang sama. Korpus dan kontrol model tetap sama; hanya RAG-on menambahkan
+konteks. Audit mencatat token/durasi aktual serta hash report.
+
 Gunakan `comparison_id` dan `seed` yang sama untuk kedua kondisi. Contoh
 berikut menghasilkan batch berbeda untuk S1:
 

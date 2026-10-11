@@ -1,6 +1,7 @@
 # Laporan hasil scanner disimpan lokal; tinjau dan sanitasi sebelum berbagi.
 zap-*.html
 zap-*.json
+zap-*.har
 zap-*.log
 zap-discovery-*.yaml
 zap.yaml

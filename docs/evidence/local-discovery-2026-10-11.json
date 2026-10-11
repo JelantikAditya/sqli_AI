@@ -1,0 +1,129 @@
+{
+  "date": "2026-10-11",
+  "scope": "Local pilot protocol, ZAP HAR discovery coverage and one S1 integration smoke. Not formal FPR/PSR.",
+  "protocol": {
+    "protocol_id": "local-sqli-v1-pilot",
+    "status": "pilot",
+    "matrix_run_count": 99,
+    "candidate_budget_proposed": 10,
+    "replicate_seeds": [
+      42,
+      43,
+      44
+    ],
+    "researcher_review": "pending"
+  },
+  "discovery": [
+    {
+      "security_level": "low",
+      "normalized_report": "zap-discovery-low-20261011-180846.normalized.json",
+      "normalized_report_sha256": "336e7e747e78a405ef43a00fde99ecea9f9f2f38e3ee5813c22e5c352fe13bdf",
+      "har_sha256": "9cad04cd36280041ad4d5de7cd607dfd61dcfbe3276c0f8edc9733ad94e43ae1",
+      "scanner_version": "2.17.0",
+      "authentication_status": "verified",
+      "verified_input_count": 2,
+      "covered_scenario_ids": [
+        "S1",
+        "S2",
+        "S3"
+      ],
+      "missing_scenario_ids": []
+    },
+    {
+      "security_level": "medium",
+      "normalized_report": "zap-discovery-medium-20261011-181433.normalized.json",
+      "normalized_report_sha256": "4cfa1164b1658cb8c5d943a2bab1376a09e11493e826216f65b7f7d85b95ff65",
+      "har_sha256": "57af8ab23508086b5a2bb74332fe3ba863d01ed3fb8b043d429e29867e9efb6d",
+      "scanner_version": "2.17.0",
+      "authentication_status": "verified",
+      "verified_input_count": 2,
+      "covered_scenario_ids": [
+        "S4",
+        "S5",
+        "S6"
+      ],
+      "missing_scenario_ids": []
+    },
+    {
+      "security_level": "high",
+      "normalized_report": "zap-discovery-high-20261011-181157.normalized.json",
+      "normalized_report_sha256": "15edaa55c1795444f59cb6e86967b992b15d11a6cba258322795b37fc9eb1dc6",
+      "har_sha256": "525dc3ed465052fac7cf084138ebf055dcac7580fcd48ee5b4a88f755d9ef121",
+      "scanner_version": "2.17.0",
+      "authentication_status": "verified",
+      "verified_input_count": 2,
+      "covered_scenario_ids": [
+        "S7",
+        "S8",
+        "S9"
+      ],
+      "missing_scenario_ids": []
+    },
+    {
+      "security_level": "impossible",
+      "normalized_report": "zap-discovery-impossible-20261011-181744.normalized.json",
+      "normalized_report_sha256": "8b25471e2a244c5988b7b681ce18ad1cbcc14c4fa2cd20585fbf095238a17dec",
+      "har_sha256": "a8a122da9f916caca601cb88cc1c940a9b2a3900a7438ccb393a5f9ef1ec3c86",
+      "scanner_version": "2.17.0",
+      "authentication_status": "verified",
+      "verified_input_count": 2,
+      "covered_scenario_ids": [
+        "S10",
+        "S11",
+        "S12"
+      ],
+      "missing_scenario_ids": []
+    }
+  ],
+  "low_initial_normalizer_exit_code": 1,
+  "low_offline_reparse_passed": true,
+  "inventory_recomputed_matches_all_reports": true,
+  "all_twelve_scenario_context_gates_passed": true,
+  "s1_smoke": {
+    "comparison_id": "s1-zap-inputs-pilot-20261011",
+    "run_id": "20261011T112013Z-6d6994fc",
+    "generation_input_source": "normalized-zap",
+    "prompt_version": "sqli-candidate-v3-black-box",
+    "seed": 42,
+    "temperature": 0,
+    "num_ctx": 4096,
+    "num_predict": 768,
+    "candidate_count_per_condition": 1,
+    "replicates_per_condition": 1,
+    "generation_tokens": {
+      "off": {
+        "input": 175,
+        "output": 28
+      },
+      "on": {
+        "input": 818,
+        "output": 22
+      }
+    },
+    "system_signals": {
+      "off": false,
+      "on": true
+    },
+    "human_validation": "pending",
+    "validation_log_sha256": "798aef35ac822cb2604d5b64d50a5d644075150f2b5b38be87b31d78de067df0",
+    "evidence_sha256": "cd5f090fa68c9325eab980a41a1d273ac381e9d42c13941d78534c3c0beaeb46",
+    "generation_audit_sha256": {
+      "off": "61e0e97358f27b798b173c171efc071d691a44d9c83d5e5844479973e3483e9d",
+      "on": "17b4328eb721d655f53adb68cadc91be7d69aa0c33052ea685ce6867bf6bf11c"
+    }
+  },
+  "checks": {
+    "unit_tests_passed": 32,
+    "python_syntax_files_passed": 25,
+    "normalized_schema_reports_passed": 4,
+    "formal_evaluation_executed": false,
+    "adaptive_loop_implemented": false
+  },
+  "pending": [
+    "LLM response analysis and bounded adaptive regeneration",
+    "Candidate confirmations and matched timing controls",
+    "SecLists selection and equal execution budgets",
+    "Independent blinded human validation",
+    "Formal runtime freeze, metrics, CVSS and final reporting"
+  ]
+}

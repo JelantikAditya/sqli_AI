@@ -1,0 +1,64 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Sanitized ZAP HAR input inventory",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "source_kind", "source_sha256", "security_level", "authentication_status", "entry_count", "rejected_session_observations", "observations", "candidate_injection_points", "covered_scenario_ids", "missing_scenario_ids", "sql_injection_detection"],
+  "properties": {
+    "schema_version": {"const": "1.0.0"},
+    "source_kind": {"const": "zap-har"},
+    "source_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "security_level": {"enum": ["low", "medium", "high", "impossible"]},
+    "authentication_status": {"enum": ["verified", "unverified"]},
+    "entry_count": {"type": "integer", "minimum": 0},
+    "rejected_session_observations": {"type": "integer", "minimum": 0},
+    "sql_injection_detection": {"const": "not_assessed"},
+    "covered_scenario_ids": {"$ref": "#/$defs/scenarios"},
+    "missing_scenario_ids": {"$ref": "#/$defs/scenarios"},
+    "observations": {
+      "type": "array",
+      "items": {
+        "type": "object", "additionalProperties": false,
+        "required": ["observation_id", "entry_index", "path", "method", "parameter_names", "http_status", "forms", "session_level_verified"],
+        "properties": {
+          "observation_id": {"type": "string", "minLength": 1},
+          "entry_index": {"type": "integer", "minimum": 0},
+          "path": {"type": "string", "minLength": 1},
+          "method": {"type": "string", "minLength": 1},
+          "parameter_names": {"$ref": "#/$defs/fields"},
+          "http_status": {"type": ["integer", "null"]},
+          "session_level_verified": {"type": "boolean"},
+          "forms": {
+            "type": "array", "items": {
+              "type": "object", "additionalProperties": false, "required": ["path", "method", "fields"],
+              "properties": {"path": {"type": "string"}, "method": {"type": "string"}, "fields": {"$ref": "#/$defs/fields"}}
+            }
+          }
+        }
+      }
+    },
+    "candidate_injection_points": {
+      "type": "array",
+      "items": {
+        "type": "object", "additionalProperties": false,
+        "required": ["path", "method", "parameter", "source_observation_id", "scenario_ids", "verification_status", "discovery_source", "evidence_kinds", "form_fields", "source_observation_ids"],
+        "properties": {
+          "path": {"type": "string", "minLength": 1},
+          "method": {"enum": ["GET", "POST"]},
+          "parameter": {"const": "id"},
+          "source_observation_id": {"type": "string", "minLength": 1},
+          "scenario_ids": {"$ref": "#/$defs/scenarios", "minItems": 1},
+          "verification_status": {"const": "verified"},
+          "discovery_source": {"const": "zap-har"},
+          "evidence_kinds": {"type": "array", "items": {"enum": ["request-parameter", "response-form"]}, "minItems": 1, "uniqueItems": true},
+          "form_fields": {"$ref": "#/$defs/fields"},
+          "source_observation_ids": {"type": "array", "items": {"type": "string"}, "minItems": 1, "uniqueItems": true}
+        }
+      }
+    }
+  },
+  "$defs": {
+    "fields": {"type": "array", "items": {"enum": ["id", "Submit", "user_token"]}, "uniqueItems": true},
+    "scenarios": {"type": "array", "items": {"enum": ["S1", "S2", "S3", "S4", "S5", "S6", "S7", "S8", "S9", "S10", "S11", "S12"]}, "uniqueItems": true}
+  }
+}

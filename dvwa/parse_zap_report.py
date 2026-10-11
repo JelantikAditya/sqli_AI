@@ -1,7 +1,7 @@
 """Normalize a ZAP traditional JSON report for the DVWA SQLi experiment.
 
-This parser preserves alert metadata and safe request coordinates only. It does
-not classify SQL injection, infer crawl coverage, or confirm authentication.
+Legacy reports preserve alert metadata. A matching ZAP HAR adds safe request/form
+coordinates and session-correlated verification. Neither path classifies SQLi.
 """
 
 from __future__ import annotations
@@ -87,6 +87,7 @@ def normalize_report(
     security_level: str,
     scan_mode: str,
     authentication_status: str,
+    inventory: dict | None = None,
 ) -> dict:
     sites = report.get("site") or []
     observations: list[dict] = []
@@ -207,12 +208,31 @@ def normalize_report(
             ),
         },
     }
+    if inventory is not None:
+        if inventory["security_level"] != security_level:
+            raise ValueError("HAR inventory level differs from report level.")
+        normalized["schema_version"] = "1.1.0"
+        normalized["discovery_inventory"] = inventory
+        normalized["run_metadata"]["authentication_status"] = inventory["authentication_status"]
+        # Verified request/form evidence replaces matching alert-only coordinates.
+        for point in inventory["candidate_injection_points"]:
+            candidates[(point["path"], point["method"], point["parameter"])] = point
+        normalized["candidate_injection_points"] = list(candidates.values())
+        normalized["summary"]["candidate_injection_point_count"] = len(candidates)
+        normalized["summary"]["verified_injection_point_count"] = len(inventory["candidate_injection_points"])
+        normalized["interpretation"]["note"] = (
+            "HAR coordinates are verified only with authenticated response and security-page "
+            "evidence in the same session. Coverage describes scenario input coordinates, "
+            "not vulnerability detection or complete application coverage."
+        )
     return normalized
 
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("report", type=Path, help="ZAP traditional JSON report")
+    parser.add_argument("--har-report", type=Path, help="HAR from the same ZAP run (same file stem)")
+    parser.add_argument("--require-complete-inputs", action="store_true", help="Fail unless HAR covers all scenario inputs at this level")
     parser.add_argument(
         "--output",
         type=Path,
@@ -239,6 +259,16 @@ def parse_args() -> argparse.Namespace:
     return parser.parse_args()
 
 
+def validate_normalized_report(report):
+    from jsonschema import Draft202012Validator
+    from referencing import Registry, Resource
+    schema_dir = Path(__file__).resolve().parents[1] / "schemas"
+    schema = json.loads((schema_dir / "zap-normalized-run.schema.json").read_text(encoding="utf-8"))
+    inventory_schema = json.loads((schema_dir / "zap-input-inventory.schema.json").read_text(encoding="utf-8"))
+    registry = Registry().with_resource("zap-input-inventory.schema.json", Resource.from_contents(inventory_schema))
+    Draft202012Validator(schema, registry=registry).validate(report)
+
+
 def main() -> None:
     args = parse_args()
     with args.report.open("r", encoding="utf-8") as source:
@@ -247,13 +277,23 @@ def main() -> None:
     if not isinstance(report, dict):
         raise SystemExit("Expected a ZAP report JSON object at the document root.")
 
+    inventory = None
+    if args.har_report:
+        if args.har_report.stem != args.report.stem:
+            raise SystemExit("The HAR and alert report must have the same run stem.")
+        from export_zap_inputs import read_inventory
+        inventory = read_inventory(args.har_report, args.security_level)
+    elif args.require_complete_inputs:
+        raise SystemExit("--require-complete-inputs requires --har-report.")
     normalized = normalize_report(
         report=report,
         source_report=args.report.name,
         security_level=args.security_level,
         scan_mode=args.scan_mode,
         authentication_status=args.authentication_status,
+        inventory=inventory,
     )
+    validate_normalized_report(normalized)
     output_path = args.output or args.report.with_name(
         f"{args.report.stem}.normalized.json"
     )
@@ -264,6 +304,8 @@ def main() -> None:
 
     print(f"Normalized report written: {output_path}")
     print(json.dumps(normalized["summary"], ensure_ascii=False))
+    if args.require_complete_inputs and (inventory["missing_scenario_ids"] or inventory["authentication_status"] != "verified"):
+        raise SystemExit("Discovery input coverage or session verification is incomplete; see the normalized report.")
 
 
 if __name__ == "__main__":

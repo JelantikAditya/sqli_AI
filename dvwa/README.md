@@ -62,6 +62,12 @@ truth SQLi; evaluasi tetap memakai validasi black-box di
 
 ## Validation loop SQLi terkontrol
 
+Discovery lokal terbaru juga mengekspor HAR seluruh pesan ZAP. Runner langsung
+menormalisasi request/form dan gagal bila cakupan input per level belum lengkap.
+Report normalized memakai schema 1.1.0; token/cookie/nilai input HAR tetap lokal.
+Lihat [kontrak inventaris HAR](../docs/zap-normalized-data-contract.md#inventaris-requestform-pada-jalur-lokal)
+dan [protokol pilot lokal](../docs/protokol-evaluasi-lokal.md).
+
 MVP validator menguji satu skenario ground truth per run terhadap DVWA lokal,
 menggunakan kandidat payload dari file JSON dan mencatat tiap request serta
 keputusan awal ke `results/raw/`. Parser ZAP dan validator membaca katalog
@@ -80,7 +86,7 @@ atau kecocokan payload SecLists dengan file dan nomor baris sumber sebelum
 batch diberikan ke runner. Panduan yang sama menjelaskan indexing JSON ke Chroma,
 retrieval, serta generasi kandidat Qwen lokal. Runtime Qwen, indexing diagnostik PDF,
 embedding, dan retrieval lokal sudah terverifikasi pada 7 Oktober; generator
-batch kandidat belum dijalankan. Bukti serta batas kualitas retrieval ada di
+batch kandidat sudah memiliki smoke nyata S1 pada 11 Oktober. Bukti serta batas kualitas retrieval ada di
 [`../docs/progress-2026-10-07.md`](../docs/progress-2026-10-07.md).
 Jalur utama RAG kini memakai entri JSON dari OWASP WSTG v4.2 dan
 PayloadsAllTheThings SQL Injection; index PDF hanya uji diagnostik. Lihat
