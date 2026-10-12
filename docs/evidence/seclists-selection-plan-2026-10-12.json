@@ -1,0 +1,53 @@
+{
+  "schema_version": "1.0.0",
+  "plan_id": "t04-seclists-mariadb-sqli-v1",
+  "created_on": "2026-10-12",
+  "repository": "danielmiessler/SecLists",
+  "revision": "6ef78e5c253d9a6556f2d6339a7b635bf0a2115e",
+  "revision_source": "refs/heads/master resolved with git ls-remote on 2026-10-12",
+  "selection_rule_id": "seclists-sqlmap-risk1-mariadb-first10-v1",
+  "selection_rule": {
+    "common": "Use only SQLMap-classified Low-Risk-Payloads from the pinned SecLists revision. Select and review source lines before any DVWA result is observed. Preserve source order within each technique list. Use the same 10 logical candidates and three confirmations per candidate as the LLM comparison. No selected payload performs DDL, DML, file access, OS commands, or external network calls.",
+    "error_based": "Select the first ten reviewed MariaDB-compatible error_based.txt rows: lines 1-9 and 13. This fixed line list was chosen by static syntax review, not by DVWA outcomes.",
+    "boolean_based": "Select boolean_blind.txt rows 1, 4, 5, 12, 13, 15, 16, 31, 32, and 44. Each row must contain exactly one [RANDNUM]=[RANDNUM] condition and use a reviewed deterministic true/false expansion. A pair is one logical candidate and both inputs point to the same source template line.",
+    "time_based": "Select the first ten time_blind.txt rows using native SLEEP(): lines 1-5 and 10-14. Replace [SLEEPTIME] with 2 seconds. Exclude other database dialects, benchmark loops, and heavy query constructions.",
+    "wrappers": "For Low and High, wrap a fragment as 1' AND <fragment> #. For Medium, use 1 AND <fragment> #. The SQL fragment's existing leading AND is retained without duplication; a fragment beginning with RLIKE receives the fixed left operand 1. These wrappers adapt the source fragment to the DVWA id injection point.",
+    "placeholder_values": "Use deterministic small integers derived from candidate ordinal, short alphanumeric markers unique to scenario and candidate, ORIGVALUE=1, and SLEEPTIME=2. The adapter enforces numeric bounds, marker characters, and the two-second delay cap."
+  },
+  "files": {
+    "error_based": {
+      "path": "Fuzzing/Databases/SQLi/sqlmap-risk-classified/Low-Risk-Payloads/error_based.txt",
+      "sha256": "b87234b9266f87c8867e58aa320e43e53ea51ef45870e52a3a69a08138080ee8",
+      "selected_source_lines": [1, 2, 3, 4, 5, 6, 7, 8, 9, 13]
+    },
+    "boolean_blind": {
+      "path": "Fuzzing/Databases/SQLi/sqlmap-risk-classified/Low-Risk-Payloads/boolean_blind.txt",
+      "sha256": "1191ac1464b471f5e8b22462bd85926e46fe30ebf062cc1f2bc1a90914a4c2dc",
+      "selected_source_lines": [1, 4, 5, 12, 13, 15, 16, 31, 32, 44]
+    },
+    "time_blind": {
+      "path": "Fuzzing/Databases/SQLi/sqlmap-risk-classified/Low-Risk-Payloads/time_blind.txt",
+      "sha256": "11b469726538bbd46713fe04ddac710fd8adccb47d4de30c7de1982145efec9b",
+      "selected_source_lines": [1, 2, 3, 4, 5, 10, 11, 12, 13, 14]
+    }
+  },
+  "scenario_mapping": {
+    "S1": "error_based",
+    "S2": "boolean_blind",
+    "S3": "time_blind",
+    "S4": "error_based",
+    "S5": "boolean_blind",
+    "S6": "time_blind",
+    "S7": "error_based",
+    "S8": "boolean_blind",
+    "S9": "time_blind"
+  },
+  "runtime_constraints": {
+    "target_origin": "http://127.0.0.1:4280",
+    "candidate_budget": 10,
+    "confirmations_per_candidate": 3,
+    "maximum_sleep_seconds": 2,
+    "database_reset": "not performed for preparation or pilot unless separately planned",
+    "formal_data": false
+  }
+}

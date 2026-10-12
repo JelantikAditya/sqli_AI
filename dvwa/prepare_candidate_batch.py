@@ -17,6 +17,73 @@ SCENARIOS_PATH = Path(__file__).with_name("experiment_scenarios.json")
 SCHEMA_VERSION = "1.0.0"
 
 
+def transform_seclists_payload(source_line: str, transform: dict, boolean_branch: str | None = None) -> str:
+    """Apply the one reviewed, deterministic wrapper used for DVWA's id field."""
+    if not isinstance(transform, dict) or set(transform) != {
+        "rule_id", "wrapper", "placeholder_values"
+    }:
+        raise ValueError("source_transform must define rule_id, wrapper, and placeholder_values.")
+    if transform["rule_id"] != "seclists-mariadb-id-fragment-v1":
+        raise ValueError("Unsupported SecLists source_transform rule_id.")
+
+    wrappers = {
+        "quoted_id": ("1' ", " #"),
+        "numeric_id": ("1 ", " #"),
+    }
+    if transform["wrapper"] not in wrappers:
+        raise ValueError("source_transform.wrapper must be quoted_id or numeric_id.")
+
+    template = source_line
+    if boolean_branch is not None:
+        if boolean_branch not in {"true", "false"}:
+            raise ValueError("boolean_branch must be true or false.")
+        equality = "[RANDNUM]=[RANDNUM]"
+        if template.count(equality) != 1:
+            raise ValueError("Boolean SecLists transform requires exactly one [RANDNUM]=[RANDNUM] condition.")
+        replacement = "1=1" if boolean_branch == "true" else "1=2"
+        template = template.replace(equality, replacement, 1)
+    values = transform["placeholder_values"]
+    allowed_names = {
+        "RANDNUM", "RANDNUM1", "RANDNUM2", "RANDNUM3", "RANDNUM4", "RANDNUM5",
+        "RANDSTR", "ORIGVALUE", "SLEEPTIME", "DELIMITER_START", "DELIMITER_STOP",
+    }
+    if not isinstance(values, dict) or any(
+        name not in allowed_names or not isinstance(value, str) or not value
+        for name, value in values.items()
+    ):
+        raise ValueError("placeholder_values must map supported SecLists placeholders to non-empty strings.")
+    numeric_names = {"RANDNUM", "RANDNUM1", "RANDNUM2", "RANDNUM3", "RANDNUM4", "RANDNUM5", "ORIGVALUE", "SLEEPTIME"}
+    for name, value in values.items():
+        if name in numeric_names and not re.fullmatch(r"[0-9]{1,6}", value):
+            raise ValueError(f"SecLists placeholder {name} must be a small integer.")
+        if name == "SLEEPTIME" and not 1 <= int(value) <= 2:
+            raise ValueError("SLEEPTIME is capped at two seconds for the local pilot.")
+        if name in {"RANDSTR", "DELIMITER_START", "DELIMITER_STOP"} and not re.fullmatch(r"[A-Za-z0-9]{1,16}", value):
+            raise ValueError(f"SecLists placeholder {name} must be a short alphanumeric marker.")
+
+    placeholders = set(re.findall(r"\[([A-Z_0-9]+)\]", template))
+    if placeholders - set(values):
+        raise ValueError("source_transform is missing placeholder values: " + ", ".join(sorted(placeholders - set(values))))
+    for name, value in values.items():
+        template = template.replace(f"[{name}]", value)
+
+    if re.search(r"[\[\]]", template):
+        raise ValueError("Unreplaced placeholder remains after SecLists transformation.")
+    if ";" in template or "--" in template or "#" in template:
+        raise ValueError("SecLists source line contains a statement separator or comment marker.")
+
+    prefix, suffix = wrappers[transform["wrapper"]]
+    fragment = template.strip()
+    if not fragment:
+        raise ValueError("SecLists source line cannot be empty after transformation.")
+    if fragment.upper().startswith("RLIKE "):
+        # RLIKE rows are expression suffixes and need an explicit left operand.
+        fragment = "AND 1 " + fragment
+    elif not fragment.upper().startswith("AND "):
+        fragment = "AND " + fragment
+    return prefix + fragment + suffix
+
+
 def read_json(path: Path) -> dict:
     with path.open("r", encoding="utf-8") as source:
         document = json.load(source)
@@ -67,7 +134,16 @@ def validate_batch(batch: dict, source_list: Path | None) -> dict:
         if actual_digest.lower() != provenance["list_sha256"].lower():
             raise ValueError("SecLists file digest does not match provenance.list_sha256.")
         source_lines = source_bytes.decode("utf-8", "replace").splitlines()
-        allowed_provenance = set(required)
+        allowed_provenance = set(required) | {"selection_rule_id", "selection_manifest_sha256"}
+        selection_rule_id = provenance.get("selection_rule_id")
+        manifest_digest = provenance.get("selection_manifest_sha256")
+        if (selection_rule_id is None) != (manifest_digest is None):
+            raise ValueError("SecLists selection_rule_id and selection_manifest_sha256 must be provided together.")
+        if selection_rule_id is not None:
+            if not isinstance(selection_rule_id, str) or not selection_rule_id:
+                raise ValueError("selection_rule_id must be a non-empty string.")
+            if not isinstance(manifest_digest, str) or not re.fullmatch(r"[0-9a-fA-F]{64}", manifest_digest):
+                raise ValueError("selection_manifest_sha256 must be a SHA-256 digest.")
     else:
         if rag_mode not in {"on", "off"}:
             raise ValueError("LLM batches must use rag_mode on or off.")
@@ -179,18 +255,22 @@ def validate_batch(batch: dict, source_list: Path | None) -> dict:
             raise ValueError(f"Candidate {index} needs a unique non-empty candidate_id.")
         seen_ids.add(candidate_id)
 
+        source_transform = candidate.get("source_transform")
+        if source_transform is not None and source != "SecLists":
+            raise ValueError("source_transform is only supported for SecLists candidates.")
         if scenario["probe_kind"] == "boolean_pair":
-            values = (candidate.get("true_payload"), candidate.get("false_payload"))
-            if any(not isinstance(value, str) or not value.strip() for value in values):
-                raise ValueError(f"Candidate {candidate_id} needs true_payload and false_payload.")
             if "payload" in candidate:
                 raise ValueError(f"Boolean candidate {candidate_id} cannot also define payload.")
+            if source_transform is None:
+                values = (candidate.get("true_payload"), candidate.get("false_payload"))
+                if any(not isinstance(value, str) or not value.strip() for value in values):
+                    raise ValueError(f"Candidate {candidate_id} needs true_payload and false_payload.")
         else:
-            value = candidate.get("payload")
-            if not isinstance(value, str) or not value.strip():
-                raise ValueError(f"Candidate {candidate_id} needs a non-empty payload.")
             if "true_payload" in candidate or "false_payload" in candidate:
                 raise ValueError(f"Non-boolean candidate {candidate_id} cannot define a payload pair.")
+            value = candidate.get("payload")
+            if source_transform is None and (not isinstance(value, str) or not value.strip()):
+                raise ValueError(f"Candidate {candidate_id} needs a non-empty payload.")
 
         fields = [candidate.get(key) for key in ("payload", "true_payload", "false_payload")]
         if any(isinstance(value, str) and "REPLACE_WITH_" in value for value in fields):
@@ -208,6 +288,11 @@ def validate_batch(batch: dict, source_list: Path | None) -> dict:
                 prepared[field] = candidate[field]
 
         if source == "SecLists":
+            if source_transform is not None and (
+                not isinstance(source_transform, dict)
+                or source_transform.get("rule_id") != "seclists-mariadb-id-fragment-v1"
+            ):
+                raise ValueError(f"Candidate {candidate_id} has an unsupported source_transform.")
             if scenario["probe_kind"] == "boolean_pair":
                 line_numbers = candidate.get("source_line_numbers")
                 if (
@@ -223,11 +308,28 @@ def validate_batch(batch: dict, source_list: Path | None) -> dict:
                     raise ValueError(
                         f"Boolean SecLists candidate {candidate_id} needs two valid source_line_numbers."
                     )
-                if candidate["true_payload"] != source_lines[line_numbers[0] - 1]:
-                    raise ValueError(f"Candidate {candidate_id} true_payload does not match its SecLists line.")
-                if candidate["false_payload"] != source_lines[line_numbers[1] - 1]:
-                    raise ValueError(f"Candidate {candidate_id} false_payload does not match its SecLists line.")
+                if source_transform is not None:
+                    if line_numbers[0] != line_numbers[1]:
+                        raise ValueError("Derived SecLists boolean pairs must point to the same source template line.")
+                    expected_true = transform_seclists_payload(
+                        source_lines[line_numbers[0] - 1], source_transform, "true"
+                    )
+                    expected_false = transform_seclists_payload(
+                        source_lines[line_numbers[1] - 1], source_transform, "false"
+                    )
+                    for field, expected in (("true_payload", expected_true), ("false_payload", expected_false)):
+                        supplied = candidate.get(field)
+                        if supplied is not None and supplied != expected:
+                            raise ValueError(f"Candidate {candidate_id} {field} does not match its deterministic transform.")
+                        prepared[field] = expected
+                else:
+                    if candidate["true_payload"] != source_lines[line_numbers[0] - 1]:
+                        raise ValueError(f"Candidate {candidate_id} true_payload does not match its SecLists line.")
+                    if candidate["false_payload"] != source_lines[line_numbers[1] - 1]:
+                        raise ValueError(f"Candidate {candidate_id} false_payload does not match its SecLists line.")
                 prepared["provenance"] = {**provenance, "source_line_numbers": line_numbers}
+                if source_transform is not None:
+                    prepared["provenance"]["source_transform"] = source_transform
             else:
                 line_number = candidate.get("source_line_number")
                 if (
@@ -236,9 +338,17 @@ def validate_batch(batch: dict, source_list: Path | None) -> dict:
                     or not 1 <= line_number <= len(source_lines)
                 ):
                     raise ValueError(f"Candidate {candidate_id} has an invalid source_line_number.")
-                if candidate["payload"] != source_lines[line_number - 1]:
+                if source_transform is not None:
+                    expected = transform_seclists_payload(source_lines[line_number - 1], source_transform)
+                    supplied = candidate.get("payload")
+                    if supplied is not None and supplied != expected:
+                        raise ValueError(f"Candidate {candidate_id} payload does not match its deterministic transform.")
+                    prepared["payload"] = expected
+                elif candidate["payload"] != source_lines[line_number - 1]:
                     raise ValueError(f"Candidate {candidate_id} payload does not match its SecLists line.")
                 prepared["provenance"] = {**provenance, "source_line_number": line_number}
+                if source_transform is not None:
+                    prepared["provenance"]["source_transform"] = source_transform
 
         normalized_candidates.append(prepared)
 

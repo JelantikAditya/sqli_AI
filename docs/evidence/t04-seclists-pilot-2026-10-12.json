@@ -1,0 +1,340 @@
+{
+  "schema_version": "1.0.0",
+  "task": "T04 SecLists local pilot",
+  "status": "pilot_complete_not_formal",
+  "executed_on": "2026-10-12",
+  "selection_plan": "docs/evidence/seclists-selection-plan-2026-10-12.json",
+  "selection_plan_sha256": "55dd7509a06fbbbb4ae054c9c061ac5b2bd5434c3b36ab21fd11324c8ae7c3a3",
+  "seclists_revision": "6ef78e5c253d9a6556f2d6339a7b635bf0a2115e",
+  "prepared_batch_directory": "results/raw/seclists-batches/t04-final-prep",
+  "pilot_constraints": {
+    "target_origin": "http://127.0.0.1:4280",
+    "candidates_per_scenario": 10,
+    "confirmations_per_candidate": 3,
+    "time_signal_threshold_ms": 1500,
+    "maximum_sleep_seconds": 2,
+    "database_reset_performed": false,
+    "formal_data": false,
+    "confirmation_aggregation": "pending",
+    "human_validation": "pending"
+  },
+  "signal_counts_are_not_psr": true,
+  "scenarios": [
+    {
+      "scenario_id": "S1",
+      "run_id": "20261012T103907Z-6d9aaf46",
+      "raw_log_path": "results/raw/validation-20261012T103907Z-6d9aaf46.jsonl",
+      "candidate_count": 10,
+      "decision_records": 30,
+      "positive_signal_records": 6,
+      "per_confirmation_replicate": [
+        {
+          "replicate": 1,
+          "decision_records": 10,
+          "positive_signal_records": 2
+        },
+        {
+          "replicate": 2,
+          "decision_records": 10,
+          "positive_signal_records": 2
+        },
+        {
+          "replicate": 3,
+          "decision_records": 10,
+          "positive_signal_records": 2
+        }
+      ],
+      "runtime_failure_records": 0,
+      "database_reset_performed": false,
+      "human_validation": "pending",
+      "probe_submission_counts": {
+        "candidate_probe_submissions": 30,
+        "baseline_probe_submissions": 30,
+        "matched_no_delay_control_submissions": 0,
+        "logical_probe_submissions_total": 60,
+        "http_request_calls_expected_no_redirect": 154
+      }
+    },
+    {
+      "scenario_id": "S2",
+      "run_id": "20261012T103911Z-ef64f187",
+      "raw_log_path": "results/raw/validation-20261012T103911Z-ef64f187.jsonl",
+      "candidate_count": 10,
+      "decision_records": 30,
+      "positive_signal_records": 27,
+      "per_confirmation_replicate": [
+        {
+          "replicate": 1,
+          "decision_records": 10,
+          "positive_signal_records": 9
+        },
+        {
+          "replicate": 2,
+          "decision_records": 10,
+          "positive_signal_records": 9
+        },
+        {
+          "replicate": 3,
+          "decision_records": 10,
+          "positive_signal_records": 9
+        }
+      ],
+      "runtime_failure_records": 0,
+      "database_reset_performed": false,
+      "human_validation": "pending",
+      "probe_submission_counts": {
+        "candidate_probe_submissions": 60,
+        "baseline_probe_submissions": 30,
+        "matched_no_delay_control_submissions": 0,
+        "logical_probe_submissions_total": 90,
+        "http_request_calls_expected_no_redirect": 214
+      }
+    },
+    {
+      "scenario_id": "S3",
+      "run_id": "20261012T103916Z-dce5f7c1",
+      "raw_log_path": "results/raw/validation-20261012T103916Z-dce5f7c1.jsonl",
+      "candidate_count": 10,
+      "decision_records": 30,
+      "positive_signal_records": 30,
+      "per_confirmation_replicate": [
+        {
+          "replicate": 1,
+          "decision_records": 10,
+          "positive_signal_records": 10
+        },
+        {
+          "replicate": 2,
+          "decision_records": 10,
+          "positive_signal_records": 10
+        },
+        {
+          "replicate": 3,
+          "decision_records": 10,
+          "positive_signal_records": 10
+        }
+      ],
+      "runtime_failure_records": 0,
+      "database_reset_performed": false,
+      "human_validation": "pending",
+      "probe_submission_counts": {
+        "candidate_probe_submissions": 30,
+        "baseline_probe_submissions": 30,
+        "matched_no_delay_control_submissions": 30,
+        "logical_probe_submissions_total": 90,
+        "http_request_calls_expected_no_redirect": 214
+      }
+    },
+    {
+      "scenario_id": "S4",
+      "run_id": "20261012T104022Z-56b81e8a",
+      "raw_log_path": "results/raw/validation-20261012T104022Z-56b81e8a.jsonl",
+      "candidate_count": 10,
+      "decision_records": 30,
+      "positive_signal_records": 30,
+      "per_confirmation_replicate": [
+        {
+          "replicate": 1,
+          "decision_records": 10,
+          "positive_signal_records": 10
+        },
+        {
+          "replicate": 2,
+          "decision_records": 10,
+          "positive_signal_records": 10
+        },
+        {
+          "replicate": 3,
+          "decision_records": 10,
+          "positive_signal_records": 10
+        }
+      ],
+      "runtime_failure_records": 0,
+      "database_reset_performed": false,
+      "human_validation": "pending",
+      "probe_submission_counts": {
+        "candidate_probe_submissions": 30,
+        "baseline_probe_submissions": 30,
+        "matched_no_delay_control_submissions": 0,
+        "logical_probe_submissions_total": 60,
+        "http_request_calls_expected_no_redirect": 154
+      }
+    },
+    {
+      "scenario_id": "S5",
+      "run_id": "20261012T104026Z-55873e78",
+      "raw_log_path": "results/raw/validation-20261012T104026Z-55873e78.jsonl",
+      "candidate_count": 10,
+      "decision_records": 30,
+      "positive_signal_records": 27,
+      "per_confirmation_replicate": [
+        {
+          "replicate": 1,
+          "decision_records": 10,
+          "positive_signal_records": 9
+        },
+        {
+          "replicate": 2,
+          "decision_records": 10,
+          "positive_signal_records": 9
+        },
+        {
+          "replicate": 3,
+          "decision_records": 10,
+          "positive_signal_records": 9
+        }
+      ],
+      "runtime_failure_records": 0,
+      "database_reset_performed": false,
+      "human_validation": "pending",
+      "probe_submission_counts": {
+        "candidate_probe_submissions": 60,
+        "baseline_probe_submissions": 30,
+        "matched_no_delay_control_submissions": 0,
+        "logical_probe_submissions_total": 90,
+        "http_request_calls_expected_no_redirect": 214
+      }
+    },
+    {
+      "scenario_id": "S6",
+      "run_id": "20261012T104032Z-66eca67b",
+      "raw_log_path": "results/raw/validation-20261012T104032Z-66eca67b.jsonl",
+      "candidate_count": 10,
+      "decision_records": 30,
+      "positive_signal_records": 30,
+      "per_confirmation_replicate": [
+        {
+          "replicate": 1,
+          "decision_records": 10,
+          "positive_signal_records": 10
+        },
+        {
+          "replicate": 2,
+          "decision_records": 10,
+          "positive_signal_records": 10
+        },
+        {
+          "replicate": 3,
+          "decision_records": 10,
+          "positive_signal_records": 10
+        }
+      ],
+      "runtime_failure_records": 0,
+      "database_reset_performed": false,
+      "human_validation": "pending",
+      "probe_submission_counts": {
+        "candidate_probe_submissions": 30,
+        "baseline_probe_submissions": 30,
+        "matched_no_delay_control_submissions": 30,
+        "logical_probe_submissions_total": 90,
+        "http_request_calls_expected_no_redirect": 214
+      }
+    },
+    {
+      "scenario_id": "S7",
+      "run_id": "20261012T104137Z-5ab6b7b2",
+      "raw_log_path": "results/raw/validation-20261012T104137Z-5ab6b7b2.jsonl",
+      "candidate_count": 10,
+      "decision_records": 30,
+      "positive_signal_records": 6,
+      "per_confirmation_replicate": [
+        {
+          "replicate": 1,
+          "decision_records": 10,
+          "positive_signal_records": 2
+        },
+        {
+          "replicate": 2,
+          "decision_records": 10,
+          "positive_signal_records": 2
+        },
+        {
+          "replicate": 3,
+          "decision_records": 10,
+          "positive_signal_records": 2
+        }
+      ],
+      "runtime_failure_records": 0,
+      "database_reset_performed": false,
+      "human_validation": "pending",
+      "probe_submission_counts": {
+        "candidate_probe_submissions": 30,
+        "baseline_probe_submissions": 30,
+        "matched_no_delay_control_submissions": 0,
+        "logical_probe_submissions_total": 60,
+        "http_request_calls_expected_no_redirect": 214
+      }
+    },
+    {
+      "scenario_id": "S8",
+      "run_id": "20261012T104141Z-05bdfe90",
+      "raw_log_path": "results/raw/validation-20261012T104141Z-05bdfe90.jsonl",
+      "candidate_count": 10,
+      "decision_records": 30,
+      "positive_signal_records": 27,
+      "per_confirmation_replicate": [
+        {
+          "replicate": 1,
+          "decision_records": 10,
+          "positive_signal_records": 9
+        },
+        {
+          "replicate": 2,
+          "decision_records": 10,
+          "positive_signal_records": 9
+        },
+        {
+          "replicate": 3,
+          "decision_records": 10,
+          "positive_signal_records": 9
+        }
+      ],
+      "runtime_failure_records": 0,
+      "database_reset_performed": false,
+      "human_validation": "pending",
+      "probe_submission_counts": {
+        "candidate_probe_submissions": 60,
+        "baseline_probe_submissions": 30,
+        "matched_no_delay_control_submissions": 0,
+        "logical_probe_submissions_total": 90,
+        "http_request_calls_expected_no_redirect": 304
+      }
+    },
+    {
+      "scenario_id": "S9",
+      "run_id": "20261012T104201Z-e8983f1b",
+      "raw_log_path": "results/raw/validation-20261012T104201Z-e8983f1b.jsonl",
+      "candidate_count": 10,
+      "decision_records": 30,
+      "positive_signal_records": 30,
+      "per_confirmation_replicate": [
+        {
+          "replicate": 1,
+          "decision_records": 10,
+          "positive_signal_records": 10
+        },
+        {
+          "replicate": 2,
+          "decision_records": 10,
+          "positive_signal_records": 10
+        },
+        {
+          "replicate": 3,
+          "decision_records": 10,
+          "positive_signal_records": 10
+        }
+      ],
+      "runtime_failure_records": 0,
+      "database_reset_performed": false,
+      "human_validation": "pending",
+      "probe_submission_counts": {
+        "candidate_probe_submissions": 30,
+        "baseline_probe_submissions": 30,
+        "matched_no_delay_control_submissions": 30,
+        "logical_probe_submissions_total": 90,
+        "http_request_calls_expected_no_redirect": 304
+      }
+    }
+  ],
+  "request_count_definition": "Logical probe submission means one invocation of submit_probe: baseline, candidate payload, or matched no-delay control. Expected HTTP request calls add four login/level requests, one session-level verification per decision, form GET plus POST per submission, and a result GET for High helper endpoints; redirect follow-up requests are excluded. These counts are derived from executor control flow, not measured wire captures."
+}

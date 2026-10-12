@@ -4,7 +4,9 @@
 
 Sembilan entri diperiksa terhadap snapshot OWASP WSTG v4.2 dan PayloadsAllTheThings pada commit yang dikunci di `knowledge/sources.lock.json`. Schema, hash snapshot, ketersediaan rujukan baris, heading sumber, dan tiga kelompok teknik lulus validasi. Enam komponen pengetahuan proposal tersedia pada seluruh entri. Tidak ditemukan koreksi isi yang wajib untuk smoke integrasi S1.
 
-Review ini dilakukan oleh Codex. Status `researcher_review` tetap `pending`: pemeriksaan teknis ini bukan persetujuan peneliti atau validasi eksperimen. Isi korpus dan identitas index dipertahankan untuk smoke awal yang dapat dibandingkan dengan bukti 7 Oktober.
+Review teknis ini dilakukan oleh Codex. Pada 12 Oktober 2026, peneliti membaca dan menyetujui review korpus serta keputusan terkait yang tercantum dalam catatan [review peneliti](evidence/review-peneliti-2026-10-12.md). Status `researcher_review` kini `approved`.
+
+Persetujuan ini adalah review peneliti atas dokumen dan kecukupan korpus untuk tahap pilot. Persetujuan ini bukan anotasi buta independen atas record eksperimen. Isi korpus dan identitas index dipertahankan untuk smoke awal yang dapat dibandingkan dengan bukti 7 Oktober.
 
 ## Pemeriksaan setiap entri
 
@@ -30,4 +32,4 @@ Review ini dilakukan oleh Codex. Status `researcher_review` tetap `pending`: pem
 
 ## Penggunaan berikutnya
 
-Korpus dapat digunakan untuk smoke pengembangan S1 dengan status review pending yang dinyatakan secara eksplisit. Setelah peneliti menyetujui atau meminta perubahan, catat keputusan; perubahan isi memerlukan rebuild index dan manifest baru sebelum konfigurasi eksperimen dibekukan.
+Korpus disetujui peneliti untuk penggunaan pada tahap pilot. Perubahan isi berikutnya memerlukan rebuild index dan manifest baru sebelum konfigurasi eksperimen dibekukan.

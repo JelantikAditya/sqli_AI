@@ -137,51 +137,45 @@ menjalankan request ke DVWA.
 
 ## Batch SecLists
 
-Ambil payload dari satu file SecLists yang sudah tersedia secara lokal. Catat
-repository dan commit SHA, path relatif file, SHA-256 file, serta nomor
-baris untuk setiap payload terpilih. Salin payload persis dari baris tersebut
-ke batch. Script memeriksa format commit SHA, lalu memverifikasi hash file dan
-kecocokan isi baris; ia tidak menafsirkan otomatis apakah payload cocok dengan
-teknik atau level tertentu.
-Penetapan kandidat tetap harus direview peneliti.
+Rencana T04 yang dibekukan ada di
+[`evidence/seclists-selection-plan-2026-10-12.json`](evidence/seclists-selection-plan-2026-10-12.json).
+Rencana itu mengunci commit SecLists, hash tiga file SQLMap Low-Risk, nomor
+baris, aturan seleksi statis, wrapper untuk injection point DVWA, nilai
+placeholder, dan batas `SLEEPTIME` dua detik. Seleksi dibuat sebelum hasil
+DVWA dilihat. Daftar boolean memperlakukan satu baris sebagai template untuk
+dua payload true/false; provenance menyimpan nomor sumber yang sama pada kedua
+sisi dan menyimpan aturan transformasinya.
 
-Contoh struktur batch:
+Downloader sengaja tetap di luar skrip. Simpan tiga file dari commit yang
+terkunci di lokasi lokal yang mempertahankan path SecLists, misalnya:
 
-```json
-{
-  "schema_version": "1.0.0",
-  "scenario_id": "S1",
-  "source": "SecLists",
-  "rag_mode": "not_applicable",
-  "provenance": {
-    "repository": "SecLists",
-    "revision": "<commit-sha>",
-    "list_path": "Fuzzing/SQLi/<list-name>.txt",
-    "list_sha256": "<64-hex-character-sha256>"
-  },
-  "candidates": [
-    {
-      "candidate_id": "seclists-s1-001",
-      "source_line_number": 12,
-      "payload": "<exact text from line 12>"
-    }
-  ]
-}
+```text
+results/raw/seclists/<commit>/Fuzzing/Databases/SQLi/sqlmap-risk-classified/Low-Risk-Payloads/
 ```
 
-Simpan batch kerja di `dvwa/candidate_batch.local.json` (sudah diabaikan
-Git), lalu jalankan dari root repositori:
+Kemudian bangun sembilan batch S1-S9 dan verifikasi hash serta nomor baris:
 
 ```powershell
-python dvwa/prepare_candidate_batch.py `
-  --input dvwa/candidate_batch.local.json `
-  --source-list C:\path\to\the\exact\SecLists-file.txt
+\.venv\Scripts\python.exe dvwa/build_seclists_batches.py `
+  --source-root results/raw/seclists/<commit> `
+  --output-dir results/raw/seclists-batches/t04-pilot
 ```
 
-Untuk boolean-based, manifest SecLists memuat pasangan kondisi
-`true_payload`/`false_payload` dan dua nomor baris dalam
-`source_line_numbers`. Script memverifikasi kedua isi baris, tetapi tidak
-membuktikan semantik true/false; peneliti tetap harus mereview pasangan itu.
+Output normalisasi berada di `results/raw/` dan menyertakan provenance per
+kandidat. `prepare_candidate_batch.py` menolak hash yang berubah, baris yang
+tidak cocok, placeholder yang tidak terisi, wrapper yang tidak dikenal, serta
+delay di atas dua detik. Boolean memakai ekspansi kondisi yang ditetapkan
+sebelumnya; error dan time memakai fragmen sumber dengan wrapper level
+Low/High yang dikutip atau Medium yang numerik.
+
+Batch tersebut dijalankan lewat executor yang sama dengan LLM. Log pilot
+menyimpan keputusan per kandidat dan konfirmasi; untuk time-based, baseline
+dan matched no-delay control juga tercatat sebagai payload record. Konfirmasi
+di dalam run tidak dihitung sebagai tiga pengulangan pipeline dan angka sinyal
+mentah tidak disebut PSR. Ringkasan menyebut jumlah submission logis serta
+estimasi panggilan HTTP berdasarkan alur executor; hitungan itu mengecualikan
+request tambahan akibat redirect. Ringkasan T04 yang sudah disanitasi ada di
+[`evidence/t04-seclists-pilot-2026-10-12.json`](evidence/t04-seclists-pilot-2026-10-12.json).
 
 ## Batch LLM dengan RAG aktif/nonaktif
 

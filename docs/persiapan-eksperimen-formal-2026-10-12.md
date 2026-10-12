@@ -127,10 +127,12 @@ Reset hanya dapat diminta dengan `--reset-before-run`; setelah reset, runner
 menggunakan akun DVWA bawaan `admin` / `password`. Opsi ini menghapus data
 database sampel.
 
-Yang masih perlu: validasi kontrol reset secara end-to-end pada database DVWA
-yang memang boleh diinisialisasi ulang, validasi High/Impossible dan token/helper,
-serta integrasi pemulihan attempt pada orchestrator T05. Implementasi sekarang
-siap untuk smoke pengembangan S1 Low, tetapi belum menjadi gate formal seluruh
+Pilot T04 kemudian menjalankan S7-S9 High melalui helper dengan budget 10
+kandidat dan tiga konfirmasi, tanpa kegagalan runtime. Ini memverifikasi alur
+High untuk tahap pilot; database tidak di-reset. Yang masih perlu: validasi
+kontrol reset secara end-to-end pada database DVWA yang memang boleh
+diinisialisasi ulang, pengujian Impossible, serta integrasi pemulihan attempt
+pada orchestrator T05. Kontrol runtime belum menjadi gate formal seluruh
 matriks.
 
 Keluaran: executor terintegrasi dan aturan invalid/retry eksplisit.
@@ -140,22 +142,39 @@ dan kegagalan sesi tidak diam-diam menjadi FN atau payload gagal.
 
 ## T04. Siapkan pembanding SecLists
 
-Status awal: adapter provenance tersedia, belum ada run nyata.
+Status 12 Oktober: seleksi SecLists dibekukan pada commit
+`6ef78e5c253d9a6556f2d6339a7b635bf0a2115e`. Hash tiga file Low-Risk dan
+nomor baris terpilih tercatat dalam
+[rencana seleksi](evidence/seclists-selection-plan-2026-10-12.json).
+Builder memverifikasi hash/baris dan menerapkan transformasi input DVWA yang
+tercatat. Batch S1-S9 masing-masing memuat 10 kandidat. Pilot lokal penuh
+menggunakan executor yang sama, tiga konfirmasi per kandidat, dan selesai
+tanpa kegagalan runtime. Ringkasan tersanitasi:
+[bukti pilot T04](evidence/t04-seclists-pilot-2026-10-12.json).
+
+Keluaran pilot memenuhi cakupan T04, tetapi belum menjadi data formal. Run
+tidak me-reset database, validasi manusia masih pending, dan aturan
+penggabungan konfirmasi menjadi keputusan kandidat akhir masih pending dari
+T01. Jumlah sinyal di ringkasan adalah catatan konfirmasi, bukan PSR.
 Dependensi: definisi T01 dan executor T03.
 
-- Tentukan versi/commit, file wordlist, hash, nomor baris, aturan seleksi, dan
+- [x] Tentukan versi/commit, file wordlist, hash, nomor baris, aturan seleksi, dan
   urutan sebelum hasil formal diketahui.
-- Bentuk kandidat sesuai teknik; satu pasangan boolean dihitung satu kandidat.
+- [x] Bentuk kandidat sesuai teknik; satu pasangan boolean dihitung satu kandidat.
   Dokumentasikan transformasi deterministik jika diperlukan agar request valid.
-- Hindari seleksi hanya payload yang sebelumnya diketahui berhasil pada DVWA.
-- Gunakan executor, jumlah konfirmasi, aturan runtime, dan budget kandidat sama
-  dengan LLM. Catat jumlah request karena kandidat antar teknik tidak identik.
-- Jalankan pilot SecLists nyata untuk tiga teknik, lalu level positif lainnya.
+- [x] Hindari seleksi hanya payload yang sebelumnya diketahui berhasil pada DVWA.
+- [x] Gunakan executor, jumlah konfirmasi, aturan runtime, dan budget kandidat sama
+  dengan LLM. Catat jumlah submission kandidat, baseline, kontrol waktu, serta
+  estimasi panggilan HTTP karena kandidat antar teknik tidak identik.
+- [x] Jalankan pilot SecLists nyata untuk tiga teknik dan level positif S1-S9.
 
 Keluaran: manifest SecLists, batch per skenario, dan log pilot.
 
-Selesai jika S1-S9 dapat dijalankan dengan provenance dapat ditelusuri serta
-budget sebanding. SecLists tidak masuk PSR Impossible pada rancangan ini.
+Selesai untuk tahap persiapan pilot: S1-S9 berjalan dengan provenance dapat
+ditelusuri, 10 kandidat dan tiga konfirmasi per kandidat. Jumlah submission
+logis dan estimasi panggilan HTTP tercatat. SecLists tidak masuk PSR Impossible
+pada rancangan ini. Reset, keputusan validator, dan pembekuan protokol formal
+tetap menjadi gerbang terpisah.
 
 ## T05. Bangun orchestrator dan ledger eksperimen
 

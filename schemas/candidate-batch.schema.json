@@ -28,6 +28,8 @@
         "revision": { "type": "string", "pattern": "^([0-9a-fA-F]{40}|[0-9a-fA-F]{64})$" },
         "list_path": { "type": "string", "minLength": 1 },
         "list_sha256": { "type": "string", "pattern": "^[0-9a-fA-F]{64}$" },
+        "selection_rule_id": { "type": "string", "minLength": 1 },
+        "selection_manifest_sha256": { "type": "string", "pattern": "^[0-9a-fA-F]{64}$" },
         "source_line_number": { "type": "integer", "minimum": 1 },
         "source_line_numbers": { "type": "array", "items": { "type": "integer", "minimum": 1 }, "minItems": 2, "maxItems": 2 }
       }
@@ -50,11 +52,34 @@
             "items": { "type": "integer", "minimum": 1 },
             "minItems": 2,
             "maxItems": 2
+          },
+          "source_transform": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["rule_id", "wrapper", "placeholder_values"],
+            "properties": {
+              "rule_id": { "const": "seclists-mariadb-id-fragment-v1" },
+              "wrapper": { "enum": ["quoted_id", "numeric_id"] },
+              "placeholder_values": {
+                "type": "object",
+                "minProperties": 1,
+                "patternProperties": { "^[A-Z_0-9]+$": { "type": "string", "minLength": 1 } },
+                "additionalProperties": false
+              }
+            }
           }
         },
         "oneOf": [
           { "required": ["payload"], "not": { "anyOf": [{"required":["true_payload"]},{"required":["false_payload"]}] } },
-          { "required": ["true_payload", "false_payload"], "not": { "required": ["payload"] } }
+          { "required": ["true_payload", "false_payload"], "not": { "required": ["payload"] } },
+          {
+            "required": ["source_line_number", "source_transform"],
+            "not": { "anyOf": [{"required":["payload"]},{"required":["true_payload"]},{"required":["false_payload"]}] }
+          },
+          {
+            "required": ["source_line_numbers", "source_transform"],
+            "not": { "anyOf": [{"required":["payload"]},{"required":["true_payload"]},{"required":["false_payload"]}] }
+          }
         ]
       }
     }
@@ -62,7 +87,13 @@
   "allOf": [
     {
       "if": { "properties": { "source": { "const": "SecLists" } } },
-      "then": { "properties": { "rag_mode": { "const": "not_applicable" } } }
+      "then": {
+        "properties": {
+          "rag_mode": { "const": "not_applicable" },
+          "provenance": { "required": ["selection_rule_id", "selection_manifest_sha256"] },
+          "candidates": { "items": { "required": ["source_transform"] } }
+        }
+      }
     },
     {
       "if": { "properties": { "source": { "const": "LLM" } } },

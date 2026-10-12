@@ -1,12 +1,14 @@
 """Check selection boundaries and batch audit consistency without network calls."""
 
 import copy
+import hashlib
 import sys
+import tempfile
 import unittest
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "dvwa"))
-from prepare_candidate_batch import validate_batch
+from prepare_candidate_batch import transform_seclists_payload, validate_batch
 from rag_pipeline import load_catalog, scenario_query
 from retrieval_selection import load_policy, lexical_candidates, select_chunks, technical_cues
 
@@ -96,6 +98,57 @@ class RetrievalSelectionTests(unittest.TestCase):
             if key in ("retrieval_query_version", "retrieval_policy_sha256", "retrieval_curation_sha256"):
                 del legacy["provenance"][key]
         validate_batch(legacy, None)
+
+    def test_seclists_boolean_template_transforms_to_audited_pair(self):
+        temporary_root = Path(__file__).resolve().parents[1] / "tmp"
+        temporary_root.mkdir(exist_ok=True)
+        with tempfile.TemporaryDirectory(dir=temporary_root) as temporary_directory:
+            source_list = Path(temporary_directory) / "boolean_blind.txt"
+            source_bytes = b"AND [RANDNUM]=[RANDNUM]\n"
+            source_list.write_bytes(source_bytes)
+            transform = {
+                "rule_id": "seclists-mariadb-id-fragment-v1",
+                "wrapper": "quoted_id",
+                "placeholder_values": {"RANDNUM": "12"},
+            }
+            batch = {
+                "schema_version": "1.0.0",
+                "scenario_id": "S2",
+                "source": "SecLists",
+                "rag_mode": "not_applicable",
+                "provenance": {
+                    "repository": "danielmiessler/SecLists",
+                    "revision": "a" * 40,
+                    "list_path": "Fuzzing/SQLi/boolean_blind.txt",
+                    "list_sha256": hashlib.sha256(source_bytes).hexdigest(),
+                    "selection_rule_id": "fixture-rule",
+                    "selection_manifest_sha256": "b" * 64,
+                },
+                "candidates": [{
+                    "candidate_id": "fixture-bool",
+                    "source_line_numbers": [1, 1],
+                    "source_transform": transform,
+                }],
+            }
+            prepared = validate_batch(batch, source_list)
+            candidate = prepared["candidates"][0]
+            self.assertEqual(candidate["true_payload"], "1' AND 1=1 #")
+            self.assertEqual(candidate["false_payload"], "1' AND 1=2 #")
+            self.assertEqual(candidate["provenance"]["source_line_numbers"], [1, 1])
+            self.assertEqual(candidate["provenance"]["source_transform"], transform)
+
+    def test_seclists_transform_rejects_unbounded_delay_and_unreviewed_placeholders(self):
+        base = {
+            "rule_id": "seclists-mariadb-id-fragment-v1",
+            "wrapper": "quoted_id",
+            "placeholder_values": {"SLEEPTIME": "3"},
+        }
+        with self.assertRaisesRegex(ValueError, "capped at two seconds"):
+            transform_seclists_payload("AND SLEEP([SLEEPTIME])", base)
+        with self.assertRaisesRegex(ValueError, "missing placeholder values"):
+            transform_seclists_payload("AND SLEEP([SLEEPTIME])", {
+                **base, "placeholder_values": {"RANDNUM": "1"},
+            })
 
 
 if __name__ == "__main__":

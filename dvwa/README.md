@@ -89,8 +89,11 @@ mapping level, endpoint, metode, dan ID skenario tidak diduplikasi.
 
 Ikuti [panduan validation loop](../docs/validation-loop.md) untuk membuat file
 kandidat lokal dan menjalankan satu skenario. File kandidat lokal dan hasil
-mentah diabaikan Git. Kandidat LLM/RAG dan SecLists belum diambil otomatis;
-label TP/FP/TN/FN yang dicatat masih provisional dan perlu validasi manusia.
+mentah diabaikan Git. Kandidat LLM/RAG tidak diambil otomatis. Batch SecLists
+S1-S9 kini dapat dibangun dari sumber yang sudah diunduh secara lokal dengan
+`build_seclists_batches.py`; panduan dan hash sumbernya ada di
+[`../docs/candidate-sources.md`](../docs/candidate-sources.md). Label
+TP/FP/TN/FN yang dicatat masih provisional dan perlu validasi manusia.
 
 ### Pilot loop adaptif Qwen S1
 
