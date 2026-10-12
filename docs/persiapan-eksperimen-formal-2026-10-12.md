@@ -207,8 +207,10 @@ checkpoint atomik, dan log JSONL append-only.
 
 Implementasi lulus tes subset matriks tiruan dan pemulihan attempt terputus.
 Dry-run A/B untuk S1 replikasi 1 membuat dua unit `planned` dengan seed dan hash
-discovery yang sama. Tiga event ledger terbentuk; belum ada request ke DVWA
-atau reset database. Buktinya ada di
+discovery yang sama. Tiga event ledger terbentuk tanpa request probe dari
+orchestrator atau reset database. Pengecekan read-only terpisah sesudahnya
+mengonfirmasi endpoint login DVWA dan Ollama memberi HTTP 200 serta koleksi
+Chroma berisi 9 dari 9 chunk. Buktinya ada di
 `docs/evidence/t05-orchestrator-dry-run-2026-10-12.json`.
 
 Live subset DVWA belum dijalankan. T05 selesai setelah satu subset pilot nyata

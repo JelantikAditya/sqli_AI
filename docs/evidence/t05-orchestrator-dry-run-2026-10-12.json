@@ -29,8 +29,20 @@
     "excluded": 0
   },
   "snapshot_artifact_hashes_match": true,
-  "http_requests_sent": 0,
-  "database_reset_performed": false,
   "live_dvwa_execution": false,
-  "result": "A/B units planned with matching seed and discovery evidence; no live request or database reset."
+  "result": "Dry-run planned the paired A/B units without sending experiment probes or resetting the database. A later read-only preflight confirmed the local DVWA, Ollama models, and Chroma collection.",
+  "experiment_http_requests_sent": 0,
+  "experiment_database_reset_performed": false,
+  "environment_preflight_after_dry_run": {
+    "tested_at_utc": "2026-10-12T11:49:52Z",
+    "dvwa_login_http_status": 200,
+    "ollama_tags_http_status": 200,
+    "qwen_model_available": "qwen2.5:7b",
+    "embedding_model_available": "nomic-embed-text",
+    "chroma_collection": "sqli_knowledge",
+    "chroma_count": 9,
+    "chroma_expected_count": 9,
+    "read_only": true,
+    "counted_as_experiment": false
+  }
 }
