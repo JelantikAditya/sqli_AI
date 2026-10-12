@@ -5,6 +5,11 @@ diikat ke `127.0.0.1:4280`; jangan arahkan pemindaian ke target lain.
 
 ## Menjalankan
 
+Kontrak analisis respons Qwen dan CLI replay evidence tersedia pada
+[panduan analisis](../docs/qwen-response-analysis-contract.md).
+`analyze_response.py` menganalisis evidence tersimpan tanpa request baru
+ke DVWA; integrasi executor dan regenerasi tetap merupakan tahap berikutnya.
+
 ```powershell
 docker compose -f dvwa/compose.yaml up -d
 docker compose -f dvwa/compose.yaml ps
@@ -78,6 +83,30 @@ Ikuti [panduan validation loop](../docs/validation-loop.md) untuk membuat file
 kandidat lokal dan menjalankan satu skenario. File kandidat lokal dan hasil
 mentah diabaikan Git. Kandidat LLM/RAG dan SecLists belum diambil otomatis;
 label TP/FP/TN/FN yang dicatat masih provisional dan perlu validasi manusia.
+
+### Pilot loop adaptif Qwen S1
+
+Runner pengembangan `adaptive_s1_loop.py` menghubungkan generasi kandidat,
+validasi tiga kali dengan baseline, analisis Qwen, dan feedback ke generasi
+berikutnya. Jalur hanya menerima S1 Low pada DVWA lokal, menyimpan hash
+respons serta diagnostik allowlist, dan membatasi pilot di dua kandidat secara
+default. Setiap run berhenti sebagai incomplete terhadap budget protokol 10;
+ringkasan tersebut tidak boleh dihitung sebagai FPR/PSR formal. Runner belum
+melakukan reset database, sehingga bukti ini hanya untuk pengembangan.
+
+Perintah berikut mereproduksi pasangan pilot 12 Oktober jika artefak seed
+lokal yang berada di `results/raw/` masih tersedia. Jalankan terpisah untuk
+kedua kondisi:
+
+```powershell
+\.venv\Scripts\python.exe dvwa/adaptive_s1_loop.py --rag-mode off --zap-report results/zap/zap-discovery-low-20261011-180846.normalized.json --comparison-id adaptive-s1-feedback-20261012 --replicate 1 --pilot-slots 2 --initial-batch results/raw/candidates-S1-llm-off-20261011T111501Z-12fed9.json --initial-generation-audit results/raw/generation-audit-20261011T111501Z-12fed9.json --confirm-local-dvwa
+
+\.venv\Scripts\python.exe dvwa/adaptive_s1_loop.py --rag-mode on --zap-report results/zap/zap-discovery-low-20261011-180846.normalized.json --comparison-id adaptive-s1-feedback-20261012 --replicate 1 --pilot-slots 2 --initial-batch results/raw/candidates-S1-llm-on-20261011T111622Z-fe13f4.json --initial-generation-audit results/raw/generation-audit-20261011T111622Z-fe13f4.json --confirm-local-dvwa
+```
+
+Output penuh tersimpan di `results/raw/` yang diabaikan Git. Ringkasan
+tersanitasi dan batas pilot ada di
+[`../docs/qwen-response-analysis-contract.md`](../docs/qwen-response-analysis-contract.md#pilot-loop-adaptif-lokal-s1-pada-12-oktober).
 
 Untuk menyiapkan batch kandidat dengan provenance yang dapat diaudit, gunakan
 [`../docs/candidate-sources.md`](../docs/candidate-sources.md) dan

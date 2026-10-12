@@ -1,0 +1,444 @@
+{
+  "schema_version": "1.0.0",
+  "scope": "development-pilot-not-formal",
+  "created_date": "2026-10-12",
+  "comparison_id": "adaptive-s1-feedback-20261012",
+  "protocol_id": "local-sqli-v1-pilot",
+  "protocol_sha256": "916016fcd1d03eb10f505a8812e3a77cbe18844848f132f577b3e316157689e7",
+  "scenario_id": "S1",
+  "security_level": "low",
+  "technique": "error-based",
+  "replicate": 1,
+  "seed": 42,
+  "model": "qwen2.5:7b",
+  "confirmations_per_candidate": 3,
+  "candidate_budget": 10,
+  "pilot_slot_limit": 2,
+  "database_reset_performed": false,
+  "human_validation": "pending",
+  "conditions": [
+    {
+      "condition_id": "A",
+      "rag_mode": "off",
+      "run_id": "20261012T092743Z-a7367071",
+      "stop_reason": "pilot_slot_limit",
+      "run_status": "incomplete",
+      "system_decision": "not_evaluable",
+      "formal_eligible": false,
+      "valid_executed_count": 2,
+      "analysis_completed_count": 2,
+      "system_positive_count": 1,
+      "http_request_attempt_count": 42,
+      "retrieved_chunk_count": 0,
+      "knowledge_base_id": null,
+      "events_sha256": "8439208dab805da8240a02a38417de9361d916ff2ad174e198c9ae6b3b435114",
+      "candidates": [
+        {
+          "candidate_id": "candidate-001",
+          "payload_sha256": "eaf2a73d03b0156d14dc88891c7ac97cdb5953be2abf6a292cec46b96866f9c9",
+          "origin": "recorded-qwen-candidate",
+          "claim": "negative",
+          "reason_code": "no_new_database_diagnostic",
+          "feedback_action": "none",
+          "rule_signal": false,
+          "claim_supported": null,
+          "candidate_confirmations": 3,
+          "candidate_diagnostic_observations": 0,
+          "evidence_refs": [
+            "obs-001",
+            "obs-002",
+            "obs-003",
+            "obs-004",
+            "obs-005",
+            "obs-006"
+          ],
+          "observations": [
+            {
+              "observation_id": "obs-001",
+              "trial": 1,
+              "role": "baseline",
+              "http_status": 200,
+              "elapsed_ms": 4.67,
+              "response_sha256": "ab48103cbf9296de8a066c96c30e9852cc3fac971f1ba65e96bd373670497c5a",
+              "diagnostics": [],
+              "content_markers": [
+                "benign_record"
+              ]
+            },
+            {
+              "observation_id": "obs-002",
+              "trial": 1,
+              "role": "candidate",
+              "http_status": 200,
+              "elapsed_ms": 4.23,
+              "response_sha256": "fdd3fc2f1d1c5435d7df6490c07bab268e500df2c5e0df3a2c0a4cdc7f8dccc0",
+              "diagnostics": [],
+              "content_markers": [
+                "benign_record"
+              ]
+            },
+            {
+              "observation_id": "obs-003",
+              "trial": 2,
+              "role": "baseline",
+              "http_status": 200,
+              "elapsed_ms": 14.4,
+              "response_sha256": "ab48103cbf9296de8a066c96c30e9852cc3fac971f1ba65e96bd373670497c5a",
+              "diagnostics": [],
+              "content_markers": [
+                "benign_record"
+              ]
+            },
+            {
+              "observation_id": "obs-004",
+              "trial": 2,
+              "role": "candidate",
+              "http_status": 200,
+              "elapsed_ms": 31.37,
+              "response_sha256": "fdd3fc2f1d1c5435d7df6490c07bab268e500df2c5e0df3a2c0a4cdc7f8dccc0",
+              "diagnostics": [],
+              "content_markers": [
+                "benign_record"
+              ]
+            },
+            {
+              "observation_id": "obs-005",
+              "trial": 3,
+              "role": "baseline",
+              "http_status": 200,
+              "elapsed_ms": 24.5,
+              "response_sha256": "ab48103cbf9296de8a066c96c30e9852cc3fac971f1ba65e96bd373670497c5a",
+              "diagnostics": [],
+              "content_markers": [
+                "benign_record"
+              ]
+            },
+            {
+              "observation_id": "obs-006",
+              "trial": 3,
+              "role": "candidate",
+              "http_status": 200,
+              "elapsed_ms": 16.77,
+              "response_sha256": "fdd3fc2f1d1c5435d7df6490c07bab268e500df2c5e0df3a2c0a4cdc7f8dccc0",
+              "diagnostics": [],
+              "content_markers": [
+                "benign_record"
+              ]
+            }
+          ]
+        },
+        {
+          "candidate_id": "candidate-002",
+          "payload_sha256": "1582a68a5d83cab3f9742e20f2af730b7e565a0d2cc0c73538c0975fff859edc",
+          "origin": "qwen-generated-after-feedback",
+          "claim": "positive",
+          "reason_code": "new_database_diagnostic",
+          "feedback_action": "revise_candidate",
+          "rule_signal": true,
+          "claim_supported": true,
+          "candidate_confirmations": 3,
+          "candidate_diagnostic_observations": 3,
+          "generation_prompt_sha256": "474096e6415f732711022449818f1b1916696ff4163b5309ad169ab9a9d1f58c",
+          "feedback_record_sha256": "561df0934e2f252faff7b2bd953267319096b43947bbb99f8ab647b8fbcd5514",
+          "evidence_refs": [
+            "obs-002",
+            "obs-004",
+            "obs-006",
+            "obs-001",
+            "obs-003",
+            "obs-005"
+          ],
+          "observations": [
+            {
+              "observation_id": "obs-001",
+              "trial": 1,
+              "role": "baseline",
+              "http_status": 200,
+              "elapsed_ms": 7.03,
+              "response_sha256": "ab48103cbf9296de8a066c96c30e9852cc3fac971f1ba65e96bd373670497c5a",
+              "diagnostics": [],
+              "content_markers": [
+                "benign_record"
+              ]
+            },
+            {
+              "observation_id": "obs-002",
+              "trial": 1,
+              "role": "candidate",
+              "http_status": 200,
+              "elapsed_ms": 16.96,
+              "response_sha256": "f869ff52392c86215190502eeef45e8a53657ac61c88e9d43d14793670081b62",
+              "diagnostics": [
+                "mysql_syntax_error"
+              ],
+              "content_markers": []
+            },
+            {
+              "observation_id": "obs-003",
+              "trial": 2,
+              "role": "baseline",
+              "http_status": 200,
+              "elapsed_ms": 15.78,
+              "response_sha256": "ab48103cbf9296de8a066c96c30e9852cc3fac971f1ba65e96bd373670497c5a",
+              "diagnostics": [],
+              "content_markers": [
+                "benign_record"
+              ]
+            },
+            {
+              "observation_id": "obs-004",
+              "trial": 2,
+              "role": "candidate",
+              "http_status": 200,
+              "elapsed_ms": 18.46,
+              "response_sha256": "f869ff52392c86215190502eeef45e8a53657ac61c88e9d43d14793670081b62",
+              "diagnostics": [
+                "mysql_syntax_error"
+              ],
+              "content_markers": []
+            },
+            {
+              "observation_id": "obs-005",
+              "trial": 3,
+              "role": "baseline",
+              "http_status": 200,
+              "elapsed_ms": 3.84,
+              "response_sha256": "ab48103cbf9296de8a066c96c30e9852cc3fac971f1ba65e96bd373670497c5a",
+              "diagnostics": [],
+              "content_markers": [
+                "benign_record"
+              ]
+            },
+            {
+              "observation_id": "obs-006",
+              "trial": 3,
+              "role": "candidate",
+              "http_status": 200,
+              "elapsed_ms": 3.79,
+              "response_sha256": "f869ff52392c86215190502eeef45e8a53657ac61c88e9d43d14793670081b62",
+              "diagnostics": [
+                "mysql_syntax_error"
+              ],
+              "content_markers": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "condition_id": "B",
+      "rag_mode": "on",
+      "run_id": "20261012T092932Z-1b46856e",
+      "stop_reason": "pilot_slot_limit",
+      "run_status": "incomplete",
+      "system_decision": "not_evaluable",
+      "formal_eligible": false,
+      "valid_executed_count": 2,
+      "analysis_completed_count": 2,
+      "system_positive_count": 1,
+      "http_request_attempt_count": 42,
+      "retrieved_chunk_count": 2,
+      "knowledge_base_id": "sqli-knowledge-ec9d1b2feda12dd3",
+      "events_sha256": "ecd806742899bdade1c1a5a11cb649f5ed4dc7a54cf2be303b4353b12e3ed28e",
+      "candidates": [
+        {
+          "candidate_id": "candidate-001",
+          "payload_sha256": "d432e1884c5cc00b34c5020177c53036ba0b8aa80d7ec08d8af4cf9e1205215d",
+          "origin": "recorded-qwen-candidate",
+          "claim": "positive",
+          "reason_code": "new_database_diagnostic",
+          "feedback_action": "revise_candidate",
+          "rule_signal": true,
+          "claim_supported": true,
+          "candidate_confirmations": 3,
+          "candidate_diagnostic_observations": 3,
+          "evidence_refs": [
+            "obs-002",
+            "obs-004",
+            "obs-006",
+            "obs-001",
+            "obs-003",
+            "obs-005"
+          ],
+          "observations": [
+            {
+              "observation_id": "obs-001",
+              "trial": 1,
+              "role": "baseline",
+              "http_status": 200,
+              "elapsed_ms": 3.78,
+              "response_sha256": "ab48103cbf9296de8a066c96c30e9852cc3fac971f1ba65e96bd373670497c5a",
+              "diagnostics": [],
+              "content_markers": [
+                "benign_record"
+              ]
+            },
+            {
+              "observation_id": "obs-002",
+              "trial": 1,
+              "role": "candidate",
+              "http_status": 200,
+              "elapsed_ms": 4.24,
+              "response_sha256": "831e90fc12ece5f5d9798b9e812bd50e3c42aa933e51e6d49b589d04dc8f6092",
+              "diagnostics": [
+                "mysql_syntax_error"
+              ],
+              "content_markers": []
+            },
+            {
+              "observation_id": "obs-003",
+              "trial": 2,
+              "role": "baseline",
+              "http_status": 200,
+              "elapsed_ms": 3.76,
+              "response_sha256": "ab48103cbf9296de8a066c96c30e9852cc3fac971f1ba65e96bd373670497c5a",
+              "diagnostics": [],
+              "content_markers": [
+                "benign_record"
+              ]
+            },
+            {
+              "observation_id": "obs-004",
+              "trial": 2,
+              "role": "candidate",
+              "http_status": 200,
+              "elapsed_ms": 3.91,
+              "response_sha256": "831e90fc12ece5f5d9798b9e812bd50e3c42aa933e51e6d49b589d04dc8f6092",
+              "diagnostics": [
+                "mysql_syntax_error"
+              ],
+              "content_markers": []
+            },
+            {
+              "observation_id": "obs-005",
+              "trial": 3,
+              "role": "baseline",
+              "http_status": 200,
+              "elapsed_ms": 4.32,
+              "response_sha256": "ab48103cbf9296de8a066c96c30e9852cc3fac971f1ba65e96bd373670497c5a",
+              "diagnostics": [],
+              "content_markers": [
+                "benign_record"
+              ]
+            },
+            {
+              "observation_id": "obs-006",
+              "trial": 3,
+              "role": "candidate",
+              "http_status": 200,
+              "elapsed_ms": 3.55,
+              "response_sha256": "831e90fc12ece5f5d9798b9e812bd50e3c42aa933e51e6d49b589d04dc8f6092",
+              "diagnostics": [
+                "mysql_syntax_error"
+              ],
+              "content_markers": []
+            }
+          ]
+        },
+        {
+          "candidate_id": "candidate-002",
+          "payload_sha256": "ec2338dce403a8e5afb0c00a42975169ff5646dc7f9f1a642e3ab1fd2dfc5a7d",
+          "origin": "qwen-generated-after-feedback",
+          "claim": "negative",
+          "reason_code": "no_new_database_diagnostic",
+          "feedback_action": "none",
+          "rule_signal": false,
+          "claim_supported": null,
+          "candidate_confirmations": 3,
+          "candidate_diagnostic_observations": 0,
+          "generation_prompt_sha256": "f09624b580af9ddf56185893ced781db98814affe6c3a1925d69965a040ce3ee",
+          "feedback_record_sha256": "f1374ee514101e51a4d50aca9b36ac396da11196c0bf990a40fe9ed5e1eb692b",
+          "evidence_refs": [
+            "obs-001",
+            "obs-002",
+            "obs-003",
+            "obs-004",
+            "obs-005",
+            "obs-006"
+          ],
+          "observations": [
+            {
+              "observation_id": "obs-001",
+              "trial": 1,
+              "role": "baseline",
+              "http_status": 200,
+              "elapsed_ms": 4.83,
+              "response_sha256": "ab48103cbf9296de8a066c96c30e9852cc3fac971f1ba65e96bd373670497c5a",
+              "diagnostics": [],
+              "content_markers": [
+                "benign_record"
+              ]
+            },
+            {
+              "observation_id": "obs-002",
+              "trial": 1,
+              "role": "candidate",
+              "http_status": 200,
+              "elapsed_ms": 5.62,
+              "response_sha256": "e44855cccce409cbff29b4170cd1eb50a97fc129cf8a95ea4008668336f57370",
+              "diagnostics": [],
+              "content_markers": [
+                "benign_record"
+              ]
+            },
+            {
+              "observation_id": "obs-003",
+              "trial": 2,
+              "role": "baseline",
+              "http_status": 200,
+              "elapsed_ms": 5.28,
+              "response_sha256": "ab48103cbf9296de8a066c96c30e9852cc3fac971f1ba65e96bd373670497c5a",
+              "diagnostics": [],
+              "content_markers": [
+                "benign_record"
+              ]
+            },
+            {
+              "observation_id": "obs-004",
+              "trial": 2,
+              "role": "candidate",
+              "http_status": 200,
+              "elapsed_ms": 5.36,
+              "response_sha256": "e44855cccce409cbff29b4170cd1eb50a97fc129cf8a95ea4008668336f57370",
+              "diagnostics": [],
+              "content_markers": [
+                "benign_record"
+              ]
+            },
+            {
+              "observation_id": "obs-005",
+              "trial": 3,
+              "role": "baseline",
+              "http_status": 200,
+              "elapsed_ms": 4.14,
+              "response_sha256": "ab48103cbf9296de8a066c96c30e9852cc3fac971f1ba65e96bd373670497c5a",
+              "diagnostics": [],
+              "content_markers": [
+                "benign_record"
+              ]
+            },
+            {
+              "observation_id": "obs-006",
+              "trial": 3,
+              "role": "candidate",
+              "http_status": 200,
+              "elapsed_ms": 4.87,
+              "response_sha256": "e44855cccce409cbff29b4170cd1eb50a97fc129cf8a95ea4008668336f57370",
+              "diagnostics": [],
+              "content_markers": [
+                "benign_record"
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "notes": [
+    "Both conditions used the same protocol, S1 Low scenario, replicate seed, Qwen model, three confirmations, and fixed candidate budget.",
+    "The generator received the previous candidate decision and sanitized evidence in both conditions. RAG-on retrieval was used only during generation.",
+    "The two-candidate cap was for development. Each run is incomplete against the protocol budget of ten and has no evaluable per-run FPR or PSR.",
+    "The first RAG-off analysis returned feedback_action none. Fixed-budget continuation still generated the next candidate and passed the negative decision and evidence to Qwen.",
+    "Raw responses, cookies, credentials, and candidate values are omitted. Full local JSONL and run records remain in the Git-ignored results/raw directory."
+  ]
+}

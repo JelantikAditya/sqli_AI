@@ -8,6 +8,13 @@ Impossible. Evaluasi utama membandingkan **FPR** sistem dengan/tanpa RAG dan
 
 ## Status
 
+- Pada 12 Oktober, loop adaptif Qwen sudah menjalani pilot lokal berpasangan
+  RAG-off/RAG-on pada S1 Low. Kedua kondisi menjalankan dua kandidat dengan
+  tiga konfirmasi; generator menerima keputusan dan evidence kandidat
+  sebelumnya. Hasil masih incomplete terhadap budget 10, sehingga belum
+  menghasilkan FPR/PSR formal. 51 unit test lulus. Lihat
+  [kontrak dan bukti pilot Qwen](docs/qwen-response-analysis-contract.md)
+  serta [ringkasan evidence yang disanitasi](docs/evidence/adaptive-s1-pilot-2026-10-12.json).
 - Arah kerja aktif per 11 Oktober: eksperimen dilakukan pada laptop lokal
   sesuai arahan peneliti. Colab dan tunneling ditunda; tahapan integrasi serta
   evaluasi ada di [rancangan kerja lokal](docs/rencana-kerja-lokal-2026-10-11.md).

@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "qwen-analysis-input.schema.json",
+  "title": "Label-free SQLi response evidence for Qwen",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "technique", "injection_point", "runtime_status", "baseline_valid", "time_threshold_ms", "observations"],
+  "properties": {
+    "schema_version": {"const": "1.0.0"},
+    "technique": {"enum": ["error-based", "boolean-based blind", "time-based blind"]},
+    "injection_point": {
+      "type": "object", "additionalProperties": false,
+      "required": ["method", "input_path", "result_path", "parameter"],
+      "properties": {
+        "method": {"enum": ["GET", "POST"]},
+        "input_path": {"type": "string", "pattern": "^/vulnerabilities/sqli(?:_blind)?/(?:session-input\\.php|cookie-input\\.php)?$"},
+        "result_path": {"enum": ["/vulnerabilities/sqli/", "/vulnerabilities/sqli_blind/"]},
+        "parameter": {"const": "id"}
+      }
+    },
+    "runtime_status": {"enum": ["valid", "invalid"]},
+    "baseline_valid": {"type": "boolean"},
+    "time_threshold_ms": {"type": "number", "exclusiveMinimum": 0},
+    "observations": {
+      "type": "array", "maxItems": 40,
+      "items": {
+        "type": "object", "additionalProperties": false,
+        "required": ["observation_id", "trial", "role", "http_status", "elapsed_ms", "response_sha256", "diagnostics", "content_markers"],
+        "properties": {
+          "observation_id": {"type": "string", "pattern": "^obs-[0-9]{3}$"},
+          "trial": {"type": "integer", "minimum": 1},
+          "role": {"enum": ["baseline", "candidate", "true_condition", "false_condition", "no_delay_control"]},
+          "http_status": {"type": ["integer", "null"], "minimum": 100, "maximum": 599},
+          "elapsed_ms": {"type": ["number", "null"], "minimum": 0},
+          "response_sha256": {"type": ["string", "null"], "pattern": "^[0-9a-f]{64}$"},
+          "diagnostics": {"type": "array", "uniqueItems": true, "items": {"enum": ["mysql_syntax_error", "mysql_xpath_error", "mysql_unknown_column"]}},
+          "content_markers": {"type": "array", "uniqueItems": true, "items": {"enum": ["benign_record", "user_id_exists", "user_id_missing"]}}
+        }
+      }
+    }
+  }
+}

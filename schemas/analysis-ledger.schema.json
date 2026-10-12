@@ -1,0 +1,75 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "analysis-ledger.schema.json",
+  "title": "Development analysis candidate ledger and per-run summary",
+  "oneOf": [{"$ref": "#/$defs/candidate"}, {"$ref": "#/$defs/run"}],
+  "$defs": {
+    "context": {
+      "type": "object", "additionalProperties": false,
+      "required": ["experiment_id", "run_id", "attempt_id", "candidate_id", "scenario_id", "replicate", "condition_id", "source", "rag_mode"],
+      "properties": {
+        "experiment_id": {"type": "string", "minLength": 1},
+        "run_id": {"type": "string", "minLength": 1},
+        "attempt_id": {"type": "string", "minLength": 1},
+        "candidate_id": {"type": "string", "minLength": 1},
+        "scenario_id": {"enum": ["S1", "S2", "S3", "S4", "S5", "S6", "S7", "S8", "S9", "S10", "S11", "S12"]},
+        "replicate": {"type": "integer", "minimum": 1, "maximum": 3},
+        "condition_id": {"enum": ["A", "B", "C"]},
+        "source": {"enum": ["LLM", "SecLists"]},
+        "rag_mode": {"enum": ["off", "on", "not_applicable"]}
+      }
+    },
+    "candidate": {
+      "type": "object", "additionalProperties": false,
+      "required": ["schema_version", "record_type", "scope", "context", "evidence", "analysis_status", "model_output", "system_claim", "rule_signal", "claim_supported", "unknown_evidence_refs", "analysis_warnings", "human_validation", "audit"],
+      "properties": {
+        "schema_version": {"const": "1.0.0"},
+        "record_type": {"const": "candidate_analysis"},
+        "scope": {"const": "development-analysis-contract"},
+        "context": {"$ref": "#/$defs/context"},
+        "evidence": {"$ref": "qwen-analysis-input.schema.json"},
+        "analysis_status": {"enum": ["completed", "runtime_invalid", "analysis_error", "invalid_evidence_reference"]},
+        "model_output": {"oneOf": [{"type": "null"}, {"$ref": "qwen-analysis-output.schema.json"}]},
+        "system_claim": {"enum": ["positive", "negative", "inconclusive", null]},
+        "rule_signal": {"type": "boolean"},
+        "claim_supported": {"type": ["boolean", "null"]},
+        "unknown_evidence_refs": {"type": "array", "items": {"type": "string"}},
+        "analysis_warnings": {"type": "array", "uniqueItems": true, "items": {"enum": ["decision_reason_code_mismatch"]}},
+        "human_validation": {"const": "pending"},
+        "audit": {
+          "type": "object", "additionalProperties": false,
+          "required": ["input_sha256", "output_sha256", "provenance"],
+          "properties": {
+            "input_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+            "output_sha256": {"type": ["string", "null"], "pattern": "^[0-9a-f]{64}$"},
+            "provenance": {"type": "object"}
+          }
+        }
+      }
+    },
+    "run": {
+      "type": "object", "additionalProperties": false,
+      "required": ["schema_version", "record_type", "scope", "context", "expected_budget", "candidate_count", "valid_executed_count", "analysis_completed_count", "system_positive_count", "inconclusive_count", "unsupported_claim_count", "budget_complete", "system_decision", "run_status", "psr_success_count", "psr", "human_validation", "candidate_record_sha256"],
+      "properties": {
+        "schema_version": {"const": "1.0.0"},
+        "record_type": {"const": "run_analysis_summary"},
+        "scope": {"const": "development-analysis-contract"},
+        "context": {"$ref": "#/$defs/context"},
+        "expected_budget": {"type": "integer", "minimum": 1, "maximum": 10},
+        "candidate_count": {"type": "integer", "minimum": 1},
+        "valid_executed_count": {"type": "integer", "minimum": 0},
+        "analysis_completed_count": {"type": "integer", "minimum": 0},
+        "system_positive_count": {"type": "integer", "minimum": 0},
+        "inconclusive_count": {"type": "integer", "minimum": 0},
+        "unsupported_claim_count": {"type": "integer", "minimum": 0},
+        "budget_complete": {"type": "boolean"},
+        "system_decision": {"enum": ["positive", "negative", "inconclusive", "not_evaluable"]},
+        "run_status": {"enum": ["complete", "incomplete", "inconclusive"]},
+        "psr_success_count": {"type": "null"},
+        "psr": {"type": "null"},
+        "human_validation": {"const": "pending"},
+        "candidate_record_sha256": {"type": "array", "uniqueItems": true, "items": {"type": "string", "pattern": "^[0-9a-f]{64}$"}}
+      }
+    }
+  }
+}

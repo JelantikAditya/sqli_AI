@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "qwen-analysis-output.schema.json",
+  "title": "Qwen claim and evidence references, without evaluator labels",
+  "type": "object", "additionalProperties": false,
+  "required": ["decision", "reason_code", "reason", "evidence_refs", "feedback_action"],
+  "properties": {
+    "decision": {"enum": ["positive", "negative", "inconclusive"]},
+    "reason_code": {"enum": ["new_database_diagnostic", "no_new_database_diagnostic", "boolean_difference", "no_boolean_difference", "matched_delay", "no_matched_delay", "insufficient_evidence"]},
+    "reason": {"type": "string", "minLength": 1, "maxLength": 600},
+    "evidence_refs": {"type": "array", "uniqueItems": true, "maxItems": 40, "items": {"type": "string", "pattern": "^obs-[0-9]{3}$"}},
+    "feedback_action": {"enum": ["none", "revise_candidate", "collect_more_evidence"]}
+  },
+  "allOf": [{
+    "if": {"properties": {"decision": {"enum": ["positive", "negative"]}}},
+    "then": {"properties": {"evidence_refs": {"minItems": 1}}}
+  }]
+}

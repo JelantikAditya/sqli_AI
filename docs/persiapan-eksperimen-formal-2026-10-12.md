@@ -53,7 +53,11 @@ berbeda. Tidak perlu memilih setting berdasarkan kondisi mana yang unggul.
 
 ## T02. Implementasi analisis respons Qwen dan loop adaptif
 
-Status awal: generator dan executor tersedia; analisis/feedback belum ada.
+Status 12 Oktober: analisis Qwen dan runner adaptif tersedia. Pilot model nyata
+RAG-off dan RAG-on sudah berjalan berpasangan pada S1 Low, dua kandidat per
+kondisi dengan tiga konfirmasi per kandidat. Keduanya masih incomplete pada
+2/10 kandidat dan bukan eksperimen formal. Bukti tersanitasi:
+[adaptive-s1-pilot-2026-10-12.json](evidence/adaptive-s1-pilot-2026-10-12.json).
 Dependensi: kontrak evaluasi awal T01.
 
 - Susun evidence respons yang disanitasi: baseline, diagnostik SQL, marker
@@ -73,10 +77,18 @@ Dependensi: kontrak evaluasi awal T01.
 Keluaran yang diusulkan: analyze_response.py dan adaptive_validation_loop.py,
 atau modul setara yang terintegrasi dengan kode saat ini.
 
-Selesai jika pilot S1 model nyata membuktikan alur discovery -> generasi ->
-eksekusi -> analisis. Jalur kegagalan -> feedback -> kandidat berikutnya harus
-terbukti melalui kasus uji, tanpa mengganti kandidat secara manual. Bukti
-runtime dan test kontrol yang diperlukan dicatat terpisah.
+Kriteria implementasi T02 terpenuhi untuk S1 error-based: pilot nyata
+membuktikan alur discovery -> generasi -> eksekusi -> analisis pada kedua mode.
+Di RAG-off, kandidat gagal dianalisis negative dan evidence-nya masuk ke prompt
+generasi kandidat berikutnya, yang kemudian memperoleh diagnostik baru pada
+3/3 konfirmasi. Di RAG-on, kandidat awal positive tetap diikuti kandidat kedua
+sesuai fixed budget. Semua 51 unit test lulus.
+
+T02 belum memberi data metrik formal: tiap kondisi baru menjalankan 2 dari 10
+kandidat dan summary berstatus incomplete. Review manusia masih pending.
+Konfirmasi sesi dan level sudah diperiksa, tetapi reset database sebelum tiap
+condition-run, pemulihan runtime, serta alur semua teknik/level masih menjadi
+pekerjaan T03 dan T07.
 
 ## T03. Lengkapi konfirmasi dan kontrol eksekusi
 

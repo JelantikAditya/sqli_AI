@@ -1,0 +1,90 @@
+{
+  "date": "2026-10-12",
+  "scope": "Qwen response-analysis contract smoke using saved S1 evidence, not formal FPR/PSR. No new DVWA requests.",
+  "prompt_version": "sqli-response-analysis-v3",
+  "source_evidence_sha256": "cd5f090fa68c9325eab980a41a1d273ac381e9d42c13941d78534c3c0beaeb46",
+  "analysis_rag_policy": "no-retrieval-in-either-condition",
+  "development_results": {
+    "off": {
+      "local_artifact": "qwen-analysis-off-20261012T082602Z-58990d.json",
+      "artifact_sha256": "bb4182d19fcecc01813b40cac12b8bf71ed92d757e3d1e541c1d87d15b127dc2",
+      "model": "qwen2.5:7b",
+      "analysis_status": "completed",
+      "decision": "negative",
+      "reason_code": "no_new_database_diagnostic",
+      "evidence_refs": [
+        "obs-001",
+        "obs-002"
+      ],
+      "rule_signal": false,
+      "claim_supported": null,
+      "analysis_warnings": [],
+      "feedback_action": "revise_candidate",
+      "run_status": "incomplete",
+      "candidate_count": 1,
+      "expected_budget": 10,
+      "psr": null,
+      "runtime_metrics": {
+        "done": true,
+        "done_reason": "stop",
+        "prompt_eval_count": 567,
+        "eval_count": 132,
+        "total_duration": 14578089000
+      }
+    },
+    "on": {
+      "local_artifact": "qwen-analysis-on-20261012T082903Z-0c3065.json",
+      "artifact_sha256": "247bea5ecea1e79692a44eb8183e26a99288cb3827a00606b620ff0049c196b8",
+      "model": "qwen2.5:7b",
+      "analysis_status": "completed",
+      "decision": "positive",
+      "reason_code": "new_database_diagnostic",
+      "evidence_refs": [
+        "obs-001",
+        "obs-002"
+      ],
+      "rule_signal": true,
+      "claim_supported": true,
+      "analysis_warnings": [],
+      "feedback_action": "revise_candidate",
+      "run_status": "incomplete",
+      "candidate_count": 1,
+      "expected_budget": 10,
+      "psr": null,
+      "runtime_metrics": {
+        "done": true,
+        "done_reason": "stop",
+        "prompt_eval_count": 573,
+        "eval_count": 112,
+        "total_duration": 12102646400
+      }
+    }
+  },
+  "formal_evaluation_executed": false,
+  "new_dvwa_requests_sent": false,
+  "human_validation": "pending",
+  "pending": [
+    "Live executor integration and complete confirmation policy",
+    "Bounded feedback and candidate regeneration",
+    "Complete 10-candidate runs and three independent replications",
+    "Human validation and formal per-run metrics"
+  ],
+  "review_notes": [
+    "Final replay labels and evidence references matched saved observations. Free-text reasons still require human review; the off explanation incorrectly treats HTTP 200 as evidence of no SQL error. Earlier development prompt outputs were retained locally and are excluded from the final pair."
+  ],
+  "analysis_options": {
+    "temperature": 0,
+    "seed": 42,
+    "num_ctx": 4096,
+    "num_predict": 768
+  },
+  "checks": {
+    "unit_tests_passed": 46,
+    "python_syntax_files_passed": 27,
+    "final_candidate_records_schema_valid": 2,
+    "final_run_summaries_schema_valid": 2,
+    "source_hash_matches_prior_evidence": true,
+    "analysis_options_equal": true,
+    "normalized_records_recomputed_match": true
+  }
+}
