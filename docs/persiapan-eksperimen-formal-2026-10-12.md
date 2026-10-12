@@ -213,10 +213,26 @@ mengonfirmasi endpoint login DVWA dan Ollama memberi HTTP 200 serta koleksi
 Chroma berisi 9 dari 9 chunk. Buktinya ada di
 `docs/evidence/t05-orchestrator-dry-run-2026-10-12.json`.
 
-Live subset DVWA belum dijalankan. T05 selesai setelah satu subset pilot nyata
-berjalan dan resume diperiksa; langkah itu memerlukan report discovery lokal,
-Qwen/Chroma aktif, sumber SecLists bila kondisi C dipilih, serta izin reset
-database sampel.
+Pilot live lokal selesai untuk A/B, S1 Low, replikasi 1, seed 42, dengan 10
+kandidat dan 3 konfirmasi per kandidat. Setiap kondisi memakai report discovery
+yang sama dan mereset database sampel DVWA sesuai persetujuan peneliti. A
+mencatat 0 dari 30 sinyal diagnostik; B mencatat 18 dari 30. Pada tingkat
+kandidat, A memiliki 10 kandidat dengan 0/3 sinyal; B memiliki 6 kandidat
+dengan 3/3 sinyal dan 4 kandidat dengan 0/3. Pilot ini tidak memuat kandidat
+dengan hasil campuran. Hitungan tersebut adalah sinyal sistem mentah, bukan
+PSR/FPR final atau keputusan validator.
+
+Pemeriksaan resume sesudah eksekusi selesai sebagai no-op: ledger tetap
+memuat 7 event, dua attempt selesai, dan tidak ada attempt terputus yang
+dipulihkan atau run tambahan. Flag `metric_eligible` runner hanya menandakan
+budget kandidat lengkap. Validasi manusia masih pending; PSR/FPR formal belum
+dihitung. Satu replikasi S1 ini juga belum memenuhi jumlah replikasi formal.
+Bukti tersanitasi, termasuk hash log, ada di
+`docs/evidence/t05-ab-s1-live-pilot-2026-10-12.json`; log mentah tetap berada
+di direktori lokal yang diabaikan Git.
+
+- [x] Jalankan satu subset pilot live A/B di DVWA lokal dengan reset database
+  yang disetujui, lalu periksa resume setelah eksekusi.
 
 ## T06. Siapkan human validation dan agregasi metrik
 

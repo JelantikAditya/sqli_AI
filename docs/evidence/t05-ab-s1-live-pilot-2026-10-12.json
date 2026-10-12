@@ -1,0 +1,105 @@
+{
+  "schema_version": "1.0.0",
+  "evidence_id": "t05-ab-s1-live-pilot-2026-10-12",
+  "scope": "development-pilot-not-formal",
+  "recorded_at_utc": "2026-10-12T12:02:19Z",
+  "experiment_id": "t05-s1-ab-r1-final2",
+  "dataset": "pilot",
+  "execution_environment": "local-dvwa",
+  "model": "qwen2.5:7b",
+  "scenario_id": "S1",
+  "security_level": "low",
+  "technique": "error-based",
+  "replicate": 1,
+  "seed": 42,
+  "candidate_budget_per_condition": 10,
+  "confirmations_per_candidate": 3,
+  "shared_discovery_report": "results/zap/zap-discovery-low-20261011-180846.normalized.json",
+  "shared_discovery_sha256": "336e7e747e78a405ef43a00fde99ecea9f9f2f38e3ee5813c22e5c352fe13bdf",
+  "conditions": [
+    {
+      "condition_id": "A",
+      "rag_mode": "off",
+      "run_id": "run-e26465afb0664614",
+      "attempt_id": "attempt-1-366aca3a05",
+      "generated_candidates": 10,
+      "unique_candidates": 10,
+      "duplicate_candidates": 0,
+      "candidate_generation_failures": 0,
+      "payload_records": 30,
+      "decision_records": 30,
+      "system_positive_signals": 0,
+      "positive_confirmation_histogram": {
+        "0": 10,
+        "1": 0,
+        "2": 0,
+        "3": 0
+      },
+      "logical_probe_submissions": 60,
+      "http_request_calls": 156,
+      "database_reset_performed": true,
+      "budget_complete": true,
+      "runner_metric_eligible_flag": true,
+      "human_validation": "pending",
+      "formal_psr_fpr_computed": false,
+      "validation_log_sha256": "6a0547bc9a1ad0f906390e4475e35b5952f2a58ac19ca1111ddcd38504aaf4ac",
+      "generation_audit_sha256": "a91007bee8f491ba2348dd1536e648ed5b4b97d2a7c4c15469cc077318178bb2"
+    },
+    {
+      "condition_id": "B",
+      "rag_mode": "on",
+      "run_id": "run-f6c5c952bdad4b80",
+      "attempt_id": "attempt-1-e59290bf0e",
+      "generated_candidates": 10,
+      "unique_candidates": 10,
+      "duplicate_candidates": 0,
+      "candidate_generation_failures": 0,
+      "payload_records": 30,
+      "decision_records": 30,
+      "system_positive_signals": 18,
+      "positive_confirmation_histogram": {
+        "0": 4,
+        "1": 0,
+        "2": 0,
+        "3": 6
+      },
+      "logical_probe_submissions": 60,
+      "http_request_calls": 156,
+      "database_reset_performed": true,
+      "budget_complete": true,
+      "runner_metric_eligible_flag": true,
+      "human_validation": "pending",
+      "formal_psr_fpr_computed": false,
+      "validation_log_sha256": "91f103f5f5eea50905c45df8bda39ae397eb06fb29b054aa2c6a3e2e2e461b95",
+      "generation_audit_sha256": "05869247aefa382b8e8d9fbf448268c91c73c5755457beaa6d45462d3704c4cc"
+    }
+  ],
+  "resume_verification": {
+    "rerun_after_execution": true,
+    "result": "no-op",
+    "ledger_event_count_after_resume": 7,
+    "attempt_started_events": 2,
+    "attempt_completed_events": 2,
+    "invalid_events": 0,
+    "recovered_interrupted_attempts": 0,
+    "additional_attempts_created": 0,
+    "additional_database_resets": 0
+  },
+  "database_resets_total": 2,
+  "automated_test_suite": {
+    "passed": 69,
+    "failed": 0
+  },
+  "metric_interpretation": {
+    "system_signal": "A per-confirmation rule output based on a new SQL database diagnostic in the response.",
+    "runner_metric_eligible_flag": "Indicates the configured candidate budget completed; it does not mean human validation or formal metric calculation is complete.",
+    "final_psr_fpr": "Not computed. Human validation is pending, this pilot covers only one positive scenario and one replicate, and FPR requires negative ground-truth scenarios.",
+    "mixed_confirmation_policy": "No candidate had 1/3 or 2/3 positive signals in this pilot. The protocol must still define mixed outcomes before formal data collection."
+  },
+  "limitations": [
+    "This is one S1 Low pilot replicate for conditions A and B, not formal experiment data.",
+    "The 18 positive records in condition B are system signals and are not final validator-approved findings or a PSR value.",
+    "The two DVWA sample database resets were performed as authorized before the respective conditions.",
+    "Raw payloads, request and response bodies, cookies, credentials, and local absolute paths are omitted. Full run logs remain in the Git-ignored results/raw directory."
+  ]
+}
