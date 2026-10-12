@@ -152,7 +152,7 @@ class ZapInputInventoryTests(unittest.TestCase):
         (ROOT / "tmp").mkdir(exist_ok=True)
         with tempfile.TemporaryDirectory(dir=ROOT / "tmp") as temp:
             path = Path(temp) / "protocol.json"
-            for change in ("stop", "seed", "freeze", "unit", "temperature"):
+            for change in ("stop", "seed", "freeze", "unit", "temperature", "aggregation", "stddev", "vote", "incomplete"):
                 p = copy.deepcopy(load_protocol())
                 if change == "stop":
                     p["generation"]["stop_on_success"] = True
@@ -162,8 +162,16 @@ class ZapInputInventoryTests(unittest.TestCase):
                     p["status"] = "frozen"
                 elif change == "unit":
                     p["metrics"]["fpr_unit"] = "http-request"
-                else:
+                elif change == "temperature":
                     p["generation"]["temperature"] = float("inf")
+                elif change == "aggregation":
+                    p["metrics"]["aggregation"] = "pooled-runs"
+                elif change == "stddev":
+                    p["metrics"]["stddev_ddof"] = 0
+                elif change == "vote":
+                    p["metrics"]["cross_run_success_vote"] = "all-three"
+                else:
+                    p["metrics"]["primary_summary_requires_complete_replicates"] = False
                 path.write_text(json.dumps(p))
                 with self.assertRaises(ValueError, msg=change):
                     load_protocol(path)

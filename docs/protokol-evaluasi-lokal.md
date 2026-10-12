@@ -41,8 +41,16 @@ hasilnya merupakan versi pengembangan baru.
 
 ## Bukti keberhasilan
 
-- Error: diagnostik SQL baru dan dapat direproduksi terhadap baseline. Definisi
-  ini adalah keberhasilan probe diagnostik; jangan menyimpulkan ekstraksi data.
+- Error: indikator yang dipilih peneliti pada 12 Oktober adalah pesan eror
+  diagnostik basis data yang eksplisit pada respons server, misalnya pesan
+  sintaks MySQL `You have an error in your SQL syntax...`. Bandingkan dengan
+  baseline normal untuk memastikan diagnostik baru berkaitan dengan input yang
+  diuji. HTTP 500 umum, halaman login, atau kegagalan koneksi tidak memenuhi
+  indikator ini. Keberhasilan yang diukur adalah probe diagnostik SQLi;
+  ekstraksi data atau marker konstan bukan syarat indikator yang dipilih.
+  Protokol tetap menetapkan tiga konfirmasi per kandidat. Aturan agregasi
+  hasil konfirmasi yang bercampur belum difinalisasi. Rincian keputusan ada
+  di `keputusan-indikator-error-based-2026-10-12.md`.
 - Boolean: pasangan true/false dengan indikator konten yang berlawanan dan
   konsisten pada input yang sama.
 - Timing: matched no-delay control, tiga konfirmasi, dan delta minimal 1500 ms;
@@ -53,6 +61,12 @@ timing pada protokol ini. Implementasi itu merupakan pekerjaan tahap loop
 adaptif; smoke S1 satu replikasi tidak memenuhi protokol formal.
 
 ## Metrik dan review
+
+Peneliti memilih **per-run averaging** pada 12 Oktober. Hitung metrik secara
+terpisah untuk replikasi 1, 2, dan 3, kemudian laporkan mean aritmetika dan
+standar deviasi sampel (ddof=1). Tidak ada voting 3/3 atau majority vote
+antar-run untuk mengganti hasil masing-masing run. Rincian ada di
+`keputusan-agregasi-per-run-2026-10-12.md`.
 
 FPR memakai satu keputusan sistem per skenario-kondisi-pengulangan.
 Simpan prediksi sebelum review. Klaim kerentanan pada ground truth negatif

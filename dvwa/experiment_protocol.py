@@ -54,6 +54,13 @@ def load_protocol(path=DEFAULT_PROTOCOL):
         raise ValueError("Metric units do not match the protocol.")
     if not protocol["metrics"]["retain_system_prediction_before_review"] or protocol["metrics"]["zero_denominator"] != "undefined":
         raise ValueError("Do not filter system predictions or replace undefined metrics with zero.")
+    metrics = protocol["metrics"]
+    # Preserve independent run outcomes instead of voting across replications.
+    if (metrics.get("aggregation") != "per-run-arithmetic-mean"
+            or type(metrics.get("stddev_ddof")) is not int or metrics["stddev_ddof"] != 1
+            or metrics.get("cross_run_success_vote") != "none"
+            or metrics.get("primary_summary_requires_complete_replicates") is not True):
+        raise ValueError("Use per-run means, sample standard deviations, no cross-run voting, and complete replicates.")
     if protocol["status"] == "frozen" and (protocol["review"]["corpus_researcher_review"] == "pending" or protocol["review"]["independent_validator"] == "pending"):
         raise ValueError("A frozen protocol requires recorded corpus and validator decisions.")
     return protocol
