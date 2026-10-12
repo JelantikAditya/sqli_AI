@@ -8,7 +8,8 @@ diikat ke `127.0.0.1:4280`; jangan arahkan pemindaian ke target lain.
 Kontrak analisis respons Qwen dan CLI replay evidence tersedia pada
 [panduan analisis](../docs/qwen-response-analysis-contract.md).
 `analyze_response.py` menganalisis evidence tersimpan tanpa request baru
-ke DVWA; integrasi executor dan regenerasi tetap merupakan tahap berikutnya.
+ke DVWA. Runner adaptif S1 menghubungkan executor, analisis Qwen, dan feedback
+regenerasi untuk pilot pengembangan.
 
 ```powershell
 docker compose -f dvwa/compose.yaml up -d
@@ -24,6 +25,13 @@ sebelum setiap rangkaian pengujian. Catat level, waktu, endpoint, parameter,
 jenis SQLi, dan ID percobaan pada log eksperimen; jangan simpan cookie mentah.
 Perubahan level berlaku pada
 sesi yang digunakan; pastikan sesi scanner dan validator memakai level yang sama.
+
+Runner lokal menyediakan `--reset-before-run` untuk mengirim form reset setup
+DVWA sebelum login. Reset menghapus isi database sampel dan memulihkan akun
+`admin` / `password`, jadi gunakan flag hanya bila memang ingin menginisialisasi
+ulang lab. Kegagalan jaringan, sesi, level, form, atau baseline menghentikan
+attempt sebagai invalid dan tidak dihitung sebagai FN. Aturan lengkap ada di
+[panduan validation loop](../docs/validation-loop.md).
 
 ## Cek cepat
 
@@ -91,8 +99,9 @@ validasi tiga kali dengan baseline, analisis Qwen, dan feedback ke generasi
 berikutnya. Jalur hanya menerima S1 Low pada DVWA lokal, menyimpan hash
 respons serta diagnostik allowlist, dan membatasi pilot di dua kandidat secara
 default. Setiap run berhenti sebagai incomplete terhadap budget protokol 10;
-ringkasan tersebut tidak boleh dihitung sebagai FPR/PSR formal. Runner belum
-melakukan reset database, sehingga bukti ini hanya untuk pengembangan.
+ringkasan tersebut tidak boleh dihitung sebagai FPR/PSR formal. Reset database
+opt-in tersedia melalui `--reset-before-run`; pilot yang sudah tersanitasi
+dijalankan tanpa reset langsung dan hanya untuk pengembangan.
 
 Perintah berikut mereproduksi pasangan pilot 12 Oktober jika artefak seed
 lokal yang berada di `results/raw/` masih tersedia. Jalankan terpisah untuk

@@ -50,6 +50,12 @@ def load_protocol(path=DEFAULT_PROTOCOL):
         raise ValueError("Serial probes and infrastructure-error separation are required.")
     if validation["confirmations_per_candidate"] != 3 or validation["timing_control"] != "matched-no-delay":
         raise ValueError("Use three confirmations and a matched timing control.")
+    recovery = protocol.get("runtime_recovery", {})
+    if (recovery.get("failure_is_attack_failure") is not False
+            or recovery.get("failed_attempt_policy") != "invalidate-whole-condition-attempt"
+            or recovery.get("automatic_retries") != 0
+            or recovery.get("next_attempt_requires") != "repair-environment-fresh-login-and-database-reset"):
+        raise ValueError("Runtime failures must invalidate an attempt without automatic retry or attack-failure scoring.")
     if protocol["metrics"]["fpr_unit"] != "scenario-condition-replicate" or protocol["metrics"]["psr_unit"] != "logical-candidate":
         raise ValueError("Metric units do not match the protocol.")
     if not protocol["metrics"]["retain_system_prediction_before_review"] or protocol["metrics"]["zero_denominator"] != "undefined":

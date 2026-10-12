@@ -19,6 +19,7 @@
       }
     },
     "runtime_status": {"enum": ["valid", "invalid"]},
+    "runtime_failure_code": {"enum": ["network_error", "database_reset_failed", "setup_form_invalid", "login_failed", "session_invalid", "security_level_mismatch", "probe_form_invalid", "baseline_invalid"]},
     "baseline_valid": {"type": "boolean"},
     "time_threshold_ms": {"type": "number", "exclusiveMinimum": 0},
     "observations": {

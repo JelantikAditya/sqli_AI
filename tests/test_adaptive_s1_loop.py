@@ -142,6 +142,33 @@ class AdaptiveS1LoopTests(unittest.TestCase):
             with self.subTest(value=value), self.assertRaises(ValueError):
                 validate_payload(value)
 
+    def test_runtime_failure_stops_pilot_without_attack_failure_decision(self):
+        calls = []
+
+        def invalid_observation(payload, confirmations):
+            calls.append(payload)
+            evidence = self.evidence(payload)
+            evidence["runtime_status"] = "invalid"
+            evidence["baseline_valid"] = False
+            evidence["runtime_failure_code"] = "network_error"
+            return evidence
+
+        result = run_loop(
+            self.context,
+            lambda previous, attempted: ("1'", {"status": "generated"}),
+            invalid_observation,
+            lambda evidence, context: normalize_analysis(evidence, None, context),
+            slot_limit=2,
+        )
+
+        self.assertEqual(calls, ["1'"])
+        self.assertEqual(result["stop_reason"], "runtime_invalid")
+        self.assertEqual(result["runtime_failure_code"], "network_error")
+        self.assertIsNone(result["candidate_records"][0]["system_claim"])
+        self.assertEqual(result["run_summary"]["system_decision"], "not_evaluable")
+        failure_events = [event for event in result["events"] if event["kind"] == "runtime_failure"]
+        self.assertEqual(failure_events[0]["data"]["attack_failure"], False)
+
 
 if __name__ == "__main__":
     unittest.main()

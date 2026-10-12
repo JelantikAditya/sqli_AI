@@ -2,10 +2,11 @@
 
 ## Status dan batas MVP
 
-Runner ini menerima kandidat dari file JSON, menjalankannya satu skenario per
-run pada DVWA lokal, mengklasifikasikan sinyal black-box, dan menulis JSONL ke
-`results/raw/`. Runner tidak terhubung ke Qwen, RAG, atau SecLists secara
-langsung; format input disiapkan agar provider tersebut dapat ditambahkan.
+`validation_loop.py` menerima kandidat dari file JSON, menjalankan satu skenario
+per run pada DVWA lokal, mengklasifikasikan sinyal black-box, dan menulis JSONL
+ke `results/raw/`. Runner file ini terpisah dari `adaptive_s1_loop.py`, yang
+menghubungkan Qwen dan feedback untuk pengembangan S1 Low. SecLists disiapkan
+melalui adapter provenance dan memakai executor yang sama.
 
 Target dikunci pada loopback port `4280`. Runner memverifikasi login dan level
 DVWA pada sesi yang sama sebelum mengirim kandidat. Batas default adalah 10
@@ -23,7 +24,8 @@ HTTP response, cookie, token, serta rahasia lain tidak disimpan di log.
 4. Mengirim kandidat sesuai mekanisme endpoint. Pada High, runner mengirim ke
    helper input dahulu, lalu membaca halaman modul SQLi.
 5. Mendeteksi error SQL baru, pasangan boolean `User ID exists`/`User ID is
-   MISSING`, atau delta waktu minimal 1.500 ms terhadap baseline.
+   MISSING`, atau delta waktu minimal 1.500 ms terhadap kontrol benign `id=1`
+   yang dikirim berpasangan dengan kandidat.
 6. Menulis satu baris JSONL per payload yang dikirim dan satu baris keputusan
    per kandidat/replikasi. Keputusan manusia selalu dimulai sebagai `pending`.
 
@@ -35,6 +37,14 @@ payload pada setiap replikasi.
 Label `TP`, `FP`, `TN`, atau `FN` pada log adalah klasifikasi sementara dari
 sinyal otomatis terhadap label skenario. FPR/PSR final tetap memerlukan review
 bukti dan persetujuan validator manusia sesuai protokol penelitian.
+
+Kegagalan jaringan, login, sesi, level, form, reset, atau baseline dicatat
+sebagai `runtime_failure`, menghentikan attempt, dan tidak diklasifikasikan
+sebagai kegagalan payload. Protokol menetapkan invalidasi seluruh
+condition-attempt, tanpa retry otomatis. Perbaiki lingkungan, mulai attempt
+baru dengan login baru, dan reset database sebelum mengulang condition-run.
+Data keputusan yang sempat tercatat pada attempt invalid tetap tersimpan untuk
+audit dan tidak boleh masuk metrik.
 
 ## Menyiapkan file kandidat
 
@@ -64,6 +74,13 @@ python dvwa/validation_loop.py `
   --payload-file dvwa/validation_payloads.local.json `
   --confirm-local-dvwa
 ```
+
+Untuk me-reset database sampel sebelum login, tambahkan `--reset-before-run`.
+Perintah ini menghapus data pada database DVWA dan memulihkan akun sampel
+`admin` / `password`. Runner hanya mengirim POST setelah memeriksa form setup
+lokal, token CSRF, metode POST, action, dan marker sukses. Flag tersebut
+opt-in dan jangan digunakan jika database lokal berisi data yang perlu
+dipertahankan.
 
 Gunakan satu file kandidat yang hanya berisi skenario yang dipilih. Replikasi
 default adalah tiga dan dapat diturunkan untuk pemeriksaan protokol dengan

@@ -92,7 +92,15 @@ pekerjaan T03 dan T07.
 
 ## T03. Lengkapi konfirmasi dan kontrol eksekusi
 
-Status awal: aturan awal tersedia; protokol kontrol belum diterapkan lengkap.
+Status 12 Oktober: kontrol runtime, baseline, dan kontrol timing sudah diterapkan
+pada runner lokal; seluruh 59 unit test lulus. Smoke run nyata S1 Low tanpa reset
+memverifikasi sesi, baseline, tiga konfirmasi, dan analisis Qwen. Satu kandidat
+tereksekusi dari budget 10, sehingga run incomplete dan bukan hasil formal.
+Ringkasan tersanitasi ada di
+[evidence T03](evidence/t03-runtime-smoke-2026-10-12.json). Reset database
+tersedia sebagai opsi eksplisit dan tidak dijalankan karena endpoint tersebut
+menghapus isi database sampel. Pengujian reset menggunakan mock HTTP lokal
+dalam unit test, bukan POST ke DVWA.
 Dependensi: dapat dibangun setelah kontrak T01, lalu diintegrasikan dengan T02.
 
 - Error: baseline normal dan tiga konfirmasi diagnostik baru.
@@ -108,6 +116,22 @@ Dependensi: dapat dibangun setelah kontrak T01, lalu diintegrasikan dengan T02.
   yang ditolak aplikasi tetap dapat dinilai sebagai kandidat gagal.
 - Tentukan batas pemulihan. Jika state tidak dapat dijamin, invalidasi attempt
   dan ulangi condition-run dari reset, dengan log attempt lama tetap tersimpan.
+
+Implementasi saat ini memverifikasi sesi dan level sebelum replikasi, memeriksa
+baseline benign sebelum kandidat, dan memakai kontrol benign `id=1` yang cocok
+untuk mengukur kandidat time-based. Login, jaringan, form, level, dan baseline
+memiliki kode kegagalan runtime terstruktur. Kegagalan menghentikan attempt,
+ditandai `attack_failure: false`, dan tidak memicu retry otomatis. Attempt
+berikutnya perlu lingkungan diperbaiki, login baru, serta reset database.
+Reset hanya dapat diminta dengan `--reset-before-run`; setelah reset, runner
+menggunakan akun DVWA bawaan `admin` / `password`. Opsi ini menghapus data
+database sampel.
+
+Yang masih perlu: validasi kontrol reset secara end-to-end pada database DVWA
+yang memang boleh diinisialisasi ulang, validasi High/Impossible dan token/helper,
+serta integrasi pemulihan attempt pada orchestrator T05. Implementasi sekarang
+siap untuk smoke pengembangan S1 Low, tetapi belum menjadi gate formal seluruh
+matriks.
 
 Keluaran: executor terintegrasi dan aturan invalid/retry eksplisit.
 

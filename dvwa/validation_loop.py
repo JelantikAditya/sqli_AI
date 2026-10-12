@@ -22,16 +22,9 @@ ROOT = Path(__file__).resolve().parent.parent
 SCENARIOS_PATH = Path(__file__).with_name("experiment_scenarios.json")
 PAYLOAD_SCHEMA_VERSION = "1.0.0"
 ERROR_PATTERNS = {
-    "sql_syntax": re.compile(
-        r"you have an error in your sql syntax|sql syntax.*(mysql|maria)|"
-        r"syntax error.*sql|mysqli_sql_exception|mysql_fetch_(array|assoc|row)",
-        re.IGNORECASE,
-    ),
-    "database_exception": re.compile(
-        r"uncaught (mysqli_sql_exception|pdoexception)|"
-        r"warning:\s*(mysqli|mysql|pdo)_",
-        re.IGNORECASE,
-    ),
+    "mysql_syntax_error": re.compile(r"you have an error in your sql syntax", re.IGNORECASE),
+    "mysql_xpath_error": re.compile(r"xpath syntax error", re.IGNORECASE),
+    "mysql_unknown_column": re.compile(r"unknown column", re.IGNORECASE),
 }
 EXISTS_MARKER = "user id exists"
 MISSING_MARKER = "user id is missing"
@@ -59,6 +52,44 @@ class FormParser(HTMLParser):
     def handle_endtag(self, tag: str) -> None:
         if tag.lower() == "option":
             self._current_option = None
+
+
+class SetupFormParser(HTMLParser):
+    """Collect only form controls needed for DVWA's local setup action."""
+
+    def __init__(self) -> None:
+        super().__init__(convert_charrefs=True)
+        self.forms: list[dict] = []
+        self.current: dict | None = None
+
+    def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
+        attributes = dict(attrs)
+        if tag.lower() == "form":
+            self.current = {"method": (attributes.get("method") or "GET").upper(),
+                            "action": attributes.get("action") or "", "controls": {}}
+            self.forms.append(self.current)
+        elif tag.lower() == "input" and self.current is not None:
+            name = attributes.get("name")
+            if name:
+                self.current["controls"][name] = {"type": (attributes.get("type") or "text").lower(),
+                                                  "value": attributes.get("value") or ""}
+
+    def handle_endtag(self, tag: str) -> None:
+        if tag.lower() == "form":
+            self.current = None
+
+
+class LocalRuntimeFailure(RuntimeError):
+    """A lab/session/control failure that must not be scored as a payload miss."""
+
+    CODES = {"network_error", "database_reset_failed", "setup_form_invalid", "login_failed",
+             "session_invalid", "security_level_mismatch", "probe_form_invalid", "baseline_invalid"}
+
+    def __init__(self, code: str) -> None:
+        if code not in self.CODES:
+            raise ValueError("Unknown local runtime failure code.")
+        self.code = code
+        super().__init__(code)
 
 
 def load_json(path: Path) -> dict:
@@ -131,6 +162,7 @@ class DvwaClient:
         require_local_target(origin)
         self.origin = origin.rstrip("/")
         self.timeout = timeout
+        self.database_reset_done = False
         cookie_jar = http.cookiejar.CookieJar()
         self.opener = urllib.request.build_opener(
             urllib.request.ProxyHandler({}),
@@ -173,8 +205,7 @@ class DvwaClient:
             body = error.read().decode("utf-8", "replace")
             status = error.code
         except (urllib.error.URLError, TimeoutError, OSError) as error:
-            reason = getattr(error, "reason", error)
-            raise RuntimeError(f"Local DVWA request failed: {reason}") from error
+            raise LocalRuntimeFailure("network_error") from error
 
         elapsed_ms = (time.perf_counter() - started) * 1000
         return {
@@ -192,8 +223,8 @@ class DvwaClient:
     ) -> None:
         login_page = self.get_form("/login.php")
         token = form_data(login_page["body"]).get("user_token")
-        if not token:
-            raise RuntimeError("DVWA login CSRF token was not found.")
+        if login_page["status"] != 200 or not token:
+            raise LocalRuntimeFailure("login_failed")
 
         login = self.request(
             "POST",
@@ -205,13 +236,13 @@ class DvwaClient:
                 "user_token": token,
             },
         )
-        if "logout" not in login["body"].lower():
-            raise RuntimeError("DVWA login was not confirmed in the same session.")
+        if login["status"] != 200 or "logout" not in login["body"].lower():
+            raise LocalRuntimeFailure("login_failed")
 
         security_page = self.get_form("/security.php")
         token = form_data(security_page["body"]).get("user_token")
-        if not token:
-            raise RuntimeError("DVWA security form CSRF token was not found.")
+        if security_page["status"] != 200 or "logout" not in security_page["body"].lower() or not token:
+            raise LocalRuntimeFailure("session_invalid")
 
         updated = self.request(
             "POST",
@@ -223,10 +254,58 @@ class DvwaClient:
             },
         )
         selected = selected_security_level(updated["body"])
+        if updated["status"] != 200 or "logout" not in updated["body"].lower():
+            raise LocalRuntimeFailure("session_invalid")
         if selected != security_level:
-            raise RuntimeError(
-                f"DVWA did not confirm security level {security_level}."
-            )
+            raise LocalRuntimeFailure("security_level_mismatch")
+
+    def reset_database(self) -> dict:
+        """Reset the DVWA sample database through its own CSRF-protected form."""
+        if self.database_reset_done:
+            raise LocalRuntimeFailure("database_reset_failed")
+        page = self.get_form("/setup.php")
+        if page["status"] != 200:
+            raise LocalRuntimeFailure("setup_form_invalid")
+        parser = SetupFormParser()
+        parser.feed(page["body"])
+        matches = []
+        for form in parser.forms:
+            submit = form["controls"].get("create_db")
+            token = form["controls"].get("user_token")
+            action_url = urllib.parse.urljoin(self.origin + "/setup.php", form["action"])
+            try:
+                require_local_target(action_url)
+            except ValueError as exc:
+                raise LocalRuntimeFailure("setup_form_invalid") from exc
+            parsed = urllib.parse.urlsplit(action_url)
+            if (form["method"] == "POST" and parsed.path == "/setup.php" and not parsed.query
+                    and submit and submit["type"] == "submit"
+                    and submit["value"].strip().lower() == "create / reset database"
+                    and token and token["value"]):
+                matches.append((submit["value"], token["value"]))
+        if len(matches) != 1:
+            raise LocalRuntimeFailure("setup_form_invalid")
+        button_value, token_value = matches[0]
+        response = self.request("POST", "/setup.php", {"create_db": button_value,
+                                                         "user_token": token_value})
+        body = response["body"]
+        if (response["status"] != 200 or not re.search(r"database has been created\.", body, re.I)
+                or not re.search(r"setup successful", body, re.I)):
+            raise LocalRuntimeFailure("database_reset_failed")
+        self.database_reset_done = True
+        return {"status": response["status"], "response_sha256": response["body_sha256"],
+                "success_markers_verified": True, "endpoint": "/setup.php"}
+
+    def verify_session_level(self, expected_level: str) -> dict:
+        response = self.get_form("/security.php")
+        body = response["body"].lower()
+        if (response["status"] in {401, 403} or response["status"] != 200
+                or "logout" not in body or re.search(r"\bname\s*=\s*['\"]password['\"]", body)):
+            raise LocalRuntimeFailure("session_invalid")
+        actual_level = selected_security_level(response["body"])
+        if actual_level != expected_level:
+            raise LocalRuntimeFailure("security_level_mismatch")
+        return {"security_level": actual_level, "response_sha256": response["body_sha256"]}
 
     def submit_probe(self, scenario: dict, payload: str) -> dict:
         """Submit one logical payload and return only the final response metadata."""
@@ -236,11 +315,13 @@ class DvwaClient:
 
         # Fetch a fresh form token outside the measured injection request.
         form = self.get_form(input_path)
+        if form["status"] in {401, 403} or re.search(r"\bname\s*=\s*['\"]password['\"]", form["body"], re.I):
+            raise LocalRuntimeFailure("session_invalid")
+        if form["status"] != 200:
+            raise LocalRuntimeFailure("probe_form_invalid")
         token = form_data(form["body"]).get("user_token")
         if scenario["security_level"] == "impossible" and not token:
-            raise RuntimeError(
-                "DVWA Impossible form did not expose the expected user_token."
-            )
+            raise LocalRuntimeFailure("probe_form_invalid")
 
         values = {scenario["parameter"]: payload}
         if token:
@@ -255,6 +336,10 @@ class DvwaClient:
         if input_path != result_path:
             final = self.request("GET", result_path)
             statuses.append(final["status"])
+
+        if (any(status in {401, 403} for status in statuses)
+                or re.search(r"\bname\s*=\s*['\"]password['\"]", final["body"], re.I)):
+            raise LocalRuntimeFailure("session_invalid")
 
         final["elapsed_ms"] = round((time.perf_counter() - started) * 1000, 2)
         final["http_statuses"] = statuses
@@ -389,9 +474,18 @@ def execute_candidate(
     replicate: int,
     threshold_ms: float,
 ) -> bool:
+    client.verify_session_level(scenario["security_level"])
     baseline = client.submit_probe(scenario, "1")
+    baseline_body = baseline["body"].lower()
+    if (baseline["status"] != 200 or sql_error_markers(baseline["body"])
+            or (scenario["probe_kind"] == "single_error" and "first name:" not in baseline_body)
+            or (scenario["probe_kind"] != "single_error"
+                and EXISTS_MARKER not in baseline_body and MISSING_MARKER not in baseline_body)):
+        raise LocalRuntimeFailure("baseline_invalid")
     probe_kind = scenario["probe_kind"]
     evidence: dict = {"probe_kind": probe_kind}
+    control = None
+    comparison_baseline = baseline
 
     if probe_kind in {"single_error", "single_time"}:
         response = client.submit_probe(scenario, candidate["payload"])
@@ -402,16 +496,36 @@ def execute_candidate(
             detected = bool(indicators)
             evidence["new_sql_error_markers"] = indicators
         else:
-            delta = response["elapsed_ms"] - baseline["elapsed_ms"]
+            control = client.submit_probe(scenario, "1")
+            control_body = control["body"].lower()
+            if (control["status"] != 200 or sql_error_markers(control["body"])
+                    or (EXISTS_MARKER not in control_body and MISSING_MARKER not in control_body)):
+                raise LocalRuntimeFailure("baseline_invalid")
+            delta = response["elapsed_ms"] - control["elapsed_ms"]
+            comparison_baseline = control
             detected = delta >= threshold_ms
             indicators = ["time_delta_over_threshold"] if detected else []
             evidence.update(
                 {
                     "time_delta_ms": round(delta, 2),
                     "threshold_ms": threshold_ms,
+                    "matched_control_time_ms": control["elapsed_ms"],
                 }
             )
 
+        if control is not None:
+            emit_payload_record(
+                output,
+                run_id,
+                scenario,
+                candidate,
+                replicate,
+                "baseline",
+                "1",
+                baseline,
+                baseline,
+                [],
+            )
         emit_payload_record(
             output,
             run_id,
@@ -421,9 +535,22 @@ def execute_candidate(
             "single",
             candidate["payload"],
             response,
-            baseline,
+            comparison_baseline,
             indicators,
         )
+        if control is not None:
+            emit_payload_record(
+                output,
+                run_id,
+                scenario,
+                candidate,
+                replicate,
+                "no_delay_control",
+                "1",
+                control,
+                baseline,
+                [],
+            )
     else:
         true_response = client.submit_probe(scenario, candidate["true_payload"])
         false_response = client.submit_probe(scenario, candidate["false_payload"])
@@ -502,6 +629,8 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--scenario", required=True, help="One scenario ID, S1 through S12")
     parser.add_argument("--payload-file", required=True, type=Path)
     parser.add_argument("--repetitions", type=int, default=3)
+    parser.add_argument("--reset-before-run", action="store_true",
+                        help="Reset the local DVWA sample database before login; this clears its data.")
     parser.add_argument("--output", type=Path, help="Optional JSONL path under results/raw")
     parser.add_argument(
         "--confirm-local-dvwa",
@@ -552,24 +681,82 @@ def main() -> None:
         catalog["target"]["default_origin"],
         int(protocol["request_timeout_seconds"]),
     )
-    client.login_and_set_level(username, password, scenario["security_level"])
-
     total_decisions = 0
     positive_signals = 0
     with output_path.open("x", encoding="utf-8", newline="\n") as output:
-        for candidate in candidates:
-            for replicate in range(1, args.repetitions + 1):
-                positive_signals += execute_candidate(
-                    client,
-                    output,
-                    run_id,
-                    scenario,
-                    candidate,
-                    replicate,
-                    float(protocol["time_signal_threshold_ms"]),
-                )
-                total_decisions += 1
-                time.sleep(0.1)
+        reset_receipt = None
+        runtime_failure_logged = False
+        output.write(json.dumps({"record_type": "run_start", "run_id": run_id,
+                                 "scenario_id": scenario["scenario_id"],
+                                 "candidate_count": len(candidates),
+                                 "repetitions_per_candidate": args.repetitions,
+                                 "database_reset_requested": args.reset_before_run,
+                                 "attempt_status": "started",
+                                 "recorded_at_utc": datetime.now(timezone.utc).isoformat()},
+                                ensure_ascii=False) + "\n")
+        output.flush()
+        try:
+            if args.reset_before_run:
+                reset_receipt = client.reset_database()
+                # DVWA restores its documented sample credentials after setup.
+                username, password = "admin", "password"
+            client.login_and_set_level(username, password, scenario["security_level"])
+            output.write(json.dumps({"record_type": "runtime_setup", "run_id": run_id,
+                                     "security_level_verified": scenario["security_level"],
+                                     "database_reset": reset_receipt}, ensure_ascii=False) + "\n")
+            output.flush()
+            for candidate in candidates:
+                for replicate in range(1, args.repetitions + 1):
+                    try:
+                        positive_signals += execute_candidate(
+                            client,
+                            output,
+                            run_id,
+                            scenario,
+                            candidate,
+                            replicate,
+                            float(protocol["time_signal_threshold_ms"]),
+                        )
+                    except LocalRuntimeFailure as failure:
+                        output.write(json.dumps({
+                            "record_type": "runtime_failure", "run_id": run_id,
+                            "scenario_id": scenario["scenario_id"], "candidate_id": candidate["candidate_id"],
+                            "replicate": replicate, "runtime_failure_code": failure.code,
+                            "attack_failure": False, "attempt_status": "invalid",
+                            "recovery_action": "repair_environment_then_start_new_attempt_after_database_reset",
+                            "database_reset_performed": bool(reset_receipt),
+                            "recorded_at_utc": datetime.now(timezone.utc).isoformat(),
+                        }, ensure_ascii=False) + "\n")
+                        output.flush()
+                        runtime_failure_logged = True
+                        raise
+                    total_decisions += 1
+                    time.sleep(0.1)
+            output.write(json.dumps({"record_type": "run_end", "run_id": run_id,
+                                     "attempt_status": "complete",
+                                     "decision_count": total_decisions,
+                                     "positive_signals": positive_signals,
+                                     "database_reset_performed": bool(reset_receipt),
+                                     "recorded_at_utc": datetime.now(timezone.utc).isoformat()},
+                                    ensure_ascii=False) + "\n")
+            output.flush()
+        except LocalRuntimeFailure as failure:
+            if not runtime_failure_logged:
+                output.write(json.dumps({
+                    "record_type": "runtime_failure", "run_id": run_id,
+                    "scenario_id": scenario["scenario_id"], "runtime_failure_code": failure.code,
+                    "attack_failure": False, "attempt_status": "invalid",
+                    "recovery_action": "repair_environment_then_start_new_attempt_after_database_reset",
+                    "database_reset_performed": bool(reset_receipt),
+                    "recorded_at_utc": datetime.now(timezone.utc).isoformat(),
+                }, ensure_ascii=False) + "\n")
+                output.flush()
+                runtime_failure_logged = True
+            print(json.dumps({"run_id": run_id, "scenario_id": scenario["scenario_id"],
+                              "decision_count": total_decisions, "attempt_status": "invalid",
+                              "runtime_failure_code": failure.code, "attack_failure": False,
+                              "database_reset_performed": bool(reset_receipt)}), flush=True)
+            return
 
     print(f"Validation log: {output_path}")
     print(
@@ -581,6 +768,7 @@ def main() -> None:
                 "replicates_per_candidate": args.repetitions,
                 "decision_count": total_decisions,
                 "positive_signals": positive_signals,
+                "database_reset_performed": bool(reset_receipt),
                 "human_validation": "pending",
             },
             ensure_ascii=False,
