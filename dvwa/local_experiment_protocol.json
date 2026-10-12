@@ -16,6 +16,6 @@
   "replication": {"unit": "full-scenario-condition-run", "shared_discovery_for_llm_pair": true, "fresh_login_each_run": true, "reset": "dvwa-setup-http-before-each-condition-run", "discovery_refresh": "each-replicate"},
   "runtime_recovery": {"failure_is_attack_failure": false, "failed_attempt_policy": "invalidate-whole-condition-attempt", "automatic_retries": 0, "next_attempt_requires": "repair-environment-fresh-login-and-database-reset"},
   "metrics": {"fpr_conditions": ["A","B"], "fpr_unit": "scenario-condition-replicate", "psr_conditions": ["B","C"], "psr_unit": "logical-candidate", "boolean_pair_counts_as": 1, "timing_confirmations_count_as": 1, "zero_denominator": "undefined", "retain_system_prediction_before_review": true, "incomplete_budget": "exclude-run-and-report", "aggregation": "per-run-arithmetic-mean", "stddev_ddof": 1, "cross_run_success_vote": "none", "primary_summary_requires_complete_replicates": true},
-  "review": {"corpus_researcher_review": "pending", "independent_validator": "pending", "blind_condition_and_source": true},
+  "review": {"corpus_researcher_review": "approved", "independent_validator": "pending", "blind_condition_and_source": true},
   "formal_gate": ["pilot-all-techniques-and-levels-passed", "researcher-corpus-decision-recorded", "runtime-manifest-frozen", "seclists-version-and-selection-frozen", "validator-protocol-ready", "local-methodology-recorded"]
 }

@@ -163,6 +163,8 @@ class DvwaClient:
         self.origin = origin.rstrip("/")
         self.timeout = timeout
         self.database_reset_done = False
+        self.http_request_calls = 0
+        self.logical_probe_submissions = 0
         cookie_jar = http.cookiejar.CookieJar()
         self.opener = urllib.request.build_opener(
             urllib.request.ProxyHandler({}),
@@ -196,6 +198,7 @@ class DvwaClient:
                 else {}
             ),
         )
+        self.http_request_calls += 1
         started = time.perf_counter()
         try:
             with self.opener.open(request, timeout=self.timeout) as response:
@@ -309,6 +312,7 @@ class DvwaClient:
 
     def submit_probe(self, scenario: dict, payload: str) -> dict:
         """Submit one logical payload and return only the final response metadata."""
+        self.logical_probe_submissions += 1
         method = scenario["method"]
         input_path = scenario["input_path"]
         result_path = scenario["result_path"]
@@ -428,16 +432,24 @@ def emit_payload_record(
     response: dict,
     baseline: dict,
     indicators: list[str],
+    confirmation_index: int = 1,
+    attempt_id: str = "attempt-1",
+    experiment_id: str | None = None,
+    condition_id: str | None = None,
 ) -> None:
     output.write(
         json.dumps(
             {
                 "record_type": "payload",
                 "run_id": run_id,
+                "attempt_id": attempt_id,
+                "experiment_id": experiment_id,
+                "condition_id": condition_id,
                 "candidate_id": candidate["candidate_id"],
-                "payload_id": f"{candidate['candidate_id']}-r{replicate}-{role}",
+                "payload_id": f"{candidate['candidate_id']}-r{replicate}-c{confirmation_index}-{role}",
                 "scenario_id": scenario["scenario_id"],
                 "replicate": replicate,
+                "confirmation_index": confirmation_index,
                 "recorded_at_utc": datetime.now(timezone.utc).isoformat(),
                 "security_level": scenario["security_level"],
                 "sqli_type": scenario["sqli_type"],
@@ -473,6 +485,10 @@ def execute_candidate(
     candidate: dict,
     replicate: int,
     threshold_ms: float,
+    confirmation_index: int = 1,
+    attempt_id: str = "attempt-1",
+    experiment_id: str | None = None,
+    condition_id: str | None = None,
 ) -> bool:
     client.verify_session_level(scenario["security_level"])
     baseline = client.submit_probe(scenario, "1")
@@ -525,6 +541,10 @@ def execute_candidate(
                 baseline,
                 baseline,
                 [],
+                confirmation_index,
+                attempt_id,
+                experiment_id,
+                condition_id,
             )
         emit_payload_record(
             output,
@@ -537,6 +557,10 @@ def execute_candidate(
             response,
             comparison_baseline,
             indicators,
+            confirmation_index,
+            attempt_id,
+            experiment_id,
+            condition_id,
         )
         if control is not None:
             emit_payload_record(
@@ -550,6 +574,10 @@ def execute_candidate(
                 control,
                 baseline,
                 [],
+                confirmation_index,
+                attempt_id,
+                experiment_id,
+                condition_id,
             )
     else:
         true_response = client.submit_probe(scenario, candidate["true_payload"])
@@ -573,6 +601,10 @@ def execute_candidate(
             true_response,
             baseline,
             ["user_id_exists"] if true_exists else [],
+            confirmation_index,
+            attempt_id,
+            experiment_id,
+            condition_id,
         )
         emit_payload_record(
             output,
@@ -585,6 +617,10 @@ def execute_candidate(
             false_response,
             baseline,
             ["user_id_missing"] if false_missing else [],
+            confirmation_index,
+            attempt_id,
+            experiment_id,
+            condition_id,
         )
         indicators = []
         if true_exists:
@@ -603,9 +639,13 @@ def execute_candidate(
     decision = {
         "record_type": "decision",
         "run_id": run_id,
+        "attempt_id": attempt_id,
+        "experiment_id": experiment_id,
+        "condition_id": condition_id,
         "candidate_id": candidate["candidate_id"],
         "scenario_id": scenario["scenario_id"],
         "replicate": replicate,
+        "confirmation_index": confirmation_index,
         "security_level": scenario["security_level"],
         "sqli_type": scenario["sqli_type"],
         "ground_truth": scenario["ground_truth"],
@@ -628,7 +668,14 @@ def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--scenario", required=True, help="One scenario ID, S1 through S12")
     parser.add_argument("--payload-file", required=True, type=Path)
-    parser.add_argument("--repetitions", type=int, default=3)
+    parser.add_argument("--confirmations", "--repetitions", dest="confirmations", type=int, default=3,
+                        help="Response confirmations per candidate. --repetitions remains a compatibility alias.")
+    parser.add_argument("--replicate", type=int, choices=(1, 2, 3), default=1,
+                        help="Independent pipeline replicate, distinct from response confirmations.")
+    parser.add_argument("--run-id", help="Orchestrator-assigned unique pipeline run ID.")
+    parser.add_argument("--attempt-id", default="attempt-1", help="Unique attempt ID within the pipeline run.")
+    parser.add_argument("--experiment-id", help="Orchestrator-assigned experiment ID.")
+    parser.add_argument("--condition-id", choices=("A", "B", "C"), help="Planned comparison condition.")
     parser.add_argument("--reset-before-run", action="store_true",
                         help="Reset the local DVWA sample database before login; this clears its data.")
     parser.add_argument("--output", type=Path, help="Optional JSONL path under results/raw")
@@ -651,10 +698,16 @@ def main() -> None:
 
     if not args.confirm_local_dvwa:
         raise SystemExit("Pass --confirm-local-dvwa to run against the local lab.")
-    if not 1 <= args.repetitions <= protocol["max_repetitions"]:
+    if not 1 <= args.confirmations <= protocol["max_repetitions"]:
         raise SystemExit(
-            f"--repetitions must be between 1 and {protocol['max_repetitions']}."
+            f"--confirmations must be between 1 and {protocol['max_repetitions']}."
         )
+    if args.run_id is not None and not re.fullmatch(r"[A-Za-z0-9_.-]{1,128}", args.run_id):
+        raise SystemExit("--run-id contains unsupported characters.")
+    if not re.fullmatch(r"[A-Za-z0-9_.-]{1,128}", args.attempt_id):
+        raise SystemExit("--attempt-id contains unsupported characters.")
+    if args.experiment_id is not None and not re.fullmatch(r"[a-z0-9][a-z0-9_-]{0,31}", args.experiment_id):
+        raise SystemExit("--experiment-id must be a lowercase project slug.")
 
     payload_document = load_json(args.payload_file)
     candidates = validate_candidates(
@@ -662,6 +715,18 @@ def main() -> None:
         scenario,
         protocol["max_candidates_per_run"],
     )
+    source_mode = (candidates[0]["source"], candidates[0]["rag_mode"])
+    inferred_condition = {("LLM", "off"): "A", ("LLM", "on"): "B",
+                          ("SecLists", "not_applicable"): "C"}.get(source_mode)
+    if inferred_condition is None and candidates[0]["source"] != "manual":
+        raise SystemExit("Candidate source cannot be mapped to a comparison condition.")
+    if args.condition_id and args.condition_id != inferred_condition:
+        raise SystemExit("--condition-id does not match the candidate source and RAG mode.")
+    condition_id = args.condition_id or inferred_condition
+    experiment_id = args.experiment_id or payload_document.get("experiment_id")
+    if experiment_id is not None and (not isinstance(experiment_id, str)
+                                      or not re.fullmatch(r"[a-z0-9][a-z0-9_-]{0,31}", experiment_id)):
+        raise SystemExit("experiment_id in candidate batch must be a lowercase project slug.")
 
     username = os.environ.get("DVWA_USERNAME")
     password = os.environ.get("DVWA_PASSWORD")
@@ -669,7 +734,7 @@ def main() -> None:
     username = username or local_env.get("DVWA_USERNAME") or "admin"
     password = password or local_env.get("DVWA_PASSWORD") or "password"
 
-    run_id = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ") + "-" + uuid4().hex[:8]
+    run_id = args.run_id or (datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ") + "-" + uuid4().hex[:8])
     raw_directory = ROOT / "results" / "raw"
     raw_directory.mkdir(parents=True, exist_ok=True)
     output_path = args.output or raw_directory / f"validation-{run_id}.jsonl"
@@ -687,9 +752,13 @@ def main() -> None:
         reset_receipt = None
         runtime_failure_logged = False
         output.write(json.dumps({"record_type": "run_start", "run_id": run_id,
+                                 "attempt_id": args.attempt_id,
+                                 "experiment_id": experiment_id,
+                                 "condition_id": condition_id,
                                  "scenario_id": scenario["scenario_id"],
                                  "candidate_count": len(candidates),
-                                 "repetitions_per_candidate": args.repetitions,
+                                 "pipeline_replicate": args.replicate,
+                                 "confirmations_per_candidate": args.confirmations,
                                  "database_reset_requested": args.reset_before_run,
                                  "attempt_status": "started",
                                  "recorded_at_utc": datetime.now(timezone.utc).isoformat()},
@@ -702,11 +771,14 @@ def main() -> None:
                 username, password = "admin", "password"
             client.login_and_set_level(username, password, scenario["security_level"])
             output.write(json.dumps({"record_type": "runtime_setup", "run_id": run_id,
+                                     "attempt_id": args.attempt_id,
+                                     "experiment_id": experiment_id,
+                                     "condition_id": condition_id,
                                      "security_level_verified": scenario["security_level"],
                                      "database_reset": reset_receipt}, ensure_ascii=False) + "\n")
             output.flush()
             for candidate in candidates:
-                for replicate in range(1, args.repetitions + 1):
+                for confirmation_index in range(1, args.confirmations + 1):
                     try:
                         positive_signals += execute_candidate(
                             client,
@@ -714,14 +786,24 @@ def main() -> None:
                             run_id,
                             scenario,
                             candidate,
-                            replicate,
+                            args.replicate,
                             float(protocol["time_signal_threshold_ms"]),
+                            confirmation_index,
+                            args.attempt_id,
+                            experiment_id,
+                            condition_id,
                         )
                     except LocalRuntimeFailure as failure:
                         output.write(json.dumps({
                             "record_type": "runtime_failure", "run_id": run_id,
+                            "attempt_id": args.attempt_id,
+                            "experiment_id": experiment_id,
+                            "condition_id": condition_id,
                             "scenario_id": scenario["scenario_id"], "candidate_id": candidate["candidate_id"],
-                            "replicate": replicate, "runtime_failure_code": failure.code,
+                            "replicate": args.replicate, "confirmation_index": confirmation_index,
+                            "runtime_failure_code": failure.code,
+                            "http_request_calls": client.http_request_calls,
+                            "logical_probe_submissions": client.logical_probe_submissions,
                             "attack_failure": False, "attempt_status": "invalid",
                             "recovery_action": "repair_environment_then_start_new_attempt_after_database_reset",
                             "database_reset_performed": bool(reset_receipt),
@@ -733,10 +815,17 @@ def main() -> None:
                     total_decisions += 1
                     time.sleep(0.1)
             output.write(json.dumps({"record_type": "run_end", "run_id": run_id,
+                                     "attempt_id": args.attempt_id,
+                                     "experiment_id": experiment_id,
+                                     "condition_id": condition_id,
                                      "attempt_status": "complete",
                                      "decision_count": total_decisions,
                                      "positive_signals": positive_signals,
+                                     "pipeline_replicate": args.replicate,
+                                     "confirmations_per_candidate": args.confirmations,
                                      "database_reset_performed": bool(reset_receipt),
+                                     "http_request_calls": client.http_request_calls,
+                                     "logical_probe_submissions": client.logical_probe_submissions,
                                      "recorded_at_utc": datetime.now(timezone.utc).isoformat()},
                                     ensure_ascii=False) + "\n")
             output.flush()
@@ -744,7 +833,12 @@ def main() -> None:
             if not runtime_failure_logged:
                 output.write(json.dumps({
                     "record_type": "runtime_failure", "run_id": run_id,
+                    "attempt_id": args.attempt_id,
+                    "experiment_id": experiment_id,
+                    "condition_id": condition_id,
                     "scenario_id": scenario["scenario_id"], "runtime_failure_code": failure.code,
+                    "http_request_calls": client.http_request_calls,
+                    "logical_probe_submissions": client.logical_probe_submissions,
                     "attack_failure": False, "attempt_status": "invalid",
                     "recovery_action": "repair_environment_then_start_new_attempt_after_database_reset",
                     "database_reset_performed": bool(reset_receipt),
@@ -753,6 +847,7 @@ def main() -> None:
                 output.flush()
                 runtime_failure_logged = True
             print(json.dumps({"run_id": run_id, "scenario_id": scenario["scenario_id"],
+                              "attempt_id": args.attempt_id,
                               "decision_count": total_decisions, "attempt_status": "invalid",
                               "runtime_failure_code": failure.code, "attack_failure": False,
                               "database_reset_performed": bool(reset_receipt)}), flush=True)
@@ -763,11 +858,17 @@ def main() -> None:
         json.dumps(
             {
                 "run_id": run_id,
+                "attempt_id": args.attempt_id,
+                "experiment_id": experiment_id,
+                "condition_id": condition_id,
                 "scenario_id": scenario["scenario_id"],
                 "candidate_count": len(candidates),
-                "replicates_per_candidate": args.repetitions,
+                "pipeline_replicate": args.replicate,
+                "confirmations_per_candidate": args.confirmations,
                 "decision_count": total_decisions,
                 "positive_signals": positive_signals,
+                "http_request_calls": client.http_request_calls,
+                "logical_probe_submissions": client.logical_probe_submissions,
                 "database_reset_performed": bool(reset_receipt),
                 "human_validation": "pending",
             },

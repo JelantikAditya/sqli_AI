@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "experiment-ledger-event.schema.json",
+  "title": "Append-only local experiment ledger event",
+  "type": "object",
+  "required": ["schema_version", "event_id", "sequence", "experiment_id", "event_type", "recorded_at_utc"],
+  "properties": {
+    "schema_version": { "const": "1.0.0" },
+    "event_id": { "type": "string", "pattern": "^[0-9a-f]{32}$" },
+    "sequence": { "type": "integer", "minimum": 1 },
+    "experiment_id": { "type": "string", "pattern": "^[a-z0-9][a-z0-9_-]{0,31}$" },
+    "event_type": { "enum": ["experiment_created", "run_planned", "run_excluded", "attempt_started", "attempt_retried", "attempt_completed", "attempt_invalid"] },
+    "recorded_at_utc": { "type": "string", "format": "date-time" },
+    "unit_id": { "type": "string", "minLength": 1 },
+    "run_id": { "type": "string", "minLength": 1 },
+    "attempt_id": { "type": "string", "minLength": 1 },
+    "attempt_number": { "type": "integer", "minimum": 1 },
+    "replicate": { "type": "integer", "minimum": 1, "maximum": 3 },
+    "condition_id": { "enum": ["A", "B", "C"] },
+    "scenario_id": { "enum": ["S1", "S2", "S3", "S4", "S5", "S6", "S7", "S8", "S9", "S10", "S11", "S12"] },
+    "seed": { "type": "integer" },
+    "reset_required": { "type": "boolean" },
+    "fresh_login_required": { "type": "boolean" },
+    "state_reused": { "type": "boolean" },
+    "metric_eligible": { "type": "boolean" },
+    "failure_code": { "type": "string", "minLength": 1 },
+    "exclusion_reason": { "type": ["string", "null"], "minLength": 1 }
+  },
+  "additionalProperties": true
+}

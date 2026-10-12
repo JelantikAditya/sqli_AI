@@ -135,6 +135,13 @@ Periksa payload boolean sebagai pasangan true/false dan tinjau semua keluaran
 model sebelum menyerahkannya ke validation loop. Batch tersebut belum otomatis
 menjalankan request ke DVWA.
 
+Orchestrator T05 menjalankan batch sesuai rencana pilot yang tetap, menyimpan
+batch dan audit generasi, lalu menerapkan guard statis sebelum executor. Guard
+menolak input di luar batas ukuran, statement bertumpuk, operasi mutasi/file,
+dan delay di luar skenario timing atau melebihi dua detik secara kumulatif.
+Penilaian kualitas kandidat dan evidence hasil dilakukan setelah run melalui
+review T06.
+
 ## Batch SecLists
 
 Rencana T04 yang dibekukan ada di

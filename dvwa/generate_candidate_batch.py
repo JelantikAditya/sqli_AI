@@ -40,8 +40,11 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--zap-report", type=Path, help="Normalized matching ZAP report; otherwise catalog smoke context")
     parser.add_argument("--require-verified-discovery", action="store_true", help="Reject catalog or alert-only inputs")
     parser.add_argument("--num-ctx", type=int, default=4096, help="Use the same context size for both RAG conditions")
+    parser.add_argument("--num-predict", type=int, default=768, help="Maximum generated tokens per batch")
     parser.add_argument("--model", default=os.environ.get("OLLAMA_LLM_MODEL", "qwen2.5:7b"))
     parser.add_argument("--temperature", type=float, default=0.0)
+    parser.add_argument("--output-dir", type=Path,
+                        help="Optional destination under results/raw/ for generated batch and audit files")
     return parser.parse_args()
 
 
@@ -123,6 +126,8 @@ def main() -> None:
     scenario = scenarios[args.scenario]
     if args.num_ctx < 2048:
         raise SystemExit("--num-ctx must be at least 2048; check that the complete RAG prompt fits.")
+    if args.num_predict < 1:
+        raise SystemExit("--num-predict must be positive.")
     point = injection_point_context(scenario, args.zap_report, require_verified=args.require_verified_discovery)
     query = scenario_query(scenario, injection_point=point)
     retrieval = None
@@ -146,7 +151,8 @@ def main() -> None:
             "messages": messages,
             "format": output_schema(scenario["probe_kind"], args.candidate_count),
             "stream": False,
-            "options": {"temperature": args.temperature, "seed": args.seed, "num_predict": 768, "num_ctx": args.num_ctx},
+            "options": {"temperature": args.temperature, "seed": args.seed,
+                        "num_predict": args.num_predict, "num_ctx": args.num_ctx},
         },
         timeout=900,
     )
@@ -193,15 +199,19 @@ def main() -> None:
     }
     payload_document = validate_batch(source_batch, None)
 
-    raw_directory = ROOT / "results" / "raw"
+    raw_directory = (ROOT / "results" / "raw").resolve()
     raw_directory.mkdir(parents=True, exist_ok=True)
+    output_directory = (args.output_dir or raw_directory).resolve()
+    if not output_directory.is_relative_to(raw_directory):
+        raise SystemExit("--output-dir must stay inside results/raw/.")
+    output_directory.mkdir(parents=True, exist_ok=True)
     timestamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
     unique = uuid4().hex[:6]
-    batch_path = raw_directory / (
+    batch_path = output_directory / (
         f"candidates-{scenario['scenario_id']}-llm-{args.rag_mode}-"
         f"{timestamp}-{unique}.json"
     )
-    audit_path = raw_directory / f"generation-audit-{timestamp}-{unique}.json"
+    audit_path = output_directory / f"generation-audit-{timestamp}-{unique}.json"
     with batch_path.open("x", encoding="utf-8", newline="\n") as destination:
         json.dump(payload_document, destination, ensure_ascii=False, indent=2)
         destination.write("\n")
@@ -214,7 +224,7 @@ def main() -> None:
         "messages": messages,
         "query": query,
         "injection_point": point,
-        "generation_options": {"num_ctx": args.num_ctx, "num_predict": 768},
+        "generation_options": {"num_ctx": args.num_ctx, "num_predict": args.num_predict},
         "runtime_metrics": {
             key: response.get(key)
             for key in (
@@ -231,7 +241,12 @@ def main() -> None:
 
     print(f"Runner input: {batch_path}")
     print(f"Local generation audit: {audit_path}")
-    print(json.dumps({"scenario_id": scenario["scenario_id"], "rag_mode": args.rag_mode, "model": actual_model, "candidate_count": len(candidates), "comparison_id": args.comparison_id, "knowledge_base_id": provenance["knowledge_base_id"], "retrieved_chunk_count": len(provenance["retrieved_chunk_ids"])}, ensure_ascii=False))
+    print(json.dumps({"scenario_id": scenario["scenario_id"], "rag_mode": args.rag_mode,
+                      "model": actual_model, "candidate_count": len(candidates),
+                      "comparison_id": args.comparison_id,
+                      "knowledge_base_id": provenance["knowledge_base_id"],
+                      "retrieved_chunk_count": len(provenance["retrieved_chunk_ids"]),
+                      "batch_path": str(batch_path), "audit_path": str(audit_path)}, ensure_ascii=False))
 
 
 if __name__ == "__main__":

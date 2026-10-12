@@ -6,6 +6,7 @@
 **/.env
 dvwa/validation_payloads.local.json
 dvwa/candidate_batch.local.json
+dvwa/local_run_plan.local.json
 **/__pycache__/
 *.py[cod]
 .venv/

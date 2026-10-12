@@ -1,0 +1,36 @@
+{
+  "schema_version": "1.0.0",
+  "evidence_id": "t05-orchestrator-dry-run-2026-10-12",
+  "recorded_at_utc": "2026-10-12T11:45:04.270379+00:00",
+  "experiment_id": "t05-s1-ab-r1-final2",
+  "dataset": "pilot",
+  "execution_mode": "plan_only",
+  "planned_units": 2,
+  "conditions": [
+    "A",
+    "B"
+  ],
+  "scenario_ids": [
+    "S1"
+  ],
+  "replicates": [
+    1
+  ],
+  "paired_seed": 42,
+  "shared_discovery_report": "results\\zap\\zap-discovery-low-20261011-180846.normalized.json",
+  "shared_discovery_sha256": "336e7e747e78a405ef43a00fde99ecea9f9f2f38e3ee5813c22e5c352fe13bdf",
+  "ledger_event_count": 3,
+  "status_counts": {
+    "planned": 2,
+    "running": 0,
+    "retried": 0,
+    "completed": 0,
+    "invalid": 0,
+    "excluded": 0
+  },
+  "snapshot_artifact_hashes_match": true,
+  "http_requests_sent": 0,
+  "database_reset_performed": false,
+  "live_dvwa_execution": false,
+  "result": "A/B units planned with matching seed and discovery evidence; no live request or database reset."
+}

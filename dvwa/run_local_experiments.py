@@ -1,0 +1,841 @@
+"""Plan, execute, and resume bounded experiments against the local DVWA only."""
+
+from __future__ import annotations
+
+import argparse
+import hashlib
+import json
+import os
+import re
+import subprocess
+import sys
+from contextlib import contextmanager
+from datetime import datetime, timezone
+from pathlib import Path
+from uuid import uuid4
+
+from experiment_protocol import DEFAULT_PROTOCOL, load_protocol
+from rag_pipeline import load_catalog
+from validation_loop import ROOT, require_local_target, validate_candidates
+
+
+PLAN_SCHEMA_VERSION = "1.0.0"
+PROTOCOL_SNAPSHOT_PATH = DEFAULT_PROTOCOL
+CONDITION_IDS = {"A", "B", "C"}
+
+
+class ExecutionFailure(RuntimeError):
+    def __init__(self, code: str, details: dict | None = None):
+        self.code = code
+        self.details = details or {}
+        super().__init__(code)
+
+
+def now_utc() -> str:
+    return datetime.now(timezone.utc).isoformat()
+
+
+def json_bytes(value: object) -> bytes:
+    return json.dumps(value, ensure_ascii=False, sort_keys=True, separators=(",", ":"),
+                      allow_nan=False).encode("utf-8")
+
+
+def sha256_bytes(value: bytes) -> str:
+    return hashlib.sha256(value).hexdigest()
+
+
+def sha256_file(path: Path) -> str:
+    return sha256_bytes(path.read_bytes())
+
+
+def read_json(path: Path) -> dict:
+    with path.open("r", encoding="utf-8") as source:
+        document = json.load(source)
+    if not isinstance(document, dict):
+        raise ValueError(f"Expected a JSON object in {path}.")
+    return document
+
+
+def resolve_project_path(value: str | Path, root: Path, field: str) -> Path:
+    path = Path(value)
+    resolved = (path if path.is_absolute() else root / path).resolve()
+    if not resolved.is_relative_to(root.resolve()):
+        raise ValueError(f"{field} must resolve inside the project workspace.")
+    return resolved
+
+
+def validate_plan(plan: dict, protocol: dict, root: Path = ROOT) -> dict:
+    if plan.get("schema_version") != PLAN_SCHEMA_VERSION:
+        raise ValueError(f"plan schema_version must be {PLAN_SCHEMA_VERSION}.")
+    experiment_id = plan.get("experiment_id")
+    if not isinstance(experiment_id, str) or not re.fullmatch(r"[a-z0-9][a-z0-9_-]{0,31}", experiment_id):
+        raise ValueError("experiment_id must be a 1-32 character lowercase slug.")
+    dataset = plan.get("dataset")
+    if dataset not in {"pilot", "formal"}:
+        raise ValueError("dataset must be pilot or formal.")
+    if dataset == "formal" and protocol.get("status") != "frozen":
+        raise ValueError("Formal dataset execution is blocked until the protocol is frozen.")
+    replication = protocol.get("replication", {})
+    if (replication.get("fresh_login_each_run") is not True
+            or replication.get("reset") != "dvwa-setup-http-before-each-condition-run"):
+        raise ValueError("Each condition-run must begin with a fresh login and the configured DVWA database reset.")
+
+    condition_ids = plan.get("condition_ids")
+    scenario_ids = plan.get("scenario_ids")
+    replicates = plan.get("replicates")
+    if (not isinstance(condition_ids, list) or not condition_ids
+            or len(set(condition_ids)) != len(condition_ids)
+            or any(item not in CONDITION_IDS for item in condition_ids)):
+        raise ValueError("condition_ids must be a non-empty unique subset of A, B, and C.")
+    if (not isinstance(scenario_ids, list) or not scenario_ids
+            or len(set(scenario_ids)) != len(scenario_ids)):
+        raise ValueError("scenario_ids must be a non-empty unique list.")
+    catalog = load_catalog()
+    scenario_map = {item["scenario_id"]: item for item in catalog["scenarios"]}
+    if any(item not in scenario_map for item in scenario_ids):
+        raise ValueError("scenario_ids must refer to the experiment scenario catalog.")
+    if (not isinstance(replicates, list) or not replicates
+            or any(type(item) is not int or item not in {1, 2, 3} for item in replicates)
+            or len(set(replicates)) != len(replicates)):
+        raise ValueError("replicates must be a non-empty unique subset of 1, 2, and 3.")
+
+    discovery_reports = plan.get("discovery_reports", {})
+    if not isinstance(discovery_reports, dict):
+        raise ValueError("discovery_reports must map each scenario ID to replicate paths.")
+    resolved_reports = {}
+    for scenario_id, per_replicate in discovery_reports.items():
+        if scenario_id not in scenario_map or not isinstance(per_replicate, dict):
+            raise ValueError("discovery_reports contains an unknown scenario or invalid replicate map.")
+        resolved_reports[scenario_id] = {}
+        for replicate_text, path_text in per_replicate.items():
+            if replicate_text not in {"1", "2", "3"} or not isinstance(path_text, str) or not path_text:
+                raise ValueError("Each discovery report needs a replicate number and project-relative path.")
+            resolved_reports[scenario_id][int(replicate_text)] = resolve_project_path(
+                path_text, root, "discovery report"
+            )
+
+    source_root = plan.get("seclists_source_root")
+    resolved_source_root = None
+    if source_root is not None:
+        if not isinstance(source_root, str) or not source_root:
+            raise ValueError("seclists_source_root must be a non-empty project-relative path or null.")
+        resolved_source_root = resolve_project_path(source_root, root, "seclists_source_root")
+
+    c_scenarios = set(next(item for item in protocol["conditions"]
+                           if item["condition_id"] == "C")["scenario_ids"])
+    if "C" in condition_ids and c_scenarios.intersection(scenario_ids) and resolved_source_root is None:
+        raise ValueError("Plans containing condition C must set seclists_source_root.")
+    return {
+        **plan,
+        "condition_ids": condition_ids,
+        "scenario_ids": scenario_ids,
+        "replicates": replicates,
+        "discovery_reports_resolved": resolved_reports,
+        "seclists_source_root_resolved": resolved_source_root,
+    }
+
+
+def planned_units(plan: dict, protocol: dict, root: Path = ROOT) -> list[dict]:
+    condition_map = {item["condition_id"]: item for item in protocol["conditions"]}
+    seed_map = {index: seed for index, seed in enumerate(protocol["replicate_seeds"], start=1)}
+    units = []
+    for scenario_id in plan["scenario_ids"]:
+        for replicate in plan["replicates"]:
+            report = plan["discovery_reports_resolved"].get(scenario_id, {}).get(replicate)
+            report_hash = sha256_file(report) if report is not None and report.is_file() else None
+            for condition_id in plan["condition_ids"]:
+                condition = condition_map[condition_id]
+                unit_id = f"{plan['experiment_id']}-{condition_id.lower()}-{scenario_id.lower()}-r{replicate}"
+                applicable = scenario_id in condition["scenario_ids"]
+                unit = {
+                    "unit_id": unit_id,
+                    "condition_id": condition_id,
+                    "source": condition["source"],
+                    "rag_mode": condition["rag_mode"],
+                    "scenario_id": scenario_id,
+                    "replicate": replicate,
+                    "seed": seed_map[replicate],
+                    "discovery_report": str(report) if report else None,
+                    "discovery_sha256": report_hash,
+                    "status": "planned" if applicable else "excluded",
+                    "exclusion_reason": None if applicable else "condition_does_not_include_scenario",
+                }
+                units.append(unit)
+    return units
+
+
+def artifact_hashes(root: Path = ROOT) -> dict[str, str]:
+    names = ("dvwa/run_local_experiments.py", "dvwa/experiment_protocol.py",
+             "dvwa/rag_pipeline.py", "dvwa/validation_loop.py",
+             "dvwa/generate_candidate_batch.py", "dvwa/build_seclists_batches.py",
+             "dvwa/local_experiment_protocol.json", "dvwa/experiment_scenarios.json",
+             "dvwa/prepare_candidate_batch.py",
+             "schemas/local-run-plan.schema.json", "schemas/experiment-ledger-event.schema.json",
+             "schemas/validation-payloads.schema.json", "schemas/candidate-batch.schema.json",
+             "docs/candidate-sources.md", "docs/evidence/seclists-selection-plan-2026-10-12.json")
+    return {name: sha256_file(root / Path(name)) for name in names if (root / Path(name)).is_file()}
+
+
+def safe_write_json(path: Path, value: dict) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    temporary = path.with_name(path.name + "." + uuid4().hex + ".tmp")
+    with temporary.open("x", encoding="utf-8", newline="\n") as destination:
+        json.dump(value, destination, ensure_ascii=False, indent=2, allow_nan=False)
+        destination.write("\n")
+        destination.flush()
+        os.fsync(destination.fileno())
+    os.replace(temporary, path)
+
+
+class ExperimentLedger:
+    """Append-only event log plus an atomically replaced checkpoint."""
+
+    def __init__(self, directory: Path, experiment_id: str, events: list[dict] | None = None):
+        self.directory = directory
+        self.experiment_id = experiment_id
+        self.events = events or []
+        self.path = directory / "ledger.jsonl"
+        self.checkpoint_path = directory / "checkpoint.json"
+
+    @classmethod
+    def create(cls, directory: Path, plan: dict, protocol: dict, plan_hash: str,
+               protocol_hash: str, root: Path = ROOT):
+        directory.mkdir(parents=True, exist_ok=False)
+        ledger = cls(directory, plan["experiment_id"])
+        safe_write_json(directory / "plan.snapshot.json", {
+            "plan": {key: value for key, value in plan.items() if not key.endswith("_resolved")},
+            "plan_sha256": plan_hash,
+            "protocol_id": protocol["protocol_id"],
+            "protocol_status": protocol["status"],
+            "protocol_sha256": protocol_hash,
+            "git_revision": git_revision(root),
+            "artifact_sha256": artifact_hashes(root),
+            "created_at_utc": now_utc(),
+        })
+        ledger.append("experiment_created", dataset=plan["dataset"], plan_sha256=plan_hash,
+                      protocol_sha256=protocol_hash, protocol_id=protocol["protocol_id"])
+        for unit in planned_units(plan, protocol, root):
+            if unit["status"] == "excluded":
+                ledger.append("run_excluded", **unit)
+            else:
+                ledger.append("run_planned", **unit)
+        return ledger
+
+    @classmethod
+    def resume(cls, directory: Path, plan: dict, plan_hash: str, protocol_hash: str,
+               root: Path = ROOT):
+        path = directory / "ledger.jsonl"
+        if not path.is_file():
+            raise ValueError("Cannot resume: ledger.jsonl is missing.")
+        events = []
+        event_ids = set()
+        with path.open("r", encoding="utf-8") as source:
+            for number, line in enumerate(source, start=1):
+                try:
+                    event = json.loads(line)
+                except json.JSONDecodeError as exc:
+                    raise ValueError(f"Ledger line {number} is invalid JSON.") from exc
+                if event.get("experiment_id") != plan["experiment_id"]:
+                    raise ValueError("Ledger belongs to a different experiment_id.")
+                if (event.get("schema_version") != "1.0.0" or event.get("sequence") != number
+                        or not isinstance(event.get("event_id"), str) or event["event_id"] in event_ids):
+                    raise ValueError(f"Ledger sequence or event identity is invalid at line {number}.")
+                event_ids.add(event["event_id"])
+                events.append(event)
+        created = next((event for event in events if event["event_type"] == "experiment_created"), None)
+        if not created or created.get("plan_sha256") != plan_hash or created.get("protocol_sha256") != protocol_hash:
+            raise ValueError("Resume plan or protocol differs from the saved experiment snapshot.")
+        snapshot = read_json(directory / "plan.snapshot.json")
+        if snapshot.get("artifact_sha256") != artifact_hashes(root):
+            raise ValueError("Resume code or schema hashes differ from the saved experiment snapshot.")
+        ledger = cls(directory, plan["experiment_id"], events)
+        ledger.checkpoint()
+        return ledger
+
+    def append(self, event_type: str, **details) -> dict:
+        event = {
+            "schema_version": "1.0.0",
+            "event_id": uuid4().hex,
+            "sequence": len(self.events) + 1,
+            "experiment_id": self.experiment_id,
+            "event_type": event_type,
+            "recorded_at_utc": now_utc(),
+            **details,
+        }
+        line = json.dumps(event, ensure_ascii=False, allow_nan=False, separators=(",", ":")) + "\n"
+        with self.path.open("a", encoding="utf-8", newline="\n") as destination:
+            destination.write(line)
+            destination.flush()
+            os.fsync(destination.fileno())
+        self.events.append(event)
+        self.checkpoint()
+        return event
+
+    def statuses(self) -> dict[str, dict]:
+        statuses: dict[str, dict] = {}
+        for event in self.events:
+            unit_id = event.get("unit_id")
+            if not unit_id:
+                continue
+            state = statuses.setdefault(unit_id, {"status": "planned", "attempt_count": 0})
+            event_type = event["event_type"]
+            if event_type == "run_excluded":
+                state.update(status="excluded", exclusion_reason=event.get("exclusion_reason"))
+                if "condition_id" in event:
+                    state["unit"] = {key: value for key, value in event.items()
+                                     if key not in {"schema_version", "event_id", "sequence", "experiment_id",
+                                                    "event_type", "recorded_at_utc"}}
+            elif event_type == "run_planned":
+                state["unit"] = {key: value for key, value in event.items()
+                                 if key not in {"schema_version", "event_id", "sequence", "experiment_id",
+                                                "event_type", "recorded_at_utc"}}
+            elif event_type == "attempt_started":
+                state["attempt_count"] += 1
+                state.update(status="retried" if state["attempt_count"] > 1 else "running",
+                             active_attempt_id=event["attempt_id"], last_attempt_id=event["attempt_id"])
+            elif event_type == "attempt_completed":
+                if event.get("metric_eligible") is False:
+                    state.update(status="excluded", exclusion_reason=event.get("exclusion_reason"),
+                                 last_attempt_id=event.get("attempt_id"))
+                else:
+                    state.update(status="completed", last_attempt_id=event.get("attempt_id"))
+                state.pop("active_attempt_id", None)
+            elif event_type == "attempt_invalid":
+                state.update(status="invalid", failure_code=event.get("failure_code"),
+                             last_attempt_id=event.get("attempt_id"))
+                state.pop("active_attempt_id", None)
+        return statuses
+
+    def checkpoint(self) -> None:
+        statuses = self.statuses()
+        counts = {name: sum(1 for state in statuses.values() if state["status"] == name)
+                  for name in ("planned", "running", "retried", "completed", "invalid", "excluded")}
+        safe_write_json(self.checkpoint_path, {
+            "schema_version": "1.0.0", "experiment_id": self.experiment_id,
+            "event_count": len(self.events),
+            "last_event_id": self.events[-1]["event_id"] if self.events else None,
+            "status_counts": counts, "runs": statuses, "updated_at_utc": now_utc(),
+        })
+
+
+def git_revision(root: Path) -> str | None:
+    try:
+        return subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=root, text=True,
+                                       stderr=subprocess.DEVNULL).strip()
+    except (OSError, subprocess.CalledProcessError):
+        return None
+
+
+def recover_interrupted_attempts(ledger: ExperimentLedger) -> int:
+    active: dict[str, dict] = {}
+    for event in ledger.events:
+        unit_id = event.get("unit_id")
+        if not unit_id:
+            continue
+        if event["event_type"] == "attempt_started":
+            active[unit_id] = event
+        elif event["event_type"] in {"attempt_completed", "attempt_invalid"}:
+            if active.get(unit_id, {}).get("attempt_id") == event.get("attempt_id"):
+                active.pop(unit_id, None)
+    for unit_id, event in active.items():
+        ledger.append("attempt_invalid", unit_id=unit_id, attempt_id=event["attempt_id"],
+                      run_id=event["run_id"], attempt_number=event["attempt_number"],
+                      failure_code="interrupted_attempt_outcome_unknown", attack_failure=False,
+                      recovery_action="repair_environment_then_start_new_attempt_after_database_reset",
+                      state_reused=False)
+    return len(active)
+
+
+def process_is_alive(pid: int) -> bool:
+    try:
+        os.kill(pid, 0)
+    except ProcessLookupError:
+        return False
+    except PermissionError:
+        return True
+    except OSError:
+        return True
+    return True
+
+
+@contextmanager
+def experiment_lock(directory: Path, recover_stale: bool = False):
+    path = directory / "orchestrator.lock"
+    token = f"{os.getpid()} {uuid4().hex}"
+    for attempt in range(2):
+        try:
+            with path.open("x", encoding="ascii") as destination:
+                destination.write(token + "\n")
+                destination.flush()
+                os.fsync(destination.fileno())
+            break
+        except FileExistsError:
+            if attempt or not recover_stale:
+                raise RuntimeError("Another orchestrator may be using this experiment directory.")
+            try:
+                owner = path.read_text(encoding="ascii").strip().split()
+                owner_pid = int(owner[0])
+            except (OSError, ValueError, IndexError) as exc:
+                raise RuntimeError("Experiment lock is unreadable; inspect it before resuming.") from exc
+            if process_is_alive(owner_pid):
+                raise RuntimeError("Another orchestrator is still using this experiment directory.")
+            path.unlink()
+    else:
+        raise RuntimeError("Could not acquire experiment lock.")
+    try:
+        yield
+    finally:
+        try:
+            if path.read_text(encoding="ascii").strip() == token:
+                path.unlink()
+        except OSError:
+            pass
+
+
+def parse_summary(stdout: str) -> dict:
+    for line in reversed(stdout.splitlines()):
+        try:
+            value = json.loads(line)
+        except json.JSONDecodeError:
+            continue
+        if isinstance(value, dict):
+            return value
+    return {}
+
+
+def run_command(command: list[str], log_path: Path, root: Path = ROOT) -> subprocess.CompletedProcess:
+    completed = subprocess.run(command, cwd=root, text=True, encoding="utf-8", errors="replace",
+                               capture_output=True, check=False)
+    log_path.write_text("$ " + subprocess.list2cmdline(command) + "\n\n" + completed.stdout
+                        + ("\n[stderr]\n" + completed.stderr if completed.stderr else ""),
+                        encoding="utf-8", newline="\n")
+    return completed
+
+
+def candidate_fingerprint(candidate: dict) -> str:
+    content = {key: candidate[key] for key in ("payload", "true_payload", "false_payload") if key in candidate}
+    return sha256_bytes(json_bytes(content))
+
+
+def candidate_policy_violation(candidate: dict, scenario: dict) -> str | None:
+    values = [candidate.get(key) for key in ("payload", "true_payload", "false_payload")
+              if isinstance(candidate.get(key), str)]
+    if not values or any(len(value) > 1024 or any(ord(char) < 32 for char in value) for value in values):
+        return "candidate_shape_out_of_bounds"
+    joined = "\n".join(values)
+    if ";" in joined:
+        return "stacked_statement_separator"
+    if re.search(r"\b(?:drop|delete|insert|update|truncate|alter|create|grant|revoke|load_file|benchmark|pg_sleep|waitfor|dbms_lock|xp_cmdshell|sys_exec)\b|\binto\s+(?:out|dump)file\b", joined, re.I):
+        return "out_of_scope_side_effect_or_resource_probe"
+    sleeps = re.findall(r"\bsleep\s*\(\s*([^()]*)\s*\)", joined, re.I)
+    is_time_probe = scenario["sqli_type"] == "time-based blind"
+    if sleeps and not is_time_probe:
+        return "delay_outside_time_based_scenario"
+    total_delay = 0.0
+    for expression in sleeps:
+        try:
+            seconds = float(expression)
+        except ValueError:
+            return "unbounded_or_dynamic_delay"
+        if not 0 < seconds <= 2:
+            return "delay_exceeds_two_second_cap"
+        total_delay += seconds
+    if total_delay > 2:
+        return "combined_delay_exceeds_two_second_cap"
+    return None
+
+
+def prepare_run_batch(batch_path: Path, unit: dict, scenario: dict, max_candidates: int,
+                      run_id: str, output_path: Path, map_path: Path) -> dict:
+    batch = read_json(batch_path)
+    candidates = validate_candidates(batch, scenario, max_candidates)
+    expected_condition = {"A": ("LLM", "off"), "B": ("LLM", "on"), "C": ("SecLists", "not_applicable")}[unit["condition_id"]]
+    if {(item["source"], item["rag_mode"]) for item in candidates} != {expected_condition}:
+        raise ValueError("Candidate source and RAG mode do not match the planned condition.")
+    violations = []
+    for candidate in candidates:
+        reason = candidate_policy_violation(candidate, scenario)
+        if reason:
+            violations.append({"source_candidate_id": candidate["candidate_id"],
+                               "payload_sha256": candidate_fingerprint(candidate),
+                               "rejection_code": reason})
+    if violations:
+        raise ExecutionFailure("candidate_policy_rejected", {
+            "generated_candidate_count": len(candidates),
+            "candidate_generation_failed_count": max(0, max_candidates - len(candidates)),
+            "duplicate_candidate_count": 0,
+            "policy_rejected_candidate_count": len(violations),
+            "policy_rejections": violations,
+        })
+
+    seen: dict[str, str] = {}
+    selected = []
+    id_map = []
+    for index, candidate in enumerate(candidates, start=1):
+        fingerprint = candidate_fingerprint(candidate)
+        source_id = candidate["candidate_id"]
+        if fingerprint in seen:
+            id_map.append({"candidate_id": None, "source_candidate_id": source_id,
+                           "payload_sha256": fingerprint, "duplicate_of": seen[fingerprint],
+                           "executed": False})
+            continue
+        new_id = f"{run_id}-c{len(selected) + 1:03d}"
+        selected_candidate = {**candidate, "candidate_id": new_id}
+        selected.append(selected_candidate)
+        seen[fingerprint] = new_id
+        id_map.append({"candidate_id": new_id, "source_candidate_id": source_id,
+                       "payload_sha256": fingerprint, "duplicate_of": None, "executed": True})
+
+    if not selected:
+        raise ExecutionFailure("no_unique_candidates", {"generated_candidate_count": len(candidates),
+                                                            "duplicate_candidate_count": len(candidates)})
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    safe_write_json(output_path, {"schema_version": "1.0.0", "candidates": selected})
+    safe_write_json(map_path, {"run_id": run_id, "candidate_id_map": id_map})
+    return {"generated_candidate_count": len(candidates), "unique_candidate_count": len(selected),
+            "duplicate_candidate_count": len(candidates) - len(selected),
+            "candidate_generation_failed_count": max(0, max_candidates - len(candidates)),
+            "runner_batch_sha256": sha256_file(output_path), "runner_batch_path": str(output_path),
+            "candidate_id_map_path": str(map_path)}
+
+
+def validation_record_stats(validation_log: Path, candidate_details: dict,
+                            protocol: dict) -> dict:
+    records = []
+    if validation_log.is_file():
+        with validation_log.open("r", encoding="utf-8") as source:
+            for line in source:
+                if line.strip():
+                    try:
+                        records.append(json.loads(line))
+                    except json.JSONDecodeError:
+                        continue
+    decisions = [record for record in records if record.get("record_type") == "decision"]
+    payload_records = [record for record in records if record.get("record_type") == "payload"]
+    failure = next((record for record in reversed(records)
+                    if record.get("record_type") == "runtime_failure"), {})
+    run_end = next((record for record in reversed(records)
+                    if record.get("record_type") == "run_end"), {})
+    return {
+        "valid_candidates_executed": len({record.get("candidate_id") for record in decisions}),
+        "decision_records": len(decisions),
+        "payload_records": len(payload_records),
+        "confirmations_per_candidate": protocol["validation"]["confirmations_per_candidate"],
+        "logical_probe_submissions": run_end.get("logical_probe_submissions",
+                                                   failure.get("logical_probe_submissions")),
+        "http_request_calls": run_end.get("http_request_calls", failure.get("http_request_calls")),
+        "database_reset_performed": (any(record.get("record_type") == "runtime_setup"
+                                          and record.get("database_reset") for record in records)
+                                      or failure.get("database_reset_performed", False)),
+        "partial_validation_log_sha256": sha256_file(validation_log) if validation_log.is_file() else None,
+        "candidate_budget": candidate_details["candidate_budget"],
+    }
+
+
+def execute_unit(unit: dict, attempt: dict, plan: dict, protocol: dict,
+                 data_directory: Path, root: Path = ROOT) -> dict:
+    unit_directory = data_directory / "attempts" / unit["unit_id"] / attempt["attempt_id"]
+    unit_directory.mkdir(parents=True, exist_ok=False)
+    scenario_map = {item["scenario_id"]: item for item in load_catalog()["scenarios"]}
+    scenario = scenario_map[unit["scenario_id"]]
+    generation = protocol["generation"]
+    raw_root = (root / "results" / "raw").resolve()
+    if not unit_directory.resolve().is_relative_to(raw_root):
+        raise ValueError("Attempt output must stay under results/raw/.")
+
+    if unit["condition_id"] in {"A", "B"}:
+        report = Path(unit["discovery_report"])
+        if not report.is_file():
+            raise ExecutionFailure("verified_discovery_missing", {"path": str(report)})
+        actual_discovery_hash = sha256_file(report)
+        if actual_discovery_hash != unit["discovery_sha256"]:
+            raise ExecutionFailure("verified_discovery_changed", {"path": str(report)})
+        comparison_id = f"{plan['experiment_id']}-{unit['scenario_id'].lower()}-r{unit['replicate']}"
+        generated_directory = unit_directory / "generated"
+        command = [sys.executable, str(root / "dvwa" / "generate_candidate_batch.py"),
+                   "--scenario", unit["scenario_id"], "--rag-mode", unit["rag_mode"],
+                   "--comparison-id", comparison_id, "--seed", str(unit["seed"]),
+                   "--candidate-count", str(generation["candidate_budget"]),
+                   "--top-k", str(generation["top_k"]), "--num-ctx", str(generation["num_ctx"]),
+                   "--num-predict", str(generation["num_predict"]),
+                   "--model", generation["model"], "--temperature", str(generation["temperature"]),
+                   "--zap-report", str(report), "--require-verified-discovery",
+                   "--output-dir", str(generated_directory)]
+        result = run_command(command, unit_directory / "generation-command.log", root)
+        summary = parse_summary(result.stdout)
+        if result.returncode != 0 or not summary.get("batch_path"):
+            raise ExecutionFailure("generation_failed", {"return_code": result.returncode,
+                                                             "stdout_tail": result.stdout[-1000:],
+                                                             "stderr_tail": result.stderr[-1000:],
+                                                             "generated_candidate_count": 0,
+                                                             "candidate_generation_failed_count": generation["candidate_budget"],
+                                                             "duplicate_candidate_count": 0})
+        batch_path = Path(summary["batch_path"]).resolve()
+        generation_audit = Path(summary["audit_path"]).resolve()
+        if not batch_path.is_relative_to(raw_root) or not generation_audit.is_relative_to(raw_root):
+            raise ExecutionFailure("generation_output_outside_raw_directory")
+        source_batch_sha256 = sha256_file(batch_path)
+        audit_sha256 = sha256_file(generation_audit)
+    else:
+        source_root = plan["seclists_source_root_resolved"]
+        if not source_root.is_dir():
+            raise ExecutionFailure("seclists_source_root_missing", {"path": str(source_root)})
+        batch_directory = unit_directory / "seclists-batches"
+        command = [sys.executable, str(root / "dvwa" / "build_seclists_batches.py"),
+                   "--source-root", str(source_root), "--output-dir", str(batch_directory)]
+        result = run_command(command, unit_directory / "seclists-build-command.log", root)
+        if result.returncode != 0:
+            raise ExecutionFailure("seclists_batch_build_failed", {"return_code": result.returncode,
+                                                                      "stderr_tail": result.stderr[-1000:]})
+        batch_path = batch_directory / f"{unit['scenario_id']}.json"
+        if not batch_path.is_file():
+            raise ExecutionFailure("seclists_batch_missing", {"path": str(batch_path)})
+        source_batch_sha256 = sha256_file(batch_path)
+        audit_sha256 = None
+        actual_discovery_hash = unit["discovery_sha256"]
+
+    prepared_path = unit_directory / "runner-input.json"
+    id_map_path = unit_directory / "candidate-id-map.json"
+    batch_details = prepare_run_batch(batch_path, unit, scenario, generation["candidate_budget"],
+                                      attempt["run_id"], prepared_path, id_map_path)
+    validation_log = unit_directory / "validation.jsonl"
+    validation_command = [sys.executable, str(root / "dvwa" / "validation_loop.py"),
+                          "--scenario", unit["scenario_id"], "--payload-file", str(prepared_path),
+                          "--confirmations", str(protocol["validation"]["confirmations_per_candidate"]),
+                          "--replicate", str(unit["replicate"]), "--run-id", attempt["run_id"],
+                          "--attempt-id", attempt["attempt_id"], "--experiment-id", plan["experiment_id"],
+                          "--condition-id", unit["condition_id"], "--reset-before-run",
+                          "--output", str(validation_log), "--confirm-local-dvwa"]
+    result = run_command(validation_command, unit_directory / "validation-command.log", root)
+    if result.returncode != 0:
+        raise ExecutionFailure("executor_process_failed", {"return_code": result.returncode,
+                                                              "stdout_tail": result.stdout[-1000:],
+                                                              "stderr_tail": result.stderr[-1000:],
+                                                              **batch_details,
+                                                              **validation_record_stats(validation_log,
+                                                                                       {"candidate_budget": generation["candidate_budget"]},
+                                                                                       protocol)})
+
+    records = []
+    with validation_log.open("r", encoding="utf-8") as source:
+        for line in source:
+            if line.strip():
+                records.append(json.loads(line))
+    run_end = next((record for record in reversed(records)
+                    if record.get("record_type") == "run_end"), None)
+    if not run_end or run_end.get("attempt_status") != "complete":
+        failure = next((record for record in reversed(records)
+                        if record.get("record_type") == "runtime_failure"), {})
+        raise ExecutionFailure(failure.get("runtime_failure_code", "executor_incomplete"), {
+            "validation_log_path": str(validation_log),
+            **batch_details,
+            **validation_record_stats(validation_log, {"candidate_budget": generation["candidate_budget"]},
+                                      protocol),
+            "attack_failure": False,
+        })
+
+    payload_records = [record for record in records if record.get("record_type") == "payload"]
+    decisions = [record for record in records if record.get("record_type") == "decision"]
+    executed_ids = {record["candidate_id"] for record in decisions}
+    expected_decisions = (batch_details["unique_candidate_count"]
+                          * protocol["validation"]["confirmations_per_candidate"])
+    confirmation_map: dict[str, set[int]] = {}
+    invalid_confirmation_record = False
+    for record in decisions:
+        candidate_id = record.get("candidate_id")
+        confirmation_index = record.get("confirmation_index")
+        if not isinstance(candidate_id, str) or type(confirmation_index) is not int:
+            invalid_confirmation_record = True
+            continue
+        confirmation_map.setdefault(candidate_id, set()).add(confirmation_index)
+    expected_confirmations = set(range(1, protocol["validation"]["confirmations_per_candidate"] + 1))
+    if (len(decisions) != expected_decisions
+            or set(confirmation_map) != set(attempt_candidate["candidate_id"] for attempt_candidate in
+                                             json.loads(prepared_path.read_text(encoding="utf-8"))["candidates"])
+            or any(indices != expected_confirmations for indices in confirmation_map.values())
+            or invalid_confirmation_record
+            or any(record.get("replicate") != unit["replicate"] for record in decisions)
+            ):
+        raise ExecutionFailure("executor_record_count_mismatch", {
+            "expected_decision_records": expected_decisions,
+            "actual_decision_records": len(decisions),
+            "validation_log_path": str(validation_log),
+        })
+
+    budget_complete = (batch_details["unique_candidate_count"] == generation["candidate_budget"]
+                       and batch_details["duplicate_candidate_count"] == 0
+                       and batch_details["candidate_generation_failed_count"] == 0)
+    return {
+        **batch_details,
+        "condition_id": unit["condition_id"], "scenario_id": unit["scenario_id"],
+        "replicate": unit["replicate"], "seed": unit["seed"],
+        "source_batch_sha256": source_batch_sha256, "generation_audit_sha256": audit_sha256,
+        "discovery_sha256": actual_discovery_hash,
+        "validation_log_path": str(validation_log), "validation_log_sha256": sha256_file(validation_log),
+        "candidate_budget": generation["candidate_budget"],
+        "valid_candidates_executed": len(executed_ids),
+        "decision_records": len(decisions), "payload_records": len(payload_records),
+        "confirmations_per_candidate": protocol["validation"]["confirmations_per_candidate"],
+        "logical_probe_submissions": run_end.get("logical_probe_submissions"),
+        "http_request_calls": run_end.get("http_request_calls"),
+        "database_reset_performed": bool(run_end.get("database_reset_performed")),
+        "budget_complete": budget_complete,
+        "metric_eligible": budget_complete,
+        "exclusion_reason": None if budget_complete else "incomplete_candidate_budget_or_duplicates",
+    }
+
+
+def summarize(ledger: ExperimentLedger) -> dict:
+    states = ledger.statuses()
+    counts = {status: sum(1 for state in states.values() if state["status"] == status)
+              for status in ("planned", "running", "retried", "completed", "invalid", "excluded")}
+    return {"experiment_id": ledger.experiment_id, "run_count": len(states), "status_counts": counts,
+            "ledger_path": str(ledger.path), "checkpoint_path": str(ledger.checkpoint_path)}
+
+
+def execute_plan(plan_path: Path, *, execute: bool = False, resume: bool = False,
+                 retry_invalid: bool = False, confirm_local_dvwa: bool = False,
+                 confirm_database_reset: bool = False, root: Path = ROOT,
+                 execute_one=execute_unit) -> dict:
+    plan_path = plan_path.resolve()
+    if not plan_path.is_relative_to(root.resolve()):
+        raise ValueError("--plan must resolve inside the project workspace.")
+    plan = validate_plan(read_json(plan_path), load_protocol(), root)
+    protocol = load_protocol()
+    if retry_invalid and not execute:
+        raise ValueError("--retry-invalid requires --execute so every retry gets a fresh database reset.")
+    if execute:
+        if not confirm_local_dvwa or not confirm_database_reset:
+            raise ValueError("Execution requires --confirm-local-dvwa and --confirm-database-reset.")
+        require_local_target(protocol["target_origin"])
+    plan_hash = sha256_bytes(json_bytes({key: value for key, value in plan.items()
+                                         if not key.endswith("_resolved")}))
+    protocol_hash = sha256_file(PROTOCOL_SNAPSHOT_PATH)
+    data_directory = root / "results" / "raw" / plan["dataset"] / plan["experiment_id"]
+    if resume:
+        ledger = ExperimentLedger.resume(data_directory, plan, plan_hash, protocol_hash, root)
+    else:
+        if data_directory.exists():
+            raise ValueError("Experiment directory already exists. Use --resume with the unchanged plan.")
+        ledger = ExperimentLedger.create(data_directory, plan, protocol, plan_hash, protocol_hash, root)
+
+    with experiment_lock(data_directory, recover_stale=resume):
+        recovered = recover_interrupted_attempts(ledger) if resume else 0
+        return execute_ledger(ledger, plan, protocol, data_directory, execute=execute,
+                              retry_invalid=retry_invalid, recovered=recovered, root=root,
+                              execute_one=execute_one)
+
+
+def execute_ledger(ledger: ExperimentLedger, plan: dict, protocol: dict, data_directory: Path,
+                   *, execute: bool, retry_invalid: bool, recovered: int, root: Path,
+                   execute_one) -> dict:
+
+    if execute:
+        for unit_id, state in ledger.statuses().items():
+            if state["status"] != "planned":
+                continue
+            unit = state["unit"]
+            if unit["condition_id"] in {"A", "B"}:
+                report = Path(unit["discovery_report"]) if unit["discovery_report"] else None
+                if report is None or not report.is_file() or not unit.get("discovery_sha256"):
+                    raise ValueError(f"Verified discovery report missing for {unit['unit_id']}.")
+                if sha256_file(report) != unit["discovery_sha256"]:
+                    raise ValueError(f"Discovery report changed after planning: {unit['unit_id']}.")
+            if unit["condition_id"] == "C" and not plan["seclists_source_root_resolved"].is_dir():
+                raise ValueError("Pinned SecLists source directory is missing.")
+
+    recoverable_invalids = [unit_id for unit_id, state in ledger.statuses().items()
+                            if state["status"] == "invalid"]
+    if recoverable_invalids and execute and not retry_invalid:
+        result = summarize(ledger)
+        result.update(recovered_interrupted_attempts=recovered,
+                      blocked_by_invalid_runs=recoverable_invalids,
+                      next_action="repair the local runtime, then resume with --retry-invalid")
+        return result
+
+    if execute:
+        for unit_id, state in ledger.statuses().items():
+            unit = state.get("unit")
+            if unit is None or state["status"] in {"completed", "excluded"}:
+                continue
+            was_invalid = state["status"] == "invalid"
+            if was_invalid and not retry_invalid:
+                break
+            if state["status"] not in {"planned", "invalid"}:
+                continue
+            attempt_number = state["attempt_count"] + 1
+            prior_attempt = state.get("last_attempt_id") if was_invalid else None
+            run_id = "run-" + uuid4().hex[:16]
+            attempt_id = f"attempt-{attempt_number}-" + uuid4().hex[:10]
+            attempt = {"run_id": run_id, "attempt_id": attempt_id,
+                       "attempt_number": attempt_number, "retry_of_attempt_id": prior_attempt}
+            if was_invalid:
+                ledger.append("attempt_retried", unit_id=unit_id, run_id=run_id, attempt_id=attempt_id,
+                              attempt_number=attempt_number, retry_of_attempt_id=prior_attempt,
+                              state_reused=False, reset_required=True)
+            ledger.append("attempt_started", **unit, run_id=run_id, attempt_id=attempt_id,
+                          attempt_number=attempt_number, retry_of_attempt_id=prior_attempt,
+                          reset_required=True, fresh_login_required=True, state_reused=False)
+            try:
+                details = execute_one(unit, attempt, plan, protocol, data_directory, root)
+            except KeyboardInterrupt:
+                ledger.append("attempt_invalid", unit_id=unit_id, run_id=run_id, attempt_id=attempt_id,
+                              attempt_number=attempt_number, failure_code="orchestrator_interrupted",
+                              attack_failure=False, state_reused=False,
+                              recovery_action="repair_environment_then_start_new_attempt_after_database_reset")
+                raise
+            except (ExecutionFailure, OSError, ValueError, subprocess.SubprocessError) as failure:
+                code = failure.code if isinstance(failure, ExecutionFailure) else "orchestrator_error"
+                details = failure.details if isinstance(failure, ExecutionFailure) else {"message": str(failure)}
+                budget = protocol["generation"]["candidate_budget"]
+                generated_count = details.get("generated_candidate_count", 0)
+                ledger.append("attempt_invalid", unit_id=unit_id, run_id=run_id, attempt_id=attempt_id,
+                              attempt_number=attempt_number, failure_code=code, failure_details=details,
+                              candidate_budget=budget, generated_candidate_count=generated_count,
+                              candidate_generation_failed_count=details.get(
+                                  "candidate_generation_failed_count", max(0, budget - generated_count)),
+                              duplicate_candidate_count=details.get("duplicate_candidate_count", 0),
+                              valid_candidates_executed=details.get("valid_candidates_executed", 0),
+                              decision_records=details.get("decision_records", 0),
+                              payload_records=details.get("payload_records", 0),
+                              confirmations_per_candidate=protocol["validation"]["confirmations_per_candidate"],
+                              logical_probe_submissions=details.get("logical_probe_submissions"),
+                              http_request_calls=details.get("http_request_calls"),
+                              database_reset_performed=details.get("database_reset_performed", False),
+                              budget_complete=False,
+                              attack_failure=False, state_reused=False,
+                              recovery_action="repair_environment_then_start_new_attempt_after_database_reset")
+                break
+            ledger.append("attempt_completed", unit_id=unit_id, run_id=run_id, attempt_id=attempt_id,
+                          attempt_number=attempt_number, **details)
+            if details.get("metric_eligible") is False:
+                ledger.append("run_excluded", unit_id=unit_id, run_id=run_id, attempt_id=attempt_id,
+                              exclusion_reason=details.get("exclusion_reason", "incomplete_budget"),
+                              metric_eligible=False)
+
+    result = summarize(ledger)
+    result["recovered_interrupted_attempts"] = recovered
+    return result
+
+
+def main() -> None:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--plan", type=Path, required=True, help="Local JSON plan, stored outside sources/.")
+    parser.add_argument("--resume", action="store_true", help="Continue an existing ledger without reusing session state.")
+    parser.add_argument("--execute", action="store_true", help="Generate candidates and send probes to local DVWA.")
+    parser.add_argument("--retry-invalid", action="store_true",
+                        help="Start new attempts for invalid runs after runtime repair; each attempt resets the database.")
+    parser.add_argument("--confirm-local-dvwa", action="store_true",
+                        help="Confirm the configured target is the researcher's local DVWA.")
+    parser.add_argument("--confirm-database-reset", action="store_true",
+                        help="Confirm the runner may reset the local DVWA sample database before each condition-run.")
+    args = parser.parse_args()
+    print(json.dumps(execute_plan(args.plan, execute=args.execute, resume=args.resume,
+                                  retry_invalid=args.retry_invalid,
+                                  confirm_local_dvwa=args.confirm_local_dvwa,
+                                  confirm_database_reset=args.confirm_database_reset),
+                     ensure_ascii=False, indent=2))
+
+
+if __name__ == "__main__":
+    main()

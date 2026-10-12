@@ -1,0 +1,14 @@
+{
+  "schema_version": "1.0.0",
+  "experiment_id": "pilot-s1-r1",
+  "dataset": "pilot",
+  "condition_ids": ["A", "B"],
+  "scenario_ids": ["S1"],
+  "replicates": [1],
+  "discovery_reports": {
+    "S1": {
+      "1": "results/zap/REPLACE_WITH_VERIFIED_S1_REPLICATE_1.normalized.json"
+    }
+  },
+  "seclists_source_root": null
+}

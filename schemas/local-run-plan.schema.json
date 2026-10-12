@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "local-run-plan.schema.json",
+  "title": "Bounded local DVWA experiment plan",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "experiment_id", "dataset", "condition_ids", "scenario_ids", "replicates", "discovery_reports", "seclists_source_root"],
+  "properties": {
+    "schema_version": { "const": "1.0.0" },
+    "experiment_id": { "type": "string", "pattern": "^[a-z0-9][a-z0-9_-]{0,31}$" },
+    "dataset": { "enum": ["pilot", "formal"] },
+    "condition_ids": {
+      "type": "array", "minItems": 1, "uniqueItems": true,
+      "items": { "enum": ["A", "B", "C"] }
+    },
+    "scenario_ids": {
+      "type": "array", "minItems": 1, "uniqueItems": true,
+      "items": { "enum": ["S1", "S2", "S3", "S4", "S5", "S6", "S7", "S8", "S9", "S10", "S11", "S12"] }
+    },
+    "replicates": {
+      "type": "array", "minItems": 1, "uniqueItems": true,
+      "items": { "type": "integer", "minimum": 1, "maximum": 3 }
+    },
+    "discovery_reports": {
+      "type": "object",
+      "propertyNames": { "pattern": "^S([1-9]|1[0-2])$" },
+      "additionalProperties": {
+        "type": "object",
+        "propertyNames": { "enum": ["1", "2", "3"] },
+        "additionalProperties": { "type": "string", "minLength": 1 }
+      }
+    },
+    "seclists_source_root": { "type": ["string", "null"], "minLength": 1 }
+  }
+}

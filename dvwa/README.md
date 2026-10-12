@@ -134,6 +134,48 @@ PayloadsAllTheThings SQL Injection; index PDF hanya uji diagnostik. Lihat
 [penyesuaian proposal](../docs/proposal-rag-2026-10-07.md)
 untuk sumber terkunci, build, retrieval injection point, dan batas verifikasi.
 
+### Orchestrator eksperimen lokal T05
+
+`run_local_experiments.py` mengelola kondisi, skenario, seed replikasi,
+discovery, generasi Qwen atau batch SecLists, reset database, executor, serta
+ledger. Mulai dari subset pilot dan salin template ke berkas lokal yang tidak
+masuk Git:
+
+```powershell
+Copy-Item dvwa/local_run_plan.template.json dvwa/local_run_plan.local.json
+```
+
+Isi path report ZAP normalized yang sudah diverifikasi. A dan B memakai report
+yang sama untuk skenario dan replikasi yang sama. Untuk memilih C, isi
+`seclists_source_root` dengan folder lokal dari commit yang dikunci di rencana
+T04. Rencana pilot saja yang dapat dijalankan saat protokol masih berstatus
+`pilot`.
+
+Tinjau rencana tanpa mengirim request:
+
+```powershell
+\.venv\Scripts\python.exe dvwa/run_local_experiments.py --plan dvwa/local_run_plan.local.json
+```
+
+Eksekusi meminta dua konfirmasi eksplisit. Setiap condition-run memulai login
+baru dan mereset database sampel DVWA melalui setup HTTP:
+
+```powershell
+\.venv\Scripts\python.exe dvwa/run_local_experiments.py `
+  --plan dvwa/local_run_plan.local.json `
+  --execute --confirm-local-dvwa --confirm-database-reset
+```
+
+Ledger JSONL bersifat append-only dan checkpoint diperbarui atomik di
+`results/raw/pilot/<experiment_id>/`. Resume memakai rencana dan hash protokol
+yang sama. Attempt yang terputus ditandai invalid dan tidak otomatis diulang;
+setelah memperbaiki runtime, gunakan `--resume --retry-invalid` agar attempt
+baru mendapat ID baru, login baru, dan reset baru. Status budget yang tidak
+lengkap dikecualikan dari metrik. Artefak formal tertahan sampai protokol
+berstatus frozen. Candidate guard menolak operasi mutasi, file, stacked
+statement, dan delay timing di atas dua detik sebelum satu request kandidat
+dikirim.
+
 ## Akses Colab melalui tunnel bertoken
 
 Tunnel sementara Cloudflare menuju gateway. Gateway mewajibkan header

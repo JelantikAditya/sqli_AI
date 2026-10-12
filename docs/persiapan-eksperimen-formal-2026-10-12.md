@@ -41,8 +41,8 @@ dipersiapkan oleh peneliti.
   aturan konfirmasi, serta pelaporan run yang budgetnya tidak lengkap.
 - Tentukan urutan kondisi sebelum formal, misalnya A/B bergantian antar
   replikasi, untuk mengendalikan efek urutan dan beban laptop.
-- Review korpus bersama peneliti dan catat keputusan. Perubahan isi mengharuskan
-  rebuild index sebelum freeze.
+- [x] Review korpus bersama peneliti dan catat keputusan pada 12 Oktober 2026.
+  Perubahan isi mengharuskan rebuild index sebelum freeze.
 
 Keluaran: protokol pilot yang jelas, catatan keputusan peneliti, dan draft
 metodologi lokal. Nilai budget/ambang masih boleh disesuaikan berdasarkan
@@ -178,25 +178,43 @@ tetap menjadi gerbang terpisah.
 
 ## T05. Bangun orchestrator dan ledger eksperimen
 
-Status awal: matriks konfigurasi tersedia; runner penuh belum ada.
+Status 12 Oktober: orchestrator lokal dan ledger append-only sudah
+diimplementasikan. Runner membedakan replikasi pipeline dari konfirmasi dalam
+satu kandidat, membangun input A/B dari discovery terverifikasi yang sama per
+replikasi, dan membangun batch C dari seleksi SecLists terkunci. Pilot berjalan
+di dataset `results/raw/pilot/`; dataset formal tertahan sampai protokol frozen.
+Guard kandidat menolak stacked statement, operasi mutasi/file, serta delay di
+luar skenario timing atau di atas dua detik. Eksekusi memerlukan konfirmasi
+eksplisit karena setiap condition-run mereset database sampel DVWA. Tes T05
+memakai executor tiruan, belum mengirim request ke DVWA hidup.
 Dependensi: T02-T04.
 
-- Jalankan kondisi, skenario, seed, reset, discovery, dan executor dari satu
-  konfigurasi. A/B menggunakan inventaris discovery sama per replikasi.
-- Satu pengulangan menjalankan pipeline baru. Tiga konfirmasi satu kandidat
+- [x] Jalankan kondisi, skenario, seed, reset, discovery, generasi kandidat,
+  dan executor dari satu konfigurasi. A/B menggunakan inventaris discovery
+  sama per replikasi.
+- [x] Satu pengulangan menjalankan pipeline baru. Tiga konfirmasi satu kandidat
   berbeda dari tiga pengulangan pipeline.
-- Gunakan ID run/attempt/kandidat unik, checkpoint dan resume, serta ledger
+- [x] Gunakan ID run/attempt/kandidat unik, checkpoint dan resume, serta ledger
   planned/completed/invalid/retried/excluded.
-- Resume tidak boleh menganggap state sesi/database lama masih valid. Catat
+- [x] Resume tidak menganggap state sesi/database lama masih valid. Catat
   titik reset dan keputusan pengulangan run.
-- Pisahkan direktori/dataset pilot dan formal. Simpan hash artefak dan versi.
-- Catat kandidat valid dieksekusi, kandidat gagal dibuat, duplikat, request,
+- [x] Pisahkan direktori/dataset pilot dan formal. Simpan hash artefak dan versi.
+- [x] Catat kandidat valid dieksekusi, kandidat gagal dibuat, duplikat, request,
   konfirmasi, dan kelengkapan budget.
 
-Keluaran yang diusulkan: run_local_experiments.py dan ledger kelengkapan.
+Keluaran: `dvwa/run_local_experiments.py`, rencana subset, schema ledger,
+checkpoint atomik, dan log JSONL append-only.
 
-Selesai jika satu subset matriks berjalan otomatis dan gangguan/resume tidak
-menimbulkan data ganda, state tidak jelas, atau record hilang.
+Implementasi lulus tes subset matriks tiruan dan pemulihan attempt terputus.
+Dry-run A/B untuk S1 replikasi 1 membuat dua unit `planned` dengan seed dan hash
+discovery yang sama. Tiga event ledger terbentuk; belum ada request ke DVWA
+atau reset database. Buktinya ada di
+`docs/evidence/t05-orchestrator-dry-run-2026-10-12.json`.
+
+Live subset DVWA belum dijalankan. T05 selesai setelah satu subset pilot nyata
+berjalan dan resume diperiksa; langkah itu memerlukan report discovery lokal,
+Qwen/Chroma aktif, sumber SecLists bila kondisi C dipilih, serta izin reset
+database sampel.
 
 ## T06. Siapkan human validation dan agregasi metrik
 

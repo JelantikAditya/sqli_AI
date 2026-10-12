@@ -126,12 +126,15 @@ class DvwaRuntimeControlTests(unittest.TestCase):
         candidate = {"candidate_id": "time-c1", "payload": "bounded-delay-candidate",
                      "source": "manual", "rag_mode": "not_applicable"}
         detected = execute_candidate(TimingClient(), output, "r-time", scenario,
-                                     candidate, 1, 1500)
+                                     candidate, 3, 1500, 2, "attempt-retry")
         self.assertTrue(detected)
         records = [json.loads(line) for line in output.getvalue().splitlines()]
         self.assertEqual([r["payload_role"] for r in records if r["record_type"] == "payload"],
                          ["baseline", "single", "no_delay_control"])
         decision = next(r for r in records if r["record_type"] == "decision")
+        self.assertEqual(decision["replicate"], 3)
+        self.assertEqual(decision["confirmation_index"], 2)
+        self.assertEqual(decision["attempt_id"], "attempt-retry")
         self.assertEqual(decision["evidence"]["matched_control_time_ms"], 30)
         self.assertEqual(decision["evidence"]["time_delta_ms"], 1995)
         self.assertTrue(decision["system_signal"])
