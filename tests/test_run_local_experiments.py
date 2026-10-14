@@ -187,5 +187,41 @@ class LocalExperimentOrchestratorTests(unittest.TestCase):
                 ExperimentLedger.resume(directory, plan, plan_hash, protocol_hash, root)
 
 
+    def test_unexpected_executor_error_closes_attempt_instead_of_leaving_it_running(self):
+        with tempfile.TemporaryDirectory(dir=TEST_TEMP_ROOT) as temporary:
+            root = Path(temporary)
+            path, _, _ = self.write_plan(root)
+            def broken(*args):
+                raise KeyError("candidate_id")
+            result = execute_plan(path, execute=True, root=root, confirm_local_dvwa=True,
+                                  confirm_database_reset=True, execute_one=broken)
+            self.assertEqual(result["status_counts"]["invalid"], 1)
+            self.assertEqual(result["status_counts"]["running"], 0)
+            self.assertEqual(result["status_counts"]["planned"], 1)
+            events = [json.loads(line) for line in Path(result["ledger_path"]).read_text().splitlines()]
+            failure = events[-1]
+            self.assertEqual(failure["failure_details"]["exception_type"], "KeyError")
+
+    def test_generation_exclusion_continues_next_condition_without_retry(self):
+        with tempfile.TemporaryDirectory(dir=TEST_TEMP_ROOT) as temporary:
+            root = Path(temporary)
+            path, _, _ = self.write_plan(root)
+            calls = []
+            def executor(unit, *args):
+                calls.append(unit["condition_id"])
+                return {"metric_eligible": unit["condition_id"] != "A",
+                        "budget_complete": unit["condition_id"] != "A",
+                        "exclusion_reason": "incomplete_candidate_budget" if unit["condition_id"] == "A" else None}
+            result = execute_plan(path, execute=True, root=root, confirm_local_dvwa=True,
+                                  confirm_database_reset=True, execute_one=executor)
+            self.assertEqual(calls, ["A", "B"])
+            self.assertEqual(result["status_counts"]["excluded"], 1)
+            self.assertEqual(result["status_counts"]["completed"], 1)
+            self.assertEqual(result["status_counts"]["invalid"], 0)
+            events = [json.loads(line) for line in Path(result["ledger_path"]).read_text().splitlines()]
+            self.assertEqual(sum(event["event_type"] == "attempt_started" for event in events), 2)
+            self.assertFalse(any(event["event_type"] == "attempt_retried" for event in events))
+
+
 if __name__ == "__main__":
     unittest.main()

@@ -560,6 +560,34 @@ def candidate_evidence_stats(records, unit, attempt, candidate_ids, root=ROOT):
     }
 
 
+def validate_probe_evidence(records, scenario, unit, attempt, candidate_ids, experiment_id):
+    """Require every original probe role exactly once per valid confirmation."""
+    roles = {"single_error": {"baseline", "single"},
+             "boolean_pair": {"baseline", "true_condition", "false_condition"},
+             "single_time": {"baseline", "single", "no_delay_control"}}[scenario["probe_kind"]]
+    groups = {}
+    expected_context = {"run_id": attempt["run_id"], "attempt_id": attempt["attempt_id"],
+                        "experiment_id": experiment_id, "condition_id": unit["condition_id"],
+                        "scenario_id": unit["scenario_id"], "replicate": unit["replicate"],
+                        "payload_source": unit["source"], "rag_mode": unit["rag_mode"]}
+    for record in records:
+        if record.get("record_type") != "payload":
+            continue
+        if any(record.get(key) != value for key, value in expected_context.items()):
+            raise ExecutionFailure("probe_evidence_context_mismatch")
+        key = (record.get("candidate_id"), record.get("confirmation_index"))
+        role = record.get("payload_role")
+        # Adaptive observations use candidate for the executor's single role.
+        role = "single" if role == "candidate" else role
+        if role in groups.setdefault(key, set()):
+            raise ExecutionFailure("duplicate_probe_evidence")
+        groups[key].add(role)
+    expected_keys = {(candidate_id, confirmation) for candidate_id in candidate_ids
+                     for confirmation in (1, 2, 3)}
+    if set(groups) != expected_keys or any(value != roles for value in groups.values()):
+        raise ExecutionFailure("probe_evidence_incomplete")
+
+
 def execute_adaptive_s1_unit(unit: dict, attempt: dict, plan: dict, protocol: dict,
                              unit_directory: Path, root: Path,
                              adaptive_result_path: Path | None = None) -> dict:
@@ -595,6 +623,29 @@ def execute_adaptive_s1_unit(unit: dict, attempt: dict, plan: dict, protocol: di
     candidate_records = adaptive.get("candidate_records", [])
     candidate_events = [event for event in adaptive.get("events", [])
                         if event.get("kind") == "candidate_analysis"]
+    generation_events = [event for event in adaptive.get("events", []) if event.get("kind") == "generation"]
+    if (adaptive.get("stop_reason") == "generation_exhausted" and generation_events
+            and generation_events[-1]["data"].get("status") == "model_service_error"):
+        raise ExecutionFailure("local_model_service_unavailable", {
+            "generated_candidate_count": len(candidate_events),
+            "http_request_calls": adaptive.get("runtime", {}).get("http_request_attempt_count"),
+            "database_reset_performed": bool(adaptive.get("runtime", {}).get("database_reset")),
+            "adaptive_result_path": str(adaptive_path)})
+    if not candidate_records and adaptive.get("stop_reason") == "generation_exhausted":
+        return {"candidate_budget": generation["candidate_budget"],
+                "generated_candidate_count": 0, "unique_candidate_count": 0,
+                "duplicate_candidate_count": 0, "candidate_generation_failed_count": generation["candidate_budget"],
+                "valid_candidates_executed": 0, "candidate_evidence_records": 0,
+                "confirmed_success_count": 0, "mixed_evidence_count": 0,
+                "decision_records": 0, "payload_records": 0, "confirmations_per_candidate": 3,
+                "logical_probe_submissions": 0,
+                "http_request_calls": adaptive.get("runtime", {}).get("http_request_attempt_count"),
+                "database_reset_performed": bool(adaptive.get("runtime", {}).get("database_reset")),
+                "budget_complete": False, "metric_eligible": False,
+                "exclusion_reason": "incomplete_candidate_budget", "system_decision": "not_evaluable",
+                "analysis_run_status": "incomplete", "binary_decision_eligible": False,
+                "psr_evidence_eligible": False, "adaptive_result_path": str(adaptive_path),
+                "adaptive_result_sha256": sha256_file(adaptive_path)}
     if adaptive.get("stop_reason") == "runtime_invalid" or not candidate_records:
         runtime = adaptive.get("runtime", {})
         failure_code = adaptive.get("runtime_failure_code") or adaptive.get("stop_reason") or "adaptive_s1_no_candidates"
@@ -654,6 +705,7 @@ def execute_adaptive_s1_unit(unit: dict, attempt: dict, plan: dict, protocol: di
                                   "content_markers": observation["content_markers"],
                                   "human_validation": "pending"}
                 output.write(json.dumps(payload_record, ensure_ascii=False) + "\n")
+                records.append(payload_record)
             for index in range(1, 4):
                 decision = {"record_type": "decision", "run_id": attempt["run_id"],
                             "attempt_id": attempt["attempt_id"], "experiment_id": plan["experiment_id"],
@@ -670,10 +722,13 @@ def execute_adaptive_s1_unit(unit: dict, attempt: dict, plan: dict, protocol: di
             records.append(evidence_record)
             candidate_rows.append({"candidate_id": candidate_id, "payload": payload})
         runtime = adaptive["runtime"]
-        output.write(json.dumps({"record_type": "run_end", "attempt_status": "complete",
+        output.write(json.dumps({"record_type": "run_end", "attempt_status":
+                                 "complete" if adaptive["run_summary"]["execution_status"] == "complete" else "incomplete",
                                  "logical_probe_submissions": sum(6 for _ in candidate_rows),
                                  "http_request_calls": runtime["http_request_attempt_count"],
                                  "database_reset_performed": bool(runtime["database_reset"])}) + "\n")
+    validate_probe_evidence(records, scenario, unit, attempt,
+                            {row["candidate_id"] for row in candidate_rows}, plan["experiment_id"])
     evidence_stats = candidate_evidence_stats(records, unit, attempt,
                                               {row["candidate_id"] for row in candidate_rows}, root)
     batch_path = unit_directory / "adaptive-candidates.json"
@@ -703,23 +758,10 @@ def execute_adaptive_s1_unit(unit: dict, attempt: dict, plan: dict, protocol: di
     budget_complete = (generated_count == generation["candidate_budget"]
                        and adaptive.get("stop_reason") == "budget_exhausted"
                        and adaptive.get("run_summary", {}).get("execution_status") == "complete")
-    if not budget_complete:
-        runtime = adaptive.get("runtime", {})
-        raise ExecutionFailure("adaptive_s1_budget_incomplete", {
-            "generated_candidate_count": generated_count,
-            "candidate_generation_failed_count": max(0, generation["candidate_budget"] - generated_count),
-            "valid_candidates_executed": generated_count,
-            "decision_records": generated_count * 3,
-            "payload_records": generated_count * 6,
-            "http_request_calls": runtime.get("http_request_attempt_count"),
-            "database_reset_performed": bool(runtime.get("database_reset")),
-            "adaptive_result_path": str(adaptive_path),
-            "validation_log_path": str(validation_log),
-            **evidence_stats})
     return {
         **evidence_stats, "generated_candidate_count": generated_count,
         "unique_candidate_count": generated_count, "duplicate_candidate_count": 0,
-        "candidate_generation_failed_count": 0,
+        "candidate_generation_failed_count": max(0, generation["candidate_budget"] - generated_count),
         "runner_batch_sha256": sha256_file(batch_path), "runner_batch_path": str(batch_path),
         "candidate_id_map_path": None,
         "condition_id": unit["condition_id"], "scenario_id": "S1",
@@ -740,7 +782,8 @@ def execute_adaptive_s1_unit(unit: dict, attempt: dict, plan: dict, protocol: di
         "logical_probe_submissions": generated_count * 6,
         "http_request_calls": adaptive["runtime"]["http_request_attempt_count"],
         "database_reset_performed": bool(adaptive["runtime"]["database_reset"]),
-        "budget_complete": True, "metric_eligible": True, "exclusion_reason": None,
+        "budget_complete": budget_complete, "metric_eligible": budget_complete,
+        "exclusion_reason": None if budget_complete else "incomplete_candidate_budget",
     }
 
 
@@ -914,6 +957,7 @@ def execute_unit(unit: dict, attempt: dict, plan: dict, protocol: dict,
     budget_complete = (batch_details["unique_candidate_count"] == generation["candidate_budget"]
                        and batch_details["duplicate_candidate_count"] == 0
                        and batch_details["candidate_generation_failed_count"] == 0)
+    validate_probe_evidence(records, scenario, unit, attempt, executed_ids, plan["experiment_id"])
     evidence_stats = candidate_evidence_stats(records, unit, attempt, executed_ids, root)
     return {
         **batch_details,
@@ -1145,9 +1189,10 @@ def execute_ledger(ledger: ExperimentLedger, plan: dict, protocol: dict, data_di
                               attack_failure=False, state_reused=False,
                               recovery_action="repair_environment_then_start_new_attempt_after_database_reset")
                 raise
-            except (ExecutionFailure, OSError, ValueError, subprocess.SubprocessError) as failure:
+            except Exception as failure:
                 code = failure.code if isinstance(failure, ExecutionFailure) else "orchestrator_error"
-                details = failure.details if isinstance(failure, ExecutionFailure) else {"message": str(failure)}
+                details = failure.details if isinstance(failure, ExecutionFailure) else {
+                    "message": str(failure), "exception_type": type(failure).__name__}
                 budget = protocol["generation"]["candidate_budget"]
                 generated_count = details.get("generated_candidate_count", 0)
                 ledger.append("attempt_invalid", unit_id=unit_id, run_id=run_id, attempt_id=attempt_id,

@@ -1,0 +1,10 @@
+{
+  "schema_version": "1.0.0",
+  "experiment_id": "t04-c-ledger-20261014",
+  "dataset": "pilot",
+  "condition_ids": ["C"],
+  "scenario_ids": ["S1", "S2", "S3", "S4", "S5", "S6", "S7", "S8", "S9"],
+  "replicates": [1],
+  "discovery_reports": {},
+  "seclists_source_root": "results/raw/seclists/6ef78e5c253d9a6556f2d6339a7b635bf0a2115e"
+}

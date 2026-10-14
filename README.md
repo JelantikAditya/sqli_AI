@@ -18,9 +18,17 @@ Impossible. Evaluasi utama membandingkan **FPR** sistem dengan/tanpa RAG dan
   7 bukti executor 3/3, sementara Qwen mengklaim `NOT_VULNERABLE` untuk semua
   kandidat pada A dan B. Klaim dan bukti menunggu review independen; FPR/PSR
   formal belum dihitung. Baca [evidence pilot](docs/evidence/t05-ab-s1-langchain-live-pilot-2026-10-14.json).
-- T03 dan T04 baru terbukti sebagian. S1 Low telah melewati executor bersama;
-  seluruh teknik/level, kondisi SecLists C dalam runner terpadu, dan pilot
-  lengkap belum dijalankan. T06 sampai T08 belum selesai. Status rinci ada di
+- **Kontrol T03 dan persiapan/eksekusi SecLists T04 terbukti pada 14 Oktober.**
+  Pilot kontrol manual S1-S12 valid; C S1-S9 menyelesaikan 90 kandidat dan
+  270 konfirmasi setelah reset per run. Timing kini memakai payload yang sama
+  dengan `SLEEP(0)`, dan baseline tercatat pada semua teknik. Lihat
+  [laporan T03/T04](docs/t03-t04-controls-2026-10-14.md).
+- Pilot lifecycle T05 S1 A/B/C terbaru memproses ketiga kondisi: A dan C
+  lengkap 10 kandidat, B excluded setelah hanya menghasilkan 4 kandidat akibat
+  duplikasi. C tetap berjalan setelah B, dan execute-resume tidak mengubah
+  ledger. 118 tes offline lulus. Keragaman generasi B masih perlu diperbaiki;
+  subset ini belum memenuhi perbandingan budget penuh atau FPR/PSR formal.
+  T06 sampai T08 tetap pending. Status rinci ada di
   [review progres](docs/review-progress-2026-10-14.md).
 - Bukti loop adaptif dua kandidat pada 12 Oktober tetap historis dan tidak
   disamakan dengan pilot budget penuh 14 Oktober. Riwayat tahap terdahulu ada

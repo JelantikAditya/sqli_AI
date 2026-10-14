@@ -221,5 +221,23 @@ class AdaptiveS1LoopTests(unittest.TestCase):
         self.assertEqual(failure_events[0]["data"]["attack_failure"], False)
 
 
+    def test_retry_aware_generator_receives_rejection_index_without_extra_probes(self):
+        calls = []
+        payloads = iter(["1'", "1'", "2'"])
+        def retry_generate(previous, attempted, retry):
+            calls.append((retry, list(attempted)))
+            return next(payloads), {"status": "generated"}
+        observed = []
+        def observe(payload, n):
+            observed.append(payload)
+            return self.evidence(payload, diagnostic=False)
+        result = run_loop(self.context, lambda previous, attempted: None, observe,
+                          lambda evidence, context: self.analyze(evidence, context, "negative", "revise_candidate"),
+                          budget=2, slot_limit=2, generate_with_retry=retry_generate)
+        self.assertEqual(calls, [(0, []), (0, ["1'"]), (1, ["1'"])])
+        self.assertEqual(observed, ["1'", "2'"])
+        self.assertEqual(result["stop_reason"], "budget_exhausted")
+
+
 if __name__ == "__main__":
     unittest.main()

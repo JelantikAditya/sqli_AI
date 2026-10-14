@@ -16,7 +16,8 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "dvwa"))
 from confirmation_policy import classify_confirmations
 from experiment_protocol import load_protocol
-from run_local_experiments import ExecutionFailure, candidate_evidence_stats
+from run_local_experiments import ExecutionFailure, candidate_evidence_stats, validate_probe_evidence
+from rag_pipeline import load_catalog
 from validation_loop import LocalRuntimeFailure, main
 
 
@@ -28,6 +29,8 @@ class ConfirmationPolicyTests(unittest.TestCase):
                      "source": source, "rag_mode": rag_mode}
         if scenario_id == "S2":
             candidate.update(true_payload="true-probe", false_payload="false-probe")
+        elif scenario_id == "S3":
+            candidate["payload"] = "1 AND SLEEP(2)=0 #"
         else:
             candidate["payload"] = "candidate-probe"
         batch = directory / "batch.json"
@@ -58,7 +61,7 @@ class ConfirmationPolicyTests(unittest.TestCase):
                     body = "You have an error in your SQL syntax"
                 elif scenario_id == "S2" and value == "false-probe" and positive:
                     body = "User ID is missing from the database."
-                elif scenario_id == "S3" and value != "1" and positive:
+                elif scenario_id == "S3" and value == candidate["payload"] and positive:
                     elapsed = 1510
                 return {"status": 200, "body": body, "elapsed_ms": elapsed,
                         "body_sha256": "a" * 64}
@@ -111,6 +114,24 @@ class ConfirmationPolicyTests(unittest.TestCase):
         failure = next(r for r in records if r["record_type"] == "runtime_failure")
         self.assertFalse(failure["attack_failure"])
         self.assertFalse(any(r["record_type"] == "run_end" for r in records))
+
+    def test_probe_ledger_rejects_missing_baseline_duplicate_or_wrong_attempt(self):
+        with tempfile.TemporaryDirectory(dir=ROOT / "results/raw") as temporary:
+            records, _ = self.run_executor(Path(temporary), "S1", [False, False, False])
+        scenario = load_catalog()["scenarios"][0]
+        unit = {"scenario_id": "S1", "condition_id": "A", "source": "LLM", "rag_mode": "off", "replicate": 1}
+        attempt = {"run_id": "run1", "attempt_id": "attempt1"}
+        validate_probe_evidence(records, scenario, unit, attempt, {"c1"}, "test-policy")
+        baseline = next(r for r in records if r.get("payload_role") == "baseline")
+        missing = [r for r in records if r is not baseline]
+        duplicate = records + [baseline]
+        tampered = copy.deepcopy(records)
+        next(r for r in tampered if r.get("record_type") == "payload")["attempt_id"] = "another-attempt"
+        for changed, code in ((missing, "probe_evidence_incomplete"),
+                              (duplicate, "duplicate_probe_evidence"),
+                              (tampered, "probe_evidence_context_mismatch")):
+            with self.subTest(code=code), self.assertRaisesRegex(ExecutionFailure, code):
+                validate_probe_evidence(changed, scenario, unit, attempt, {"c1"}, "test-policy")
 
     def test_runner_rejects_tampered_success_and_missing_candidate_summary(self):
         with tempfile.TemporaryDirectory(dir=ROOT / "results/raw") as temporary:

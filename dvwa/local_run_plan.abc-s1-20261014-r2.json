@@ -1,0 +1,12 @@
+{
+  "schema_version": "1.0.0",
+  "experiment_id": "t05-s1-abc2-20261014",
+  "dataset": "pilot",
+  "condition_ids": ["A", "B", "C"],
+  "scenario_ids": ["S1"],
+  "replicates": [1],
+  "discovery_reports": {
+    "S1": {"1": "results/zap/zap-discovery-low-20261011-180846.normalized.json"}
+  },
+  "seclists_source_root": "results/raw/seclists/6ef78e5c253d9a6556f2d6339a7b635bf0a2115e"
+}

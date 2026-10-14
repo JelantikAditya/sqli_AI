@@ -268,7 +268,8 @@ def observe_s1(client, scenario, payload, confirmations, *, run_id, attempt_id,
 
 
 def run_loop(context, generate, observe, analyze, *, budget=10, slot_limit=2,
-             confirmations=3, generation_retries=2, database_reset_performed=False, emit=None):
+             confirmations=3, generation_retries=2, database_reset_performed=False, emit=None,
+             generate_with_retry=None):
     """Callbacks keep control-flow tests independent from network/model services."""
     if context["scenario_id"] != "S1" or context["source"] != "LLM":
         raise ValueError("This development runner supports S1 LLM conditions only.")
@@ -287,7 +288,11 @@ def run_loop(context, generate, observe, analyze, *, budget=10, slot_limit=2,
     for slot in range(1, slot_limit + 1):
         payload = None
         for retry in range(generation_retries + 1):
-            value, audit = generate(history[-1] if history else None, list(attempted), retry)
+            previous = history[-1] if history else None
+            if generate_with_retry is not None:
+                value, audit = generate_with_retry(previous, list(attempted), retry)
+            else:
+                value, audit = generate(previous, list(attempted))
             status = audit["status"]
             if value is not None:
                 try:
@@ -468,7 +473,8 @@ def main():
                               budget=budget, slot_limit=args.pilot_slots,
                               confirmations=protocol["validation"]["confirmations_per_candidate"],
                               generation_retries=protocol["generation"]["max_generation_retries_per_slot"],
-                              database_reset_performed=bool(reset_receipt), emit=emit)
+                              database_reset_performed=bool(reset_receipt), emit=emit,
+                              generate_with_retry=generate)
     result["runtime"] = {"http_request_attempt_count": client.request_count, "discovery": point,
                          "live_form": form, "database_reset": reset_receipt,
                          "orchestration": orchestration_metadata(),

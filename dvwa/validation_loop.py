@@ -69,7 +69,7 @@ class SetupFormParser(HTMLParser):
             self.current = {"method": (attributes.get("method") or "GET").upper(),
                             "action": attributes.get("action") or "", "controls": {}}
             self.forms.append(self.current)
-        elif tag.lower() == "input" and self.current is not None:
+        elif tag.lower() in {"input", "select", "textarea"} and self.current is not None:
             name = attributes.get("name")
             if name:
                 self.current["controls"][name] = {"type": (attributes.get("type") or "text").lower(),
@@ -96,7 +96,8 @@ class LocalRuntimeFailure(RuntimeError):
 def require_active_session_response(response: dict) -> None:
     """Classify auth expiry as a runtime failure before scoring candidate evidence."""
     body = response.get("body", "").lower()
-    if (response.get("status") in {401, 403} or 'name="password"' in body
+    if (response.get("status") in {401, 403}
+            or re.search(r"\bname\s*=\s*['\"]password['\"]", body)
             or "csrf token is incorrect" in body):
         raise LocalRuntimeFailure("session_invalid")
 
@@ -328,11 +329,27 @@ class DvwaClient:
 
         # Fetch a fresh form token outside the measured injection request.
         form = self.get_form(input_path)
-        if form["status"] in {401, 403} or re.search(r"\bname\s*=\s*['\"]password['\"]", form["body"], re.I):
-            raise LocalRuntimeFailure("session_invalid")
+        require_active_session_response(form)
         if form["status"] != 200:
             raise LocalRuntimeFailure("probe_form_invalid")
-        token = form_data(form["body"]).get("user_token")
+        parser = SetupFormParser()
+        parser.feed(form["body"])
+        matches = []
+        for discovered in parser.forms:
+            if scenario["parameter"] not in discovered["controls"]:
+                continue
+            action_url = urllib.parse.urljoin(self.origin + input_path, discovered["action"])
+            try:
+                require_local_target(action_url)
+            except ValueError as exc:
+                raise LocalRuntimeFailure("probe_form_invalid") from exc
+            action = urllib.parse.urlsplit(action_url)
+            if (discovered["method"] == method and action.path == input_path
+                    and not action.query):
+                matches.append(discovered)
+        if len(matches) != 1:
+            raise LocalRuntimeFailure("probe_form_invalid")
+        token = matches[0]["controls"].get("user_token", {}).get("value")
         if scenario["security_level"] == "impossible" and not token:
             raise LocalRuntimeFailure("probe_form_invalid")
 
@@ -344,6 +361,7 @@ class DvwaClient:
 
         started = time.perf_counter()
         submitted = self.request(method, input_path, values)
+        require_active_session_response(submitted)
         statuses = [submitted["status"]]
         final = submitted
         if input_path != result_path:
@@ -361,6 +379,26 @@ class DvwaClient:
 
 def sql_error_markers(body: str) -> list[str]:
     return sorted(name for name, pattern in ERROR_PATTERNS.items() if pattern.search(body))
+
+
+def matched_no_delay_payload(payload: str) -> str:
+    """Hold SQL context fixed and replace one bounded, literal SLEEP with SLEEP(0)."""
+    pattern = re.compile(r"\bsleep\s*\(\s*([0-9]+(?:\.[0-9]+)?)\s*\)", re.I)
+    matches = list(pattern.finditer(payload))
+    if (len(matches) != 1 or len(re.findall(r"\bsleep\s*\(", payload, re.I)) != 1
+            or not 0 < float(matches[0][1]) <= 2):
+        raise ValueError("Time candidates require one literal SLEEP delay greater than zero and at most two seconds.")
+    start, end = matches[0].span(1)
+    return payload[:start] + "0" + payload[end:]
+
+
+def blind_response_signature(response: dict) -> tuple[bool, bool] | None:
+    body = response["body"].lower()
+    signature = (EXISTS_MARKER in body, MISSING_MARKER in body)
+    expected_status = response["status"] == 200 or (response["status"] == 404 and signature == (False, True))
+    if not expected_status or sql_error_markers(body) or signature[0] == signature[1]:
+        return None
+    return signature
 
 
 def decide_class(ground_truth: str, detected: bool) -> str:
@@ -408,12 +446,16 @@ def validate_candidates(
                 raise ValueError("Boolean candidates require true_payload and false_payload.")
             if candidate.get("payload") is not None:
                 raise ValueError("Boolean candidates must not also define payload.")
+            if payloads[0] == payloads[1]:
+                raise ValueError("Boolean true/false payloads must be distinct.")
         else:
             payload = candidate.get("payload")
             if not isinstance(payload, str) or not payload.strip():
                 raise ValueError("Error/time candidates require a non-empty payload.")
             if candidate.get("true_payload") is not None or candidate.get("false_payload") is not None:
                 raise ValueError("Only boolean candidates may define true_payload/false_payload.")
+            if scenario["probe_kind"] == "single_time":
+                matched_no_delay_payload(payload)
 
         all_payloads = [
             candidate.get("payload"),
@@ -477,6 +519,9 @@ def emit_payload_record(
                 "delta_time_ms": round(response["elapsed_ms"] - baseline["elapsed_ms"], 2),
                 "response_sha256": response["body_sha256"],
                 "response_indicators": indicators,
+                "content_markers": (["benign_record"] if "first name:" in response["body"].lower() else [])
+                    + (["user_id_exists"] if blind_response_signature(response) == (True, False) else [])
+                    + (["user_id_missing"] if blind_response_signature(response) == (False, True) else []),
                 "human_validation": "pending",
             },
             ensure_ascii=False,
@@ -500,6 +545,8 @@ def execute_candidate(
     condition_id: str | None = None,
     observation_sink=None,
 ) -> bool:
+    no_delay_payload = (matched_no_delay_payload(candidate["payload"])
+                        if scenario["probe_kind"] == "single_time" else None)
     client.verify_session_level(scenario["security_level"])
     baseline = client.submit_probe(scenario, "1")
     require_active_session_response(baseline)
@@ -507,10 +554,13 @@ def execute_candidate(
     if (baseline["status"] != 200 or sql_error_markers(baseline["body"])
             or (scenario["probe_kind"] == "single_error" and "first name:" not in baseline_body)
             or (scenario["probe_kind"] != "single_error"
-                and EXISTS_MARKER not in baseline_body and MISSING_MARKER not in baseline_body)):
+                and blind_response_signature(baseline) != (True, False))):
         raise LocalRuntimeFailure("baseline_invalid")
     if observation_sink:
         observation_sink("baseline", baseline, [])
+    emit_payload_record(output, run_id, scenario, candidate, replicate, "baseline", "1",
+                        baseline, baseline, [], confirmation_index, attempt_id,
+                        experiment_id, condition_id)
     probe_kind = scenario["probe_kind"]
     evidence: dict = {"probe_kind": probe_kind}
     control = None
@@ -528,15 +578,15 @@ def execute_candidate(
             if observation_sink:
                 observation_sink("candidate", response, indicators)
         else:
-            control = client.submit_probe(scenario, "1")
+            control = client.submit_probe(scenario, no_delay_payload)
             require_active_session_response(control)
-            control_body = control["body"].lower()
-            if (control["status"] != 200 or sql_error_markers(control["body"])
-                    or (EXISTS_MARKER not in control_body and MISSING_MARKER not in control_body)):
-                raise LocalRuntimeFailure("baseline_invalid")
             delta = response["elapsed_ms"] - control["elapsed_ms"]
             comparison_baseline = control
-            detected = delta >= threshold_ms
+            response_signature = blind_response_signature(response)
+            control_signature = blind_response_signature(control)
+            # Invalid candidate/control syntax is a candidate failure, not a session failure.
+            response_pair_valid = response_signature is not None and response_signature == control_signature
+            detected = response_pair_valid and delta >= threshold_ms
             indicators = ["time_delta_over_threshold"] if detected else []
             if observation_sink:
                 observation_sink("candidate", response, indicators)
@@ -546,26 +596,12 @@ def execute_candidate(
                     "time_delta_ms": round(delta, 2),
                     "threshold_ms": threshold_ms,
                     "matched_control_time_ms": control["elapsed_ms"],
+                    "control_policy_id": "same-payload-sleep-zero-v1",
+                    "control_payload_sha256": hashlib.sha256(no_delay_payload.encode()).hexdigest(),
+                    "response_pair_valid": response_pair_valid,
                 }
             )
 
-        if control is not None:
-            emit_payload_record(
-                output,
-                run_id,
-                scenario,
-                candidate,
-                replicate,
-                "baseline",
-                "1",
-                baseline,
-                baseline,
-                [],
-                confirmation_index,
-                attempt_id,
-                experiment_id,
-                condition_id,
-            )
         emit_payload_record(
             output,
             run_id,
@@ -590,7 +626,7 @@ def execute_candidate(
                 candidate,
                 replicate,
                 "no_delay_control",
-                "1",
+                no_delay_payload,
                 control,
                 baseline,
                 [],
@@ -610,7 +646,8 @@ def execute_candidate(
         true_missing = MISSING_MARKER in true_body
         false_exists = EXISTS_MARKER in false_body
         false_missing = MISSING_MARKER in false_body
-        detected = true_exists and false_missing and not true_missing and not false_exists
+        detected = (blind_response_signature(true_response) == (True, False)
+                    and blind_response_signature(false_response) == (False, True))
         if observation_sink:
             observation_sink("true_condition", true_response,
                              ["user_id_exists"] if true_exists else [])

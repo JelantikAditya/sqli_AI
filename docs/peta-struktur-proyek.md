@@ -23,7 +23,7 @@ PDF proposal. Index PDF yang ada di `data/vectorstore/` hanya untuk diagnostik.
 Bangun ulang index proposal dengan:
 
 ```powershell
-.\.venv\Scripts\python.exe dvwa/build_structured_knowledge.py
+.\.venv\Scripts\python.exe dvwa/build_knowledge_base.py --batch-size 3
 ```
 
 Ollama berjalan lokal, default pada `http://127.0.0.1:11434`. Model bahasa
@@ -40,8 +40,11 @@ manifest serta artefak generasi.
 | Protokol evaluasi aktif, budget, konfirmasi, reset, dan kondisi | `dvwa/local_experiment_protocol.json` | Dilacak |
 | Plan template | `dvwa/local_run_plan.template.json` | Dilacak |
 | Plan pilot LangChain S1 A/B yang berhasil | `dvwa/local_run_plan.langchain-pilot-20261014-r3.json` | Dilacak |
+| Plan pilot lifecycle S1 A/B/C terbaru | `dvwa/local_run_plan.abc-s1-20261014-r2.json` | Dilacak |
+| Plan ledger SecLists C S1-S9 | `dvwa/local_run_plan.seclists-controls-20261014.json` | Dilacak |
 | Runner plan, ledger append-only, checkpoint, resume | `dvwa/run_local_experiments.py` | Dilacak |
 | Executor HTTP, login, verifikasi sesi/level, baseline, probe | `dvwa/validation_loop.py` | Dilacak |
+| Pilot kontrol manual executor S1-S12 | `dvwa/run_executor_control_pilot.py` | Dilacak |
 | Loop adaptif S1, generasi, feedback, analisis, regenerasi | `dvwa/adaptive_s1_loop.py` | Dilacak |
 | Chain LangChain serial lokal | `dvwa/langchain_runtime.py` | Dilacak |
 | Analisis respons dan klaim Qwen | `dvwa/analyze_response.py` | Dilacak |

@@ -61,6 +61,11 @@ attempt sebagai invalid dan tidak dihitung sebagai FN. Aturan lengkap ada di
 
 ## Cek cepat
 
+Pilot kontrol executor pada 14 Oktober mencakup S1-S12, termasuk token
+Impossible dan helper High. Pilot ledger C mencakup S1-S9, 10 kandidat dan
+tiga konfirmasi per skenario. Bukti serta perbaikan kontrol timing/HTTP 404
+ada di [laporan T03/T04](../docs/t03-t04-controls-2026-10-14.md).
+
 ```powershell
 docker compose -f dvwa/compose.yaml ps
 Invoke-WebRequest http://127.0.0.1:4280/login.php -UseBasicParsing

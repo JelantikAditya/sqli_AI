@@ -38,15 +38,35 @@ Protokol masih berstatus pilot; eksperimen formal dan metrik final belum tersedi
 | Tugas | Status berdasarkan bukti | Yang masih diperlukan |
 | --- | --- | --- |
 | T01 | Selesai pada kelanjutan 14 Oktober: kontrak konfirmasi 3/3, abstention run, unit/budget/retry, metodologi lokal/LangChain, review korpus dan urutan formal tercatat pada v5. | Pembuktian implementasi T02-T07 dan freeze T08 tetap gerbang terpisah. |
-| T02 | Loop adaptif S1 memakai LangChain Core serial untuk persiapan request, Ollama lokal, dan parsing kandidat/analisis. Pilot A/B r3 menjalankan 10 kandidat per kondisi, mencatat histori/feedback dan tiga konfirmasi; kondisi B berhasil keluar dari duplikasi setelah prompt retry diperjelas. Mixed evidence tidak memicu probe tambahan. | Perluas alur ke teknik/level lain pada pilot terpadu T07; audit manusia atas klaim tetap pending. |
-| T03 | Kontrol executor tersedia untuk baseline, konfirmasi, pasangan boolean, kontrol timing, login/level, helper High, reset, dan pemisahan runtime error. Observer adaptif S1 kini memanggil fungsi executor bersama; respons login/401/403 diklasifikasikan sebagai `session_invalid`. | Jalankan jalur terpadu dan uji executor penuh Impossible, terutama token, serta pemulihan attempt nyata. Discovery Impossible tidak sama dengan eksekusi kandidat penuh. |
-| T04 | Persiapan SecLists terkunci pada commit, file/hash/baris/transformasi tercatat; pilot S1-S9 lama menjalankan 10 kandidat dan tiga konfirmasi. Jalur adaptif S1 A/B kini memanggil `execute_candidate` yang sama dengan jalur SecLists. | Pastikan keluaran pilot ledger mempertahankan parity kandidat, konfirmasi, reset, dan bukti untuk A/B/C. Pilot lama bukan dataset formal. |
-| T05 | Pilot ledger r3 A/B selesai: 2/2 run selesai, masing-masing 10 kandidat, 30 decision record, 60 payload observation record, reset database dan resume berhasil. Ledger memisahkan bukti executor dari klaim Qwen; percobaan r2 yang gagal budget tetap tersimpan sebagai histori terpisah. | Perluas runner/checkpoint/resume ke seluruh teknik dan level, termasuk SecLists pada integrasi T07; belum membuktikan matriks lengkap atau gangguan proses di tengah-run. |
+| T02 | Kriteria alur S1 terpenuhi: LangChain serial, discovery, generasi, executor, analisis, feedback/regenerasi, dan histori tercatat. Pilot A/B r3 pernah menjalankan 10 kandidat per kondisi. Pada pilot ABC terbaru B berhenti di 4 kandidat setelah batas duplikasi habis; hasilnya excluded, tanpa retry lintas attempt. | Perbaiki keragaman generasi yang masih tidak stabil, perluas alur ke teknik/level lain untuk T07, dan lakukan audit manusia atas klaim. |
+| T03 | Kriteria kontrol executor terpenuhi pada pilot 14 Oktober: semua S1-S12 berjalan dengan tiga konfirmasi, reset/login/level, Medium select, High helper, token Impossible, kontrol timing payload yang sama dengan SLEEP(0), dan pembedaan error sesi/kandidat. 113 tes offline lulus. | Pelaksanaan seluruh kondisi LLM/SecLists pada matriks terpadu tetap bagian T07; pilot kontrol manual tidak menjadi dataset formal. |
+| T04 | Persiapan sumber SecLists dan eksekusinya melalui ledger terpenuhi: commit/file/hash/baris/transformasi terkunci, C S1-S9 menghasilkan 90 kandidat dan 270 konfirmasi valid setelah reset per run. Budget dan aturan 3/3 sama dengan LLM; mixed evidence tetap bukan sukses. | Freeze sumber/seleksi berada di T08. Perbandingan PSR formal menunggu validator dan matriks terpadu. |
+| T05 | Runner subset dan lifecycle terbukti: C S1-S9 selesai 9/9; subset S1 A/B/C terbaru menghasilkan A/C lengkap, B excluded untuk budget tidak lengkap, C tetap dijalankan dengan reset baru, dan execute-resume mempertahankan hash ledger tanpa attempt tambahan. Pemeriksaan baseline/role probe menolak data hilang, duplikat, dan lintas attempt. 118 tes offline lulus. | Perbandingan S1 A/B/C budget penuh terbaru belum terpenuhi karena B duplikat. Matriks lengkap dan pilot gangguan proses nyata di tengah-run tetap perlu bukti T07. |
 | T06 | Belum memenuhi kriteria. Fondasi analisis/satu keputusan run dan fungsi confusion_class sudah ada di analyze_response.py. | Paket blind, form/prosedur validator independen, serta agregator FPR/PSR lintas replikasi dengan fixture hasil diketahui belum tersedia. |
 | T07 | Belum selesai. Ada pilot adaptif S1, pilot runner A/B S1, dan pilot SecLists S1-S9 yang terpisah. | Pilot terpadu seluruh teknik/level, termasuk Impossible, serta baseline deteksi SQLi aktif ZAP. |
 | T08 | Belum selesai. Konfigurasi tetap pilot dan validator pending. | Manifest serta freeze kode/model/dependency/prompt/korpus/index/SecLists/protokol setelah semua gate terbukti. |
 
 ## Bukti terkuat yang sudah tersedia
+
+### Pilot kontrol T03 dan ledger C T04, 14 Oktober
+
+Lihat [laporan kontrol](t03-t04-controls-2026-10-14.md),
+`docs/evidence/t03-executor-controls-live-2026-10-14.json`, dan
+`docs/evidence/t04-seclists-ledger-live-2026-10-14.json`.
+Kontrol manual S1-S12 seluruhnya runtime valid; C S1-S9 selesai 9/9 run dan
+resume no-op. Tiga kandidat timing High C memiliki mixed evidence dan tetap
+dicatat tanpa tambahan konfirmasi. FPR/PSR formal belum dihitung.
+
+### Pilot lifecycle T05 S1 A/B/C terbaru
+
+Evidence: `docs/evidence/t05-abc-s1-lifecycle-live-2026-10-14.json`.
+Experiment: `t05-s1-abc2-20261014`.
+A dan C menyelesaikan 10 kandidat; B hanya 4 lalu excluded untuk incomplete
+budget. Seluruh kandidat yang dieksekusi mendapat tepat tiga konfirmasi, dan
+C tetap berjalan setelah B berhenti. Execute-resume tidak mengubah hash ledger
+atau menambah attempt/reset. Pilot ini membuktikan lifecycle yang jelas, tetapi
+belum memenuhi perbandingan budget penuh A/B/C. Duplikasi B tetap masalah
+operasional yang harus ditutup sebelum evaluasi formal.
 
 ### Pilot T05 A/B S1
 
@@ -121,13 +141,14 @@ Pilot tersebut tidak me-reset database dan validasi manusia masih pending.
 ## Urutan lanjut yang disarankan
 
 1. T01 telah ditutup pada kelanjutan sesi: gunakan keputusan v5 sebagai kontrak implementasi.
-2. Hubungkan executor umum dan analisis/feedback Qwen ke orchestrator T05.
+2. Tutup keragaman generasi B yang masih tidak stabil; pertahankan batas retry,
+   identitas attempt, dan pengecualian incomplete budget secara transparan.
 3. Bangun T06: paket blind, form validator, dan agregator yang menjaga klaim
    sistem sebelum review serta memisahkan konfirmasi dari kandidat/replikasi.
 4. Jalankan T07, termasuk kontrol Impossible dan baseline SQLi aktif ZAP.
 5. Bekukan T08, kemudian jalankan matriks formal 99 condition-run dan anotasi.
 
-Kesimpulan proyek keseluruhan: subset T02/T05 S1 A/B sudah berjalan end-to-end
-dan T01 tetap selesai. T03/T04 sudah punya komponen serta pilot sebelumnya,
-namun integrasi seluruh teknik/level dan kondisi C masih perlu bukti terpadu.
-T06, T07, dan T08 tetap menjadi pekerjaan utama sebelum evaluasi formal.
+Kesimpulan proyek keseluruhan: T01 selesai, kriteria alur S1 T02 tersedia,
+kontrol T03 dan persiapan/eksekusi T04 terpenuhi. T05 sudah menangani subset,
+budget exclusion, evidence, dan resume; ketidakstabilan generasi B tetap perlu
+diperbaiki untuk menghasilkan dataset sebanding. T06, T07, dan T08 belum selesai.

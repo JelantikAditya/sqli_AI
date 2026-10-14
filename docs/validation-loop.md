@@ -10,7 +10,8 @@ melalui adapter provenance dan memakai executor yang sama.
 
 Target dikunci pada loopback port `4280`. Runner memverifikasi login dan level
 DVWA pada sesi yang sama sebelum mengirim kandidat. Batas default adalah 10
-kandidat, tiga replikasi, timeout 15 detik per request, dan pemrosesan serial.
+kandidat, tiga konfirmasi respons per kandidat, timeout 15 detik per request,
+dan pemrosesan serial. Replikasi pipeline dipilih terpisah dengan `--replicate`.
 HTTP response, cookie, token, serta rahasia lain tidak disimpan di log.
 
 ## Cara kerja
@@ -18,21 +19,32 @@ HTTP response, cookie, token, serta rahasia lain tidak disimpan di log.
 1. Memilih satu skenario dari S1–S12 di `dvwa/experiment_scenarios.json`.
 2. Login, memastikan indikator sesi masuk, mengatur level, lalu memastikan
    level tersebut terpilih.
-3. Mengambil baseline benign `id=1` untuk tiap kandidat/replikasi. Baseline
-   menjadi pembanding waktu dan memastikan indikator error yang sudah ada pada
+3. Mengambil baseline benign `id=1` untuk tiap konfirmasi. Baseline
+   memeriksa kesehatan target dan memastikan indikator error yang sudah ada pada
    respons normal tidak dihitung sebagai sinyal baru.
 4. Mengirim kandidat sesuai mekanisme endpoint. Pada High, runner mengirim ke
    helper input dahulu, lalu membaca halaman modul SQLi.
 5. Mendeteksi error SQL baru, pasangan boolean `User ID exists`/`User ID is
-   MISSING`, atau delta waktu minimal 1.500 ms terhadap kontrol benign `id=1`
+   MISSING`, atau delta waktu minimal 1.500 ms terhadap payload yang sama
+   dengan satu delay literal `SLEEP(1..2)` diganti menjadi `SLEEP(0)`
    yang dikirim berpasangan dengan kandidat.
-6. Menulis satu baris JSONL per payload yang dikirim dan satu baris keputusan
-   per kandidat/replikasi. Keputusan manusia selalu dimulai sebagai `pending`.
+6. Menulis satu baris JSONL per probe, termasuk baseline dan kontrol, serta satu
+   baris keputusan per kandidat/konfirmasi. Tiga konfirmasi membentuk satu
+   `candidate_evidence` terpisah dari klaim model. Keputusan manusia selalu
+   dimulai sebagai `pending`.
 
 Untuk blind boolean, satu kandidat memuat pasangan `true_payload` dan
 `false_payload`. Pasangan dihitung berhasil jika respons masing-masing
 menunjukkan indikator yang diharapkan. Satu kandidat boolean mengirim dua
-payload pada setiap replikasi.
+payload ditambah satu baseline pada setiap konfirmasi. Respons false pada
+DVWA Low/High boleh memakai HTTP 404 jika indikator `MISSING` eksplisit ada.
+Generic HTTP error tidak menjadi sinyal sukses.
+
+Kontrol timing memakai sintaks kandidat yang sama dengan `SLEEP(0)`.
+Kandidat dan kontrol harus memiliki indikator blind valid yang sama sebelum
+delta waktu dihitung sebagai sukses. Syntax error pada keduanya menjadi
+kandidat gagal; kegagalan baseline normal atau sesi menginvalidasi attempt.
+Lihat [pilot T03/T04](t03-t04-controls-2026-10-14.md) untuk bukti kontrol nyata.
 
 Label `TP`, `FP`, `TN`, atau `FN` pada log adalah klasifikasi sementara dari
 sinyal otomatis terhadap label skenario. FPR/PSR final tetap memerlukan review
