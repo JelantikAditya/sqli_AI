@@ -1,0 +1,56 @@
+{
+  "schema_version": "1.0.0",
+  "evidence_id": "t01-confirmation-policy-offline-2026-10-14",
+  "recorded_date_local": "2026-10-14",
+  "timezone": "Asia/Jakarta",
+  "scope": "offline-implementation-verification-not-formal-data",
+  "protocol_id": "local-sqli-v2-pilot",
+  "protocol_status": "pilot",
+  "confirmation_policy_id": "three-valid-confirmations-all-positive-v1",
+  "automated_test_suite": {
+    "exit_code": 0,
+    "command": "python -B -m unittest discover -s tests",
+    "failed": 0,
+    "passed": 78
+  },
+  "static_checks": {
+    "json_schema_definitions_checked": 11,
+    "python_files_parsed": 35,
+    "git_diff_check_passed": true,
+    "planned_condition_runs": 99
+  },
+  "coverage": [
+    "0/3, 1/3, 2/3 and 3/3 for error, boolean and time techniques in conditions A/B/C",
+    "Exactly three confirmations with 6 error or 9 boolean/time logical probe submissions per candidate in mocked executor",
+    "Mixed evidence remains a valid candidate and contributes zero confirmed successes",
+    "Model positive claims on mixed or negative evidence are retained; negative target classification remains FP",
+    "A request for extra evidence does not execute extra confirmations; the next unique candidate uses feedback",
+    "Session failure after one positive confirmation invalidates the candidate/attempt without attack-failure scoring",
+    "Incomplete or extra confirmation sets do not establish success",
+    "Runner rejects changed candidate success, missing summaries and cross-attempt confirmation records",
+    "Protocol rejects majority thresholds, added confirmation rounds and excluding mixed candidates from denominator"
+  ],
+  "live_dvwa_requests_sent": 0,
+  "live_model_inference_calls": 0,
+  "database_resets_performed": 0,
+  "historical_pilot_artifacts_modified": false,
+  "limitations": [
+    "Offline checks use mocked clients/models and are not full live matrix evidence",
+    "Final human-validated PSR/FPR aggregator and independent validation remain T06 work",
+    "Existing Python startup location warning remains an unresolved T08 runtime item"
+  ],
+  "artifact_sha256": {
+    "dvwa/confirmation_policy.py": "76d3f891585170f53b784523faade226a5ac4529b77de1c0937d170d1ea37cbd",
+    "dvwa/analyze_response.py": "8b7e8c5f6dc921d3d810f5e941784b136827d455acdb00c478e87f057d5c611a",
+    "dvwa/adaptive_s1_loop.py": "4b13a6c08a293648aa54ffd2f519ac8cbc31a26a09bd44adec14cfa05fd312fa",
+    "dvwa/validation_loop.py": "baa036684ef92bd9c5d4089cb8b015d3e24163a2456fffe4f210af06d0693fcf",
+    "dvwa/run_local_experiments.py": "95d4cd5b946b99796636932d4f80158241adc12dc0cfc841b1c406b96b86d481",
+    "dvwa/experiment_protocol.py": "05085277d42e43b7ec26b2344f3b5fcc760a96c0088ed301cb70f704c98b8357",
+    "dvwa/local_experiment_protocol.json": "f3a9a0c5aff0473efe94d3aa962992a7ebe08c74d420521b72051fa2a1d02e99",
+    "schemas/analysis-ledger.schema.json": "25a4f3b9c27ecda84f87701a80a832e8aa8015e70f216a1b9c86f9dce7464302",
+    "schemas/candidate-evidence.schema.json": "79907344498893da0ad21177a82a62247ff746d78d6e79ef272952c96a182b0f",
+    "tests/test_confirmation_policy.py": "92c928d774d0157a8a5a5a5097f567d56b54e6229ab67cbf2390a443d364e0ad",
+    "tests/test_response_analysis.py": "78cf90de8a00bc394b5849b42ae0daed58ede415a3d6840f916b693750931b2a",
+    "tests/test_adaptive_s1_loop.py": "ee34e72ba9ca5c534e5b9b99275d0dd9ad640c51d73cfe4c103b876ad10563a2"
+  }
+}

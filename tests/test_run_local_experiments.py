@@ -64,8 +64,11 @@ class LocalExperimentOrchestratorTests(unittest.TestCase):
             plan_value["seclists_source_root"] = "results/raw/seclists"
             plan = validate_plan(plan_value, load_protocol(), root)
             units = planned_units(plan, load_protocol(), root)
-            self.assertEqual([unit["status"] for unit in units], ["planned", "planned", "excluded"])
-            self.assertEqual(units[-1]["exclusion_reason"], "condition_does_not_include_scenario")
+            self.assertEqual([unit["condition_id"] for unit in units], ["C", "B", "A"])
+            excluded = next(unit for unit in units if unit["condition_id"] == "C")
+            self.assertEqual(excluded["status"], "excluded")
+            self.assertIsNone(excluded["planned_execution_index"])
+            self.assertEqual(excluded["exclusion_reason"], "condition_does_not_include_scenario")
 
     def test_formal_dataset_is_blocked_while_protocol_is_pilot(self):
         with tempfile.TemporaryDirectory(dir=TEST_TEMP_ROOT) as temporary:

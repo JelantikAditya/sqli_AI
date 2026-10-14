@@ -8,6 +8,23 @@ Impossible. Evaluasi utama membandingkan **FPR** sistem dengan/tanpa RAG dan
 
 ## Status
 
+- **T01 selesai** pada definisi evaluasi dan metodologi lokal. Protokol aktif
+  `local-sqli-v5-pilot` menetapkan konfirmasi 3/3, abstention run, rotasi
+  kondisi, reset, unit, dan batas retry. Lihat
+  [keputusan T01](docs/keputusan-urutan-kondisi-2026-10-14.md).
+- **Pilot integrasi T02/T05 S1 A/B berhasil pada 14 Oktober.** Kedua kondisi
+  menjalankan 10 kandidat, 3 konfirmasi per kandidat, reset database, dan
+  ledger. LangChain Core 1.6.10 berjalan serial dengan Ollama lokal. B mencatat
+  7 bukti executor 3/3, sementara Qwen mengklaim `NOT_VULNERABLE` untuk semua
+  kandidat pada A dan B. Klaim dan bukti menunggu review independen; FPR/PSR
+  formal belum dihitung. Baca [evidence pilot](docs/evidence/t05-ab-s1-langchain-live-pilot-2026-10-14.json).
+- T03 dan T04 baru terbukti sebagian. S1 Low telah melewati executor bersama;
+  seluruh teknik/level, kondisi SecLists C dalam runner terpadu, dan pilot
+  lengkap belum dijalankan. T06 sampai T08 belum selesai. Status rinci ada di
+  [review progres](docs/review-progress-2026-10-14.md).
+- Bukti loop adaptif dua kandidat pada 12 Oktober tetap historis dan tidak
+  disamakan dengan pilot budget penuh 14 Oktober. Riwayat tahap terdahulu ada
+  di [kontrak analisis Qwen](docs/qwen-response-analysis-contract.md).
 - Pada 12 Oktober, loop adaptif Qwen sudah menjalani pilot lokal berpasangan
   RAG-off/RAG-on pada S1 Low. Kedua kondisi menjalankan dua kandidat dengan
   tiga konfirmasi; generator menerima keputusan dan evidence kandidat
@@ -54,6 +71,8 @@ Impossible. Evaluasi utama membandingkan **FPR** sistem dengan/tanpa RAG dan
   dan [review korpus](docs/corpus-review-2026-10-11.md).
 
 Petunjuk menjalankan lab ada di [dvwa/README.md](dvwa/README.md).
+Untuk menemukan kode dan penyimpanan lokal RAG, SecLists, runner, ledger, serta
+evidence, lihat [peta struktur proyek](docs/peta-struktur-proyek.md).
 Notebook untuk memverifikasi koneksi dari runtime Google Colab ada di
 [notebooks/colab_dvwa_smoke.ipynb](notebooks/colab_dvwa_smoke.ipynb).
 Rincian milestone awal juga tersedia di

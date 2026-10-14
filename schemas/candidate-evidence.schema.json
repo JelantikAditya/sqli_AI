@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "candidate-evidence.schema.json",
+  "title": "Executor-only candidate confirmation summary, independent of Qwen",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "record_type", "run_id", "attempt_id", "experiment_id", "condition_id", "candidate_id", "scenario_id", "replicate", "payload_source", "rag_mode", "confirmation_policy_id", "confirmation_signals", "evidence_status", "valid_confirmation_count", "positive_confirmation_count", "confirmed_success", "qwen_claim", "human_validation"],
+  "properties": {
+    "schema_version": {"const": "1.0.0"},
+    "record_type": {"const": "candidate_evidence"},
+    "run_id": {"type": "string", "minLength": 1},
+    "attempt_id": {"type": "string", "minLength": 1},
+    "experiment_id": {"type": ["string", "null"]},
+    "condition_id": {"enum": ["A", "B", "C", null]},
+    "candidate_id": {"type": "string", "minLength": 1},
+    "scenario_id": {"enum": ["S1", "S2", "S3", "S4", "S5", "S6", "S7", "S8", "S9", "S10", "S11", "S12"]},
+    "replicate": {"type": "integer", "minimum": 1, "maximum": 3},
+    "payload_source": {"enum": ["LLM", "SecLists", "manual"]},
+    "rag_mode": {"enum": ["off", "on", "not_applicable"]},
+    "confirmation_policy_id": {"const": "three-valid-confirmations-all-positive-v1"},
+    "confirmation_signals": {"type": "array", "maxItems": 3, "items": {"type": "boolean"}},
+    "evidence_status": {"enum": ["CONSISTENT_POSITIVE", "MIXED_EVIDENCE", "CONSISTENT_NEGATIVE", "RUNTIME_INVALID", "INCOMPLETE_CONFIRMATIONS"]},
+    "valid_confirmation_count": {"type": "integer", "minimum": 0, "maximum": 3},
+    "positive_confirmation_count": {"type": "integer", "minimum": 0, "maximum": 3},
+    "confirmed_success": {"type": ["boolean", "null"]},
+    "qwen_claim": {"const": null},
+    "human_validation": {"const": "pending"}
+  }
+}

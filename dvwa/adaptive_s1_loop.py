@@ -5,6 +5,7 @@ from __future__ import annotations
 import argparse
 import copy
 import hashlib
+import io
 import json
 import os
 import re
@@ -14,8 +15,9 @@ from urllib.parse import urljoin, urlsplit
 from uuid import uuid4
 
 from jsonschema import Draft202012Validator, ValidationError
+from langchain_runtime import invoke_serial, orchestration_metadata
 
-from analyze_response import (DIAGNOSTICS, analyze_with_qwen, sha256, summarize_run,
+from analyze_response import (analyze_with_qwen, sha256, summarize_run,
                               validate_document, validate_input)
 from experiment_protocol import load_protocol
 from generate_candidate_batch import build_messages, output_schema
@@ -24,9 +26,9 @@ from rag_pipeline import (ROOT, active_manifest_path, injection_point_context,
                           load_catalog, post_ollama, read_manifest, retrieve_chunks, scenario_query)
 from smoke_s1_pair import InputForms
 from validation_loop import (DvwaClient, LocalRuntimeFailure, load_local_env_file,
-                             require_local_target)
+                             require_local_target, execute_candidate)
 
-PROMPT_VERSION = "sqli-adaptive-candidate-v1"
+PROMPT_VERSION = "sqli-adaptive-candidate-v3"
 
 
 def validate_payload(value):
@@ -50,11 +52,15 @@ def feedback_view(previous):
             "decision": record["model_output"]["decision"],
             "reason_code": record["model_output"]["reason_code"],
             "feedback_action": record["model_output"]["feedback_action"],
+            "evidence_status": record["evidence_status"],
+            "confirmed_success": record["confirmed_success"],
+            "positive_confirmation_count": record["positive_confirmation_count"],
+            "valid_confirmation_count": record["valid_confirmation_count"],
             "evidence_refs": record["model_output"]["evidence_refs"],
             "evidence": record["evidence"]}
 
 
-def generation_messages(scenario, previous, attempted, retrieval=None):
+def generation_messages(scenario, previous, attempted, retrieval=None, retry_index=0):
     messages = build_messages(scenario, 1, retrieval)
     instruction = (
         "\n\nDevelopment S1 diagnostic policy: use a single-line parameter value of at most 256 characters. "
@@ -67,37 +73,77 @@ def generation_messages(scenario, previous, attempted, retrieval=None):
             "\nAdapt the next value using this structured feedback. A negative claim means the previous "
             "candidate did not meet the diagnostic indicator. A positive claim does not end the fixed "
             "candidate budget; produce another distinct diagnostic candidate.\n"
+            "Mixed evidence is final for the previous candidate: do not re-probe it; generate a new value.\n"
             + json.dumps(feedback_view(previous), sort_keys=True, ensure_ascii=False)
         )
     instruction += "\nAttempted parameter values: " + json.dumps(attempted, ensure_ascii=False)
+    if retry_index:
+        instruction += (
+            "\nThis is a regeneration after a rejected model response. The previous response was not usable "
+            "because it repeated an attempted value or failed candidate validation. Return one valid, distinct, "
+            "low-impact error-based diagnostic parameter value that is not in the attempted list."
+        )
     messages[1]["content"] += instruction
     return messages
 
 
-def generate_one(scenario, previous, attempted, *, retrieval=None, model="qwen2.5:7b", seed=42):
-    messages = generation_messages(scenario, previous, attempted, retrieval)
-    options = {"temperature": 0, "seed": seed, "num_ctx": 4096, "num_predict": 768}
-    audit = {"prompt_version": PROMPT_VERSION, "messages": messages, "prompt_sha256": sha256(messages),
-             "model": model, "options": options, "feedback_record_sha256": sha256(previous["analysis"]) if previous else None,
-             "retrieved_chunk_ids": [c["chunk_id"] for c in retrieval["chunks"]] if retrieval else [],
-             "knowledge_base_id": retrieval["knowledge_base_id"] if retrieval else None}
-    try:
-        response = post_ollama("/api/chat", {"model": model, "messages": messages, "format": output_schema("single_error", 1),
-                                          "stream": False, "options": options}, timeout=180)
-    except RuntimeError:
-        return None, {**audit, "status": "model_service_error"}
-    audit["model"] = response.get("model", model)
-    audit["runtime_metrics"] = {k: response.get(k) for k in ("done", "done_reason", "prompt_eval_count", "eval_count", "total_duration")}
-    message = response.get("message")
-    content = message.get("content") if isinstance(message, dict) else None
-    audit["raw_model_content"] = content
-    try:
-        document = json.loads(content) if isinstance(content, str) else None
-        Draft202012Validator(output_schema("single_error", 1)).validate(document)
-        payload = validate_payload(document["candidates"][0]["payload"])
-    except (ValueError, TypeError, ValidationError):
-        return None, {**audit, "status": "invalid_candidate"}
-    return payload, {**audit, "status": "generated"}
+def generate_one(scenario, previous, attempted, *, retrieval=None, model="qwen2.5:7b", seed=42,
+                 temperature=0, num_ctx=4096, num_predict=768, retry_index=0):
+    def prepare(state):
+        messages = generation_messages(state["scenario"], state["previous"],
+                                       state["attempted"], state["retrieval"], state["retry_index"])
+        options = {"temperature": state["temperature"], "seed": state["seed"],
+                   "num_ctx": state["num_ctx"], "num_predict": state["num_predict"]}
+        audit = {"prompt_version": PROMPT_VERSION, "messages": messages,
+                 "prompt_sha256": sha256(messages), "model": state["model"],
+                 "orchestration": orchestration_metadata(),
+                 "chain_stages": ["prepare_generation_request", "local_ollama_chat", "parse_candidate"],
+                 "options": options,
+                 "generation_retry_index": state["retry_index"],
+                 "feedback_record_sha256": sha256(state["previous"]["analysis"])
+                 if state["previous"] else None,
+                 "retrieved_chunk_ids": [c["chunk_id"] for c in state["retrieval"]["chunks"]]
+                 if state["retrieval"] else [],
+                 "knowledge_base_id": state["retrieval"]["knowledge_base_id"]
+                 if state["retrieval"] else None}
+        request = {"model": state["model"], "messages": messages,
+                   "format": output_schema("single_error", 1), "stream": False,
+                   "options": options}
+        return {**state, "audit": audit, "request": request}
+
+    def call_model(state):
+        try:
+            state["response"] = post_ollama("/api/chat", state["request"], timeout=180)
+        except RuntimeError:
+            state["response"] = None
+        return state
+
+    def parse(state):
+        audit = state["audit"]
+        response = state["response"]
+        if response is None:
+            return {"payload": None, "audit": {**audit, "status": "model_service_error"}}
+        audit["model"] = response.get("model", state["model"])
+        audit["runtime_metrics"] = {k: response.get(k) for k in
+                                    ("done", "done_reason", "prompt_eval_count", "eval_count", "total_duration")}
+        message = response.get("message")
+        content = message.get("content") if isinstance(message, dict) else None
+        audit["raw_model_content"] = content
+        try:
+            document = json.loads(content) if isinstance(content, str) else None
+            Draft202012Validator(output_schema("single_error", 1)).validate(document)
+            payload = validate_payload(document["candidates"][0]["payload"])
+        except (ValueError, TypeError, ValidationError):
+            return {"payload": None, "audit": {**audit, "status": "invalid_candidate"}}
+        return {"payload": payload, "audit": {**audit, "status": "generated"}}
+
+    result = invoke_serial((prepare, call_model, parse), {
+        "scenario": scenario, "previous": previous, "attempted": attempted,
+        "retrieval": retrieval, "model": model, "seed": seed,
+        "temperature": temperature, "num_ctx": num_ctx, "num_predict": num_predict,
+        "retry_index": retry_index,
+    })
+    return result["payload"], result["audit"]
 
 
 def load_seeded_candidate(batch_path, audit_path, scenario, point, rag_mode, seed, model):
@@ -187,53 +233,37 @@ def verify_current_form(client, scenario):
     return matching
 
 
-def observe_s1(client, scenario, payload, confirmations):
-    """Raw responses remain in memory. Only allowlisted markers enter evidence."""
+def observe_s1(client, scenario, payload, confirmations, *, run_id, attempt_id,
+               experiment_id, condition_id, replicate, rag_mode):
+    """Use the shared executor and retain only allowlisted response evidence."""
     document = {"schema_version": "1.0.0", "technique": "error-based",
                 "injection_point": {k: scenario[k] for k in ("method", "input_path", "result_path", "parameter")},
                 "runtime_status": "valid", "baseline_valid": True, "time_threshold_ms": 1500,
                 "observations": []}
     try:
         for trial in range(1, confirmations + 1):
-            verify_session(client)
-            for role, value in (("baseline", "1"), ("candidate", payload)):
-                response = client.submit_probe(scenario, value)
+            def capture(role, response, indicators):
                 body = response["body"]
                 lower = body.lower()
-                diagnostics = sorted(code for code, pattern in DIAGNOSTICS.items() if pattern.search(body))
+                diagnostics = sorted(indicators)
                 benign = "first name:" in lower
-                if response["status"] in {401, 403} or 'name="password"' in lower or "csrf token is incorrect" in lower:
-                    raise LocalRuntimeFailure("session_invalid")
                 observation = {"observation_id": f"obs-{len(document['observations']) + 1:03d}",
-                               "trial": trial, "role": role, "http_status": response["status"],
+                               "trial": trial,
+                               "role": "candidate" if role == "candidate" else "baseline",
+                               "http_status": response["status"],
                                "elapsed_ms": response["elapsed_ms"], "response_sha256": response["body_sha256"],
                                "diagnostics": diagnostics, "content_markers": ["benign_record"] if benign else []}
                 document["observations"].append(observation)
-                if role == "baseline" and (response["status"] != 200 or not benign or diagnostics):
-                    raise LocalRuntimeFailure("baseline_invalid")
-            verify_session(client)
+            candidate = {"candidate_id": "candidate-" + hashlib.sha256(payload.encode()).hexdigest()[:12],
+                         "source": "LLM", "rag_mode": rag_mode, "payload": payload}
+            execute_candidate(client, io.StringIO(), run_id, scenario, candidate, replicate,
+                              1500, confirmation_index=trial, attempt_id=attempt_id,
+                              experiment_id=experiment_id, condition_id=condition_id,
+                              observation_sink=capture)
     except LocalRuntimeFailure as failure:
         document["runtime_status"] = "invalid"
         document["baseline_valid"] = False
         document["runtime_failure_code"] = failure.code
-    return validate_input(document)
-
-
-def merge_observations(first, extra):
-    if first["injection_point"] != extra["injection_point"] or first["technique"] != extra["technique"]:
-        raise ValueError("Additional observations must use the same injection point.")
-    document = copy.deepcopy(first)
-    offset = max(o["trial"] for o in document["observations"])
-    for observation in extra["observations"]:
-        observation = copy.deepcopy(observation)
-        observation["trial"] += offset
-        observation["observation_id"] = f"obs-{len(document['observations']) + 1:03d}"
-        document["observations"].append(observation)
-    if extra["runtime_status"] != "valid" or not extra["baseline_valid"]:
-        document["runtime_status"] = "invalid"
-        document["baseline_valid"] = False
-        if extra.get("runtime_failure_code"):
-            document["runtime_failure_code"] = extra["runtime_failure_code"]
     return validate_input(document)
 
 
@@ -257,7 +287,7 @@ def run_loop(context, generate, observe, analyze, *, budget=10, slot_limit=2,
     for slot in range(1, slot_limit + 1):
         payload = None
         for retry in range(generation_retries + 1):
-            value, audit = generate(history[-1] if history else None, list(attempted))
+            value, audit = generate(history[-1] if history else None, list(attempted), retry)
             status = audit["status"]
             if value is not None:
                 try:
@@ -281,13 +311,7 @@ def run_loop(context, generate, observe, analyze, *, budget=10, slot_limit=2,
         record = analyze(evidence, candidate_context)
         event("candidate_analysis", {"slot": slot, "revision": 1, "payload": payload,
                                      "payload_sha256": hashlib.sha256(payload.encode()).hexdigest(), "record": record})
-        if (record["analysis_status"] == "completed" and record["system_claim"] == "inconclusive"
-                and record["model_output"]["feedback_action"] == "collect_more_evidence"):
-            extra = observe(payload, confirmations)
-            combined = merge_observations(evidence, extra)
-            record = analyze(combined, candidate_context)
-            event("candidate_analysis", {"slot": slot, "revision": 2, "payload": payload,
-                                         "payload_sha256": hashlib.sha256(payload.encode()).hexdigest(), "record": record})
+        # Keep the model's request in the ledger, but never grant extra confirmations.
         records.append(record)
         history.append({"payload": payload, "analysis": record})
         # Stop on runtime or model errors; preserve them instead of manufacturing a failure label.
@@ -301,13 +325,14 @@ def run_loop(context, generate, observe, analyze, *, budget=10, slot_limit=2,
             break
         event("feedback", {"slot": slot, "analysis_sha256": sha256(record),
                            "action": record["model_output"]["feedback_action"],
+                           "additional_confirmations_performed": False,
                            "next_slot_planned": slot < slot_limit})
     summary = summarize_run(records, budget) if records else None
     result = {"schema_version": "1.0.0", "scope": "development-adaptive-s1-pilot",
               "formal_eligible": False, "context": context,
               "config": {"candidate_budget": budget, "pilot_slot_limit": slot_limit,
                          "confirmations_per_candidate": confirmations, "generation_retries": generation_retries,
-                         "extra_observation_rounds_max": 1,
+                         "extra_observation_rounds_max": 0,
                          "database_reset_performed": bool(database_reset_performed)},
               "stop_reason": stop_reason, "runtime_failure_code": runtime_failure_code,
               "run_summary": summary, "candidate_records": records,
@@ -320,6 +345,14 @@ def main():
     parser.add_argument("--rag-mode", choices=("off", "on"), required=True)
     parser.add_argument("--zap-report", type=Path, required=True)
     parser.add_argument("--comparison-id", required=True)
+    parser.add_argument("--run-id", help="Optional run ID assigned by the experiment ledger.")
+    parser.add_argument("--attempt-id", default="attempt-1", help="Attempt ID assigned by the experiment ledger.")
+    parser.add_argument("--model")
+    parser.add_argument("--temperature", type=float)
+    parser.add_argument("--num-ctx", type=int)
+    parser.add_argument("--num-predict", type=int)
+    parser.add_argument("--output-dir", type=Path,
+                        help="Output directory under results/raw; defaults to results/raw.")
     parser.add_argument("--replicate", type=int, choices=(1, 2, 3), default=1)
     parser.add_argument("--pilot-slots", type=int, default=2)
     parser.add_argument("--initial-batch", type=Path,
@@ -347,14 +380,26 @@ def main():
         if not retrieval["chunks"]:
             raise RuntimeError("RAG context must not be empty.")
     seed = protocol["replicate_seeds"][args.replicate - 1]
-    model = protocol["generation"]["model"]
+    model = args.model or protocol["generation"]["model"]
+    temperature = protocol["generation"]["temperature"] if args.temperature is None else args.temperature
+    num_ctx = protocol["generation"]["num_ctx"] if args.num_ctx is None else args.num_ctx
+    num_predict = protocol["generation"]["num_predict"] if args.num_predict is None else args.num_predict
+    if num_ctx < 2048 or num_predict < 1 or temperature < 0:
+        raise SystemExit("Invalid local Qwen generation options.")
+    scenario = {**scenario, "method": point["method"], "input_path": point["path"],
+                "parameter": point["parameter"]}
     seeded = load_seeded_candidate(args.initial_batch, args.initial_generation_audit,
                                    scenario, point, args.rag_mode, seed, model) if args.initial_batch else None
-    run_id = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ") + "-" + uuid4().hex[:8]
-    context = {"experiment_id": args.comparison_id, "run_id": run_id, "attempt_id": "attempt-1",
+    run_id = args.run_id or (datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ") + "-" + uuid4().hex[:8])
+    if not run_id.strip() or not args.attempt_id.strip():
+        raise SystemExit("Run and attempt IDs cannot be empty.")
+    context = {"experiment_id": args.comparison_id, "run_id": run_id, "attempt_id": args.attempt_id,
                "candidate_id": "__run__", "scenario_id": "S1", "replicate": args.replicate,
                "condition_id": "A" if args.rag_mode == "off" else "B", "source": "LLM", "rag_mode": args.rag_mode}
-    directory = ROOT / "results/raw"
+    raw_directory = (ROOT / "results" / "raw").resolve()
+    directory = (args.output_dir or raw_directory).resolve()
+    if not directory.is_relative_to(raw_directory):
+        raise SystemExit("--output-dir must stay inside results/raw/.")
     directory.mkdir(parents=True, exist_ok=True)
     log_path = directory / f"adaptive-s1-{args.rag_mode}-{run_id}.jsonl"
     result_path = log_path.with_suffix(".json")
@@ -377,7 +422,7 @@ def main():
         setup_failure = failure
 
     first_candidate_pending = seeded is not None
-    def generate(previous, attempted):
+    def generate(previous, attempted, retry_index=0):
         nonlocal first_candidate_pending
         if first_candidate_pending:
             first_candidate_pending = False
@@ -385,7 +430,9 @@ def main():
             if payload in attempted:
                 return None, {**audit, "status": "duplicate"}
             return payload, audit
-        return generate_one(scenario, previous, attempted, retrieval=retrieval, model=model, seed=seed)
+        return generate_one(scenario, previous, attempted, retrieval=retrieval, model=model, seed=seed,
+                            temperature=temperature, num_ctx=num_ctx, num_predict=num_predict,
+                            retry_index=retry_index)
 
     with log_path.open("x", encoding="utf-8", newline="\n") as log:
         def emit(item):
@@ -403,7 +450,7 @@ def main():
                       "config": {"candidate_budget": budget, "pilot_slot_limit": args.pilot_slots,
                                  "confirmations_per_candidate": protocol["validation"]["confirmations_per_candidate"],
                                  "generation_retries": protocol["generation"]["max_generation_retries_per_slot"],
-                                 "extra_observation_rounds_max": 1,
+                                 "extra_observation_rounds_max": 0,
                                  "database_reset_performed": bool(reset_receipt)},
                       "stop_reason": "runtime_invalid", "runtime_failure_code": setup_failure.code,
                       "run_summary": None, "candidate_records": [], "events": [failure_event],
@@ -412,7 +459,11 @@ def main():
         else:
             result = run_loop(context,
                               generate,
-                              lambda payload, n: observe_s1(client, scenario, payload, n),
+                              lambda payload, n: observe_s1(
+                                  client, scenario, payload, n, run_id=run_id,
+                                  attempt_id=args.attempt_id, experiment_id=args.comparison_id,
+                                  condition_id=context["condition_id"], replicate=args.replicate,
+                                  rag_mode=args.rag_mode),
                               lambda evidence, ctx: analyze_with_qwen(evidence, ctx, model=model, seed=seed),
                               budget=budget, slot_limit=args.pilot_slots,
                               confirmations=protocol["validation"]["confirmations_per_candidate"],
@@ -420,6 +471,7 @@ def main():
                               database_reset_performed=bool(reset_receipt), emit=emit)
     result["runtime"] = {"http_request_attempt_count": client.request_count, "discovery": point,
                          "live_form": form, "database_reset": reset_receipt,
+                         "orchestration": orchestration_metadata(),
                          "seed": seed, "model": model, "protocol_sha256": sha256(protocol),
                          "retrieval": retrieval}
     with result_path.open("x", encoding="utf-8", newline="\n") as output:

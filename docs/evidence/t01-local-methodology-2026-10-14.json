@@ -1,0 +1,112 @@
+{
+  "schema_version": "1.0.0",
+  "evidence_id": "t01-local-methodology-2026-10-14",
+  "recorded_date_local": "2026-10-14",
+  "timezone": "Asia/Jakarta",
+  "scope": "methodology-decision-and-offline-checks-not-framework-integration-proof",
+  "protocol_id": "local-sqli-v4-pilot",
+  "protocol_status": "pilot",
+  "methodology_decision_id": "local-laptop-langchain-v1",
+  "proposal_reference": {
+    "path": "sources/103062300037_I GUSTI AGUNG JELANTIK ADITYA BASKARA.pdf",
+    "sha256": "672e87422d8fd1d885066b319f5454db2e25b7e54842198392c87710f15e75ca",
+    "pdf_pages_reviewed": [
+      10,
+      25,
+      26,
+      27,
+      28,
+      29,
+      30,
+      31,
+      33,
+      34,
+      35,
+      36
+    ],
+    "methodology_printed_pages": [
+      28,
+      29,
+      30
+    ],
+    "source_modified": false
+  },
+  "local_framework_status": {
+    "implementation_readiness": "pending",
+    "langchain_imports_in_dvwa_python": [],
+    "notebook_framework_path": "notebooks/colab_langchain_setup.ipynb",
+    "active_llm_transport": "direct-local-Ollama-HTTP",
+    "active_vectorstore_client": "direct-Chroma",
+    "required_formal_framework": "langchain-core-serial-runnables"
+  },
+  "runtime_snapshot": {
+    "python": "3.13.3",
+    "packages": {
+      "chromadb": "1.5.9",
+      "jsonschema": "4.26.0",
+      "pypdf": "6.19.0",
+      "langchain": null,
+      "langchain-core": null,
+      "langchain-ollama": null,
+      "langchain-chroma": null
+    }
+  },
+  "hardware": {
+    "current_gpu_reading": {
+      "method": "nvidia-smi",
+      "name": "NVIDIA GeForce RTX 3050 Laptop GPU",
+      "vram_mib": 4096,
+      "driver": "577.00"
+    },
+    "cpu_ram_os_current_cim_reading": "unavailable",
+    "historical_cpu_ram_source": "docs/progress-2026-10-07.md",
+    "historical_cpu": "Intel Core i5-11400H",
+    "historical_installed_ram_gb": 16,
+    "hardware_snapshot_is_formal_freeze": false
+  },
+  "model_metadata_read": {
+    "scope": "read-only-model-metadata-not-inference",
+    "metadata_available": false,
+    "error_type": "URLError"
+  },
+  "official_framework_references": [
+    "https://reference.langchain.com/python/langchain-core/runnables/base",
+    "https://github.com/langchain-ai/langchain/blob/master/libs/core/langchain_core/runnables/base.py"
+  ],
+  "automated_test_suite": {
+    "passed": 96,
+    "failed": 0,
+    "exit_code": 0
+  },
+  "static_checks": {
+    "python_files_parsed": 40,
+    "json_schema_definitions_checked": 11,
+    "planned_condition_runs": 99,
+    "git_diff_check_passed": true
+  },
+  "live_dvwa_requests_sent": 0,
+  "live_model_inference_calls": 0,
+  "database_resets_performed": 0,
+  "dependency_installations_performed": 0,
+  "remaining_t01_decision": "formal-condition-order",
+  "remaining_implementation": [
+    "local LangChain adapter and parity checks in T02/T05",
+    "live integrated pilot for all techniques/levels in T07",
+    "runtime/package/model freeze and proof audit in T08"
+  ],
+  "artifact_sha256": {
+    "dvwa/methodology_policy.py": "10e1d4c690f646b0db6bfca5bd04e8c837820b12d998f3450aa14c6008bda837",
+    "dvwa/experiment_protocol.py": "c1669f75c9535abca575c3910990cfac011d00205f064bc983cb717a4598a148",
+    "dvwa/local_experiment_protocol.json": "fb6b9b2edc80265ae5b44157ee50b39af9c1f221b7394ff8f9cac1a431ba0d24",
+    "dvwa/run_local_experiments.py": "de1eea17ce360667a277bcdc46184e43d5a715c2ba9e860312620d8a1044647d",
+    "tests/test_local_methodology.py": "ff96b402610116939d4cf08e353b0e94261e435b3744b607ae3db7a2aab03fb9",
+    "requirements-rag.txt": "6bc84b2648efcc4cf9691c7533be4da46699b36dde4bf0dd2b77cd6a4478c6a0",
+    "dvwa/rag_pipeline.py": "750cbbeb9cf0240221b83121113adfcb91a1eeb970c2f0ced1b90005d20df6ef",
+    "dvwa/generate_candidate_batch.py": "186bc0ad2f7b9aca49e888ce691c84200fcaca94f53b104bedc7f03706898b85",
+    "dvwa/adaptive_s1_loop.py": "778ee2a4451909d8beb017982538bab5c532481aee64c8768e85a8a445215da2",
+    "dvwa/analyze_response.py": "42850f3ce3be07d04586b62d85dd8b2424c6a5a57125e92f6d23bd71e1d2f437",
+    "dvwa/retrieve_structured_knowledge.py": "a04feb51c323ef5187f1dcb61d21fd34a24c010f3870cfcdfb8b4b0e569ed35f",
+    "docs/keputusan-metodologi-lokal-langchain-2026-10-14.md": "2d4dd6668c54b19be03f56cc9a045b07f750843d84babcc31bd3180b82df8af9",
+    "docs/metodologi-lokal-2026-10-14.md": "626a19f566a2cd5820ec61209234be1f63f95266e95fcf19f9b02075a5823243"
+  }
+}

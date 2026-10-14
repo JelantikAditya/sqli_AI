@@ -77,7 +77,7 @@ class AdaptiveS1LoopTests(unittest.TestCase):
         self.assertEqual(result["run_summary"]["run_status"], "incomplete")
         self.assertEqual(result["run_summary"]["system_decision"], "not_evaluable")
 
-    def test_inconclusive_feedback_collects_one_extra_round_for_same_candidate(self):
+    def test_inconclusive_feedback_never_collects_extra_round(self):
         calls = {"observe": 0, "analyze": 0}
 
         def observe(payload, confirmations):
@@ -94,12 +94,43 @@ class AdaptiveS1LoopTests(unittest.TestCase):
                           lambda previous, attempted: ("1'", {"status": "generated"}),
                           observe, analyze, slot_limit=1)
         record = result["candidate_records"][0]
-        self.assertEqual(calls, {"observe": 2, "analyze": 2})
-        self.assertEqual(len(record["evidence"]["observations"]), 12)
-        self.assertEqual(record["system_claim"], "positive")
+        self.assertEqual(calls, {"observe": 1, "analyze": 1})
+        self.assertEqual(len(record["evidence"]["observations"]), 6)
+        self.assertEqual(record["system_claim"], "inconclusive")
+        self.assertEqual(record["model_output"]["feedback_action"], "collect_more_evidence")
         revisions = [e["data"]["revision"] for e in result["events"]
                      if e["kind"] == "candidate_analysis"]
-        self.assertEqual(revisions, [1, 2])
+        self.assertEqual(revisions, [1])
+
+    def test_mixed_evidence_is_final_then_next_candidate_uses_feedback(self):
+        for positive_count in (1, 2):
+            with self.subTest(positive_count=positive_count):
+                calls = []
+                feedback = []
+                candidates = iter(["1'", "2'"])
+
+                def generate(previous, attempted):
+                    feedback.append(feedback_view(previous) if previous else None)
+                    return next(candidates), {"status": "generated"}
+
+                def observe(payload, confirmations):
+                    calls.append((payload, confirmations))
+                    evidence = self.evidence(payload, diagnostic=True)
+                    for observation in evidence["observations"]:
+                        if observation["role"] == "candidate" and observation["trial"] > positive_count:
+                            observation["diagnostics"] = []
+                    return evidence
+
+                result = run_loop(self.context, generate, observe,
+                    lambda evidence, context: self.analyze(evidence, context, "positive", "collect_more_evidence"),
+                    budget=2, slot_limit=2)
+                self.assertEqual(calls, [("1'", 3), ("2'", 3)])
+                self.assertEqual(feedback[1]["evidence_status"], "MIXED_EVIDENCE")
+                self.assertEqual(feedback[1]["decision"], "positive")
+                self.assertEqual(result["run_summary"]["valid_executed_count"], 2)
+                self.assertEqual(result["run_summary"]["confirmed_success_count"], 0)
+                self.assertEqual(result["run_summary"]["mixed_evidence_count"], 2)
+                self.assertEqual(result["candidate_records"][0]["qwen_claim"], "VULNERABLE")
 
     def test_duplicate_generation_retries_are_bounded_and_not_executed(self):
         observations = []
@@ -120,6 +151,26 @@ class AdaptiveS1LoopTests(unittest.TestCase):
         duplicates = [e for e in result["events"]
                       if e["kind"] == "generation" and e["data"]["status"] == "duplicate"]
         self.assertEqual(len(duplicates), 3)
+
+    def test_complete_inconclusive_run_finishes_without_automatic_rerun(self):
+        payloads = iter(["1'", "2'"])
+        observed = []
+
+        def observe(payload, confirmations):
+            observed.append((payload, confirmations))
+            return self.evidence(payload, diagnostic=False)
+
+        result = run_loop(self.context,
+            lambda previous, attempted: (next(payloads), {"status": "generated"}),
+            observe, lambda evidence, context: self.analyze(evidence, context, "inconclusive", "collect_more_evidence"),
+            budget=2, slot_limit=2)
+        self.assertEqual(observed, [("1'", 3), ("2'", 3)])
+        self.assertEqual(result["stop_reason"], "budget_exhausted")
+        self.assertEqual(result["config"]["extra_observation_rounds_max"], 0)
+        self.assertEqual(result["run_summary"]["system_decision"], "inconclusive")
+        self.assertEqual(result["run_summary"]["execution_status"], "complete")
+        self.assertTrue(result["run_summary"]["psr_evidence_eligible"])
+        self.assertFalse(result["run_summary"]["binary_decision_eligible"])
 
     def test_feedback_prompt_excludes_free_text_labels_and_attempted_values(self):
         evidence = self.evidence("1'", diagnostic=False)

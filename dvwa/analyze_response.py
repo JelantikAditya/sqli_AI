@@ -14,10 +14,13 @@ from uuid import uuid4
 
 from jsonschema import Draft202012Validator, ValidationError
 from referencing import Registry, Resource
+from langchain_runtime import invoke_serial, orchestration_metadata
 
+from confirmation_policy import classify_confirmations
 from rag_pipeline import ROOT, load_catalog, post_ollama
+from run_decision_policy import derive_run_decision
 
-PROMPT_VERSION = "sqli-response-analysis-v3"
+PROMPT_VERSION = "sqli-response-analysis-v4"
 DIAGNOSTICS = {
     "mysql_syntax_error": re.compile(r"you have an error in your sql syntax", re.I),
     "mysql_xpath_error": re.compile(r"xpath syntax error", re.I),
@@ -77,19 +80,22 @@ def build_messages(document):
     technique_rule = {
         "error-based": (
             "Compare candidate diagnostics with the same-trial baseline diagnostics. A new diagnostic "
-            "means positive/new_database_diagnostic. No new diagnostic means negative/no_new_database_diagnostic. "
+            "is a positive trial; three positive trials support positive/new_database_diagnostic. "
+            "Zero positive trials means negative/no_new_database_diagnostic. "
             "HTTP 200 is compatible with a database error in the response body. HTTP 500 alone is insufficient. "
             "Do not require Boolean content differences or timing delays for this technique. "
             "Cite the baseline AND candidate observation IDs."
         ),
         "boolean-based blind": (
             "Compare matched true_condition and false_condition observations. Opposed exists/missing markers "
-            "mean positive/boolean_difference; absence of that difference means negative/no_boolean_difference. "
+            "constitute a positive trial; three positive trials support positive/boolean_difference. "
+            "Zero positive trials means negative/no_boolean_difference. "
             "Cite both condition observation IDs."
         ),
         "time-based blind": (
             "Compare candidate elapsed_ms with the same-trial no_delay_control elapsed_ms. Delta at or above "
-            "time_threshold_ms means positive/matched_delay; below it means negative/no_matched_delay. "
+            "time_threshold_ms constitutes a positive trial; three positive trials support positive/matched_delay. "
+            "Zero positive trials means negative/no_matched_delay. "
             "Do not substitute the benign baseline for the matched control. Cite both comparison IDs."
         ),
     }[document["technique"]]
@@ -106,6 +112,12 @@ def build_messages(document):
             "missing/contradictory evidence or controls, not simply the absence of a success indicator. "
             "Do not infer the target's security level. Do not calculate metrics or invent observations. "
             "feedback_action is a proposed next step, not permission to send requests. " + technique_rule
+            + " Candidate success requires exactly three valid matched trials, numbered 1, 2, and 3, "
+            "with the technique indicator present in all three. Zero positive trials means negative. "
+            "One or two positive trials means mixed evidence: return inconclusive/insufficient_evidence "
+            "and revise_candidate. Fewer or extra trials cannot confirm success. "
+            "Never request additional probes for the same candidate; the confirmation budget is fixed. "
+            "For a positive decision cite every supporting comparison across all three trials."
         )},
         {"role": "user", "content": json.dumps(document, sort_keys=True, ensure_ascii=False)},
     ]
@@ -130,8 +142,21 @@ def positive_evidence_groups(document):
     return groups
 
 
+def confirmation_result(document):
+    validate_input(document)
+    if document["runtime_status"] != "valid" or not document["baseline_valid"]:
+        return classify_confirmations({}, runtime_valid=False)
+    groups = positive_evidence_groups(document)
+    results = {}
+    for trial in {o["trial"] for o in document["observations"]}:
+        refs = {o["observation_id"] for o in document["observations"] if o["trial"] == trial}
+        results[trial] = any(group.issubset(refs) for group in groups)
+    return classify_confirmations(results)
+
+
 def rule_signal(document):
-    return bool(positive_evidence_groups(document))
+    """Return a candidate evidence status, separately from Qwen's claim."""
+    return confirmation_result(document)["evidence_status"]
 
 
 def validate_context(context):
@@ -166,7 +191,7 @@ def normalize_analysis(document, output, context, provenance=None):
         known = {o["observation_id"] for o in document["observations"]}
         unknown = sorted(set(output["evidence_refs"]) - known)
         status = "invalid_evidence_reference" if unknown else "completed"
-    signal = rule_signal(document)
+    confirmation = confirmation_result(document)
     claim = output["decision"] if output is not None else None
     warnings = []
     codes = {
@@ -177,12 +202,16 @@ def normalize_analysis(document, output, context, provenance=None):
     if output and output["reason_code"] != codes.get(claim, "insufficient_evidence"):
         warnings.append("decision_reason_code_mismatch")
     record = {
-        "schema_version": "1.0.0", "record_type": "candidate_analysis",
+        "schema_version": "1.1.0", "record_type": "candidate_analysis",
         "scope": "development-analysis-contract", "context": copy.deepcopy(context),
         "evidence": copy.deepcopy(document), "analysis_status": status,
-        "model_output": copy.deepcopy(output), "system_claim": claim, "rule_signal": signal,
+        "model_output": copy.deepcopy(output), "system_claim": claim,
+        "qwen_claim": {"positive": "VULNERABLE", "negative": "NOT_VULNERABLE",
+                       "inconclusive": "INCONCLUSIVE", None: None}[claim],
+        "rule_signal": confirmation["evidence_status"], **confirmation,
         # Preserve an unsupported positive claim so the evaluator can audit false positives.
-        "claim_supported": (not unknown and any(group.issubset(output["evidence_refs"])
+        "claim_supported": (confirmation["confirmed_success"] is True and not unknown
+                            and all(group.issubset(output["evidence_refs"])
                             for group in positive_evidence_groups(document))) if claim == "positive" else None,
         "unknown_evidence_refs": unknown, "analysis_warnings": warnings, "human_validation": "pending",
         "audit": {"input_sha256": sha256(document), "output_sha256": sha256(output) if output else None,
@@ -214,38 +243,63 @@ def summarize_run(records, expected_budget):
         ids.append(record["context"]["candidate_id"])
     if len(ids) != len(set(ids)) or len(ids) > expected_budget:
         raise ValueError("Duplicate candidates or exceeded run budget.")
-    valid = sum(r["evidence"]["runtime_status"] == "valid" and r["evidence"]["baseline_valid"] for r in records)
+    # Mixed evidence remains in the valid-candidate denominator; invalid attempts do not.
+    valid = sum(r["confirmed_success"] is not None for r in records)
     analyzed = sum(r["analysis_status"] == "completed" for r in records)
     positive = sum(r["system_claim"] == "positive" for r in records)
     inconclusive = sum(r["system_claim"] == "inconclusive" for r in records)
-    complete = len(records) == valid == analyzed == expected_budget
-    # This aggregates candidates within ONE run. No voting occurs across replications.
-    decision = "positive" if positive else ("inconclusive" if inconclusive else "negative")
-    if not complete:
-        decision = "not_evaluable"
-    status = "incomplete" if not complete else ("inconclusive" if decision == "inconclusive" else "complete")
+    runtime_invalid = sum(r["analysis_status"] == "runtime_invalid" for r in records)
+    policy = derive_run_decision(expected_budget=expected_budget, candidate_count=len(records),
+        valid_executed_count=valid, analysis_completed_count=analyzed,
+        system_positive_count=positive, inconclusive_count=inconclusive,
+        runtime_invalid_count=runtime_invalid)
     summary = {
-        "schema_version": "1.0.0", "record_type": "run_analysis_summary",
+        "schema_version": "1.2.0", "record_type": "run_analysis_summary",
         "scope": "development-analysis-contract", "context": {**run_context, "candidate_id": "__run__"},
         "expected_budget": expected_budget, "candidate_count": len(records), "valid_executed_count": valid,
         "analysis_completed_count": analyzed, "system_positive_count": positive,
         "inconclusive_count": inconclusive,
+        "runtime_invalid_count": runtime_invalid,
+        "confirmed_success_count": sum(r["confirmed_success"] is True for r in records),
+        "mixed_evidence_count": sum(r["evidence_status"] == "MIXED_EVIDENCE" for r in records),
         "unsupported_claim_count": sum(r["claim_supported"] is False for r in records),
-        "budget_complete": valid == expected_budget, "system_decision": decision, "run_status": status,
+        **policy,
+        # Evidence readiness is independent of a binary model decision; annotation remains pending.
+        "psr_evidence_eligible": policy["execution_status"] == "complete"
+        and run_context["scenario_id"] in {f"S{i}" for i in range(1, 10)},
         # A model claim is not a human-validated PSR success.
         "psr_success_count": None, "psr": None, "human_validation": "pending",
         "candidate_record_sha256": [sha256(r) for r in records],
     }
+    validate_run_summary(summary)
+    return summary
+
+
+def validate_run_summary(summary):
+    """Reject edited decision/eligibility fields inconsistent with the recorded counts."""
     validate_document(summary, "analysis-ledger.schema.json")
+    if summary["record_type"] != "run_analysis_summary":
+        raise ValueError("Use a run analysis summary.")
+    validate_context(summary["context"])
+    policy = derive_run_decision(**{key: summary[key] for key in (
+        "expected_budget", "candidate_count", "valid_executed_count", "analysis_completed_count",
+        "system_positive_count", "inconclusive_count", "runtime_invalid_count")})
+    psr_ready = policy["execution_status"] == "complete" and summary["context"]["scenario_id"] in {f"S{i}" for i in range(1, 10)}
+    if (any(summary[key] != value for key, value in policy.items())
+            or summary["psr_evidence_eligible"] != psr_ready
+            or len(summary["candidate_record_sha256"]) != summary["candidate_count"]
+            or summary["confirmed_success_count"] + summary["mixed_evidence_count"] > summary["valid_executed_count"]
+            or summary["unsupported_claim_count"] > summary["system_positive_count"]):
+        raise ValueError("Run summary semantics changed or counts are inconsistent.")
     return summary
 
 
 def confusion_class(summary, ground_truth):
     """Evaluator-only function. Ground truth is never passed to Qwen."""
-    validate_document(summary, "analysis-ledger.schema.json")
-    if summary["record_type"] != "run_analysis_summary" or ground_truth not in {"positive", "negative"}:
+    validate_run_summary(summary)
+    if ground_truth not in {"positive", "negative"}:
         raise ValueError("Use a run summary and explicit evaluator ground truth.")
-    if summary["run_status"] != "complete":
+    if not summary["binary_decision_eligible"]:
         return None
     if ground_truth == "positive":
         return "TP" if summary["system_decision"] == "positive" else "FN"
@@ -282,44 +336,67 @@ def input_from_s1_smoke(smoke, mode):
 
 
 def analyze_with_qwen(document, context, *, model="qwen2.5:7b", seed=42):
-    validate_input(document)
-    validate_case(document, context)
-    messages = build_messages(document)
-    model_schema = schema("qwen-analysis-output.schema.json")
-    model_schema["properties"]["reason_code"]["enum"] = {
-        "error-based": ["new_database_diagnostic", "no_new_database_diagnostic", "insufficient_evidence"],
-        "boolean-based blind": ["boolean_difference", "no_boolean_difference", "insufficient_evidence"],
-        "time-based blind": ["matched_delay", "no_matched_delay", "insufficient_evidence"],
-    }[document["technique"]]
-    options = {"temperature": 0, "seed": seed, "num_ctx": 4096, "num_predict": 768}
-    provenance = {"model": model, "prompt_version": PROMPT_VERSION,
-                  "prompt_sha256": sha256(messages), "schema_sha256": sha256(model_schema),
-                  "options": options, "analysis_rag_policy": "no-retrieval-in-either-condition"}
-    if document["runtime_status"] != "valid" or not document["baseline_valid"]:
-        return normalize_analysis(document, None, context, provenance)
-    try:
-        response = post_ollama("/api/chat", {"model": model, "messages": messages,
-                               "format": model_schema, "stream": False, "options": options}, timeout=180)
-    except RuntimeError:
-        provenance["analysis_error"] = "model-service-unavailable"
-        return normalize_analysis(document, None, context, provenance)
-    provenance["model"] = response.get("model", model)
-    provenance["runtime_metrics"] = {k: response.get(k) for k in ("done", "done_reason", "prompt_eval_count", "eval_count", "total_duration")}
-    message = response.get("message")
-    content = message.get("content") if isinstance(message, dict) else None
-    if not isinstance(content, str):
-        provenance["analysis_error"] = "missing-model-content"
-        return normalize_analysis(document, None, context, provenance)
-    provenance["raw_model_content_sha256"] = hashlib.sha256(content.encode()).hexdigest()
-    # Keep the original model text locally, including malformed/unsupported claims.
-    provenance["raw_model_content"] = content
-    try:
-        output = json.loads(content)
-        validate_document(output, "qwen-analysis-output.schema.json")
-    except (ValueError, TypeError, ValidationError):
-        provenance["analysis_error"] = "invalid-model-json-or-schema"
-        return normalize_analysis(document, None, context, provenance)
-    return normalize_analysis(document, output, context, provenance)
+    def prepare(state):
+        item = state["document"]
+        validate_input(item)
+        validate_case(item, state["context"])
+        messages = build_messages(item)
+        model_schema = schema("qwen-analysis-output.schema.json")
+        model_schema["properties"]["reason_code"]["enum"] = {
+            "error-based": ["new_database_diagnostic", "no_new_database_diagnostic", "insufficient_evidence"],
+            "boolean-based blind": ["boolean_difference", "no_boolean_difference", "insufficient_evidence"],
+            "time-based blind": ["matched_delay", "no_matched_delay", "insufficient_evidence"],
+        }[item["technique"]]
+        options = {"temperature": 0, "seed": state["seed"], "num_ctx": 4096, "num_predict": 768}
+        provenance = {"model": state["model"], "prompt_version": PROMPT_VERSION,
+                      "prompt_sha256": sha256(messages), "schema_sha256": sha256(model_schema),
+                      "options": options, "analysis_rag_policy": "no-retrieval-in-either-condition",
+                      "orchestration": orchestration_metadata(),
+                      "chain_stages": ["prepare_analysis_request", "local_ollama_chat", "parse_analysis"]}
+        request = {"model": state["model"], "messages": messages, "format": model_schema,
+                   "stream": False, "options": options}
+        return {**state, "model_schema": model_schema, "provenance": provenance,
+                "request": request,
+                "should_call": item["runtime_status"] == "valid" and item["baseline_valid"]}
+
+    def call_model(state):
+        if not state["should_call"]:
+            state["response"] = None
+            return state
+        try:
+            state["response"] = post_ollama("/api/chat", state["request"], timeout=180)
+        except RuntimeError:
+            state["response"] = None
+            state["provenance"]["analysis_error"] = "model-service-unavailable"
+        return state
+
+    def parse(state):
+        provenance = state["provenance"]
+        response = state["response"]
+        if not state["should_call"]:
+            return normalize_analysis(state["document"], None, state["context"], provenance)
+        if response is None:
+            return normalize_analysis(state["document"], None, state["context"], provenance)
+        provenance["model"] = response.get("model", state["model"])
+        provenance["runtime_metrics"] = {k: response.get(k) for k in
+            ("done", "done_reason", "prompt_eval_count", "eval_count", "total_duration")}
+        message = response.get("message")
+        content = message.get("content") if isinstance(message, dict) else None
+        if not isinstance(content, str):
+            provenance["analysis_error"] = "missing-model-content"
+            return normalize_analysis(state["document"], None, state["context"], provenance)
+        provenance["raw_model_content_sha256"] = hashlib.sha256(content.encode()).hexdigest()
+        provenance["raw_model_content"] = content
+        try:
+            output = json.loads(content)
+            validate_document(output, "qwen-analysis-output.schema.json")
+        except (ValueError, TypeError, ValidationError):
+            provenance["analysis_error"] = "invalid-model-json-or-schema"
+            return normalize_analysis(state["document"], None, state["context"], provenance)
+        return normalize_analysis(state["document"], output, state["context"], provenance)
+
+    return invoke_serial((prepare, call_model, parse),
+                         {"document": document, "context": context, "model": model, "seed": seed})
 
 
 def main():

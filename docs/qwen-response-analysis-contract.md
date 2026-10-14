@@ -73,28 +73,47 @@ HTTP 200 dapat membawa pesan SQL error di body. HTTP 500 tanpa diagnostik
 tidak cukup. Kandidat tanpa diagnostik baru pada pasangan error-based yang
 valid diberi negative; ini tidak menyatakan aplikasi secara keseluruhan aman.
 
-Prompt aktif adalah sqli-response-analysis-v3. Instruksi dan pilihan reason_code
+Prompt aktif sejak 14 Oktober adalah sqli-response-analysis-v4. Instruksi dan pilihan reason_code
 dibatasi ke teknik yang sedang dianalisis agar model tidak memakai indikator
 boolean/timing untuk menilai error-based.
 
 ## Ledger kandidat dan integritas
 
-Schema: schemas/analysis-ledger.schema.json.
+Schema: schemas/analysis-ledger.schema.json, kandidat versi 1.1.0 dan ringkasan run 1.2.0.
 Implementasi: dvwa/analyze_response.py.
 
 - context dipasang wrapper: experiment/run/attempt/candidate ID, scenario,
   replicate, condition, source dan rag_mode. Tidak ada label ground truth di
   record yang diberikan ke model.
 - evidence menyimpan input yang disanitasi, bukan hanya kesimpulan model.
-- model_output dan system_claim mempertahankan hasil Qwen.
-- rule_signal mencatat sinyal pembanding deterministik secara independen.
-- claim_supported menunjukkan apakah positive merujuk pasangan observasi
-  yang memang memiliki sinyal. Ini flag audit, bukan filter klaim.
+- model_output, system_claim, dan qwen_claim mempertahankan hasil Qwen,
+  termasuk INCONCLUSIVE/null ketika keputusan biner belum tersedia.
+- rule_signal dan evidence_status mencatat CONSISTENT_POSITIVE hanya pada
+  3/3 konfirmasi, MIXED_EVIDENCE pada 1/3 atau 2/3, dan CONSISTENT_NEGATIVE
+  pada 0/3. Runtime invalid dan konfirmasi tidak lengkap memiliki status terpisah.
+- confirmed_success, valid_confirmation_count, dan positive_confirmation_count
+  merekam hasil policy. Mixed evidence tetap kandidat valid pada penyebut PSR.
+- claim_supported mensyaratkan 3/3 dan referensi ketiga pasangan pembanding.
+  Ini flag audit, bukan filter klaim.
 - analysis_warnings menandai reason_code yang bertentangan dengan decision
   atau teknik. Klaim positive tetap dipertahankan.
 - audit mencatat hash input/output, versi/hash prompt, schema decoding, opsi
   model, sumber evidence dan token/durasi jika tersedia.
 - human_validation tetap pending. Model tidak dapat mengisi label manusia.
+
+Sejak keputusan T01 pada 14 Oktober, runner tidak menjalankan putaran
+konfirmasi tambahan meskipun model meminta collect_more_evidence. Hasil dan
+permintaan asli disimpan, kemudian evidence dipakai untuk kandidat baru.
+Lihat [keputusan konfirmasi](keputusan-konfirmasi-kandidat-2026-10-14.md).
+Pilot dan angka pengujian bertanggal 12 Oktober di bawah tetap catatan historis.
+
+Keputusan run kini mengikuti any-positive-else-abstain-v1. Positive mendahului
+inconclusive pada run lengkap; negative mensyaratkan semua klaim negative.
+Ringkasan memisahkan execution_status dari binary_decision_eligible dan
+psr_evidence_eligible. Inconclusive tidak menjadi TN/FN atau memicu run baru.
+FPR utama membutuhkan seluruh unit negatif terencana yang evaluable/biner;
+helper evaluator melaporkan coverage dan diagnostik subset secara terpisah.
+Lihat [keputusan run](keputusan-run-inconclusive-2026-10-14.md).
 
 Ringkasan memeriksa ulang schema, hash, konteks, dan semantik record sehingga
 perubahan system_claim atau evidence sesudah normalisasi terdeteksi.

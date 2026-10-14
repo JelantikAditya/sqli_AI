@@ -3,7 +3,33 @@
 Target lokal untuk eksperimen DAST SQL injection pada DVWA. Port web hanya
 diikat ke `127.0.0.1:4280`; jangan arahkan pemindaian ke target lain.
 
+## Dependency LangChain lokal
+
+Pada 14 Oktober, langchain-core 1.6.10 dipasang dan diperiksa pada `.venv`
+proyek. Jalankan dari root proyek untuk memasang ulang dan memeriksa library:
+
+```powershell
+.\.venv\Scripts\python.exe -m pip install -r requirements-orchestration.txt
+.\.venv\Scripts\python.exe -B dvwa/smoke_langchain.py
+```
+
+Smoke memeriksa dua tahap RunnableSequence serial, tanpa inferensi model,
+request DVWA atau tracing eksternal. Pilot ledger S1 A/B pada 14 Oktober juga
+menjalankan chain LangChain pada generasi dan analisis Qwen serta executor DVWA.
+Bukti instalasi ada di
+[catatan pemasangan](../docs/evidence/langchain-core-install-2026-10-14.json),
+sedangkan bukti runtime ada di
+[pilot T02/T05](../docs/evidence/t05-ab-s1-langchain-live-pilot-2026-10-14.json).
+Integrasi yang terbukti saat ini terbatas pada S1 Low, belum seluruh teknik
+dan level.
+
 ## Menjalankan
+
+Urutan condition-run mengikuti protokol v5: blok replikasi 1/2/3 dan S1-S12
+numerik, dengan ABC/BCA/CAB pada skenario ganjil serta CBA/ACB/BAC pada genap.
+Daftar subset pada plan hanya memilih unit; urutan array tidak menimpa jadwal.
+C Impossible excluded. Resume memakai jadwal tersimpan, bukan rotasi baru.
+Lihat [keputusan urutan](../docs/keputusan-urutan-kondisi-2026-10-14.md).
 
 Kontrak analisis respons Qwen dan CLI replay evidence tersedia pada
 [panduan analisis](../docs/qwen-response-analysis-contract.md).
@@ -99,12 +125,13 @@ TP/FP/TN/FN yang dicatat masih provisional dan perlu validasi manusia.
 
 Runner pengembangan `adaptive_s1_loop.py` menghubungkan generasi kandidat,
 validasi tiga kali dengan baseline, analisis Qwen, dan feedback ke generasi
-berikutnya. Jalur hanya menerima S1 Low pada DVWA lokal, menyimpan hash
-respons serta diagnostik allowlist, dan membatasi pilot di dua kandidat secara
-default. Setiap run berhenti sebagai incomplete terhadap budget protokol 10;
-ringkasan tersebut tidak boleh dihitung sebagai FPR/PSR formal. Reset database
-opt-in tersedia melalui `--reset-before-run`; pilot yang sudah tersanitasi
-dijalankan tanpa reset langsung dan hanya untuk pengembangan.
+berikutnya. Jalur loop ini hanya menerima S1 Low pada DVWA lokal dan menyimpan
+hash respons serta diagnostik allowlist. CLI mandiri memakai dua kandidat
+secara default. Runner ledger mengirim budget 10 dari protokol dan me-reset
+database sebelum setiap condition-run; eksekusi memerlukan konfirmasi eksplisit
+untuk target DVWA lokal dan reset database. Pilot r3 pada 14 Oktober
+menyelesaikan 10 kandidat untuk A dan B. Hasilnya tetap pilot, bukan FPR/PSR
+formal, sampai evidence divalidasi secara independen.
 
 Perintah berikut mereproduksi pasangan pilot 12 Oktober jika artefak seed
 lokal yang berada di `results/raw/` masih tersedia. Jalankan terpisah untuk

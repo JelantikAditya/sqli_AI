@@ -23,26 +23,50 @@ SAST, target eksternal, atau memperbesar korpus tanpa kebutuhan dari pilot.
 ## T01. Finalisasi definisi evaluasi dan metodologi lokal
 
 Status awal: protokol pilot tersedia, belum frozen.
+Status akhir keputusan T01, 14 Oktober: **selesai** pada kontrak evaluasi dan
+metodologi. Penutupan serta gerbang tersisa dicatat pada
+[keputusan urutan](keputusan-urutan-kondisi-2026-10-14.md).
+Pembaruan 14 Oktober: aturan konfirmasi ditetapkan dan diimplementasikan
+sebagai 3/3 sukses; 1/3 dan 2/3 mixed tetap pada penyebut PSR tanpa probe
+tambahan. Klaim Qwen dipertahankan terpisah. Lihat
+[keputusan T01](keputusan-konfirmasi-kandidat-2026-10-14.md).
+Protokol aktif kini local-sqli-v5-pilot. Keputusan run inconclusive ditetapkan
+sebagai abstention tanpa retry otomatis, dengan coverage wajib dan FPR utama
+ditahan bila unit negatif belum biner. Metodologi lokal/peran LangChain telah
+ditetapkan pada keputusan 14 Oktober; integrasi lokal masih T02/T05.
+Urutan formal sudah ditetapkan sebagai rotasi/pembalikan per paritas skenario
+dan replikasi; protokol dan runner memakai sumber urutan yang sama.
+Dependency langchain-core 1.6.10 kemudian dipasang dan smoke lokal lulus
+pada 14 Oktober. Pemasangan ini belum menutup integrasi T02/T05.
 Penanggung jawab: peneliti bersama pendamping teknis; identitas validator
 dipersiapkan oleh peneliti.
 
-- Catat perubahan lingkungan dari Colab/tunnel menjadi laptop lokal pada
+- [x] Catat perubahan lingkungan dari Colab/tunnel menjadi laptop lokal pada
   naskah metodologi baru, tanpa mengubah PDF sumber.
-- Putuskan peran LangChain dan buktikan implementasinya jika dipertahankan.
-- Tetapkan keberhasilan tiap teknik. Usulan pilot error-based adalah diagnostik
+- [x] Putuskan peran LangChain. Pembuktian integrasi lokal yang dipertahankan
+  menjadi gerbang implementasi T02/T05, lalu diverifikasi saat freeze T08.
+- [x] Tetapkan keberhasilan tiap teknik. Error-based memakai diagnostik
   SQL baru yang konsisten, bukan otomatis ekstraksi data.
-- Selaraskan definisi FP berbasis ground truth dengan checklist validator.
+- [x] Selaraskan definisi FP berbasis ground truth dengan kontrak evaluator/validator.
   Simpan klaim sistem sebelum review; jangan menghilangkan FP dengan menyaring
   hanya temuan yang disetujui validator.
-- Tetapkan cara memperoleh satu keputusan akhir per scenario-condition-run
+- [x] Tetapkan cara memperoleh satu keputusan akhir per scenario-condition-run
   dari sejumlah kandidat. Definisikan penanganan bukti tidak cukup dan run
   tidak valid sebelum melihat hasil formal.
-- Tetapkan budget kandidat valid, retry generasi/runtime, duplikasi, timeout,
+- [x] Tetapkan budget kandidat valid, retry generasi/runtime, duplikasi, timeout,
   aturan konfirmasi, serta pelaporan run yang budgetnya tidak lengkap.
-- Tentukan urutan kondisi sebelum formal, misalnya A/B bergantian antar
-  replikasi, untuk mengendalikan efek urutan dan beban laptop.
+- [x] Tetapkan urutan kondisi sebelum formal: ABC/BCA/CAB untuk skenario
+  ganjil dan CBA/ACB/BAC untuk genap; C Impossible excluded; subset/resume
+  mempertahankan urutan. Dibuktikan melalui pemeriksaan jadwal dan tes offline.
 - [x] Review korpus bersama peneliti dan catat keputusan pada 12 Oktober 2026.
   Perubahan isi mengharuskan rebuild index sebelum freeze.
+- [x] Tetapkan konfirmasi kandidat 3/3 dan penanganan mixed evidence pada
+  14 Oktober, dengan pemisahan evidence_status/qwen_claim dan tanpa putaran tambahan.
+- [x] Tetapkan keputusan akhir run termasuk INCONCLUSIVE pada 14 Oktober;
+  [policy run](keputusan-run-inconclusive-2026-10-14.md) diterapkan dan diuji offline.
+- [x] Tetapkan metodologi laptop lokal dan LangChain sebagai penyusun chain
+  LLM serial pada 14 Oktober; [keputusan metode](keputusan-metodologi-lokal-langchain-2026-10-14.md)
+  dan narasi revisi Bab 3 tersedia. Ini tidak menandakan integrasinya sudah selesai.
 
 Keluaran: protokol pilot yang jelas, catatan keputusan peneliti, dan draft
 metodologi lokal. Nilai budget/ambang masih boleh disesuaikan berdasarkan
@@ -299,8 +323,10 @@ Dependensi: T01-T07.
 
 Selesai jika checklist berikut seluruhnya memiliki bukti:
 
-- [ ] Definisi sukses, FP/TN, unit keputusan, invalid/retry dan budget final jelas.
-- [ ] Metodologi laptop lokal serta peran LangChain terdokumentasi.
+- [x] Definisi sukses, FP/TN, unit keputusan, invalid/retry dan budget jelas pada
+  kontrak T01 v5. Konfigurasi formal tetap dibekukan sesudah pilot T07/T08.
+- [x] Metodologi laptop lokal serta peran LangChain terdokumentasi pada 14 Oktober.
+- [ ] Integrasi LangChain lokal teruji pada jalur utama dan memiliki evidence.
 - [ ] Keputusan review korpus oleh peneliti dicatat.
 - [ ] Analisis Qwen dan feedback adaptif berfungsi; A/B memiliki kontrol sama.
 - [ ] Konfirmasi, timing control, login/level/token/helper dan reset teruji.

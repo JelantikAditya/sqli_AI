@@ -10,7 +10,11 @@ import subprocess
 from datetime import datetime, timezone
 from pathlib import Path
 
+from confirmation_policy import CONFIRMATION_POLICY_ID, CONFIRMATIONS_REQUIRED
+from execution_order_policy import EXECUTION_ORDER_POLICY, ordered_run_slots
+from methodology_policy import LOCAL_METHODOLOGY
 from rag_pipeline import ROOT, load_catalog
+from run_decision_policy import RUN_DECISION_POLICY
 from validation_loop import require_local_target
 
 DEFAULT_PROTOCOL = Path(__file__).with_name("local_experiment_protocol.json")
@@ -24,6 +28,15 @@ def load_protocol(path=DEFAULT_PROTOCOL):
         raise ValueError("Unsupported experiment environment or protocol.")
     if protocol["status"] not in {"pilot", "frozen"}:
         raise ValueError("Protocol status must be pilot or frozen.")
+    if protocol.get("execution_order") != EXECUTION_ORDER_POLICY:
+        raise ValueError("Use the recorded mirrored condition rotation and canonical subset/resume order.")
+    if protocol.get("methodology") != LOCAL_METHODOLOGY:
+        raise ValueError("Use the recorded local methodology with serial LangChain pipelines and isolated RAG-off.")
+    readiness = protocol.get("implementation_readiness", {})
+    if readiness.get("local_langchain") not in {"pending", "verified"}:
+        raise ValueError("Record local LangChain integration readiness explicitly.")
+    if "local-langchain-integration-verified" not in protocol.get("formal_gate", []):
+        raise ValueError("Retained LangChain orchestration requires a formal integration gate.")
     expected = [("A", "LLM", "off", list(range(1, 13))), ("B", "LLM", "on", list(range(1, 13))), ("C", "SecLists", "not_applicable", list(range(1, 10)))]
     actual = [(c["condition_id"], c["source"], c["rag_mode"], c["scenario_ids"]) for c in protocol["conditions"]]
     if actual != [(cid, source, rag, [f"S{i}" for i in ids]) for cid, source, rag, ids in expected]:
@@ -50,6 +63,13 @@ def load_protocol(path=DEFAULT_PROTOCOL):
         raise ValueError("Serial probes and infrastructure-error separation are required.")
     if validation["confirmations_per_candidate"] != 3 or validation["timing_control"] != "matched-no-delay":
         raise ValueError("Use three confirmations and a matched timing control.")
+    if (validation.get("confirmation_policy_id") != CONFIRMATION_POLICY_ID
+            or type(validation.get("success_requires_positive_confirmations")) is not int
+            or validation["success_requires_positive_confirmations"] != CONFIRMATIONS_REQUIRED
+            or validation.get("mixed_evidence_policy") != "retain-in-psr-denominator-not-success"
+            or type(validation.get("additional_confirmation_rounds")) is not int
+            or validation["additional_confirmation_rounds"] != 0):
+        raise ValueError("Require 3/3 success, retain mixed evidence in the denominator, and never add confirmation rounds.")
     recovery = protocol.get("runtime_recovery", {})
     if (recovery.get("failure_is_attack_failure") is not False
             or recovery.get("failed_attempt_policy") != "invalidate-whole-condition-attempt"
@@ -61,6 +81,10 @@ def load_protocol(path=DEFAULT_PROTOCOL):
     if not protocol["metrics"]["retain_system_prediction_before_review"] or protocol["metrics"]["zero_denominator"] != "undefined":
         raise ValueError("Do not filter system predictions or replace undefined metrics with zero.")
     metrics = protocol["metrics"]
+    if (protocol.get("run_decision") != RUN_DECISION_POLICY
+            or metrics.get("fpr_requires_all_planned_negative_decisions") is not True
+            or metrics.get("fpr_report_decision_coverage") is not True):
+        raise ValueError("Preserve inconclusive run decisions, report coverage, and withhold primary FPR for unresolved negatives.")
     # Preserve independent run outcomes instead of voting across replications.
     if (metrics.get("aggregation") != "per-run-arithmetic-mean"
             or type(metrics.get("stddev_ddof")) is not int or metrics["stddev_ddof"] != 1
@@ -69,14 +93,18 @@ def load_protocol(path=DEFAULT_PROTOCOL):
         raise ValueError("Use per-run means, sample standard deviations, no cross-run voting, and complete replicates.")
     if protocol["status"] == "frozen" and (protocol["review"]["corpus_researcher_review"] == "pending" or protocol["review"]["independent_validator"] == "pending"):
         raise ValueError("A frozen protocol requires recorded corpus and validator decisions.")
+    if protocol["status"] == "frozen" and readiness["local_langchain"] != "verified":
+        raise ValueError("A frozen protocol requires verified local LangChain integration.")
     return protocol
 
 
 def experiment_matrix(protocol):
-    return [{"condition_id": c["condition_id"], "source": c["source"], "rag_mode": c["rag_mode"],
-             "scenario_id": sid, "replicate": r, "seed": seed}
-            for c in protocol["conditions"] for sid in c["scenario_ids"]
-            for r, seed in enumerate(protocol["replicate_seeds"], start=1)]
+    conditions = {c["condition_id"]: c for c in protocol["conditions"]}
+    return [{key: value for key, value in slot.items() if key != "applicable"}
+            | {"source": conditions[slot["condition_id"]]["source"],
+               "rag_mode": conditions[slot["condition_id"]]["rag_mode"],
+               "seed": protocol["replicate_seeds"][slot["replicate"] - 1]}
+            for slot in ordered_run_slots(protocol) if slot["applicable"]]
 
 
 def snapshot(protocol, path):
@@ -88,7 +116,7 @@ def snapshot(protocol, path):
                for folder in ("dvwa", "schemas", "knowledge") for p in sorted((ROOT / folder).glob("*"))
                if p.suffix in {".py", ".json", ".yaml"} and ".local." not in p.name}
     packages = {}
-    for name in ("chromadb", "jsonschema", "pypdf", "langchain"):
+    for name in ("chromadb", "jsonschema", "pypdf", "langchain", "langchain-core", "langchain-ollama", "langchain-chroma"):
         try:
             packages[name] = importlib.metadata.version(name)
         except importlib.metadata.PackageNotFoundError:

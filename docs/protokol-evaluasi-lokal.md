@@ -7,7 +7,12 @@ Validator dan snapshot: `dvwa/experiment_protocol.py`.
 
 Protokol ini menjadi acuan implementasi dan pilot setelah peneliti mengarahkan
 pengujian ke laptop lokal. Statusnya `pilot`, belum pembekuan eksperimen formal.
-Review korpus oleh peneliti dan identitas validator independen masih pending.
+Review korpus disetujui peneliti pada 12 Oktober. Identitas validator independen
+masih pending. Sejak penutupan T01 pada 14 Oktober, protokol aktif adalah `local-sqli-v5-pilot`
+dengan keputusan konfirmasi 3/3, abstention run dan metodologi lokal.
+Bukti pilot lama tetap histori.
+Kontrak evaluasi dan keputusan metodologi T01 selesai; status pilot tetap
+berlaku hingga gate implementasi, validasi, pilot dan freeze terpenuhi.
 Kriteria gerbang formal dicatat dalam konfigurasi dan snapshot, tidak diklaim
 selesai oleh pemeriksaan sintaks atau smoke S1.
 
@@ -22,6 +27,12 @@ selesai oleh pemeriksaan sintaks atau smoke S1.
 
 ## Kontrol
 
+Urutan eksekusi mengikuti blok replikasi 1/2/3, lalu S1-S12 numerik.
+Untuk skenario ganjil, kondisi berurutan ABC/BCA/CAB pada replikasi 1/2/3;
+untuk skenario genap CBA/ACB/BAC. C Impossible dicatat excluded dan tidak
+dieksekusi. Subset menyaring urutan itu dan resume mempertahankannya.
+Lihat [keputusan urutan dan penutupan T01](keputusan-urutan-kondisi-2026-10-14.md).
+
 Budget pilot yang akan dinilai kelayakannya adalah 10 kandidat per run,
 temperatur 0, context 4096, output maksimum 768 token, dan top-k 2.
 Evaluasi PSR menggunakan budget penuh tanpa berhenti pada sukses pertama.
@@ -30,7 +41,8 @@ kandidat berbeda dari tiga pengulangan pipeline.
 
 Form dan request tetap mengikuti input aktual tiap level. Login baru, reset
 melalui setup HTTP DVWA, verifikasi level, dan baseline normal dibutuhkan
-sebelum run formal. Reset otomatis dan orchestrator matriks masih perlu dibuat.
+sebelum run formal. Reset dan orchestrator tersedia dengan bukti subset A/B S1;
+kontrol seluruh matriks serta integrasi adaptif tetap perlu diuji.
 Restart container web tidak mereset data database.
 
 Model menerima teknik, metode, path, parameter, dan observasi respons;
@@ -48,17 +60,38 @@ hasilnya merupakan versi pengembangan baru.
   diuji. HTTP 500 umum, halaman login, atau kegagalan koneksi tidak memenuhi
   indikator ini. Keberhasilan yang diukur adalah probe diagnostik SQLi;
   ekstraksi data atau marker konstan bukan syarat indikator yang dipilih.
-  Protokol tetap menetapkan tiga konfirmasi per kandidat. Aturan agregasi
-  hasil konfirmasi yang bercampur belum difinalisasi. Rincian keputusan ada
-  di `keputusan-indikator-error-based-2026-10-12.md`.
+  Protokol menetapkan tepat tiga konfirmasi per kandidat; hanya 3/3 positif
+  memenuhi kriteria keberhasilan. Rincian indikator ada di
+  `keputusan-indikator-error-based-2026-10-12.md`.
 - Boolean: pasangan true/false dengan indikator konten yang berlawanan dan
   konsisten pada input yang sama.
 - Timing: matched no-delay control, tiga konfirmasi, dan delta minimal 1500 ms;
   ambang dievaluasi pada pilot sebelum dibekukan.
 
-Executor saat ini belum menjalankan seluruh kriteria konfirmasi dan matched
-timing pada protokol ini. Implementasi itu merupakan pekerjaan tahap loop
-adaptif; smoke S1 satu replikasi tidak memenuhi protokol formal.
+Aturan 3/3 berlaku pada ketiga teknik dan A/B/C. Hasil 1/3 atau 2/3 diberi
+`MIXED_EVIDENCE`: tetap dalam penyebut kandidat valid PSR, tidak dalam pembilang.
+Hasil 0/3 diberi `CONSISTENT_NEGATIVE`. Runtime invalid menginvalidasi attempt.
+Tidak ada konfirmasi tambahan otomatis. Klaim Qwen tetap dicatat terpisah
+dari status bukti dan tidak dihapus oleh aturan konsistensi. Lihat
+[keputusan konfirmasi](keputusan-konfirmasi-kandidat-2026-10-14.md).
+
+Executor dan analisis sudah memakai policy bersama. Verifikasi offline
+tersedia; pilot model/target nyata seluruh matriks belum selesai.
+
+## Metodologi lokal dan LangChain
+
+Runtime aktif menggunakan satu laptop, layanan lokal dan Docker; Colab/tunnel
+ditunda. LangChain dipertahankan untuk menyusun chain LLM serial, sedangkan
+controller dan executor Python mengelola eksperimen, sesi/reset, timing dan
+ledger. Retrieval B dilakukan sebelum loop condition-run dengan konteks yang
+dipakai pada generasi/regenerasi; analisis A/B tidak melakukan retrieval.
+RAG-off tidak membuka vector store dan inferensi tidak overlap dengan probe.
+
+Peran tersebut telah ditetapkan pada T01, tetapi adapter LangChain lokal belum
+diimplementasikan. implementation_readiness.local_langchain=pending dan gate
+local-langchain-integration-verified harus dibuktikan pada T02/T05 sebelum
+freeze T08. Lihat [keputusan metode](keputusan-metodologi-lokal-langchain-2026-10-14.md)
+dan [narasi metodologi](metodologi-lokal-2026-10-14.md).
 
 ## Metrik dan review
 
@@ -74,8 +107,24 @@ dicatat FP meskipun validator menolak klaimnya; penolakan validator tidak boleh
 menyaring FP hingga menghilang. Ada sembilan unit negatif per kondisi pada
 matriks ini, semuanya berasal dari aplikasi DVWA yang sama.
 
+Pada run dengan eksekusi dan analisis lengkap, satu klaim positive cukup
+untuk keputusan positive. Tanpa positive tetapi ada inconclusive, keputusan
+tetap inconclusive. Negative memerlukan semua klaim negative. Runtime invalid,
+budget incomplete, atau analisis error menghasilkan not_evaluable.
+
+Run inconclusive merupakan abstention, bukan TN/FN, dan tidak memicu retry
+otomatis. Laporkan coverage keputusan terhadap seluruh unit negatif terencana.
+FPR utama ditahan jika masih ada unit negatif inconclusive/not_evaluable/missing.
+Rasio pada subset yang sudah diputuskan hanya diagnostik dengan coverage.
+Mean/SD utama tetap membutuhkan tiga replikasi FPR yang eligible. Evidence
+kandidat dari run inconclusive dengan eksekusi lengkap tetap direview untuk
+PSR sesuai aturan 3/3. Lihat
+[keputusan run](keputusan-run-inconclusive-2026-10-14.md).
+
 PSR memakai kandidat berhasil dibagi kandidat valid yang benar-benar
-dieksekusi, untuk S1-S9. Request dengan sesi valid tetapi payload ditolak target
+dieksekusi, untuk S1-S9. Keberhasilan mensyaratkan bukti 3/3 dan validasi;
+hasil bercampur tidak dikeluarkan dari penyebut run valid yang lengkap.
+Request dengan sesi valid tetapi payload ditolak target
 dihitung gagal. Masalah login, baseline, atau koneksi adalah masalah runtime;
 catat, pulihkan/ulang sesuai protokol, dan jangan otomatis menjadikannya FN
 atau payload gagal. Run dengan budget tidak lengkap dikeluarkan dari analisis

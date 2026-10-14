@@ -21,9 +21,9 @@
     },
     "candidate": {
       "type": "object", "additionalProperties": false,
-      "required": ["schema_version", "record_type", "scope", "context", "evidence", "analysis_status", "model_output", "system_claim", "rule_signal", "claim_supported", "unknown_evidence_refs", "analysis_warnings", "human_validation", "audit"],
+      "required": ["schema_version", "record_type", "scope", "context", "evidence", "analysis_status", "model_output", "system_claim", "qwen_claim", "rule_signal", "evidence_status", "confirmation_policy_id", "valid_confirmation_count", "positive_confirmation_count", "confirmed_success", "claim_supported", "unknown_evidence_refs", "analysis_warnings", "human_validation", "audit"],
       "properties": {
-        "schema_version": {"const": "1.0.0"},
+        "schema_version": {"const": "1.1.0"},
         "record_type": {"const": "candidate_analysis"},
         "scope": {"const": "development-analysis-contract"},
         "context": {"$ref": "#/$defs/context"},
@@ -31,7 +31,13 @@
         "analysis_status": {"enum": ["completed", "runtime_invalid", "analysis_error", "invalid_evidence_reference"]},
         "model_output": {"oneOf": [{"type": "null"}, {"$ref": "qwen-analysis-output.schema.json"}]},
         "system_claim": {"enum": ["positive", "negative", "inconclusive", null]},
-        "rule_signal": {"type": "boolean"},
+        "qwen_claim": {"enum": ["VULNERABLE", "NOT_VULNERABLE", "INCONCLUSIVE", null]},
+        "rule_signal": {"$ref": "#/$defs/evidence_status"},
+        "evidence_status": {"$ref": "#/$defs/evidence_status"},
+        "confirmation_policy_id": {"const": "three-valid-confirmations-all-positive-v1"},
+        "valid_confirmation_count": {"type": "integer", "minimum": 0},
+        "positive_confirmation_count": {"type": "integer", "minimum": 0},
+        "confirmed_success": {"type": ["boolean", "null"]},
         "claim_supported": {"type": ["boolean", "null"]},
         "unknown_evidence_refs": {"type": "array", "items": {"type": "string"}},
         "analysis_warnings": {"type": "array", "uniqueItems": true, "items": {"enum": ["decision_reason_code_mismatch"]}},
@@ -49,9 +55,9 @@
     },
     "run": {
       "type": "object", "additionalProperties": false,
-      "required": ["schema_version", "record_type", "scope", "context", "expected_budget", "candidate_count", "valid_executed_count", "analysis_completed_count", "system_positive_count", "inconclusive_count", "unsupported_claim_count", "budget_complete", "system_decision", "run_status", "psr_success_count", "psr", "human_validation", "candidate_record_sha256"],
+      "required": ["schema_version", "record_type", "scope", "context", "expected_budget", "candidate_count", "valid_executed_count", "analysis_completed_count", "system_positive_count", "inconclusive_count", "runtime_invalid_count", "confirmed_success_count", "mixed_evidence_count", "unsupported_claim_count", "budget_complete", "system_decision", "run_status", "run_decision_policy_id", "execution_status", "binary_decision_eligible", "decision_exclusion_reason", "psr_evidence_eligible", "psr_success_count", "psr", "human_validation", "candidate_record_sha256"],
       "properties": {
-        "schema_version": {"const": "1.0.0"},
+        "schema_version": {"const": "1.2.0"},
         "record_type": {"const": "run_analysis_summary"},
         "scope": {"const": "development-analysis-contract"},
         "context": {"$ref": "#/$defs/context"},
@@ -61,15 +67,24 @@
         "analysis_completed_count": {"type": "integer", "minimum": 0},
         "system_positive_count": {"type": "integer", "minimum": 0},
         "inconclusive_count": {"type": "integer", "minimum": 0},
+        "runtime_invalid_count": {"type": "integer", "minimum": 0},
+        "confirmed_success_count": {"type": "integer", "minimum": 0},
+        "mixed_evidence_count": {"type": "integer", "minimum": 0},
         "unsupported_claim_count": {"type": "integer", "minimum": 0},
         "budget_complete": {"type": "boolean"},
         "system_decision": {"enum": ["positive", "negative", "inconclusive", "not_evaluable"]},
         "run_status": {"enum": ["complete", "incomplete", "inconclusive"]},
+        "run_decision_policy_id": {"const": "any-positive-else-abstain-v1"},
+        "execution_status": {"enum": ["complete", "incomplete", "invalid"]},
+        "binary_decision_eligible": {"type": "boolean"},
+        "decision_exclusion_reason": {"enum": ["runtime_invalid", "incomplete_budget", "analysis_incomplete", "inconclusive", null]},
+        "psr_evidence_eligible": {"type": "boolean"},
         "psr_success_count": {"type": "null"},
         "psr": {"type": "null"},
         "human_validation": {"const": "pending"},
         "candidate_record_sha256": {"type": "array", "uniqueItems": true, "items": {"type": "string", "pattern": "^[0-9a-f]{64}$"}}
       }
-    }
+    },
+    "evidence_status": {"enum": ["CONSISTENT_POSITIVE", "MIXED_EVIDENCE", "CONSISTENT_NEGATIVE", "RUNTIME_INVALID", "INCOMPLETE_CONFIRMATIONS"]}
   }
 }

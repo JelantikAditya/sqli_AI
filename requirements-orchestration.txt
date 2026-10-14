@@ -1,0 +1,4 @@
+# Local LangChain dependency checked on 14 October 2026.
+# Full runtime/dependency freeze remains a separate T08 task.
+langchain-core==1.6.10
+langsmith==0.14.8

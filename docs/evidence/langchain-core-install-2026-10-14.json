@@ -1,0 +1,181 @@
+{
+  "schema_version": "1.0.0",
+  "evidence_id": "langchain-core-install-2026-10-14",
+  "recorded_date_local": "2026-10-14",
+  "timezone": "Asia/Jakarta",
+  "scope": "dependency-install-and-offline-smoke-not-live-pipeline-integration",
+  "installation_target": "project-.venv",
+  "index": "https://pypi.org/simple",
+  "langchain_core_version": "1.6.10",
+  "added_packages": {
+    "distro": "1.9.0",
+    "httpcore2": "2.13.1",
+    "httpx2": "2.13.1",
+    "jsonpatch": "1.35",
+    "jsonpointer": "3.2.1",
+    "langchain-core": "1.6.10",
+    "langchain-protocol": "0.0.19",
+    "langsmith": "0.14.8",
+    "requests-toolbelt": "1.0.0",
+    "sniffio": "1.3.1",
+    "truststore": "0.10.5",
+    "uuid-utils": "0.17.1",
+    "xxhash": "4.0.1",
+    "zstandard": "0.25.0"
+  },
+  "existing_package_changes": {},
+  "existing_package_count_before": 84,
+  "existing_package_count_after": 98,
+  "downloaded_wheels": [
+    {
+      "name": "langchain-core",
+      "version": "1.6.10",
+      "url": "https://files.pythonhosted.org/packages/1e/2c/6ed698c6b451af0ed0efdbe94a703c18aea768d925347d8d1efd5645ae8c/langchain_core-1.6.10-py3-none-any.whl",
+      "hashes": {
+        "sha256": "14341bdd8b42d0dd9a53dbbcd8b0599ab47b0c718c7caa12e3eb5c50b32cffcb"
+      }
+    },
+    {
+      "name": "jsonpatch",
+      "version": "1.35",
+      "url": "https://files.pythonhosted.org/packages/77/46/840ee494290e36ffad7c905b1f90a5a074d94de0f752ebe466ebccd6e1e1/jsonpatch-1.35-py3-none-any.whl",
+      "hashes": {
+        "sha256": "417e05303ebf7aef98d3ebf1e1ae7e7a4de6ec57bc5d243cd3509eff650e959f"
+      }
+    },
+    {
+      "name": "langchain-protocol",
+      "version": "0.0.19",
+      "url": "https://files.pythonhosted.org/packages/80/c9/f6cbf357d48ccbd18bb394433b1fd7ad9be004eed9377ad08bb85777e5e6/langchain_protocol-0.0.19-py3-none-any.whl",
+      "hashes": {
+        "sha256": "4cdf879a492a35980fd859ae792d3c65458ccaae504e183c9a10d7eac1f0720f"
+      }
+    },
+    {
+      "name": "langsmith",
+      "version": "0.14.8",
+      "url": "https://files.pythonhosted.org/packages/67/a8/5bfbcf7704f48331372ec36212a1e0e6bcb83eb967829d760fbdbf386616/langsmith-0.14.8-py3-none-any.whl",
+      "hashes": {
+        "sha256": "bda7ec3d74bc5af3244c90920e924efcf99a700638860bf87d0231bfdb4f4ce4"
+      }
+    },
+    {
+      "name": "uuid_utils",
+      "version": "0.17.1",
+      "url": "https://files.pythonhosted.org/packages/e4/84/46d45f14ebdf1ff4d9e6096dea5f31a706d7f71e99e48cde933b47a2e4db/uuid_utils-0.17.1-cp313-cp313-win_amd64.whl",
+      "hashes": {
+        "sha256": "1cf7a837c3467f69ba3ef32caa43b1c5f5a462b7d960bcc59083459aed2b4202"
+      }
+    },
+    {
+      "name": "distro",
+      "version": "1.9.0",
+      "url": "https://files.pythonhosted.org/packages/12/b3/231ffd4ab1fc9d679809f356cebee130ac7daa00d6d6f3206dd4fd137e9e/distro-1.9.0-py3-none-any.whl",
+      "hashes": {
+        "sha256": "7bffd925d65168f85027d8da9af6bddab658135b840670a223589bc0c8ef02b2"
+      }
+    },
+    {
+      "name": "httpx2",
+      "version": "2.13.1",
+      "url": "https://files.pythonhosted.org/packages/d8/9c/6fe8931fd9f381042a9e4c7d5a7b4cbf7016b252bec0c99a49fce42c3326/httpx2-2.13.1-py3-none-any.whl",
+      "hashes": {
+        "sha256": "6dff50fabc270ee5fd25d845d0b078ed20564579744d6d962850975996d2f9a4"
+      }
+    },
+    {
+      "name": "httpcore2",
+      "version": "2.13.1",
+      "url": "https://files.pythonhosted.org/packages/09/ba/a4568248771ce81957bfb7cc600264a40fbcda092391ee1c415c50be4bea/httpcore2-2.13.1-py3-none-any.whl",
+      "hashes": {
+        "sha256": "e1e05d4f25f7d7d496bfb96748f6f4b67657b03da069b3a68c36069f3db73d0a"
+      }
+    },
+    {
+      "name": "jsonpointer",
+      "version": "3.2.1",
+      "url": "https://files.pythonhosted.org/packages/fa/29/accef8eea16670b88f3a23102c35dee62c6f159db30d9628908043b3e21b/jsonpointer-3.2.1-py3-none-any.whl",
+      "hashes": {
+        "sha256": "b19ee68644e9ffb51440448d8f7811af2b7406eea1db90603e93f5849323119a"
+      }
+    },
+    {
+      "name": "requests-toolbelt",
+      "version": "1.0.0",
+      "url": "https://files.pythonhosted.org/packages/3f/51/d4db610ef29373b879047326cbf6fa98b6c1969d6f6dc423279de2b1be2c/requests_toolbelt-1.0.0-py2.py3-none-any.whl",
+      "hashes": {
+        "sha256": "cccfdd665f0a24fcf4726e690f65639d272bb0637b9b92dfd91a5568ccf6bd06"
+      }
+    },
+    {
+      "name": "sniffio",
+      "version": "1.3.1",
+      "url": "https://files.pythonhosted.org/packages/e9/44/75a9c9421471a6c4805dbf2356f7c181a29c1879239abab1ea2cc8f38b40/sniffio-1.3.1-py3-none-any.whl",
+      "hashes": {
+        "sha256": "2f6da418d1f1e0fddd844478f41680e794e6051915791a034ff65e5f100525a2"
+      }
+    },
+    {
+      "name": "xxhash",
+      "version": "4.0.1",
+      "url": "https://files.pythonhosted.org/packages/ea/61/8a5aeb811de093bab3434e77eff0e9461624a1a56a6a93d315d080aab2aa/xxhash-4.0.1-cp313-cp313-win_amd64.whl",
+      "hashes": {
+        "sha256": "97b94fb29abf21f5f0bde15f7dbdd3a4aa2dc59f37026adc7b4bee8563b84375"
+      }
+    },
+    {
+      "name": "zstandard",
+      "version": "0.25.0",
+      "url": "https://files.pythonhosted.org/packages/d9/82/b9c06c870f3bd8767c201f1edbdf9e8dc34be5b0fbc5682c4f80fe948475/zstandard-0.25.0-cp313-cp313-win_amd64.whl",
+      "hashes": {
+        "sha256": "1f830a0dac88719af0ae43b8b2d6aef487d437036468ef3c2ea59c51f9d55fd5"
+      }
+    },
+    {
+      "name": "truststore",
+      "version": "0.10.5",
+      "url": "https://files.pythonhosted.org/packages/51/e9/3a7820be2bb0fe53b6bc9c3be26d3d1158004e4c3ab953aa6840b955b1e9/truststore-0.10.5-py3-none-any.whl",
+      "hashes": {
+        "sha256": "9aaaedaefaf06d8b206278cf8b5012bc897f485a874503501e12d776df78951c"
+      }
+    }
+  ],
+  "pip_check": {
+    "before": "passed",
+    "after": "passed"
+  },
+  "runnable_smoke": {
+    "schema_version": "1.0.0",
+    "scope": "dependency-smoke-not-live-pipeline-integration",
+    "python_version": "3.13.3",
+    "langchain_core_version": "1.6.10",
+    "runnable_class": "RunnableSequence",
+    "input": 2,
+    "output": 6,
+    "stages": [
+      "prepare",
+      "finish"
+    ],
+    "serial_smoke_passed": true,
+    "external_tracing_enabled": false,
+    "network_connection_attempts": 0,
+    "model_inference_calls": 0,
+    "dvwa_requests_sent": 0,
+    "local_pipeline_integration": "pending"
+  },
+  "project_test_suite": {
+    "passed": 96,
+    "failed": 0,
+    "exit_code": 0
+  },
+  "model_inference_calls": 0,
+  "dvwa_requests_sent": 0,
+  "database_resets_performed": 0,
+  "local_langchain_pipeline_integration": "pending",
+  "transitive_langsmith_package": "installed-as-dependency-only; smoke-tracing-disabled",
+  "formal_runtime_freeze": false,
+  "artifact_sha256": {
+    "requirements-orchestration.txt": "a8705f837d24b267cc0f48a0ec36381b70994b22e794d7e0ccf9614be417c6d9",
+    "dvwa/smoke_langchain.py": "d829310b8310cd21b257967db2c6856c60d1db45828f4fbdfbb1caec88b12f28"
+  }
+}

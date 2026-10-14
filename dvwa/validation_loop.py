@@ -17,6 +17,7 @@ from html.parser import HTMLParser
 from pathlib import Path
 from uuid import uuid4
 
+from confirmation_policy import classify_confirmations
 
 ROOT = Path(__file__).resolve().parent.parent
 SCENARIOS_PATH = Path(__file__).with_name("experiment_scenarios.json")
@@ -90,6 +91,14 @@ class LocalRuntimeFailure(RuntimeError):
             raise ValueError("Unknown local runtime failure code.")
         self.code = code
         super().__init__(code)
+
+
+def require_active_session_response(response: dict) -> None:
+    """Classify auth expiry as a runtime failure before scoring candidate evidence."""
+    body = response.get("body", "").lower()
+    if (response.get("status") in {401, 403} or 'name="password"' in body
+            or "csrf token is incorrect" in body):
+        raise LocalRuntimeFailure("session_invalid")
 
 
 def load_json(path: Path) -> dict:
@@ -489,15 +498,19 @@ def execute_candidate(
     attempt_id: str = "attempt-1",
     experiment_id: str | None = None,
     condition_id: str | None = None,
+    observation_sink=None,
 ) -> bool:
     client.verify_session_level(scenario["security_level"])
     baseline = client.submit_probe(scenario, "1")
+    require_active_session_response(baseline)
     baseline_body = baseline["body"].lower()
     if (baseline["status"] != 200 or sql_error_markers(baseline["body"])
             or (scenario["probe_kind"] == "single_error" and "first name:" not in baseline_body)
             or (scenario["probe_kind"] != "single_error"
                 and EXISTS_MARKER not in baseline_body and MISSING_MARKER not in baseline_body)):
         raise LocalRuntimeFailure("baseline_invalid")
+    if observation_sink:
+        observation_sink("baseline", baseline, [])
     probe_kind = scenario["probe_kind"]
     evidence: dict = {"probe_kind": probe_kind}
     control = None
@@ -505,14 +518,18 @@ def execute_candidate(
 
     if probe_kind in {"single_error", "single_time"}:
         response = client.submit_probe(scenario, candidate["payload"])
+        require_active_session_response(response)
         if probe_kind == "single_error":
             baseline_errors = set(sql_error_markers(baseline["body"]))
             response_errors = set(sql_error_markers(response["body"]))
             indicators = sorted(response_errors - baseline_errors)
             detected = bool(indicators)
             evidence["new_sql_error_markers"] = indicators
+            if observation_sink:
+                observation_sink("candidate", response, indicators)
         else:
             control = client.submit_probe(scenario, "1")
+            require_active_session_response(control)
             control_body = control["body"].lower()
             if (control["status"] != 200 or sql_error_markers(control["body"])
                     or (EXISTS_MARKER not in control_body and MISSING_MARKER not in control_body)):
@@ -521,6 +538,9 @@ def execute_candidate(
             comparison_baseline = control
             detected = delta >= threshold_ms
             indicators = ["time_delta_over_threshold"] if detected else []
+            if observation_sink:
+                observation_sink("candidate", response, indicators)
+                observation_sink("control", control, [])
             evidence.update(
                 {
                     "time_delta_ms": round(delta, 2),
@@ -581,7 +601,9 @@ def execute_candidate(
             )
     else:
         true_response = client.submit_probe(scenario, candidate["true_payload"])
+        require_active_session_response(true_response)
         false_response = client.submit_probe(scenario, candidate["false_payload"])
+        require_active_session_response(false_response)
         true_body = true_response["body"].lower()
         false_body = false_response["body"].lower()
         true_exists = EXISTS_MARKER in true_body
@@ -589,6 +611,11 @@ def execute_candidate(
         false_exists = EXISTS_MARKER in false_body
         false_missing = MISSING_MARKER in false_body
         detected = true_exists and false_missing and not true_missing and not false_exists
+        if observation_sink:
+            observation_sink("true_condition", true_response,
+                             ["user_id_exists"] if true_exists else [])
+            observation_sink("false_condition", false_response,
+                             ["user_id_missing"] if false_missing else [])
 
         emit_payload_record(
             output,
@@ -653,6 +680,7 @@ def execute_candidate(
         "rag_mode": candidate["rag_mode"],
         "provenance": candidate.get("provenance", {}),
         "system_signal": detected,
+        "decision_scope": "single-confirmation-rule-signal",
         "system_decision": "vulnerable" if detected else "not_vulnerable",
         "confusion_class": decide_class(scenario["ground_truth"], detected),
         "evidence": evidence,
@@ -662,6 +690,26 @@ def execute_candidate(
     output.write(json.dumps(decision, ensure_ascii=False) + "\n")
     output.flush()
     return detected
+
+
+def emit_candidate_evidence(output, run_id, scenario, candidate, replicate, signals,
+                            attempt_id="attempt-1", experiment_id=None, condition_id=None,
+                            *, runtime_valid=True):
+    """Keep confirmation evidence separate from an absent model claim."""
+    record = {
+        "schema_version": "1.0.0", "record_type": "candidate_evidence",
+        "run_id": run_id, "attempt_id": attempt_id, "experiment_id": experiment_id,
+        "condition_id": condition_id, "candidate_id": candidate["candidate_id"],
+        "scenario_id": scenario["scenario_id"], "replicate": replicate,
+        "payload_source": candidate["source"], "rag_mode": candidate["rag_mode"],
+        "confirmation_signals": [signals[index] for index in sorted(signals)],
+        **classify_confirmations(signals, runtime_valid=runtime_valid),
+        # The executor does not infer what Qwen would have claimed.
+        "qwen_claim": None, "human_validation": "pending",
+    }
+    output.write(json.dumps(record, ensure_ascii=False) + "\n")
+    output.flush()
+    return record
 
 
 def parse_args() -> argparse.Namespace:
@@ -748,6 +796,8 @@ def main() -> None:
     )
     total_decisions = 0
     positive_signals = 0
+    confirmed_success_count = 0
+    mixed_evidence_count = 0
     with output_path.open("x", encoding="utf-8", newline="\n") as output:
         reset_receipt = None
         runtime_failure_logged = False
@@ -778,9 +828,10 @@ def main() -> None:
                                      "database_reset": reset_receipt}, ensure_ascii=False) + "\n")
             output.flush()
             for candidate in candidates:
+                signals = {}
                 for confirmation_index in range(1, args.confirmations + 1):
                     try:
-                        positive_signals += execute_candidate(
+                        detected = execute_candidate(
                             client,
                             output,
                             run_id,
@@ -793,7 +844,12 @@ def main() -> None:
                             experiment_id,
                             condition_id,
                         )
+                        signals[confirmation_index] = detected
+                        positive_signals += detected
                     except LocalRuntimeFailure as failure:
+                        emit_candidate_evidence(output, run_id, scenario, candidate, args.replicate,
+                                                signals, args.attempt_id, experiment_id, condition_id,
+                                                runtime_valid=False)
                         output.write(json.dumps({
                             "record_type": "runtime_failure", "run_id": run_id,
                             "attempt_id": args.attempt_id,
@@ -814,6 +870,11 @@ def main() -> None:
                         raise
                     total_decisions += 1
                     time.sleep(0.1)
+                candidate_summary = emit_candidate_evidence(
+                    output, run_id, scenario, candidate, args.replicate, signals,
+                    args.attempt_id, experiment_id, condition_id)
+                confirmed_success_count += candidate_summary["confirmed_success"] is True
+                mixed_evidence_count += candidate_summary["evidence_status"] == "MIXED_EVIDENCE"
             output.write(json.dumps({"record_type": "run_end", "run_id": run_id,
                                      "attempt_id": args.attempt_id,
                                      "experiment_id": experiment_id,
@@ -821,6 +882,8 @@ def main() -> None:
                                      "attempt_status": "complete",
                                      "decision_count": total_decisions,
                                      "positive_signals": positive_signals,
+                                     "confirmed_success_count": confirmed_success_count,
+                                     "mixed_evidence_count": mixed_evidence_count,
                                      "pipeline_replicate": args.replicate,
                                      "confirmations_per_candidate": args.confirmations,
                                      "database_reset_performed": bool(reset_receipt),
@@ -867,6 +930,8 @@ def main() -> None:
                 "confirmations_per_candidate": args.confirmations,
                 "decision_count": total_decisions,
                 "positive_signals": positive_signals,
+                "confirmed_success_count": confirmed_success_count,
+                "mixed_evidence_count": mixed_evidence_count,
                 "http_request_calls": client.http_request_calls,
                 "logical_probe_submissions": client.logical_probe_submissions,
                 "database_reset_performed": bool(reset_receipt),

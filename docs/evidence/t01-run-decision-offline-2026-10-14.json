@@ -1,0 +1,156 @@
+{
+  "schema_version": "1.0.0",
+  "evidence_id": "t01-run-decision-offline-2026-10-14",
+  "recorded_date_local": "2026-10-14",
+  "timezone": "Asia/Jakarta",
+  "scope": "offline-policy-and-synthetic-fixtures-not-experiment-results",
+  "protocol_id": "local-sqli-v3-pilot",
+  "protocol_status": "pilot",
+  "run_decision_policy_id": "any-positive-else-abstain-v1",
+  "automated_test_suite": {
+    "command": "python -B -m unittest discover -s tests",
+    "passed": 92,
+    "failed": 0,
+    "exit_code": 0
+  },
+  "static_checks": {
+    "python_files_parsed": 38,
+    "json_schema_definitions_checked": 11,
+    "planned_condition_runs": 99,
+    "git_diff_check_passed": true
+  },
+  "synthetic_fixture_candidate_budget": 1,
+  "configured_candidate_budget": 10,
+  "synthetic_examples": {
+    "one_fp_one_tn_one_inconclusive": {
+      "scope": "development-fpr-accounting-not-formal-validated-results",
+      "experiment_id": "fixture",
+      "condition_id": "A",
+      "replicate": 1,
+      "planned_scenario_ids": [
+        "S10",
+        "S11",
+        "S12"
+      ],
+      "planned_negative_units": 3,
+      "FP": 1,
+      "TN": 1,
+      "inconclusive_units": 1,
+      "not_evaluable_units": 0,
+      "missing_scenario_ids": [],
+      "binary_decision_units": 2,
+      "decision_coverage": 0.6666666666666666,
+      "status": "inconclusive",
+      "primary_fpr": null,
+      "diagnostic_decided_only_fpr": 0.5,
+      "primary_summary_eligible": false
+    },
+    "one_fp_two_tn": {
+      "scope": "development-fpr-accounting-not-formal-validated-results",
+      "experiment_id": "fixture",
+      "condition_id": "A",
+      "replicate": 1,
+      "planned_scenario_ids": [
+        "S10",
+        "S11",
+        "S12"
+      ],
+      "planned_negative_units": 3,
+      "FP": 1,
+      "TN": 2,
+      "inconclusive_units": 0,
+      "not_evaluable_units": 0,
+      "missing_scenario_ids": [],
+      "binary_decision_units": 3,
+      "decision_coverage": 1.0,
+      "status": "complete",
+      "primary_fpr": 0.3333333333333333,
+      "diagnostic_decided_only_fpr": 0.3333333333333333,
+      "primary_summary_eligible": true
+    },
+    "all_inconclusive": {
+      "scope": "development-fpr-accounting-not-formal-validated-results",
+      "experiment_id": "fixture",
+      "condition_id": "A",
+      "replicate": 1,
+      "planned_scenario_ids": [
+        "S10",
+        "S11",
+        "S12"
+      ],
+      "planned_negative_units": 3,
+      "FP": 0,
+      "TN": 0,
+      "inconclusive_units": 3,
+      "not_evaluable_units": 0,
+      "missing_scenario_ids": [],
+      "binary_decision_units": 0,
+      "decision_coverage": 0.0,
+      "status": "inconclusive",
+      "primary_fpr": null,
+      "diagnostic_decided_only_fpr": null,
+      "primary_summary_eligible": false
+    },
+    "one_tn_one_missing_one_invalid": {
+      "scope": "development-fpr-accounting-not-formal-validated-results",
+      "experiment_id": "fixture",
+      "condition_id": "A",
+      "replicate": 1,
+      "planned_scenario_ids": [
+        "S10",
+        "S11",
+        "S12"
+      ],
+      "planned_negative_units": 3,
+      "FP": 0,
+      "TN": 1,
+      "inconclusive_units": 0,
+      "not_evaluable_units": 1,
+      "missing_scenario_ids": [
+        "S11"
+      ],
+      "binary_decision_units": 1,
+      "decision_coverage": 0.3333333333333333,
+      "status": "incomplete",
+      "primary_fpr": null,
+      "diagnostic_decided_only_fpr": 0.0,
+      "primary_summary_eligible": false
+    }
+  },
+  "coverage": [
+    "Positive precedence, all-negative requirement, and abstention for no-positive runs with inconclusive claims",
+    "Inconclusive never becomes TN/FN or triggers automatic extra confirmations/run retries",
+    "PSR evidence remains ready for complete valid S1-S9 execution despite model abstention",
+    "Runtime invalid, incomplete budget and incomplete model analysis have distinct reasons",
+    "Missing, invalid and abstained planned negatives withhold primary FPR and reduce decision coverage",
+    "All-abstained groups do not return zero FPR; conditional FPR is labelled diagnostic",
+    "Duplicate final attempts, cross-condition/replicate summaries, wrong budgets and altered eligibility fields are rejected",
+    "Protocol rejects negative imputation, retries until binary, and incomplete primary FPR policies"
+  ],
+  "live_dvwa_requests_sent": 0,
+  "live_model_inference_calls": 0,
+  "database_resets_performed": 0,
+  "historical_pilot_artifacts_modified": false,
+  "limitations": [
+    "Synthetic examples and mocked clients are not measured research data",
+    "This helper does not perform ledger final-attempt selection, source hash validation, independent annotation or full dataset aggregation",
+    "T06 validation/aggregation, T07 full live pilot and T08 freeze remain unfinished",
+    "Earlier v2 hash evidence describes the previous code state and is preserved as history"
+  ],
+  "artifact_sha256": {
+    "dvwa/run_decision_policy.py": "8ece03a16a8ef8a01c115d6c65fabeb00cb690dd78c00988487c638cf2e0e9e7",
+    "dvwa/run_decision_evaluator.py": "166b2ba230cabdb82819d5e87679eb54c98aea7f02f594b21b2a22e9889a6de2",
+    "dvwa/analyze_response.py": "42850f3ce3be07d04586b62d85dd8b2424c6a5a57125e92f6d23bd71e1d2f437",
+    "dvwa/adaptive_s1_loop.py": "778ee2a4451909d8beb017982538bab5c532481aee64c8768e85a8a445215da2",
+    "dvwa/experiment_protocol.py": "9f811ad8850b4c0ea54fec3faa8c79b4737d468af1de7bddbb3ac7a45d40cbf2",
+    "dvwa/local_experiment_protocol.json": "5f1f902a25b04b70de2cf8918e768ba23603b3cab067e896d5f28d67aa95a2fc",
+    "dvwa/run_local_experiments.py": "5094d3aaac3d2bcb23234bb2b40169d1ce86932d172086ab043b3fe18c3ecca5",
+    "schemas/analysis-ledger.schema.json": "e4032a7cd2beda39715ced89360c1d3b746e311ca326cc8015a8aac1d2c1c154",
+    "tests/test_response_analysis.py": "75db513acd6b4a9c2a85798fa0bfec5c41a2de6f333d732236717a9247be3dee",
+    "tests/test_adaptive_s1_loop.py": "e18d6ee76b01c84d5f7c6968dfe0c31cd2fd8c553ffe559b94b2bedeb867e68c",
+    "tests/test_run_decision_policy.py": "d750c8cddeb083bddb2c4511bd3361cab9d5ec0b20f8ba95a886267337496039",
+    "dvwa/confirmation_policy.py": "76d3f891585170f53b784523faade226a5ac4529b77de1c0937d170d1ea37cbd",
+    "schemas/candidate-evidence.schema.json": "79907344498893da0ad21177a82a62247ff746d78d6e79ef272952c96a182b0f",
+    "dvwa/validation_loop.py": "baa036684ef92bd9c5d4089cb8b015d3e24163a2456fffe4f210af06d0693fcf"
+  }
+}

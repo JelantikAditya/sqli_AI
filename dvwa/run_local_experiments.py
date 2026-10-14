@@ -14,9 +14,15 @@ from datetime import datetime, timezone
 from pathlib import Path
 from uuid import uuid4
 
+from jsonschema import Draft202012Validator, ValidationError
+
+from confirmation_policy import CONFIRMATION_POLICY_ID, classify_confirmations
+from execution_order_policy import ordered_run_slots
 from experiment_protocol import DEFAULT_PROTOCOL, load_protocol
+from prepare_candidate_batch import validate_batch
 from rag_pipeline import load_catalog
-from validation_loop import ROOT, require_local_target, validate_candidates
+from validation_loop import (ROOT, emit_candidate_evidence, require_local_target,
+                             validate_candidates)
 
 
 PLAN_SCHEMA_VERSION = "1.0.0"
@@ -139,28 +145,23 @@ def planned_units(plan: dict, protocol: dict, root: Path = ROOT) -> list[dict]:
     condition_map = {item["condition_id"]: item for item in protocol["conditions"]}
     seed_map = {index: seed for index, seed in enumerate(protocol["replicate_seeds"], start=1)}
     units = []
-    for scenario_id in plan["scenario_ids"]:
-        for replicate in plan["replicates"]:
-            report = plan["discovery_reports_resolved"].get(scenario_id, {}).get(replicate)
-            report_hash = sha256_file(report) if report is not None and report.is_file() else None
-            for condition_id in plan["condition_ids"]:
-                condition = condition_map[condition_id]
-                unit_id = f"{plan['experiment_id']}-{condition_id.lower()}-{scenario_id.lower()}-r{replicate}"
-                applicable = scenario_id in condition["scenario_ids"]
-                unit = {
-                    "unit_id": unit_id,
-                    "condition_id": condition_id,
-                    "source": condition["source"],
-                    "rag_mode": condition["rag_mode"],
-                    "scenario_id": scenario_id,
-                    "replicate": replicate,
-                    "seed": seed_map[replicate],
-                    "discovery_report": str(report) if report else None,
-                    "discovery_sha256": report_hash,
-                    "status": "planned" if applicable else "excluded",
-                    "exclusion_reason": None if applicable else "condition_does_not_include_scenario",
-                }
-                units.append(unit)
+    for slot in ordered_run_slots(protocol, scenario_ids=plan["scenario_ids"],
+                                  condition_ids=plan["condition_ids"], replicates=plan["replicates"]):
+        scenario_id, replicate, condition_id = (slot[k] for k in ("scenario_id", "replicate", "condition_id"))
+        report = plan["discovery_reports_resolved"].get(scenario_id, {}).get(replicate)
+        report_hash = sha256_file(report) if report is not None and report.is_file() else None
+        condition = condition_map[condition_id]
+        applicable = slot["applicable"]
+        units.append({
+            **{key: value for key, value in slot.items() if key != "applicable"},
+            "unit_id": f"{plan['experiment_id']}-{condition_id.lower()}-{scenario_id.lower()}-r{replicate}",
+            "source": condition["source"], "rag_mode": condition["rag_mode"],
+            "seed": seed_map[replicate],
+            "discovery_report": str(report) if report else None,
+            "discovery_sha256": report_hash,
+            "status": "planned" if applicable else "excluded",
+            "exclusion_reason": None if applicable else "condition_does_not_include_scenario",
+        })
     return units
 
 
@@ -170,6 +171,12 @@ def artifact_hashes(root: Path = ROOT) -> dict[str, str]:
              "dvwa/generate_candidate_batch.py", "dvwa/build_seclists_batches.py",
              "dvwa/local_experiment_protocol.json", "dvwa/experiment_scenarios.json",
              "dvwa/prepare_candidate_batch.py",
+             "dvwa/confirmation_policy.py", "schemas/candidate-evidence.schema.json",
+             "dvwa/run_decision_policy.py", "dvwa/run_decision_evaluator.py",
+             "dvwa/methodology_policy.py",
+             "dvwa/execution_order_policy.py", "requirements-orchestration.txt", "requirements-rag.txt",
+             "dvwa/analyze_response.py", "dvwa/adaptive_s1_loop.py", "schemas/analysis-ledger.schema.json",
+             "dvwa/langchain_runtime.py",
              "schemas/local-run-plan.schema.json", "schemas/experiment-ledger-event.schema.json",
              "schemas/validation-payloads.schema.json", "schemas/candidate-batch.schema.json",
              "docs/candidate-sources.md", "docs/evidence/seclists-selection-plan-2026-10-12.json")
@@ -246,9 +253,23 @@ class ExperimentLedger:
         if not created or created.get("plan_sha256") != plan_hash or created.get("protocol_sha256") != protocol_hash:
             raise ValueError("Resume plan or protocol differs from the saved experiment snapshot.")
         snapshot = read_json(directory / "plan.snapshot.json")
-        if snapshot.get("artifact_sha256") != artifact_hashes(root):
-            raise ValueError("Resume code or schema hashes differ from the saved experiment snapshot.")
+        current_artifacts = artifact_hashes(root)
+        saved_artifacts = snapshot.get("artifact_sha256", {})
+        if saved_artifacts != current_artifacts:
+            differences = {name for name in set(saved_artifacts) | set(current_artifacts)
+                           if saved_artifacts.get(name) != current_artifacts.get(name)}
+            recoveries = [event for event in events
+                          if event.get("event_type") == "attempt_completed"
+                          and event.get("recovery_method") == "offline_adaptive_artifact_aggregation"]
+            authorized_recovery = any(
+                differences == {"dvwa/run_local_experiments.py"}
+                and event.get("runner_hash_before") == saved_artifacts.get("dvwa/run_local_experiments.py")
+                and event.get("runner_hash_after") == current_artifacts.get("dvwa/run_local_experiments.py")
+                for event in recoveries)
+            if not authorized_recovery:
+                raise ValueError("Resume code or schema hashes differ from the saved experiment snapshot.")
         ledger = cls(directory, plan["experiment_id"], events)
+        validate_ledger_schedule(ledger, plan, load_protocol())
         ledger.checkpoint()
         return ledger
 
@@ -499,6 +520,230 @@ def prepare_run_batch(batch_path: Path, unit: dict, scenario: dict, max_candidat
             "candidate_id_map_path": str(map_path)}
 
 
+def candidate_evidence_stats(records, unit, attempt, candidate_ids, root=ROOT):
+    """Verify candidate summaries against the three original confirmation decisions."""
+    summaries = [r for r in records if r.get("record_type") == "candidate_evidence"]
+    if (len(summaries) != len(candidate_ids)
+            or {r.get("candidate_id") for r in summaries} != set(candidate_ids)):
+        raise ExecutionFailure("candidate_evidence_count_mismatch")
+    validator = Draft202012Validator(read_json(root / "schemas/candidate-evidence.schema.json"))
+    for summary in summaries:
+        try:
+            validator.validate(summary)
+        except ValidationError as exc:
+            raise ExecutionFailure("candidate_evidence_schema_invalid") from exc
+        matching = [r for r in records if r.get("record_type") == "decision"
+                    and r.get("candidate_id") == summary["candidate_id"]]
+        signals = {r.get("confirmation_index"): r.get("system_signal") for r in matching}
+        if len(matching) != 3 or set(signals) != {1, 2, 3}:
+            raise ExecutionFailure("candidate_confirmation_count_mismatch")
+        expected = {
+            **classify_confirmations(signals), "confirmation_signals": [signals[i] for i in (1, 2, 3)],
+            "run_id": attempt["run_id"], "attempt_id": attempt["attempt_id"],
+            "experiment_id": matching[0].get("experiment_id"),
+            "condition_id": unit["condition_id"], "scenario_id": unit["scenario_id"],
+            "replicate": unit["replicate"], "payload_source": unit["source"],
+            "rag_mode": unit["rag_mode"], "qwen_claim": None,
+        }
+        if any(summary.get(key) != value for key, value in expected.items()):
+            raise ExecutionFailure("candidate_evidence_semantics_mismatch")
+        for decision in matching:
+            for key in ("run_id", "attempt_id", "experiment_id", "condition_id", "scenario_id",
+                        "replicate", "payload_source", "rag_mode"):
+                if decision.get(key) != expected[key]:
+                    raise ExecutionFailure("candidate_confirmation_context_mismatch")
+    return {
+        "confirmation_policy_id": CONFIRMATION_POLICY_ID,
+        "candidate_evidence_records": len(summaries),
+        "confirmed_success_count": sum(r["confirmed_success"] is True for r in summaries),
+        "mixed_evidence_count": sum(r["evidence_status"] == "MIXED_EVIDENCE" for r in summaries),
+    }
+
+
+def execute_adaptive_s1_unit(unit: dict, attempt: dict, plan: dict, protocol: dict,
+                             unit_directory: Path, root: Path,
+                             adaptive_result_path: Path | None = None) -> dict:
+    """Run S1 through adaptive LangChain generation, shared evidence rules, and Qwen analysis."""
+    report = Path(unit["discovery_report"])
+    if not report.is_file() or sha256_file(report) != unit["discovery_sha256"]:
+        raise ExecutionFailure("verified_discovery_missing_or_changed")
+    adaptive_directory = unit_directory / "adaptive"
+    validation_log = unit_directory / "validation.jsonl"
+    generation = protocol["generation"]
+    comparison_id = plan["experiment_id"]
+    command = [sys.executable, str(root / "dvwa" / "adaptive_s1_loop.py"),
+               "--rag-mode", unit["rag_mode"], "--zap-report", str(report),
+               "--comparison-id", comparison_id, "--replicate", str(unit["replicate"]),
+               "--pilot-slots", str(generation["candidate_budget"]),
+               "--model", generation["model"], "--temperature", str(generation["temperature"]),
+               "--num-ctx", str(generation["num_ctx"]), "--num-predict", str(generation["num_predict"]),
+               "--run-id", attempt["run_id"], "--attempt-id", attempt["attempt_id"],
+               "--output-dir", str(adaptive_directory), "--reset-before-run", "--confirm-local-dvwa"]
+    if adaptive_result_path is None:
+        result = run_command(command, unit_directory / "adaptive-command.log", root)
+        summary = parse_summary(result.stdout)
+        result_path_text = summary.get("output")
+        if result.returncode != 0 or not result_path_text:
+            raise ExecutionFailure("adaptive_s1_process_failed", {
+                "stderr_tail": result.stderr[-1000:], "stdout_tail": result.stdout[-1000:]})
+        adaptive_path = Path(result_path_text).resolve()
+    else:
+        adaptive_path = adaptive_result_path.resolve()
+    if not adaptive_path.is_relative_to((root / "results" / "raw").resolve()) or not adaptive_path.is_file():
+        raise ExecutionFailure("adaptive_s1_output_missing_or_outside_raw")
+    adaptive = read_json(adaptive_path)
+    candidate_records = adaptive.get("candidate_records", [])
+    candidate_events = [event for event in adaptive.get("events", [])
+                        if event.get("kind") == "candidate_analysis"]
+    if adaptive.get("stop_reason") == "runtime_invalid" or not candidate_records:
+        runtime = adaptive.get("runtime", {})
+        failure_code = adaptive.get("runtime_failure_code") or adaptive.get("stop_reason") or "adaptive_s1_no_candidates"
+        raise ExecutionFailure(failure_code, {
+            "generated_candidate_count": len(candidate_events),
+            "candidate_generation_failed_count": max(0, generation["candidate_budget"] - len(candidate_events)),
+            "http_request_calls": runtime.get("http_request_attempt_count"),
+            "database_reset_performed": bool(runtime.get("database_reset")),
+            "adaptive_result_path": str(adaptive_path),
+            "attack_failure": False})
+    if (len(candidate_records) != len(candidate_events)
+            or any(record.get("analysis_status") != "completed" for record in candidate_records)):
+        runtime = adaptive.get("runtime", {})
+        raise ExecutionFailure("adaptive_s1_analysis_incomplete", {
+            "generated_candidate_count": len(candidate_events),
+            "candidate_generation_failed_count": max(0, generation["candidate_budget"] - len(candidate_events)),
+            "http_request_calls": runtime.get("http_request_attempt_count"),
+            "database_reset_performed": bool(runtime.get("database_reset")),
+            "adaptive_result_path": str(adaptive_path)})
+
+    scenario = {item["scenario_id"]: item for item in load_catalog()["scenarios"]}["S1"]
+    records = []
+    candidate_rows = []
+    if validation_log.exists() and validation_log.stat().st_size != 0:
+        raise ExecutionFailure("adaptive_s1_validation_log_already_populated")
+    with validation_log.open("w" if validation_log.exists() else "x",
+                             encoding="utf-8", newline="\n") as output:
+        for event, analysis in zip(candidate_events, candidate_records):
+            data = event["data"]
+            if data.get("record") != analysis:
+                raise ExecutionFailure("adaptive_s1_analysis_event_mismatch")
+            candidate_id, payload = analysis["context"]["candidate_id"], data["payload"]
+            observations = analysis["evidence"]["observations"]
+            trial_candidates = {item["trial"]: item for item in observations if item["role"] == "candidate"}
+            signals = {trial: bool(item["diagnostics"]) for trial, item in trial_candidates.items()}
+            if set(signals) != {1, 2, 3}:
+                raise ExecutionFailure("adaptive_s1_confirmation_count_mismatch")
+            derived = classify_confirmations(signals)
+            if any(analysis.get(key) != derived[key] for key in
+                   ("evidence_status", "valid_confirmation_count", "positive_confirmation_count",
+                    "confirmed_success")):
+                raise ExecutionFailure("adaptive_s1_evidence_semantics_mismatch")
+            candidate = {"candidate_id": candidate_id, "source": "LLM", "rag_mode": unit["rag_mode"]}
+            for observation in observations:
+                payload_record = {"record_type": "payload", "run_id": attempt["run_id"],
+                                  "attempt_id": attempt["attempt_id"], "experiment_id": plan["experiment_id"],
+                                  "condition_id": unit["condition_id"], "candidate_id": candidate_id,
+                                  "scenario_id": "S1", "replicate": unit["replicate"],
+                                  "confirmation_index": observation["trial"],
+                                  "payload_source": "LLM", "rag_mode": unit["rag_mode"],
+                                  "payload_role": observation["role"],
+                                  "payload": "1" if observation["role"] == "baseline" else payload,
+                                  "http_status": observation["http_status"],
+                                  "response_time_ms": observation["elapsed_ms"],
+                                  "response_sha256": observation["response_sha256"],
+                                  "response_indicators": observation["diagnostics"],
+                                  "content_markers": observation["content_markers"],
+                                  "human_validation": "pending"}
+                output.write(json.dumps(payload_record, ensure_ascii=False) + "\n")
+            for index in range(1, 4):
+                decision = {"record_type": "decision", "run_id": attempt["run_id"],
+                            "attempt_id": attempt["attempt_id"], "experiment_id": plan["experiment_id"],
+                            "condition_id": unit["condition_id"], "candidate_id": candidate_id,
+                            "scenario_id": "S1", "replicate": unit["replicate"],
+                            "confirmation_index": index, "payload_source": "LLM",
+                            "rag_mode": unit["rag_mode"], "system_signal": signals[index]}
+                output.write(json.dumps(decision, ensure_ascii=False) + "\n")
+                records.append(decision)
+            evidence_record = emit_candidate_evidence(
+                output, attempt["run_id"], scenario, candidate, unit["replicate"], signals,
+                attempt_id=attempt["attempt_id"], experiment_id=plan["experiment_id"],
+                condition_id=unit["condition_id"])
+            records.append(evidence_record)
+            candidate_rows.append({"candidate_id": candidate_id, "payload": payload})
+        runtime = adaptive["runtime"]
+        output.write(json.dumps({"record_type": "run_end", "attempt_status": "complete",
+                                 "logical_probe_submissions": sum(6 for _ in candidate_rows),
+                                 "http_request_calls": runtime["http_request_attempt_count"],
+                                 "database_reset_performed": bool(runtime["database_reset"])}) + "\n")
+    evidence_stats = candidate_evidence_stats(records, unit, attempt,
+                                              {row["candidate_id"] for row in candidate_rows}, root)
+    batch_path = unit_directory / "adaptive-candidates.json"
+    retrieval = adaptive["runtime"]["retrieval"]
+    first_prompt_audit = next((event["data"]["audit"] for event in adaptive["events"]
+                               if event.get("kind") == "generation"
+                               and event["data"].get("status") == "generated"), {})
+    batch_document = {"schema_version": "1.0.0", "scenario_id": "S1", "source": "LLM",
+                      "rag_mode": unit["rag_mode"],
+                      "provenance": {"comparison_id": plan["experiment_id"],
+                                     "model": generation["model"],
+                                     "prompt_version": first_prompt_audit.get("prompt_version", "sqli-adaptive-candidate-v2"),
+                                     "temperature": generation["temperature"], "seed": unit["seed"],
+                                     "knowledge_base_id": retrieval["knowledge_base_id"] if retrieval else None,
+                                     "retrieved_chunk_ids": [item["chunk_id"] for item in retrieval["chunks"]]
+                                     if retrieval else [],
+                                     "retrieval_top_k": generation["top_k"] if retrieval else None},
+                      "candidates": candidate_rows}
+    validate_batch(batch_document, None)
+    safe_write_json(batch_path, batch_document)
+    audit_path = unit_directory / "adaptive-generation-audit.json"
+    generation_feedback_events = [event for event in adaptive["events"]
+                                  if event.get("kind") in {"generation", "feedback"}]
+    safe_write_json(audit_path, {"events": generation_feedback_events,
+                                 "events_sha256": sha256_bytes(json_bytes(generation_feedback_events))})
+    generated_count = len(candidate_rows)
+    budget_complete = (generated_count == generation["candidate_budget"]
+                       and adaptive.get("stop_reason") == "budget_exhausted"
+                       and adaptive.get("run_summary", {}).get("execution_status") == "complete")
+    if not budget_complete:
+        runtime = adaptive.get("runtime", {})
+        raise ExecutionFailure("adaptive_s1_budget_incomplete", {
+            "generated_candidate_count": generated_count,
+            "candidate_generation_failed_count": max(0, generation["candidate_budget"] - generated_count),
+            "valid_candidates_executed": generated_count,
+            "decision_records": generated_count * 3,
+            "payload_records": generated_count * 6,
+            "http_request_calls": runtime.get("http_request_attempt_count"),
+            "database_reset_performed": bool(runtime.get("database_reset")),
+            "adaptive_result_path": str(adaptive_path),
+            "validation_log_path": str(validation_log),
+            **evidence_stats})
+    return {
+        **evidence_stats, "generated_candidate_count": generated_count,
+        "unique_candidate_count": generated_count, "duplicate_candidate_count": 0,
+        "candidate_generation_failed_count": 0,
+        "runner_batch_sha256": sha256_file(batch_path), "runner_batch_path": str(batch_path),
+        "candidate_id_map_path": None,
+        "condition_id": unit["condition_id"], "scenario_id": "S1",
+        "replicate": unit["replicate"], "seed": unit["seed"],
+        "source_batch_sha256": sha256_file(batch_path),
+        "generation_audit_sha256": sha256_file(audit_path),
+        "discovery_sha256": unit["discovery_sha256"],
+        "validation_log_path": str(validation_log), "validation_log_sha256": sha256_file(validation_log),
+        "adaptive_result_path": str(adaptive_path), "adaptive_result_sha256": sha256_file(adaptive_path),
+        "analysis_ledger_path": str(adaptive_path),
+        "analysis_run_status": adaptive["run_summary"]["run_status"],
+        "system_decision": adaptive["run_summary"]["system_decision"],
+        "binary_decision_eligible": adaptive["run_summary"]["binary_decision_eligible"],
+        "psr_evidence_eligible": adaptive["run_summary"]["psr_evidence_eligible"],
+        "candidate_budget": generation["candidate_budget"], "valid_candidates_executed": generated_count,
+        "decision_records": generated_count * 3, "payload_records": generated_count * 6,
+        "confirmations_per_candidate": 3,
+        "logical_probe_submissions": generated_count * 6,
+        "http_request_calls": adaptive["runtime"]["http_request_attempt_count"],
+        "database_reset_performed": bool(adaptive["runtime"]["database_reset"]),
+        "budget_complete": True, "metric_eligible": True, "exclusion_reason": None,
+    }
+
+
 def validation_record_stats(validation_log: Path, candidate_details: dict,
                             protocol: dict) -> dict:
     records = []
@@ -542,6 +787,10 @@ def execute_unit(unit: dict, attempt: dict, plan: dict, protocol: dict,
     raw_root = (root / "results" / "raw").resolve()
     if not unit_directory.resolve().is_relative_to(raw_root):
         raise ValueError("Attempt output must stay under results/raw/.")
+
+    # S1 A/B use the feedback loop; other techniques retain their bounded batch path.
+    if unit["scenario_id"] == "S1" and unit["condition_id"] in {"A", "B"}:
+        return execute_adaptive_s1_unit(unit, attempt, plan, protocol, unit_directory, root)
 
     if unit["condition_id"] in {"A", "B"}:
         report = Path(unit["discovery_report"])
@@ -665,8 +914,10 @@ def execute_unit(unit: dict, attempt: dict, plan: dict, protocol: dict,
     budget_complete = (batch_details["unique_candidate_count"] == generation["candidate_budget"]
                        and batch_details["duplicate_candidate_count"] == 0
                        and batch_details["candidate_generation_failed_count"] == 0)
+    evidence_stats = candidate_evidence_stats(records, unit, attempt, executed_ids, root)
     return {
         **batch_details,
+        **evidence_stats,
         "condition_id": unit["condition_id"], "scenario_id": unit["scenario_id"],
         "replicate": unit["replicate"], "seed": unit["seed"],
         "source_batch_sha256": source_batch_sha256, "generation_audit_sha256": audit_sha256,
@@ -726,12 +977,122 @@ def execute_plan(plan_path: Path, *, execute: bool = False, resume: bool = False
                               execute_one=execute_one)
 
 
+def recover_adaptive_s1_attempt(plan_path: Path, root: Path = ROOT) -> dict:
+    """Finish ledger aggregation from a completed, immutable adaptive result without probing DVWA."""
+    plan_path = plan_path.resolve()
+    if not plan_path.is_relative_to(root.resolve()):
+        raise ValueError("--recover-adaptive-artifact plan must resolve inside the project workspace.")
+    protocol = load_protocol()
+    plan = validate_plan(read_json(plan_path), protocol, root)
+    plan_hash = sha256_bytes(json_bytes({key: value for key, value in plan.items()
+                                         if not key.endswith("_resolved")}))
+    protocol_hash = sha256_file(PROTOCOL_SNAPSHOT_PATH)
+    data_directory = root / "results" / "raw" / plan["dataset"] / plan["experiment_id"]
+    snapshot = read_json(data_directory / "plan.snapshot.json")
+    if snapshot.get("plan_sha256") != plan_hash or snapshot.get("protocol_sha256") != protocol_hash:
+        raise ValueError("Recovery plan or protocol differs from the saved experiment snapshot.")
+    saved_artifacts = snapshot.get("artifact_sha256", {})
+    current_artifacts = artifact_hashes(root)
+    differences = {name for name in set(saved_artifacts) | set(current_artifacts)
+                   if saved_artifacts.get(name) != current_artifacts.get(name)}
+    if differences != {"dvwa/run_local_experiments.py"}:
+        raise ValueError(f"Recovery requires all snapshotted artifacts to match except the runner; differences: {sorted(differences)}")
+
+    events = []
+    with (data_directory / "ledger.jsonl").open("r", encoding="utf-8") as source:
+        for number, line in enumerate(source, start=1):
+            event = json.loads(line)
+            if (event.get("experiment_id") != plan["experiment_id"]
+                    or event.get("schema_version") != "1.0.0"
+                    or event.get("sequence") != number):
+                raise ValueError(f"Ledger identity or sequence is invalid at line {number}.")
+            events.append(event)
+    ledger = ExperimentLedger(data_directory, plan["experiment_id"], events)
+    validate_ledger_schedule(ledger, plan, protocol)
+    active = {}
+    for event in events:
+        if event.get("event_type") == "attempt_started":
+            active[event["unit_id"]] = event
+        elif event.get("event_type") in {"attempt_completed", "attempt_invalid"}:
+            if active.get(event.get("unit_id"), {}).get("attempt_id") == event.get("attempt_id"):
+                active.pop(event["unit_id"], None)
+    matches = [(unit_id, event) for unit_id, event in active.items()
+               if event.get("condition_id") == "A" and event.get("scenario_id") == "S1"]
+    if len(matches) != 1:
+        raise ValueError("Expected exactly one unfinished S1 condition A attempt for artifact recovery.")
+    unit_id, attempt_event = matches[0]
+    run_event = next((event for event in events
+                      if event.get("event_type") == "run_planned" and event.get("unit_id") == unit_id), None)
+    if run_event is None:
+        raise ValueError("The unfinished attempt has no matching planned run.")
+    unit = {key: value for key, value in run_event.items()
+            if key not in {"schema_version", "event_id", "sequence", "experiment_id",
+                           "event_type", "recorded_at_utc"}}
+    attempt = {key: attempt_event[key] for key in
+               ("run_id", "attempt_id", "attempt_number", "retry_of_attempt_id")}
+    unit_directory = data_directory / "attempts" / unit_id / attempt["attempt_id"]
+    adaptive_files = list((unit_directory / "adaptive").glob("adaptive-s1-*.json"))
+    if len(adaptive_files) != 1:
+        raise ValueError("Expected exactly one saved adaptive S1 result for the unfinished attempt.")
+    adaptive_path = adaptive_files[0]
+    adaptive = read_json(adaptive_path)
+    runtime = adaptive.get("runtime", {})
+    reset = runtime.get("database_reset", {})
+    context = adaptive.get("run_summary", {}).get("context", {})
+    if (adaptive.get("stop_reason") != "budget_exhausted"
+            or adaptive.get("run_summary", {}).get("execution_status") != "complete"
+            or runtime.get("model") != protocol["generation"]["model"]
+            or runtime.get("protocol_sha256") != hashlib.sha256(
+                json.dumps(protocol, sort_keys=True, ensure_ascii=False,
+                            allow_nan=False).encode()).hexdigest()
+            or not reset.get("success_markers_verified")
+            or reset.get("status") != 200
+            or context.get("run_id") != attempt["run_id"]
+            or context.get("attempt_id") != attempt["attempt_id"]
+            or len(adaptive.get("candidate_records", [])) != protocol["generation"]["candidate_budget"]):
+        raise ValueError("Saved adaptive artifact does not prove a complete, reset, correctly assigned attempt.")
+
+    details = execute_adaptive_s1_unit(unit, attempt, plan, protocol, unit_directory, root,
+                                       adaptive_result_path=adaptive_path)
+    details.update(recovery_method="offline_adaptive_artifact_aggregation",
+                   recovery_probe_replayed=False,
+                   runner_hash_before=saved_artifacts["dvwa/run_local_experiments.py"],
+                   runner_hash_after=current_artifacts["dvwa/run_local_experiments.py"])
+    ledger.append("attempt_completed", unit_id=unit_id, run_id=attempt["run_id"],
+                  attempt_id=attempt["attempt_id"], attempt_number=attempt["attempt_number"], **details)
+    result = summarize(ledger)
+    result["offline_artifact_recovery"] = True
+    return result
+
+
+def validate_ledger_schedule(ledger, plan, protocol):
+    """The original planned events must still represent the canonical selected schedule."""
+    slots = list(ordered_run_slots(protocol, scenario_ids=plan["scenario_ids"],
+                                  condition_ids=plan["condition_ids"], replicates=plan["replicates"]))
+    events = [e for e in ledger.events if e["event_type"] in {"run_planned", "run_excluded"}
+              and "condition_id" in e]
+    if len(events) != len(slots):
+        raise ValueError("Saved planned order is incomplete or contains duplicate units.")
+    for event, slot in zip(events, slots):
+        expected = {key: value for key, value in slot.items() if key != "applicable"}
+        expected.update(
+            event_type="run_planned" if slot["applicable"] else "run_excluded",
+            unit_id=f"{plan['experiment_id']}-{slot['condition_id'].lower()}-{slot['scenario_id'].lower()}-r{slot['replicate']}",
+            seed=protocol["replicate_seeds"][slot["replicate"] - 1])
+        if any(event.get(key) != value for key, value in expected.items()):
+            raise ValueError("Saved planned order differs from the recorded rotation.")
+
+
+def ordered_ledger_states(ledger):
+    return sorted(ledger.statuses().items(), key=lambda item: item[1]["unit"]["planned_slot_index"])
+
+
 def execute_ledger(ledger: ExperimentLedger, plan: dict, protocol: dict, data_directory: Path,
                    *, execute: bool, retry_invalid: bool, recovered: int, root: Path,
                    execute_one) -> dict:
 
     if execute:
-        for unit_id, state in ledger.statuses().items():
+        for unit_id, state in ordered_ledger_states(ledger):
             if state["status"] != "planned":
                 continue
             unit = state["unit"]
@@ -754,7 +1115,7 @@ def execute_ledger(ledger: ExperimentLedger, plan: dict, protocol: dict, data_di
         return result
 
     if execute:
-        for unit_id, state in ledger.statuses().items():
+        for unit_id, state in ordered_ledger_states(ledger):
             unit = state.get("unit")
             if unit is None or state["status"] in {"completed", "excluded"}:
                 continue
@@ -821,6 +1182,8 @@ def execute_ledger(ledger: ExperimentLedger, plan: dict, protocol: dict, data_di
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--plan", type=Path, required=True, help="Local JSON plan, stored outside sources/.")
+    parser.add_argument("--recover-adaptive-artifact", action="store_true",
+                        help="Rebuild one interrupted S1 A ledger summary from its saved adaptive artifact, without sending probes.")
     parser.add_argument("--resume", action="store_true", help="Continue an existing ledger without reusing session state.")
     parser.add_argument("--execute", action="store_true", help="Generate candidates and send probes to local DVWA.")
     parser.add_argument("--retry-invalid", action="store_true",
@@ -830,10 +1193,14 @@ def main() -> None:
     parser.add_argument("--confirm-database-reset", action="store_true",
                         help="Confirm the runner may reset the local DVWA sample database before each condition-run.")
     args = parser.parse_args()
-    print(json.dumps(execute_plan(args.plan, execute=args.execute, resume=args.resume,
-                                  retry_invalid=args.retry_invalid,
-                                  confirm_local_dvwa=args.confirm_local_dvwa,
-                                  confirm_database_reset=args.confirm_database_reset),
+    if args.recover_adaptive_artifact and (args.execute or args.resume or args.retry_invalid):
+        parser.error("--recover-adaptive-artifact cannot be combined with execute, resume, or retry flags.")
+    result = (recover_adaptive_s1_attempt(args.plan) if args.recover_adaptive_artifact else
+              execute_plan(args.plan, execute=args.execute, resume=args.resume,
+                           retry_invalid=args.retry_invalid,
+                           confirm_local_dvwa=args.confirm_local_dvwa,
+                           confirm_database_reset=args.confirm_database_reset))
+    print(json.dumps(result,
                      ensure_ascii=False, indent=2))
 
 
