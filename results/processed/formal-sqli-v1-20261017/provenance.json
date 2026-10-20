@@ -1,0 +1,50 @@
+{
+  "scope": "published-processed-formal-results",
+  "experiment_id": "formal-sqli-v1-20261017",
+  "annotation_attribution": "User supplied the latest assessment as VAL-01 review.",
+  "validator_id": "VAL-01",
+  "source_sha256": "5bc1b33e2eceaa5dad80692d7ba074cc8188134c71bce388312e810cfcadcbc4",
+  "package_sha256": "be339b984d5a25e0d77eb6124f7dfea128d8b657272af020674103c41f504e6e",
+  "annotation_count": 990,
+  "decision_counts": {
+    "success": 349,
+    "failure": 641
+  },
+  "decisions_by_technique": {
+    "boolean-based blind": {
+      "failure": 231,
+      "success": 99
+    },
+    "error-based": {
+      "success": 147,
+      "failure": 183
+    },
+    "time-based blind": {
+      "failure": 227,
+      "success": 103
+    }
+  },
+  "decision_change_count": 13,
+  "decision_changes_by_technique": {
+    "time-based blind": 13
+  },
+  "transitions": {
+    "success->failure": 13
+  },
+  "justifications_changed": 990,
+  "matched_time_calculations_verified": 990,
+  "trial_count_statements_verified": 990,
+  "protected_sources_verified": 959,
+  "source_preservation": "all_hashes_unchanged_before_and_after",
+  "psr_eligible": true,
+  "fpr_eligible": false,
+  "fpr_unchanged_by_review": true,
+  "raw_experiments_rerun": false,
+  "source_ledger_sha256": "58a083163b62e1024992147109863158e2aa8e84f7124fc387c3bf74b94ecce6",
+  "file_sha256": {
+    "annotations.val01.latest.csv": "5bc1b33e2eceaa5dad80692d7ba074cc8188134c71bce388312e810cfcadcbc4",
+    "annotations.val01.initial.csv": "75bebfd60055b05920e439e6dcc1dcf93bd273a4a98727da67defd33ff53fccd",
+    "metrics.reviewed.json": "87b5a014426f6a1c57b540e3957e993dbfd5ec7c3b50f6a72135b9bfcc5cf876",
+    "metrics.reviewed.csv": "53249d9c6b649df6e3b585bb88c59085b0cfed011c4366d7ef0f59b31dd5898b"
+  }
+}

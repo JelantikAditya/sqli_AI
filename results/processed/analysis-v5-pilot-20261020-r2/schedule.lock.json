@@ -1,0 +1,758 @@
+[
+  {
+    "slot_id": "slot-001",
+    "case_id": "pilot-035",
+    "profile": "B3",
+    "position_within_case": 1
+  },
+  {
+    "slot_id": "slot-002",
+    "case_id": "pilot-035",
+    "profile": "A",
+    "position_within_case": 2
+  },
+  {
+    "slot_id": "slot-003",
+    "case_id": "pilot-035",
+    "profile": "B2",
+    "position_within_case": 3
+  },
+  {
+    "slot_id": "slot-004",
+    "case_id": "pilot-030",
+    "profile": "B3",
+    "position_within_case": 1
+  },
+  {
+    "slot_id": "slot-005",
+    "case_id": "pilot-030",
+    "profile": "A",
+    "position_within_case": 2
+  },
+  {
+    "slot_id": "slot-006",
+    "case_id": "pilot-030",
+    "profile": "B2",
+    "position_within_case": 3
+  },
+  {
+    "slot_id": "slot-007",
+    "case_id": "pilot-028",
+    "profile": "A",
+    "position_within_case": 1
+  },
+  {
+    "slot_id": "slot-008",
+    "case_id": "pilot-028",
+    "profile": "B3",
+    "position_within_case": 2
+  },
+  {
+    "slot_id": "slot-009",
+    "case_id": "pilot-028",
+    "profile": "B2",
+    "position_within_case": 3
+  },
+  {
+    "slot_id": "slot-010",
+    "case_id": "pilot-014",
+    "profile": "B3",
+    "position_within_case": 1
+  },
+  {
+    "slot_id": "slot-011",
+    "case_id": "pilot-014",
+    "profile": "B2",
+    "position_within_case": 2
+  },
+  {
+    "slot_id": "slot-012",
+    "case_id": "pilot-014",
+    "profile": "A",
+    "position_within_case": 3
+  },
+  {
+    "slot_id": "slot-013",
+    "case_id": "pilot-032",
+    "profile": "B3",
+    "position_within_case": 1
+  },
+  {
+    "slot_id": "slot-014",
+    "case_id": "pilot-032",
+    "profile": "B2",
+    "position_within_case": 2
+  },
+  {
+    "slot_id": "slot-015",
+    "case_id": "pilot-032",
+    "profile": "A",
+    "position_within_case": 3
+  },
+  {
+    "slot_id": "slot-016",
+    "case_id": "pilot-036",
+    "profile": "B2",
+    "position_within_case": 1
+  },
+  {
+    "slot_id": "slot-017",
+    "case_id": "pilot-036",
+    "profile": "B3",
+    "position_within_case": 2
+  },
+  {
+    "slot_id": "slot-018",
+    "case_id": "pilot-036",
+    "profile": "A",
+    "position_within_case": 3
+  },
+  {
+    "slot_id": "slot-019",
+    "case_id": "pilot-006",
+    "profile": "B2",
+    "position_within_case": 1
+  },
+  {
+    "slot_id": "slot-020",
+    "case_id": "pilot-006",
+    "profile": "B3",
+    "position_within_case": 2
+  },
+  {
+    "slot_id": "slot-021",
+    "case_id": "pilot-006",
+    "profile": "A",
+    "position_within_case": 3
+  },
+  {
+    "slot_id": "slot-022",
+    "case_id": "pilot-042",
+    "profile": "B2",
+    "position_within_case": 1
+  },
+  {
+    "slot_id": "slot-023",
+    "case_id": "pilot-042",
+    "profile": "B3",
+    "position_within_case": 2
+  },
+  {
+    "slot_id": "slot-024",
+    "case_id": "pilot-042",
+    "profile": "A",
+    "position_within_case": 3
+  },
+  {
+    "slot_id": "slot-025",
+    "case_id": "pilot-022",
+    "profile": "B2",
+    "position_within_case": 1
+  },
+  {
+    "slot_id": "slot-026",
+    "case_id": "pilot-022",
+    "profile": "B3",
+    "position_within_case": 2
+  },
+  {
+    "slot_id": "slot-027",
+    "case_id": "pilot-022",
+    "profile": "A",
+    "position_within_case": 3
+  },
+  {
+    "slot_id": "slot-028",
+    "case_id": "pilot-004",
+    "profile": "A",
+    "position_within_case": 1
+  },
+  {
+    "slot_id": "slot-029",
+    "case_id": "pilot-004",
+    "profile": "B3",
+    "position_within_case": 2
+  },
+  {
+    "slot_id": "slot-030",
+    "case_id": "pilot-004",
+    "profile": "B2",
+    "position_within_case": 3
+  },
+  {
+    "slot_id": "slot-031",
+    "case_id": "pilot-012",
+    "profile": "B2",
+    "position_within_case": 1
+  },
+  {
+    "slot_id": "slot-032",
+    "case_id": "pilot-012",
+    "profile": "B3",
+    "position_within_case": 2
+  },
+  {
+    "slot_id": "slot-033",
+    "case_id": "pilot-012",
+    "profile": "A",
+    "position_within_case": 3
+  },
+  {
+    "slot_id": "slot-034",
+    "case_id": "pilot-031",
+    "profile": "A",
+    "position_within_case": 1
+  },
+  {
+    "slot_id": "slot-035",
+    "case_id": "pilot-031",
+    "profile": "B3",
+    "position_within_case": 2
+  },
+  {
+    "slot_id": "slot-036",
+    "case_id": "pilot-031",
+    "profile": "B2",
+    "position_within_case": 3
+  },
+  {
+    "slot_id": "slot-037",
+    "case_id": "pilot-020",
+    "profile": "B2",
+    "position_within_case": 1
+  },
+  {
+    "slot_id": "slot-038",
+    "case_id": "pilot-020",
+    "profile": "A",
+    "position_within_case": 2
+  },
+  {
+    "slot_id": "slot-039",
+    "case_id": "pilot-020",
+    "profile": "B3",
+    "position_within_case": 3
+  },
+  {
+    "slot_id": "slot-040",
+    "case_id": "pilot-027",
+    "profile": "A",
+    "position_within_case": 1
+  },
+  {
+    "slot_id": "slot-041",
+    "case_id": "pilot-027",
+    "profile": "B2",
+    "position_within_case": 2
+  },
+  {
+    "slot_id": "slot-042",
+    "case_id": "pilot-027",
+    "profile": "B3",
+    "position_within_case": 3
+  },
+  {
+    "slot_id": "slot-043",
+    "case_id": "pilot-011",
+    "profile": "B2",
+    "position_within_case": 1
+  },
+  {
+    "slot_id": "slot-044",
+    "case_id": "pilot-011",
+    "profile": "A",
+    "position_within_case": 2
+  },
+  {
+    "slot_id": "slot-045",
+    "case_id": "pilot-011",
+    "profile": "B3",
+    "position_within_case": 3
+  },
+  {
+    "slot_id": "slot-046",
+    "case_id": "pilot-007",
+    "profile": "B3",
+    "position_within_case": 1
+  },
+  {
+    "slot_id": "slot-047",
+    "case_id": "pilot-007",
+    "profile": "A",
+    "position_within_case": 2
+  },
+  {
+    "slot_id": "slot-048",
+    "case_id": "pilot-007",
+    "profile": "B2",
+    "position_within_case": 3
+  },
+  {
+    "slot_id": "slot-049",
+    "case_id": "pilot-003",
+    "profile": "B3",
+    "position_within_case": 1
+  },
+  {
+    "slot_id": "slot-050",
+    "case_id": "pilot-003",
+    "profile": "B2",
+    "position_within_case": 2
+  },
+  {
+    "slot_id": "slot-051",
+    "case_id": "pilot-003",
+    "profile": "A",
+    "position_within_case": 3
+  },
+  {
+    "slot_id": "slot-052",
+    "case_id": "pilot-010",
+    "profile": "A",
+    "position_within_case": 1
+  },
+  {
+    "slot_id": "slot-053",
+    "case_id": "pilot-010",
+    "profile": "B2",
+    "position_within_case": 2
+  },
+  {
+    "slot_id": "slot-054",
+    "case_id": "pilot-010",
+    "profile": "B3",
+    "position_within_case": 3
+  },
+  {
+    "slot_id": "slot-055",
+    "case_id": "pilot-038",
+    "profile": "B3",
+    "position_within_case": 1
+  },
+  {
+    "slot_id": "slot-056",
+    "case_id": "pilot-038",
+    "profile": "A",
+    "position_within_case": 2
+  },
+  {
+    "slot_id": "slot-057",
+    "case_id": "pilot-038",
+    "profile": "B2",
+    "position_within_case": 3
+  },
+  {
+    "slot_id": "slot-058",
+    "case_id": "pilot-009",
+    "profile": "B3",
+    "position_within_case": 1
+  },
+  {
+    "slot_id": "slot-059",
+    "case_id": "pilot-009",
+    "profile": "A",
+    "position_within_case": 2
+  },
+  {
+    "slot_id": "slot-060",
+    "case_id": "pilot-009",
+    "profile": "B2",
+    "position_within_case": 3
+  },
+  {
+    "slot_id": "slot-061",
+    "case_id": "pilot-039",
+    "profile": "A",
+    "position_within_case": 1
+  },
+  {
+    "slot_id": "slot-062",
+    "case_id": "pilot-039",
+    "profile": "B3",
+    "position_within_case": 2
+  },
+  {
+    "slot_id": "slot-063",
+    "case_id": "pilot-039",
+    "profile": "B2",
+    "position_within_case": 3
+  },
+  {
+    "slot_id": "slot-064",
+    "case_id": "pilot-019",
+    "profile": "B2",
+    "position_within_case": 1
+  },
+  {
+    "slot_id": "slot-065",
+    "case_id": "pilot-019",
+    "profile": "A",
+    "position_within_case": 2
+  },
+  {
+    "slot_id": "slot-066",
+    "case_id": "pilot-019",
+    "profile": "B3",
+    "position_within_case": 3
+  },
+  {
+    "slot_id": "slot-067",
+    "case_id": "pilot-023",
+    "profile": "A",
+    "position_within_case": 1
+  },
+  {
+    "slot_id": "slot-068",
+    "case_id": "pilot-023",
+    "profile": "B3",
+    "position_within_case": 2
+  },
+  {
+    "slot_id": "slot-069",
+    "case_id": "pilot-023",
+    "profile": "B2",
+    "position_within_case": 3
+  },
+  {
+    "slot_id": "slot-070",
+    "case_id": "pilot-024",
+    "profile": "A",
+    "position_within_case": 1
+  },
+  {
+    "slot_id": "slot-071",
+    "case_id": "pilot-024",
+    "profile": "B3",
+    "position_within_case": 2
+  },
+  {
+    "slot_id": "slot-072",
+    "case_id": "pilot-024",
+    "profile": "B2",
+    "position_within_case": 3
+  },
+  {
+    "slot_id": "slot-073",
+    "case_id": "pilot-015",
+    "profile": "B2",
+    "position_within_case": 1
+  },
+  {
+    "slot_id": "slot-074",
+    "case_id": "pilot-015",
+    "profile": "B3",
+    "position_within_case": 2
+  },
+  {
+    "slot_id": "slot-075",
+    "case_id": "pilot-015",
+    "profile": "A",
+    "position_within_case": 3
+  },
+  {
+    "slot_id": "slot-076",
+    "case_id": "pilot-005",
+    "profile": "B2",
+    "position_within_case": 1
+  },
+  {
+    "slot_id": "slot-077",
+    "case_id": "pilot-005",
+    "profile": "A",
+    "position_within_case": 2
+  },
+  {
+    "slot_id": "slot-078",
+    "case_id": "pilot-005",
+    "profile": "B3",
+    "position_within_case": 3
+  },
+  {
+    "slot_id": "slot-079",
+    "case_id": "pilot-001",
+    "profile": "A",
+    "position_within_case": 1
+  },
+  {
+    "slot_id": "slot-080",
+    "case_id": "pilot-001",
+    "profile": "B3",
+    "position_within_case": 2
+  },
+  {
+    "slot_id": "slot-081",
+    "case_id": "pilot-001",
+    "profile": "B2",
+    "position_within_case": 3
+  },
+  {
+    "slot_id": "slot-082",
+    "case_id": "pilot-021",
+    "profile": "A",
+    "position_within_case": 1
+  },
+  {
+    "slot_id": "slot-083",
+    "case_id": "pilot-021",
+    "profile": "B2",
+    "position_within_case": 2
+  },
+  {
+    "slot_id": "slot-084",
+    "case_id": "pilot-021",
+    "profile": "B3",
+    "position_within_case": 3
+  },
+  {
+    "slot_id": "slot-085",
+    "case_id": "pilot-040",
+    "profile": "B2",
+    "position_within_case": 1
+  },
+  {
+    "slot_id": "slot-086",
+    "case_id": "pilot-040",
+    "profile": "A",
+    "position_within_case": 2
+  },
+  {
+    "slot_id": "slot-087",
+    "case_id": "pilot-040",
+    "profile": "B3",
+    "position_within_case": 3
+  },
+  {
+    "slot_id": "slot-088",
+    "case_id": "pilot-026",
+    "profile": "B2",
+    "position_within_case": 1
+  },
+  {
+    "slot_id": "slot-089",
+    "case_id": "pilot-026",
+    "profile": "B3",
+    "position_within_case": 2
+  },
+  {
+    "slot_id": "slot-090",
+    "case_id": "pilot-026",
+    "profile": "A",
+    "position_within_case": 3
+  },
+  {
+    "slot_id": "slot-091",
+    "case_id": "pilot-002",
+    "profile": "A",
+    "position_within_case": 1
+  },
+  {
+    "slot_id": "slot-092",
+    "case_id": "pilot-002",
+    "profile": "B2",
+    "position_within_case": 2
+  },
+  {
+    "slot_id": "slot-093",
+    "case_id": "pilot-002",
+    "profile": "B3",
+    "position_within_case": 3
+  },
+  {
+    "slot_id": "slot-094",
+    "case_id": "pilot-041",
+    "profile": "B3",
+    "position_within_case": 1
+  },
+  {
+    "slot_id": "slot-095",
+    "case_id": "pilot-041",
+    "profile": "B2",
+    "position_within_case": 2
+  },
+  {
+    "slot_id": "slot-096",
+    "case_id": "pilot-041",
+    "profile": "A",
+    "position_within_case": 3
+  },
+  {
+    "slot_id": "slot-097",
+    "case_id": "pilot-016",
+    "profile": "B3",
+    "position_within_case": 1
+  },
+  {
+    "slot_id": "slot-098",
+    "case_id": "pilot-016",
+    "profile": "A",
+    "position_within_case": 2
+  },
+  {
+    "slot_id": "slot-099",
+    "case_id": "pilot-016",
+    "profile": "B2",
+    "position_within_case": 3
+  },
+  {
+    "slot_id": "slot-100",
+    "case_id": "pilot-033",
+    "profile": "A",
+    "position_within_case": 1
+  },
+  {
+    "slot_id": "slot-101",
+    "case_id": "pilot-033",
+    "profile": "B2",
+    "position_within_case": 2
+  },
+  {
+    "slot_id": "slot-102",
+    "case_id": "pilot-033",
+    "profile": "B3",
+    "position_within_case": 3
+  },
+  {
+    "slot_id": "slot-103",
+    "case_id": "pilot-037",
+    "profile": "A",
+    "position_within_case": 1
+  },
+  {
+    "slot_id": "slot-104",
+    "case_id": "pilot-037",
+    "profile": "B2",
+    "position_within_case": 2
+  },
+  {
+    "slot_id": "slot-105",
+    "case_id": "pilot-037",
+    "profile": "B3",
+    "position_within_case": 3
+  },
+  {
+    "slot_id": "slot-106",
+    "case_id": "pilot-025",
+    "profile": "B2",
+    "position_within_case": 1
+  },
+  {
+    "slot_id": "slot-107",
+    "case_id": "pilot-025",
+    "profile": "A",
+    "position_within_case": 2
+  },
+  {
+    "slot_id": "slot-108",
+    "case_id": "pilot-025",
+    "profile": "B3",
+    "position_within_case": 3
+  },
+  {
+    "slot_id": "slot-109",
+    "case_id": "pilot-029",
+    "profile": "B2",
+    "position_within_case": 1
+  },
+  {
+    "slot_id": "slot-110",
+    "case_id": "pilot-029",
+    "profile": "A",
+    "position_within_case": 2
+  },
+  {
+    "slot_id": "slot-111",
+    "case_id": "pilot-029",
+    "profile": "B3",
+    "position_within_case": 3
+  },
+  {
+    "slot_id": "slot-112",
+    "case_id": "pilot-013",
+    "profile": "B3",
+    "position_within_case": 1
+  },
+  {
+    "slot_id": "slot-113",
+    "case_id": "pilot-013",
+    "profile": "A",
+    "position_within_case": 2
+  },
+  {
+    "slot_id": "slot-114",
+    "case_id": "pilot-013",
+    "profile": "B2",
+    "position_within_case": 3
+  },
+  {
+    "slot_id": "slot-115",
+    "case_id": "pilot-034",
+    "profile": "B3",
+    "position_within_case": 1
+  },
+  {
+    "slot_id": "slot-116",
+    "case_id": "pilot-034",
+    "profile": "B2",
+    "position_within_case": 2
+  },
+  {
+    "slot_id": "slot-117",
+    "case_id": "pilot-034",
+    "profile": "A",
+    "position_within_case": 3
+  },
+  {
+    "slot_id": "slot-118",
+    "case_id": "pilot-018",
+    "profile": "A",
+    "position_within_case": 1
+  },
+  {
+    "slot_id": "slot-119",
+    "case_id": "pilot-018",
+    "profile": "B2",
+    "position_within_case": 2
+  },
+  {
+    "slot_id": "slot-120",
+    "case_id": "pilot-018",
+    "profile": "B3",
+    "position_within_case": 3
+  },
+  {
+    "slot_id": "slot-121",
+    "case_id": "pilot-008",
+    "profile": "B3",
+    "position_within_case": 1
+  },
+  {
+    "slot_id": "slot-122",
+    "case_id": "pilot-008",
+    "profile": "B2",
+    "position_within_case": 2
+  },
+  {
+    "slot_id": "slot-123",
+    "case_id": "pilot-008",
+    "profile": "A",
+    "position_within_case": 3
+  },
+  {
+    "slot_id": "slot-124",
+    "case_id": "pilot-017",
+    "profile": "B3",
+    "position_within_case": 1
+  },
+  {
+    "slot_id": "slot-125",
+    "case_id": "pilot-017",
+    "profile": "B2",
+    "position_within_case": 2
+  },
+  {
+    "slot_id": "slot-126",
+    "case_id": "pilot-017",
+    "profile": "A",
+    "position_within_case": 3
+  }
+]

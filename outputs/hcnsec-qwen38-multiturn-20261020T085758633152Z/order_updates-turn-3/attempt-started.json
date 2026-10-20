@@ -1,0 +1,14 @@
+{
+  "scenario": "order_updates",
+  "turn": 3,
+  "requested_model": "Qwen3.8-27B",
+  "attempted": true,
+  "passed": false,
+  "valid_json": false,
+  "reported_model": null,
+  "http_status": null,
+  "content": null,
+  "finish_reason": null,
+  "started_at_utc": "2026-10-20T08:58:22.197701+00:00",
+  "request_sha256": "f331f439113a49b38e649ae6906406362602928d32548846011b350f68f3b80a"
+}

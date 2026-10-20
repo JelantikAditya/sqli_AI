@@ -1,0 +1,342 @@
+{
+  "schema_version": "1.0.0",
+  "experiment_id": "u06-integrated-pilot-20261014",
+  "scope": "pilot-only-u06-evidence-not-formal",
+  "protocol_id": "local-sqli-v5-pilot",
+  "protocol_status": "pilot",
+  "planned_slots": 36,
+  "applicable_attempts": 33,
+  "not_applicable_slots": 3,
+  "attempt_completed": 33,
+  "attempt_invalid": 0,
+  "budget_full": 15,
+  "budget_incomplete": 18,
+  "valid_candidates_executed": 206,
+  "planned_candidate_slots": 330,
+  "duplicate_candidates": 0,
+  "http_request_calls": 4428,
+  "logical_probe_submissions": 1551,
+  "attempt_duration_seconds": {
+    "min": 5.167,
+    "median": 94.582,
+    "max": 439.101,
+    "total": 4743.539
+  },
+  "conditions": {
+    "A": {
+      "attempts": 12,
+      "budget_full": 3,
+      "budget_incomplete": 9,
+      "valid_candidates_executed": 64,
+      "generation_failures": 56,
+      "http_request_calls": 1395,
+      "logical_probe_submissions": 480,
+      "attempt_duration_seconds": 2539.571
+    },
+    "B": {
+      "attempts": 12,
+      "budget_full": 3,
+      "budget_incomplete": 9,
+      "valid_candidates_executed": 52,
+      "generation_failures": 68,
+      "http_request_calls": 1029,
+      "logical_probe_submissions": 351,
+      "attempt_duration_seconds": 1938.003
+    },
+    "C": {
+      "attempts": 9,
+      "budget_full": 9,
+      "budget_incomplete": 0,
+      "valid_candidates_executed": 90,
+      "generation_failures": 0,
+      "http_request_calls": 2004,
+      "logical_probe_submissions": 720,
+      "attempt_duration_seconds": 265.965
+    }
+  },
+  "metric_eligibility": {
+    "psr": false,
+    "fpr": false,
+    "annotations_complete": false,
+    "annotations_supplied": 0
+  },
+  "pilot_ledger_sha256": "79e5157afeb364194dbbb5e0dd02a576a518a1eb44e4dafbe3a37810b9f6d009",
+  "recovery": {
+    "experiment_id": "u06-recovery-r2-20261014",
+    "events": [
+      {
+        "event_type": "attempt_started",
+        "attempt_id": "attempt-1-e5dc46658d",
+        "retry_of_attempt_id": null,
+        "failure_code": null,
+        "state_reused": false,
+        "database_reset_performed": null,
+        "fresh_login_required": true,
+        "budget_complete": null,
+        "exclusion_reason": null
+      },
+      {
+        "event_type": "attempt_invalid",
+        "attempt_id": "attempt-1-e5dc46658d",
+        "retry_of_attempt_id": null,
+        "failure_code": "orchestrator_interrupted",
+        "state_reused": false,
+        "database_reset_performed": null,
+        "fresh_login_required": null,
+        "budget_complete": null,
+        "exclusion_reason": null
+      },
+      {
+        "event_type": "attempt_retried",
+        "attempt_id": "attempt-2-ee3230bd50",
+        "retry_of_attempt_id": "attempt-1-e5dc46658d",
+        "failure_code": null,
+        "state_reused": false,
+        "database_reset_performed": null,
+        "fresh_login_required": null,
+        "budget_complete": null,
+        "exclusion_reason": null
+      },
+      {
+        "event_type": "attempt_started",
+        "attempt_id": "attempt-2-ee3230bd50",
+        "retry_of_attempt_id": "attempt-1-e5dc46658d",
+        "failure_code": null,
+        "state_reused": false,
+        "database_reset_performed": null,
+        "fresh_login_required": true,
+        "budget_complete": null,
+        "exclusion_reason": null
+      },
+      {
+        "event_type": "attempt_completed",
+        "attempt_id": "attempt-2-ee3230bd50",
+        "retry_of_attempt_id": null,
+        "failure_code": null,
+        "state_reused": null,
+        "database_reset_performed": true,
+        "fresh_login_required": null,
+        "budget_complete": false,
+        "exclusion_reason": "incomplete_candidate_budget"
+      },
+      {
+        "event_type": "run_excluded",
+        "attempt_id": "attempt-2-ee3230bd50",
+        "retry_of_attempt_id": null,
+        "failure_code": null,
+        "state_reused": null,
+        "database_reset_performed": null,
+        "fresh_login_required": null,
+        "budget_complete": null,
+        "exclusion_reason": "incomplete_candidate_budget"
+      }
+    ],
+    "ledger_lines": 8,
+    "ledger_sha256": "5fcfbb9aabf35607cbfe1e0d6a284f5a98e268939175c44b25dd8a91d2b8ff78",
+    "resume_noop_verified": true
+  },
+  "zap_active_baseline": {
+    "runs": [
+      {
+        "level": "impossible",
+        "status": "completed_with_scoped_rule_requests",
+        "rule_request_stats": {
+          "40018": 28,
+          "40019": 24
+        },
+        "alerts": {},
+        "coordinate_coverage": {
+          "observed": 0,
+          "expected": 2,
+          "complete": false
+        },
+        "summary": "results/raw/u06-zap-active-baseline-20261014/u06-zap-active-sqli-impossible-20261014-210702-summary.json",
+        "report_sha256": "4f09c94b7510444827f6c085ac13aec325c6fe87ebf059f2cc9f883b4909bd14",
+        "har_sha256": "ccd7db896b9108776a712e57606f0b06c0cc0fa7f67dd9adefd8fc50ae913168"
+      },
+      {
+        "level": "low",
+        "status": "superseded_preliminary_no_request_stats",
+        "rule_request_stats": {},
+        "alerts": {},
+        "coordinate_coverage": {
+          "observed": 0,
+          "expected": 2,
+          "complete": false
+        },
+        "summary": "results/raw/u06-zap-active-baseline-20261014/u06-zap-active-sqli-low-20261014-205006-summary.json",
+        "report_sha256": "f449cbe184347869f41fa86d30e755fb369421db71f5a388db938366982f8bde",
+        "har_sha256": "39e784179efffe73ae63a893795e9a0f492210c89d247b4b8094f80699d4afcb"
+      },
+      {
+        "level": "low",
+        "status": "completed_with_scoped_rule_requests",
+        "rule_request_stats": {
+          "40018": 26,
+          "40019": 17
+        },
+        "alerts": {
+          "40018": 1
+        },
+        "coordinate_coverage": {
+          "observed": 1,
+          "expected": 2,
+          "complete": false
+        },
+        "summary": "results/raw/u06-zap-active-baseline-20261014/u06-zap-active-sqli-low-20261014-205755-summary.json",
+        "report_sha256": "dcd15d600648e0507dea80c092b44ad30ad266f4484f078e8a1976abc25d7fad",
+        "har_sha256": "78ae1a26a36979d8654072c1ac5d658b051b4c26dc63973b6c7b0a3a746caee1"
+      }
+    ],
+    "coverage_gate_failures": [
+      {
+        "level": "medium",
+        "status": "failed_coverage_gate",
+        "log": "results/zap/u06-zap-active-sqli-medium-20261014-210508.log",
+        "authentication_assertion_passed": true,
+        "security_level_assertion_passed": true,
+        "sql_injection_rule_request_tests_failed": true,
+        "log_sha256": "7c9d7379300d3727977d5cc483feac4fa4c9f31a380d010b7b5b339e8d8c5f0f"
+      },
+      {
+        "level": "high",
+        "status": "failed_coverage_gate",
+        "log": "results/zap/u06-zap-active-sqli-high-20261014-210941.log",
+        "authentication_assertion_passed": true,
+        "security_level_assertion_passed": true,
+        "sql_injection_rule_request_tests_failed": true,
+        "log_sha256": "dacd6a26f87a541cb1d2b124bd965cc554a07bd111bbb12511f7a745961c8804"
+      }
+    ],
+    "scope_rule_ids": [
+      "40018",
+      "40019"
+    ],
+    "strength": "Low",
+    "threads_per_host": 1,
+    "delay_ms": 100,
+    "interpretation": "Medium and High rule URL statistics are positive. HAR contains expected method/path/id observations from all jobs, but follow-up HAR has no X-ZAP-Scan-ID tags, so coordinate attribution remains unverified and empty alerts are not interpreted as negative.",
+    "followup_runs": [
+      {
+        "level": "medium",
+        "run_id": "u06-zap-active-sqli-medium-20261014-213107",
+        "status": "active_rule_requests_present_coordinate_attribution_incomplete",
+        "security_level_and_authentication_assertions": "passed",
+        "rule_request_stats": {
+          "40018": 32,
+          "40019": 20
+        },
+        "alerts": {},
+        "scanner_tagged_coordinate_coverage": {
+          "observed": 0,
+          "expected": 2,
+          "complete": false
+        },
+        "har_input_coordinate_observations_any_job": [
+          {
+            "path": "/vulnerabilities/sqli/",
+            "method": "POST",
+            "parameter_present": true,
+            "request_count": 5
+          },
+          {
+            "path": "/vulnerabilities/sqli_blind/",
+            "method": "POST",
+            "parameter_present": true,
+            "request_count": 5
+          }
+        ],
+        "summary": "results/raw/u06-zap-active-baseline-20261014/u06-zap-active-sqli-medium-20261014-213107-v2-summary.json",
+        "summary_sha256": "af36579e2bd2b28217f873d6c7b9bcdfd393422071852294ef5db91a10aa11e6",
+        "report_sha256": "ffc0ef85fc58d71ff87e24b4a6ea538c24865834b176688129b7c273927a41c2",
+        "har_sha256": "c61a6fad02cd2ffa3d0cca41be7c794a92cd42ad8fb2dde8dbc15616aa3f81cb",
+        "log_sha256": "c3a577e696a356758bfdac2af8b5350e9b17973cf2de79c0bd0796d6045a2ff8",
+        "plan": "context-wide-sqli-limited-regex-no-explicit-url",
+        "active_scan_duration": "00:05:05"
+      },
+      {
+        "level": "high",
+        "run_id": "u06-zap-active-sqli-high-20261014-213803",
+        "status": "active_rule_requests_present_coordinate_attribution_incomplete",
+        "security_level_and_authentication_assertions": "passed",
+        "rule_request_stats": {
+          "40018": 34,
+          "40019": 18
+        },
+        "alerts": {},
+        "scanner_tagged_coordinate_coverage": {
+          "observed": 0,
+          "expected": 2,
+          "complete": false
+        },
+        "har_input_coordinate_observations_any_job": [
+          {
+            "path": "/vulnerabilities/sqli/session-input.php",
+            "method": "POST",
+            "parameter_present": true,
+            "request_count": 5
+          },
+          {
+            "path": "/vulnerabilities/sqli_blind/cookie-input.php",
+            "method": "POST",
+            "parameter_present": true,
+            "request_count": 3
+          }
+        ],
+        "summary": "results/raw/u06-zap-active-baseline-20261014/u06-zap-active-sqli-high-20261014-213803-v2-summary.json",
+        "summary_sha256": "2394c6e4e48eb80b9ded514150be76b2dedcffe142918be1c8b67730c947a57a",
+        "report_sha256": "7a3310bd2e548418fac3e4b42760e553c010487407f93f82b8cc92e97fd6414a",
+        "har_sha256": "f306117c9b806149a9c4df1d926407a47933a500a5f549123f3054b2ce4f0fcf",
+        "log_sha256": "11e38611854546cdd10acc4dfa1dc2e838af18d6c4f3bdbae89795a178ac95b2",
+        "plan": "context-wide-sqli-limited-regex-no-explicit-url",
+        "active_scan_duration": "00:05:05"
+      }
+    ]
+  },
+  "blind_review_package": {
+    "directory": "results/raw/u06-validator-review-sample-20261014/validator",
+    "candidate_count": 4,
+    "package_sha256": "4c96cd408ccb870f33c3b4e572bedef37e75290a407fd5063aaf708b422cdc52",
+    "u06_annotations_received": 0
+  },
+  "pilot_data_directory_bytes": 11507977,
+  "completion_status": "partial_u06_blocked_on_a_b_candidate_budget_and_zap_post_coordinate_coverage",
+  "candidate_generation_events": {
+    "generated": 116,
+    "duplicate": 65,
+    "invalid_candidate": 5
+  },
+  "candidate_slots_unfilled": 124,
+  "generation_preflight": {
+    "scope": "generation-only-no-dvwa-requests-not-part-of-pilot-dataset",
+    "prompt_version": "sqli-adaptive-candidate-v11-technique-aware-loop",
+    "scenarios": [
+      "S2",
+      "S3",
+      "S4"
+    ],
+    "conditions": [
+      "A",
+      "B"
+    ],
+    "target_requests_sent": 0,
+    "initial_summary": {
+      "path": "results/raw/u06-generation-preflight-20261014/technique-diversity-summary.json",
+      "sha256": "5468f24f59103151d5e431559a1137cfa8d44fd32f857ceb290c54179906ee95",
+      "budget_complete_combinations": 5,
+      "total_combinations": 6,
+      "B_S3_unique_candidates": 6,
+      "B_S3_candidate_budget": 10
+    },
+    "time_rag_on_repeat": {
+      "path": "results/raw/u06-generation-preflight-20261014/time-rag-on-r2-summary.json",
+      "sha256": "1245dd5c40bf9586f0782e9c1a198098af81ecce4c39e31c0e41160d5710789d",
+      "profile_count": 16,
+      "unique_candidates": 6,
+      "candidate_budget": 10,
+      "generation_calls": 11,
+      "duplicate_count": 5
+    },
+    "interpretation": "Technique-specific guidance improved coverage but did not resolve time-based RAG-on duplicates; rerun U06 with a new experiment ID after further generator work."
+  }
+}

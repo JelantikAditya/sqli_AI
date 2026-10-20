@@ -1,0 +1,101 @@
+[
+  {
+    "case_id": "view-001",
+    "shape": "complete",
+    "identical_common_contract": true,
+    "identical_complete_paired_evidence": true,
+    "renderer_truncated": false,
+    "message_bytes": {
+      "A": 3318,
+      "B": 5697
+    }
+  },
+  {
+    "case_id": "view-002",
+    "shape": "missing-trial",
+    "identical_common_contract": true,
+    "identical_complete_paired_evidence": true,
+    "renderer_truncated": false,
+    "message_bytes": {
+      "A": 3119,
+      "B": 5498
+    }
+  },
+  {
+    "case_id": "view-003",
+    "shape": "invalid-runtime",
+    "identical_common_contract": true,
+    "identical_complete_paired_evidence": true,
+    "renderer_truncated": false,
+    "message_bytes": {
+      "A": 2766,
+      "B": 5145
+    }
+  },
+  {
+    "case_id": "view-004",
+    "shape": "complete",
+    "identical_common_contract": true,
+    "identical_complete_paired_evidence": true,
+    "renderer_truncated": false,
+    "message_bytes": {
+      "A": 3685,
+      "B": 5913
+    }
+  },
+  {
+    "case_id": "view-005",
+    "shape": "missing-trial",
+    "identical_common_contract": true,
+    "identical_complete_paired_evidence": true,
+    "renderer_truncated": false,
+    "message_bytes": {
+      "A": 3415,
+      "B": 5643
+    }
+  },
+  {
+    "case_id": "view-006",
+    "shape": "invalid-runtime",
+    "identical_common_contract": true,
+    "identical_complete_paired_evidence": true,
+    "renderer_truncated": false,
+    "message_bytes": {
+      "A": 2880,
+      "B": 5108
+    }
+  },
+  {
+    "case_id": "view-007",
+    "shape": "complete",
+    "identical_common_contract": true,
+    "identical_complete_paired_evidence": true,
+    "renderer_truncated": false,
+    "message_bytes": {
+      "A": 4012,
+      "B": 6231
+    }
+  },
+  {
+    "case_id": "view-008",
+    "shape": "missing-trial",
+    "identical_common_contract": true,
+    "identical_complete_paired_evidence": true,
+    "renderer_truncated": false,
+    "message_bytes": {
+      "A": 3667,
+      "B": 5886
+    }
+  },
+  {
+    "case_id": "view-009",
+    "shape": "invalid-runtime",
+    "identical_common_contract": true,
+    "identical_complete_paired_evidence": true,
+    "renderer_truncated": false,
+    "message_bytes": {
+      "A": 2990,
+      "B": 5209
+    }
+  }
+]

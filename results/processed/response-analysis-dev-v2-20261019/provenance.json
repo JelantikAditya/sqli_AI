@@ -1,0 +1,29 @@
+{
+  "scope": "published-synthetic-development-v2-not-independent-holdout-not-formal",
+  "source_directory": "results/raw/development/response-analysis-v2-20261019",
+  "exact_byte_copies": [
+    "summary.json",
+    "manifest.json",
+    "runtime.json",
+    "audit.json"
+  ],
+  "file_sha256": {
+    "summary.json": "76bfeb20b51addfadb2c53bd571b38fa4c6d630cf851bbd0e5a86e965b9a44f1",
+    "manifest.json": "db85faf79fc55d0d47e43b5edbbf84034f7fc32bf5dd5d8bc7c73f04f647704b",
+    "runtime.json": "ccc4fcc3efbd7e101926d258ffae5694ef662859d080a856a9c5d0bac9a5c0ca",
+    "audit.json": "bb4581a66ac552f4b4511f7565dc2a0722c25d642ba0d4d0c3c4a4a8f781bbbf"
+  },
+  "local_source_sha256": {
+    "audit.json": "bb4581a66ac552f4b4511f7565dc2a0722c25d642ba0d4d0c3c4a4a8f781bbbf",
+    "evaluation.private.json": "f8720f08698d5d6fe9b2d468f7d861e259d79114bfe5c9de92ea706723b6c098",
+    "inputs.json": "2f8d941cf5397e1c75f78a9a2bbde1b7d2e27947adb732c6297c9f5bbb4b3480",
+    "manifest.json": "db85faf79fc55d0d47e43b5edbbf84034f7fc32bf5dd5d8bc7c73f04f647704b",
+    "prepared-requests.json": "ff1984ab3d57a189c9ffd66db333d11ff593517defff859108faddecfbe13fd0",
+    "replay.jsonl": "24ed8df94878e23f037f82b2135dcec7b0749ceba6402ab557e6169aaf84a2ea",
+    "runtime.json": "ccc4fcc3efbd7e101926d258ffae5694ef662859d080a856a9c5d0bac9a5c0ca",
+    "summary.json": "76bfeb20b51addfadb2c53bd571b38fa4c6d630cf851bbd0e5a86e965b9a44f1"
+  },
+  "formal_results_changed": false,
+  "model_claims_replaced": false,
+  "prototype_promoted_to_formal_runner": false
+}

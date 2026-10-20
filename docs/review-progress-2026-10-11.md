@@ -1,5 +1,9 @@
 # Review progres TA per 11 Oktober 2026
 
+> Snapshot status per 11 Oktober. Perkembangan setelah tanggal ini dirangkum di
+> [README](../README.md) dan [rencana penyelesaian aktif](rencana-penyelesaian-2026-10-16.md).
+> Temuan dan angka berikut dipertahankan sebagai catatan historis.
+
 ## Kesimpulan
 
 Proyek sudah mencapai prototipe komponen: lab, discovery terautentikasi, korpus knowledge-level RAG, embedding, dan retrieval memiliki bukti pengembangan. Sistem otomatis end-to-end sesuai proposal dan eksperimen untuk menjawab FPR/PSR belum selesai. Belum ada dasar untuk menyimpulkan RAG menurunkan FPR atau payload LLM mengungguli SecLists.

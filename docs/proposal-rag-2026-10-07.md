@@ -1,5 +1,8 @@
 # Penyesuaian RAG terhadap proposal — 7 Oktober 2026
 
+> Snapshot metodologi dan status per 7 Oktober. Review korpus disetujui pada
+> 12 Oktober; status aktif ada di [README](../README.md) dan [rencana penyelesaian](rencana-penyelesaian-2026-10-16.md).
+
 ## Status dan koreksi korpus sebelumnya
 
 Jalur utama RAG kini membaca entri JSON terstruktur dari dua sumber yang

@@ -34,6 +34,7 @@
           "http_status": {"type": ["integer", "null"], "minimum": 100, "maximum": 599},
           "elapsed_ms": {"type": ["number", "null"], "minimum": 0},
           "response_sha256": {"type": ["string", "null"], "pattern": "^[0-9a-f]{64}$"},
+          "review_excerpt": {"type": "string", "maxLength": 512},
           "diagnostics": {"type": "array", "uniqueItems": true, "items": {"enum": ["mysql_syntax_error", "mysql_xpath_error", "mysql_unknown_column"]}},
           "content_markers": {"type": "array", "uniqueItems": true, "items": {"enum": ["benign_record", "user_id_exists", "user_id_missing"]}}
         }

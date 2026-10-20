@@ -1,0 +1,436 @@
+{
+  "scope": "development-renderer-and-retrieval-readiness-not-model-evaluation-or-pilot-release",
+  "corpus_version": "analysis-v5-draft-20261020-rev2",
+  "queries": 12,
+  "document_embeddings": 7,
+  "query_embeddings": 12,
+  "chat_calls": 0,
+  "dvwa_requests": 0,
+  "prepared_requests": 18,
+  "input_shape_pairs": 9,
+  "all_common_contracts_identical": true,
+  "all_paired_evidence_preserved": true,
+  "metadata_canaries_absent": true,
+  "whole_chunks_only": true,
+  "exact_token_count": null,
+  "runtime_context_truncation_preflight": "not-executed; byte guards are not token proof",
+  "relevance_status": "provisional-AI-task-rubric-not-independent-human-validation",
+  "request_queries_with_full_required_coverage_at_2": 0,
+  "diagnostic_queries_with_target_at_2": 9,
+  "request_queries": [
+    {
+      "query_id": "request-01",
+      "purpose": "request-query",
+      "query": "{\"injection_point\": {\"input_path\": \"/vulnerabilities/sqli/\", \"method\": \"GET\", \"parameter\": \"id\", \"result_path\": \"/vulnerabilities/sqli/\"}, \"task\": \"Interpret supplied database diagnostic identifiers relative to their benign baseline, respecting validity gates and limits of candidate conclusions.\", \"technique\": \"error-based\"}",
+      "selected_chunk_ids": [
+        "analysis-v5-conclusion-scope",
+        "analysis-v5-sql-diagnostics"
+      ],
+      "required_topics": [
+        "sql-diagnostics-vs-application-errors",
+        "baseline-comparison"
+      ],
+      "missing_topics_at_2": [
+        "baseline-comparison"
+      ],
+      "required_topic_coverage_at_2": 0.5,
+      "all_required_topics_at_3": true,
+      "provisional_selected_grades": [
+        1,
+        3
+      ]
+    },
+    {
+      "query_id": "request-02",
+      "purpose": "request-query",
+      "query": "{\"injection_point\": {\"input_path\": \"/vulnerabilities/sqli_blind/\", \"method\": \"GET\", \"parameter\": \"id\", \"result_path\": \"/vulnerabilities/sqli_blind/\"}, \"task\": \"Interpret the direction of supplied true and false markers, marker stability and limits of candidate conclusions; raw HTML is unavailable.\", \"technique\": \"boolean-based blind\"}",
+      "selected_chunk_ids": [
+        "analysis-v5-conclusion-scope",
+        "analysis-v5-boolean-direction"
+      ],
+      "required_topics": [
+        "boolean-pair-direction",
+        "marker-stability"
+      ],
+      "missing_topics_at_2": [
+        "marker-stability"
+      ],
+      "required_topic_coverage_at_2": 0.5,
+      "all_required_topics_at_3": true,
+      "provisional_selected_grades": [
+        1,
+        3
+      ]
+    },
+    {
+      "query_id": "request-03",
+      "purpose": "request-query",
+      "query": "{\"injection_point\": {\"input_path\": \"/vulnerabilities/sqli_blind/\", \"method\": \"GET\", \"parameter\": \"id\", \"result_path\": \"/vulnerabilities/sqli_blind/\"}, \"task\": \"Interpret matched candidate/no-delay timing pairs, supplied delta, validity and timing confounding limits without inventing unmeasured causes.\", \"technique\": \"time-based blind\"}",
+      "selected_chunk_ids": [
+        "analysis-v5-conclusion-scope",
+        "analysis-v5-timing-control"
+      ],
+      "required_topics": [
+        "matched-timing-control",
+        "timing-confounders"
+      ],
+      "missing_topics_at_2": [
+        "timing-confounders"
+      ],
+      "required_topic_coverage_at_2": 0.5,
+      "all_required_topics_at_3": true,
+      "provisional_selected_grades": [
+        1,
+        3
+      ]
+    }
+  ],
+  "query_results": [
+    {
+      "query_id": "request-01",
+      "purpose": "request-query",
+      "query": "{\"injection_point\": {\"input_path\": \"/vulnerabilities/sqli/\", \"method\": \"GET\", \"parameter\": \"id\", \"result_path\": \"/vulnerabilities/sqli/\"}, \"task\": \"Interpret supplied database diagnostic identifiers relative to their benign baseline, respecting validity gates and limits of candidate conclusions.\", \"technique\": \"error-based\"}",
+      "selected_chunk_ids": [
+        "analysis-v5-conclusion-scope",
+        "analysis-v5-sql-diagnostics"
+      ],
+      "required_topics": [
+        "sql-diagnostics-vs-application-errors",
+        "baseline-comparison"
+      ],
+      "missing_topics_at_2": [
+        "baseline-comparison"
+      ],
+      "required_topic_coverage_at_2": 0.5,
+      "all_required_topics_at_3": true,
+      "provisional_selected_grades": [
+        1,
+        3
+      ]
+    },
+    {
+      "query_id": "request-02",
+      "purpose": "request-query",
+      "query": "{\"injection_point\": {\"input_path\": \"/vulnerabilities/sqli_blind/\", \"method\": \"GET\", \"parameter\": \"id\", \"result_path\": \"/vulnerabilities/sqli_blind/\"}, \"task\": \"Interpret the direction of supplied true and false markers, marker stability and limits of candidate conclusions; raw HTML is unavailable.\", \"technique\": \"boolean-based blind\"}",
+      "selected_chunk_ids": [
+        "analysis-v5-conclusion-scope",
+        "analysis-v5-boolean-direction"
+      ],
+      "required_topics": [
+        "boolean-pair-direction",
+        "marker-stability"
+      ],
+      "missing_topics_at_2": [
+        "marker-stability"
+      ],
+      "required_topic_coverage_at_2": 0.5,
+      "all_required_topics_at_3": true,
+      "provisional_selected_grades": [
+        1,
+        3
+      ]
+    },
+    {
+      "query_id": "request-03",
+      "purpose": "request-query",
+      "query": "{\"injection_point\": {\"input_path\": \"/vulnerabilities/sqli_blind/\", \"method\": \"GET\", \"parameter\": \"id\", \"result_path\": \"/vulnerabilities/sqli_blind/\"}, \"task\": \"Interpret matched candidate/no-delay timing pairs, supplied delta, validity and timing confounding limits without inventing unmeasured causes.\", \"technique\": \"time-based blind\"}",
+      "selected_chunk_ids": [
+        "analysis-v5-conclusion-scope",
+        "analysis-v5-timing-control"
+      ],
+      "required_topics": [
+        "matched-timing-control",
+        "timing-confounders"
+      ],
+      "missing_topics_at_2": [
+        "timing-confounders"
+      ],
+      "required_topic_coverage_at_2": 0.5,
+      "all_required_topics_at_3": true,
+      "provisional_selected_grades": [
+        1,
+        3
+      ]
+    },
+    {
+      "query_id": "facet-01",
+      "purpose": "diagnostic-topic-query-not-production",
+      "query": "{\"task\": \"Does the response contain an explicit database diagnostic?\", \"technique\": \"error-based\"}",
+      "selected_chunk_ids": [
+        "analysis-v5-sql-diagnostics",
+        "analysis-v5-conclusion-scope"
+      ],
+      "required_topics": [
+        "sql-diagnostics-vs-application-errors"
+      ],
+      "missing_topics_at_2": [],
+      "required_topic_coverage_at_2": 1.0,
+      "all_required_topics_at_3": true,
+      "provisional_selected_grades": [
+        3,
+        1
+      ]
+    },
+    {
+      "query_id": "facet-02",
+      "purpose": "diagnostic-topic-query-not-production",
+      "query": "{\"task\": \"Did the candidate introduce a diagnostic absent from the baseline?\", \"technique\": \"error-based\"}",
+      "selected_chunk_ids": [
+        "analysis-v5-baseline-comparison",
+        "analysis-v5-sql-diagnostics"
+      ],
+      "required_topics": [
+        "baseline-comparison"
+      ],
+      "missing_topics_at_2": [],
+      "required_topic_coverage_at_2": 1.0,
+      "all_required_topics_at_3": true,
+      "provisional_selected_grades": [
+        3,
+        1
+      ]
+    },
+    {
+      "query_id": "facet-03",
+      "purpose": "diagnostic-topic-query-not-production",
+      "query": "{\"task\": \"Are true and false responses assigned to the correct conditions?\", \"technique\": \"boolean-based blind\"}",
+      "selected_chunk_ids": [
+        "analysis-v5-boolean-direction",
+        "analysis-v5-conclusion-scope"
+      ],
+      "required_topics": [
+        "boolean-pair-direction"
+      ],
+      "missing_topics_at_2": [],
+      "required_topic_coverage_at_2": 1.0,
+      "all_required_topics_at_3": true,
+      "provisional_selected_grades": [
+        3,
+        1
+      ]
+    },
+    {
+      "query_id": "facet-04",
+      "purpose": "diagnostic-topic-query-not-production",
+      "query": "{\"task\": \"Does the selected feature distinguish conditions consistently?\", \"technique\": \"boolean-based blind\"}",
+      "selected_chunk_ids": [
+        "analysis-v5-boolean-direction",
+        "analysis-v5-marker-stability"
+      ],
+      "required_topics": [
+        "marker-stability"
+      ],
+      "missing_topics_at_2": [],
+      "required_topic_coverage_at_2": 1.0,
+      "all_required_topics_at_3": true,
+      "provisional_selected_grades": [
+        1,
+        3
+      ]
+    },
+    {
+      "query_id": "facet-05",
+      "purpose": "diagnostic-topic-query-not-production",
+      "query": "{\"task\": \"Is the delayed candidate compared with its matching no-delay control?\", \"technique\": \"time-based blind\"}",
+      "selected_chunk_ids": [
+        "analysis-v5-timing-control",
+        "analysis-v5-timing-confounders"
+      ],
+      "required_topics": [
+        "matched-timing-control"
+      ],
+      "missing_topics_at_2": [],
+      "required_topic_coverage_at_2": 1.0,
+      "all_required_topics_at_3": true,
+      "provisional_selected_grades": [
+        3,
+        1
+      ]
+    },
+    {
+      "query_id": "facet-06",
+      "purpose": "diagnostic-topic-query-not-production",
+      "query": "{\"task\": \"Could non-SQL timing variation explain the observed latency?\", \"technique\": \"time-based blind\"}",
+      "selected_chunk_ids": [
+        "analysis-v5-timing-confounders",
+        "analysis-v5-timing-control"
+      ],
+      "required_topics": [
+        "timing-confounders"
+      ],
+      "missing_topics_at_2": [],
+      "required_topic_coverage_at_2": 1.0,
+      "all_required_topics_at_3": true,
+      "provisional_selected_grades": [
+        3,
+        1
+      ]
+    },
+    {
+      "query_id": "facet-07",
+      "purpose": "diagnostic-topic-query-not-production",
+      "query": "{\"task\": \"What claim is justified by these observations?\", \"technique\": \"error-based\"}",
+      "selected_chunk_ids": [
+        "analysis-v5-conclusion-scope",
+        "analysis-v5-baseline-comparison"
+      ],
+      "required_topics": [
+        "conclusion-scope"
+      ],
+      "missing_topics_at_2": [],
+      "required_topic_coverage_at_2": 1.0,
+      "all_required_topics_at_3": true,
+      "provisional_selected_grades": [
+        3,
+        1
+      ]
+    },
+    {
+      "query_id": "facet-08",
+      "purpose": "diagnostic-topic-query-not-production",
+      "query": "{\"task\": \"What claim is justified by these observations?\", \"technique\": \"boolean-based blind\"}",
+      "selected_chunk_ids": [
+        "analysis-v5-conclusion-scope",
+        "analysis-v5-boolean-direction"
+      ],
+      "required_topics": [
+        "conclusion-scope"
+      ],
+      "missing_topics_at_2": [],
+      "required_topic_coverage_at_2": 1.0,
+      "all_required_topics_at_3": true,
+      "provisional_selected_grades": [
+        3,
+        1
+      ]
+    },
+    {
+      "query_id": "facet-09",
+      "purpose": "diagnostic-topic-query-not-production",
+      "query": "{\"task\": \"What claim is justified by these observations?\", \"technique\": \"time-based blind\"}",
+      "selected_chunk_ids": [
+        "analysis-v5-conclusion-scope",
+        "analysis-v5-timing-control"
+      ],
+      "required_topics": [
+        "conclusion-scope"
+      ],
+      "missing_topics_at_2": [],
+      "required_topic_coverage_at_2": 1.0,
+      "all_required_topics_at_3": true,
+      "provisional_selected_grades": [
+        3,
+        1
+      ]
+    }
+  ],
+  "request_integrity": [
+    {
+      "case_id": "view-001",
+      "shape": "complete",
+      "identical_common_contract": true,
+      "identical_complete_paired_evidence": true,
+      "renderer_truncated": false,
+      "message_bytes": {
+        "A": 3318,
+        "B": 5697
+      }
+    },
+    {
+      "case_id": "view-002",
+      "shape": "missing-trial",
+      "identical_common_contract": true,
+      "identical_complete_paired_evidence": true,
+      "renderer_truncated": false,
+      "message_bytes": {
+        "A": 3119,
+        "B": 5498
+      }
+    },
+    {
+      "case_id": "view-003",
+      "shape": "invalid-runtime",
+      "identical_common_contract": true,
+      "identical_complete_paired_evidence": true,
+      "renderer_truncated": false,
+      "message_bytes": {
+        "A": 2766,
+        "B": 5145
+      }
+    },
+    {
+      "case_id": "view-004",
+      "shape": "complete",
+      "identical_common_contract": true,
+      "identical_complete_paired_evidence": true,
+      "renderer_truncated": false,
+      "message_bytes": {
+        "A": 3685,
+        "B": 5913
+      }
+    },
+    {
+      "case_id": "view-005",
+      "shape": "missing-trial",
+      "identical_common_contract": true,
+      "identical_complete_paired_evidence": true,
+      "renderer_truncated": false,
+      "message_bytes": {
+        "A": 3415,
+        "B": 5643
+      }
+    },
+    {
+      "case_id": "view-006",
+      "shape": "invalid-runtime",
+      "identical_common_contract": true,
+      "identical_complete_paired_evidence": true,
+      "renderer_truncated": false,
+      "message_bytes": {
+        "A": 2880,
+        "B": 5108
+      }
+    },
+    {
+      "case_id": "view-007",
+      "shape": "complete",
+      "identical_common_contract": true,
+      "identical_complete_paired_evidence": true,
+      "renderer_truncated": false,
+      "message_bytes": {
+        "A": 4012,
+        "B": 6231
+      }
+    },
+    {
+      "case_id": "view-008",
+      "shape": "missing-trial",
+      "identical_common_contract": true,
+      "identical_complete_paired_evidence": true,
+      "renderer_truncated": false,
+      "message_bytes": {
+        "A": 3667,
+        "B": 5886
+      }
+    },
+    {
+      "case_id": "view-009",
+      "shape": "invalid-runtime",
+      "identical_common_contract": true,
+      "identical_complete_paired_evidence": true,
+      "renderer_truncated": false,
+      "message_bytes": {
+        "A": 2990,
+        "B": 5209
+      }
+    }
+  ],
+  "embedding_model": "nomic-embed-text:latest",
+  "embedding_digest": "0a109f422b47e3a30ba2b10eca18548e944e8a23073ee3f3e947efcf3c45e59f",
+  "chromadb_version": "1.5.9",
+  "retrieval_seconds": 8.319354900000235,
+  "source_lock_sha256": "966ce725d0c4fcd9914a174a5b3867eb2d941483051c5b991d8364bcf2a44efd",
+  "researcher_adoption": "not-recorded",
+  "formal_metrics_recomputed": false,
+  "pilot_released": false
+}

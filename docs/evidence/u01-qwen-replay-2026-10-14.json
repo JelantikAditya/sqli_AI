@@ -1,0 +1,248 @@
+{
+  "schema_version": "1.0.0",
+  "evidence_id": "u01-qwen-replay-2026-10-14",
+  "scope": "development-fixture-replay-not-formal",
+  "source_evidence_id": "t05-ab-s1-langchain-live-pilot-2026-10-14",
+  "source_attempt_id": "attempt-1-81a8c22b5e",
+  "source_adaptive_result_sha256": "8742065b6131785c4bdb8f83936914b3aa24cb1a28a6f081040e441f40240164",
+  "source_candidate_count": 10,
+  "source_candidates_with_3_of_3_executor_diagnostics": 7,
+  "source_qwen_claims_negative": 10,
+  "source_record_inspected": {
+    "diagnostics_present_on_candidate_trials": 3,
+    "diagnostics_present_on_baseline_trials": 0,
+    "source_claim": "negative",
+    "source_evidence_status": "CONSISTENT_POSITIVE",
+    "source_input_sha256": "3cca6de4713336a49dc1ae08ea47e8e79910cb777bc14e4ea8d99900b25a331c",
+    "source_output_sha256": "143e81db2c3ed502cf9a462c3d1efc94ab75572efa663f039ba469cbdf19b060",
+    "source_prompt_sha256": "a4f50a157476d32701e40a7a96fb3e60dad75c214f9406f47aa167ba54abe451",
+    "normalization_replayed_before_audit_edits": true
+  },
+  "fixtures": [
+    {
+      "case_id": "diagnostic-3",
+      "expected": "positive",
+      "v5": "positive",
+      "v6": "positive",
+      "v6_matches": true
+    },
+    {
+      "case_id": "diagnostic-0",
+      "expected": "negative",
+      "v5": "positive",
+      "v6": "inconclusive",
+      "v6_matches": false
+    },
+    {
+      "case_id": "mixed-1",
+      "expected": "inconclusive",
+      "v5": "positive",
+      "v6": "negative",
+      "v6_matches": false
+    },
+    {
+      "case_id": "mixed-2",
+      "expected": "inconclusive",
+      "v5": "positive",
+      "v6": "negative",
+      "v6_matches": false
+    },
+    {
+      "case_id": "generic-500",
+      "expected": "negative",
+      "v5": "positive",
+      "v6": "inconclusive",
+      "v6_matches": false
+    },
+    {
+      "case_id": "incomplete-2-trials",
+      "expected": "inconclusive",
+      "v5": "positive",
+      "v6": "positive",
+      "v6_matches": false
+    },
+    {
+      "case_id": "invalid-session",
+      "expected": null,
+      "v5": null,
+      "v6": null,
+      "analysis_status": "runtime_invalid",
+      "v6_matches": true
+    }
+  ],
+  "replay_prompt_sha256": {
+    "v5": "8a2df5e91827640ab3b0f5814b4f096ce10c8d3ca52badae99f7acf9de985a71",
+    "v6": "b98cb3acee5b0232f8044ee064f72897b99ad729f13474bb47d11f9cacc322bb"
+  },
+  "model": "qwen2.5:7b",
+  "model_digest": "845dbda0ea48ed749caafd9e6037047aa19acfcfd82e704d7ca97d631a0b697e",
+  "ollama_inference_used": true,
+  "dvwa_requests_sent": 0,
+  "expected_fixture_claims_passed_v6": 1,
+  "fixture_count": 7,
+  "latest_parser_replay": {
+    "artifact": "results/raw/u01-replay-v8-20261014/",
+    "source_replay_version": "sqli-response-analysis-v6",
+    "stored_model_outputs_replayed": true,
+    "fresh_model_inference": false,
+    "fresh_model_attempt": "results/raw/u01-replay-v7-20261014/; local model service unavailable",
+    "dvwa_requests_sent": 0,
+    "fixture_claims_passed": 2,
+    "fixture_count": 7,
+    "summary_sha256": "87a6e3d0ed10bf0a1caede7fe59428d5179102ea526623e1521faaf9b95c3a53",
+    "replay_sha256": "304bab376c76f50675090f7157aecb3b829b045c7b29d117174434dc3c1f895a",
+    "results": [
+      {"case_id": "diagnostic-3", "expected": "positive", "actual": "positive", "matches": true},
+      {"case_id": "diagnostic-0", "expected": "negative", "actual": "inconclusive", "matches": false},
+      {"case_id": "mixed-1", "expected": "inconclusive", "actual": "negative", "matches": false},
+      {"case_id": "mixed-2", "expected": "inconclusive", "actual": "negative", "matches": false},
+      {"case_id": "generic-500", "expected": "negative", "actual": "inconclusive", "matches": false},
+      {"case_id": "incomplete-2-trials", "expected": "inconclusive", "actual": "positive", "matches": false},
+      {"case_id": "invalid-session", "expected": null, "actual": null, "matches": true, "analysis_status": "runtime_invalid"}
+    ]
+  },
+  "fresh_model_replay": {
+    "artifact": "results/raw/u01-replay-v9-20261014/",
+    "model": "qwen2.5:7b",
+    "model_digest": "845dbda0ea48ed749caafd9e6037047aa19acfcfd82e704d7ca97d631a0b697e",
+    "prompt_version": "sqli-response-analysis-v6",
+    "model_called": true,
+    "stored_model_outputs_replayed": false,
+    "dvwa_requests_sent": 0,
+    "fixture_claims_passed": 2,
+    "fixture_count": 7,
+    "valid_fixture_claims_passed": 1,
+    "valid_fixture_count": 6,
+    "summary_sha256": "965270135216d863965a5b254584d8d0b5c78893729b7f7a65051fba61d80481",
+    "replay_sha256": "2818ad353dce8be56b9a8890354436405d53e81346110dd3b354909b2a3b7b2e",
+    "results": [
+      {"case_id": "diagnostic-3", "expected": "positive", "actual": "positive", "matches": true},
+      {"case_id": "diagnostic-0", "expected": "negative", "actual": "inconclusive", "matches": false},
+      {"case_id": "mixed-1", "expected": "inconclusive", "actual": "negative", "matches": false},
+      {"case_id": "mixed-2", "expected": "inconclusive", "actual": "negative", "matches": false},
+      {"case_id": "generic-500", "expected": "negative", "actual": "inconclusive", "matches": false},
+      {"case_id": "incomplete-2-trials", "expected": "inconclusive", "actual": "positive", "matches": false},
+      {"case_id": "invalid-session", "expected": null, "actual": null, "matches": true, "analysis_status": "runtime_invalid"}
+    ]
+  },
+  "fresh_model_review": {
+    "scope": "output-and-evidence-reference-review",
+    "observed_patterns": [
+      {
+        "case_id": "diagnostic-3",
+        "finding": "Decision positive matches 3/3 diagnostics, but evidence_refs cite only candidate observations and omit all three baselines.",
+        "claim_supported": false
+      },
+      {
+        "case_id": "diagnostic-0",
+        "finding": "Complete 0/3 diagnostic evidence is classified inconclusive instead of negative."
+      },
+      {
+        "case_id": "mixed-1",
+        "finding": "1/3 positive confirmations is classified negative instead of inconclusive."
+      },
+      {
+        "case_id": "mixed-2",
+        "finding": "2/3 positive confirmations is classified negative instead of inconclusive."
+      },
+      {
+        "case_id": "generic-500",
+        "finding": "No database diagnostic with generic HTTP 500 is classified inconclusive instead of negative."
+      },
+      {
+        "case_id": "incomplete-2-trials",
+        "finding": "Two positive diagnostic trials are classified positive despite the required third trial being absent.",
+        "claim_supported": false
+      },
+      {
+        "case_id": "invalid-session",
+        "finding": "Runtime-invalid evidence is correctly stopped without a model decision."
+      }
+    ],
+    "interpretation": "Observed outputs are consistent with failures to apply the fixed per-trial decision rules and to cite complete comparison evidence. The replay does not establish the model's internal cause."
+  },
+  "v7_regression_replay": {
+    "artifact": "results/raw/u01-replay-v10-v7-regression-20261014/",
+    "prompt_version": "sqli-response-analysis-v7-trial-audit",
+    "model": "qwen2.5:7b",
+    "model_digest_prefix": "845dbda0ea48",
+    "model_called": true,
+    "dvwa_requests_sent": 0,
+    "fixture_count": 7,
+    "fixture_claims_passed": 3,
+    "valid_fixture_count": 6,
+    "valid_fixture_claims_passed": 2,
+    "summary_sha256": "bc993ef4436f937dd104ced6fb4d2131282645f1f0f249b49375e47f7c3ad479",
+    "replay_sha256": "3e66f31c9e49de5283cdce69b3d675848a55ebb63824e81fdd3f97c521caefc5",
+    "schema_sha256": "1d3d9b3e673e65b1810a8a94fbce0293403eec992ac056d2f54c8e8d8da58c37",
+    "results": [
+      {"case_id": "diagnostic-3", "expected": "positive", "actual": "positive", "matches": true, "warnings": [], "claim_supported": true},
+      {"case_id": "diagnostic-0", "expected": "negative", "actual": "inconclusive", "matches": false, "warnings": ["model_claim_trial_assessment_mismatch", "model_claim_evidence_mismatch"]},
+      {"case_id": "mixed-1", "expected": "inconclusive", "actual": "negative", "matches": false, "warnings": ["trial_assessment_evidence_mismatch", "model_claim_evidence_mismatch"]},
+      {"case_id": "mixed-2", "expected": "inconclusive", "actual": "negative", "matches": false, "warnings": ["trial_assessment_evidence_mismatch", "model_claim_evidence_mismatch"]},
+      {"case_id": "generic-500", "expected": "negative", "actual": "negative", "matches": true, "warnings": []},
+      {"case_id": "incomplete-2-trials", "expected": "inconclusive", "actual": "positive", "matches": false, "warnings": ["model_claim_trial_assessment_mismatch", "model_claim_evidence_mismatch"], "claim_supported": false},
+      {"case_id": "invalid-session", "expected": null, "actual": null, "matches": true, "analysis_status": "runtime_invalid"}
+    ]
+  },
+  "v8_regression_replay": {
+    "artifact": "results/raw/u01-replay-v11-v8-count-trials-20261014/",
+    "prompt_version": "sqli-response-analysis-v8-count-trials",
+    "model": "qwen2.5:7b",
+    "model_digest_prefix": "845dbda0ea48",
+    "model_called": true,
+    "dvwa_requests_sent": 0,
+    "fixture_count": 7,
+    "fixture_claims_passed": 5,
+    "valid_fixture_count": 6,
+    "valid_fixture_claims_passed": 4,
+    "summary_sha256": "32f701835166916c7f51cec5022634fbe8c927eefd1e901e3d9d0ca3d91d20c3",
+    "replay_sha256": "58c798312a68cb4bac1d00a270701f5b63d8b12fe6e7d5c4033e094638a0d7af",
+    "fixtures_sha256": "2aa719c00ee519ba0914167d030f6ba341b54771a400e72bc969c22c8145403d",
+    "prompt_sha256": "0cc06b64fbb3cf8fc1f47a7f118cc5baf4cb98b62ffed58275c6abb4b8544209",
+    "schema_sha256": "1d3d9b3e673e65b1810a8a94fbce0293403eec992ac056d2f54c8e8d8da58c37",
+    "results": [
+      {"case_id": "diagnostic-3", "expected": "positive", "actual": "positive", "matches": true, "warnings": [], "claim_supported": true},
+      {"case_id": "diagnostic-0", "expected": "negative", "actual": "inconclusive", "matches": false, "warnings": ["model_claim_trial_assessment_mismatch", "model_claim_evidence_mismatch"]},
+      {"case_id": "mixed-1", "expected": "inconclusive", "actual": "inconclusive", "matches": true, "warnings": ["trial_assessment_evidence_mismatch", "model_claim_trial_assessment_mismatch"]},
+      {"case_id": "mixed-2", "expected": "inconclusive", "actual": "negative", "matches": false, "warnings": ["trial_assessment_evidence_mismatch", "model_claim_evidence_mismatch"]},
+      {"case_id": "generic-500", "expected": "negative", "actual": "negative", "matches": true, "warnings": []},
+      {"case_id": "incomplete-2-trials", "expected": "inconclusive", "actual": "inconclusive", "matches": true, "warnings": ["trial_assessment_evidence_mismatch"]},
+      {"case_id": "invalid-session", "expected": null, "actual": null, "matches": true, "analysis_status": "runtime_invalid"}
+    ]
+  },
+  "v8_closed_validation": {
+    "artifact": "results/raw/u01-closed-v1-20261014/",
+    "scope": "one-time-closed-contract-validation-development-not-formal",
+    "prompt_version": "sqli-response-analysis-v8-count-trials",
+    "model": "qwen2.5:7b",
+    "model_digest_prefix": "845dbda0ea48",
+    "fixture_file_sha256": "ae7ea1b345cf786f6c38888d6ee40daf49783298aa62c58d9b6fb4f6a31f3c16",
+    "fixtures_sha256": "d72f1c5d75cea8ade9651b8b8cc31c6476f0cab232ad942e6ec48f566604d12d",
+    "replay_sha256": "fdc3071f0172aa80c6289d98adc348bed604c40671777b2ff624661dfde0ad45",
+    "summary_sha256": "270d5bdf1312efeea51d3974b5f72eb4c84980cd657520b9cba7015b413bcb99",
+    "prompt_sha256": "0cc06b64fbb3cf8fc1f47a7f118cc5baf4cb98b62ffed58275c6abb4b8544209",
+    "schema_sha256": "1d3d9b3e673e65b1810a8a94fbce0293403eec992ac056d2f54c8e8d8da58c37",
+    "fixture_count": 21,
+    "model_call_count": 18,
+    "runtime_invalid_count": 3,
+    "matches": 14,
+    "valid_fixture_count": 18,
+    "valid_matches": 11,
+    "dvwa_requests_sent": 0,
+    "by_technique": {
+      "error-based": {"matches": 5, "fixture_count": 7, "valid_matches": 4, "valid_fixture_count": 6},
+      "boolean-based blind": {"matches": 5, "fixture_count": 7, "valid_matches": 4, "valid_fixture_count": 6},
+      "time-based blind": {"matches": 4, "fixture_count": 7, "valid_matches": 3, "valid_fixture_count": 6}
+    },
+    "observations": [
+      "All three positive 3/3 cases matched.",
+      "All three incomplete two-trial cases returned inconclusive.",
+      "All three runtime-invalid cases stopped without inference.",
+      "Error-based 0/3 remained inconclusive and mixed 2/3 was negative.",
+      "Boolean-based 0/3 and technique-control were inconclusive.",
+      "Time-based 0/3, mixed 1/3, and technique-control were positive; all three had incorrect per-trial assessments. The negative/control cases had a 90 ms candidate/control difference against a 1500 ms threshold."
+    ]
+  },
+  "conclusion": "The v8 development replay matches 5 of 7 fixtures overall and 4 of 6 runtime-valid fixtures. The one-time closed development validation matches 14 of 21 fixtures overall and 11 of 18 runtime-valid fixtures across the three techniques. This is model-performance evidence on synthetic development fixtures, not an implementation-gate pass/fail, independent human validation, FPR, or PSR. Preserve Qwen claims and audit warnings."
+}

@@ -1,0 +1,29 @@
+{
+  "verification": {
+    "status": "offline-verification-passed",
+    "request_counts_reproduced": 36,
+    "runtime_probes_verified": 9,
+    "protected_files_unchanged": 1126,
+    "no_model_calls_in_this_verification": true,
+    "maximum_prompt_tokens": 1684,
+    "minimum_reserved_headroom": 1644
+  },
+  "AI_content_review_rows": 36,
+  "human_review_rows": 0,
+  "pilot_profile_has_no_preflight_stop": true,
+  "files": {
+    "results/processed/analysis-v5-context-preflight-20261020/design.json": "58df36101e00756214265cf0a2603532d000452614e5e95b57ab85400034e257",
+    "results/processed/analysis-v5-context-preflight-20261020/offline-token-counts.json": "8f125c75aebc645176e412a0b72e5d8cfecec97a2f3648ddaabd43783fc33f0e",
+    "results/processed/analysis-v5-context-preflight-20261020/pilot-profile.candidate.json": "9044695ccb6acd1c2975868b609afb23c73325da9d8649f17da4b95812552a30",
+    "results/processed/analysis-v5-context-preflight-20261020/preflight-manifest.json": "b67b1f275ac9df7113b5129edddcad32eb06b670d1a312e965707b188a7f15cd",
+    "results/processed/analysis-v5-context-preflight-20261020/preservation-baseline.json": "533e9ad2ed1d64c3490a41d57a65f810c4cc493931b6acdc825ceea738b846b5",
+    "results/processed/analysis-v5-context-preflight-20261020/README.md": "5b7ff068ed7d1d6077f98a76722e87797c8cc0ba2a3197b4855f780d3b3aa10b",
+    "results/processed/analysis-v5-context-preflight-20261020/relevance-review.ai.json": "18af8073de8395ed239b4a82b2008970d66bf8240073cb56531f6e51eaeccd0d",
+    "results/processed/analysis-v5-context-preflight-20261020/runtime-context-summary.json": "a375cb33984f6ae00623bfe826d44788ee4677567752b1f7cf79376a555a953c",
+    "development/preflight_analysis_v5_context.py": "b61fdde58db2fb9607c285c5b9f949e91d7fb32a9ae54eb55367f15edbb3c542",
+    "development/verify_analysis_v5_context.py": "23513543e5ee9b81b55fb71c427d4761ebf8314cda679e4b03948428a89f7706",
+    "development/review_analysis_v5_relevance.py": "09b2dc290748f9f07c8d0b03f1443e12a41d2cc7ee7dcafb3f556864fd765f14",
+    "development/test_analysis_v5_context.py": "3052f3bd861bed4f4911191645c2dd96a8f852d2a284252337413968b23c7f69",
+    "docs/preflight-konteks-dan-profil-v5-2026-10-20.md": "b47200e36092368729f022d665b82b7e3325d9e5f2a1a93c84369fa6eda87fb3"
+  }
+}

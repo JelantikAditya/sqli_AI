@@ -1,0 +1,215 @@
+[
+  {
+    "sequence": 1,
+    "task_id": "extract_json",
+    "requested_model": "Qwen3.8-27B",
+    "payload": {
+      "model": "Qwen3.8-27B",
+      "messages": [
+        {
+          "role": "user",
+          "content": "Ekstrak catatan berikut. Balas hanya satu objek JSON valid tanpa Markdown dengan tepat tiga kunci: nama (string), jumlah (integer), kota (string atau null). Jangan menebak informasi yang tidak tercantum. Catatan: Nama pelanggan Rani. Pesanan 3 buku. Kota tidak dicantumkan."
+        }
+      ],
+      "temperature": 0,
+      "max_tokens": 1024,
+      "stream": false
+    },
+    "expected": {
+      "nama": "Rani",
+      "jumlah": 3,
+      "kota": null
+    },
+    "request_sha256": "9b15374b1bf8e381ca79964506dc592172f0c1c3a583b4af2d71dca44edfae38"
+  },
+  {
+    "sequence": 2,
+    "task_id": "extract_json",
+    "requested_model": "glm-5.3-flash",
+    "payload": {
+      "model": "glm-5.3-flash",
+      "messages": [
+        {
+          "role": "user",
+          "content": "Ekstrak catatan berikut. Balas hanya satu objek JSON valid tanpa Markdown dengan tepat tiga kunci: nama (string), jumlah (integer), kota (string atau null). Jangan menebak informasi yang tidak tercantum. Catatan: Nama pelanggan Rani. Pesanan 3 buku. Kota tidak dicantumkan."
+        }
+      ],
+      "temperature": 0,
+      "max_tokens": 1024,
+      "stream": false
+    },
+    "expected": {
+      "nama": "Rani",
+      "jumlah": 3,
+      "kota": null
+    },
+    "request_sha256": "aeb9d1cd9578abcfb5fcb6b8683b170caa9a2dfd72b90f15849605767494d9f8"
+  },
+  {
+    "sequence": 3,
+    "task_id": "extract_json",
+    "requested_model": "MiMo-V2.6-Flash",
+    "payload": {
+      "model": "MiMo-V2.6-Flash",
+      "messages": [
+        {
+          "role": "user",
+          "content": "Ekstrak catatan berikut. Balas hanya satu objek JSON valid tanpa Markdown dengan tepat tiga kunci: nama (string), jumlah (integer), kota (string atau null). Jangan menebak informasi yang tidak tercantum. Catatan: Nama pelanggan Rani. Pesanan 3 buku. Kota tidak dicantumkan."
+        }
+      ],
+      "temperature": 0,
+      "max_tokens": 1024,
+      "stream": false
+    },
+    "expected": {
+      "nama": "Rani",
+      "jumlah": 3,
+      "kota": null
+    },
+    "request_sha256": "5b5644e813744f42ae2e31c735e3a5c63c027e99c314a3ac24725f0c6e83baa6"
+  },
+  {
+    "sequence": 4,
+    "task_id": "arithmetic",
+    "requested_model": "glm-5.3-flash",
+    "payload": {
+      "model": "glm-5.3-flash",
+      "messages": [
+        {
+          "role": "user",
+          "content": "Sebuah toko memiliki 48 kotak, setiap kotak berisi 24 pensil. Toko menjual 275 pensil lalu menerima tambahan 7 kotak dengan isi yang sama. Berapa pensil yang tersedia sekarang? Balas hanya objek JSON valid dengan tepat satu kunci \"pensil\" bernilai integer, tanpa penjelasan atau Markdown."
+        }
+      ],
+      "temperature": 0,
+      "max_tokens": 1024,
+      "stream": false
+    },
+    "expected": {
+      "pensil": 1045
+    },
+    "request_sha256": "c89b61155338198ab6df6564864a353bd3da683cd014275028354b57bd88cb37"
+  },
+  {
+    "sequence": 5,
+    "task_id": "arithmetic",
+    "requested_model": "MiMo-V2.6-Flash",
+    "payload": {
+      "model": "MiMo-V2.6-Flash",
+      "messages": [
+        {
+          "role": "user",
+          "content": "Sebuah toko memiliki 48 kotak, setiap kotak berisi 24 pensil. Toko menjual 275 pensil lalu menerima tambahan 7 kotak dengan isi yang sama. Berapa pensil yang tersedia sekarang? Balas hanya objek JSON valid dengan tepat satu kunci \"pensil\" bernilai integer, tanpa penjelasan atau Markdown."
+        }
+      ],
+      "temperature": 0,
+      "max_tokens": 1024,
+      "stream": false
+    },
+    "expected": {
+      "pensil": 1045
+    },
+    "request_sha256": "1608859592e8a39d4752a3f529dfec393c45209730cc349f70fb62f8b7c3098e"
+  },
+  {
+    "sequence": 6,
+    "task_id": "arithmetic",
+    "requested_model": "Qwen3.8-27B",
+    "payload": {
+      "model": "Qwen3.8-27B",
+      "messages": [
+        {
+          "role": "user",
+          "content": "Sebuah toko memiliki 48 kotak, setiap kotak berisi 24 pensil. Toko menjual 275 pensil lalu menerima tambahan 7 kotak dengan isi yang sama. Berapa pensil yang tersedia sekarang? Balas hanya objek JSON valid dengan tepat satu kunci \"pensil\" bernilai integer, tanpa penjelasan atau Markdown."
+        }
+      ],
+      "temperature": 0,
+      "max_tokens": 1024,
+      "stream": false
+    },
+    "expected": {
+      "pensil": 1045
+    },
+    "request_sha256": "ad139d81ec9e190b9bd69c3d58e0022f390d5ce5b57f8ef7d383f9f5f0bfdeaf"
+  },
+  {
+    "sequence": 7,
+    "task_id": "python_trace",
+    "requested_model": "MiMo-V2.6-Flash",
+    "payload": {
+      "model": "MiMo-V2.6-Flash",
+      "messages": [
+        {
+          "role": "user",
+          "content": "Tentukan isi akhir variabel out setelah kode Python berikut dijalankan. Balas hanya objek JSON valid dengan tepat satu kunci \"out\" berisi array integer, tanpa penjelasan atau Markdown.\n\nvalues = [2, 5, 2, 7, 5]\nseen = set()\nout = []\nfor i, x in enumerate(values):\n    if x in seen:\n        out.append(x - i)\n    else:\n        seen.add(x)\n        out.append(x + i)\n"
+        }
+      ],
+      "temperature": 0,
+      "max_tokens": 1024,
+      "stream": false
+    },
+    "expected": {
+      "out": [
+        2,
+        6,
+        0,
+        10,
+        1
+      ]
+    },
+    "request_sha256": "43dbbeb8b50740a952fe545a4b11712662ac089fdb382d5f9c1fc795f801a333"
+  },
+  {
+    "sequence": 8,
+    "task_id": "python_trace",
+    "requested_model": "Qwen3.8-27B",
+    "payload": {
+      "model": "Qwen3.8-27B",
+      "messages": [
+        {
+          "role": "user",
+          "content": "Tentukan isi akhir variabel out setelah kode Python berikut dijalankan. Balas hanya objek JSON valid dengan tepat satu kunci \"out\" berisi array integer, tanpa penjelasan atau Markdown.\n\nvalues = [2, 5, 2, 7, 5]\nseen = set()\nout = []\nfor i, x in enumerate(values):\n    if x in seen:\n        out.append(x - i)\n    else:\n        seen.add(x)\n        out.append(x + i)\n"
+        }
+      ],
+      "temperature": 0,
+      "max_tokens": 1024,
+      "stream": false
+    },
+    "expected": {
+      "out": [
+        2,
+        6,
+        0,
+        10,
+        1
+      ]
+    },
+    "request_sha256": "f132d8077dd28689db752096de1d1a9a9bb6589d7edba0654181577a1318f109"
+  },
+  {
+    "sequence": 9,
+    "task_id": "python_trace",
+    "requested_model": "glm-5.3-flash",
+    "payload": {
+      "model": "glm-5.3-flash",
+      "messages": [
+        {
+          "role": "user",
+          "content": "Tentukan isi akhir variabel out setelah kode Python berikut dijalankan. Balas hanya objek JSON valid dengan tepat satu kunci \"out\" berisi array integer, tanpa penjelasan atau Markdown.\n\nvalues = [2, 5, 2, 7, 5]\nseen = set()\nout = []\nfor i, x in enumerate(values):\n    if x in seen:\n        out.append(x - i)\n    else:\n        seen.add(x)\n        out.append(x + i)\n"
+        }
+      ],
+      "temperature": 0,
+      "max_tokens": 1024,
+      "stream": false
+    },
+    "expected": {
+      "out": [
+        2,
+        6,
+        0,
+        10,
+        1
+      ]
+    },
+    "request_sha256": "2a7bdf7a3a8aba0bfab80b087666988c278bcce1f2ff15e0266458389c7bd145"
+  }
+]

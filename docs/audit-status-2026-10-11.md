@@ -1,5 +1,9 @@
 # Audit status proyek TA, 11 Oktober 2026
 
+> Snapshot status per 11 Oktober. Perkembangan setelah tanggal ini dirangkum di
+> [README](../README.md) dan [rencana penyelesaian aktif](rencana-penyelesaian-2026-10-16.md).
+> Temuan dan angka berikut dipertahankan sebagai catatan historis.
+
 ## Kesimpulan
 
 Proyek berada pada tahap **prototipe dengan integrasi lokal terbatas yang sudah terbukti berjalan**. Lab, discovery terautentikasi, korpus terstruktur, embedding, retrieval, generasi Qwen, dan eksekusi kandidat sudah memiliki implementasi. Bukti terbaru mencakup satu pasangan RAG-off/on untuk S1 pada DVWA Low. Pipeline adaptif lengkap dan eksperimen formal untuk menjawab FPR/PSR belum selesai.

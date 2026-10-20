@@ -1,12 +1,13 @@
 """Control-flow checks for the bounded S1 feedback pilot."""
 
+import re
 import sys
 import unittest
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "dvwa"))
-from adaptive_s1_loop import (feedback_view, generation_messages, run_loop,
-                              validate_payload)
+from adaptive_s1_loop import (classify_candidate_rejection, feedback_view,
+                              generation_messages, run_loop, validate_payload)
 from analyze_response import normalize_analysis
 from rag_pipeline import load_catalog
 
@@ -51,7 +52,7 @@ class AdaptiveS1LoopTests(unittest.TestCase):
     def test_failed_candidate_evidence_drives_unique_next_candidate(self):
         generated_with = []
         observations = []
-        candidates = iter(["1' OR '1'='1", "1'"])
+        candidates = iter(["2'", "1'"])
 
         def generate(previous, attempted):
             generated_with.append(feedback_view(previous) if previous else None)
@@ -68,7 +69,7 @@ class AdaptiveS1LoopTests(unittest.TestCase):
                                 "none" if payload == "1'" else "revise_candidate")
 
         result = run_loop(self.context, generate, observe, analyze, slot_limit=2)
-        self.assertEqual([entry[0] for entry in observations], ["1' OR '1'='1", "1'"])
+        self.assertEqual([entry[0] for entry in observations], ["2'", "1'"])
         self.assertEqual([entry[1] for entry in observations], [3, 3])
         self.assertEqual(generated_with[1]["decision"], "negative")
         self.assertEqual(generated_with[1]["feedback_action"], "revise_candidate")
@@ -186,12 +187,81 @@ class AdaptiveS1LoopTests(unittest.TestCase):
         self.assertIn("Attempted parameter values", prompt)
         self.assertIn("no_new_database_diagnostic", prompt)
         self.assertIn("diagnostics", prompt)
+        self.assertIn("Treat the Qwen decision as a separate interpretation", prompt)
+        self.assertIn("meaningfully different SQL expression/predicate", prompt)
+        self.assertIn("Hard slot requirement", prompt)
 
     def test_candidate_guard_rejects_mutation_and_delay_keywords(self):
         self.assertEqual(validate_payload("1'"), "1'")
-        for value in ("1; DROP TABLE users", "1' OR SLEEP(2)", "1\n2"):
+        for value in ("1; DROP TABLE users", "1' OR SLEEP(2)", "1' WAITFOR DELAY '00:00:01'--",
+                      "1' OR pg_sleep(1)--", "1' OR benchmark(10,sha1(1))--",
+                      "1' OR '1'='1", "1' UNION SELECT DATABASE()--", "1\n2"):
             with self.subTest(value=value), self.assertRaises(ValueError):
                 validate_payload(value)
+
+    def test_candidate_rejections_are_classified_without_echoing_payload(self):
+        self.assertEqual(classify_candidate_rejection("1' AND SLEEP(5)--"), "out_of_scope_timing")
+        self.assertEqual(classify_candidate_rejection("1; DROP TABLE users"), "out_of_scope_mutation")
+        self.assertEqual(classify_candidate_rejection("1' INTO OUTFILE '/tmp/x'"),
+                         "out_of_scope_file_or_command")
+        self.assertEqual(classify_candidate_rejection("1' OR '1'='1"),
+                         "out_of_scope_non_diagnostic_sqli")
+        self.assertEqual(classify_candidate_rejection("1' UNION SELECT DATABASE()--"),
+                         "out_of_scope_non_diagnostic_sqli")
+        self.assertEqual(classify_candidate_rejection("1'"), "invalid_candidate_policy")
+
+    def test_timing_rejection_is_specific_in_the_next_rag_prompt(self):
+        messages = generation_messages(self.scenario, None, [], retrieval={"chunks": [{
+            "chunk_id": "fixture", "metadata": {"entry_id": "error-ref"}, "text": "quote probe"
+        }]}, retry_index=1, rejection_code="out_of_scope_timing")
+        prompt = "\n".join(item["content"] for item in messages)
+        self.assertIn("Do not use SLEEP, BENCHMARK, WAITFOR", prompt)
+        self.assertIn("Retrieved examples are reference context only", prompt)
+
+    def test_s1_error_prompt_limits_candidates_to_syntax_boundary_changes(self):
+        messages = generation_messages(self.scenario, None, [])
+        prompt = "\n".join(item["content"] for item in messages)
+        self.assertIn("S1 error-based candidates must be syntax-only", prompt)
+        self.assertIn("Do not add a conditional predicate or a second query", prompt)
+
+    def test_each_budget_slot_gets_a_distinct_syntax_family(self):
+        profiles = []
+        for slot in range(10):
+            messages = generation_messages(self.scenario, None, [f"candidate-{i}" for i in range(slot)])
+            prompt = messages[1]["content"]
+            requirement = re.search(r"required structural family is \d+: (.+?) Treat this as a hard constraint", prompt)
+            self.assertIsNotNone(requirement)
+            profiles.append(requirement.group(1))
+        self.assertEqual(len(set(profiles)), 10)
+
+    def test_retries_preserve_slot_family_and_request_unused_numeric_literal(self):
+        first = generation_messages(self.scenario, None, ["1'"], retry_index=0)[1]["content"]
+        retry = generation_messages(self.scenario, None, ["1'"], retry_index=1,
+                                    rejection_code="duplicate_candidate")[1]["content"]
+        pattern = r"required structural family is \d+: (.+?) Treat this as a hard constraint"
+        first_profile = re.search(pattern, first).group(1)
+        retry_profile = re.search(pattern, retry).group(1)
+        self.assertEqual(first_profile, retry_profile)
+        self.assertIn("the required slot integer at the start of the value", retry)
+        self.assertNotEqual(first, retry)
+
+    def test_scope_rejection_is_passed_to_retry_without_probe(self):
+        calls = []
+        observed = []
+        def generate(previous, attempted, retry, rejection_code):
+            calls.append((retry, rejection_code))
+            if retry == 0:
+                return None, {"status": "invalid_candidate", "rejection_code": "out_of_scope_timing"}
+            return "1'", {"status": "generated"}
+        result = run_loop(
+            self.context, lambda previous, attempted: None,
+            lambda payload, count: (observed.append(payload) or self.evidence(payload)),
+            lambda evidence, context: self.analyze(evidence, context, "negative", "revise_candidate"),
+            slot_limit=1, generate_with_retry=generate)
+        self.assertEqual(calls, [(0, None), (1, "out_of_scope_timing")])
+        self.assertEqual(observed, ["1'"])
+        rejected = [event for event in result["events"] if event["kind"] == "generation"][0]
+        self.assertEqual(rejected["data"]["audit"]["rejection_code"], "out_of_scope_timing")
 
     def test_runtime_failure_stops_pilot_without_attack_failure_decision(self):
         calls = []
@@ -224,8 +294,8 @@ class AdaptiveS1LoopTests(unittest.TestCase):
     def test_retry_aware_generator_receives_rejection_index_without_extra_probes(self):
         calls = []
         payloads = iter(["1'", "1'", "2'"])
-        def retry_generate(previous, attempted, retry):
-            calls.append((retry, list(attempted)))
+        def retry_generate(previous, attempted, retry, rejection_code):
+            calls.append((retry, list(attempted), rejection_code))
             return next(payloads), {"status": "generated"}
         observed = []
         def observe(payload, n):
@@ -234,7 +304,8 @@ class AdaptiveS1LoopTests(unittest.TestCase):
         result = run_loop(self.context, lambda previous, attempted: None, observe,
                           lambda evidence, context: self.analyze(evidence, context, "negative", "revise_candidate"),
                           budget=2, slot_limit=2, generate_with_retry=retry_generate)
-        self.assertEqual(calls, [(0, []), (0, ["1'"]), (1, ["1'"])])
+        self.assertEqual(calls, [(0, [], None), (0, ["1'"], None),
+                                 (1, ["1'"], "duplicate_candidate")])
         self.assertEqual(observed, ["1'", "2'"])
         self.assertEqual(result["stop_reason"], "budget_exhausted")
 

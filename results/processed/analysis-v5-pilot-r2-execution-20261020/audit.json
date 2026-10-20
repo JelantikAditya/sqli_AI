@@ -1,0 +1,23 @@
+{
+  "scope": "synthetic-development-only",
+  "audited_at_utc": "2026-10-20T07:42:16.788064+00:00",
+  "summary_reproduces": true,
+  "parses_reproduced_from_raw_responses": 108,
+  "attempted_slots": 108,
+  "finalized_slots": 108,
+  "skipped_invalid_slots": 18,
+  "execution_order_matches_lock": true,
+  "retry_count": 0,
+  "protected_files_unchanged": 1183,
+  "source_pins_checked": 33,
+  "artifact_pins_checked": 28,
+  "researcher_adoption_receipt_matches": true,
+  "warning_counts": {
+    "model_summary_decision_mismatch": 7,
+    "trial-outcome-evidence-mismatch": 41,
+    "trial-set-mismatch": 5
+  },
+  "formal_FPR_PSR_recomputed": false,
+  "model_calls_during_audit": 0,
+  "dvwa_requests_during_audit": 0
+}

@@ -1,0 +1,39 @@
+{
+  "record_type": "summary-of-ai-assisted-review-relayed-in-user-message-not-verbatim",
+  "review_origin": "AI-assisted content review; the user explicitly identified its AI origin",
+  "researcher_adoption": "not-recorded",
+  "researcher_identity": null,
+  "independent_human_review": false,
+  "reviewed_corpus_path": "knowledge/analysis-v5/corpus.rev1.json",
+  "reviewed_corpus_sha256": "3e036d0b7c0feed5aa5549890d0e45e255055aea5df7812a3c7a62f8a24ca472",
+  "reviewed_design_sha256": "1929abb6ed905c478181a979a1043c77b5a065b2f65b57be60132de7a5743085",
+  "decision": "content-suitable-for-development-preparation-with-two-small-followups",
+  "approval_of_revised_corpus": "not-yet-given",
+  "reported_checks_by_ai_review": [
+    "7/35/38 structure",
+    "13 source/25 adaptations",
+    "attachment hashes and reference IDs",
+    "pending statement status"
+  ],
+  "not_independently_verified_by_that_review": [
+    "contract code",
+    "contract-semantics evidence",
+    "preservation audit",
+    "source snapshots"
+  ],
+  "followups": [
+    "limit marker-stability field instructions to supplied markers",
+    "keep template/normalization in upstream preparation",
+    "correct review attribution; do not infer researcher adoption"
+  ],
+  "attribution_correction": {
+    "historical_records_retained": [
+      "results/processed/analysis-corpus-v5-rev1-20261020/researcher-feedback.json",
+      "knowledge/analysis-v5/design-decisions.rev1.json",
+      "docs/revisi-korpus-analisis-v5-rev1-2026-10-20.md"
+    ],
+    "supersedes_claim": "Historical labels researcher feedback/verified by researcher must be read as AI-assisted review claims; no human adoption is recorded."
+  },
+  "authorized_work": "User requested the two corrections and continued renderer/retrieval-readiness preparation.",
+  "formal_or_model_pilot_approval": false
+}

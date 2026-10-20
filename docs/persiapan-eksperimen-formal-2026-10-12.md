@@ -1,5 +1,9 @@
 # Tugas persiapan eksperimen formal TA
 
+> Backlog dan status snapshot per 12 Oktober. Perkembangan selanjutnya ada di
+> [README](../README.md) dan [rencana penyelesaian aktif](rencana-penyelesaian-2026-10-16.md).
+> Checklist di bawah dipertahankan sebagai catatan tanggal rancangan.
+
 Tanggal rancangan: 12 Oktober 2026.
 Dasar: review progres 12 Oktober dan protokol local-sqli-v1-pilot.
 Dokumen ini adalah backlog dan kriteria kesiapan, bukan bukti tugas telah selesai.
@@ -263,12 +267,21 @@ di direktori lokal yang diabaikan Git.
 Status awal: keputusan manusia masih pending; paket/evaluator final belum ada.
 Dependensi: kontrak T01 dan log T02-T05.
 
-- Tentukan validator yang memahami SQLi dan tidak terlibat pengembangan sistem.
-- Buat paket dengan ID acak, koordinat, kandidat, baseline, bukti dan timing;
-  sembunyikan kondisi RAG, sumber kandidat, dan label ground truth evaluator.
-- Buat form keputusan, justifikasi, reproduktibilitas, dan aturan perbedaan
-  pendapat. Mapping kondisi disimpan internal.
-- Uji prosedur pada paket pilot sebelum mengumpulkan data formal.
+- [x] Peneliti mengonfirmasi validator independen sudah tersedia (14 Oktober 2026).
+- [x] Catat alias validator: `VAL-01` (14 Oktober 2026).
+- [x] Peneliti mengonfirmasi VAL-01 memahami SQLi dan tidak terlibat dalam
+  pengembangan sistem (14 Oktober 2026).
+- [x] Implementasikan paket dengan ID acak, koordinat, kandidat, baseline,
+  tiga konfirmasi, bukti tersanitasi dan timing. Paket legacy dapat dirender
+  dari marker allowlist tercatat; basis excerpt ditandai di paket.
+- [x] Buat paket pilot tiga kandidat dengan ID acak, baseline, konfirmasi,
+  excerpt tersanitasi dan bukti campuran dari run valid (14 Oktober 2026).
+  Kondisi, sumber kandidat, label ground truth, dan klaim sistem disembunyikan.
+- [x] Buat form keputusan/justifikasi serta draft prosedur klarifikasi dan
+  perbedaan pendapat. Mapping kondisi disimpan internal.
+- [x] Uji prosedur dengan VAL-01 pada paket pilot yang memuat mixed evidence
+  dan kandidat ditolak pada sesi valid (14 Oktober 2026). Ini uji prosedur,
+  bukan anotasi dataset formal.
 - Bangun agregator dari ledger, klaim sistem tersimpan, ground truth evaluator,
   dan keputusan validator. FPR A/B; PSR utama B/C sesuai protokol pilot.
 - Periksa kasus FP, TN, FN, kandidat gagal, run invalid, budget tidak lengkap,

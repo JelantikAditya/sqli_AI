@@ -54,7 +54,12 @@ Contoh bentuk output yang diharapkan untuk evidence diagnostik baru:
   "decision": "positive",
   "reason_code": "new_database_diagnostic",
   "reason": "Kandidat menampilkan diagnostik sintaks SQL yang tidak ada pada baseline.",
-  "evidence_refs": ["obs-001", "obs-002"],
+  "evidence_refs": ["obs-001", "obs-002", "obs-003", "obs-004", "obs-005", "obs-006"],
+  "trial_assessments": [
+    {"trial": 1, "outcome": "positive", "evidence_refs": ["obs-001", "obs-002"]},
+    {"trial": 2, "outcome": "positive", "evidence_refs": ["obs-003", "obs-004"]},
+    {"trial": 3, "outcome": "positive", "evidence_refs": ["obs-005", "obs-006"]}
+  ],
   "feedback_action": "none"
 }
 ```
@@ -68,14 +73,20 @@ Contoh ini menjelaskan kontrak, bukan hasil formal.
 | reason | Penjelasan singkat yang bisa diaudit, bukan skor atau bukti tersendiri. |
 | evidence_refs | ID observasi yang benar-benar disediakan executor. Positive/negative memerlukan setidaknya satu ID; audit dukungan positif memeriksa pasangan pembandingnya. |
 | feedback_action | none, revise_candidate, atau collect_more_evidence. Ini usulan, belum mengeksekusi regenerasi atau request baru. |
+| trial_assessments | Asesmen positive/negative untuk tiap trial yang tersedia, dengan nomor trial dan ID seluruh observasi pembanding. Output baru wajib menyertakannya; output historis tetap dapat dibaca tanpa field ini. |
 
 HTTP 200 dapat membawa pesan SQL error di body. HTTP 500 tanpa diagnostik
 tidak cukup. Kandidat tanpa diagnostik baru pada pasangan error-based yang
 valid diberi negative; ini tidak menyatakan aplikasi secara keseluruhan aman.
 
-Prompt aktif sejak 14 Oktober adalah sqli-response-analysis-v4. Instruksi dan pilihan reason_code
-dibatasi ke teknik yang sedang dianalisis agar model tidak memakai indikator
-boolean/timing untuk menilai error-based.
+Prompt aktif pada implementasi pengembangan adalah
+`sqli-response-analysis-v8-count-trials`. Instruksi dan pilihan reason_code
+dibatasi ke teknik yang sedang dianalisis. Model diminta mengases tiap trial,
+menyertakan ID kedua sisi pembanding, menghitung jumlah indikator, lalu memberi
+klaim akhir berdasarkan aturan 3/3. Prompt membedakan 0/3 yang lengkap
+(negative) dari jumlah trial yang tidak lengkap (inconclusive). Parser
+memeriksa asesmen per-trial dan sitasi secara terpisah, tanpa mengganti klaim
+Qwen. Hasil regresi v8 dicatat di [audit U01](audit-analisis-qwen-2026-10-14.md).
 
 ## Ledger kandidat dan integritas
 

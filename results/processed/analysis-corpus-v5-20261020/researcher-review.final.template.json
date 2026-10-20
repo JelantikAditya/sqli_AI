@@ -1,0 +1,382 @@
+{
+  "document_type": "unsubmitted-review-form-not-approval-receipt",
+  "corpus_sha256": "f48a4ab4434478f2f719a0a9e14e31b5e22b9c0acabe8664841e3647f56f6d7b",
+  "source_lock_sha256": "966ce725d0c4fcd9914a174a5b3867eb2d941483051c5b991d8364bcf2a44efd",
+  "researcher_name": null,
+  "reviewed_at": null,
+  "decision": "pending",
+  "scope": "this-v5-draft-only",
+  "statements": [
+    {
+      "chunk_id": "analysis-v5-sql-diagnostics",
+      "field": "concept",
+      "statement_index": 0,
+      "origin": "source_paraphrase",
+      "source_reference_ids": [
+        "wstg-detection"
+      ],
+      "decision": "pending",
+      "reviewer_comment": ""
+    },
+    {
+      "chunk_id": "analysis-v5-sql-diagnostics",
+      "field": "evidence_to_compare",
+      "statement_index": 0,
+      "origin": "researcher_adaptation",
+      "source_reference_ids": [],
+      "decision": "pending",
+      "reviewer_comment": ""
+    },
+    {
+      "chunk_id": "analysis-v5-sql-diagnostics",
+      "field": "supporting_conditions",
+      "statement_index": 0,
+      "origin": "researcher_adaptation",
+      "source_reference_ids": [],
+      "decision": "pending",
+      "reviewer_comment": ""
+    },
+    {
+      "chunk_id": "analysis-v5-sql-diagnostics",
+      "field": "confounders",
+      "statement_index": 0,
+      "origin": "researcher_adaptation",
+      "source_reference_ids": [],
+      "decision": "pending",
+      "reviewer_comment": ""
+    },
+    {
+      "chunk_id": "analysis-v5-sql-diagnostics",
+      "field": "conclusion_limits",
+      "statement_index": 0,
+      "origin": "source_paraphrase",
+      "source_reference_ids": [
+        "academy-errors"
+      ],
+      "decision": "pending",
+      "reviewer_comment": ""
+    },
+    {
+      "chunk_id": "analysis-v5-sql-diagnostics",
+      "field": "conclusion_limits",
+      "statement_index": 1,
+      "origin": "researcher_adaptation",
+      "source_reference_ids": [],
+      "decision": "pending",
+      "reviewer_comment": ""
+    },
+    {
+      "chunk_id": "analysis-v5-baseline-comparison",
+      "field": "concept",
+      "statement_index": 0,
+      "origin": "source_paraphrase",
+      "source_reference_ids": [
+        "wstg-detection"
+      ],
+      "decision": "pending",
+      "reviewer_comment": ""
+    },
+    {
+      "chunk_id": "analysis-v5-baseline-comparison",
+      "field": "evidence_to_compare",
+      "statement_index": 0,
+      "origin": "researcher_adaptation",
+      "source_reference_ids": [],
+      "decision": "pending",
+      "reviewer_comment": ""
+    },
+    {
+      "chunk_id": "analysis-v5-baseline-comparison",
+      "field": "supporting_conditions",
+      "statement_index": 0,
+      "origin": "researcher_adaptation",
+      "source_reference_ids": [],
+      "decision": "pending",
+      "reviewer_comment": ""
+    },
+    {
+      "chunk_id": "analysis-v5-baseline-comparison",
+      "field": "confounders",
+      "statement_index": 0,
+      "origin": "researcher_adaptation",
+      "source_reference_ids": [],
+      "decision": "pending",
+      "reviewer_comment": ""
+    },
+    {
+      "chunk_id": "analysis-v5-baseline-comparison",
+      "field": "conclusion_limits",
+      "statement_index": 0,
+      "origin": "researcher_adaptation",
+      "source_reference_ids": [],
+      "decision": "pending",
+      "reviewer_comment": ""
+    },
+    {
+      "chunk_id": "analysis-v5-boolean-direction",
+      "field": "concept",
+      "statement_index": 0,
+      "origin": "source_paraphrase",
+      "source_reference_ids": [
+        "academy-boolean"
+      ],
+      "decision": "pending",
+      "reviewer_comment": ""
+    },
+    {
+      "chunk_id": "analysis-v5-boolean-direction",
+      "field": "evidence_to_compare",
+      "statement_index": 0,
+      "origin": "source_paraphrase",
+      "source_reference_ids": [
+        "lab-marker-mapping"
+      ],
+      "decision": "pending",
+      "reviewer_comment": ""
+    },
+    {
+      "chunk_id": "analysis-v5-boolean-direction",
+      "field": "supporting_conditions",
+      "statement_index": 0,
+      "origin": "researcher_adaptation",
+      "source_reference_ids": [],
+      "decision": "pending",
+      "reviewer_comment": ""
+    },
+    {
+      "chunk_id": "analysis-v5-boolean-direction",
+      "field": "confounders",
+      "statement_index": 0,
+      "origin": "researcher_adaptation",
+      "source_reference_ids": [],
+      "decision": "pending",
+      "reviewer_comment": ""
+    },
+    {
+      "chunk_id": "analysis-v5-boolean-direction",
+      "field": "conclusion_limits",
+      "statement_index": 0,
+      "origin": "researcher_adaptation",
+      "source_reference_ids": [],
+      "decision": "pending",
+      "reviewer_comment": ""
+    },
+    {
+      "chunk_id": "analysis-v5-marker-stability",
+      "field": "concept",
+      "statement_index": 0,
+      "origin": "source_paraphrase",
+      "source_reference_ids": [
+        "wstg-dynamic-content"
+      ],
+      "decision": "pending",
+      "reviewer_comment": ""
+    },
+    {
+      "chunk_id": "analysis-v5-marker-stability",
+      "field": "evidence_to_compare",
+      "statement_index": 0,
+      "origin": "researcher_adaptation",
+      "source_reference_ids": [],
+      "decision": "pending",
+      "reviewer_comment": ""
+    },
+    {
+      "chunk_id": "analysis-v5-marker-stability",
+      "field": "supporting_conditions",
+      "statement_index": 0,
+      "origin": "source_paraphrase",
+      "source_reference_ids": [
+        "wstg-dynamic-content"
+      ],
+      "decision": "pending",
+      "reviewer_comment": ""
+    },
+    {
+      "chunk_id": "analysis-v5-marker-stability",
+      "field": "confounders",
+      "statement_index": 0,
+      "origin": "source_paraphrase",
+      "source_reference_ids": [
+        "wstg-dynamic-content"
+      ],
+      "decision": "pending",
+      "reviewer_comment": ""
+    },
+    {
+      "chunk_id": "analysis-v5-marker-stability",
+      "field": "conclusion_limits",
+      "statement_index": 0,
+      "origin": "researcher_adaptation",
+      "source_reference_ids": [],
+      "decision": "pending",
+      "reviewer_comment": ""
+    },
+    {
+      "chunk_id": "analysis-v5-timing-control",
+      "field": "concept",
+      "statement_index": 0,
+      "origin": "source_paraphrase",
+      "source_reference_ids": [
+        "academy-time"
+      ],
+      "decision": "pending",
+      "reviewer_comment": ""
+    },
+    {
+      "chunk_id": "analysis-v5-timing-control",
+      "field": "evidence_to_compare",
+      "statement_index": 0,
+      "origin": "researcher_adaptation",
+      "source_reference_ids": [],
+      "decision": "pending",
+      "reviewer_comment": ""
+    },
+    {
+      "chunk_id": "analysis-v5-timing-control",
+      "field": "supporting_conditions",
+      "statement_index": 0,
+      "origin": "researcher_adaptation",
+      "source_reference_ids": [],
+      "decision": "pending",
+      "reviewer_comment": ""
+    },
+    {
+      "chunk_id": "analysis-v5-timing-control",
+      "field": "confounders",
+      "statement_index": 0,
+      "origin": "researcher_adaptation",
+      "source_reference_ids": [],
+      "decision": "pending",
+      "reviewer_comment": ""
+    },
+    {
+      "chunk_id": "analysis-v5-timing-control",
+      "field": "conclusion_limits",
+      "statement_index": 0,
+      "origin": "source_paraphrase",
+      "source_reference_ids": [
+        "academy-time"
+      ],
+      "decision": "pending",
+      "reviewer_comment": ""
+    },
+    {
+      "chunk_id": "analysis-v5-timing-control",
+      "field": "conclusion_limits",
+      "statement_index": 1,
+      "origin": "researcher_adaptation",
+      "source_reference_ids": [],
+      "decision": "pending",
+      "reviewer_comment": ""
+    },
+    {
+      "chunk_id": "analysis-v5-timing-confounders",
+      "field": "concept",
+      "statement_index": 0,
+      "origin": "source_paraphrase",
+      "source_reference_ids": [
+        "research-timing-noise"
+      ],
+      "decision": "pending",
+      "reviewer_comment": ""
+    },
+    {
+      "chunk_id": "analysis-v5-timing-confounders",
+      "field": "evidence_to_compare",
+      "statement_index": 0,
+      "origin": "researcher_adaptation",
+      "source_reference_ids": [],
+      "decision": "pending",
+      "reviewer_comment": ""
+    },
+    {
+      "chunk_id": "analysis-v5-timing-confounders",
+      "field": "supporting_conditions",
+      "statement_index": 0,
+      "origin": "researcher_adaptation",
+      "source_reference_ids": [],
+      "decision": "pending",
+      "reviewer_comment": ""
+    },
+    {
+      "chunk_id": "analysis-v5-timing-confounders",
+      "field": "confounders",
+      "statement_index": 0,
+      "origin": "source_paraphrase",
+      "source_reference_ids": [
+        "research-timing-noise",
+        "research-server-noise"
+      ],
+      "decision": "pending",
+      "reviewer_comment": ""
+    },
+    {
+      "chunk_id": "analysis-v5-timing-confounders",
+      "field": "conclusion_limits",
+      "statement_index": 0,
+      "origin": "source_paraphrase",
+      "source_reference_ids": [
+        "research-timing-noise"
+      ],
+      "decision": "pending",
+      "reviewer_comment": ""
+    },
+    {
+      "chunk_id": "analysis-v5-timing-confounders",
+      "field": "conclusion_limits",
+      "statement_index": 1,
+      "origin": "researcher_adaptation",
+      "source_reference_ids": [],
+      "decision": "pending",
+      "reviewer_comment": ""
+    },
+    {
+      "chunk_id": "analysis-v5-conclusion-scope",
+      "field": "concept",
+      "statement_index": 0,
+      "origin": "source_paraphrase",
+      "source_reference_ids": [
+        "academy-blind-definition"
+      ],
+      "decision": "pending",
+      "reviewer_comment": ""
+    },
+    {
+      "chunk_id": "analysis-v5-conclusion-scope",
+      "field": "evidence_to_compare",
+      "statement_index": 0,
+      "origin": "researcher_adaptation",
+      "source_reference_ids": [],
+      "decision": "pending",
+      "reviewer_comment": ""
+    },
+    {
+      "chunk_id": "analysis-v5-conclusion-scope",
+      "field": "supporting_conditions",
+      "statement_index": 0,
+      "origin": "researcher_adaptation",
+      "source_reference_ids": [],
+      "decision": "pending",
+      "reviewer_comment": ""
+    },
+    {
+      "chunk_id": "analysis-v5-conclusion-scope",
+      "field": "confounders",
+      "statement_index": 0,
+      "origin": "researcher_adaptation",
+      "source_reference_ids": [],
+      "decision": "pending",
+      "reviewer_comment": ""
+    },
+    {
+      "chunk_id": "analysis-v5-conclusion-scope",
+      "field": "conclusion_limits",
+      "statement_index": 0,
+      "origin": "researcher_adaptation",
+      "source_reference_ids": [],
+      "decision": "pending",
+      "reviewer_comment": ""
+    }
+  ]
+}

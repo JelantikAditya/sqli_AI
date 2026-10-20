@@ -1,0 +1,127 @@
+slot_id,case_id,profile,position_within_case,technique,reference,status,raw_decision,correct,reason_code,error,trial_correct,trial_denominator,warnings,elapsed_seconds,prompt_tokens,generated_tokens,done_reason
+slot-001,pilot-035,B3,1,time-based blind,inconclusive,ok,positive,False,matched_delay,,2,2,model_summary_decision_mismatch,40.78075669999998,1572,243,stop
+slot-002,pilot-035,A,2,time-based blind,inconclusive,ok,positive,False,matched_delay,,2,2,model_summary_decision_mismatch,24.190167400000064,844,214,stop
+slot-003,pilot-035,B2,3,time-based blind,inconclusive,ok,positive,False,matched_delay,,2,2,model_summary_decision_mismatch,24.754877699999724,1302,223,stop
+slot-004,pilot-030,B3,1,time-based blind,negative,ok,positive,False,matched_delay,,0,3,trial-outcome-evidence-mismatch,38.22342230000004,1689,318,stop
+slot-005,pilot-030,A,2,time-based blind,negative,ok,positive,False,matched_delay,,0,3,trial-outcome-evidence-mismatch,29.48889569999983,961,258,stop
+slot-006,pilot-030,B2,3,time-based blind,negative,ok,positive,False,matched_delay,,0,3,trial-outcome-evidence-mismatch,33.517189000000144,1419,298,stop
+slot-007,pilot-028,A,1,time-based blind,positive,ok,positive,True,matched_delay,,3,3,,28.409453799999937,961,258,stop
+slot-008,pilot-028,B3,2,time-based blind,positive,ok,positive,True,matched_delay,,3,3,,32.30759130000024,1689,277,stop
+slot-009,pilot-028,B2,3,time-based blind,positive,ok,positive,True,matched_delay,,3,3,,32.10881829999971,1419,277,stop
+slot-010,pilot-014,B3,1,boolean-based blind,positive,ok,positive,True,boolean_difference,,3,3,,35.540670899999895,1591,282,stop
+slot-011,pilot-014,B2,2,boolean-based blind,positive,ok,positive,True,boolean_difference,,3,3,,32.320890599999984,1297,277,stop
+slot-012,pilot-014,A,3,boolean-based blind,positive,ok,positive,True,boolean_difference,,3,3,,31.56654639999988,838,282,stop
+slot-013,pilot-032,B3,1,time-based blind,negative,ok,inconclusive,False,insufficient_evidence,,1,3,trial-outcome-evidence-mismatch,31.968890699999974,1694,272,stop
+slot-014,pilot-032,B2,2,time-based blind,negative,ok,inconclusive,False,insufficient_evidence,,1,3,trial-outcome-evidence-mismatch,30.829565099999854,1424,265,stop
+slot-015,pilot-032,A,3,time-based blind,negative,ok,inconclusive,False,insufficient_evidence,,1,3,trial-outcome-evidence-mismatch,31.42268580000018,966,278,stop
+slot-016,pilot-036,B2,1,time-based blind,inconclusive,ok,inconclusive,True,insufficient_evidence,,1,2,trial-outcome-evidence-mismatch,23.95757360000016,1302,212,stop
+slot-017,pilot-036,B3,2,time-based blind,inconclusive,ok,inconclusive,True,insufficient_evidence,,1,2,trial-outcome-evidence-mismatch,27.1848786999999,1572,236,stop
+slot-018,pilot-036,A,3,time-based blind,inconclusive,ok,inconclusive,True,insufficient_evidence,,1,2,trial-outcome-evidence-mismatch,24.086414800000057,844,215,stop
+slot-019,pilot-006,B2,1,error-based,negative,ok,negative,True,no_new_database_diagnostic,,3,3,,31.55603390000033,1248,272,stop
+slot-020,pilot-006,B3,2,error-based,negative,ok,negative,True,no_new_database_diagnostic,,3,3,,31.049425900000188,1505,275,stop
+slot-021,pilot-006,A,3,error-based,negative,ok,negative,True,no_new_database_diagnostic,,3,3,,30.465132799999992,764,269,stop
+slot-022,pilot-042,B2,1,time-based blind,input_invalid,input_invalid,,False,,,0,0,,,,,
+slot-023,pilot-042,B3,2,time-based blind,input_invalid,input_invalid,,False,,,0,0,,,,,
+slot-024,pilot-042,A,3,time-based blind,input_invalid,input_invalid,,False,,,0,0,,,,,
+slot-025,pilot-022,B2,1,boolean-based blind,inconclusive,ok,inconclusive,True,insufficient_evidence,,3,3,,31.155802300000232,1297,274,stop
+slot-026,pilot-022,B3,2,boolean-based blind,inconclusive,ok,inconclusive,True,insufficient_evidence,,3,3,,31.477402600000005,1591,275,stop
+slot-027,pilot-022,A,3,boolean-based blind,inconclusive,ok,inconclusive,True,insufficient_evidence,,3,3,,30.799080799999956,838,273,stop
+slot-028,pilot-004,A,1,error-based,positive,ok,positive,True,new_database_diagnostic,,3,3,,28.143048800000088,781,259,stop
+slot-029,pilot-004,B3,2,error-based,positive,ok,positive,True,new_database_diagnostic,,3,3,,30.89998639999976,1522,268,stop
+slot-030,pilot-004,B2,3,error-based,positive,ok,positive,True,new_database_diagnostic,,3,3,,32.576165400000264,1265,284,stop
+slot-031,pilot-012,B2,1,error-based,inconclusive,ok,negative,False,no_new_database_diagnostic,,2,2,model_summary_decision_mismatch,23.806876600000123,1184,211,stop
+slot-032,pilot-012,B3,2,error-based,inconclusive,ok,negative,False,no_new_database_diagnostic,,2,2,model_summary_decision_mismatch,23.610198700000183,1441,209,stop
+slot-033,pilot-012,A,3,error-based,inconclusive,ok,negative,False,no_new_database_diagnostic,,2,2,model_summary_decision_mismatch,26.464128099999925,700,222,stop
+slot-034,pilot-031,A,1,time-based blind,negative,ok,positive,False,matched_delay,,0,3,trial-outcome-evidence-mismatch,32.833186999999725,961,301,stop
+slot-035,pilot-031,B3,2,time-based blind,negative,ok,positive,False,matched_delay,,0,3,trial-outcome-evidence-mismatch,34.48052689999986,1689,297,stop
+slot-036,pilot-031,B2,3,time-based blind,negative,ok,positive,False,matched_delay,,0,3,trial-outcome-evidence-mismatch,36.404043399999864,1419,318,stop
+slot-037,pilot-020,B2,1,boolean-based blind,negative,ok,positive,False,boolean_difference,,0,3,trial-outcome-evidence-mismatch,32.20101079999995,1297,277,stop
+slot-038,pilot-020,A,2,boolean-based blind,negative,ok,positive,False,boolean_difference,,0,3,trial-outcome-evidence-mismatch,31.89961409999978,838,282,stop
+slot-039,pilot-020,B3,3,boolean-based blind,negative,ok,positive,False,boolean_difference,,0,3,trial-outcome-evidence-mismatch,33.323826700000154,1591,288,stop
+slot-040,pilot-027,A,1,time-based blind,positive,ok,positive,True,matched_delay,,3,3,,32.3576194000002,961,292,stop
+slot-041,pilot-027,B2,2,time-based blind,positive,ok,positive,True,matched_delay,,3,3,,36.757634099999905,1419,326,stop
+slot-042,pilot-027,B3,3,time-based blind,positive,ok,positive,True,matched_delay,,3,3,,36.551758900000095,1689,318,stop
+slot-043,pilot-011,B2,1,error-based,inconclusive,ok,inconclusive,True,insufficient_evidence,,2,2,trial-set-mismatch,28.367195400000128,1197,254,stop
+slot-044,pilot-011,A,2,error-based,inconclusive,ok,positive,False,new_database_diagnostic,,2,2,model_summary_decision_mismatch,24.277918300000238,713,216,stop
+slot-045,pilot-011,B3,3,error-based,inconclusive,ok,inconclusive,True,insufficient_evidence,,2,2,trial-set-mismatch,30.166821399999662,1454,262,stop
+slot-046,pilot-007,B3,1,error-based,negative,ok,negative,True,no_new_database_diagnostic,,3,3,,33.654493399999865,1505,286,stop
+slot-047,pilot-007,A,2,error-based,negative,ok,negative,True,no_new_database_diagnostic,,3,3,,30.455277300000034,764,269,stop
+slot-048,pilot-007,B2,3,error-based,negative,ok,negative,True,no_new_database_diagnostic,,3,3,,31.42465469999979,1248,279,stop
+slot-049,pilot-003,B3,1,error-based,positive,ok,positive,True,new_database_diagnostic,,3,3,,31.522151599999688,1517,271,stop
+slot-050,pilot-003,B2,2,error-based,positive,ok,positive,True,new_database_diagnostic,,3,3,,32.27548129999968,1260,280,stop
+slot-051,pilot-003,A,3,error-based,positive,ok,positive,True,new_database_diagnostic,,3,3,,31.416790899999796,776,272,stop
+slot-052,pilot-010,A,1,error-based,inconclusive,ok,inconclusive,True,insufficient_evidence,,3,3,,29.86878630000001,772,275,stop
+slot-053,pilot-010,B2,2,error-based,inconclusive,ok,inconclusive,True,insufficient_evidence,,3,3,,31.78240770000002,1256,283,stop
+slot-054,pilot-010,B3,3,error-based,inconclusive,ok,inconclusive,True,insufficient_evidence,,3,3,,30.731958400000167,1513,272,stop
+slot-055,pilot-038,B3,1,error-based,input_invalid,input_invalid,,False,,,0,0,,,,,
+slot-056,pilot-038,A,2,error-based,input_invalid,input_invalid,,False,,,0,0,,,,,
+slot-057,pilot-038,B2,3,error-based,input_invalid,input_invalid,,False,,,0,0,,,,,
+slot-058,pilot-009,B3,1,error-based,inconclusive,ok,inconclusive,True,insufficient_evidence,,3,3,,31.769694699999945,1509,275,stop
+slot-059,pilot-009,A,2,error-based,inconclusive,ok,inconclusive,True,insufficient_evidence,,3,3,,30.72123220000003,768,275,stop
+slot-060,pilot-009,B2,3,error-based,inconclusive,ok,inconclusive,True,insufficient_evidence,,3,3,,30.337743300000056,1252,272,stop
+slot-061,pilot-039,A,1,boolean-based blind,input_invalid,input_invalid,,False,,,0,0,,,,,
+slot-062,pilot-039,B3,2,boolean-based blind,input_invalid,input_invalid,,False,,,0,0,,,,,
+slot-063,pilot-039,B2,3,boolean-based blind,input_invalid,input_invalid,,False,,,0,0,,,,,
+slot-064,pilot-019,B2,1,boolean-based blind,negative,ok,positive,False,boolean_difference,,0,3,trial-outcome-evidence-mismatch,32.222410800000034,1309,278,stop
+slot-065,pilot-019,A,2,boolean-based blind,negative,ok,positive,False,boolean_difference,,0,3,trial-outcome-evidence-mismatch,31.418101900000238,850,280,stop
+slot-066,pilot-019,B3,3,boolean-based blind,negative,ok,positive,False,boolean_difference,,0,3,trial-outcome-evidence-mismatch,32.409237900000335,1603,281,stop
+slot-067,pilot-023,A,1,boolean-based blind,inconclusive,ok,inconclusive,True,insufficient_evidence,,1,2,trial-outcome-evidence-mismatch|trial-set-mismatch,27.90231199999971,754,257,stop
+slot-068,pilot-023,B3,2,boolean-based blind,inconclusive,ok,inconclusive,True,insufficient_evidence,,1,2,trial-outcome-evidence-mismatch|trial-set-mismatch,29.743743100000756,1507,257,stop
+slot-069,pilot-023,B2,3,boolean-based blind,inconclusive,ok,inconclusive,True,insufficient_evidence,,1,2,trial-outcome-evidence-mismatch|trial-set-mismatch,29.771426999999676,1213,257,stop
+slot-070,pilot-024,A,1,boolean-based blind,inconclusive,ok,inconclusive,True,insufficient_evidence,,1,2,trial-outcome-evidence-mismatch,22.37528470000052,754,209,stop
+slot-071,pilot-024,B3,2,boolean-based blind,inconclusive,ok,inconclusive,True,insufficient_evidence,,1,2,trial-outcome-evidence-mismatch,24.930317500000456,1507,213,stop
+slot-072,pilot-024,B2,3,boolean-based blind,inconclusive,ok,inconclusive,True,insufficient_evidence,,1,2,trial-outcome-evidence-mismatch,25.41802269999971,1213,213,stop
+slot-073,pilot-015,B2,1,boolean-based blind,positive,ok,inconclusive,False,insufficient_evidence,,2,3,trial-outcome-evidence-mismatch,32.2845556000002,1297,275,stop
+slot-074,pilot-015,B3,2,boolean-based blind,positive,ok,inconclusive,False,insufficient_evidence,,2,3,trial-outcome-evidence-mismatch,31.803921900000205,1591,277,stop
+slot-075,pilot-015,A,3,boolean-based blind,positive,ok,inconclusive,False,insufficient_evidence,,2,3,trial-outcome-evidence-mismatch,31.442979400000695,838,273,stop
+slot-076,pilot-005,B2,1,error-based,negative,ok,negative,True,no_new_database_diagnostic,,3,3,,30.861108299999614,1248,271,stop
+slot-077,pilot-005,A,2,error-based,negative,ok,negative,True,no_new_database_diagnostic,,3,3,,30.37923790000059,764,269,stop
+slot-078,pilot-005,B3,3,error-based,negative,ok,negative,True,no_new_database_diagnostic,,3,3,,33.34072649999962,1505,283,stop
+slot-079,pilot-001,A,1,error-based,positive,ok,positive,True,new_database_diagnostic,,3,3,,29.51877280000008,776,273,stop
+slot-080,pilot-001,B3,2,error-based,positive,ok,positive,True,new_database_diagnostic,,3,3,,31.242309700000078,1517,271,stop
+slot-081,pilot-001,B2,3,error-based,positive,ok,positive,True,new_database_diagnostic,,3,3,,31.189542099999926,1260,272,stop
+slot-082,pilot-021,A,1,boolean-based blind,inconclusive,ok,inconclusive,True,insufficient_evidence,,3,3,,29.986765900000137,838,275,stop
+slot-083,pilot-021,B2,2,boolean-based blind,inconclusive,ok,inconclusive,True,insufficient_evidence,,3,3,,30.675282700000025,1297,275,stop
+slot-084,pilot-021,B3,3,boolean-based blind,inconclusive,ok,inconclusive,True,insufficient_evidence,,3,3,,30.98838809999961,1591,271,stop
+slot-085,pilot-040,B2,1,boolean-based blind,input_invalid,input_invalid,,False,,,0,0,,,,,
+slot-086,pilot-040,A,2,boolean-based blind,input_invalid,input_invalid,,False,,,0,0,,,,,
+slot-087,pilot-040,B3,3,boolean-based blind,input_invalid,input_invalid,,False,,,0,0,,,,,
+slot-088,pilot-026,B2,1,time-based blind,positive,ok,positive,True,matched_delay,,3,3,,34.570710200000576,1419,301,stop
+slot-089,pilot-026,B3,2,time-based blind,positive,ok,positive,True,matched_delay,,3,3,,37.246034200000395,1689,326,stop
+slot-090,pilot-026,A,3,time-based blind,positive,ok,positive,True,matched_delay,,3,3,,34.069248300000254,961,300,stop
+slot-091,pilot-002,A,1,error-based,positive,ok,positive,True,new_database_diagnostic,,3,3,,29.015260099999978,776,271,stop
+slot-092,pilot-002,B2,2,error-based,positive,ok,positive,True,new_database_diagnostic,,3,3,,31.074452799999563,1260,280,stop
+slot-093,pilot-002,B3,3,error-based,positive,ok,positive,True,new_database_diagnostic,,3,3,,29.60417839999991,1517,265,stop
+slot-094,pilot-041,B3,1,time-based blind,input_invalid,input_invalid,,False,,,0,0,,,,,
+slot-095,pilot-041,B2,2,time-based blind,input_invalid,input_invalid,,False,,,0,0,,,,,
+slot-096,pilot-041,A,3,time-based blind,input_invalid,input_invalid,,False,,,0,0,,,,,
+slot-097,pilot-016,B3,1,boolean-based blind,positive,ok,inconclusive,False,insufficient_evidence,,2,3,trial-outcome-evidence-mismatch,32.051488099999915,1591,276,stop
+slot-098,pilot-016,A,2,boolean-based blind,positive,ok,inconclusive,False,insufficient_evidence,,2,3,trial-outcome-evidence-mismatch,30.66106310000032,838,273,stop
+slot-099,pilot-016,B2,3,boolean-based blind,positive,ok,inconclusive,False,insufficient_evidence,,2,3,trial-outcome-evidence-mismatch,30.082471699999587,1297,270,stop
+slot-100,pilot-033,A,1,time-based blind,inconclusive,ok,positive,False,matched_delay,,1,3,trial-outcome-evidence-mismatch,28.092713000000003,961,258,stop
+slot-101,pilot-033,B2,2,time-based blind,inconclusive,ok,positive,False,matched_delay,,1,3,trial-outcome-evidence-mismatch,31.120797100000345,1419,277,stop
+slot-102,pilot-033,B3,3,time-based blind,inconclusive,ok,positive,False,matched_delay,,1,3,trial-outcome-evidence-mismatch,31.466573400000016,1689,277,stop
+slot-103,pilot-037,A,1,error-based,input_invalid,input_invalid,,False,,,0,0,,,,,
+slot-104,pilot-037,B2,2,error-based,input_invalid,input_invalid,,False,,,0,0,,,,,
+slot-105,pilot-037,B3,3,error-based,input_invalid,input_invalid,,False,,,0,0,,,,,
+slot-106,pilot-025,B2,1,time-based blind,positive,ok,positive,True,matched_delay,,3,3,,33.979825399999754,1419,298,stop
+slot-107,pilot-025,A,2,time-based blind,positive,ok,positive,True,matched_delay,,3,3,,30.823153700000148,961,272,stop
+slot-108,pilot-025,B3,3,time-based blind,positive,ok,positive,True,matched_delay,,3,3,,35.42812849999973,1689,304,stop
+slot-109,pilot-029,B2,1,time-based blind,negative,ok,positive,False,matched_delay,,0,3,trial-outcome-evidence-mismatch,34.46418030000041,1419,304,stop
+slot-110,pilot-029,A,2,time-based blind,negative,ok,positive,False,matched_delay,,0,3,trial-outcome-evidence-mismatch,32.24184569999943,961,285,stop
+slot-111,pilot-029,B3,3,time-based blind,negative,ok,positive,False,matched_delay,,0,3,trial-outcome-evidence-mismatch,35.654415200000585,1689,306,stop
+slot-112,pilot-013,B3,1,boolean-based blind,positive,ok,positive,True,boolean_difference,,3,3,,33.38731999999982,1591,289,stop
+slot-113,pilot-013,A,2,boolean-based blind,positive,ok,positive,True,boolean_difference,,3,3,,32.2426846999997,838,287,stop
+slot-114,pilot-013,B2,3,boolean-based blind,positive,ok,positive,True,boolean_difference,,3,3,,31.048985500000526,1297,280,stop
+slot-115,pilot-034,B3,1,time-based blind,inconclusive,ok,inconclusive,True,insufficient_evidence,,2,3,trial-outcome-evidence-mismatch,34.28572769999937,1689,294,stop
+slot-116,pilot-034,B2,2,time-based blind,inconclusive,ok,inconclusive,True,insufficient_evidence,,2,3,trial-outcome-evidence-mismatch,34.59484950000024,1419,298,stop
+slot-117,pilot-034,A,3,time-based blind,inconclusive,ok,inconclusive,True,insufficient_evidence,,3,3,,33.903683999999885,961,302,stop
+slot-118,pilot-018,A,1,boolean-based blind,negative,ok,negative,True,no_boolean_difference,,3,3,,29.50948739999967,838,272,stop
+slot-119,pilot-018,B2,2,boolean-based blind,negative,ok,negative,True,no_boolean_difference,,3,3,,29.471160600000076,1297,266,stop
+slot-120,pilot-018,B3,3,boolean-based blind,negative,ok,negative,True,no_boolean_difference,,3,3,,30.3328805000001,1591,266,stop
+slot-121,pilot-008,B3,1,error-based,negative,ok,negative,True,no_new_database_diagnostic,,3,3,,31.49295379999967,1505,275,stop
+slot-122,pilot-008,B2,2,error-based,negative,ok,negative,True,no_new_database_diagnostic,,3,3,,32.96604119999938,1248,288,stop
+slot-123,pilot-008,A,3,error-based,negative,ok,negative,True,no_new_database_diagnostic,,3,3,,30.08113239999966,764,269,stop
+slot-124,pilot-017,B3,1,boolean-based blind,negative,ok,positive,False,boolean_difference,,0,3,trial-outcome-evidence-mismatch,33.52409460000035,1591,288,stop
+slot-125,pilot-017,B2,2,boolean-based blind,negative,ok,positive,False,boolean_difference,,0,3,trial-outcome-evidence-mismatch,31.589861200000087,1297,276,stop
+slot-126,pilot-017,A,3,boolean-based blind,negative,ok,positive,False,boolean_difference,,0,3,trial-outcome-evidence-mismatch,31.621861499999795,838,281,stop

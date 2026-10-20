@@ -1,0 +1,89 @@
+{
+  "A": {
+    "error-based": {
+      "attempted": 12,
+      "correct": 10,
+      "accuracy": 0.8333333333333334,
+      "analysis_errors": 0,
+      "wrong_positive_claims_on_negative_reference": 0,
+      "trial_correct": 34,
+      "trial_denominator": 34
+    },
+    "boolean-based blind": {
+      "attempted": 12,
+      "correct": 7,
+      "accuracy": 0.5833333333333334,
+      "analysis_errors": 0,
+      "wrong_positive_claims_on_negative_reference": 3,
+      "trial_correct": 21,
+      "trial_denominator": 34
+    },
+    "time-based blind": {
+      "attempted": 12,
+      "correct": 6,
+      "accuracy": 0.5,
+      "analysis_errors": 0,
+      "wrong_positive_claims_on_negative_reference": 3,
+      "trial_correct": 20,
+      "trial_denominator": 34
+    }
+  },
+  "B2": {
+    "error-based": {
+      "attempted": 12,
+      "correct": 11,
+      "accuracy": 0.9166666666666666,
+      "analysis_errors": 0,
+      "wrong_positive_claims_on_negative_reference": 0,
+      "trial_correct": 34,
+      "trial_denominator": 34
+    },
+    "boolean-based blind": {
+      "attempted": 12,
+      "correct": 7,
+      "accuracy": 0.5833333333333334,
+      "analysis_errors": 0,
+      "wrong_positive_claims_on_negative_reference": 3,
+      "trial_correct": 21,
+      "trial_denominator": 34
+    },
+    "time-based blind": {
+      "attempted": 12,
+      "correct": 6,
+      "accuracy": 0.5,
+      "analysis_errors": 0,
+      "wrong_positive_claims_on_negative_reference": 3,
+      "trial_correct": 19,
+      "trial_denominator": 34
+    }
+  },
+  "B3": {
+    "error-based": {
+      "attempted": 12,
+      "correct": 11,
+      "accuracy": 0.9166666666666666,
+      "analysis_errors": 0,
+      "wrong_positive_claims_on_negative_reference": 0,
+      "trial_correct": 34,
+      "trial_denominator": 34
+    },
+    "boolean-based blind": {
+      "attempted": 12,
+      "correct": 7,
+      "accuracy": 0.5833333333333334,
+      "analysis_errors": 0,
+      "wrong_positive_claims_on_negative_reference": 3,
+      "trial_correct": 21,
+      "trial_denominator": 34
+    },
+    "time-based blind": {
+      "attempted": 12,
+      "correct": 6,
+      "accuracy": 0.5,
+      "analysis_errors": 0,
+      "wrong_positive_claims_on_negative_reference": 3,
+      "trial_correct": 19,
+      "trial_denominator": 34
+    }
+  }
+}

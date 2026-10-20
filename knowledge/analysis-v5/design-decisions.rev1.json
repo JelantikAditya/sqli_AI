@@ -1,0 +1,60 @@
+{
+  "document_id": "analysis-v5-rev1-design-decisions",
+  "created_on": "2026-10-20",
+  "author": "Codex, revised in response to researcher feedback",
+  "researcher_review": "pending-for-rev1",
+  "feedback_path": "results/processed/analysis-corpus-v5-rev1-20261020/researcher-feedback.json",
+  "feedback_sha256": "17ab544ebd2d06892a43a0f2b1fe4d62b38919127084170a5f97e6104819a643",
+  "decisions": [
+    {
+      "decision_id": "design-input-boundary",
+      "title": "Model consumes recorded features",
+      "rationale": "The executor and adapter prepare diagnostic identifiers and markers. The paired view omits raw HTML, arbitrary excerpts and server telemetry.",
+      "operational_effect": "Use supplied identifiers and markers; do not request matcher reruns or template extraction inside the model.",
+      "contract_reference_ids": [
+        "project-evidence-contract",
+        "project-structured-input-adapter"
+      ]
+    },
+    {
+      "decision_id": "design-evidence-scope",
+      "title": "Bound claims to observations",
+      "rationale": "Technique indicators, candidate decisions and demonstrated data extraction are separate claims.",
+      "operational_effect": "A failed indicator does not establish target safety; an indicator alone does not demonstrate extraction.",
+      "contract_reference_ids": [
+        "project-decision-contract",
+        "project-frozen-analysis-contract"
+      ]
+    },
+    {
+      "decision_id": "design-no-unmeasured-causes",
+      "title": "Do not invent timing causes",
+      "rationale": "Paired durations and validity flags do not measure network jitter or server load independently.",
+      "operational_effect": "Mention timing confounding as a limitation; assert a specific cause only when an appropriate measurement is supplied.",
+      "contract_reference_ids": [
+        "project-evidence-contract",
+        "project-time-contract"
+      ]
+    },
+    {
+      "decision_id": "design-marker-consistency",
+      "title": "Use the declared marker mapping consistently",
+      "rationale": "Marker meaning belongs to the project response mapping; upstream dynamic-page methods are conditional background.",
+      "operational_effect": "Compare the supplied markers for both conditions; do not reinterpret unrelated page changes or invent a template-preparation stage.",
+      "contract_reference_ids": [
+        "project-boolean-contract",
+        "project-evidence-contract"
+      ]
+    },
+    {
+      "decision_id": "design-fixed-protocol",
+      "title": "Keep measurement rules in the common prompt",
+      "rationale": "General references do not prescribe this project threshold, trial count or validity gates.",
+      "operational_effect": "Apply the same project measurement and decision contract on both retrieval conditions; do not infer a new threshold from general references.",
+      "contract_reference_ids": [
+        "project-frozen-validation",
+        "project-decision-contract"
+      ]
+    }
+  ]
+}

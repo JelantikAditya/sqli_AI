@@ -1,0 +1,12 @@
+{
+  "model": "MiMo-V2.6-Flash",
+  "messages": [
+    {
+      "role": "user",
+      "content": "Ekstrak catatan berikut. Balas hanya satu objek JSON valid tanpa Markdown dengan tepat tiga kunci: nama (string), jumlah (integer), kota (string atau null). Jangan menebak informasi yang tidak tercantum. Catatan: Nama pelanggan Rani. Pesanan 3 buku. Kota tidak dicantumkan."
+    }
+  ],
+  "temperature": 0,
+  "max_tokens": 1024,
+  "stream": false
+}

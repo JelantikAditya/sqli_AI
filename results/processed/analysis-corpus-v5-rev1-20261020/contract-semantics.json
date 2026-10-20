@@ -1,0 +1,43 @@
+{
+  "verification_id": "analysis-v5-rev1-diagnostic-semantics",
+  "executor_sha256": "bada3ea7029f83d3df39c7dd86c7acff6bea89e5e5e6a2187b18ffab0d814234",
+  "frozen_analysis_sha256": "ffba71043245baf3db73a09d9236bf4e2f3edb7e38737a250ec799e9c720a500",
+  "checker_sha256": "70d72630159bf7c3c517852960b43d646f704d7a994210f0a5dde26e529d836b",
+  "method": "isolated-actual-function-definitions-with-offline-stubs; no module imports or network",
+  "matcher_returns_identifier_array": true,
+  "generic_http_error_is_not_diagnostic": true,
+  "new_diagnostic_rule": "bool(set(candidate.diagnostics) - set(baseline.diagnostics))",
+  "rule_probes": [
+    {
+      "case": "empty-baseline-new-identifier",
+      "observed_indicator_group": true,
+      "expected": true
+    },
+    {
+      "case": "same-identifier-not-new",
+      "observed_indicator_group": false,
+      "expected": false
+    },
+    {
+      "case": "additional-identifier-at-rule-layer-only",
+      "observed_indicator_group": true,
+      "expected": true
+    },
+    {
+      "case": "invalid-baseline-gates-additional-identifier",
+      "observed_indicator_group": false,
+      "expected": false
+    }
+  ],
+  "live_executor_rejects_diagnostic_baseline": true,
+  "offline_candidate_submissions_after_invalid_baseline": 0,
+  "scope_limit": "Rule-layer probe with nonempty baseline and valid flag is artificial; live executor rejects that baseline first.",
+  "does_not_measure": [
+    "model accuracy",
+    "FPR",
+    "PSR",
+    "retrieval quality"
+  ],
+  "dvwa_requests": 0,
+  "model_calls": 0
+}

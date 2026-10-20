@@ -1,0 +1,4349 @@
+[
+  {
+    "case_id": "pilot-001",
+    "input": {
+      "schema_version": "1.0.0",
+      "technique": "error-based",
+      "injection_point": {
+        "method": "GET",
+        "input_path": "/vulnerabilities/sqli/",
+        "result_path": "/vulnerabilities/sqli/",
+        "parameter": "id"
+      },
+      "runtime_status": "valid",
+      "baseline_valid": true,
+      "time_threshold_ms": 1500,
+      "observations": [
+        {
+          "observation_id": "obs-001",
+          "trial": 1,
+          "role": "baseline",
+          "http_status": 200,
+          "elapsed_ms": 41,
+          "response_sha256": "1c3d80a9c633528155c467c091ee2ae59890b2bf1b091a76cee04683af5ff376",
+          "diagnostics": [],
+          "content_markers": [
+            "benign_record"
+          ]
+        },
+        {
+          "observation_id": "obs-002",
+          "trial": 1,
+          "role": "candidate",
+          "http_status": 500,
+          "elapsed_ms": 41,
+          "response_sha256": "26f9efc2be9e4f58d2aa2e65fa3d4c881c864c51c4a83865ae782065797b6dd0",
+          "diagnostics": [
+            "mysql_syntax_error"
+          ],
+          "content_markers": [
+            "benign_record"
+          ]
+        },
+        {
+          "observation_id": "obs-003",
+          "trial": 2,
+          "role": "baseline",
+          "http_status": 200,
+          "elapsed_ms": 42,
+          "response_sha256": "ea1ea35f758d7059adc8c0f48a2f0fcbb4b5637cc93935e2293fd64f58594df5",
+          "diagnostics": [],
+          "content_markers": [
+            "benign_record"
+          ]
+        },
+        {
+          "observation_id": "obs-004",
+          "trial": 2,
+          "role": "candidate",
+          "http_status": 200,
+          "elapsed_ms": 42,
+          "response_sha256": "7aaaf3b395467771476625070568a3c43aa0cae2a41c54c72c3a38ef897bfea9",
+          "diagnostics": [
+            "mysql_syntax_error"
+          ],
+          "content_markers": [
+            "benign_record"
+          ]
+        },
+        {
+          "observation_id": "obs-005",
+          "trial": 3,
+          "role": "baseline",
+          "http_status": 200,
+          "elapsed_ms": 43,
+          "response_sha256": "5b26f0d72ab87ae59d3196f7775703cf408fa2743e56b0ef571faa0f84b70e4f",
+          "diagnostics": [],
+          "content_markers": [
+            "benign_record"
+          ]
+        },
+        {
+          "observation_id": "obs-006",
+          "trial": 3,
+          "role": "candidate",
+          "http_status": 500,
+          "elapsed_ms": 43,
+          "response_sha256": "d00f31ae25c4d60de97d68e3466be0deff0f2d7720025ac0f6b6c8e45b0c7dd1",
+          "diagnostics": [
+            "mysql_syntax_error"
+          ],
+          "content_markers": [
+            "benign_record"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "case_id": "pilot-002",
+    "input": {
+      "schema_version": "1.0.0",
+      "technique": "error-based",
+      "injection_point": {
+        "method": "GET",
+        "input_path": "/vulnerabilities/sqli/",
+        "result_path": "/vulnerabilities/sqli/",
+        "parameter": "id"
+      },
+      "runtime_status": "valid",
+      "baseline_valid": true,
+      "time_threshold_ms": 1500,
+      "observations": [
+        {
+          "observation_id": "obs-001",
+          "trial": 1,
+          "role": "baseline",
+          "http_status": 200,
+          "elapsed_ms": 41,
+          "response_sha256": "eab0c1095911e371bf89e10415e4f001d8072f38d3a171a50285018060c9e086",
+          "diagnostics": [],
+          "content_markers": [
+            "benign_record"
+          ]
+        },
+        {
+          "observation_id": "obs-002",
+          "trial": 1,
+          "role": "candidate",
+          "http_status": 500,
+          "elapsed_ms": 41,
+          "response_sha256": "038c8a65b8227c26a0255b3038953064f6dcca5a153534583a4179cff2140bd6",
+          "diagnostics": [
+            "mysql_xpath_error"
+          ],
+          "content_markers": [
+            "benign_record"
+          ]
+        },
+        {
+          "observation_id": "obs-003",
+          "trial": 2,
+          "role": "baseline",
+          "http_status": 200,
+          "elapsed_ms": 42,
+          "response_sha256": "22a10e3496af38d509fedbf275b43e99b7b63d7d53193879f76f42048b56bc20",
+          "diagnostics": [],
+          "content_markers": [
+            "benign_record"
+          ]
+        },
+        {
+          "observation_id": "obs-004",
+          "trial": 2,
+          "role": "candidate",
+          "http_status": 200,
+          "elapsed_ms": 42,
+          "response_sha256": "99da2b35590c99f62088ef1763efdf423383406ded10508a19f76ab260d74901",
+          "diagnostics": [
+            "mysql_xpath_error"
+          ],
+          "content_markers": [
+            "benign_record"
+          ]
+        },
+        {
+          "observation_id": "obs-005",
+          "trial": 3,
+          "role": "baseline",
+          "http_status": 200,
+          "elapsed_ms": 43,
+          "response_sha256": "095bf0f038e63d3c4323439646e33b8d702a28d4de6b35e75d61c64b76c77e2a",
+          "diagnostics": [],
+          "content_markers": [
+            "benign_record"
+          ]
+        },
+        {
+          "observation_id": "obs-006",
+          "trial": 3,
+          "role": "candidate",
+          "http_status": 500,
+          "elapsed_ms": 43,
+          "response_sha256": "570319f623596544af92ce71a7a305d032eba89ea64a8150c70229b000a5b15b",
+          "diagnostics": [
+            "mysql_xpath_error"
+          ],
+          "content_markers": [
+            "benign_record"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "case_id": "pilot-003",
+    "input": {
+      "schema_version": "1.0.0",
+      "technique": "error-based",
+      "injection_point": {
+        "method": "GET",
+        "input_path": "/vulnerabilities/sqli/",
+        "result_path": "/vulnerabilities/sqli/",
+        "parameter": "id"
+      },
+      "runtime_status": "valid",
+      "baseline_valid": true,
+      "time_threshold_ms": 1500,
+      "observations": [
+        {
+          "observation_id": "obs-001",
+          "trial": 1,
+          "role": "baseline",
+          "http_status": 200,
+          "elapsed_ms": 41,
+          "response_sha256": "f3b8912aa4fe3143ba36f4420c05721b25b118fbdb42ff73eaf65cbb4856beb1",
+          "diagnostics": [],
+          "content_markers": [
+            "benign_record"
+          ]
+        },
+        {
+          "observation_id": "obs-002",
+          "trial": 1,
+          "role": "candidate",
+          "http_status": 500,
+          "elapsed_ms": 41,
+          "response_sha256": "bee49b35c907f5078eebc67f022cb7edbeaaac5116ff5e39b7c1e516271be409",
+          "diagnostics": [
+            "mysql_unknown_column"
+          ],
+          "content_markers": [
+            "benign_record"
+          ]
+        },
+        {
+          "observation_id": "obs-003",
+          "trial": 2,
+          "role": "baseline",
+          "http_status": 200,
+          "elapsed_ms": 42,
+          "response_sha256": "3a69c34409a3c969de693734c97e2531534a993d02e0b79c4b251443b51fa67d",
+          "diagnostics": [],
+          "content_markers": [
+            "benign_record"
+          ]
+        },
+        {
+          "observation_id": "obs-004",
+          "trial": 2,
+          "role": "candidate",
+          "http_status": 200,
+          "elapsed_ms": 42,
+          "response_sha256": "51e12760534b4a93d51d09d213b9d2626b15ab93fc9bc912bd596f55db1bf78d",
+          "diagnostics": [
+            "mysql_unknown_column"
+          ],
+          "content_markers": [
+            "benign_record"
+          ]
+        },
+        {
+          "observation_id": "obs-005",
+          "trial": 3,
+          "role": "baseline",
+          "http_status": 200,
+          "elapsed_ms": 43,
+          "response_sha256": "784d9c00fcaf57a707a5ae15ee4e27fb239dd1af0485b05e3b9f0d9a465a6287",
+          "diagnostics": [],
+          "content_markers": [
+            "benign_record"
+          ]
+        },
+        {
+          "observation_id": "obs-006",
+          "trial": 3,
+          "role": "candidate",
+          "http_status": 500,
+          "elapsed_ms": 43,
+          "response_sha256": "c167ab149702629d6ea1b94a0001a381bb6577f902e4dcca457b030a7e4d99a6",
+          "diagnostics": [
+            "mysql_unknown_column"
+          ],
+          "content_markers": [
+            "benign_record"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "case_id": "pilot-004",
+    "input": {
+      "schema_version": "1.0.0",
+      "technique": "error-based",
+      "injection_point": {
+        "method": "GET",
+        "input_path": "/vulnerabilities/sqli/",
+        "result_path": "/vulnerabilities/sqli/",
+        "parameter": "id"
+      },
+      "runtime_status": "valid",
+      "baseline_valid": true,
+      "time_threshold_ms": 1500,
+      "observations": [
+        {
+          "observation_id": "obs-001",
+          "trial": 1,
+          "role": "baseline",
+          "http_status": 200,
+          "elapsed_ms": 41,
+          "response_sha256": "ee57a3ce884806e50f7fca1b635006daf78cca65cd24e9bfecd0e95f0ddce812",
+          "diagnostics": [],
+          "content_markers": [
+            "benign_record"
+          ]
+        },
+        {
+          "observation_id": "obs-002",
+          "trial": 1,
+          "role": "candidate",
+          "http_status": 500,
+          "elapsed_ms": 41,
+          "response_sha256": "0ca464dec3f87583a0971355c51996dc2cecb45d503ecabc60822105df820c45",
+          "diagnostics": [
+            "mysql_syntax_error",
+            "mysql_xpath_error"
+          ],
+          "content_markers": [
+            "benign_record"
+          ]
+        },
+        {
+          "observation_id": "obs-003",
+          "trial": 2,
+          "role": "baseline",
+          "http_status": 200,
+          "elapsed_ms": 42,
+          "response_sha256": "ea1ea35f758d7059adc8c0f48a2f0fcbb4b5637cc93935e2293fd64f58594df5",
+          "diagnostics": [],
+          "content_markers": [
+            "benign_record"
+          ]
+        },
+        {
+          "observation_id": "obs-004",
+          "trial": 2,
+          "role": "candidate",
+          "http_status": 200,
+          "elapsed_ms": 42,
+          "response_sha256": "7aaaf3b395467771476625070568a3c43aa0cae2a41c54c72c3a38ef897bfea9",
+          "diagnostics": [
+            "mysql_syntax_error"
+          ],
+          "content_markers": [
+            "benign_record"
+          ]
+        },
+        {
+          "observation_id": "obs-005",
+          "trial": 3,
+          "role": "baseline",
+          "http_status": 200,
+          "elapsed_ms": 43,
+          "response_sha256": "095bf0f038e63d3c4323439646e33b8d702a28d4de6b35e75d61c64b76c77e2a",
+          "diagnostics": [],
+          "content_markers": [
+            "benign_record"
+          ]
+        },
+        {
+          "observation_id": "obs-006",
+          "trial": 3,
+          "role": "candidate",
+          "http_status": 500,
+          "elapsed_ms": 43,
+          "response_sha256": "570319f623596544af92ce71a7a305d032eba89ea64a8150c70229b000a5b15b",
+          "diagnostics": [
+            "mysql_xpath_error"
+          ],
+          "content_markers": [
+            "benign_record"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "case_id": "pilot-005",
+    "input": {
+      "schema_version": "1.0.0",
+      "technique": "error-based",
+      "injection_point": {
+        "method": "GET",
+        "input_path": "/vulnerabilities/sqli/",
+        "result_path": "/vulnerabilities/sqli/",
+        "parameter": "id"
+      },
+      "runtime_status": "valid",
+      "baseline_valid": true,
+      "time_threshold_ms": 1500,
+      "observations": [
+        {
+          "observation_id": "obs-001",
+          "trial": 1,
+          "role": "baseline",
+          "http_status": 200,
+          "elapsed_ms": 41,
+          "response_sha256": "e90d431962ae81ff1108b14e11041baa08507d665118cf4a632bb0255c17a77c",
+          "diagnostics": [],
+          "content_markers": [
+            "benign_record"
+          ]
+        },
+        {
+          "observation_id": "obs-002",
+          "trial": 1,
+          "role": "candidate",
+          "http_status": 500,
+          "elapsed_ms": 41,
+          "response_sha256": "07834233e8e924e34828cd1cb0c42741a78ca35e5260ca4538b8dcd79fe23a13",
+          "diagnostics": [],
+          "content_markers": []
+        },
+        {
+          "observation_id": "obs-003",
+          "trial": 2,
+          "role": "baseline",
+          "http_status": 200,
+          "elapsed_ms": 42,
+          "response_sha256": "721aa824dc35eaddf794edde69cdbc8c6cecd7d75472b4061e3acb43b13b58c0",
+          "diagnostics": [],
+          "content_markers": [
+            "benign_record"
+          ]
+        },
+        {
+          "observation_id": "obs-004",
+          "trial": 2,
+          "role": "candidate",
+          "http_status": 500,
+          "elapsed_ms": 42,
+          "response_sha256": "6b11640c0292c608ef92b5b469f40e878195fa428cac79b46474807d0a6aedb4",
+          "diagnostics": [],
+          "content_markers": []
+        },
+        {
+          "observation_id": "obs-005",
+          "trial": 3,
+          "role": "baseline",
+          "http_status": 200,
+          "elapsed_ms": 43,
+          "response_sha256": "7c834026dba3dffe743117c923060908646d96722a20423d9bc46cf29f03f9b6",
+          "diagnostics": [],
+          "content_markers": [
+            "benign_record"
+          ]
+        },
+        {
+          "observation_id": "obs-006",
+          "trial": 3,
+          "role": "candidate",
+          "http_status": 500,
+          "elapsed_ms": 43,
+          "response_sha256": "9b840beb7de777cade66f58d918f0eaec37e0c919377c72f3d9827922d9e59ec",
+          "diagnostics": [],
+          "content_markers": []
+        }
+      ]
+    }
+  },
+  {
+    "case_id": "pilot-006",
+    "input": {
+      "schema_version": "1.0.0",
+      "technique": "error-based",
+      "injection_point": {
+        "method": "GET",
+        "input_path": "/vulnerabilities/sqli/",
+        "result_path": "/vulnerabilities/sqli/",
+        "parameter": "id"
+      },
+      "runtime_status": "valid",
+      "baseline_valid": true,
+      "time_threshold_ms": 1500,
+      "observations": [
+        {
+          "observation_id": "obs-001",
+          "trial": 1,
+          "role": "baseline",
+          "http_status": 200,
+          "elapsed_ms": 41,
+          "response_sha256": "59b5dbb3d4b736b95f347ad6c229f0c8ac3b9ec949b95148f416d23c118a331a",
+          "diagnostics": [],
+          "content_markers": [
+            "benign_record"
+          ]
+        },
+        {
+          "observation_id": "obs-002",
+          "trial": 1,
+          "role": "candidate",
+          "http_status": 404,
+          "elapsed_ms": 41,
+          "response_sha256": "d62739715325850a1aacfab7d4238353c61b8aa53436d87e7ebb743ece3c6804",
+          "diagnostics": [],
+          "content_markers": []
+        },
+        {
+          "observation_id": "obs-003",
+          "trial": 2,
+          "role": "baseline",
+          "http_status": 200,
+          "elapsed_ms": 42,
+          "response_sha256": "0a1e5a4c65195d5a88b4ea15e62d669d38f2901a1ba0837ba912601c4b1c7a64",
+          "diagnostics": [],
+          "content_markers": [
+            "benign_record"
+          ]
+        },
+        {
+          "observation_id": "obs-004",
+          "trial": 2,
+          "role": "candidate",
+          "http_status": 200,
+          "elapsed_ms": 42,
+          "response_sha256": "204dff300e5933cf0386dd2e8a27695ecd3fccc191311aadc6e17db3ad074c80",
+          "diagnostics": [],
+          "content_markers": []
+        },
+        {
+          "observation_id": "obs-005",
+          "trial": 3,
+          "role": "baseline",
+          "http_status": 200,
+          "elapsed_ms": 43,
+          "response_sha256": "7c834026dba3dffe743117c923060908646d96722a20423d9bc46cf29f03f9b6",
+          "diagnostics": [],
+          "content_markers": [
+            "benign_record"
+          ]
+        },
+        {
+          "observation_id": "obs-006",
+          "trial": 3,
+          "role": "candidate",
+          "http_status": 500,
+          "elapsed_ms": 43,
+          "response_sha256": "9b840beb7de777cade66f58d918f0eaec37e0c919377c72f3d9827922d9e59ec",
+          "diagnostics": [],
+          "content_markers": []
+        }
+      ]
+    }
+  },
+  {
+    "case_id": "pilot-007",
+    "input": {
+      "schema_version": "1.0.0",
+      "technique": "error-based",
+      "injection_point": {
+        "method": "GET",
+        "input_path": "/vulnerabilities/sqli/",
+        "result_path": "/vulnerabilities/sqli/",
+        "parameter": "id"
+      },
+      "runtime_status": "valid",
+      "baseline_valid": true,
+      "time_threshold_ms": 1500,
+      "observations": [
+        {
+          "observation_id": "obs-001",
+          "trial": 1,
+          "role": "baseline",
+          "http_status": 200,
+          "elapsed_ms": 41,
+          "response_sha256": "3c41964a95eaea8f93e42ed08323ce442f5092e92432211d8651cebf03b24d95",
+          "diagnostics": [],
+          "content_markers": [
+            "benign_record"
+          ]
+        },
+        {
+          "observation_id": "obs-002",
+          "trial": 1,
+          "role": "candidate",
+          "http_status": 302,
+          "elapsed_ms": 41,
+          "response_sha256": "620469b522a00bec583c43ec2ef2bee9f96f25a73522e4ef8445d0ddd178445a",
+          "diagnostics": [],
+          "content_markers": []
+        },
+        {
+          "observation_id": "obs-003",
+          "trial": 2,
+          "role": "baseline",
+          "http_status": 200,
+          "elapsed_ms": 42,
+          "response_sha256": "497a1ae6313dffaceb5d08d7fb3d2840ba20d61f9a4093783cc715a1e037f889",
+          "diagnostics": [],
+          "content_markers": [
+            "benign_record"
+          ]
+        },
+        {
+          "observation_id": "obs-004",
+          "trial": 2,
+          "role": "candidate",
+          "http_status": 302,
+          "elapsed_ms": 42,
+          "response_sha256": "552d46e9dd1fd55ab627fdbc14fa86656025aacd4738ec25998403b8b4fd9ba8",
+          "diagnostics": [],
+          "content_markers": []
+        },
+        {
+          "observation_id": "obs-005",
+          "trial": 3,
+          "role": "baseline",
+          "http_status": 200,
+          "elapsed_ms": 43,
+          "response_sha256": "e9899b015d77d247d58ec6a1ec68b25bc0acdfc654cf24523e1e94b8993303ad",
+          "diagnostics": [],
+          "content_markers": [
+            "benign_record"
+          ]
+        },
+        {
+          "observation_id": "obs-006",
+          "trial": 3,
+          "role": "candidate",
+          "http_status": 200,
+          "elapsed_ms": 43,
+          "response_sha256": "8272aae5470d8ff853a16018cfb42fdb05d7a64480a0d27c6367846e969ca499",
+          "diagnostics": [],
+          "content_markers": []
+        }
+      ]
+    }
+  },
+  {
+    "case_id": "pilot-008",
+    "input": {
+      "schema_version": "1.0.0",
+      "technique": "error-based",
+      "injection_point": {
+        "method": "GET",
+        "input_path": "/vulnerabilities/sqli/",
+        "result_path": "/vulnerabilities/sqli/",
+        "parameter": "id"
+      },
+      "runtime_status": "valid",
+      "baseline_valid": true,
+      "time_threshold_ms": 1500,
+      "observations": [
+        {
+          "observation_id": "obs-001",
+          "trial": 1,
+          "role": "baseline",
+          "http_status": 200,
+          "elapsed_ms": 41,
+          "response_sha256": "89b9c7a1a9f231d22e4a48287ba67b417af26f41c43e7eb417e7fd4c69786686",
+          "diagnostics": [],
+          "content_markers": [
+            "benign_record"
+          ]
+        },
+        {
+          "observation_id": "obs-002",
+          "trial": 1,
+          "role": "candidate",
+          "http_status": 200,
+          "elapsed_ms": 41,
+          "response_sha256": "da393850ce9a3054e06053d1a4c6060f4ead8540f38d0c52eadc57ca013acb7f",
+          "diagnostics": [],
+          "content_markers": []
+        },
+        {
+          "observation_id": "obs-003",
+          "trial": 2,
+          "role": "baseline",
+          "http_status": 200,
+          "elapsed_ms": 42,
+          "response_sha256": "721aa824dc35eaddf794edde69cdbc8c6cecd7d75472b4061e3acb43b13b58c0",
+          "diagnostics": [],
+          "content_markers": [
+            "benign_record"
+          ]
+        },
+        {
+          "observation_id": "obs-004",
+          "trial": 2,
+          "role": "candidate",
+          "http_status": 500,
+          "elapsed_ms": 42,
+          "response_sha256": "6b11640c0292c608ef92b5b469f40e878195fa428cac79b46474807d0a6aedb4",
+          "diagnostics": [],
+          "content_markers": []
+        },
+        {
+          "observation_id": "obs-005",
+          "trial": 3,
+          "role": "baseline",
+          "http_status": 200,
+          "elapsed_ms": 43,
+          "response_sha256": "e9899b015d77d247d58ec6a1ec68b25bc0acdfc654cf24523e1e94b8993303ad",
+          "diagnostics": [],
+          "content_markers": [
+            "benign_record"
+          ]
+        },
+        {
+          "observation_id": "obs-006",
+          "trial": 3,
+          "role": "candidate",
+          "http_status": 200,
+          "elapsed_ms": 43,
+          "response_sha256": "8272aae5470d8ff853a16018cfb42fdb05d7a64480a0d27c6367846e969ca499",
+          "diagnostics": [],
+          "content_markers": []
+        }
+      ]
+    }
+  },
+  {
+    "case_id": "pilot-009",
+    "input": {
+      "schema_version": "1.0.0",
+      "technique": "error-based",
+      "injection_point": {
+        "method": "GET",
+        "input_path": "/vulnerabilities/sqli/",
+        "result_path": "/vulnerabilities/sqli/",
+        "parameter": "id"
+      },
+      "runtime_status": "valid",
+      "baseline_valid": true,
+      "time_threshold_ms": 1500,
+      "observations": [
+        {
+          "observation_id": "obs-001",
+          "trial": 1,
+          "role": "baseline",
+          "http_status": 200,
+          "elapsed_ms": 41,
+          "response_sha256": "1c3d80a9c633528155c467c091ee2ae59890b2bf1b091a76cee04683af5ff376",
+          "diagnostics": [],
+          "content_markers": [
+            "benign_record"
+          ]
+        },
+        {
+          "observation_id": "obs-002",
+          "trial": 1,
+          "role": "candidate",
+          "http_status": 500,
+          "elapsed_ms": 41,
+          "response_sha256": "26f9efc2be9e4f58d2aa2e65fa3d4c881c864c51c4a83865ae782065797b6dd0",
+          "diagnostics": [
+            "mysql_syntax_error"
+          ],
+          "content_markers": [
+            "benign_record"
+          ]
+        },
+        {
+          "observation_id": "obs-003",
+          "trial": 2,
+          "role": "baseline",
+          "http_status": 200,
+          "elapsed_ms": 42,
+          "response_sha256": "721aa824dc35eaddf794edde69cdbc8c6cecd7d75472b4061e3acb43b13b58c0",
+          "diagnostics": [],
+          "content_markers": [
+            "benign_record"
+          ]
+        },
+        {
+          "observation_id": "obs-004",
+          "trial": 2,
+          "role": "candidate",
+          "http_status": 500,
+          "elapsed_ms": 42,
+          "response_sha256": "6b11640c0292c608ef92b5b469f40e878195fa428cac79b46474807d0a6aedb4",
+          "diagnostics": [],
+          "content_markers": []
+        },
+        {
+          "observation_id": "obs-005",
+          "trial": 3,
+          "role": "baseline",
+          "http_status": 200,
+          "elapsed_ms": 43,
+          "response_sha256": "e9899b015d77d247d58ec6a1ec68b25bc0acdfc654cf24523e1e94b8993303ad",
+          "diagnostics": [],
+          "content_markers": [
+            "benign_record"
+          ]
+        },
+        {
+          "observation_id": "obs-006",
+          "trial": 3,
+          "role": "candidate",
+          "http_status": 200,
+          "elapsed_ms": 43,
+          "response_sha256": "8272aae5470d8ff853a16018cfb42fdb05d7a64480a0d27c6367846e969ca499",
+          "diagnostics": [],
+          "content_markers": []
+        }
+      ]
+    }
+  },
+  {
+    "case_id": "pilot-010",
+    "input": {
+      "schema_version": "1.0.0",
+      "technique": "error-based",
+      "injection_point": {
+        "method": "GET",
+        "input_path": "/vulnerabilities/sqli/",
+        "result_path": "/vulnerabilities/sqli/",
+        "parameter": "id"
+      },
+      "runtime_status": "valid",
+      "baseline_valid": true,
+      "time_threshold_ms": 1500,
+      "observations": [
+        {
+          "observation_id": "obs-001",
+          "trial": 1,
+          "role": "baseline",
+          "http_status": 200,
+          "elapsed_ms": 41,
+          "response_sha256": "eab0c1095911e371bf89e10415e4f001d8072f38d3a171a50285018060c9e086",
+          "diagnostics": [],
+          "content_markers": [
+            "benign_record"
+          ]
+        },
+        {
+          "observation_id": "obs-002",
+          "trial": 1,
+          "role": "candidate",
+          "http_status": 500,
+          "elapsed_ms": 41,
+          "response_sha256": "038c8a65b8227c26a0255b3038953064f6dcca5a153534583a4179cff2140bd6",
+          "diagnostics": [
+            "mysql_xpath_error"
+          ],
+          "content_markers": [
+            "benign_record"
+          ]
+        },
+        {
+          "observation_id": "obs-003",
+          "trial": 2,
+          "role": "baseline",
+          "http_status": 200,
+          "elapsed_ms": 42,
+          "response_sha256": "721aa824dc35eaddf794edde69cdbc8c6cecd7d75472b4061e3acb43b13b58c0",
+          "diagnostics": [],
+          "content_markers": [
+            "benign_record"
+          ]
+        },
+        {
+          "observation_id": "obs-004",
+          "trial": 2,
+          "role": "candidate",
+          "http_status": 500,
+          "elapsed_ms": 42,
+          "response_sha256": "6b11640c0292c608ef92b5b469f40e878195fa428cac79b46474807d0a6aedb4",
+          "diagnostics": [],
+          "content_markers": []
+        },
+        {
+          "observation_id": "obs-005",
+          "trial": 3,
+          "role": "baseline",
+          "http_status": 200,
+          "elapsed_ms": 43,
+          "response_sha256": "784d9c00fcaf57a707a5ae15ee4e27fb239dd1af0485b05e3b9f0d9a465a6287",
+          "diagnostics": [],
+          "content_markers": [
+            "benign_record"
+          ]
+        },
+        {
+          "observation_id": "obs-006",
+          "trial": 3,
+          "role": "candidate",
+          "http_status": 500,
+          "elapsed_ms": 43,
+          "response_sha256": "c167ab149702629d6ea1b94a0001a381bb6577f902e4dcca457b030a7e4d99a6",
+          "diagnostics": [
+            "mysql_unknown_column"
+          ],
+          "content_markers": [
+            "benign_record"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "case_id": "pilot-011",
+    "input": {
+      "schema_version": "1.0.0",
+      "technique": "error-based",
+      "injection_point": {
+        "method": "GET",
+        "input_path": "/vulnerabilities/sqli/",
+        "result_path": "/vulnerabilities/sqli/",
+        "parameter": "id"
+      },
+      "runtime_status": "valid",
+      "baseline_valid": true,
+      "time_threshold_ms": 1500,
+      "observations": [
+        {
+          "observation_id": "obs-001",
+          "trial": 1,
+          "role": "baseline",
+          "http_status": 200,
+          "elapsed_ms": 41,
+          "response_sha256": "ee57a3ce884806e50f7fca1b635006daf78cca65cd24e9bfecd0e95f0ddce812",
+          "diagnostics": [],
+          "content_markers": [
+            "benign_record"
+          ]
+        },
+        {
+          "observation_id": "obs-002",
+          "trial": 1,
+          "role": "candidate",
+          "http_status": 500,
+          "elapsed_ms": 41,
+          "response_sha256": "0ca464dec3f87583a0971355c51996dc2cecb45d503ecabc60822105df820c45",
+          "diagnostics": [
+            "mysql_syntax_error",
+            "mysql_xpath_error"
+          ],
+          "content_markers": [
+            "benign_record"
+          ]
+        },
+        {
+          "observation_id": "obs-003",
+          "trial": 3,
+          "role": "baseline",
+          "http_status": 200,
+          "elapsed_ms": 43,
+          "response_sha256": "784d9c00fcaf57a707a5ae15ee4e27fb239dd1af0485b05e3b9f0d9a465a6287",
+          "diagnostics": [],
+          "content_markers": [
+            "benign_record"
+          ]
+        },
+        {
+          "observation_id": "obs-004",
+          "trial": 3,
+          "role": "candidate",
+          "http_status": 500,
+          "elapsed_ms": 43,
+          "response_sha256": "c167ab149702629d6ea1b94a0001a381bb6577f902e4dcca457b030a7e4d99a6",
+          "diagnostics": [
+            "mysql_unknown_column"
+          ],
+          "content_markers": [
+            "benign_record"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "case_id": "pilot-012",
+    "input": {
+      "schema_version": "1.0.0",
+      "technique": "error-based",
+      "injection_point": {
+        "method": "GET",
+        "input_path": "/vulnerabilities/sqli/",
+        "result_path": "/vulnerabilities/sqli/",
+        "parameter": "id"
+      },
+      "runtime_status": "valid",
+      "baseline_valid": true,
+      "time_threshold_ms": 1500,
+      "observations": [
+        {
+          "observation_id": "obs-001",
+          "trial": 1,
+          "role": "baseline",
+          "http_status": 200,
+          "elapsed_ms": 41,
+          "response_sha256": "89b9c7a1a9f231d22e4a48287ba67b417af26f41c43e7eb417e7fd4c69786686",
+          "diagnostics": [],
+          "content_markers": [
+            "benign_record"
+          ]
+        },
+        {
+          "observation_id": "obs-002",
+          "trial": 1,
+          "role": "candidate",
+          "http_status": 200,
+          "elapsed_ms": 41,
+          "response_sha256": "da393850ce9a3054e06053d1a4c6060f4ead8540f38d0c52eadc57ca013acb7f",
+          "diagnostics": [],
+          "content_markers": []
+        },
+        {
+          "observation_id": "obs-003",
+          "trial": 2,
+          "role": "baseline",
+          "http_status": 200,
+          "elapsed_ms": 42,
+          "response_sha256": "721aa824dc35eaddf794edde69cdbc8c6cecd7d75472b4061e3acb43b13b58c0",
+          "diagnostics": [],
+          "content_markers": [
+            "benign_record"
+          ]
+        },
+        {
+          "observation_id": "obs-004",
+          "trial": 2,
+          "role": "candidate",
+          "http_status": 500,
+          "elapsed_ms": 42,
+          "response_sha256": "6b11640c0292c608ef92b5b469f40e878195fa428cac79b46474807d0a6aedb4",
+          "diagnostics": [],
+          "content_markers": []
+        }
+      ]
+    }
+  },
+  {
+    "case_id": "pilot-013",
+    "input": {
+      "schema_version": "1.0.0",
+      "technique": "boolean-based blind",
+      "injection_point": {
+        "method": "GET",
+        "input_path": "/vulnerabilities/sqli_blind/",
+        "result_path": "/vulnerabilities/sqli_blind/",
+        "parameter": "id"
+      },
+      "runtime_status": "valid",
+      "baseline_valid": true,
+      "time_threshold_ms": 1500,
+      "observations": [
+        {
+          "observation_id": "obs-001",
+          "trial": 1,
+          "role": "baseline",
+          "http_status": 200,
+          "elapsed_ms": 41,
+          "response_sha256": "585bd0c3493d3b657dbc08e1c388b61b353739e4f8dee7fbffb3bbf197804800",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_exists"
+          ]
+        },
+        {
+          "observation_id": "obs-002",
+          "trial": 1,
+          "role": "true_condition",
+          "http_status": 200,
+          "elapsed_ms": 41,
+          "response_sha256": "8b0460054b343de391afc3059ac1b8f2b3f359f9f2893e20c3dbbf97da663d0c",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_exists"
+          ]
+        },
+        {
+          "observation_id": "obs-003",
+          "trial": 1,
+          "role": "false_condition",
+          "http_status": 200,
+          "elapsed_ms": 41,
+          "response_sha256": "a44ed68266e6ac1325f18f2a5677535e0bde219f05ab610eb357d5a442bf3ce5",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_missing"
+          ]
+        },
+        {
+          "observation_id": "obs-004",
+          "trial": 2,
+          "role": "baseline",
+          "http_status": 200,
+          "elapsed_ms": 42,
+          "response_sha256": "395cb42d54b8f9bdc295c4b31c7633245c4063f0f546d656ccb7c1ab5b50c507",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_exists"
+          ]
+        },
+        {
+          "observation_id": "obs-005",
+          "trial": 2,
+          "role": "true_condition",
+          "http_status": 200,
+          "elapsed_ms": 42,
+          "response_sha256": "bbfc275b69cd9696648c0b3f3cdee2bc56b5369c8989aad7ccb0b2dc8c804741",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_exists"
+          ]
+        },
+        {
+          "observation_id": "obs-006",
+          "trial": 2,
+          "role": "false_condition",
+          "http_status": 200,
+          "elapsed_ms": 42,
+          "response_sha256": "f1b8fac3e611979980f1bba20c594bab64788b2fdfe63abbaa65e621e6b8483a",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_missing"
+          ]
+        },
+        {
+          "observation_id": "obs-007",
+          "trial": 3,
+          "role": "baseline",
+          "http_status": 200,
+          "elapsed_ms": 43,
+          "response_sha256": "d00c910cc68b10156735dc310b7cbf32957f466c7b55e3548a24e9c3600c559d",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_exists"
+          ]
+        },
+        {
+          "observation_id": "obs-008",
+          "trial": 3,
+          "role": "true_condition",
+          "http_status": 200,
+          "elapsed_ms": 43,
+          "response_sha256": "893ea1d74916fe58dd43e53cfe73fc7ff4790c8ae13c3e7000239be74fe8575b",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_exists"
+          ]
+        },
+        {
+          "observation_id": "obs-009",
+          "trial": 3,
+          "role": "false_condition",
+          "http_status": 200,
+          "elapsed_ms": 43,
+          "response_sha256": "6ade071ee529fe5549d9dc03ea6a99abfc1ee8234159472655c6c91130f3380c",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_missing"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "case_id": "pilot-014",
+    "input": {
+      "schema_version": "1.0.0",
+      "technique": "boolean-based blind",
+      "injection_point": {
+        "method": "GET",
+        "input_path": "/vulnerabilities/sqli_blind/",
+        "result_path": "/vulnerabilities/sqli_blind/",
+        "parameter": "id"
+      },
+      "runtime_status": "valid",
+      "baseline_valid": true,
+      "time_threshold_ms": 1500,
+      "observations": [
+        {
+          "observation_id": "obs-001",
+          "trial": 1,
+          "role": "baseline",
+          "http_status": 200,
+          "elapsed_ms": 41,
+          "response_sha256": "7d47cd36819a1672bd5a8c626af85cc656ff6f4497a7f0527cad6bbee5d9c9cc",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_exists"
+          ]
+        },
+        {
+          "observation_id": "obs-002",
+          "trial": 1,
+          "role": "true_condition",
+          "http_status": 200,
+          "elapsed_ms": 41,
+          "response_sha256": "aa50ce1f0b7f75cc69af322082bc8226e87f3bbff6ae24b6fa5e35aaa7120073",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_exists"
+          ]
+        },
+        {
+          "observation_id": "obs-003",
+          "trial": 1,
+          "role": "false_condition",
+          "http_status": 404,
+          "elapsed_ms": 41,
+          "response_sha256": "61583baa238d2f4d4ee6cb04fc3db0671a0ad0f26d24e07ec08010ba4fcff302",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_missing"
+          ]
+        },
+        {
+          "observation_id": "obs-004",
+          "trial": 2,
+          "role": "baseline",
+          "http_status": 200,
+          "elapsed_ms": 42,
+          "response_sha256": "bc488f8d27bdba024fa56ba8cd3b7180d2fed5e89642d2b2396ea722f61bf15a",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_exists"
+          ]
+        },
+        {
+          "observation_id": "obs-005",
+          "trial": 2,
+          "role": "true_condition",
+          "http_status": 200,
+          "elapsed_ms": 42,
+          "response_sha256": "f6a46218cf8d2935ef4541ff4828210b2733a4113e0147a62d66c29847100f7e",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_exists"
+          ]
+        },
+        {
+          "observation_id": "obs-006",
+          "trial": 2,
+          "role": "false_condition",
+          "http_status": 404,
+          "elapsed_ms": 42,
+          "response_sha256": "55d9cbd6e118630dddc214fac209d75308276642488da354bf81d933a900720b",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_missing"
+          ]
+        },
+        {
+          "observation_id": "obs-007",
+          "trial": 3,
+          "role": "baseline",
+          "http_status": 200,
+          "elapsed_ms": 43,
+          "response_sha256": "445a0d65813457d0913d10ae514a2e9c7b6143d9003194e10e2eff9c88967fa0",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_exists"
+          ]
+        },
+        {
+          "observation_id": "obs-008",
+          "trial": 3,
+          "role": "true_condition",
+          "http_status": 200,
+          "elapsed_ms": 43,
+          "response_sha256": "4d22c1caf8a6ae0ad0aa01677150c631ad5c3f7a4ea1b8f1707c9321b3d41fd2",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_exists"
+          ]
+        },
+        {
+          "observation_id": "obs-009",
+          "trial": 3,
+          "role": "false_condition",
+          "http_status": 404,
+          "elapsed_ms": 43,
+          "response_sha256": "fc36bbb2f468cefd3e4404fe990cda98ce3f96263c4f6d0b6682714670aa5143",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_missing"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "case_id": "pilot-015",
+    "input": {
+      "schema_version": "1.0.0",
+      "technique": "boolean-based blind",
+      "injection_point": {
+        "method": "GET",
+        "input_path": "/vulnerabilities/sqli_blind/",
+        "result_path": "/vulnerabilities/sqli_blind/",
+        "parameter": "id"
+      },
+      "runtime_status": "valid",
+      "baseline_valid": true,
+      "time_threshold_ms": 1500,
+      "observations": [
+        {
+          "observation_id": "obs-001",
+          "trial": 1,
+          "role": "baseline",
+          "http_status": 200,
+          "elapsed_ms": 41,
+          "response_sha256": "585bd0c3493d3b657dbc08e1c388b61b353739e4f8dee7fbffb3bbf197804800",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_exists"
+          ]
+        },
+        {
+          "observation_id": "obs-002",
+          "trial": 1,
+          "role": "true_condition",
+          "http_status": 200,
+          "elapsed_ms": 41,
+          "response_sha256": "8b0460054b343de391afc3059ac1b8f2b3f359f9f2893e20c3dbbf97da663d0c",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_exists"
+          ]
+        },
+        {
+          "observation_id": "obs-003",
+          "trial": 1,
+          "role": "false_condition",
+          "http_status": 200,
+          "elapsed_ms": 41,
+          "response_sha256": "a44ed68266e6ac1325f18f2a5677535e0bde219f05ab610eb357d5a442bf3ce5",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_missing"
+          ]
+        },
+        {
+          "observation_id": "obs-004",
+          "trial": 2,
+          "role": "baseline",
+          "http_status": 200,
+          "elapsed_ms": 42,
+          "response_sha256": "bc488f8d27bdba024fa56ba8cd3b7180d2fed5e89642d2b2396ea722f61bf15a",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_exists"
+          ]
+        },
+        {
+          "observation_id": "obs-005",
+          "trial": 2,
+          "role": "true_condition",
+          "http_status": 200,
+          "elapsed_ms": 42,
+          "response_sha256": "f6a46218cf8d2935ef4541ff4828210b2733a4113e0147a62d66c29847100f7e",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_exists"
+          ]
+        },
+        {
+          "observation_id": "obs-006",
+          "trial": 2,
+          "role": "false_condition",
+          "http_status": 404,
+          "elapsed_ms": 42,
+          "response_sha256": "55d9cbd6e118630dddc214fac209d75308276642488da354bf81d933a900720b",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_missing"
+          ]
+        },
+        {
+          "observation_id": "obs-007",
+          "trial": 3,
+          "role": "baseline",
+          "http_status": 200,
+          "elapsed_ms": 43,
+          "response_sha256": "d00c910cc68b10156735dc310b7cbf32957f466c7b55e3548a24e9c3600c559d",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_exists"
+          ]
+        },
+        {
+          "observation_id": "obs-008",
+          "trial": 3,
+          "role": "true_condition",
+          "http_status": 200,
+          "elapsed_ms": 43,
+          "response_sha256": "893ea1d74916fe58dd43e53cfe73fc7ff4790c8ae13c3e7000239be74fe8575b",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_exists"
+          ]
+        },
+        {
+          "observation_id": "obs-009",
+          "trial": 3,
+          "role": "false_condition",
+          "http_status": 200,
+          "elapsed_ms": 43,
+          "response_sha256": "6ade071ee529fe5549d9dc03ea6a99abfc1ee8234159472655c6c91130f3380c",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_missing"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "case_id": "pilot-016",
+    "input": {
+      "schema_version": "1.0.0",
+      "technique": "boolean-based blind",
+      "injection_point": {
+        "method": "GET",
+        "input_path": "/vulnerabilities/sqli_blind/",
+        "result_path": "/vulnerabilities/sqli_blind/",
+        "parameter": "id"
+      },
+      "runtime_status": "valid",
+      "baseline_valid": true,
+      "time_threshold_ms": 1500,
+      "observations": [
+        {
+          "observation_id": "obs-001",
+          "trial": 1,
+          "role": "baseline",
+          "http_status": 200,
+          "elapsed_ms": 41,
+          "response_sha256": "7d47cd36819a1672bd5a8c626af85cc656ff6f4497a7f0527cad6bbee5d9c9cc",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_exists"
+          ]
+        },
+        {
+          "observation_id": "obs-002",
+          "trial": 1,
+          "role": "true_condition",
+          "http_status": 200,
+          "elapsed_ms": 41,
+          "response_sha256": "aa50ce1f0b7f75cc69af322082bc8226e87f3bbff6ae24b6fa5e35aaa7120073",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_exists"
+          ]
+        },
+        {
+          "observation_id": "obs-003",
+          "trial": 1,
+          "role": "false_condition",
+          "http_status": 404,
+          "elapsed_ms": 41,
+          "response_sha256": "61583baa238d2f4d4ee6cb04fc3db0671a0ad0f26d24e07ec08010ba4fcff302",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_missing"
+          ]
+        },
+        {
+          "observation_id": "obs-004",
+          "trial": 2,
+          "role": "baseline",
+          "http_status": 200,
+          "elapsed_ms": 42,
+          "response_sha256": "395cb42d54b8f9bdc295c4b31c7633245c4063f0f546d656ccb7c1ab5b50c507",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_exists"
+          ]
+        },
+        {
+          "observation_id": "obs-005",
+          "trial": 2,
+          "role": "true_condition",
+          "http_status": 200,
+          "elapsed_ms": 42,
+          "response_sha256": "bbfc275b69cd9696648c0b3f3cdee2bc56b5369c8989aad7ccb0b2dc8c804741",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_exists"
+          ]
+        },
+        {
+          "observation_id": "obs-006",
+          "trial": 2,
+          "role": "false_condition",
+          "http_status": 200,
+          "elapsed_ms": 42,
+          "response_sha256": "f1b8fac3e611979980f1bba20c594bab64788b2fdfe63abbaa65e621e6b8483a",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_missing"
+          ]
+        },
+        {
+          "observation_id": "obs-007",
+          "trial": 3,
+          "role": "baseline",
+          "http_status": 200,
+          "elapsed_ms": 43,
+          "response_sha256": "445a0d65813457d0913d10ae514a2e9c7b6143d9003194e10e2eff9c88967fa0",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_exists"
+          ]
+        },
+        {
+          "observation_id": "obs-008",
+          "trial": 3,
+          "role": "true_condition",
+          "http_status": 200,
+          "elapsed_ms": 43,
+          "response_sha256": "4d22c1caf8a6ae0ad0aa01677150c631ad5c3f7a4ea1b8f1707c9321b3d41fd2",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_exists"
+          ]
+        },
+        {
+          "observation_id": "obs-009",
+          "trial": 3,
+          "role": "false_condition",
+          "http_status": 404,
+          "elapsed_ms": 43,
+          "response_sha256": "fc36bbb2f468cefd3e4404fe990cda98ce3f96263c4f6d0b6682714670aa5143",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_missing"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "case_id": "pilot-017",
+    "input": {
+      "schema_version": "1.0.0",
+      "technique": "boolean-based blind",
+      "injection_point": {
+        "method": "GET",
+        "input_path": "/vulnerabilities/sqli_blind/",
+        "result_path": "/vulnerabilities/sqli_blind/",
+        "parameter": "id"
+      },
+      "runtime_status": "valid",
+      "baseline_valid": true,
+      "time_threshold_ms": 1500,
+      "observations": [
+        {
+          "observation_id": "obs-001",
+          "trial": 1,
+          "role": "baseline",
+          "http_status": 200,
+          "elapsed_ms": 41,
+          "response_sha256": "f5a3fc30bd6042064eb709fadf0e845c6fc3580f238800f8d2a090cd471d028f",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_exists"
+          ]
+        },
+        {
+          "observation_id": "obs-002",
+          "trial": 1,
+          "role": "true_condition",
+          "http_status": 404,
+          "elapsed_ms": 41,
+          "response_sha256": "235dad9d98ca6eed294d7f9358cbd8f221f399d15ec7ed944fd3815fab4d8e66",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_missing"
+          ]
+        },
+        {
+          "observation_id": "obs-003",
+          "trial": 1,
+          "role": "false_condition",
+          "http_status": 200,
+          "elapsed_ms": 41,
+          "response_sha256": "6c5e68bd19092dbed4e260aca7b4b6cd5d766eaa62823ccc3f8a2be446acda63",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_exists"
+          ]
+        },
+        {
+          "observation_id": "obs-004",
+          "trial": 2,
+          "role": "baseline",
+          "http_status": 200,
+          "elapsed_ms": 42,
+          "response_sha256": "f8059f28a18457fad67ad93f6427dbebef9f6ecbd66a72beb50531caea46db89",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_exists"
+          ]
+        },
+        {
+          "observation_id": "obs-005",
+          "trial": 2,
+          "role": "true_condition",
+          "http_status": 404,
+          "elapsed_ms": 42,
+          "response_sha256": "8f051b9bfd7360c42140871453b2ec5fdfd638a9af724300c47850ad9db1ef2c",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_missing"
+          ]
+        },
+        {
+          "observation_id": "obs-006",
+          "trial": 2,
+          "role": "false_condition",
+          "http_status": 200,
+          "elapsed_ms": 42,
+          "response_sha256": "82f6bc61a7be3767cf23e0c92cf4baa4f3c8454b69c6e878df2d4be03c137328",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_exists"
+          ]
+        },
+        {
+          "observation_id": "obs-007",
+          "trial": 3,
+          "role": "baseline",
+          "http_status": 200,
+          "elapsed_ms": 43,
+          "response_sha256": "fe7a1af8738fb485bc27bca33abbfa0ce2831ab5a3fad1b3a7a805daaeafb516",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_exists"
+          ]
+        },
+        {
+          "observation_id": "obs-008",
+          "trial": 3,
+          "role": "true_condition",
+          "http_status": 404,
+          "elapsed_ms": 43,
+          "response_sha256": "676ed0fb14773e02af905d909aa04a14838bd82b3d9a27d55c982275666c89e4",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_missing"
+          ]
+        },
+        {
+          "observation_id": "obs-009",
+          "trial": 3,
+          "role": "false_condition",
+          "http_status": 200,
+          "elapsed_ms": 43,
+          "response_sha256": "e9afdd17cca6f8781b40da3c11dfe19a17cd6f78538323368309afc334ff9184",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_exists"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "case_id": "pilot-018",
+    "input": {
+      "schema_version": "1.0.0",
+      "technique": "boolean-based blind",
+      "injection_point": {
+        "method": "GET",
+        "input_path": "/vulnerabilities/sqli_blind/",
+        "result_path": "/vulnerabilities/sqli_blind/",
+        "parameter": "id"
+      },
+      "runtime_status": "valid",
+      "baseline_valid": true,
+      "time_threshold_ms": 1500,
+      "observations": [
+        {
+          "observation_id": "obs-001",
+          "trial": 1,
+          "role": "baseline",
+          "http_status": 200,
+          "elapsed_ms": 41,
+          "response_sha256": "7afe0527c61c2bc8e0e27add3c102a9edbc436f02b28a61362d22cacbaab0fa9",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_exists"
+          ]
+        },
+        {
+          "observation_id": "obs-002",
+          "trial": 1,
+          "role": "true_condition",
+          "http_status": 200,
+          "elapsed_ms": 41,
+          "response_sha256": "95afae3be6468ac52e4da3be35d0054bd34606881a74c149cea31e377a43175b",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_exists"
+          ]
+        },
+        {
+          "observation_id": "obs-003",
+          "trial": 1,
+          "role": "false_condition",
+          "http_status": 200,
+          "elapsed_ms": 41,
+          "response_sha256": "e394381afc39bcf5d9a17878319ac058b117b7eed92697d39a98ffbdc7886a1d",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_exists"
+          ]
+        },
+        {
+          "observation_id": "obs-004",
+          "trial": 2,
+          "role": "baseline",
+          "http_status": 200,
+          "elapsed_ms": 42,
+          "response_sha256": "23fdee0e30a09bbd1a11fba38f7fa7f8006fecf86ec938f8603998753a16844a",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_exists"
+          ]
+        },
+        {
+          "observation_id": "obs-005",
+          "trial": 2,
+          "role": "true_condition",
+          "http_status": 200,
+          "elapsed_ms": 42,
+          "response_sha256": "6af922e7aea5f44c1f82db419589457cb2d773fd99a3773459a2b2538f9fe028",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_exists"
+          ]
+        },
+        {
+          "observation_id": "obs-006",
+          "trial": 2,
+          "role": "false_condition",
+          "http_status": 200,
+          "elapsed_ms": 42,
+          "response_sha256": "bc0860bed6993e498e40f9b307ffaaa328aabf906e9fb5dcd9ef7a7f692173c7",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_exists"
+          ]
+        },
+        {
+          "observation_id": "obs-007",
+          "trial": 3,
+          "role": "baseline",
+          "http_status": 200,
+          "elapsed_ms": 43,
+          "response_sha256": "5f7e05bb48086674e86775e529e4f4ace8052d46723f8bc110464ec883e9c747",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_exists"
+          ]
+        },
+        {
+          "observation_id": "obs-008",
+          "trial": 3,
+          "role": "true_condition",
+          "http_status": 200,
+          "elapsed_ms": 43,
+          "response_sha256": "031460174e15a1be922723f266cf5084c2a7f91a380b3be23d53ff7b74b3c3d3",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_exists"
+          ]
+        },
+        {
+          "observation_id": "obs-009",
+          "trial": 3,
+          "role": "false_condition",
+          "http_status": 200,
+          "elapsed_ms": 43,
+          "response_sha256": "60562eecfb63e850ec4da27f11ea0f86c9d3fe191332fd14001ca0db7d0dc559",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_exists"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "case_id": "pilot-019",
+    "input": {
+      "schema_version": "1.0.0",
+      "technique": "boolean-based blind",
+      "injection_point": {
+        "method": "GET",
+        "input_path": "/vulnerabilities/sqli_blind/",
+        "result_path": "/vulnerabilities/sqli_blind/",
+        "parameter": "id"
+      },
+      "runtime_status": "valid",
+      "baseline_valid": true,
+      "time_threshold_ms": 1500,
+      "observations": [
+        {
+          "observation_id": "obs-001",
+          "trial": 1,
+          "role": "baseline",
+          "http_status": 200,
+          "elapsed_ms": 41,
+          "response_sha256": "6e4b57306eaaf37c7046b47f3ceb3280b24ca126998f2f745f1851699a5a350b",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_exists"
+          ]
+        },
+        {
+          "observation_id": "obs-002",
+          "trial": 1,
+          "role": "true_condition",
+          "http_status": 200,
+          "elapsed_ms": 41,
+          "response_sha256": "b27d2b58b07aae86e321c5af2607ed785f1f1abe4294e1cfe20f5d949f613ab4",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_exists"
+          ]
+        },
+        {
+          "observation_id": "obs-003",
+          "trial": 1,
+          "role": "false_condition",
+          "http_status": 404,
+          "elapsed_ms": 41,
+          "response_sha256": "6728186679080b701a6fd098f809afd4ced30b99f37631926427e9b689e25b22",
+          "diagnostics": [
+            "mysql_unknown_column"
+          ],
+          "content_markers": [
+            "user_id_missing"
+          ]
+        },
+        {
+          "observation_id": "obs-004",
+          "trial": 2,
+          "role": "baseline",
+          "http_status": 200,
+          "elapsed_ms": 42,
+          "response_sha256": "9a20f25e09c34a808612a176dd83069dac49f834bb50758016e7a09095775458",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_exists"
+          ]
+        },
+        {
+          "observation_id": "obs-005",
+          "trial": 2,
+          "role": "true_condition",
+          "http_status": 200,
+          "elapsed_ms": 42,
+          "response_sha256": "df096926c451dbbf52e07e3bff84a717dd0646bd3bb8fbfce740f15145b376f9",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_exists"
+          ]
+        },
+        {
+          "observation_id": "obs-006",
+          "trial": 2,
+          "role": "false_condition",
+          "http_status": 404,
+          "elapsed_ms": 42,
+          "response_sha256": "0525ede7cc3cae071da46370597d2696d269bdfe77ee37347e14c5bed0ec8703",
+          "diagnostics": [
+            "mysql_unknown_column"
+          ],
+          "content_markers": [
+            "user_id_missing"
+          ]
+        },
+        {
+          "observation_id": "obs-007",
+          "trial": 3,
+          "role": "baseline",
+          "http_status": 200,
+          "elapsed_ms": 43,
+          "response_sha256": "1231f46cb010309757d3fa2eda8f91ad07872e0a0062a272d6c05a2d28c2d95e",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_exists"
+          ]
+        },
+        {
+          "observation_id": "obs-008",
+          "trial": 3,
+          "role": "true_condition",
+          "http_status": 200,
+          "elapsed_ms": 43,
+          "response_sha256": "b8217fdbc9dcce8c406462e9634499018b76368d2a05023ed9b3e6bfa2f487d3",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_exists"
+          ]
+        },
+        {
+          "observation_id": "obs-009",
+          "trial": 3,
+          "role": "false_condition",
+          "http_status": 404,
+          "elapsed_ms": 43,
+          "response_sha256": "64e8992c5177129d7f6575bfe0a4997e65a2b9db19c24f3b13adca4a03fb18f4",
+          "diagnostics": [
+            "mysql_unknown_column"
+          ],
+          "content_markers": [
+            "user_id_missing"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "case_id": "pilot-020",
+    "input": {
+      "schema_version": "1.0.0",
+      "technique": "boolean-based blind",
+      "injection_point": {
+        "method": "GET",
+        "input_path": "/vulnerabilities/sqli_blind/",
+        "result_path": "/vulnerabilities/sqli_blind/",
+        "parameter": "id"
+      },
+      "runtime_status": "valid",
+      "baseline_valid": true,
+      "time_threshold_ms": 1500,
+      "observations": [
+        {
+          "observation_id": "obs-001",
+          "trial": 1,
+          "role": "baseline",
+          "http_status": 200,
+          "elapsed_ms": 41,
+          "response_sha256": "359b51a7ebd797bdaba5ab5d542a29a3f8bcbf7062d3fceb9e793abc9a8eea3b",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_exists"
+          ]
+        },
+        {
+          "observation_id": "obs-002",
+          "trial": 1,
+          "role": "true_condition",
+          "http_status": 500,
+          "elapsed_ms": 41,
+          "response_sha256": "9dafa30ee8adba7514f004fe4ba029c04265722491b7336be1c65d1e2a709ac4",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_exists"
+          ]
+        },
+        {
+          "observation_id": "obs-003",
+          "trial": 1,
+          "role": "false_condition",
+          "http_status": 404,
+          "elapsed_ms": 41,
+          "response_sha256": "4b29beeb3e4285fea80d4190ff3015e85190ac47968d5d631223b2218c6207a9",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_missing"
+          ]
+        },
+        {
+          "observation_id": "obs-004",
+          "trial": 2,
+          "role": "baseline",
+          "http_status": 200,
+          "elapsed_ms": 42,
+          "response_sha256": "d7153b07dbf97aa2bba81f9e6de9c37981312cb3de804b6198d1aaf20dc0f66c",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_exists"
+          ]
+        },
+        {
+          "observation_id": "obs-005",
+          "trial": 2,
+          "role": "true_condition",
+          "http_status": 500,
+          "elapsed_ms": 42,
+          "response_sha256": "3f237131a22bde5bf5d6f27fb6cebd9577ed3fef15b407ba4ac776b4cc47a6b0",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_exists"
+          ]
+        },
+        {
+          "observation_id": "obs-006",
+          "trial": 2,
+          "role": "false_condition",
+          "http_status": 404,
+          "elapsed_ms": 42,
+          "response_sha256": "b21baa716f9268b3b0dc10378baae5e4c02d42355936b623d91a142fbc8c2dfe",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_missing"
+          ]
+        },
+        {
+          "observation_id": "obs-007",
+          "trial": 3,
+          "role": "baseline",
+          "http_status": 200,
+          "elapsed_ms": 43,
+          "response_sha256": "97ed6bb683292796864eb640d3a94a3ec58fb9fea7331ad001bbe18cfc083b18",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_exists"
+          ]
+        },
+        {
+          "observation_id": "obs-008",
+          "trial": 3,
+          "role": "true_condition",
+          "http_status": 500,
+          "elapsed_ms": 43,
+          "response_sha256": "b4964e20933d88a024b411d8ecd4ffec399a088d3d8d9067c3bd70dfc2f8f28f",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_exists"
+          ]
+        },
+        {
+          "observation_id": "obs-009",
+          "trial": 3,
+          "role": "false_condition",
+          "http_status": 404,
+          "elapsed_ms": 43,
+          "response_sha256": "dcc5c76b4af3783c2e631d28e3ed3f8c126b4b416167887bea1679f465a41f58",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_missing"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "case_id": "pilot-021",
+    "input": {
+      "schema_version": "1.0.0",
+      "technique": "boolean-based blind",
+      "injection_point": {
+        "method": "GET",
+        "input_path": "/vulnerabilities/sqli_blind/",
+        "result_path": "/vulnerabilities/sqli_blind/",
+        "parameter": "id"
+      },
+      "runtime_status": "valid",
+      "baseline_valid": true,
+      "time_threshold_ms": 1500,
+      "observations": [
+        {
+          "observation_id": "obs-001",
+          "trial": 1,
+          "role": "baseline",
+          "http_status": 200,
+          "elapsed_ms": 41,
+          "response_sha256": "7d47cd36819a1672bd5a8c626af85cc656ff6f4497a7f0527cad6bbee5d9c9cc",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_exists"
+          ]
+        },
+        {
+          "observation_id": "obs-002",
+          "trial": 1,
+          "role": "true_condition",
+          "http_status": 200,
+          "elapsed_ms": 41,
+          "response_sha256": "aa50ce1f0b7f75cc69af322082bc8226e87f3bbff6ae24b6fa5e35aaa7120073",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_exists"
+          ]
+        },
+        {
+          "observation_id": "obs-003",
+          "trial": 1,
+          "role": "false_condition",
+          "http_status": 404,
+          "elapsed_ms": 41,
+          "response_sha256": "61583baa238d2f4d4ee6cb04fc3db0671a0ad0f26d24e07ec08010ba4fcff302",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_missing"
+          ]
+        },
+        {
+          "observation_id": "obs-004",
+          "trial": 2,
+          "role": "baseline",
+          "http_status": 200,
+          "elapsed_ms": 42,
+          "response_sha256": "23fdee0e30a09bbd1a11fba38f7fa7f8006fecf86ec938f8603998753a16844a",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_exists"
+          ]
+        },
+        {
+          "observation_id": "obs-005",
+          "trial": 2,
+          "role": "true_condition",
+          "http_status": 200,
+          "elapsed_ms": 42,
+          "response_sha256": "6af922e7aea5f44c1f82db419589457cb2d773fd99a3773459a2b2538f9fe028",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_exists"
+          ]
+        },
+        {
+          "observation_id": "obs-006",
+          "trial": 2,
+          "role": "false_condition",
+          "http_status": 200,
+          "elapsed_ms": 42,
+          "response_sha256": "bc0860bed6993e498e40f9b307ffaaa328aabf906e9fb5dcd9ef7a7f692173c7",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_exists"
+          ]
+        },
+        {
+          "observation_id": "obs-007",
+          "trial": 3,
+          "role": "baseline",
+          "http_status": 200,
+          "elapsed_ms": 43,
+          "response_sha256": "fe7a1af8738fb485bc27bca33abbfa0ce2831ab5a3fad1b3a7a805daaeafb516",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_exists"
+          ]
+        },
+        {
+          "observation_id": "obs-008",
+          "trial": 3,
+          "role": "true_condition",
+          "http_status": 404,
+          "elapsed_ms": 43,
+          "response_sha256": "676ed0fb14773e02af905d909aa04a14838bd82b3d9a27d55c982275666c89e4",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_missing"
+          ]
+        },
+        {
+          "observation_id": "obs-009",
+          "trial": 3,
+          "role": "false_condition",
+          "http_status": 200,
+          "elapsed_ms": 43,
+          "response_sha256": "e9afdd17cca6f8781b40da3c11dfe19a17cd6f78538323368309afc334ff9184",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_exists"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "case_id": "pilot-022",
+    "input": {
+      "schema_version": "1.0.0",
+      "technique": "boolean-based blind",
+      "injection_point": {
+        "method": "GET",
+        "input_path": "/vulnerabilities/sqli_blind/",
+        "result_path": "/vulnerabilities/sqli_blind/",
+        "parameter": "id"
+      },
+      "runtime_status": "valid",
+      "baseline_valid": true,
+      "time_threshold_ms": 1500,
+      "observations": [
+        {
+          "observation_id": "obs-001",
+          "trial": 1,
+          "role": "baseline",
+          "http_status": 200,
+          "elapsed_ms": 41,
+          "response_sha256": "585bd0c3493d3b657dbc08e1c388b61b353739e4f8dee7fbffb3bbf197804800",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_exists"
+          ]
+        },
+        {
+          "observation_id": "obs-002",
+          "trial": 1,
+          "role": "true_condition",
+          "http_status": 200,
+          "elapsed_ms": 41,
+          "response_sha256": "8b0460054b343de391afc3059ac1b8f2b3f359f9f2893e20c3dbbf97da663d0c",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_exists"
+          ]
+        },
+        {
+          "observation_id": "obs-003",
+          "trial": 1,
+          "role": "false_condition",
+          "http_status": 200,
+          "elapsed_ms": 41,
+          "response_sha256": "a44ed68266e6ac1325f18f2a5677535e0bde219f05ab610eb357d5a442bf3ce5",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_missing"
+          ]
+        },
+        {
+          "observation_id": "obs-004",
+          "trial": 2,
+          "role": "baseline",
+          "http_status": 200,
+          "elapsed_ms": 42,
+          "response_sha256": "d7153b07dbf97aa2bba81f9e6de9c37981312cb3de804b6198d1aaf20dc0f66c",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_exists"
+          ]
+        },
+        {
+          "observation_id": "obs-005",
+          "trial": 2,
+          "role": "true_condition",
+          "http_status": 500,
+          "elapsed_ms": 42,
+          "response_sha256": "3f237131a22bde5bf5d6f27fb6cebd9577ed3fef15b407ba4ac776b4cc47a6b0",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_exists"
+          ]
+        },
+        {
+          "observation_id": "obs-006",
+          "trial": 2,
+          "role": "false_condition",
+          "http_status": 404,
+          "elapsed_ms": 42,
+          "response_sha256": "b21baa716f9268b3b0dc10378baae5e4c02d42355936b623d91a142fbc8c2dfe",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_missing"
+          ]
+        },
+        {
+          "observation_id": "obs-007",
+          "trial": 3,
+          "role": "baseline",
+          "http_status": 200,
+          "elapsed_ms": 43,
+          "response_sha256": "445a0d65813457d0913d10ae514a2e9c7b6143d9003194e10e2eff9c88967fa0",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_exists"
+          ]
+        },
+        {
+          "observation_id": "obs-008",
+          "trial": 3,
+          "role": "true_condition",
+          "http_status": 200,
+          "elapsed_ms": 43,
+          "response_sha256": "4d22c1caf8a6ae0ad0aa01677150c631ad5c3f7a4ea1b8f1707c9321b3d41fd2",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_exists"
+          ]
+        },
+        {
+          "observation_id": "obs-009",
+          "trial": 3,
+          "role": "false_condition",
+          "http_status": 404,
+          "elapsed_ms": 43,
+          "response_sha256": "fc36bbb2f468cefd3e4404fe990cda98ce3f96263c4f6d0b6682714670aa5143",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_missing"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "case_id": "pilot-023",
+    "input": {
+      "schema_version": "1.0.0",
+      "technique": "boolean-based blind",
+      "injection_point": {
+        "method": "GET",
+        "input_path": "/vulnerabilities/sqli_blind/",
+        "result_path": "/vulnerabilities/sqli_blind/",
+        "parameter": "id"
+      },
+      "runtime_status": "valid",
+      "baseline_valid": true,
+      "time_threshold_ms": 1500,
+      "observations": [
+        {
+          "observation_id": "obs-001",
+          "trial": 1,
+          "role": "baseline",
+          "http_status": 200,
+          "elapsed_ms": 41,
+          "response_sha256": "7d47cd36819a1672bd5a8c626af85cc656ff6f4497a7f0527cad6bbee5d9c9cc",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_exists"
+          ]
+        },
+        {
+          "observation_id": "obs-002",
+          "trial": 1,
+          "role": "true_condition",
+          "http_status": 200,
+          "elapsed_ms": 41,
+          "response_sha256": "aa50ce1f0b7f75cc69af322082bc8226e87f3bbff6ae24b6fa5e35aaa7120073",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_exists"
+          ]
+        },
+        {
+          "observation_id": "obs-003",
+          "trial": 1,
+          "role": "false_condition",
+          "http_status": 404,
+          "elapsed_ms": 41,
+          "response_sha256": "61583baa238d2f4d4ee6cb04fc3db0671a0ad0f26d24e07ec08010ba4fcff302",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_missing"
+          ]
+        },
+        {
+          "observation_id": "obs-004",
+          "trial": 3,
+          "role": "baseline",
+          "http_status": 200,
+          "elapsed_ms": 43,
+          "response_sha256": "d00c910cc68b10156735dc310b7cbf32957f466c7b55e3548a24e9c3600c559d",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_exists"
+          ]
+        },
+        {
+          "observation_id": "obs-005",
+          "trial": 3,
+          "role": "true_condition",
+          "http_status": 200,
+          "elapsed_ms": 43,
+          "response_sha256": "893ea1d74916fe58dd43e53cfe73fc7ff4790c8ae13c3e7000239be74fe8575b",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_exists"
+          ]
+        },
+        {
+          "observation_id": "obs-006",
+          "trial": 3,
+          "role": "false_condition",
+          "http_status": 200,
+          "elapsed_ms": 43,
+          "response_sha256": "6ade071ee529fe5549d9dc03ea6a99abfc1ee8234159472655c6c91130f3380c",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_missing"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "case_id": "pilot-024",
+    "input": {
+      "schema_version": "1.0.0",
+      "technique": "boolean-based blind",
+      "injection_point": {
+        "method": "GET",
+        "input_path": "/vulnerabilities/sqli_blind/",
+        "result_path": "/vulnerabilities/sqli_blind/",
+        "parameter": "id"
+      },
+      "runtime_status": "valid",
+      "baseline_valid": true,
+      "time_threshold_ms": 1500,
+      "observations": [
+        {
+          "observation_id": "obs-001",
+          "trial": 1,
+          "role": "baseline",
+          "http_status": 200,
+          "elapsed_ms": 41,
+          "response_sha256": "7afe0527c61c2bc8e0e27add3c102a9edbc436f02b28a61362d22cacbaab0fa9",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_exists"
+          ]
+        },
+        {
+          "observation_id": "obs-002",
+          "trial": 1,
+          "role": "true_condition",
+          "http_status": 200,
+          "elapsed_ms": 41,
+          "response_sha256": "95afae3be6468ac52e4da3be35d0054bd34606881a74c149cea31e377a43175b",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_exists"
+          ]
+        },
+        {
+          "observation_id": "obs-003",
+          "trial": 1,
+          "role": "false_condition",
+          "http_status": 200,
+          "elapsed_ms": 41,
+          "response_sha256": "e394381afc39bcf5d9a17878319ac058b117b7eed92697d39a98ffbdc7886a1d",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_exists"
+          ]
+        },
+        {
+          "observation_id": "obs-004",
+          "trial": 2,
+          "role": "baseline",
+          "http_status": 200,
+          "elapsed_ms": 42,
+          "response_sha256": "f8059f28a18457fad67ad93f6427dbebef9f6ecbd66a72beb50531caea46db89",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_exists"
+          ]
+        },
+        {
+          "observation_id": "obs-005",
+          "trial": 2,
+          "role": "true_condition",
+          "http_status": 404,
+          "elapsed_ms": 42,
+          "response_sha256": "8f051b9bfd7360c42140871453b2ec5fdfd638a9af724300c47850ad9db1ef2c",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_missing"
+          ]
+        },
+        {
+          "observation_id": "obs-006",
+          "trial": 2,
+          "role": "false_condition",
+          "http_status": 200,
+          "elapsed_ms": 42,
+          "response_sha256": "82f6bc61a7be3767cf23e0c92cf4baa4f3c8454b69c6e878df2d4be03c137328",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_exists"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "case_id": "pilot-025",
+    "input": {
+      "schema_version": "1.0.0",
+      "technique": "time-based blind",
+      "injection_point": {
+        "method": "GET",
+        "input_path": "/vulnerabilities/sqli_blind/",
+        "result_path": "/vulnerabilities/sqli_blind/",
+        "parameter": "id"
+      },
+      "runtime_status": "valid",
+      "baseline_valid": true,
+      "time_threshold_ms": 1500,
+      "observations": [
+        {
+          "observation_id": "obs-001",
+          "trial": 1,
+          "role": "baseline",
+          "http_status": 200,
+          "elapsed_ms": 41,
+          "response_sha256": "794bc15e1e9718d236e24363747c8900d70cf74e3438f32a91ac5f0b1058cc36",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_exists"
+          ]
+        },
+        {
+          "observation_id": "obs-002",
+          "trial": 1,
+          "role": "candidate",
+          "http_status": 200,
+          "elapsed_ms": 1605.0,
+          "response_sha256": "7444484c1b3f54ef67a14cff81e7c0755e3104ad31a08094bc463d3acacca68c",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_exists"
+          ]
+        },
+        {
+          "observation_id": "obs-003",
+          "trial": 1,
+          "role": "no_delay_control",
+          "http_status": 200,
+          "elapsed_ms": 105,
+          "response_sha256": "1698c376e2cd0c7014245c2b72378ee8f092030d910dec62c6fd8521cdce39c2",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_exists"
+          ]
+        },
+        {
+          "observation_id": "obs-004",
+          "trial": 2,
+          "role": "baseline",
+          "http_status": 200,
+          "elapsed_ms": 42,
+          "response_sha256": "59e2032dcb7c8ce4159b82872cc71502321f3a34b7c85220389238057ec3b7e1",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_exists"
+          ]
+        },
+        {
+          "observation_id": "obs-005",
+          "trial": 2,
+          "role": "candidate",
+          "http_status": 200,
+          "elapsed_ms": 1628.0,
+          "response_sha256": "9da8fbadc4cfbdac1be9deb49484038529e8c7c9a6bcce6c3aa593ead80365b3",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_exists"
+          ]
+        },
+        {
+          "observation_id": "obs-006",
+          "trial": 2,
+          "role": "no_delay_control",
+          "http_status": 200,
+          "elapsed_ms": 128,
+          "response_sha256": "88b066e2c70ed77f997e76a7aad43072b5e15296059789a5271a9c74d20dfaaa",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_exists"
+          ]
+        },
+        {
+          "observation_id": "obs-007",
+          "trial": 3,
+          "role": "baseline",
+          "http_status": 200,
+          "elapsed_ms": 43,
+          "response_sha256": "fd436fa365228e09cfabd6afdd268f7ea6237c848d575efaff4e39d4dc4499b5",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_exists"
+          ]
+        },
+        {
+          "observation_id": "obs-008",
+          "trial": 3,
+          "role": "candidate",
+          "http_status": 200,
+          "elapsed_ms": 1651.0,
+          "response_sha256": "0b9bb63d693c9ecb5a517e57fc4295bc86e7077a95431b7016586e73ee96c08f",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_exists"
+          ]
+        },
+        {
+          "observation_id": "obs-009",
+          "trial": 3,
+          "role": "no_delay_control",
+          "http_status": 200,
+          "elapsed_ms": 151,
+          "response_sha256": "047478fd7f3bd356a56addfc64747114097dc70bdac2fcafe1a18ba2b8ca1577",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_exists"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "case_id": "pilot-026",
+    "input": {
+      "schema_version": "1.0.0",
+      "technique": "time-based blind",
+      "injection_point": {
+        "method": "GET",
+        "input_path": "/vulnerabilities/sqli_blind/",
+        "result_path": "/vulnerabilities/sqli_blind/",
+        "parameter": "id"
+      },
+      "runtime_status": "valid",
+      "baseline_valid": true,
+      "time_threshold_ms": 1500,
+      "observations": [
+        {
+          "observation_id": "obs-001",
+          "trial": 1,
+          "role": "baseline",
+          "http_status": 200,
+          "elapsed_ms": 41,
+          "response_sha256": "558d914832aaeb09606d856498ebb36448c2110950b1d455e0b093e60e4ca2c3",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_exists"
+          ]
+        },
+        {
+          "observation_id": "obs-002",
+          "trial": 1,
+          "role": "candidate",
+          "http_status": 200,
+          "elapsed_ms": 1905.0,
+          "response_sha256": "80b238e8743fa5d66a14dccfda3c1b3aff112f7f149e1590f53519e0cfa3cc27",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_exists"
+          ]
+        },
+        {
+          "observation_id": "obs-003",
+          "trial": 1,
+          "role": "no_delay_control",
+          "http_status": 200,
+          "elapsed_ms": 105,
+          "response_sha256": "b9368351ab01d57bfd70f7b54ba2598e7defafe4e196f5c8bfb772fa8f40d5ec",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_exists"
+          ]
+        },
+        {
+          "observation_id": "obs-004",
+          "trial": 2,
+          "role": "baseline",
+          "http_status": 200,
+          "elapsed_ms": 42,
+          "response_sha256": "c7a978dbc86ae50f333467d149eb62c527640750aa338be0bfec874694c555e5",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_exists"
+          ]
+        },
+        {
+          "observation_id": "obs-005",
+          "trial": 2,
+          "role": "candidate",
+          "http_status": 200,
+          "elapsed_ms": 1928.0,
+          "response_sha256": "ddb5d4fc547e7d16c82aad156378f46fe1cf8aa139ed7d0e9f6c147a79b88e10",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_exists"
+          ]
+        },
+        {
+          "observation_id": "obs-006",
+          "trial": 2,
+          "role": "no_delay_control",
+          "http_status": 200,
+          "elapsed_ms": 128,
+          "response_sha256": "b836138d1b9e48585bdf0964425bb3c0137b728f366d647c417c857b2023dc99",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_exists"
+          ]
+        },
+        {
+          "observation_id": "obs-007",
+          "trial": 3,
+          "role": "baseline",
+          "http_status": 200,
+          "elapsed_ms": 43,
+          "response_sha256": "93257d4dcfe83f4b9e9597f0c62b2681ad287dd18022c7572600fce06fc6fd60",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_exists"
+          ]
+        },
+        {
+          "observation_id": "obs-008",
+          "trial": 3,
+          "role": "candidate",
+          "http_status": 200,
+          "elapsed_ms": 1951.0,
+          "response_sha256": "b1f1db3039b82cff91e2b97a84fec0728a8e75350e6c28cb695829a094bc5866",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_exists"
+          ]
+        },
+        {
+          "observation_id": "obs-009",
+          "trial": 3,
+          "role": "no_delay_control",
+          "http_status": 200,
+          "elapsed_ms": 151,
+          "response_sha256": "11944eb1872d1ccb83aee670e2262411fd8cca0094f95ae5754ad821bcfb5995",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_exists"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "case_id": "pilot-027",
+    "input": {
+      "schema_version": "1.0.0",
+      "technique": "time-based blind",
+      "injection_point": {
+        "method": "GET",
+        "input_path": "/vulnerabilities/sqli_blind/",
+        "result_path": "/vulnerabilities/sqli_blind/",
+        "parameter": "id"
+      },
+      "runtime_status": "valid",
+      "baseline_valid": true,
+      "time_threshold_ms": 1500,
+      "observations": [
+        {
+          "observation_id": "obs-001",
+          "trial": 1,
+          "role": "baseline",
+          "http_status": 200,
+          "elapsed_ms": 41,
+          "response_sha256": "bdc202c7c32bb1c5665bb7b64373a4ce34f13383ee9e5d83a6e3ec8081ef5cd9",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_exists"
+          ]
+        },
+        {
+          "observation_id": "obs-002",
+          "trial": 1,
+          "role": "candidate",
+          "http_status": 404,
+          "elapsed_ms": 1705.0,
+          "response_sha256": "aecc37e07b9faf222b0d317e8f1091f89a180bb07ac94690ccd221312a07513b",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_missing"
+          ]
+        },
+        {
+          "observation_id": "obs-003",
+          "trial": 1,
+          "role": "no_delay_control",
+          "http_status": 404,
+          "elapsed_ms": 105,
+          "response_sha256": "969a6475150e5e3ea2a506e441903e6c7a4bca3f51c3a6ca56789520212dda45",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_missing"
+          ]
+        },
+        {
+          "observation_id": "obs-004",
+          "trial": 2,
+          "role": "baseline",
+          "http_status": 200,
+          "elapsed_ms": 42,
+          "response_sha256": "ed3b974c06eef1d429e9b43986691f083f0e0d19122b395e700773362557686c",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_exists"
+          ]
+        },
+        {
+          "observation_id": "obs-005",
+          "trial": 2,
+          "role": "candidate",
+          "http_status": 404,
+          "elapsed_ms": 1728.0,
+          "response_sha256": "4690ab4c21fe6d37ebeaeee48244ed715ceddd22e1c24ad844625e75942e9f31",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_missing"
+          ]
+        },
+        {
+          "observation_id": "obs-006",
+          "trial": 2,
+          "role": "no_delay_control",
+          "http_status": 404,
+          "elapsed_ms": 128,
+          "response_sha256": "b38e9cc0038a57e7ef907e750d58d155b89f4cbc8a104ac69e5657ec8ffc69ce",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_missing"
+          ]
+        },
+        {
+          "observation_id": "obs-007",
+          "trial": 3,
+          "role": "baseline",
+          "http_status": 200,
+          "elapsed_ms": 43,
+          "response_sha256": "893af91550f895c6df5f5ef580fbb44deae9a0057675dfdc478bdce334f03b57",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_exists"
+          ]
+        },
+        {
+          "observation_id": "obs-008",
+          "trial": 3,
+          "role": "candidate",
+          "http_status": 404,
+          "elapsed_ms": 1751.0,
+          "response_sha256": "ed97275236119eaf7c6d6ecfd53956b3094ca94fc9deb7c1c1fa90c5ee8867f2",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_missing"
+          ]
+        },
+        {
+          "observation_id": "obs-009",
+          "trial": 3,
+          "role": "no_delay_control",
+          "http_status": 404,
+          "elapsed_ms": 151,
+          "response_sha256": "b3bbd5002d07cea45e6f9339f94773197337be53113d19749be46460914c2c33",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_missing"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "case_id": "pilot-028",
+    "input": {
+      "schema_version": "1.0.0",
+      "technique": "time-based blind",
+      "injection_point": {
+        "method": "GET",
+        "input_path": "/vulnerabilities/sqli_blind/",
+        "result_path": "/vulnerabilities/sqli_blind/",
+        "parameter": "id"
+      },
+      "runtime_status": "valid",
+      "baseline_valid": true,
+      "time_threshold_ms": 1500,
+      "observations": [
+        {
+          "observation_id": "obs-001",
+          "trial": 1,
+          "role": "baseline",
+          "http_status": 200,
+          "elapsed_ms": 41,
+          "response_sha256": "794bc15e1e9718d236e24363747c8900d70cf74e3438f32a91ac5f0b1058cc36",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_exists"
+          ]
+        },
+        {
+          "observation_id": "obs-002",
+          "trial": 1,
+          "role": "candidate",
+          "http_status": 200,
+          "elapsed_ms": 1605.0,
+          "response_sha256": "7444484c1b3f54ef67a14cff81e7c0755e3104ad31a08094bc463d3acacca68c",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_exists"
+          ]
+        },
+        {
+          "observation_id": "obs-003",
+          "trial": 1,
+          "role": "no_delay_control",
+          "http_status": 200,
+          "elapsed_ms": 105,
+          "response_sha256": "1698c376e2cd0c7014245c2b72378ee8f092030d910dec62c6fd8521cdce39c2",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_exists"
+          ]
+        },
+        {
+          "observation_id": "obs-004",
+          "trial": 2,
+          "role": "baseline",
+          "http_status": 200,
+          "elapsed_ms": 42,
+          "response_sha256": "ad1cc9c0d76784d5699d891d6e79fb5bd961f2b46c839a66dd799844f18ce076",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_exists"
+          ]
+        },
+        {
+          "observation_id": "obs-005",
+          "trial": 2,
+          "role": "candidate",
+          "http_status": 200,
+          "elapsed_ms": 2828.0,
+          "response_sha256": "da6cf8272b27a13264ba651c0c7246b6c08b7f1ef1cd35d7b792ed6802e22543",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_exists"
+          ]
+        },
+        {
+          "observation_id": "obs-006",
+          "trial": 2,
+          "role": "no_delay_control",
+          "http_status": 200,
+          "elapsed_ms": 128,
+          "response_sha256": "c610c2ed7708c2fd6398ff36e21659417f8b6fddf69ed71d246f25756d3ec310",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_exists"
+          ]
+        },
+        {
+          "observation_id": "obs-007",
+          "trial": 3,
+          "role": "baseline",
+          "http_status": 200,
+          "elapsed_ms": 43,
+          "response_sha256": "93257d4dcfe83f4b9e9597f0c62b2681ad287dd18022c7572600fce06fc6fd60",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_exists"
+          ]
+        },
+        {
+          "observation_id": "obs-008",
+          "trial": 3,
+          "role": "candidate",
+          "http_status": 200,
+          "elapsed_ms": 1951.0,
+          "response_sha256": "b1f1db3039b82cff91e2b97a84fec0728a8e75350e6c28cb695829a094bc5866",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_exists"
+          ]
+        },
+        {
+          "observation_id": "obs-009",
+          "trial": 3,
+          "role": "no_delay_control",
+          "http_status": 200,
+          "elapsed_ms": 151,
+          "response_sha256": "11944eb1872d1ccb83aee670e2262411fd8cca0094f95ae5754ad821bcfb5995",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_exists"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "case_id": "pilot-029",
+    "input": {
+      "schema_version": "1.0.0",
+      "technique": "time-based blind",
+      "injection_point": {
+        "method": "GET",
+        "input_path": "/vulnerabilities/sqli_blind/",
+        "result_path": "/vulnerabilities/sqli_blind/",
+        "parameter": "id"
+      },
+      "runtime_status": "valid",
+      "baseline_valid": true,
+      "time_threshold_ms": 1500,
+      "observations": [
+        {
+          "observation_id": "obs-001",
+          "trial": 1,
+          "role": "baseline",
+          "http_status": 200,
+          "elapsed_ms": 41,
+          "response_sha256": "7897de936b528b804b255a6458aba12ec13f7303a49f533885d266e75bc81087",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_exists"
+          ]
+        },
+        {
+          "observation_id": "obs-002",
+          "trial": 1,
+          "role": "candidate",
+          "http_status": 200,
+          "elapsed_ms": 1604.8,
+          "response_sha256": "15ef19d6d967471d43526f2210c5f1efeb2df797c608190bf03abb2145960b58",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_exists"
+          ]
+        },
+        {
+          "observation_id": "obs-003",
+          "trial": 1,
+          "role": "no_delay_control",
+          "http_status": 200,
+          "elapsed_ms": 105,
+          "response_sha256": "70ada09822725675bcf40696ee63cc2fd4badcc2ee83eea91a6d584ab67f9030",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_exists"
+          ]
+        },
+        {
+          "observation_id": "obs-004",
+          "trial": 2,
+          "role": "baseline",
+          "http_status": 200,
+          "elapsed_ms": 42,
+          "response_sha256": "c6c84c7f3b414eb8a6f093607c314695ccd7dc28f903b99e696f9d4be24b773e",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_exists"
+          ]
+        },
+        {
+          "observation_id": "obs-005",
+          "trial": 2,
+          "role": "candidate",
+          "http_status": 200,
+          "elapsed_ms": 1627.8,
+          "response_sha256": "31c860ce6f22a01f6c2801b1a48cf8c4580887f1dcecfb0570b35cb8095257ae",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_exists"
+          ]
+        },
+        {
+          "observation_id": "obs-006",
+          "trial": 2,
+          "role": "no_delay_control",
+          "http_status": 200,
+          "elapsed_ms": 128,
+          "response_sha256": "6c3676d839c43e9484e0df3dd088c11cd62fb01898a1deaecb5e3eb7697f4855",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_exists"
+          ]
+        },
+        {
+          "observation_id": "obs-007",
+          "trial": 3,
+          "role": "baseline",
+          "http_status": 200,
+          "elapsed_ms": 43,
+          "response_sha256": "61d9bcbf26e3135a5919a83ce47623464cdeb040663aaa35b3a5dbb6d873c4db",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_exists"
+          ]
+        },
+        {
+          "observation_id": "obs-008",
+          "trial": 3,
+          "role": "candidate",
+          "http_status": 200,
+          "elapsed_ms": 1650.8,
+          "response_sha256": "bb39d30abf3a76103703fd229f26848843cb81d49114eb88df271e3f91b3aa9d",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_exists"
+          ]
+        },
+        {
+          "observation_id": "obs-009",
+          "trial": 3,
+          "role": "no_delay_control",
+          "http_status": 200,
+          "elapsed_ms": 151,
+          "response_sha256": "a709a84e9a4bcdf758a0b73682655533a440248e4a8256f9ab3b015b590b3435",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_exists"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "case_id": "pilot-030",
+    "input": {
+      "schema_version": "1.0.0",
+      "technique": "time-based blind",
+      "injection_point": {
+        "method": "GET",
+        "input_path": "/vulnerabilities/sqli_blind/",
+        "result_path": "/vulnerabilities/sqli_blind/",
+        "parameter": "id"
+      },
+      "runtime_status": "valid",
+      "baseline_valid": true,
+      "time_threshold_ms": 1500,
+      "observations": [
+        {
+          "observation_id": "obs-001",
+          "trial": 1,
+          "role": "baseline",
+          "http_status": 200,
+          "elapsed_ms": 41,
+          "response_sha256": "6563247d82c1b569b5d29b2207d467b74a01d3e4703978ab080adb18339b0893",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_exists"
+          ]
+        },
+        {
+          "observation_id": "obs-002",
+          "trial": 1,
+          "role": "candidate",
+          "http_status": 200,
+          "elapsed_ms": 2521.0,
+          "response_sha256": "d29620aeed456efb68b77be53acd637d1c4bbb72379de9d9356b1f0f8a5d8d0a",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_exists"
+          ]
+        },
+        {
+          "observation_id": "obs-003",
+          "trial": 1,
+          "role": "no_delay_control",
+          "http_status": 200,
+          "elapsed_ms": 2401,
+          "response_sha256": "1066fe7cfdaefb5df449c56bf72564e255a8b677ed15221c1dced9c53685adeb",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_exists"
+          ]
+        },
+        {
+          "observation_id": "obs-004",
+          "trial": 2,
+          "role": "baseline",
+          "http_status": 200,
+          "elapsed_ms": 42,
+          "response_sha256": "294cffe9810e379c18731fa48fc6e8f0772134013d8756e0317029277b9b5553",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_exists"
+          ]
+        },
+        {
+          "observation_id": "obs-005",
+          "trial": 2,
+          "role": "candidate",
+          "http_status": 200,
+          "elapsed_ms": 2522.0,
+          "response_sha256": "c45c898725c4c8c0c5409cee43008850cc1f521419f4fb2e21de4d0076746c28",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_exists"
+          ]
+        },
+        {
+          "observation_id": "obs-006",
+          "trial": 2,
+          "role": "no_delay_control",
+          "http_status": 200,
+          "elapsed_ms": 2402,
+          "response_sha256": "86545289c30e58bed3e175cf9459d5ab65950e31e9dddd2a74d578d232214243",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_exists"
+          ]
+        },
+        {
+          "observation_id": "obs-007",
+          "trial": 3,
+          "role": "baseline",
+          "http_status": 200,
+          "elapsed_ms": 43,
+          "response_sha256": "9cae9a20869e0954ee62d94ed5cfacdbcfd31ef634ae357d8e734a2f507bce87",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_exists"
+          ]
+        },
+        {
+          "observation_id": "obs-008",
+          "trial": 3,
+          "role": "candidate",
+          "http_status": 200,
+          "elapsed_ms": 2523.0,
+          "response_sha256": "0e75bbd53c283f4e025f8400966558937a0fbac44f8c4cbb011571db8ec1957c",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_exists"
+          ]
+        },
+        {
+          "observation_id": "obs-009",
+          "trial": 3,
+          "role": "no_delay_control",
+          "http_status": 200,
+          "elapsed_ms": 2403,
+          "response_sha256": "1f3cf2564f9c5692dc713f9278fee75aba1fe8c4a789a19debb3a15d0e5edfb5",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_exists"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "case_id": "pilot-031",
+    "input": {
+      "schema_version": "1.0.0",
+      "technique": "time-based blind",
+      "injection_point": {
+        "method": "GET",
+        "input_path": "/vulnerabilities/sqli_blind/",
+        "result_path": "/vulnerabilities/sqli_blind/",
+        "parameter": "id"
+      },
+      "runtime_status": "valid",
+      "baseline_valid": true,
+      "time_threshold_ms": 1500,
+      "observations": [
+        {
+          "observation_id": "obs-001",
+          "trial": 1,
+          "role": "baseline",
+          "http_status": 200,
+          "elapsed_ms": 41,
+          "response_sha256": "f87dff352a4116dc4463f5e1ad50cccf6809b70e24963149d40cc3d99d2fdae1",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_exists"
+          ]
+        },
+        {
+          "observation_id": "obs-002",
+          "trial": 1,
+          "role": "candidate",
+          "http_status": 200,
+          "elapsed_ms": 2005.0,
+          "response_sha256": "4477cd301af78c149e3fc4c0849b7674be5c06d458fdaa06a511c111c4ff9db8",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_exists"
+          ]
+        },
+        {
+          "observation_id": "obs-003",
+          "trial": 1,
+          "role": "no_delay_control",
+          "http_status": 404,
+          "elapsed_ms": 105,
+          "response_sha256": "6cf9c6deba28b749f9308417c395d8f69f0aef1dd92415bd138a35c7cb49abf4",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_missing"
+          ]
+        },
+        {
+          "observation_id": "obs-004",
+          "trial": 2,
+          "role": "baseline",
+          "http_status": 200,
+          "elapsed_ms": 42,
+          "response_sha256": "5eea9a32ab6fb7fbf2a3359381dc4345618e5c80dedd7182b83a91af49ea5e3c",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_exists"
+          ]
+        },
+        {
+          "observation_id": "obs-005",
+          "trial": 2,
+          "role": "candidate",
+          "http_status": 200,
+          "elapsed_ms": 2028.0,
+          "response_sha256": "604ffcd3406371d0dbdd0301dba4f555c8d9adba33ed9cca63196bb8db84918f",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_exists"
+          ]
+        },
+        {
+          "observation_id": "obs-006",
+          "trial": 2,
+          "role": "no_delay_control",
+          "http_status": 404,
+          "elapsed_ms": 128,
+          "response_sha256": "1f99f08f24b33fe4fedb815ae689496c4b0796facc286c8c312ca9115a73a821",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_missing"
+          ]
+        },
+        {
+          "observation_id": "obs-007",
+          "trial": 3,
+          "role": "baseline",
+          "http_status": 200,
+          "elapsed_ms": 43,
+          "response_sha256": "e8999db983332dea974e6658599e9608c4894479394f292114c9ceeeb91f67f2",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_exists"
+          ]
+        },
+        {
+          "observation_id": "obs-008",
+          "trial": 3,
+          "role": "candidate",
+          "http_status": 200,
+          "elapsed_ms": 2051.0,
+          "response_sha256": "83c2c96fe690b1ed10b399ef3c5a7bc59b467c5510e7999afa33533704be3bbc",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_exists"
+          ]
+        },
+        {
+          "observation_id": "obs-009",
+          "trial": 3,
+          "role": "no_delay_control",
+          "http_status": 404,
+          "elapsed_ms": 151,
+          "response_sha256": "020af6db85d2aa96de9cbfe6708fda5920a00db8ad8bc0b16148a1b503ca6d65",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_missing"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "case_id": "pilot-032",
+    "input": {
+      "schema_version": "1.0.0",
+      "technique": "time-based blind",
+      "injection_point": {
+        "method": "GET",
+        "input_path": "/vulnerabilities/sqli_blind/",
+        "result_path": "/vulnerabilities/sqli_blind/",
+        "parameter": "id"
+      },
+      "runtime_status": "valid",
+      "baseline_valid": true,
+      "time_threshold_ms": 1500,
+      "observations": [
+        {
+          "observation_id": "obs-001",
+          "trial": 1,
+          "role": "baseline",
+          "http_status": 200,
+          "elapsed_ms": 41,
+          "response_sha256": "6e4b57306eaaf37c7046b47f3ceb3280b24ca126998f2f745f1851699a5a350b",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_exists"
+          ]
+        },
+        {
+          "observation_id": "obs-002",
+          "trial": 1,
+          "role": "candidate",
+          "http_status": 200,
+          "elapsed_ms": 1905.0,
+          "response_sha256": "dd99637ba2f118302486013e688585a8a733b29c704d052bb17f7fb5f4db2a9f",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_exists"
+          ]
+        },
+        {
+          "observation_id": "obs-003",
+          "trial": 1,
+          "role": "no_delay_control",
+          "http_status": 200,
+          "elapsed_ms": 105,
+          "response_sha256": "125d5dc4a56c1461d580467018767482e3880a65cd9b772165e8ffbea0ee6cb4",
+          "diagnostics": [
+            "mysql_syntax_error"
+          ],
+          "content_markers": [
+            "user_id_exists"
+          ]
+        },
+        {
+          "observation_id": "obs-004",
+          "trial": 2,
+          "role": "baseline",
+          "http_status": 200,
+          "elapsed_ms": 42,
+          "response_sha256": "a51f0ee283f72ade6c5886647d0992fb3f4753ff0f20978fe4d5f5c68f73bb43",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_exists"
+          ]
+        },
+        {
+          "observation_id": "obs-005",
+          "trial": 2,
+          "role": "candidate",
+          "http_status": 200,
+          "elapsed_ms": 108.0,
+          "response_sha256": "e3e96194b71cca828ae62fe825b7f0472612e9701d33d3e4a1b8f88675584906",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_exists"
+          ]
+        },
+        {
+          "observation_id": "obs-006",
+          "trial": 2,
+          "role": "no_delay_control",
+          "http_status": 200,
+          "elapsed_ms": 128,
+          "response_sha256": "93a12c89e52318598e66c3f41f711465a9c07e614aba67b998deb64e1d65597b",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_exists"
+          ]
+        },
+        {
+          "observation_id": "obs-007",
+          "trial": 3,
+          "role": "baseline",
+          "http_status": 200,
+          "elapsed_ms": 43,
+          "response_sha256": "1231f46cb010309757d3fa2eda8f91ad07872e0a0062a272d6c05a2d28c2d95e",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_exists"
+          ]
+        },
+        {
+          "observation_id": "obs-008",
+          "trial": 3,
+          "role": "candidate",
+          "http_status": 200,
+          "elapsed_ms": 1951.0,
+          "response_sha256": "d0dfdc0f2dc8ac2385288b57e4d57ef334870ab769d7a9ee4b71ea1330a64388",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_exists"
+          ]
+        },
+        {
+          "observation_id": "obs-009",
+          "trial": 3,
+          "role": "no_delay_control",
+          "http_status": 200,
+          "elapsed_ms": 151,
+          "response_sha256": "bd8ba7fb7b9f754f5b95360de293cd2de2f1e74747d3397fa212e89e84cc5f12",
+          "diagnostics": [
+            "mysql_syntax_error"
+          ],
+          "content_markers": [
+            "user_id_exists"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "case_id": "pilot-033",
+    "input": {
+      "schema_version": "1.0.0",
+      "technique": "time-based blind",
+      "injection_point": {
+        "method": "GET",
+        "input_path": "/vulnerabilities/sqli_blind/",
+        "result_path": "/vulnerabilities/sqli_blind/",
+        "parameter": "id"
+      },
+      "runtime_status": "valid",
+      "baseline_valid": true,
+      "time_threshold_ms": 1500,
+      "observations": [
+        {
+          "observation_id": "obs-001",
+          "trial": 1,
+          "role": "baseline",
+          "http_status": 200,
+          "elapsed_ms": 41,
+          "response_sha256": "558d914832aaeb09606d856498ebb36448c2110950b1d455e0b093e60e4ca2c3",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_exists"
+          ]
+        },
+        {
+          "observation_id": "obs-002",
+          "trial": 1,
+          "role": "candidate",
+          "http_status": 200,
+          "elapsed_ms": 1905.0,
+          "response_sha256": "80b238e8743fa5d66a14dccfda3c1b3aff112f7f149e1590f53519e0cfa3cc27",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_exists"
+          ]
+        },
+        {
+          "observation_id": "obs-003",
+          "trial": 1,
+          "role": "no_delay_control",
+          "http_status": 200,
+          "elapsed_ms": 105,
+          "response_sha256": "b9368351ab01d57bfd70f7b54ba2598e7defafe4e196f5c8bfb772fa8f40d5ec",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_exists"
+          ]
+        },
+        {
+          "observation_id": "obs-004",
+          "trial": 2,
+          "role": "baseline",
+          "http_status": 200,
+          "elapsed_ms": 42,
+          "response_sha256": "c6c84c7f3b414eb8a6f093607c314695ccd7dc28f903b99e696f9d4be24b773e",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_exists"
+          ]
+        },
+        {
+          "observation_id": "obs-005",
+          "trial": 2,
+          "role": "candidate",
+          "http_status": 200,
+          "elapsed_ms": 1627.8,
+          "response_sha256": "31c860ce6f22a01f6c2801b1a48cf8c4580887f1dcecfb0570b35cb8095257ae",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_exists"
+          ]
+        },
+        {
+          "observation_id": "obs-006",
+          "trial": 2,
+          "role": "no_delay_control",
+          "http_status": 200,
+          "elapsed_ms": 128,
+          "response_sha256": "6c3676d839c43e9484e0df3dd088c11cd62fb01898a1deaecb5e3eb7697f4855",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_exists"
+          ]
+        },
+        {
+          "observation_id": "obs-007",
+          "trial": 3,
+          "role": "baseline",
+          "http_status": 200,
+          "elapsed_ms": 43,
+          "response_sha256": "e8999db983332dea974e6658599e9608c4894479394f292114c9ceeeb91f67f2",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_exists"
+          ]
+        },
+        {
+          "observation_id": "obs-008",
+          "trial": 3,
+          "role": "candidate",
+          "http_status": 200,
+          "elapsed_ms": 2051.0,
+          "response_sha256": "83c2c96fe690b1ed10b399ef3c5a7bc59b467c5510e7999afa33533704be3bbc",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_exists"
+          ]
+        },
+        {
+          "observation_id": "obs-009",
+          "trial": 3,
+          "role": "no_delay_control",
+          "http_status": 404,
+          "elapsed_ms": 151,
+          "response_sha256": "020af6db85d2aa96de9cbfe6708fda5920a00db8ad8bc0b16148a1b503ca6d65",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_missing"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "case_id": "pilot-034",
+    "input": {
+      "schema_version": "1.0.0",
+      "technique": "time-based blind",
+      "injection_point": {
+        "method": "GET",
+        "input_path": "/vulnerabilities/sqli_blind/",
+        "result_path": "/vulnerabilities/sqli_blind/",
+        "parameter": "id"
+      },
+      "runtime_status": "valid",
+      "baseline_valid": true,
+      "time_threshold_ms": 1500,
+      "observations": [
+        {
+          "observation_id": "obs-001",
+          "trial": 1,
+          "role": "baseline",
+          "http_status": 200,
+          "elapsed_ms": 41,
+          "response_sha256": "bdc202c7c32bb1c5665bb7b64373a4ce34f13383ee9e5d83a6e3ec8081ef5cd9",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_exists"
+          ]
+        },
+        {
+          "observation_id": "obs-002",
+          "trial": 1,
+          "role": "candidate",
+          "http_status": 404,
+          "elapsed_ms": 1705.0,
+          "response_sha256": "aecc37e07b9faf222b0d317e8f1091f89a180bb07ac94690ccd221312a07513b",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_missing"
+          ]
+        },
+        {
+          "observation_id": "obs-003",
+          "trial": 1,
+          "role": "no_delay_control",
+          "http_status": 404,
+          "elapsed_ms": 105,
+          "response_sha256": "969a6475150e5e3ea2a506e441903e6c7a4bca3f51c3a6ca56789520212dda45",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_missing"
+          ]
+        },
+        {
+          "observation_id": "obs-004",
+          "trial": 2,
+          "role": "baseline",
+          "http_status": 200,
+          "elapsed_ms": 42,
+          "response_sha256": "294cffe9810e379c18731fa48fc6e8f0772134013d8756e0317029277b9b5553",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_exists"
+          ]
+        },
+        {
+          "observation_id": "obs-005",
+          "trial": 2,
+          "role": "candidate",
+          "http_status": 200,
+          "elapsed_ms": 2522.0,
+          "response_sha256": "c45c898725c4c8c0c5409cee43008850cc1f521419f4fb2e21de4d0076746c28",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_exists"
+          ]
+        },
+        {
+          "observation_id": "obs-006",
+          "trial": 2,
+          "role": "no_delay_control",
+          "http_status": 200,
+          "elapsed_ms": 2402,
+          "response_sha256": "86545289c30e58bed3e175cf9459d5ab65950e31e9dddd2a74d578d232214243",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_exists"
+          ]
+        },
+        {
+          "observation_id": "obs-007",
+          "trial": 3,
+          "role": "baseline",
+          "http_status": 200,
+          "elapsed_ms": 43,
+          "response_sha256": "fd436fa365228e09cfabd6afdd268f7ea6237c848d575efaff4e39d4dc4499b5",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_exists"
+          ]
+        },
+        {
+          "observation_id": "obs-008",
+          "trial": 3,
+          "role": "candidate",
+          "http_status": 200,
+          "elapsed_ms": 1651.0,
+          "response_sha256": "0b9bb63d693c9ecb5a517e57fc4295bc86e7077a95431b7016586e73ee96c08f",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_exists"
+          ]
+        },
+        {
+          "observation_id": "obs-009",
+          "trial": 3,
+          "role": "no_delay_control",
+          "http_status": 200,
+          "elapsed_ms": 151,
+          "response_sha256": "047478fd7f3bd356a56addfc64747114097dc70bdac2fcafe1a18ba2b8ca1577",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_exists"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "case_id": "pilot-035",
+    "input": {
+      "schema_version": "1.0.0",
+      "technique": "time-based blind",
+      "injection_point": {
+        "method": "GET",
+        "input_path": "/vulnerabilities/sqli_blind/",
+        "result_path": "/vulnerabilities/sqli_blind/",
+        "parameter": "id"
+      },
+      "runtime_status": "valid",
+      "baseline_valid": true,
+      "time_threshold_ms": 1500,
+      "observations": [
+        {
+          "observation_id": "obs-001",
+          "trial": 1,
+          "role": "baseline",
+          "http_status": 200,
+          "elapsed_ms": 41,
+          "response_sha256": "558d914832aaeb09606d856498ebb36448c2110950b1d455e0b093e60e4ca2c3",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_exists"
+          ]
+        },
+        {
+          "observation_id": "obs-002",
+          "trial": 1,
+          "role": "candidate",
+          "http_status": 200,
+          "elapsed_ms": 1905.0,
+          "response_sha256": "80b238e8743fa5d66a14dccfda3c1b3aff112f7f149e1590f53519e0cfa3cc27",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_exists"
+          ]
+        },
+        {
+          "observation_id": "obs-003",
+          "trial": 1,
+          "role": "no_delay_control",
+          "http_status": 200,
+          "elapsed_ms": 105,
+          "response_sha256": "b9368351ab01d57bfd70f7b54ba2598e7defafe4e196f5c8bfb772fa8f40d5ec",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_exists"
+          ]
+        },
+        {
+          "observation_id": "obs-004",
+          "trial": 3,
+          "role": "baseline",
+          "http_status": 200,
+          "elapsed_ms": 43,
+          "response_sha256": "fd436fa365228e09cfabd6afdd268f7ea6237c848d575efaff4e39d4dc4499b5",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_exists"
+          ]
+        },
+        {
+          "observation_id": "obs-005",
+          "trial": 3,
+          "role": "candidate",
+          "http_status": 200,
+          "elapsed_ms": 1651.0,
+          "response_sha256": "0b9bb63d693c9ecb5a517e57fc4295bc86e7077a95431b7016586e73ee96c08f",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_exists"
+          ]
+        },
+        {
+          "observation_id": "obs-006",
+          "trial": 3,
+          "role": "no_delay_control",
+          "http_status": 200,
+          "elapsed_ms": 151,
+          "response_sha256": "047478fd7f3bd356a56addfc64747114097dc70bdac2fcafe1a18ba2b8ca1577",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_exists"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "case_id": "pilot-036",
+    "input": {
+      "schema_version": "1.0.0",
+      "technique": "time-based blind",
+      "injection_point": {
+        "method": "GET",
+        "input_path": "/vulnerabilities/sqli_blind/",
+        "result_path": "/vulnerabilities/sqli_blind/",
+        "parameter": "id"
+      },
+      "runtime_status": "valid",
+      "baseline_valid": true,
+      "time_threshold_ms": 1500,
+      "observations": [
+        {
+          "observation_id": "obs-001",
+          "trial": 1,
+          "role": "baseline",
+          "http_status": 200,
+          "elapsed_ms": 41,
+          "response_sha256": "6563247d82c1b569b5d29b2207d467b74a01d3e4703978ab080adb18339b0893",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_exists"
+          ]
+        },
+        {
+          "observation_id": "obs-002",
+          "trial": 1,
+          "role": "candidate",
+          "http_status": 200,
+          "elapsed_ms": 2521.0,
+          "response_sha256": "d29620aeed456efb68b77be53acd637d1c4bbb72379de9d9356b1f0f8a5d8d0a",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_exists"
+          ]
+        },
+        {
+          "observation_id": "obs-003",
+          "trial": 1,
+          "role": "no_delay_control",
+          "http_status": 200,
+          "elapsed_ms": 2401,
+          "response_sha256": "1066fe7cfdaefb5df449c56bf72564e255a8b677ed15221c1dced9c53685adeb",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_exists"
+          ]
+        },
+        {
+          "observation_id": "obs-004",
+          "trial": 2,
+          "role": "baseline",
+          "http_status": 200,
+          "elapsed_ms": 42,
+          "response_sha256": "c6c84c7f3b414eb8a6f093607c314695ccd7dc28f903b99e696f9d4be24b773e",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_exists"
+          ]
+        },
+        {
+          "observation_id": "obs-005",
+          "trial": 2,
+          "role": "candidate",
+          "http_status": 200,
+          "elapsed_ms": 1627.8,
+          "response_sha256": "31c860ce6f22a01f6c2801b1a48cf8c4580887f1dcecfb0570b35cb8095257ae",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_exists"
+          ]
+        },
+        {
+          "observation_id": "obs-006",
+          "trial": 2,
+          "role": "no_delay_control",
+          "http_status": 200,
+          "elapsed_ms": 128,
+          "response_sha256": "6c3676d839c43e9484e0df3dd088c11cd62fb01898a1deaecb5e3eb7697f4855",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_exists"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "case_id": "pilot-037",
+    "input": {
+      "schema_version": "1.0.0",
+      "technique": "error-based",
+      "injection_point": {
+        "method": "GET",
+        "input_path": "/vulnerabilities/sqli/",
+        "result_path": "/vulnerabilities/sqli/",
+        "parameter": "id"
+      },
+      "runtime_status": "invalid",
+      "baseline_valid": true,
+      "time_threshold_ms": 1500,
+      "observations": [],
+      "runtime_failure_code": "network_error"
+    }
+  },
+  {
+    "case_id": "pilot-038",
+    "input": {
+      "schema_version": "1.0.0",
+      "technique": "error-based",
+      "injection_point": {
+        "method": "GET",
+        "input_path": "/vulnerabilities/sqli/",
+        "result_path": "/vulnerabilities/sqli/",
+        "parameter": "id"
+      },
+      "runtime_status": "valid",
+      "baseline_valid": false,
+      "time_threshold_ms": 1500,
+      "observations": [
+        {
+          "observation_id": "obs-001",
+          "trial": 1,
+          "role": "baseline",
+          "http_status": 200,
+          "elapsed_ms": 41,
+          "response_sha256": "1c3d80a9c633528155c467c091ee2ae59890b2bf1b091a76cee04683af5ff376",
+          "diagnostics": [
+            "mysql_syntax_error"
+          ],
+          "content_markers": [
+            "benign_record"
+          ]
+        },
+        {
+          "observation_id": "obs-002",
+          "trial": 1,
+          "role": "candidate",
+          "http_status": 500,
+          "elapsed_ms": 41,
+          "response_sha256": "26f9efc2be9e4f58d2aa2e65fa3d4c881c864c51c4a83865ae782065797b6dd0",
+          "diagnostics": [
+            "mysql_syntax_error"
+          ],
+          "content_markers": [
+            "benign_record"
+          ]
+        },
+        {
+          "observation_id": "obs-003",
+          "trial": 2,
+          "role": "baseline",
+          "http_status": 200,
+          "elapsed_ms": 42,
+          "response_sha256": "ea1ea35f758d7059adc8c0f48a2f0fcbb4b5637cc93935e2293fd64f58594df5",
+          "diagnostics": [
+            "mysql_syntax_error"
+          ],
+          "content_markers": [
+            "benign_record"
+          ]
+        },
+        {
+          "observation_id": "obs-004",
+          "trial": 2,
+          "role": "candidate",
+          "http_status": 200,
+          "elapsed_ms": 42,
+          "response_sha256": "7aaaf3b395467771476625070568a3c43aa0cae2a41c54c72c3a38ef897bfea9",
+          "diagnostics": [
+            "mysql_syntax_error"
+          ],
+          "content_markers": [
+            "benign_record"
+          ]
+        },
+        {
+          "observation_id": "obs-005",
+          "trial": 3,
+          "role": "baseline",
+          "http_status": 200,
+          "elapsed_ms": 43,
+          "response_sha256": "5b26f0d72ab87ae59d3196f7775703cf408fa2743e56b0ef571faa0f84b70e4f",
+          "diagnostics": [
+            "mysql_syntax_error"
+          ],
+          "content_markers": [
+            "benign_record"
+          ]
+        },
+        {
+          "observation_id": "obs-006",
+          "trial": 3,
+          "role": "candidate",
+          "http_status": 500,
+          "elapsed_ms": 43,
+          "response_sha256": "d00f31ae25c4d60de97d68e3466be0deff0f2d7720025ac0f6b6c8e45b0c7dd1",
+          "diagnostics": [
+            "mysql_syntax_error"
+          ],
+          "content_markers": [
+            "benign_record"
+          ]
+        }
+      ],
+      "runtime_failure_code": "baseline_invalid"
+    }
+  },
+  {
+    "case_id": "pilot-039",
+    "input": {
+      "schema_version": "1.0.0",
+      "technique": "boolean-based blind",
+      "injection_point": {
+        "method": "GET",
+        "input_path": "/vulnerabilities/sqli_blind/",
+        "result_path": "/vulnerabilities/sqli_blind/",
+        "parameter": "id"
+      },
+      "runtime_status": "invalid",
+      "baseline_valid": true,
+      "time_threshold_ms": 1500,
+      "observations": [],
+      "runtime_failure_code": "network_error"
+    }
+  },
+  {
+    "case_id": "pilot-040",
+    "input": {
+      "schema_version": "1.0.0",
+      "technique": "boolean-based blind",
+      "injection_point": {
+        "method": "GET",
+        "input_path": "/vulnerabilities/sqli_blind/",
+        "result_path": "/vulnerabilities/sqli_blind/",
+        "parameter": "id"
+      },
+      "runtime_status": "valid",
+      "baseline_valid": false,
+      "time_threshold_ms": 1500,
+      "observations": [
+        {
+          "observation_id": "obs-001",
+          "trial": 1,
+          "role": "baseline",
+          "http_status": 200,
+          "elapsed_ms": 41,
+          "response_sha256": "7d47cd36819a1672bd5a8c626af85cc656ff6f4497a7f0527cad6bbee5d9c9cc",
+          "diagnostics": [
+            "mysql_syntax_error"
+          ],
+          "content_markers": [
+            "user_id_exists"
+          ]
+        },
+        {
+          "observation_id": "obs-002",
+          "trial": 1,
+          "role": "true_condition",
+          "http_status": 200,
+          "elapsed_ms": 41,
+          "response_sha256": "aa50ce1f0b7f75cc69af322082bc8226e87f3bbff6ae24b6fa5e35aaa7120073",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_exists"
+          ]
+        },
+        {
+          "observation_id": "obs-003",
+          "trial": 1,
+          "role": "false_condition",
+          "http_status": 404,
+          "elapsed_ms": 41,
+          "response_sha256": "61583baa238d2f4d4ee6cb04fc3db0671a0ad0f26d24e07ec08010ba4fcff302",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_missing"
+          ]
+        },
+        {
+          "observation_id": "obs-004",
+          "trial": 2,
+          "role": "baseline",
+          "http_status": 200,
+          "elapsed_ms": 42,
+          "response_sha256": "bc488f8d27bdba024fa56ba8cd3b7180d2fed5e89642d2b2396ea722f61bf15a",
+          "diagnostics": [
+            "mysql_syntax_error"
+          ],
+          "content_markers": [
+            "user_id_exists"
+          ]
+        },
+        {
+          "observation_id": "obs-005",
+          "trial": 2,
+          "role": "true_condition",
+          "http_status": 200,
+          "elapsed_ms": 42,
+          "response_sha256": "f6a46218cf8d2935ef4541ff4828210b2733a4113e0147a62d66c29847100f7e",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_exists"
+          ]
+        },
+        {
+          "observation_id": "obs-006",
+          "trial": 2,
+          "role": "false_condition",
+          "http_status": 404,
+          "elapsed_ms": 42,
+          "response_sha256": "55d9cbd6e118630dddc214fac209d75308276642488da354bf81d933a900720b",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_missing"
+          ]
+        },
+        {
+          "observation_id": "obs-007",
+          "trial": 3,
+          "role": "baseline",
+          "http_status": 200,
+          "elapsed_ms": 43,
+          "response_sha256": "445a0d65813457d0913d10ae514a2e9c7b6143d9003194e10e2eff9c88967fa0",
+          "diagnostics": [
+            "mysql_syntax_error"
+          ],
+          "content_markers": [
+            "user_id_exists"
+          ]
+        },
+        {
+          "observation_id": "obs-008",
+          "trial": 3,
+          "role": "true_condition",
+          "http_status": 200,
+          "elapsed_ms": 43,
+          "response_sha256": "4d22c1caf8a6ae0ad0aa01677150c631ad5c3f7a4ea1b8f1707c9321b3d41fd2",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_exists"
+          ]
+        },
+        {
+          "observation_id": "obs-009",
+          "trial": 3,
+          "role": "false_condition",
+          "http_status": 404,
+          "elapsed_ms": 43,
+          "response_sha256": "fc36bbb2f468cefd3e4404fe990cda98ce3f96263c4f6d0b6682714670aa5143",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_missing"
+          ]
+        }
+      ],
+      "runtime_failure_code": "baseline_invalid"
+    }
+  },
+  {
+    "case_id": "pilot-041",
+    "input": {
+      "schema_version": "1.0.0",
+      "technique": "time-based blind",
+      "injection_point": {
+        "method": "GET",
+        "input_path": "/vulnerabilities/sqli_blind/",
+        "result_path": "/vulnerabilities/sqli_blind/",
+        "parameter": "id"
+      },
+      "runtime_status": "invalid",
+      "baseline_valid": true,
+      "time_threshold_ms": 1500,
+      "observations": [],
+      "runtime_failure_code": "network_error"
+    }
+  },
+  {
+    "case_id": "pilot-042",
+    "input": {
+      "schema_version": "1.0.0",
+      "technique": "time-based blind",
+      "injection_point": {
+        "method": "GET",
+        "input_path": "/vulnerabilities/sqli_blind/",
+        "result_path": "/vulnerabilities/sqli_blind/",
+        "parameter": "id"
+      },
+      "runtime_status": "valid",
+      "baseline_valid": false,
+      "time_threshold_ms": 1500,
+      "observations": [
+        {
+          "observation_id": "obs-001",
+          "trial": 1,
+          "role": "baseline",
+          "http_status": 200,
+          "elapsed_ms": 41,
+          "response_sha256": "558d914832aaeb09606d856498ebb36448c2110950b1d455e0b093e60e4ca2c3",
+          "diagnostics": [
+            "mysql_syntax_error"
+          ],
+          "content_markers": [
+            "user_id_exists"
+          ]
+        },
+        {
+          "observation_id": "obs-002",
+          "trial": 1,
+          "role": "candidate",
+          "http_status": 200,
+          "elapsed_ms": 1905.0,
+          "response_sha256": "80b238e8743fa5d66a14dccfda3c1b3aff112f7f149e1590f53519e0cfa3cc27",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_exists"
+          ]
+        },
+        {
+          "observation_id": "obs-003",
+          "trial": 1,
+          "role": "no_delay_control",
+          "http_status": 200,
+          "elapsed_ms": 105,
+          "response_sha256": "b9368351ab01d57bfd70f7b54ba2598e7defafe4e196f5c8bfb772fa8f40d5ec",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_exists"
+          ]
+        },
+        {
+          "observation_id": "obs-004",
+          "trial": 2,
+          "role": "baseline",
+          "http_status": 200,
+          "elapsed_ms": 42,
+          "response_sha256": "c7a978dbc86ae50f333467d149eb62c527640750aa338be0bfec874694c555e5",
+          "diagnostics": [
+            "mysql_syntax_error"
+          ],
+          "content_markers": [
+            "user_id_exists"
+          ]
+        },
+        {
+          "observation_id": "obs-005",
+          "trial": 2,
+          "role": "candidate",
+          "http_status": 200,
+          "elapsed_ms": 1928.0,
+          "response_sha256": "ddb5d4fc547e7d16c82aad156378f46fe1cf8aa139ed7d0e9f6c147a79b88e10",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_exists"
+          ]
+        },
+        {
+          "observation_id": "obs-006",
+          "trial": 2,
+          "role": "no_delay_control",
+          "http_status": 200,
+          "elapsed_ms": 128,
+          "response_sha256": "b836138d1b9e48585bdf0964425bb3c0137b728f366d647c417c857b2023dc99",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_exists"
+          ]
+        },
+        {
+          "observation_id": "obs-007",
+          "trial": 3,
+          "role": "baseline",
+          "http_status": 200,
+          "elapsed_ms": 43,
+          "response_sha256": "93257d4dcfe83f4b9e9597f0c62b2681ad287dd18022c7572600fce06fc6fd60",
+          "diagnostics": [
+            "mysql_syntax_error"
+          ],
+          "content_markers": [
+            "user_id_exists"
+          ]
+        },
+        {
+          "observation_id": "obs-008",
+          "trial": 3,
+          "role": "candidate",
+          "http_status": 200,
+          "elapsed_ms": 1951.0,
+          "response_sha256": "b1f1db3039b82cff91e2b97a84fec0728a8e75350e6c28cb695829a094bc5866",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_exists"
+          ]
+        },
+        {
+          "observation_id": "obs-009",
+          "trial": 3,
+          "role": "no_delay_control",
+          "http_status": 200,
+          "elapsed_ms": 151,
+          "response_sha256": "11944eb1872d1ccb83aee670e2262411fd8cca0094f95ae5754ad821bcfb5995",
+          "diagnostics": [],
+          "content_markers": [
+            "user_id_exists"
+          ]
+        }
+      ],
+      "runtime_failure_code": "baseline_invalid"
+    }
+  }
+]

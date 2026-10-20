@@ -1,0 +1,696 @@
+{
+  "scope": "predeclared-synthetic-development-validation-not-independent-holdout-not-formal",
+  "experiment_id": "response-analysis-dev-v2-20261019",
+  "manifest_sha256": "db85faf79fc55d0d47e43b5edbbf84034f7fc32bf5dd5d8bc7c73f04f647704b",
+  "model": "qwen2.5:7b",
+  "model_digest": "845dbda0ea48ed749caafd9e6037047aa19acfcfd82e704d7ca97d631a0b697e",
+  "profiles": [
+    {
+      "dataset": "new-validation",
+      "profile": "measured-pairs-v1",
+      "records": 17,
+      "valid_cases": 16,
+      "valid_verdict_matches": 10,
+      "trial_assessments_correct": 33,
+      "trial_assessments_total": 44,
+      "completed_outputs": 16,
+      "decision_reason_code_consistent": 9,
+      "analysis_errors": 0,
+      "invalid_evidence_reference": 0,
+      "false_positive_on_negative_fixtures": 3,
+      "false_negative_on_positive_fixtures": 0,
+      "abstention_on_binary_fixtures": 0,
+      "binary_decisions_on_inconclusive_fixtures": 3,
+      "binary_decision_coverage": 0.8125,
+      "runtime_invalid_skips": 1,
+      "warning_counts": {
+        "decision_reason_code_mismatch": 7,
+        "model_claim_trial_assessment_mismatch": 2,
+        "model_claim_evidence_mismatch": 6,
+        "trial_assessment_evidence_mismatch": 5
+      },
+      "total_elapsed_seconds": 471.37345380000625,
+      "median_valid_case_seconds": 31.048328550001315,
+      "done_reasons": {
+        "stop": 16
+      }
+    },
+    {
+      "dataset": "new-validation",
+      "profile": "explicit-contract-v2",
+      "records": 17,
+      "valid_cases": 16,
+      "valid_verdict_matches": 11,
+      "trial_assessments_correct": 32,
+      "trial_assessments_total": 44,
+      "completed_outputs": 16,
+      "decision_reason_code_consistent": 16,
+      "analysis_errors": 0,
+      "invalid_evidence_reference": 0,
+      "false_positive_on_negative_fixtures": 3,
+      "false_negative_on_positive_fixtures": 0,
+      "abstention_on_binary_fixtures": 0,
+      "binary_decisions_on_inconclusive_fixtures": 2,
+      "binary_decision_coverage": 0.75,
+      "runtime_invalid_skips": 1,
+      "warning_counts": {
+        "model_claim_trial_assessment_mismatch": 1,
+        "model_claim_evidence_mismatch": 5,
+        "model_summary_decision_mismatch": 1,
+        "trial_assessment_evidence_mismatch": 6
+      },
+      "total_elapsed_seconds": 504.19301070000074,
+      "median_valid_case_seconds": 32.438821100000496,
+      "done_reasons": {
+        "stop": 16
+      }
+    },
+    {
+      "dataset": "opened-v1-regression",
+      "profile": "explicit-contract-v2",
+      "records": 10,
+      "valid_cases": 9,
+      "valid_verdict_matches": 7,
+      "trial_assessments_correct": 24,
+      "trial_assessments_total": 26,
+      "completed_outputs": 9,
+      "decision_reason_code_consistent": 9,
+      "analysis_errors": 0,
+      "invalid_evidence_reference": 0,
+      "false_positive_on_negative_fixtures": 0,
+      "false_negative_on_positive_fixtures": 0,
+      "abstention_on_binary_fixtures": 1,
+      "binary_decisions_on_inconclusive_fixtures": 1,
+      "binary_decision_coverage": 0.6666666666666666,
+      "runtime_invalid_skips": 1,
+      "warning_counts": {
+        "trial_assessment_evidence_mismatch": 1,
+        "model_claim_evidence_mismatch": 2,
+        "model_claim_trial_assessment_mismatch": 1,
+        "model_summary_decision_mismatch": 1
+      },
+      "total_elapsed_seconds": 301.08589710000524,
+      "median_valid_case_seconds": 33.64651690000028,
+      "done_reasons": {
+        "stop": 9
+      }
+    }
+  ],
+  "scheduled_records": 44,
+  "model_calls": 41,
+  "total_wall_seconds": 1277.0256987999965,
+  "dvwa_requests": 0,
+  "formal_metrics_recomputed": false,
+  "protected_sources_unchanged": 959,
+  "model_claims_replaced": false,
+  "prototype_promoted_to_formal_runner": false,
+  "results": [
+    {
+      "case_id": "new-001",
+      "dataset": "new-validation",
+      "profile": "measured-pairs-v1",
+      "expected_claim": "positive",
+      "actual_claim": "positive",
+      "matches": true,
+      "analysis_status": "completed",
+      "reason_code": "insufficient_evidence",
+      "warnings": [
+        "decision_reason_code_mismatch"
+      ],
+      "contract_warnings": []
+    },
+    {
+      "case_id": "new-001",
+      "dataset": "new-validation",
+      "profile": "explicit-contract-v2",
+      "expected_claim": "positive",
+      "actual_claim": "positive",
+      "matches": true,
+      "analysis_status": "completed",
+      "reason_code": "new_database_diagnostic",
+      "warnings": [],
+      "contract_warnings": []
+    },
+    {
+      "case_id": "new-002",
+      "dataset": "new-validation",
+      "profile": "explicit-contract-v2",
+      "expected_claim": "negative",
+      "actual_claim": "negative",
+      "matches": true,
+      "analysis_status": "completed",
+      "reason_code": "no_new_database_diagnostic",
+      "warnings": [],
+      "contract_warnings": []
+    },
+    {
+      "case_id": "new-002",
+      "dataset": "new-validation",
+      "profile": "measured-pairs-v1",
+      "expected_claim": "negative",
+      "actual_claim": "negative",
+      "matches": true,
+      "analysis_status": "completed",
+      "reason_code": "no_new_database_diagnostic",
+      "warnings": [],
+      "contract_warnings": []
+    },
+    {
+      "case_id": "new-003",
+      "dataset": "new-validation",
+      "profile": "measured-pairs-v1",
+      "expected_claim": "inconclusive",
+      "actual_claim": "inconclusive",
+      "matches": true,
+      "analysis_status": "completed",
+      "reason_code": "insufficient_evidence",
+      "warnings": [],
+      "contract_warnings": []
+    },
+    {
+      "case_id": "new-003",
+      "dataset": "new-validation",
+      "profile": "explicit-contract-v2",
+      "expected_claim": "inconclusive",
+      "actual_claim": "inconclusive",
+      "matches": true,
+      "analysis_status": "completed",
+      "reason_code": "insufficient_evidence",
+      "warnings": [],
+      "contract_warnings": []
+    },
+    {
+      "case_id": "new-004",
+      "dataset": "new-validation",
+      "profile": "explicit-contract-v2",
+      "expected_claim": "inconclusive",
+      "actual_claim": "positive",
+      "matches": false,
+      "analysis_status": "completed",
+      "reason_code": "new_database_diagnostic",
+      "warnings": [
+        "model_claim_trial_assessment_mismatch",
+        "model_claim_evidence_mismatch"
+      ],
+      "contract_warnings": [
+        "model_summary_decision_mismatch"
+      ]
+    },
+    {
+      "case_id": "new-004",
+      "dataset": "new-validation",
+      "profile": "measured-pairs-v1",
+      "expected_claim": "inconclusive",
+      "actual_claim": "positive",
+      "matches": false,
+      "analysis_status": "completed",
+      "reason_code": "insufficient_evidence",
+      "warnings": [
+        "model_claim_trial_assessment_mismatch",
+        "decision_reason_code_mismatch",
+        "model_claim_evidence_mismatch"
+      ],
+      "contract_warnings": []
+    },
+    {
+      "case_id": "new-005",
+      "dataset": "new-validation",
+      "profile": "measured-pairs-v1",
+      "expected_claim": "positive",
+      "actual_claim": "positive",
+      "matches": true,
+      "analysis_status": "completed",
+      "reason_code": "boolean_difference",
+      "warnings": [],
+      "contract_warnings": []
+    },
+    {
+      "case_id": "new-005",
+      "dataset": "new-validation",
+      "profile": "explicit-contract-v2",
+      "expected_claim": "positive",
+      "actual_claim": "positive",
+      "matches": true,
+      "analysis_status": "completed",
+      "reason_code": "boolean_difference",
+      "warnings": [],
+      "contract_warnings": []
+    },
+    {
+      "case_id": "new-006",
+      "dataset": "new-validation",
+      "profile": "explicit-contract-v2",
+      "expected_claim": "negative",
+      "actual_claim": "positive",
+      "matches": false,
+      "analysis_status": "completed",
+      "reason_code": "boolean_difference",
+      "warnings": [
+        "trial_assessment_evidence_mismatch",
+        "model_claim_evidence_mismatch"
+      ],
+      "contract_warnings": []
+    },
+    {
+      "case_id": "new-006",
+      "dataset": "new-validation",
+      "profile": "measured-pairs-v1",
+      "expected_claim": "negative",
+      "actual_claim": "positive",
+      "matches": false,
+      "analysis_status": "completed",
+      "reason_code": "boolean_difference",
+      "warnings": [
+        "trial_assessment_evidence_mismatch",
+        "model_claim_evidence_mismatch"
+      ],
+      "contract_warnings": []
+    },
+    {
+      "case_id": "new-007",
+      "dataset": "new-validation",
+      "profile": "measured-pairs-v1",
+      "expected_claim": "inconclusive",
+      "actual_claim": "positive",
+      "matches": false,
+      "analysis_status": "completed",
+      "reason_code": "boolean_difference",
+      "warnings": [
+        "trial_assessment_evidence_mismatch",
+        "model_claim_evidence_mismatch"
+      ],
+      "contract_warnings": []
+    },
+    {
+      "case_id": "new-007",
+      "dataset": "new-validation",
+      "profile": "explicit-contract-v2",
+      "expected_claim": "inconclusive",
+      "actual_claim": "positive",
+      "matches": false,
+      "analysis_status": "completed",
+      "reason_code": "boolean_difference",
+      "warnings": [
+        "trial_assessment_evidence_mismatch",
+        "model_claim_evidence_mismatch"
+      ],
+      "contract_warnings": []
+    },
+    {
+      "case_id": "new-008",
+      "dataset": "new-validation",
+      "profile": "explicit-contract-v2",
+      "expected_claim": "inconclusive",
+      "actual_claim": "inconclusive",
+      "matches": true,
+      "analysis_status": "completed",
+      "reason_code": "insufficient_evidence",
+      "warnings": [
+        "trial_assessment_evidence_mismatch"
+      ],
+      "contract_warnings": []
+    },
+    {
+      "case_id": "new-008",
+      "dataset": "new-validation",
+      "profile": "measured-pairs-v1",
+      "expected_claim": "inconclusive",
+      "actual_claim": "inconclusive",
+      "matches": true,
+      "analysis_status": "completed",
+      "reason_code": "insufficient_evidence",
+      "warnings": [
+        "trial_assessment_evidence_mismatch"
+      ],
+      "contract_warnings": []
+    },
+    {
+      "case_id": "new-009",
+      "dataset": "new-validation",
+      "profile": "measured-pairs-v1",
+      "expected_claim": "positive",
+      "actual_claim": "positive",
+      "matches": true,
+      "analysis_status": "completed",
+      "reason_code": "insufficient_evidence",
+      "warnings": [
+        "decision_reason_code_mismatch"
+      ],
+      "contract_warnings": []
+    },
+    {
+      "case_id": "new-009",
+      "dataset": "new-validation",
+      "profile": "explicit-contract-v2",
+      "expected_claim": "positive",
+      "actual_claim": "positive",
+      "matches": true,
+      "analysis_status": "completed",
+      "reason_code": "matched_delay",
+      "warnings": [],
+      "contract_warnings": []
+    },
+    {
+      "case_id": "new-010",
+      "dataset": "new-validation",
+      "profile": "explicit-contract-v2",
+      "expected_claim": "negative",
+      "actual_claim": "negative",
+      "matches": true,
+      "analysis_status": "completed",
+      "reason_code": "no_matched_delay",
+      "warnings": [],
+      "contract_warnings": []
+    },
+    {
+      "case_id": "new-010",
+      "dataset": "new-validation",
+      "profile": "measured-pairs-v1",
+      "expected_claim": "negative",
+      "actual_claim": "negative",
+      "matches": true,
+      "analysis_status": "completed",
+      "reason_code": "no_matched_delay",
+      "warnings": [],
+      "contract_warnings": []
+    },
+    {
+      "case_id": "new-011",
+      "dataset": "new-validation",
+      "profile": "measured-pairs-v1",
+      "expected_claim": "inconclusive",
+      "actual_claim": "inconclusive",
+      "matches": true,
+      "analysis_status": "completed",
+      "reason_code": "insufficient_evidence",
+      "warnings": [],
+      "contract_warnings": []
+    },
+    {
+      "case_id": "new-011",
+      "dataset": "new-validation",
+      "profile": "explicit-contract-v2",
+      "expected_claim": "inconclusive",
+      "actual_claim": "inconclusive",
+      "matches": true,
+      "analysis_status": "completed",
+      "reason_code": "insufficient_evidence",
+      "warnings": [],
+      "contract_warnings": []
+    },
+    {
+      "case_id": "new-012",
+      "dataset": "new-validation",
+      "profile": "explicit-contract-v2",
+      "expected_claim": "inconclusive",
+      "actual_claim": "inconclusive",
+      "matches": true,
+      "analysis_status": "completed",
+      "reason_code": "insufficient_evidence",
+      "warnings": [
+        "trial_assessment_evidence_mismatch"
+      ],
+      "contract_warnings": []
+    },
+    {
+      "case_id": "new-012",
+      "dataset": "new-validation",
+      "profile": "measured-pairs-v1",
+      "expected_claim": "inconclusive",
+      "actual_claim": "positive",
+      "matches": false,
+      "analysis_status": "completed",
+      "reason_code": "insufficient_evidence",
+      "warnings": [
+        "model_claim_trial_assessment_mismatch",
+        "decision_reason_code_mismatch",
+        "model_claim_evidence_mismatch"
+      ],
+      "contract_warnings": []
+    },
+    {
+      "case_id": "new-013",
+      "dataset": "new-validation",
+      "profile": "measured-pairs-v1",
+      "expected_claim": "positive",
+      "actual_claim": "positive",
+      "matches": true,
+      "analysis_status": "completed",
+      "reason_code": "insufficient_evidence",
+      "warnings": [
+        "decision_reason_code_mismatch"
+      ],
+      "contract_warnings": []
+    },
+    {
+      "case_id": "new-013",
+      "dataset": "new-validation",
+      "profile": "explicit-contract-v2",
+      "expected_claim": "positive",
+      "actual_claim": "positive",
+      "matches": true,
+      "analysis_status": "completed",
+      "reason_code": "matched_delay",
+      "warnings": [],
+      "contract_warnings": []
+    },
+    {
+      "case_id": "new-014",
+      "dataset": "new-validation",
+      "profile": "explicit-contract-v2",
+      "expected_claim": "negative",
+      "actual_claim": "positive",
+      "matches": false,
+      "analysis_status": "completed",
+      "reason_code": "matched_delay",
+      "warnings": [
+        "trial_assessment_evidence_mismatch",
+        "model_claim_evidence_mismatch"
+      ],
+      "contract_warnings": []
+    },
+    {
+      "case_id": "new-014",
+      "dataset": "new-validation",
+      "profile": "measured-pairs-v1",
+      "expected_claim": "negative",
+      "actual_claim": "positive",
+      "matches": false,
+      "analysis_status": "completed",
+      "reason_code": "insufficient_evidence",
+      "warnings": [
+        "trial_assessment_evidence_mismatch",
+        "decision_reason_code_mismatch",
+        "model_claim_evidence_mismatch"
+      ],
+      "contract_warnings": []
+    },
+    {
+      "case_id": "new-015",
+      "dataset": "new-validation",
+      "profile": "measured-pairs-v1",
+      "expected_claim": "negative",
+      "actual_claim": "positive",
+      "matches": false,
+      "analysis_status": "completed",
+      "reason_code": "insufficient_evidence",
+      "warnings": [
+        "trial_assessment_evidence_mismatch",
+        "decision_reason_code_mismatch",
+        "model_claim_evidence_mismatch"
+      ],
+      "contract_warnings": []
+    },
+    {
+      "case_id": "new-015",
+      "dataset": "new-validation",
+      "profile": "explicit-contract-v2",
+      "expected_claim": "negative",
+      "actual_claim": "positive",
+      "matches": false,
+      "analysis_status": "completed",
+      "reason_code": "matched_delay",
+      "warnings": [
+        "trial_assessment_evidence_mismatch",
+        "model_claim_evidence_mismatch"
+      ],
+      "contract_warnings": []
+    },
+    {
+      "case_id": "new-016",
+      "dataset": "new-validation",
+      "profile": "explicit-contract-v2",
+      "expected_claim": "negative",
+      "actual_claim": "negative",
+      "matches": true,
+      "analysis_status": "completed",
+      "reason_code": "no_new_database_diagnostic",
+      "warnings": [],
+      "contract_warnings": []
+    },
+    {
+      "case_id": "new-016",
+      "dataset": "new-validation",
+      "profile": "measured-pairs-v1",
+      "expected_claim": "negative",
+      "actual_claim": "negative",
+      "matches": true,
+      "analysis_status": "completed",
+      "reason_code": "no_new_database_diagnostic",
+      "warnings": [],
+      "contract_warnings": []
+    },
+    {
+      "case_id": "new-017",
+      "dataset": "new-validation",
+      "profile": "measured-pairs-v1",
+      "expected_claim": null,
+      "actual_claim": null,
+      "matches": true,
+      "analysis_status": "runtime_invalid",
+      "reason_code": null,
+      "warnings": [],
+      "contract_warnings": []
+    },
+    {
+      "case_id": "new-017",
+      "dataset": "new-validation",
+      "profile": "explicit-contract-v2",
+      "expected_claim": null,
+      "actual_claim": null,
+      "matches": true,
+      "analysis_status": "runtime_invalid",
+      "reason_code": null,
+      "warnings": [],
+      "contract_warnings": []
+    },
+    {
+      "case_id": "regression-case-001",
+      "dataset": "opened-v1-regression",
+      "profile": "explicit-contract-v2",
+      "expected_claim": "positive",
+      "actual_claim": "positive",
+      "matches": true,
+      "analysis_status": "completed",
+      "reason_code": "new_database_diagnostic",
+      "warnings": [],
+      "contract_warnings": []
+    },
+    {
+      "case_id": "regression-case-002",
+      "dataset": "opened-v1-regression",
+      "profile": "explicit-contract-v2",
+      "expected_claim": "negative",
+      "actual_claim": "negative",
+      "matches": true,
+      "analysis_status": "completed",
+      "reason_code": "no_new_database_diagnostic",
+      "warnings": [],
+      "contract_warnings": []
+    },
+    {
+      "case_id": "regression-case-003",
+      "dataset": "opened-v1-regression",
+      "profile": "explicit-contract-v2",
+      "expected_claim": "positive",
+      "actual_claim": "positive",
+      "matches": true,
+      "analysis_status": "completed",
+      "reason_code": "boolean_difference",
+      "warnings": [],
+      "contract_warnings": []
+    },
+    {
+      "case_id": "regression-case-004",
+      "dataset": "opened-v1-regression",
+      "profile": "explicit-contract-v2",
+      "expected_claim": "negative",
+      "actual_claim": "negative",
+      "matches": true,
+      "analysis_status": "completed",
+      "reason_code": "no_boolean_difference",
+      "warnings": [],
+      "contract_warnings": []
+    },
+    {
+      "case_id": "regression-case-005",
+      "dataset": "opened-v1-regression",
+      "profile": "explicit-contract-v2",
+      "expected_claim": "positive",
+      "actual_claim": "inconclusive",
+      "matches": false,
+      "analysis_status": "completed",
+      "reason_code": "insufficient_evidence",
+      "warnings": [
+        "trial_assessment_evidence_mismatch",
+        "model_claim_evidence_mismatch"
+      ],
+      "contract_warnings": []
+    },
+    {
+      "case_id": "regression-case-006",
+      "dataset": "opened-v1-regression",
+      "profile": "explicit-contract-v2",
+      "expected_claim": "negative",
+      "actual_claim": "negative",
+      "matches": true,
+      "analysis_status": "completed",
+      "reason_code": "no_matched_delay",
+      "warnings": [],
+      "contract_warnings": []
+    },
+    {
+      "case_id": "regression-case-007",
+      "dataset": "opened-v1-regression",
+      "profile": "explicit-contract-v2",
+      "expected_claim": "inconclusive",
+      "actual_claim": "inconclusive",
+      "matches": true,
+      "analysis_status": "completed",
+      "reason_code": "insufficient_evidence",
+      "warnings": [],
+      "contract_warnings": []
+    },
+    {
+      "case_id": "regression-case-008",
+      "dataset": "opened-v1-regression",
+      "profile": "explicit-contract-v2",
+      "expected_claim": "inconclusive",
+      "actual_claim": "inconclusive",
+      "matches": true,
+      "analysis_status": "completed",
+      "reason_code": "insufficient_evidence",
+      "warnings": [],
+      "contract_warnings": []
+    },
+    {
+      "case_id": "regression-case-009",
+      "dataset": "opened-v1-regression",
+      "profile": "explicit-contract-v2",
+      "expected_claim": "inconclusive",
+      "actual_claim": "positive",
+      "matches": false,
+      "analysis_status": "completed",
+      "reason_code": "new_database_diagnostic",
+      "warnings": [
+        "model_claim_trial_assessment_mismatch",
+        "model_claim_evidence_mismatch"
+      ],
+      "contract_warnings": [
+        "model_summary_decision_mismatch"
+      ]
+    },
+    {
+      "case_id": "regression-case-010",
+      "dataset": "opened-v1-regression",
+      "profile": "explicit-contract-v2",
+      "expected_claim": null,
+      "actual_claim": null,
+      "matches": true,
+      "analysis_status": "runtime_invalid",
+      "reason_code": null,
+      "warnings": [],
+      "contract_warnings": []
+    }
+  ]
+}

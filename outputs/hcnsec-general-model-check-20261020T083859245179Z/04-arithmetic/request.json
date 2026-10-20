@@ -1,0 +1,12 @@
+{
+  "model": "glm-5.3-flash",
+  "messages": [
+    {
+      "role": "user",
+      "content": "Sebuah toko memiliki 48 kotak, setiap kotak berisi 24 pensil. Toko menjual 275 pensil lalu menerima tambahan 7 kotak dengan isi yang sama. Berapa pensil yang tersedia sekarang? Balas hanya objek JSON valid dengan tepat satu kunci \"pensil\" bernilai integer, tanpa penjelasan atau Markdown."
+    }
+  ],
+  "temperature": 0,
+  "max_tokens": 1024,
+  "stream": false
+}

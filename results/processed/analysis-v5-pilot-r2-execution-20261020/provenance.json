@@ -1,0 +1,18 @@
+{
+  "pilot_id": "analysis-v5-pilot-20261020-r2",
+  "scope": "synthetic-development-only",
+  "files": {
+    "maintenance/audit_analysis_v5_pilot_rev2.py": "7d9ff9beeaecb7121bdf7d2c7506b5957d2db87dcbd8c1ae0bf98d6fb16f4620",
+    "results/processed/analysis-v5-pilot-20261020-r2/manifest.lock.json": "ad4e5d1d80e0c430c7e8023b08077ce525332ff186c52584c6f33a8dd4a29565",
+    "results/processed/analysis-v5-pilot-20261020-r2/protocol.lock.json": "56c77f24cb6acc207bfcf068cdb1680ce093cd50c29b9ae9f2170c9cf1647119",
+    "results/raw/development/analysis-v5-pilot-20261020-r2/runtime-before.json": "21b808c352f6bc7fc4a5e25514c2cb6c14eb196eb45e5028486c270c00af227b",
+    "results/raw/development/analysis-v5-pilot-20261020-r2/events.jsonl": "50f19cff2ad00659ad665b337c524a93afadb1d1bd3bbf58ebac321061c8e784",
+    "results/raw/development/analysis-v5-pilot-20261020-r2/summary.json": "5005f5f0e1d8433c4ac8b7f28b01c75259a56c9dca213617cd786f603925848a",
+    "results/processed/analysis-v5-pilot-r2-execution-20261020/researcher-adoption.json": "55d30ad0ff86aac6d75f6c3c062dd8c380f5eb8805a00ed9f151ec351a380e28",
+    "results/processed/analysis-v5-pilot-r2-execution-20261020/summary.json": "5005f5f0e1d8433c4ac8b7f28b01c75259a56c9dca213617cd786f603925848a",
+    "results/processed/analysis-v5-pilot-r2-execution-20261020/audit.json": "408881ed447a82b4926e9c728e4e2b46b8b8c22f07cc9a3fed5718c6e1b69c6c",
+    "results/processed/analysis-v5-pilot-r2-execution-20261020/case-results.csv": "1747c92be20957c533e0c61c53e3083de598d3f5750dead53786e8e2f2e6b26e",
+    "results/processed/analysis-v5-pilot-r2-execution-20261020/by-technique.json": "ed51eb3499e225eee9652cf3b6343187f6dc17dc707181cef3ced8ffc18cff6c",
+    "results/processed/analysis-v5-pilot-r2-execution-20261020/README.md": "a1a3274520058db6bb37739ec83461a370e7d0f532b41787b11017fef8a475e4"
+  }
+}

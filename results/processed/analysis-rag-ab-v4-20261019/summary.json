@@ -1,0 +1,282 @@
+{
+  "scope": "paired-synthetic-analysis-rag-pilot-not-formal-not-independent-holdout",
+  "experiment_id": "analysis-rag-ab-v4-20261019",
+  "manifest_sha256": "8774b4e86d66895980aacd939bbd9c93ab38a555e46a1e21826e1c4b65a7724f",
+  "primary_raw": {
+    "A": {
+      "layer": "raw_qwen_v4",
+      "valid_cases": 18,
+      "verdict_matches": 12,
+      "positive_fixtures": 3,
+      "negative_fixtures": 6,
+      "inconclusive_fixtures": 9,
+      "correct_positive": 2,
+      "correct_negative": 3,
+      "correct_inconclusive": 7,
+      "false_positive_on_negative_fixtures": 3,
+      "false_negative_on_positive_fixtures": 0,
+      "abstention_on_positive_fixtures": 1,
+      "abstention_on_negative_fixtures": 0,
+      "binary_decisions_on_inconclusive_fixtures": 2,
+      "binary_decisions": 10,
+      "binary_fixture_decisions": 8,
+      "binary_fixture_total": 9,
+      "positive_fixture_binary_coverage_count": 2,
+      "negative_fixture_binary_coverage_count": 6,
+      "binary_decision_coverage": 0.5555555555555556,
+      "runtime_invalid_cases": 1,
+      "raw_trial_assessments_correct": 37,
+      "raw_trial_total": 51,
+      "raw_reason_code_consistent": 18,
+      "raw_warning_counts": {
+        "trial_assessment_evidence_mismatch": 7,
+        "model_claim_evidence_mismatch": 6,
+        "model_claim_trial_assessment_mismatch": 1,
+        "model_summary_decision_mismatch": 1
+      },
+      "analysis_errors": 0,
+      "total_model_seconds": 635.7947475000037
+    },
+    "B": {
+      "layer": "raw_qwen_v4",
+      "valid_cases": 18,
+      "verdict_matches": 12,
+      "positive_fixtures": 3,
+      "negative_fixtures": 6,
+      "inconclusive_fixtures": 9,
+      "correct_positive": 2,
+      "correct_negative": 3,
+      "correct_inconclusive": 7,
+      "false_positive_on_negative_fixtures": 3,
+      "false_negative_on_positive_fixtures": 0,
+      "abstention_on_positive_fixtures": 1,
+      "abstention_on_negative_fixtures": 0,
+      "binary_decisions_on_inconclusive_fixtures": 2,
+      "binary_decisions": 10,
+      "binary_fixture_decisions": 8,
+      "binary_fixture_total": 9,
+      "positive_fixture_binary_coverage_count": 2,
+      "negative_fixture_binary_coverage_count": 6,
+      "binary_decision_coverage": 0.5555555555555556,
+      "runtime_invalid_cases": 1,
+      "raw_trial_assessments_correct": 37,
+      "raw_trial_total": 51,
+      "raw_reason_code_consistent": 18,
+      "raw_warning_counts": {
+        "trial_assessment_evidence_mismatch": 7,
+        "model_claim_evidence_mismatch": 6,
+        "model_claim_trial_assessment_mismatch": 1,
+        "model_summary_decision_mismatch": 1
+      },
+      "analysis_errors": 0,
+      "total_model_seconds": 654.7879603000038
+    }
+  },
+  "secondary_gate": {
+    "A": {
+      "layer": "secondary_combined_v3",
+      "valid_cases": 18,
+      "verdict_matches": 14,
+      "positive_fixtures": 3,
+      "negative_fixtures": 6,
+      "inconclusive_fixtures": 9,
+      "correct_positive": 2,
+      "correct_negative": 3,
+      "correct_inconclusive": 9,
+      "false_positive_on_negative_fixtures": 0,
+      "false_negative_on_positive_fixtures": 0,
+      "abstention_on_positive_fixtures": 1,
+      "abstention_on_negative_fixtures": 3,
+      "binary_decisions_on_inconclusive_fixtures": 0,
+      "binary_decisions": 5,
+      "binary_fixture_decisions": 5,
+      "binary_fixture_total": 9,
+      "positive_fixture_binary_coverage_count": 2,
+      "negative_fixture_binary_coverage_count": 3,
+      "binary_decision_coverage": 0.2777777777777778,
+      "runtime_invalid_cases": 1,
+      "raw_trial_assessments_correct": 37,
+      "raw_trial_total": 51,
+      "raw_reason_code_consistent": 18,
+      "raw_warning_counts": {
+        "trial_assessment_evidence_mismatch": 7,
+        "model_claim_evidence_mismatch": 6,
+        "model_claim_trial_assessment_mismatch": 1,
+        "model_summary_decision_mismatch": 1
+      },
+      "analysis_errors": 0,
+      "total_model_seconds": 635.7947475000037
+    },
+    "B": {
+      "layer": "secondary_combined_v3",
+      "valid_cases": 18,
+      "verdict_matches": 14,
+      "positive_fixtures": 3,
+      "negative_fixtures": 6,
+      "inconclusive_fixtures": 9,
+      "correct_positive": 2,
+      "correct_negative": 3,
+      "correct_inconclusive": 9,
+      "false_positive_on_negative_fixtures": 0,
+      "false_negative_on_positive_fixtures": 0,
+      "abstention_on_positive_fixtures": 1,
+      "abstention_on_negative_fixtures": 3,
+      "binary_decisions_on_inconclusive_fixtures": 0,
+      "binary_decisions": 5,
+      "binary_fixture_decisions": 5,
+      "binary_fixture_total": 9,
+      "positive_fixture_binary_coverage_count": 2,
+      "negative_fixture_binary_coverage_count": 3,
+      "binary_decision_coverage": 0.2777777777777778,
+      "runtime_invalid_cases": 1,
+      "raw_trial_assessments_correct": 37,
+      "raw_trial_total": 51,
+      "raw_reason_code_consistent": 18,
+      "raw_warning_counts": {
+        "trial_assessment_evidence_mismatch": 7,
+        "model_claim_evidence_mismatch": 6,
+        "model_claim_trial_assessment_mismatch": 1,
+        "model_summary_decision_mismatch": 1
+      },
+      "analysis_errors": 0,
+      "total_model_seconds": 654.7879603000038
+    }
+  },
+  "empirical_criteria": {
+    "B_verdicts_greater_than_A": false,
+    "B_false_positives_less_than_A": false,
+    "B_correct_positive_at_least_A": true,
+    "B_negative_coverage_at_least_A": true,
+    "B_raw_trial_accuracy_at_least_A": true,
+    "no_analysis_errors": true
+  },
+  "all_empirical_criteria_met": false,
+  "paired_A_correct_B_wrong": 0,
+  "paired_A_wrong_B_correct": 0,
+  "records": 38,
+  "model_calls": 36,
+  "total_wall_seconds": 1290.6334579000031,
+  "formal_fpr_recomputed": false,
+  "psr_recomputed": false,
+  "raw_model_claims_replaced": false,
+  "formal_promotion": false,
+  "dvwa_requests": 0,
+  "protected_sources_unchanged": 959,
+  "history_artifacts_unchanged": 26,
+  "pairs": [
+    {
+      "case_id": "rag-001",
+      "expected_claim": "positive",
+      "A": "positive",
+      "B": "positive"
+    },
+    {
+      "case_id": "rag-002",
+      "expected_claim": "negative",
+      "A": "negative",
+      "B": "negative"
+    },
+    {
+      "case_id": "rag-003",
+      "expected_claim": "inconclusive",
+      "A": "inconclusive",
+      "B": "inconclusive"
+    },
+    {
+      "case_id": "rag-004",
+      "expected_claim": "inconclusive",
+      "A": "negative",
+      "B": "negative"
+    },
+    {
+      "case_id": "rag-005",
+      "expected_claim": "inconclusive",
+      "A": "positive",
+      "B": "positive"
+    },
+    {
+      "case_id": "rag-006",
+      "expected_claim": "positive",
+      "A": "positive",
+      "B": "positive"
+    },
+    {
+      "case_id": "rag-007",
+      "expected_claim": "negative",
+      "A": "negative",
+      "B": "negative"
+    },
+    {
+      "case_id": "rag-008",
+      "expected_claim": "inconclusive",
+      "A": "inconclusive",
+      "B": "inconclusive"
+    },
+    {
+      "case_id": "rag-009",
+      "expected_claim": "inconclusive",
+      "A": "inconclusive",
+      "B": "inconclusive"
+    },
+    {
+      "case_id": "rag-010",
+      "expected_claim": "inconclusive",
+      "A": "inconclusive",
+      "B": "inconclusive"
+    },
+    {
+      "case_id": "rag-011",
+      "expected_claim": "positive",
+      "A": "inconclusive",
+      "B": "inconclusive"
+    },
+    {
+      "case_id": "rag-012",
+      "expected_claim": "negative",
+      "A": "negative",
+      "B": "negative"
+    },
+    {
+      "case_id": "rag-013",
+      "expected_claim": "inconclusive",
+      "A": "inconclusive",
+      "B": "inconclusive"
+    },
+    {
+      "case_id": "rag-014",
+      "expected_claim": "inconclusive",
+      "A": "inconclusive",
+      "B": "inconclusive"
+    },
+    {
+      "case_id": "rag-015",
+      "expected_claim": "inconclusive",
+      "A": "inconclusive",
+      "B": "inconclusive"
+    },
+    {
+      "case_id": "rag-016",
+      "expected_claim": "negative",
+      "A": "positive",
+      "B": "positive"
+    },
+    {
+      "case_id": "rag-017",
+      "expected_claim": "negative",
+      "A": "positive",
+      "B": "positive"
+    },
+    {
+      "case_id": "rag-018",
+      "expected_claim": "negative",
+      "A": "positive",
+      "B": "positive"
+    },
+    {
+      "case_id": "rag-019",
+      "expected_claim": null,
+      "A": null,
+      "B": null
+    }
+  ]
+}

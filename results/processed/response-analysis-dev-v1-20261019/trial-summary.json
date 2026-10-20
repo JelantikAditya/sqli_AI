@@ -1,0 +1,23 @@
+{
+  "scope": "development-pilot-result-audit-not-formal-metrics",
+  "trial_totals": {
+    "frozen-v8": {
+      "correct": 15,
+      "total": 26
+    },
+    "measured-pairs-v1": {
+      "correct": 26,
+      "total": 26
+    }
+  },
+  "normalized_records_reproduce": 20,
+  "frozen_sources_unchanged": 959,
+  "profile_sources_match_manifest": true,
+  "input_artifacts_match_manifest": true,
+  "model_calls": 18,
+  "done_reasons": {
+    "stop": 18
+  },
+  "raw_claims_replaced": false,
+  "source_audit_sha256": "78808668aa648d1e7dbf2e034b0df77b4882bb0607b7f99ad78fe36b0a6c5cd8"
+}

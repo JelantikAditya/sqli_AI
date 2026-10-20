@@ -1,0 +1,10 @@
+{
+  "sequence": 7,
+  "task_id": "python_trace",
+  "requested_model": "MiMo-V2.6-Flash",
+  "started_at_utc": "2026-10-20T08:42:45.785258+00:00",
+  "http_status": null,
+  "reported_model": null,
+  "valid_json": false,
+  "passed": false
+}

@@ -30,6 +30,27 @@
         "additionalProperties": { "type": "string", "minLength": 1 }
       }
     },
-    "seclists_source_root": { "type": ["string", "null"], "minLength": 1 }
+    "seclists_source_root": { "type": ["string", "null"], "minLength": 1 },
+    "knowledge_snapshot": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["manifest_path", "manifest_sha256", "corpus_path", "corpus_sha256", "review_decision_path", "review_decision_sha256"],
+      "properties": {
+        "manifest_path": { "type": "string", "minLength": 1 },
+        "manifest_sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+        "corpus_path": { "type": "string", "minLength": 1 },
+        "corpus_sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+        "review_decision_path": { "type": "string", "minLength": 1 },
+        "review_decision_sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+        "source_lock_path": { "type": "string", "minLength": 1 },
+        "source_lock_sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+        "index_file_sha256": {
+          "type": "object",
+          "minProperties": 1,
+          "propertyNames": { "pattern": "^(?!/)(?!.*\\.\\.)[A-Za-z0-9._/-]+$" },
+          "additionalProperties": { "type": "string", "pattern": "^[a-f0-9]{64}$" }
+        }
+      }
+    }
   }
 }

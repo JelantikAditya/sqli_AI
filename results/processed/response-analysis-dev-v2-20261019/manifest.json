@@ -1,0 +1,62 @@
+{
+  "scope": "predeclared-synthetic-development-validation-not-independent-holdout-not-formal",
+  "experiment_id": "response-analysis-dev-v2-20261019",
+  "created_at_utc": "2026-10-19T13:21:06.453838+00:00",
+  "profiles": [
+    "measured-pairs-v1",
+    "explicit-contract-v2"
+  ],
+  "new_case_count": 17,
+  "regression_case_count": 10,
+  "scheduled_records": 44,
+  "planned_model_calls": 41,
+  "model": "qwen2.5:7b",
+  "expected_model_digest": "845dbda0ea48ed749caafd9e6037047aa19acfcfd82e704d7ca97d631a0b697e",
+  "options": {
+    "temperature": 0,
+    "seed": 42,
+    "num_ctx": 4096,
+    "num_predict": 768
+  },
+  "analysis_retrieval": "disabled-for-both-profiles",
+  "dvwa_requests": 0,
+  "no_automatic_retry": true,
+  "adaptation_after_first_inference": false,
+  "comparison": "v1-vs-v2-on-identical-new-cases; opened-v1-cases-regression-only",
+  "success_criteria": {
+    "new_v2_verdicts_correct": "16/16",
+    "new_v2_trial_assessments_correct": "44/44",
+    "decision_reason_code_mismatches": 0,
+    "model_tally_mismatches": 0,
+    "regression_v2_verdicts_correct": "9/9",
+    "analysis_errors": 0,
+    "automatic_promotion_to_formal": false
+  },
+  "protected_source_count": 959,
+  "source_sha256": {
+    "development/response_analysis_validation_v2.py": "6c28d33fc3cb0e7395d2ff7c362a112f440bd20013ddf541c60410948d5c79c7",
+    "development/analyze_response_v2.py": "1662c057893e8c457186730009efcb8dd99dd4c8723c9dbb60ef0dcff6dbaf4f",
+    "development/analyze_response_v1.py": "269578d51ac20907f6baef62231791bf341b0d0b11112fd9a876e3cf832e7987",
+    "development/response_analysis_pilot.py": "01e486116069ee8b2452b941dd7cbbdbf927066daf29e9bf1e04c75ad9730e8d",
+    "dvwa/analyze_response.py": "ffba71043245baf3db73a09d9236bf4e2f3edb7e38737a250ec799e9c720a500",
+    "dvwa/confirmation_policy.py": "76d3f891585170f53b784523faade226a5ac4529b77de1c0937d170d1ea37cbd",
+    "dvwa/rag_pipeline.py": "750cbbeb9cf0240221b83121113adfcb91a1eeb970c2f0ced1b90005d20df6ef",
+    "dvwa/langchain_runtime.py": "fe9d75add0de59d063d40bff8ed1218a64a35f1461b2073869c3a4ed5f96696d",
+    "dvwa/run_decision_policy.py": "8ece03a16a8ef8a01c115d6c65fabeb00cb690dd78c00988487c638cf2e0e9e7",
+    "schemas/qwen-analysis-input.schema.json": "3fc86ed45dd68d305ec717847a993235ae987d3a114ee5323535a3dd5bfb839b",
+    "schemas/qwen-analysis-output.schema.json": "99ebd9603827278357a5a011306f772ef7ceed376b197f13bb6d806ffdda5b7e",
+    "schemas/analysis-ledger.schema.json": "d2f146b625f0a3e71075cdcc5fc2fb9682f8167011cbcb108610825e62b3b5ab",
+    "dvwa/experiment_scenarios.json": "ca73f6acb8258702140bde1cb316141d1176270d2751d9c4a66c7f2676e1da00"
+  },
+  "regression_source_sha256": {
+    "results/raw/development/response-analysis-v1-20261019/inputs.json": "0dc2cb1bfd91fa024cce1ed7bd891fb7a9691bf34ec3c9b33038aee4a10d64bc",
+    "results/raw/development/response-analysis-v1-20261019/evaluation.private.json": "9c4bf882518619c3103e88caf393048b98748f4b62596154784da945b5ac9943",
+    "results/raw/development/response-analysis-v1-20261019/runtime.json": "ccc4fcc3efbd7e101926d258ffae5694ef662859d080a856a9c5d0bac9a5c0ca",
+    "results/raw/development/response-analysis-v1-20261019/manifest.json": "75b005a98250f636b91078927bce596b959e96c7991fb80e6196d82d0d0196aa"
+  },
+  "artifact_sha256": {
+    "evaluation.private.json": "f8720f08698d5d6fe9b2d468f7d861e259d79114bfe5c9de92ea706723b6c098",
+    "inputs.json": "2f8d941cf5397e1c75f78a9a2bbde1b7d2e27947adb732c6297c9f5bbb4b3480",
+    "prepared-requests.json": "ff1984ab3d57a189c9ffd66db333d11ff593517defff859108faddecfbe13fd0"
+  }
+}

@@ -114,8 +114,11 @@ bukan pengganti FPR atau PSR.
 
 ## Batas penerapan naskah
 
-Pada 14 Oktober, helper lokal dan pilot subset sudah tersedia, tetapi chain
-LangChain lokal belum terintegrasi dan belum memiliki bukti end-to-end.
-Penetapan metode ini menjadi acuan implementasi T02/T05. Naskah akhir harus
-menyertakan bukti integrasi dan manifest T08 sebelum menggunakan pernyataan
-bahwa seluruh metode telah direalisasikan dan eksperimen formal telah berjalan.
+Pada 14 Oktober, chain LangChain lokal dengan feedback adaptif sudah dibuktikan
+end-to-end pada pilot S1 A/B, menggunakan `langchain-core` 1.6.10. Bukti itu
+menutup integrasi pada subset tersebut, bukan seluruh teknik dan level. Pilot
+terpadu U06 menjalankan 33 run applicable, tetapi hanya 15/33 mencapai budget
+10 kandidat; 124 slot kandidat masih belum terpenuhi. Stabilitas A/B dan
+coverage ZAP aktif tetap menjadi gate sebelum U07. Naskah akhir harus
+menyertakan bukti integrasi sesuai cakupan dan manifest T08 sebelum menyatakan
+bahwa seluruh metode direalisasikan atau eksperimen formal telah berjalan.

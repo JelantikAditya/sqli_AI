@@ -1,0 +1,10 @@
+{
+  "sequence": 5,
+  "task_id": "arithmetic",
+  "requested_model": "MiMo-V2.6-Flash",
+  "started_at_utc": "2026-10-20T08:42:28.430833+00:00",
+  "http_status": null,
+  "reported_model": null,
+  "valid_json": false,
+  "passed": false
+}

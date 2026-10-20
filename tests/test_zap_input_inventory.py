@@ -160,6 +160,7 @@ class ZapInputInventoryTests(unittest.TestCase):
                     p["replicate_seeds"] = [42, 42, 42]
                 elif change == "freeze":
                     p["status"] = "frozen"
+                    p["implementation_readiness"]["local_langchain"] = "pending"
                 elif change == "unit":
                     p["metrics"]["fpr_unit"] = "http-request"
                 elif change == "temperature":

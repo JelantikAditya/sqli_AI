@@ -4,6 +4,11 @@ Tanggal: 12 Oktober 2026.
 Dipilih oleh: peneliti melalui chat proyek.
 Scope: indikator error-based untuk eksperimen SQLi DAST pada DVWA lokal.
 
+> Bagian dampak implementasi di bawah merekam status pada tanggal keputusan.
+> Untuk bukti kontrol executor yang lebih baru, lihat [pilot T03/T04](t03-t04-controls-2026-10-14.md)
+> dan [review progres 14 Oktober](review-progress-2026-10-14.md); status kerja
+> aktif ada di [rencana penyelesaian](rencana-penyelesaian-2026-10-16.md).
+
 ## Definisi yang dipilih
 
 Eksekusi kandidat memenuhi indikator keberhasilan ketika respons server

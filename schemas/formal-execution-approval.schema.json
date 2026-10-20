@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "formal-execution-approval.schema.json",
+  "title": "Researcher approval to execute a formal dataset plan",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "scope",
+    "decision",
+    "experiment_id",
+    "formal_plan_path",
+    "formal_plan_sha256",
+    "release_manifest_path",
+    "release_manifest_sha256",
+    "formal_execution_approval",
+    "authority"
+  ],
+  "properties": {
+    "schema_version": { "const": "1.0.0" },
+    "scope": { "const": "formal-dataset-execution" },
+    "decision": { "const": "approved-for-formal-execution" },
+    "experiment_id": { "type": "string", "pattern": "^[a-z0-9][a-z0-9_-]{0,31}$" },
+    "formal_plan_path": { "type": "string", "minLength": 1 },
+    "formal_plan_sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "release_manifest_path": { "type": "string", "minLength": 1 },
+    "release_manifest_sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "formal_execution_approval": { "const": true },
+    "authority": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["role", "basis", "recorded_as", "approved_at_local", "quote"],
+      "properties": {
+        "role": { "const": "researcher" },
+        "basis": { "const": "explicit-user-approval" },
+        "recorded_as": { "type": "string", "minLength": 1 },
+        "approved_at_local": { "type": "string", "minLength": 1 },
+        "quote": { "type": "string", "minLength": 1 }
+      }
+    }
+  }
+}

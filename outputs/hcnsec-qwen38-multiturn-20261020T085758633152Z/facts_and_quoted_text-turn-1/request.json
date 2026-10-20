@@ -1,0 +1,16 @@
+{
+  "model": "Qwen3.8-27B",
+  "messages": [
+    {
+      "role": "system",
+      "content": "Ikuti instruksi pengguna. Jawab hanya satu objek JSON valid tanpa Markdown atau teks tambahan. Gunakan informasi percakapan ini; jangan mengarang informasi yang belum diberikan."
+    },
+    {
+      "role": "user",
+      "content": "Catatan sintetis: nama proyek Aurora; PIC Nisa; tenggat belum ditentukan. Balas snapshot JSON dengan tepat kunci nama_proyek, pic, tenggat. Gunakan null jika informasi belum diketahui."
+    }
+  ],
+  "temperature": 0,
+  "max_tokens": 1024,
+  "stream": false
+}

@@ -1,0 +1,1952 @@
+{
+  "review_id": "analysis-rag-corpus-review-20261019",
+  "review_type": "technical-editorial-review-after-v4-results",
+  "reviewer": "Codex",
+  "independent_or_blinded": false,
+  "human_approval_of_this_review": "not-recorded",
+  "scope": "technical-source-fidelity-and-task-coverage-not-a-new-rag-experiment",
+  "source_corpus_sha256": "8e2aaf363b384eb686594b8968c38ae00fd078cfc9581d6a91d6617ba0ef4348",
+  "projection_sha256": "ab4af368001bdd320025e3872e3c38b5ee20d804f6cfcf82a68a4db3c070d04b",
+  "retrieval_sha256": "79d6abf7cec9627c49df0e58f482678084e44ff0c80fd56de1e373fb097eb98c",
+  "notes_sha256": "319709148d647adc9053a6f509cbd90f65027886cbcc7c0c198871c01f807ca7",
+  "baseline_sha256": "bcd262abc39ea8ebd9239fa03eb79b4b7d5ffe80b46bf9609cedbdfc51a62997",
+  "checker_revision": {
+    "changed_file": "development/audit_analysis_corpus_review.py",
+    "baseline_sha256": "bcd262abc39ea8ebd9239fa03eb79b4b7d5ffe80b46bf9609cedbdfc51a62997",
+    "original_checker_sha256": "395f25ba748113ae27663125c7bfa2ce611bc80ea3a5de6dcaf40151a02d8a63",
+    "revised_checker_sha256": "25bce1121eb260d0b2207c55e7882df627eb6998e781dc856bf2c3e7f1de0a1b",
+    "reason": "Initial review phase rejected existing local index byte differences against the 17 October receipt. Preserve the historical comparison as a reported finding and enforce unchanged-since-review-baseline for the active files. The checker also uses LF source coordinates consistently.",
+    "initial_failure": "Formal vector index differs from approval receipt.",
+    "initial_review_json_written": false,
+    "source_or_index_files_changed": false,
+    "original_baseline_replaced": false
+  },
+  "checker_revision_sha256": "585e8f5fdd0857c8f79f6c6ac7087c0a7fbbdb5e3a5b722fcdd295a61998080c",
+  "original_corpus_review": {
+    "frozen_metadata": "pending",
+    "documented_pilot_approval_date": "2026-10-12",
+    "formal_use_approval_date": "2026-10-17",
+    "receipt": "docs/evidence/u07-formal-corpus-decision-2026-10-17.json",
+    "interpretation": "pending-is-frozen-metadata-not-current-absence-of-original-corpus-approval",
+    "approval_extends_automatically_to_analysis_projection": false
+  },
+  "rating_definitions": {
+    "supported_paraphrase": "Mekanisme pokok dijelaskan oleh bagian sumber yang dirujuk; bukan kutipan literal.",
+    "source_and_editorial": "Mekanisme bersumber, dengan kontrol, pembatasan atau prosedur tambahan dari kurasi proyek.",
+    "editorial_guardrail": "Batas interpretasi atau kehati-hatian editorial; jangan mengatribusikannya sebagai persyaratan eksplisit sumber.",
+    "scope_ambiguity": "Wording umum berpotensi berbeda makna dari label operasional kandidat pada proyek.",
+    "editorial_label": "Judul atau klasifikasi editorial yang konsisten dengan mekanisme; bukan label hasil target."
+  },
+  "entries": [
+    {
+      "entry_id": "sqli-error-quote",
+      "technique": "error-based",
+      "selected_in_v4": true,
+      "chunk_text_sha256": "02a4b827b093139e90b52e4c429fccc5c9d422d4a32e6c8bedc7198e59635efe",
+      "disposition": "retain-with-explicit-editorial-provenance",
+      "fields": [
+        {
+          "field": "detection_method",
+          "value": "Vary one injection parameter while holding other inputs constant. Compare the normal response and candidate response for a new database-specific error, including errors present in HTML source.",
+          "rating": "source_and_editorial",
+          "note": "Pengujian satu variabel serta pemeriksaan error dalam HTML didukung WSTG. Syarat diagnostik baru terhadap baseline adalah kontrol operasional editorial/proyek.",
+          "supporting_references": [
+            {
+              "commit": "dd33419e10edb22b78d89325a6c2aad9f184e3a2",
+              "line_end": 74,
+              "line_start": 46,
+              "repository_path": "document/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05-Testing_for_SQL_Injection.md",
+              "section": "Detection Techniques",
+              "source_id": "owasp-wstg",
+              "source_sha256": "501ea437fcce7197ff5f993fc12d16817ba3d32da7494f1df559f562fb2d7ad3",
+              "url": "https://github.com/OWASP/wstg/blob/dd33419e10edb22b78d89325a6c2aad9f184e3a2/document/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05-Testing_for_SQL_Injection.md#L46-L74",
+              "snapshot_path": "data/raw/knowledge-sources/wstg42-sqli.md",
+              "snapshot_sha256": "501ea437fcce7197ff5f993fc12d16817ba3d32da7494f1df559f562fb2d7ad3",
+              "reviewed_segment_sha256": "d10e3db37459a3fdb3c8f39c9db93b0f29c9241de24c72518c3a5afb3cda63d5"
+            },
+            {
+              "commit": "3ac27901c711bdf3f5b65a7b1d1820a1f65bd09a",
+              "line_end": 79,
+              "line_start": 46,
+              "repository_path": "SQL Injection/README.md",
+              "section": "Entry Point Detection",
+              "source_id": "payloadsallthethings",
+              "source_sha256": "8f68e5b948ca8a253527e98542e022c03028f481ea287d9fbf79044a26b140e3",
+              "url": "https://github.com/swisskyrepo/PayloadsAllTheThings/blob/3ac27901c711bdf3f5b65a7b1d1820a1f65bd09a/SQL%20Injection/README.md#L46-L79",
+              "snapshot_path": "data/raw/knowledge-sources/patt-sqli.md",
+              "snapshot_sha256": "8f68e5b948ca8a253527e98542e022c03028f481ea287d9fbf79044a26b140e3",
+              "reviewed_segment_sha256": "73594f5cbd31b46e1e3530a613af483d38049d479607048f97179495fefbbab6"
+            }
+          ]
+        },
+        {
+          "field": "functional_semantics",
+          "value": "A quote can change the boundary of a SQL literal and cause the database parser to return a syntax error through the HTTP response.",
+          "rating": "supported_paraphrase",
+          "note": "WSTG menjelaskan quote sebagai terminator literal yang dapat memunculkan syntax error jika input tidak difilter; PATT memuat probing karakter khusus.",
+          "supporting_references": [
+            {
+              "commit": "dd33419e10edb22b78d89325a6c2aad9f184e3a2",
+              "line_end": 74,
+              "line_start": 46,
+              "repository_path": "document/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05-Testing_for_SQL_Injection.md",
+              "section": "Detection Techniques",
+              "source_id": "owasp-wstg",
+              "source_sha256": "501ea437fcce7197ff5f993fc12d16817ba3d32da7494f1df559f562fb2d7ad3",
+              "url": "https://github.com/OWASP/wstg/blob/dd33419e10edb22b78d89325a6c2aad9f184e3a2/document/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05-Testing_for_SQL_Injection.md#L46-L74",
+              "snapshot_path": "data/raw/knowledge-sources/wstg42-sqli.md",
+              "snapshot_sha256": "501ea437fcce7197ff5f993fc12d16817ba3d32da7494f1df559f562fb2d7ad3",
+              "reviewed_segment_sha256": "d10e3db37459a3fdb3c8f39c9db93b0f29c9241de24c72518c3a5afb3cda63d5"
+            },
+            {
+              "commit": "3ac27901c711bdf3f5b65a7b1d1820a1f65bd09a",
+              "line_end": 79,
+              "line_start": 46,
+              "repository_path": "SQL Injection/README.md",
+              "section": "Entry Point Detection",
+              "source_id": "payloadsallthethings",
+              "source_sha256": "8f68e5b948ca8a253527e98542e022c03028f481ea287d9fbf79044a26b140e3",
+              "url": "https://github.com/swisskyrepo/PayloadsAllTheThings/blob/3ac27901c711bdf3f5b65a7b1d1820a1f65bd09a/SQL%20Injection/README.md#L46-L79",
+              "snapshot_path": "data/raw/knowledge-sources/patt-sqli.md",
+              "snapshot_sha256": "8f68e5b948ca8a253527e98542e022c03028f481ea287d9fbf79044a26b140e3",
+              "reviewed_segment_sha256": "73594f5cbd31b46e1e3530a613af483d38049d479607048f97179495fefbbab6"
+            }
+          ]
+        },
+        {
+          "field": "limitations",
+          "value": "A generic HTTP 500 is not a database-specific error. The probe is diagnostic evidence, not proof that data extraction succeeded; a filtered quote can produce no signal.",
+          "rating": "source_and_editorial",
+          "note": "WSTG membedakan error rinci dari HTTP 500 umum dan menyebut filtering. Pembatasan bahwa sinyal tidak membuktikan ekstraksi adalah batas klaim editorial yang sesuai dengan probe diagnostik proyek.",
+          "supporting_references": [
+            {
+              "commit": "dd33419e10edb22b78d89325a6c2aad9f184e3a2",
+              "line_end": 74,
+              "line_start": 46,
+              "repository_path": "document/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05-Testing_for_SQL_Injection.md",
+              "section": "Detection Techniques",
+              "source_id": "owasp-wstg",
+              "source_sha256": "501ea437fcce7197ff5f993fc12d16817ba3d32da7494f1df559f562fb2d7ad3",
+              "url": "https://github.com/OWASP/wstg/blob/dd33419e10edb22b78d89325a6c2aad9f184e3a2/document/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05-Testing_for_SQL_Injection.md#L46-L74",
+              "snapshot_path": "data/raw/knowledge-sources/wstg42-sqli.md",
+              "snapshot_sha256": "501ea437fcce7197ff5f993fc12d16817ba3d32da7494f1df559f562fb2d7ad3",
+              "reviewed_segment_sha256": "d10e3db37459a3fdb3c8f39c9db93b0f29c9241de24c72518c3a5afb3cda63d5"
+            },
+            {
+              "commit": "3ac27901c711bdf3f5b65a7b1d1820a1f65bd09a",
+              "line_end": 79,
+              "line_start": 46,
+              "repository_path": "SQL Injection/README.md",
+              "section": "Entry Point Detection",
+              "source_id": "payloadsallthethings",
+              "source_sha256": "8f68e5b948ca8a253527e98542e022c03028f481ea287d9fbf79044a26b140e3",
+              "url": "https://github.com/swisskyrepo/PayloadsAllTheThings/blob/3ac27901c711bdf3f5b65a7b1d1820a1f65bd09a/SQL%20Injection/README.md#L46-L79",
+              "snapshot_path": "data/raw/knowledge-sources/patt-sqli.md",
+              "snapshot_sha256": "8f68e5b948ca8a253527e98542e022c03028f481ea287d9fbf79044a26b140e3",
+              "reviewed_segment_sha256": "73594f5cbd31b46e1e3530a613af483d38049d479607048f97179495fefbbab6"
+            }
+          ]
+        },
+        {
+          "field": "title",
+          "value": "Quote-induced SQL syntax error",
+          "rating": "editorial_label",
+          "note": "Label kurasi sesuai mekanisme pada dua rujukan; tidak menetapkan hasil target.",
+          "supporting_references": [
+            {
+              "commit": "dd33419e10edb22b78d89325a6c2aad9f184e3a2",
+              "line_end": 74,
+              "line_start": 46,
+              "repository_path": "document/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05-Testing_for_SQL_Injection.md",
+              "section": "Detection Techniques",
+              "source_id": "owasp-wstg",
+              "source_sha256": "501ea437fcce7197ff5f993fc12d16817ba3d32da7494f1df559f562fb2d7ad3",
+              "url": "https://github.com/OWASP/wstg/blob/dd33419e10edb22b78d89325a6c2aad9f184e3a2/document/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05-Testing_for_SQL_Injection.md#L46-L74",
+              "snapshot_path": "data/raw/knowledge-sources/wstg42-sqli.md",
+              "snapshot_sha256": "501ea437fcce7197ff5f993fc12d16817ba3d32da7494f1df559f562fb2d7ad3",
+              "reviewed_segment_sha256": "d10e3db37459a3fdb3c8f39c9db93b0f29c9241de24c72518c3a5afb3cda63d5"
+            },
+            {
+              "commit": "3ac27901c711bdf3f5b65a7b1d1820a1f65bd09a",
+              "line_end": 79,
+              "line_start": 46,
+              "repository_path": "SQL Injection/README.md",
+              "section": "Entry Point Detection",
+              "source_id": "payloadsallthethings",
+              "source_sha256": "8f68e5b948ca8a253527e98542e022c03028f481ea287d9fbf79044a26b140e3",
+              "url": "https://github.com/swisskyrepo/PayloadsAllTheThings/blob/3ac27901c711bdf3f5b65a7b1d1820a1f65bd09a/SQL%20Injection/README.md#L46-L79",
+              "snapshot_path": "data/raw/knowledge-sources/patt-sqli.md",
+              "snapshot_sha256": "8f68e5b948ca8a253527e98542e022c03028f481ea287d9fbf79044a26b140e3",
+              "reviewed_segment_sha256": "73594f5cbd31b46e1e3530a613af483d38049d479607048f97179495fefbbab6"
+            }
+          ]
+        },
+        {
+          "field": "vulnerability_type",
+          "value": "error-based",
+          "rating": "editorial_label",
+          "note": "Label kurasi sesuai mekanisme pada dua rujukan; tidak menetapkan hasil target.",
+          "supporting_references": [
+            {
+              "commit": "dd33419e10edb22b78d89325a6c2aad9f184e3a2",
+              "line_end": 74,
+              "line_start": 46,
+              "repository_path": "document/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05-Testing_for_SQL_Injection.md",
+              "section": "Detection Techniques",
+              "source_id": "owasp-wstg",
+              "source_sha256": "501ea437fcce7197ff5f993fc12d16817ba3d32da7494f1df559f562fb2d7ad3",
+              "url": "https://github.com/OWASP/wstg/blob/dd33419e10edb22b78d89325a6c2aad9f184e3a2/document/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05-Testing_for_SQL_Injection.md#L46-L74",
+              "snapshot_path": "data/raw/knowledge-sources/wstg42-sqli.md",
+              "snapshot_sha256": "501ea437fcce7197ff5f993fc12d16817ba3d32da7494f1df559f562fb2d7ad3",
+              "reviewed_segment_sha256": "d10e3db37459a3fdb3c8f39c9db93b0f29c9241de24c72518c3a5afb3cda63d5"
+            },
+            {
+              "commit": "3ac27901c711bdf3f5b65a7b1d1820a1f65bd09a",
+              "line_end": 79,
+              "line_start": 46,
+              "repository_path": "SQL Injection/README.md",
+              "section": "Entry Point Detection",
+              "source_id": "payloadsallthethings",
+              "source_sha256": "8f68e5b948ca8a253527e98542e022c03028f481ea287d9fbf79044a26b140e3",
+              "url": "https://github.com/swisskyrepo/PayloadsAllTheThings/blob/3ac27901c711bdf3f5b65a7b1d1820a1f65bd09a/SQL%20Injection/README.md#L46-L79",
+              "snapshot_path": "data/raw/knowledge-sources/patt-sqli.md",
+              "snapshot_sha256": "8f68e5b948ca8a253527e98542e022c03028f481ea287d9fbf79044a26b140e3",
+              "reviewed_segment_sha256": "73594f5cbd31b46e1e3530a613af483d38049d479607048f97179495fefbbab6"
+            }
+          ]
+        }
+      ],
+      "inherited_references_unused_for_projected_fields": [
+        {
+          "commit": "dd33419e10edb22b78d89325a6c2aad9f184e3a2",
+          "line_end": 555,
+          "line_start": 550,
+          "repository_path": "document/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05-Testing_for_SQL_Injection.md",
+          "section": "Remediation",
+          "source_id": "owasp-wstg",
+          "source_sha256": "501ea437fcce7197ff5f993fc12d16817ba3d32da7494f1df559f562fb2d7ad3",
+          "url": "https://github.com/OWASP/wstg/blob/dd33419e10edb22b78d89325a6c2aad9f184e3a2/document/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05-Testing_for_SQL_Injection.md#L550-L555",
+          "snapshot_path": "data/raw/knowledge-sources/wstg42-sqli.md",
+          "snapshot_sha256": "501ea437fcce7197ff5f993fc12d16817ba3d32da7494f1df559f562fb2d7ad3",
+          "reviewed_segment_sha256": "11c73155905aafc536fa35be65491b13a707a33bb4055bff20fed6ad243d3e06"
+        }
+      ]
+    },
+    {
+      "entry_id": "sqli-error-message",
+      "technique": "error-based",
+      "selected_in_v4": true,
+      "chunk_text_sha256": "25d35835a70015d667db7e30f92cde99525e713ff6c6e86b0e48279a2e0c1c0c",
+      "disposition": "retain-with-explicit-editorial-provenance",
+      "fields": [
+        {
+          "field": "detection_method",
+          "value": "Inspect the candidate response for a SQL syntax diagnostic and distinguish it from a generic application error or an error already present in the normal response.",
+          "rating": "source_and_editorial",
+          "note": "Inspeksi pesan diagnostik didukung sumber. Pengecualian error generik dan error yang telah muncul pada baseline adalah kontrol editorial, bukan prosedur lengkap dalam dua rentang ini.",
+          "supporting_references": [
+            {
+              "commit": "dd33419e10edb22b78d89325a6c2aad9f184e3a2",
+              "line_end": 216,
+              "line_start": 174,
+              "repository_path": "document/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05-Testing_for_SQL_Injection.md",
+              "section": "Errors Returned by the Application",
+              "source_id": "owasp-wstg",
+              "source_sha256": "501ea437fcce7197ff5f993fc12d16817ba3d32da7494f1df559f562fb2d7ad3",
+              "url": "https://github.com/OWASP/wstg/blob/dd33419e10edb22b78d89325a6c2aad9f184e3a2/document/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05-Testing_for_SQL_Injection.md#L174-L216",
+              "snapshot_path": "data/raw/knowledge-sources/wstg42-sqli.md",
+              "snapshot_sha256": "501ea437fcce7197ff5f993fc12d16817ba3d32da7494f1df559f562fb2d7ad3",
+              "reviewed_segment_sha256": "d767fedd49fe71bfeaac24f16687146dcce44bbfa202037bb132b11221eecf7a"
+            },
+            {
+              "commit": "3ac27901c711bdf3f5b65a7b1d1820a1f65bd09a",
+              "line_end": 126,
+              "line_start": 112,
+              "repository_path": "SQL Injection/README.md",
+              "section": "DBMS Identification Error Based",
+              "source_id": "payloadsallthethings",
+              "source_sha256": "8f68e5b948ca8a253527e98542e022c03028f481ea287d9fbf79044a26b140e3",
+              "url": "https://github.com/swisskyrepo/PayloadsAllTheThings/blob/3ac27901c711bdf3f5b65a7b1d1820a1f65bd09a/SQL%20Injection/README.md#L112-L126",
+              "snapshot_path": "data/raw/knowledge-sources/patt-sqli.md",
+              "snapshot_sha256": "8f68e5b948ca8a253527e98542e022c03028f481ea287d9fbf79044a26b140e3",
+              "reviewed_segment_sha256": "67522b7b7ddd23644fabff9277f6ec88f09cd7c216b055c8562b4a7ab9fec85f"
+            }
+          ]
+        },
+        {
+          "field": "functional_semantics",
+          "value": "A malformed SQL literal can expose a database-specific parser message. Such a message helps infer SQL context without reading application source.",
+          "rating": "supported_paraphrase",
+          "note": "Contoh pesan syntax/parser error beberapa DBMS mendukung inferensi konteks database dari respons eksternal. Tidak menyatakan query internal target sudah diketahui.",
+          "supporting_references": [
+            {
+              "commit": "dd33419e10edb22b78d89325a6c2aad9f184e3a2",
+              "line_end": 216,
+              "line_start": 174,
+              "repository_path": "document/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05-Testing_for_SQL_Injection.md",
+              "section": "Errors Returned by the Application",
+              "source_id": "owasp-wstg",
+              "source_sha256": "501ea437fcce7197ff5f993fc12d16817ba3d32da7494f1df559f562fb2d7ad3",
+              "url": "https://github.com/OWASP/wstg/blob/dd33419e10edb22b78d89325a6c2aad9f184e3a2/document/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05-Testing_for_SQL_Injection.md#L174-L216",
+              "snapshot_path": "data/raw/knowledge-sources/wstg42-sqli.md",
+              "snapshot_sha256": "501ea437fcce7197ff5f993fc12d16817ba3d32da7494f1df559f562fb2d7ad3",
+              "reviewed_segment_sha256": "d767fedd49fe71bfeaac24f16687146dcce44bbfa202037bb132b11221eecf7a"
+            },
+            {
+              "commit": "3ac27901c711bdf3f5b65a7b1d1820a1f65bd09a",
+              "line_end": 126,
+              "line_start": 112,
+              "repository_path": "SQL Injection/README.md",
+              "section": "DBMS Identification Error Based",
+              "source_id": "payloadsallthethings",
+              "source_sha256": "8f68e5b948ca8a253527e98542e022c03028f481ea287d9fbf79044a26b140e3",
+              "url": "https://github.com/swisskyrepo/PayloadsAllTheThings/blob/3ac27901c711bdf3f5b65a7b1d1820a1f65bd09a/SQL%20Injection/README.md#L112-L126",
+              "snapshot_path": "data/raw/knowledge-sources/patt-sqli.md",
+              "snapshot_sha256": "8f68e5b948ca8a253527e98542e022c03028f481ea287d9fbf79044a26b140e3",
+              "reviewed_segment_sha256": "67522b7b7ddd23644fabff9277f6ec88f09cd7c216b055c8562b4a7ab9fec85f"
+            }
+          ]
+        },
+        {
+          "field": "limitations",
+          "value": "Error wording depends on engine, version and application error handling. Fingerprinting alone does not establish successful exploitation or a target vulnerability label.",
+          "rating": "editorial_guardrail",
+          "note": "Perbedaan engine dan custom error mempunyai dasar pada sumber. Klaim tentang versi serta batas fingerprinting terhadap keberhasilan/label target adalah kehati-hatian editorial, bukan verifikasi lintas versi.",
+          "supporting_references": [
+            {
+              "commit": "dd33419e10edb22b78d89325a6c2aad9f184e3a2",
+              "line_end": 216,
+              "line_start": 174,
+              "repository_path": "document/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05-Testing_for_SQL_Injection.md",
+              "section": "Errors Returned by the Application",
+              "source_id": "owasp-wstg",
+              "source_sha256": "501ea437fcce7197ff5f993fc12d16817ba3d32da7494f1df559f562fb2d7ad3",
+              "url": "https://github.com/OWASP/wstg/blob/dd33419e10edb22b78d89325a6c2aad9f184e3a2/document/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05-Testing_for_SQL_Injection.md#L174-L216",
+              "snapshot_path": "data/raw/knowledge-sources/wstg42-sqli.md",
+              "snapshot_sha256": "501ea437fcce7197ff5f993fc12d16817ba3d32da7494f1df559f562fb2d7ad3",
+              "reviewed_segment_sha256": "d767fedd49fe71bfeaac24f16687146dcce44bbfa202037bb132b11221eecf7a"
+            },
+            {
+              "commit": "3ac27901c711bdf3f5b65a7b1d1820a1f65bd09a",
+              "line_end": 126,
+              "line_start": 112,
+              "repository_path": "SQL Injection/README.md",
+              "section": "DBMS Identification Error Based",
+              "source_id": "payloadsallthethings",
+              "source_sha256": "8f68e5b948ca8a253527e98542e022c03028f481ea287d9fbf79044a26b140e3",
+              "url": "https://github.com/swisskyrepo/PayloadsAllTheThings/blob/3ac27901c711bdf3f5b65a7b1d1820a1f65bd09a/SQL%20Injection/README.md#L112-L126",
+              "snapshot_path": "data/raw/knowledge-sources/patt-sqli.md",
+              "snapshot_sha256": "8f68e5b948ca8a253527e98542e022c03028f481ea287d9fbf79044a26b140e3",
+              "reviewed_segment_sha256": "67522b7b7ddd23644fabff9277f6ec88f09cd7c216b055c8562b4a7ab9fec85f"
+            }
+          ]
+        },
+        {
+          "field": "title",
+          "value": "Interpret database-specific returned errors",
+          "rating": "editorial_label",
+          "note": "Label kurasi sesuai mekanisme pada dua rujukan; tidak menetapkan hasil target.",
+          "supporting_references": [
+            {
+              "commit": "dd33419e10edb22b78d89325a6c2aad9f184e3a2",
+              "line_end": 216,
+              "line_start": 174,
+              "repository_path": "document/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05-Testing_for_SQL_Injection.md",
+              "section": "Errors Returned by the Application",
+              "source_id": "owasp-wstg",
+              "source_sha256": "501ea437fcce7197ff5f993fc12d16817ba3d32da7494f1df559f562fb2d7ad3",
+              "url": "https://github.com/OWASP/wstg/blob/dd33419e10edb22b78d89325a6c2aad9f184e3a2/document/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05-Testing_for_SQL_Injection.md#L174-L216",
+              "snapshot_path": "data/raw/knowledge-sources/wstg42-sqli.md",
+              "snapshot_sha256": "501ea437fcce7197ff5f993fc12d16817ba3d32da7494f1df559f562fb2d7ad3",
+              "reviewed_segment_sha256": "d767fedd49fe71bfeaac24f16687146dcce44bbfa202037bb132b11221eecf7a"
+            },
+            {
+              "commit": "3ac27901c711bdf3f5b65a7b1d1820a1f65bd09a",
+              "line_end": 126,
+              "line_start": 112,
+              "repository_path": "SQL Injection/README.md",
+              "section": "DBMS Identification Error Based",
+              "source_id": "payloadsallthethings",
+              "source_sha256": "8f68e5b948ca8a253527e98542e022c03028f481ea287d9fbf79044a26b140e3",
+              "url": "https://github.com/swisskyrepo/PayloadsAllTheThings/blob/3ac27901c711bdf3f5b65a7b1d1820a1f65bd09a/SQL%20Injection/README.md#L112-L126",
+              "snapshot_path": "data/raw/knowledge-sources/patt-sqli.md",
+              "snapshot_sha256": "8f68e5b948ca8a253527e98542e022c03028f481ea287d9fbf79044a26b140e3",
+              "reviewed_segment_sha256": "67522b7b7ddd23644fabff9277f6ec88f09cd7c216b055c8562b4a7ab9fec85f"
+            }
+          ]
+        },
+        {
+          "field": "vulnerability_type",
+          "value": "error-based",
+          "rating": "editorial_label",
+          "note": "Label kurasi sesuai mekanisme pada dua rujukan; tidak menetapkan hasil target.",
+          "supporting_references": [
+            {
+              "commit": "dd33419e10edb22b78d89325a6c2aad9f184e3a2",
+              "line_end": 216,
+              "line_start": 174,
+              "repository_path": "document/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05-Testing_for_SQL_Injection.md",
+              "section": "Errors Returned by the Application",
+              "source_id": "owasp-wstg",
+              "source_sha256": "501ea437fcce7197ff5f993fc12d16817ba3d32da7494f1df559f562fb2d7ad3",
+              "url": "https://github.com/OWASP/wstg/blob/dd33419e10edb22b78d89325a6c2aad9f184e3a2/document/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05-Testing_for_SQL_Injection.md#L174-L216",
+              "snapshot_path": "data/raw/knowledge-sources/wstg42-sqli.md",
+              "snapshot_sha256": "501ea437fcce7197ff5f993fc12d16817ba3d32da7494f1df559f562fb2d7ad3",
+              "reviewed_segment_sha256": "d767fedd49fe71bfeaac24f16687146dcce44bbfa202037bb132b11221eecf7a"
+            },
+            {
+              "commit": "3ac27901c711bdf3f5b65a7b1d1820a1f65bd09a",
+              "line_end": 126,
+              "line_start": 112,
+              "repository_path": "SQL Injection/README.md",
+              "section": "DBMS Identification Error Based",
+              "source_id": "payloadsallthethings",
+              "source_sha256": "8f68e5b948ca8a253527e98542e022c03028f481ea287d9fbf79044a26b140e3",
+              "url": "https://github.com/swisskyrepo/PayloadsAllTheThings/blob/3ac27901c711bdf3f5b65a7b1d1820a1f65bd09a/SQL%20Injection/README.md#L112-L126",
+              "snapshot_path": "data/raw/knowledge-sources/patt-sqli.md",
+              "snapshot_sha256": "8f68e5b948ca8a253527e98542e022c03028f481ea287d9fbf79044a26b140e3",
+              "reviewed_segment_sha256": "67522b7b7ddd23644fabff9277f6ec88f09cd7c216b055c8562b4a7ab9fec85f"
+            }
+          ]
+        }
+      ],
+      "inherited_references_unused_for_projected_fields": [
+        {
+          "commit": "dd33419e10edb22b78d89325a6c2aad9f184e3a2",
+          "line_end": 555,
+          "line_start": 550,
+          "repository_path": "document/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05-Testing_for_SQL_Injection.md",
+          "section": "Remediation",
+          "source_id": "owasp-wstg",
+          "source_sha256": "501ea437fcce7197ff5f993fc12d16817ba3d32da7494f1df559f562fb2d7ad3",
+          "url": "https://github.com/OWASP/wstg/blob/dd33419e10edb22b78d89325a6c2aad9f184e3a2/document/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05-Testing_for_SQL_Injection.md#L550-L555",
+          "snapshot_path": "data/raw/knowledge-sources/wstg42-sqli.md",
+          "snapshot_sha256": "501ea437fcce7197ff5f993fc12d16817ba3d32da7494f1df559f562fb2d7ad3",
+          "reviewed_segment_sha256": "11c73155905aafc536fa35be65491b13a707a33bb4055bff20fed6ad243d3e06"
+        }
+      ]
+    },
+    {
+      "entry_id": "sqli-error-xml",
+      "technique": "error-based",
+      "selected_in_v4": false,
+      "chunk_text_sha256": "21e0cf60dd1276a41b605d7c850f13f2f1d5756748733571098372fc0e3f771c",
+      "disposition": "retain-as-conditional-template",
+      "fields": [
+        {
+          "field": "detection_method",
+          "value": "Compare with the normal response and look for the chosen marker inside the XML/XPath database error. A missing-function error must be distinguished from the intended marker-bearing diagnostic.",
+          "rating": "source_and_editorial",
+          "note": "Pencarian marker pada error sesuai mekanisme. Perbandingan baseline dan pembedaan missing-function dari marker-bearing diagnostic adalah prosedur kurasi, tidak ditetapkan eksplisit dalam contoh sumber.",
+          "supporting_references": [
+            {
+              "commit": "dd33419e10edb22b78d89325a6c2aad9f184e3a2",
+              "line_end": 333,
+              "line_start": 313,
+              "repository_path": "document/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05-Testing_for_SQL_Injection.md",
+              "section": "Error Based Exploitation Technique",
+              "source_id": "owasp-wstg",
+              "source_sha256": "501ea437fcce7197ff5f993fc12d16817ba3d32da7494f1df559f562fb2d7ad3",
+              "url": "https://github.com/OWASP/wstg/blob/dd33419e10edb22b78d89325a6c2aad9f184e3a2/document/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05-Testing_for_SQL_Injection.md#L313-L333",
+              "snapshot_path": "data/raw/knowledge-sources/wstg42-sqli.md",
+              "snapshot_sha256": "501ea437fcce7197ff5f993fc12d16817ba3d32da7494f1df559f562fb2d7ad3",
+              "reviewed_segment_sha256": "a5a9ce5925c63443a31a9dd581e7246188ec296184777de7c6238a76dff31c33"
+            },
+            {
+              "commit": "3ac27901c711bdf3f5b65a7b1d1820a1f65bd09a",
+              "line_end": 281,
+              "line_start": 221,
+              "repository_path": "SQL Injection/MySQL Injection.md",
+              "section": "MYSQL Error Based",
+              "source_id": "payloadsallthethings",
+              "source_sha256": "8fd90e87a6ccce3dde2b673492c0b975296a16d90f1c8f5833a63e4b2f0fc6d9",
+              "url": "https://github.com/swisskyrepo/PayloadsAllTheThings/blob/3ac27901c711bdf3f5b65a7b1d1820a1f65bd09a/SQL%20Injection/MySQL%20Injection.md#L221-L281",
+              "snapshot_path": "data/raw/knowledge-sources/patt-mysql-sections.json",
+              "snapshot_sha256": "190a4eb75b02acbf32797a1b49be876c95775f496335611114dc2f13c2167cb3",
+              "reviewed_segment_sha256": "f5ff0a74c96a86ccb9726bb36c25d02952180d89161805e6e9f512d5a3f42c20"
+            }
+          ]
+        },
+        {
+          "field": "functional_semantics",
+          "value": "An invalid XPath argument to EXTRACTVALUE or UPDATEXML can deliberately raise a database error containing a chosen marker if the function is available.",
+          "rating": "source_and_editorial",
+          "note": "WSTG mendukung error pembawa informasi; PATT memberi contoh EXTRACTVALUE/UPDATEXML dengan CONCAT. Penggantian informasi target menjadi marker konstan adalah adaptasi editorial.",
+          "supporting_references": [
+            {
+              "commit": "dd33419e10edb22b78d89325a6c2aad9f184e3a2",
+              "line_end": 333,
+              "line_start": 313,
+              "repository_path": "document/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05-Testing_for_SQL_Injection.md",
+              "section": "Error Based Exploitation Technique",
+              "source_id": "owasp-wstg",
+              "source_sha256": "501ea437fcce7197ff5f993fc12d16817ba3d32da7494f1df559f562fb2d7ad3",
+              "url": "https://github.com/OWASP/wstg/blob/dd33419e10edb22b78d89325a6c2aad9f184e3a2/document/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05-Testing_for_SQL_Injection.md#L313-L333",
+              "snapshot_path": "data/raw/knowledge-sources/wstg42-sqli.md",
+              "snapshot_sha256": "501ea437fcce7197ff5f993fc12d16817ba3d32da7494f1df559f562fb2d7ad3",
+              "reviewed_segment_sha256": "a5a9ce5925c63443a31a9dd581e7246188ec296184777de7c6238a76dff31c33"
+            },
+            {
+              "commit": "3ac27901c711bdf3f5b65a7b1d1820a1f65bd09a",
+              "line_end": 281,
+              "line_start": 221,
+              "repository_path": "SQL Injection/MySQL Injection.md",
+              "section": "MYSQL Error Based",
+              "source_id": "payloadsallthethings",
+              "source_sha256": "8fd90e87a6ccce3dde2b673492c0b975296a16d90f1c8f5833a63e4b2f0fc6d9",
+              "url": "https://github.com/swisskyrepo/PayloadsAllTheThings/blob/3ac27901c711bdf3f5b65a7b1d1820a1f65bd09a/SQL%20Injection/MySQL%20Injection.md#L221-L281",
+              "snapshot_path": "data/raw/knowledge-sources/patt-mysql-sections.json",
+              "snapshot_sha256": "190a4eb75b02acbf32797a1b49be876c95775f496335611114dc2f13c2167cb3",
+              "reviewed_segment_sha256": "f5ff0a74c96a86ccb9726bb36c25d02952180d89161805e6e9f512d5a3f42c20"
+            }
+          ]
+        },
+        {
+          "field": "limitations",
+          "value": "Function availability varies across MySQL/MariaDB versions. The payload is a syntax template requiring context adaptation, not a verified result for a particular target.",
+          "rating": "editorial_guardrail",
+          "note": "Snapshot PATT mencantumkan batas versi pada contoh. Kompatibilitas seluruh MySQL/MariaDB tidak diverifikasi di review ini; field tepat dibaca sebagai peringatan bersyarat dan kebutuhan adaptasi konteks.",
+          "supporting_references": [
+            {
+              "commit": "dd33419e10edb22b78d89325a6c2aad9f184e3a2",
+              "line_end": 333,
+              "line_start": 313,
+              "repository_path": "document/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05-Testing_for_SQL_Injection.md",
+              "section": "Error Based Exploitation Technique",
+              "source_id": "owasp-wstg",
+              "source_sha256": "501ea437fcce7197ff5f993fc12d16817ba3d32da7494f1df559f562fb2d7ad3",
+              "url": "https://github.com/OWASP/wstg/blob/dd33419e10edb22b78d89325a6c2aad9f184e3a2/document/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05-Testing_for_SQL_Injection.md#L313-L333",
+              "snapshot_path": "data/raw/knowledge-sources/wstg42-sqli.md",
+              "snapshot_sha256": "501ea437fcce7197ff5f993fc12d16817ba3d32da7494f1df559f562fb2d7ad3",
+              "reviewed_segment_sha256": "a5a9ce5925c63443a31a9dd581e7246188ec296184777de7c6238a76dff31c33"
+            },
+            {
+              "commit": "3ac27901c711bdf3f5b65a7b1d1820a1f65bd09a",
+              "line_end": 281,
+              "line_start": 221,
+              "repository_path": "SQL Injection/MySQL Injection.md",
+              "section": "MYSQL Error Based",
+              "source_id": "payloadsallthethings",
+              "source_sha256": "8fd90e87a6ccce3dde2b673492c0b975296a16d90f1c8f5833a63e4b2f0fc6d9",
+              "url": "https://github.com/swisskyrepo/PayloadsAllTheThings/blob/3ac27901c711bdf3f5b65a7b1d1820a1f65bd09a/SQL%20Injection/MySQL%20Injection.md#L221-L281",
+              "snapshot_path": "data/raw/knowledge-sources/patt-mysql-sections.json",
+              "snapshot_sha256": "190a4eb75b02acbf32797a1b49be876c95775f496335611114dc2f13c2167cb3",
+              "reviewed_segment_sha256": "f5ff0a74c96a86ccb9726bb36c25d02952180d89161805e6e9f512d5a3f42c20"
+            }
+          ]
+        },
+        {
+          "field": "title",
+          "value": "MySQL-compatible deliberate XML error",
+          "rating": "editorial_label",
+          "note": "Label kurasi sesuai mekanisme pada dua rujukan; tidak menetapkan hasil target.",
+          "supporting_references": [
+            {
+              "commit": "dd33419e10edb22b78d89325a6c2aad9f184e3a2",
+              "line_end": 333,
+              "line_start": 313,
+              "repository_path": "document/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05-Testing_for_SQL_Injection.md",
+              "section": "Error Based Exploitation Technique",
+              "source_id": "owasp-wstg",
+              "source_sha256": "501ea437fcce7197ff5f993fc12d16817ba3d32da7494f1df559f562fb2d7ad3",
+              "url": "https://github.com/OWASP/wstg/blob/dd33419e10edb22b78d89325a6c2aad9f184e3a2/document/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05-Testing_for_SQL_Injection.md#L313-L333",
+              "snapshot_path": "data/raw/knowledge-sources/wstg42-sqli.md",
+              "snapshot_sha256": "501ea437fcce7197ff5f993fc12d16817ba3d32da7494f1df559f562fb2d7ad3",
+              "reviewed_segment_sha256": "a5a9ce5925c63443a31a9dd581e7246188ec296184777de7c6238a76dff31c33"
+            },
+            {
+              "commit": "3ac27901c711bdf3f5b65a7b1d1820a1f65bd09a",
+              "line_end": 281,
+              "line_start": 221,
+              "repository_path": "SQL Injection/MySQL Injection.md",
+              "section": "MYSQL Error Based",
+              "source_id": "payloadsallthethings",
+              "source_sha256": "8fd90e87a6ccce3dde2b673492c0b975296a16d90f1c8f5833a63e4b2f0fc6d9",
+              "url": "https://github.com/swisskyrepo/PayloadsAllTheThings/blob/3ac27901c711bdf3f5b65a7b1d1820a1f65bd09a/SQL%20Injection/MySQL%20Injection.md#L221-L281",
+              "snapshot_path": "data/raw/knowledge-sources/patt-mysql-sections.json",
+              "snapshot_sha256": "190a4eb75b02acbf32797a1b49be876c95775f496335611114dc2f13c2167cb3",
+              "reviewed_segment_sha256": "f5ff0a74c96a86ccb9726bb36c25d02952180d89161805e6e9f512d5a3f42c20"
+            }
+          ]
+        },
+        {
+          "field": "vulnerability_type",
+          "value": "error-based",
+          "rating": "editorial_label",
+          "note": "Label kurasi sesuai mekanisme pada dua rujukan; tidak menetapkan hasil target.",
+          "supporting_references": [
+            {
+              "commit": "dd33419e10edb22b78d89325a6c2aad9f184e3a2",
+              "line_end": 333,
+              "line_start": 313,
+              "repository_path": "document/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05-Testing_for_SQL_Injection.md",
+              "section": "Error Based Exploitation Technique",
+              "source_id": "owasp-wstg",
+              "source_sha256": "501ea437fcce7197ff5f993fc12d16817ba3d32da7494f1df559f562fb2d7ad3",
+              "url": "https://github.com/OWASP/wstg/blob/dd33419e10edb22b78d89325a6c2aad9f184e3a2/document/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05-Testing_for_SQL_Injection.md#L313-L333",
+              "snapshot_path": "data/raw/knowledge-sources/wstg42-sqli.md",
+              "snapshot_sha256": "501ea437fcce7197ff5f993fc12d16817ba3d32da7494f1df559f562fb2d7ad3",
+              "reviewed_segment_sha256": "a5a9ce5925c63443a31a9dd581e7246188ec296184777de7c6238a76dff31c33"
+            },
+            {
+              "commit": "3ac27901c711bdf3f5b65a7b1d1820a1f65bd09a",
+              "line_end": 281,
+              "line_start": 221,
+              "repository_path": "SQL Injection/MySQL Injection.md",
+              "section": "MYSQL Error Based",
+              "source_id": "payloadsallthethings",
+              "source_sha256": "8fd90e87a6ccce3dde2b673492c0b975296a16d90f1c8f5833a63e4b2f0fc6d9",
+              "url": "https://github.com/swisskyrepo/PayloadsAllTheThings/blob/3ac27901c711bdf3f5b65a7b1d1820a1f65bd09a/SQL%20Injection/MySQL%20Injection.md#L221-L281",
+              "snapshot_path": "data/raw/knowledge-sources/patt-mysql-sections.json",
+              "snapshot_sha256": "190a4eb75b02acbf32797a1b49be876c95775f496335611114dc2f13c2167cb3",
+              "reviewed_segment_sha256": "f5ff0a74c96a86ccb9726bb36c25d02952180d89161805e6e9f512d5a3f42c20"
+            }
+          ]
+        }
+      ],
+      "inherited_references_unused_for_projected_fields": [
+        {
+          "commit": "dd33419e10edb22b78d89325a6c2aad9f184e3a2",
+          "line_end": 555,
+          "line_start": 550,
+          "repository_path": "document/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05-Testing_for_SQL_Injection.md",
+          "section": "Remediation",
+          "source_id": "owasp-wstg",
+          "source_sha256": "501ea437fcce7197ff5f993fc12d16817ba3d32da7494f1df559f562fb2d7ad3",
+          "url": "https://github.com/OWASP/wstg/blob/dd33419e10edb22b78d89325a6c2aad9f184e3a2/document/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05-Testing_for_SQL_Injection.md#L550-L555",
+          "snapshot_path": "data/raw/knowledge-sources/wstg42-sqli.md",
+          "snapshot_sha256": "501ea437fcce7197ff5f993fc12d16817ba3d32da7494f1df559f562fb2d7ad3",
+          "reviewed_segment_sha256": "11c73155905aafc536fa35be65491b13a707a33bb4055bff20fed6ad243d3e06"
+        }
+      ]
+    },
+    {
+      "entry_id": "sqli-boolean-numeric",
+      "technique": "boolean-based blind",
+      "selected_in_v4": true,
+      "chunk_text_sha256": "91226c53d1675c5153617fcfa2d628c5d67cda3300eeef392f7ce9d1945b84f4",
+      "disposition": "retain-with-explicit-editorial-provenance",
+      "fields": [
+        {
+          "field": "detection_method",
+          "value": "Compare the same parameter and delivery method with a true predicate and a false predicate. Identify a repeatable difference in application content rather than assuming a particular HTTP status code.",
+          "rating": "source_and_editorial",
+          "note": "Perbandingan true/false didukung sumber. Pengulangan, koordinat delivery yang tetap, dan penolakan ketergantungan pada satu status HTTP merupakan operasionalisasi editorial.",
+          "supporting_references": [
+            {
+              "commit": "dd33419e10edb22b78d89325a6c2aad9f184e3a2",
+              "line_end": 152,
+              "line_start": 132,
+              "repository_path": "document/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05-Testing_for_SQL_Injection.md",
+              "section": "SELECT Statement",
+              "source_id": "owasp-wstg",
+              "source_sha256": "501ea437fcce7197ff5f993fc12d16817ba3d32da7494f1df559f562fb2d7ad3",
+              "url": "https://github.com/OWASP/wstg/blob/dd33419e10edb22b78d89325a6c2aad9f184e3a2/document/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05-Testing_for_SQL_Injection.md#L132-L152",
+              "snapshot_path": "data/raw/knowledge-sources/wstg42-sqli.md",
+              "snapshot_sha256": "501ea437fcce7197ff5f993fc12d16817ba3d32da7494f1df559f562fb2d7ad3",
+              "reviewed_segment_sha256": "2a8da51c16246398322c1d633078c486347a6424eaa990d715a79fcf997832ce"
+            },
+            {
+              "commit": "3ac27901c711bdf3f5b65a7b1d1820a1f65bd09a",
+              "line_end": 79,
+              "line_start": 46,
+              "repository_path": "SQL Injection/README.md",
+              "section": "Entry Point Detection",
+              "source_id": "payloadsallthethings",
+              "source_sha256": "8f68e5b948ca8a253527e98542e022c03028f481ea287d9fbf79044a26b140e3",
+              "url": "https://github.com/swisskyrepo/PayloadsAllTheThings/blob/3ac27901c711bdf3f5b65a7b1d1820a1f65bd09a/SQL%20Injection/README.md#L46-L79",
+              "snapshot_path": "data/raw/knowledge-sources/patt-sqli.md",
+              "snapshot_sha256": "8f68e5b948ca8a253527e98542e022c03028f481ea287d9fbf79044a26b140e3",
+              "reviewed_segment_sha256": "73594f5cbd31b46e1e3530a613af483d38049d479607048f97179495fefbbab6"
+            }
+          ]
+        },
+        {
+          "field": "functional_semantics",
+          "value": "A true or false predicate added to a numeric SQL expression can change whether matching rows are returned, yielding observable differences in HTTP content.",
+          "rating": "supported_paraphrase",
+          "note": "WSTG SELECT Statement secara langsung membandingkan predikat AND false dan true pada input numerik serta respons konten.",
+          "supporting_references": [
+            {
+              "commit": "dd33419e10edb22b78d89325a6c2aad9f184e3a2",
+              "line_end": 152,
+              "line_start": 132,
+              "repository_path": "document/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05-Testing_for_SQL_Injection.md",
+              "section": "SELECT Statement",
+              "source_id": "owasp-wstg",
+              "source_sha256": "501ea437fcce7197ff5f993fc12d16817ba3d32da7494f1df559f562fb2d7ad3",
+              "url": "https://github.com/OWASP/wstg/blob/dd33419e10edb22b78d89325a6c2aad9f184e3a2/document/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05-Testing_for_SQL_Injection.md#L132-L152",
+              "snapshot_path": "data/raw/knowledge-sources/wstg42-sqli.md",
+              "snapshot_sha256": "501ea437fcce7197ff5f993fc12d16817ba3d32da7494f1df559f562fb2d7ad3",
+              "reviewed_segment_sha256": "2a8da51c16246398322c1d633078c486347a6424eaa990d715a79fcf997832ce"
+            },
+            {
+              "commit": "3ac27901c711bdf3f5b65a7b1d1820a1f65bd09a",
+              "line_end": 79,
+              "line_start": 46,
+              "repository_path": "SQL Injection/README.md",
+              "section": "Entry Point Detection",
+              "source_id": "payloadsallthethings",
+              "source_sha256": "8f68e5b948ca8a253527e98542e022c03028f481ea287d9fbf79044a26b140e3",
+              "url": "https://github.com/swisskyrepo/PayloadsAllTheThings/blob/3ac27901c711bdf3f5b65a7b1d1820a1f65bd09a/SQL%20Injection/README.md#L46-L79",
+              "snapshot_path": "data/raw/knowledge-sources/patt-sqli.md",
+              "snapshot_sha256": "8f68e5b948ca8a253527e98542e022c03028f481ea287d9fbf79044a26b140e3",
+              "reviewed_segment_sha256": "73594f5cbd31b46e1e3530a613af483d38049d479607048f97179495fefbbab6"
+            }
+          ]
+        },
+        {
+          "field": "limitations",
+          "value": "Both controls must reach the same SQL expression. Unstable page content or a rejected input can mimic a difference without confirming predicate execution.",
+          "rating": "editorial_guardrail",
+          "note": "Permintaan harus comparable agar perbedaan dapat ditafsirkan. Peringatan konten tidak stabil/input ditolak adalah guardrail editorial; tidak membuktikan kedua input benar-benar mencapai ekspresi SQL tersembunyi.",
+          "supporting_references": [
+            {
+              "commit": "dd33419e10edb22b78d89325a6c2aad9f184e3a2",
+              "line_end": 152,
+              "line_start": 132,
+              "repository_path": "document/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05-Testing_for_SQL_Injection.md",
+              "section": "SELECT Statement",
+              "source_id": "owasp-wstg",
+              "source_sha256": "501ea437fcce7197ff5f993fc12d16817ba3d32da7494f1df559f562fb2d7ad3",
+              "url": "https://github.com/OWASP/wstg/blob/dd33419e10edb22b78d89325a6c2aad9f184e3a2/document/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05-Testing_for_SQL_Injection.md#L132-L152",
+              "snapshot_path": "data/raw/knowledge-sources/wstg42-sqli.md",
+              "snapshot_sha256": "501ea437fcce7197ff5f993fc12d16817ba3d32da7494f1df559f562fb2d7ad3",
+              "reviewed_segment_sha256": "2a8da51c16246398322c1d633078c486347a6424eaa990d715a79fcf997832ce"
+            },
+            {
+              "commit": "3ac27901c711bdf3f5b65a7b1d1820a1f65bd09a",
+              "line_end": 79,
+              "line_start": 46,
+              "repository_path": "SQL Injection/README.md",
+              "section": "Entry Point Detection",
+              "source_id": "payloadsallthethings",
+              "source_sha256": "8f68e5b948ca8a253527e98542e022c03028f481ea287d9fbf79044a26b140e3",
+              "url": "https://github.com/swisskyrepo/PayloadsAllTheThings/blob/3ac27901c711bdf3f5b65a7b1d1820a1f65bd09a/SQL%20Injection/README.md#L46-L79",
+              "snapshot_path": "data/raw/knowledge-sources/patt-sqli.md",
+              "snapshot_sha256": "8f68e5b948ca8a253527e98542e022c03028f481ea287d9fbf79044a26b140e3",
+              "reviewed_segment_sha256": "73594f5cbd31b46e1e3530a613af483d38049d479607048f97179495fefbbab6"
+            }
+          ]
+        },
+        {
+          "field": "title",
+          "value": "Paired numeric Boolean predicates",
+          "rating": "editorial_label",
+          "note": "Label kurasi sesuai mekanisme pada dua rujukan; tidak menetapkan hasil target.",
+          "supporting_references": [
+            {
+              "commit": "dd33419e10edb22b78d89325a6c2aad9f184e3a2",
+              "line_end": 152,
+              "line_start": 132,
+              "repository_path": "document/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05-Testing_for_SQL_Injection.md",
+              "section": "SELECT Statement",
+              "source_id": "owasp-wstg",
+              "source_sha256": "501ea437fcce7197ff5f993fc12d16817ba3d32da7494f1df559f562fb2d7ad3",
+              "url": "https://github.com/OWASP/wstg/blob/dd33419e10edb22b78d89325a6c2aad9f184e3a2/document/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05-Testing_for_SQL_Injection.md#L132-L152",
+              "snapshot_path": "data/raw/knowledge-sources/wstg42-sqli.md",
+              "snapshot_sha256": "501ea437fcce7197ff5f993fc12d16817ba3d32da7494f1df559f562fb2d7ad3",
+              "reviewed_segment_sha256": "2a8da51c16246398322c1d633078c486347a6424eaa990d715a79fcf997832ce"
+            },
+            {
+              "commit": "3ac27901c711bdf3f5b65a7b1d1820a1f65bd09a",
+              "line_end": 79,
+              "line_start": 46,
+              "repository_path": "SQL Injection/README.md",
+              "section": "Entry Point Detection",
+              "source_id": "payloadsallthethings",
+              "source_sha256": "8f68e5b948ca8a253527e98542e022c03028f481ea287d9fbf79044a26b140e3",
+              "url": "https://github.com/swisskyrepo/PayloadsAllTheThings/blob/3ac27901c711bdf3f5b65a7b1d1820a1f65bd09a/SQL%20Injection/README.md#L46-L79",
+              "snapshot_path": "data/raw/knowledge-sources/patt-sqli.md",
+              "snapshot_sha256": "8f68e5b948ca8a253527e98542e022c03028f481ea287d9fbf79044a26b140e3",
+              "reviewed_segment_sha256": "73594f5cbd31b46e1e3530a613af483d38049d479607048f97179495fefbbab6"
+            }
+          ]
+        },
+        {
+          "field": "vulnerability_type",
+          "value": "boolean-based blind",
+          "rating": "editorial_label",
+          "note": "Label kurasi sesuai mekanisme pada dua rujukan; tidak menetapkan hasil target.",
+          "supporting_references": [
+            {
+              "commit": "dd33419e10edb22b78d89325a6c2aad9f184e3a2",
+              "line_end": 152,
+              "line_start": 132,
+              "repository_path": "document/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05-Testing_for_SQL_Injection.md",
+              "section": "SELECT Statement",
+              "source_id": "owasp-wstg",
+              "source_sha256": "501ea437fcce7197ff5f993fc12d16817ba3d32da7494f1df559f562fb2d7ad3",
+              "url": "https://github.com/OWASP/wstg/blob/dd33419e10edb22b78d89325a6c2aad9f184e3a2/document/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05-Testing_for_SQL_Injection.md#L132-L152",
+              "snapshot_path": "data/raw/knowledge-sources/wstg42-sqli.md",
+              "snapshot_sha256": "501ea437fcce7197ff5f993fc12d16817ba3d32da7494f1df559f562fb2d7ad3",
+              "reviewed_segment_sha256": "2a8da51c16246398322c1d633078c486347a6424eaa990d715a79fcf997832ce"
+            },
+            {
+              "commit": "3ac27901c711bdf3f5b65a7b1d1820a1f65bd09a",
+              "line_end": 79,
+              "line_start": 46,
+              "repository_path": "SQL Injection/README.md",
+              "section": "Entry Point Detection",
+              "source_id": "payloadsallthethings",
+              "source_sha256": "8f68e5b948ca8a253527e98542e022c03028f481ea287d9fbf79044a26b140e3",
+              "url": "https://github.com/swisskyrepo/PayloadsAllTheThings/blob/3ac27901c711bdf3f5b65a7b1d1820a1f65bd09a/SQL%20Injection/README.md#L46-L79",
+              "snapshot_path": "data/raw/knowledge-sources/patt-sqli.md",
+              "snapshot_sha256": "8f68e5b948ca8a253527e98542e022c03028f481ea287d9fbf79044a26b140e3",
+              "reviewed_segment_sha256": "73594f5cbd31b46e1e3530a613af483d38049d479607048f97179495fefbbab6"
+            }
+          ]
+        }
+      ],
+      "inherited_references_unused_for_projected_fields": [
+        {
+          "commit": "dd33419e10edb22b78d89325a6c2aad9f184e3a2",
+          "line_end": 555,
+          "line_start": 550,
+          "repository_path": "document/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05-Testing_for_SQL_Injection.md",
+          "section": "Remediation",
+          "source_id": "owasp-wstg",
+          "source_sha256": "501ea437fcce7197ff5f993fc12d16817ba3d32da7494f1df559f562fb2d7ad3",
+          "url": "https://github.com/OWASP/wstg/blob/dd33419e10edb22b78d89325a6c2aad9f184e3a2/document/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05-Testing_for_SQL_Injection.md#L550-L555",
+          "snapshot_path": "data/raw/knowledge-sources/wstg42-sqli.md",
+          "snapshot_sha256": "501ea437fcce7197ff5f993fc12d16817ba3d32da7494f1df559f562fb2d7ad3",
+          "reviewed_segment_sha256": "11c73155905aafc536fa35be65491b13a707a33bb4055bff20fed6ad243d3e06"
+        }
+      ]
+    },
+    {
+      "entry_id": "sqli-boolean-quoted",
+      "technique": "boolean-based blind",
+      "selected_in_v4": true,
+      "chunk_text_sha256": "3ca68d5c1b21f19314e2bef383ef0d824cac0c2b385f9c1a23f80a6118fd5a0c",
+      "disposition": "clarify-outcome-scope-in-future-version",
+      "fields": [
+        {
+          "field": "detection_method",
+          "value": "Send structurally matched true and false values, then map their content to stable response classes. Keep other request fields unchanged and do not infer the hidden query as ground truth.",
+          "rating": "source_and_editorial",
+          "note": "WSTG menjelaskan kelas false dan template respons stabil. Struktur matched, field lain tetap, serta larangan memperlakukan query tersembunyi sebagai ground truth adalah penegasan editorial untuk DAST.",
+          "supporting_references": [
+            {
+              "commit": "dd33419e10edb22b78d89325a6c2aad9f184e3a2",
+              "line_end": 311,
+              "line_start": 261,
+              "repository_path": "document/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05-Testing_for_SQL_Injection.md",
+              "section": "Boolean Exploitation Technique",
+              "source_id": "owasp-wstg",
+              "source_sha256": "501ea437fcce7197ff5f993fc12d16817ba3d32da7494f1df559f562fb2d7ad3",
+              "url": "https://github.com/OWASP/wstg/blob/dd33419e10edb22b78d89325a6c2aad9f184e3a2/document/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05-Testing_for_SQL_Injection.md#L261-L311",
+              "snapshot_path": "data/raw/knowledge-sources/wstg42-sqli.md",
+              "snapshot_sha256": "501ea437fcce7197ff5f993fc12d16817ba3d32da7494f1df559f562fb2d7ad3",
+              "reviewed_segment_sha256": "72af61acef1514b047aeff57ee67d601986ee5594bc9173b2e248ceddac9f743"
+            },
+            {
+              "commit": "3ac27901c711bdf3f5b65a7b1d1820a1f65bd09a",
+              "line_end": 289,
+              "line_start": 256,
+              "repository_path": "SQL Injection/README.md",
+              "section": "Boolean Based Injection",
+              "source_id": "payloadsallthethings",
+              "source_sha256": "8f68e5b948ca8a253527e98542e022c03028f481ea287d9fbf79044a26b140e3",
+              "url": "https://github.com/swisskyrepo/PayloadsAllTheThings/blob/3ac27901c711bdf3f5b65a7b1d1820a1f65bd09a/SQL%20Injection/README.md#L256-L289",
+              "snapshot_path": "data/raw/knowledge-sources/patt-sqli.md",
+              "snapshot_sha256": "8f68e5b948ca8a253527e98542e022c03028f481ea287d9fbf79044a26b140e3",
+              "reviewed_segment_sha256": "e07f4ca5f27d2fbe66aec179d7c13b4dfe483afd469caed8f34f31d22342b327"
+            }
+          ]
+        },
+        {
+          "field": "functional_semantics",
+          "value": "Closing a SQL string and adding a Boolean expression can yield two response classes. Balanced quotes allow the application remainder to close the final literal.",
+          "rating": "supported_paraphrase",
+          "note": "WSTG memberikan inferential query pada string dengan quote balancing serta false-control query. PATT mendukung dua kelas respons true/false.",
+          "supporting_references": [
+            {
+              "commit": "dd33419e10edb22b78d89325a6c2aad9f184e3a2",
+              "line_end": 311,
+              "line_start": 261,
+              "repository_path": "document/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05-Testing_for_SQL_Injection.md",
+              "section": "Boolean Exploitation Technique",
+              "source_id": "owasp-wstg",
+              "source_sha256": "501ea437fcce7197ff5f993fc12d16817ba3d32da7494f1df559f562fb2d7ad3",
+              "url": "https://github.com/OWASP/wstg/blob/dd33419e10edb22b78d89325a6c2aad9f184e3a2/document/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05-Testing_for_SQL_Injection.md#L261-L311",
+              "snapshot_path": "data/raw/knowledge-sources/wstg42-sqli.md",
+              "snapshot_sha256": "501ea437fcce7197ff5f993fc12d16817ba3d32da7494f1df559f562fb2d7ad3",
+              "reviewed_segment_sha256": "72af61acef1514b047aeff57ee67d601986ee5594bc9173b2e248ceddac9f743"
+            },
+            {
+              "commit": "3ac27901c711bdf3f5b65a7b1d1820a1f65bd09a",
+              "line_end": 289,
+              "line_start": 256,
+              "repository_path": "SQL Injection/README.md",
+              "section": "Boolean Based Injection",
+              "source_id": "payloadsallthethings",
+              "source_sha256": "8f68e5b948ca8a253527e98542e022c03028f481ea287d9fbf79044a26b140e3",
+              "url": "https://github.com/swisskyrepo/PayloadsAllTheThings/blob/3ac27901c711bdf3f5b65a7b1d1820a1f65bd09a/SQL%20Injection/README.md#L256-L289",
+              "snapshot_path": "data/raw/knowledge-sources/patt-sqli.md",
+              "snapshot_sha256": "8f68e5b948ca8a253527e98542e022c03028f481ea287d9fbf79044a26b140e3",
+              "reviewed_segment_sha256": "e07f4ca5f27d2fbe66aec179d7c13b4dfe483afd469caed8f34f31d22342b327"
+            }
+          ]
+        },
+        {
+          "field": "limitations",
+          "value": "The pattern assumes a compatible quoted SQL context. Parentheses and comment handling may require adaptation; identical responses are inconclusive.",
+          "rating": "scope_ambiguity",
+          "note": "Kebutuhan konteks quote kompatibel sesuai contoh. Kalimat identical responses are inconclusive tidak menetapkan pembedaan hasil negatif kandidat dari status kerentanan target. Proyek menilai bukti lengkap 0/3 sebagai negative untuk kandidat; sumber tidak mendefinisikan enum kandidat itu. Klarifikasi scope diperlukan pada versi mendatang.",
+          "supporting_references": [
+            {
+              "commit": "dd33419e10edb22b78d89325a6c2aad9f184e3a2",
+              "line_end": 311,
+              "line_start": 261,
+              "repository_path": "document/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05-Testing_for_SQL_Injection.md",
+              "section": "Boolean Exploitation Technique",
+              "source_id": "owasp-wstg",
+              "source_sha256": "501ea437fcce7197ff5f993fc12d16817ba3d32da7494f1df559f562fb2d7ad3",
+              "url": "https://github.com/OWASP/wstg/blob/dd33419e10edb22b78d89325a6c2aad9f184e3a2/document/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05-Testing_for_SQL_Injection.md#L261-L311",
+              "snapshot_path": "data/raw/knowledge-sources/wstg42-sqli.md",
+              "snapshot_sha256": "501ea437fcce7197ff5f993fc12d16817ba3d32da7494f1df559f562fb2d7ad3",
+              "reviewed_segment_sha256": "72af61acef1514b047aeff57ee67d601986ee5594bc9173b2e248ceddac9f743"
+            },
+            {
+              "commit": "3ac27901c711bdf3f5b65a7b1d1820a1f65bd09a",
+              "line_end": 289,
+              "line_start": 256,
+              "repository_path": "SQL Injection/README.md",
+              "section": "Boolean Based Injection",
+              "source_id": "payloadsallthethings",
+              "source_sha256": "8f68e5b948ca8a253527e98542e022c03028f481ea287d9fbf79044a26b140e3",
+              "url": "https://github.com/swisskyrepo/PayloadsAllTheThings/blob/3ac27901c711bdf3f5b65a7b1d1820a1f65bd09a/SQL%20Injection/README.md#L256-L289",
+              "snapshot_path": "data/raw/knowledge-sources/patt-sqli.md",
+              "snapshot_sha256": "8f68e5b948ca8a253527e98542e022c03028f481ea287d9fbf79044a26b140e3",
+              "reviewed_segment_sha256": "e07f4ca5f27d2fbe66aec179d7c13b4dfe483afd469caed8f34f31d22342b327"
+            }
+          ]
+        },
+        {
+          "field": "title",
+          "value": "Balanced Boolean predicates in a quoted input",
+          "rating": "editorial_label",
+          "note": "Label kurasi sesuai mekanisme pada dua rujukan; tidak menetapkan hasil target.",
+          "supporting_references": [
+            {
+              "commit": "dd33419e10edb22b78d89325a6c2aad9f184e3a2",
+              "line_end": 311,
+              "line_start": 261,
+              "repository_path": "document/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05-Testing_for_SQL_Injection.md",
+              "section": "Boolean Exploitation Technique",
+              "source_id": "owasp-wstg",
+              "source_sha256": "501ea437fcce7197ff5f993fc12d16817ba3d32da7494f1df559f562fb2d7ad3",
+              "url": "https://github.com/OWASP/wstg/blob/dd33419e10edb22b78d89325a6c2aad9f184e3a2/document/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05-Testing_for_SQL_Injection.md#L261-L311",
+              "snapshot_path": "data/raw/knowledge-sources/wstg42-sqli.md",
+              "snapshot_sha256": "501ea437fcce7197ff5f993fc12d16817ba3d32da7494f1df559f562fb2d7ad3",
+              "reviewed_segment_sha256": "72af61acef1514b047aeff57ee67d601986ee5594bc9173b2e248ceddac9f743"
+            },
+            {
+              "commit": "3ac27901c711bdf3f5b65a7b1d1820a1f65bd09a",
+              "line_end": 289,
+              "line_start": 256,
+              "repository_path": "SQL Injection/README.md",
+              "section": "Boolean Based Injection",
+              "source_id": "payloadsallthethings",
+              "source_sha256": "8f68e5b948ca8a253527e98542e022c03028f481ea287d9fbf79044a26b140e3",
+              "url": "https://github.com/swisskyrepo/PayloadsAllTheThings/blob/3ac27901c711bdf3f5b65a7b1d1820a1f65bd09a/SQL%20Injection/README.md#L256-L289",
+              "snapshot_path": "data/raw/knowledge-sources/patt-sqli.md",
+              "snapshot_sha256": "8f68e5b948ca8a253527e98542e022c03028f481ea287d9fbf79044a26b140e3",
+              "reviewed_segment_sha256": "e07f4ca5f27d2fbe66aec179d7c13b4dfe483afd469caed8f34f31d22342b327"
+            }
+          ]
+        },
+        {
+          "field": "vulnerability_type",
+          "value": "boolean-based blind",
+          "rating": "editorial_label",
+          "note": "Label kurasi sesuai mekanisme pada dua rujukan; tidak menetapkan hasil target.",
+          "supporting_references": [
+            {
+              "commit": "dd33419e10edb22b78d89325a6c2aad9f184e3a2",
+              "line_end": 311,
+              "line_start": 261,
+              "repository_path": "document/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05-Testing_for_SQL_Injection.md",
+              "section": "Boolean Exploitation Technique",
+              "source_id": "owasp-wstg",
+              "source_sha256": "501ea437fcce7197ff5f993fc12d16817ba3d32da7494f1df559f562fb2d7ad3",
+              "url": "https://github.com/OWASP/wstg/blob/dd33419e10edb22b78d89325a6c2aad9f184e3a2/document/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05-Testing_for_SQL_Injection.md#L261-L311",
+              "snapshot_path": "data/raw/knowledge-sources/wstg42-sqli.md",
+              "snapshot_sha256": "501ea437fcce7197ff5f993fc12d16817ba3d32da7494f1df559f562fb2d7ad3",
+              "reviewed_segment_sha256": "72af61acef1514b047aeff57ee67d601986ee5594bc9173b2e248ceddac9f743"
+            },
+            {
+              "commit": "3ac27901c711bdf3f5b65a7b1d1820a1f65bd09a",
+              "line_end": 289,
+              "line_start": 256,
+              "repository_path": "SQL Injection/README.md",
+              "section": "Boolean Based Injection",
+              "source_id": "payloadsallthethings",
+              "source_sha256": "8f68e5b948ca8a253527e98542e022c03028f481ea287d9fbf79044a26b140e3",
+              "url": "https://github.com/swisskyrepo/PayloadsAllTheThings/blob/3ac27901c711bdf3f5b65a7b1d1820a1f65bd09a/SQL%20Injection/README.md#L256-L289",
+              "snapshot_path": "data/raw/knowledge-sources/patt-sqli.md",
+              "snapshot_sha256": "8f68e5b948ca8a253527e98542e022c03028f481ea287d9fbf79044a26b140e3",
+              "reviewed_segment_sha256": "e07f4ca5f27d2fbe66aec179d7c13b4dfe483afd469caed8f34f31d22342b327"
+            }
+          ]
+        }
+      ],
+      "inherited_references_unused_for_projected_fields": [
+        {
+          "commit": "dd33419e10edb22b78d89325a6c2aad9f184e3a2",
+          "line_end": 555,
+          "line_start": 550,
+          "repository_path": "document/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05-Testing_for_SQL_Injection.md",
+          "section": "Remediation",
+          "source_id": "owasp-wstg",
+          "source_sha256": "501ea437fcce7197ff5f993fc12d16817ba3d32da7494f1df559f562fb2d7ad3",
+          "url": "https://github.com/OWASP/wstg/blob/dd33419e10edb22b78d89325a6c2aad9f184e3a2/document/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05-Testing_for_SQL_Injection.md#L550-L555",
+          "snapshot_path": "data/raw/knowledge-sources/wstg42-sqli.md",
+          "snapshot_sha256": "501ea437fcce7197ff5f993fc12d16817ba3d32da7494f1df559f562fb2d7ad3",
+          "reviewed_segment_sha256": "11c73155905aafc536fa35be65491b13a707a33bb4055bff20fed6ad243d3e06"
+        }
+      ]
+    },
+    {
+      "entry_id": "sqli-boolean-template",
+      "technique": "boolean-based blind",
+      "selected_in_v4": false,
+      "chunk_text_sha256": "0e736273abcdce676306143831b55afaa9ef284183a2689dd73396f045269bc6",
+      "disposition": "retain-and-evaluate-task-relevance-before-next-pilot",
+      "fields": [
+        {
+          "field": "detection_method",
+          "value": "First compare repeated equivalent requests. If dynamic fragments differ, compare a consistent response template. Then compare a matched true/false predicate pair on that template.",
+          "rating": "supported_paraphrase",
+          "note": "WSTG baris 297 menjelaskan request identik berulang, filtering bagian berubah, penerapan fungsi template yang sama, dan perbandingan hasil inferensi dengan kontrol.",
+          "supporting_references": [
+            {
+              "commit": "dd33419e10edb22b78d89325a6c2aad9f184e3a2",
+              "line_end": 311,
+              "line_start": 261,
+              "repository_path": "document/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05-Testing_for_SQL_Injection.md",
+              "section": "Boolean Exploitation Technique",
+              "source_id": "owasp-wstg",
+              "source_sha256": "501ea437fcce7197ff5f993fc12d16817ba3d32da7494f1df559f562fb2d7ad3",
+              "url": "https://github.com/OWASP/wstg/blob/dd33419e10edb22b78d89325a6c2aad9f184e3a2/document/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05-Testing_for_SQL_Injection.md#L261-L311",
+              "snapshot_path": "data/raw/knowledge-sources/wstg42-sqli.md",
+              "snapshot_sha256": "501ea437fcce7197ff5f993fc12d16817ba3d32da7494f1df559f562fb2d7ad3",
+              "reviewed_segment_sha256": "72af61acef1514b047aeff57ee67d601986ee5594bc9173b2e248ceddac9f743"
+            },
+            {
+              "commit": "3ac27901c711bdf3f5b65a7b1d1820a1f65bd09a",
+              "line_end": 300,
+              "line_start": 284,
+              "repository_path": "SQL Injection/MySQL Injection.md",
+              "section": "MYSQL Blind With Substring Equivalent",
+              "source_id": "payloadsallthethings",
+              "source_sha256": "8fd90e87a6ccce3dde2b673492c0b975296a16d90f1c8f5833a63e4b2f0fc6d9",
+              "url": "https://github.com/swisskyrepo/PayloadsAllTheThings/blob/3ac27901c711bdf3f5b65a7b1d1820a1f65bd09a/SQL%20Injection/MySQL%20Injection.md#L284-L300",
+              "snapshot_path": "data/raw/knowledge-sources/patt-mysql-sections.json",
+              "snapshot_sha256": "190a4eb75b02acbf32797a1b49be876c95775f496335611114dc2f13c2167cb3",
+              "reviewed_segment_sha256": "e64c2285a77c4ebec019cfd22a2f21866874e46189171d390a75cfc4b2eb5339"
+            }
+          ]
+        },
+        {
+          "field": "functional_semantics",
+          "value": "A character comparison can act as a Boolean predicate. Its result is inferred from stable portions of the response when raw pages contain changing content.",
+          "rating": "supported_paraphrase",
+          "note": "WSTG membahas ASCII/SUBSTRING dan template untuk konten dinamis; PATT memberi ekuivalen fungsi substring untuk blind inference.",
+          "supporting_references": [
+            {
+              "commit": "dd33419e10edb22b78d89325a6c2aad9f184e3a2",
+              "line_end": 311,
+              "line_start": 261,
+              "repository_path": "document/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05-Testing_for_SQL_Injection.md",
+              "section": "Boolean Exploitation Technique",
+              "source_id": "owasp-wstg",
+              "source_sha256": "501ea437fcce7197ff5f993fc12d16817ba3d32da7494f1df559f562fb2d7ad3",
+              "url": "https://github.com/OWASP/wstg/blob/dd33419e10edb22b78d89325a6c2aad9f184e3a2/document/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05-Testing_for_SQL_Injection.md#L261-L311",
+              "snapshot_path": "data/raw/knowledge-sources/wstg42-sqli.md",
+              "snapshot_sha256": "501ea437fcce7197ff5f993fc12d16817ba3d32da7494f1df559f562fb2d7ad3",
+              "reviewed_segment_sha256": "72af61acef1514b047aeff57ee67d601986ee5594bc9173b2e248ceddac9f743"
+            },
+            {
+              "commit": "3ac27901c711bdf3f5b65a7b1d1820a1f65bd09a",
+              "line_end": 300,
+              "line_start": 284,
+              "repository_path": "SQL Injection/MySQL Injection.md",
+              "section": "MYSQL Blind With Substring Equivalent",
+              "source_id": "payloadsallthethings",
+              "source_sha256": "8fd90e87a6ccce3dde2b673492c0b975296a16d90f1c8f5833a63e4b2f0fc6d9",
+              "url": "https://github.com/swisskyrepo/PayloadsAllTheThings/blob/3ac27901c711bdf3f5b65a7b1d1820a1f65bd09a/SQL%20Injection/MySQL%20Injection.md#L284-L300",
+              "snapshot_path": "data/raw/knowledge-sources/patt-mysql-sections.json",
+              "snapshot_sha256": "190a4eb75b02acbf32797a1b49be876c95775f496335611114dc2f13c2167cb3",
+              "reviewed_segment_sha256": "e64c2285a77c4ebec019cfd22a2f21866874e46189171d390a75cfc4b2eb5339"
+            }
+          ]
+        },
+        {
+          "field": "limitations",
+          "value": "A content-length difference alone is insufficient when pages vary. Filtering must be applied consistently to both controls without removing the meaningful signal.",
+          "rating": "source_and_editorial",
+          "note": "Konsistensi filtering mengikuti prosedur WSTG. Penolakan content-length saja serta larangan membuang sinyal relevan merupakan guardrail editorial yang menyempitkan pembacaan indikator umum.",
+          "supporting_references": [
+            {
+              "commit": "dd33419e10edb22b78d89325a6c2aad9f184e3a2",
+              "line_end": 311,
+              "line_start": 261,
+              "repository_path": "document/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05-Testing_for_SQL_Injection.md",
+              "section": "Boolean Exploitation Technique",
+              "source_id": "owasp-wstg",
+              "source_sha256": "501ea437fcce7197ff5f993fc12d16817ba3d32da7494f1df559f562fb2d7ad3",
+              "url": "https://github.com/OWASP/wstg/blob/dd33419e10edb22b78d89325a6c2aad9f184e3a2/document/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05-Testing_for_SQL_Injection.md#L261-L311",
+              "snapshot_path": "data/raw/knowledge-sources/wstg42-sqli.md",
+              "snapshot_sha256": "501ea437fcce7197ff5f993fc12d16817ba3d32da7494f1df559f562fb2d7ad3",
+              "reviewed_segment_sha256": "72af61acef1514b047aeff57ee67d601986ee5594bc9173b2e248ceddac9f743"
+            },
+            {
+              "commit": "3ac27901c711bdf3f5b65a7b1d1820a1f65bd09a",
+              "line_end": 300,
+              "line_start": 284,
+              "repository_path": "SQL Injection/MySQL Injection.md",
+              "section": "MYSQL Blind With Substring Equivalent",
+              "source_id": "payloadsallthethings",
+              "source_sha256": "8fd90e87a6ccce3dde2b673492c0b975296a16d90f1c8f5833a63e4b2f0fc6d9",
+              "url": "https://github.com/swisskyrepo/PayloadsAllTheThings/blob/3ac27901c711bdf3f5b65a7b1d1820a1f65bd09a/SQL%20Injection/MySQL%20Injection.md#L284-L300",
+              "snapshot_path": "data/raw/knowledge-sources/patt-mysql-sections.json",
+              "snapshot_sha256": "190a4eb75b02acbf32797a1b49be876c95775f496335611114dc2f13c2167cb3",
+              "reviewed_segment_sha256": "e64c2285a77c4ebec019cfd22a2f21866874e46189171d390a75cfc4b2eb5339"
+            }
+          ]
+        },
+        {
+          "field": "title",
+          "value": "Stable response comparison for Boolean inference",
+          "rating": "editorial_label",
+          "note": "Label kurasi sesuai mekanisme pada dua rujukan; tidak menetapkan hasil target.",
+          "supporting_references": [
+            {
+              "commit": "dd33419e10edb22b78d89325a6c2aad9f184e3a2",
+              "line_end": 311,
+              "line_start": 261,
+              "repository_path": "document/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05-Testing_for_SQL_Injection.md",
+              "section": "Boolean Exploitation Technique",
+              "source_id": "owasp-wstg",
+              "source_sha256": "501ea437fcce7197ff5f993fc12d16817ba3d32da7494f1df559f562fb2d7ad3",
+              "url": "https://github.com/OWASP/wstg/blob/dd33419e10edb22b78d89325a6c2aad9f184e3a2/document/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05-Testing_for_SQL_Injection.md#L261-L311",
+              "snapshot_path": "data/raw/knowledge-sources/wstg42-sqli.md",
+              "snapshot_sha256": "501ea437fcce7197ff5f993fc12d16817ba3d32da7494f1df559f562fb2d7ad3",
+              "reviewed_segment_sha256": "72af61acef1514b047aeff57ee67d601986ee5594bc9173b2e248ceddac9f743"
+            },
+            {
+              "commit": "3ac27901c711bdf3f5b65a7b1d1820a1f65bd09a",
+              "line_end": 300,
+              "line_start": 284,
+              "repository_path": "SQL Injection/MySQL Injection.md",
+              "section": "MYSQL Blind With Substring Equivalent",
+              "source_id": "payloadsallthethings",
+              "source_sha256": "8fd90e87a6ccce3dde2b673492c0b975296a16d90f1c8f5833a63e4b2f0fc6d9",
+              "url": "https://github.com/swisskyrepo/PayloadsAllTheThings/blob/3ac27901c711bdf3f5b65a7b1d1820a1f65bd09a/SQL%20Injection/MySQL%20Injection.md#L284-L300",
+              "snapshot_path": "data/raw/knowledge-sources/patt-mysql-sections.json",
+              "snapshot_sha256": "190a4eb75b02acbf32797a1b49be876c95775f496335611114dc2f13c2167cb3",
+              "reviewed_segment_sha256": "e64c2285a77c4ebec019cfd22a2f21866874e46189171d390a75cfc4b2eb5339"
+            }
+          ]
+        },
+        {
+          "field": "vulnerability_type",
+          "value": "boolean-based blind",
+          "rating": "editorial_label",
+          "note": "Label kurasi sesuai mekanisme pada dua rujukan; tidak menetapkan hasil target.",
+          "supporting_references": [
+            {
+              "commit": "dd33419e10edb22b78d89325a6c2aad9f184e3a2",
+              "line_end": 311,
+              "line_start": 261,
+              "repository_path": "document/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05-Testing_for_SQL_Injection.md",
+              "section": "Boolean Exploitation Technique",
+              "source_id": "owasp-wstg",
+              "source_sha256": "501ea437fcce7197ff5f993fc12d16817ba3d32da7494f1df559f562fb2d7ad3",
+              "url": "https://github.com/OWASP/wstg/blob/dd33419e10edb22b78d89325a6c2aad9f184e3a2/document/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05-Testing_for_SQL_Injection.md#L261-L311",
+              "snapshot_path": "data/raw/knowledge-sources/wstg42-sqli.md",
+              "snapshot_sha256": "501ea437fcce7197ff5f993fc12d16817ba3d32da7494f1df559f562fb2d7ad3",
+              "reviewed_segment_sha256": "72af61acef1514b047aeff57ee67d601986ee5594bc9173b2e248ceddac9f743"
+            },
+            {
+              "commit": "3ac27901c711bdf3f5b65a7b1d1820a1f65bd09a",
+              "line_end": 300,
+              "line_start": 284,
+              "repository_path": "SQL Injection/MySQL Injection.md",
+              "section": "MYSQL Blind With Substring Equivalent",
+              "source_id": "payloadsallthethings",
+              "source_sha256": "8fd90e87a6ccce3dde2b673492c0b975296a16d90f1c8f5833a63e4b2f0fc6d9",
+              "url": "https://github.com/swisskyrepo/PayloadsAllTheThings/blob/3ac27901c711bdf3f5b65a7b1d1820a1f65bd09a/SQL%20Injection/MySQL%20Injection.md#L284-L300",
+              "snapshot_path": "data/raw/knowledge-sources/patt-mysql-sections.json",
+              "snapshot_sha256": "190a4eb75b02acbf32797a1b49be876c95775f496335611114dc2f13c2167cb3",
+              "reviewed_segment_sha256": "e64c2285a77c4ebec019cfd22a2f21866874e46189171d390a75cfc4b2eb5339"
+            }
+          ]
+        }
+      ],
+      "inherited_references_unused_for_projected_fields": [
+        {
+          "commit": "dd33419e10edb22b78d89325a6c2aad9f184e3a2",
+          "line_end": 555,
+          "line_start": 550,
+          "repository_path": "document/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05-Testing_for_SQL_Injection.md",
+          "section": "Remediation",
+          "source_id": "owasp-wstg",
+          "source_sha256": "501ea437fcce7197ff5f993fc12d16817ba3d32da7494f1df559f562fb2d7ad3",
+          "url": "https://github.com/OWASP/wstg/blob/dd33419e10edb22b78d89325a6c2aad9f184e3a2/document/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05-Testing_for_SQL_Injection.md#L550-L555",
+          "snapshot_path": "data/raw/knowledge-sources/wstg42-sqli.md",
+          "snapshot_sha256": "501ea437fcce7197ff5f993fc12d16817ba3d32da7494f1df559f562fb2d7ad3",
+          "reviewed_segment_sha256": "11c73155905aafc536fa35be65491b13a707a33bb4055bff20fed6ad243d3e06"
+        }
+      ]
+    },
+    {
+      "entry_id": "sqli-time-conditional",
+      "technique": "time-based blind",
+      "selected_in_v4": true,
+      "chunk_text_sha256": "cc0aa1420c410011fd391dbcf35fc1c50d34e26763c4b967e21c55ebd38ad4b5",
+      "disposition": "retain-with-explicit-editorial-provenance",
+      "fields": [
+        {
+          "field": "detection_method",
+          "value": "Measure the candidate against a structurally matched no-delay control using the same injection point. Change the predicate while retaining the delay duration and request structure.",
+          "rating": "source_and_editorial",
+          "note": "Matched no-delay control, injection point tetap dan hanya mengganti predikat adalah prosedur editorial yang masuk akal; sumber memberi mekanisme/contoh tetapi bukan prosedur pengukuran lengkap ini.",
+          "supporting_references": [
+            {
+              "commit": "dd33419e10edb22b78d89325a6c2aad9f184e3a2",
+              "line_end": 377,
+              "line_start": 361,
+              "repository_path": "document/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05-Testing_for_SQL_Injection.md",
+              "section": "Time Delay Exploitation Technique",
+              "source_id": "owasp-wstg",
+              "source_sha256": "501ea437fcce7197ff5f993fc12d16817ba3d32da7494f1df559f562fb2d7ad3",
+              "url": "https://github.com/OWASP/wstg/blob/dd33419e10edb22b78d89325a6c2aad9f184e3a2/document/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05-Testing_for_SQL_Injection.md#L361-L377",
+              "snapshot_path": "data/raw/knowledge-sources/wstg42-sqli.md",
+              "snapshot_sha256": "501ea437fcce7197ff5f993fc12d16817ba3d32da7494f1df559f562fb2d7ad3",
+              "reviewed_segment_sha256": "736d18f22948267f587b8566ec642b763f2ea64d7dc9762ebe9d372a6716ecfc"
+            },
+            {
+              "commit": "3ac27901c711bdf3f5b65a7b1d1820a1f65bd09a",
+              "line_end": 420,
+              "line_start": 414,
+              "repository_path": "SQL Injection/MySQL Injection.md",
+              "section": "Using Conditional Statements",
+              "source_id": "payloadsallthethings",
+              "source_sha256": "8fd90e87a6ccce3dde2b673492c0b975296a16d90f1c8f5833a63e4b2f0fc6d9",
+              "url": "https://github.com/swisskyrepo/PayloadsAllTheThings/blob/3ac27901c711bdf3f5b65a7b1d1820a1f65bd09a/SQL%20Injection/MySQL%20Injection.md#L414-L420",
+              "snapshot_path": "data/raw/knowledge-sources/patt-mysql-sections.json",
+              "snapshot_sha256": "190a4eb75b02acbf32797a1b49be876c95775f496335611114dc2f13c2167cb3",
+              "reviewed_segment_sha256": "55df80c11b643202eaea95621fb64126463116916e891bfd743a7af2b74d1ea6"
+            }
+          ]
+        },
+        {
+          "field": "functional_semantics",
+          "value": "IF evaluates a predicate and calls SLEEP only on the chosen branch. The induced delay supplies a timing signal when content and SQL errors reveal little.",
+          "rating": "supported_paraphrase",
+          "note": "WSTG dan contoh conditional MySQL PATT mendukung pemanggilan delay pada cabang predikat tertentu sebagai kanal blind inference.",
+          "supporting_references": [
+            {
+              "commit": "dd33419e10edb22b78d89325a6c2aad9f184e3a2",
+              "line_end": 377,
+              "line_start": 361,
+              "repository_path": "document/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05-Testing_for_SQL_Injection.md",
+              "section": "Time Delay Exploitation Technique",
+              "source_id": "owasp-wstg",
+              "source_sha256": "501ea437fcce7197ff5f993fc12d16817ba3d32da7494f1df559f562fb2d7ad3",
+              "url": "https://github.com/OWASP/wstg/blob/dd33419e10edb22b78d89325a6c2aad9f184e3a2/document/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05-Testing_for_SQL_Injection.md#L361-L377",
+              "snapshot_path": "data/raw/knowledge-sources/wstg42-sqli.md",
+              "snapshot_sha256": "501ea437fcce7197ff5f993fc12d16817ba3d32da7494f1df559f562fb2d7ad3",
+              "reviewed_segment_sha256": "736d18f22948267f587b8566ec642b763f2ea64d7dc9762ebe9d372a6716ecfc"
+            },
+            {
+              "commit": "3ac27901c711bdf3f5b65a7b1d1820a1f65bd09a",
+              "line_end": 420,
+              "line_start": 414,
+              "repository_path": "SQL Injection/MySQL Injection.md",
+              "section": "Using Conditional Statements",
+              "source_id": "payloadsallthethings",
+              "source_sha256": "8fd90e87a6ccce3dde2b673492c0b975296a16d90f1c8f5833a63e4b2f0fc6d9",
+              "url": "https://github.com/swisskyrepo/PayloadsAllTheThings/blob/3ac27901c711bdf3f5b65a7b1d1820a1f65bd09a/SQL%20Injection/MySQL%20Injection.md#L414-L420",
+              "snapshot_path": "data/raw/knowledge-sources/patt-mysql-sections.json",
+              "snapshot_sha256": "190a4eb75b02acbf32797a1b49be876c95775f496335611114dc2f13c2167cb3",
+              "reviewed_segment_sha256": "55df80c11b643202eaea95621fb64126463116916e891bfd743a7af2b74d1ea6"
+            }
+          ]
+        },
+        {
+          "field": "limitations",
+          "value": "SQL context, engine function support and predicate evaluation affect whether SLEEP executes. Latency alone does not prove a conditional SQL delay.",
+          "rating": "editorial_guardrail",
+          "note": "Ketergantungan DBMS dan konteks terlihat pada contoh. Batas latency tunggal sebagai bukti adalah kehati-hatian editorial; tidak ada ambang 1500 ms atau persyaratan marker proyek pada sumber ini.",
+          "supporting_references": [
+            {
+              "commit": "dd33419e10edb22b78d89325a6c2aad9f184e3a2",
+              "line_end": 377,
+              "line_start": 361,
+              "repository_path": "document/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05-Testing_for_SQL_Injection.md",
+              "section": "Time Delay Exploitation Technique",
+              "source_id": "owasp-wstg",
+              "source_sha256": "501ea437fcce7197ff5f993fc12d16817ba3d32da7494f1df559f562fb2d7ad3",
+              "url": "https://github.com/OWASP/wstg/blob/dd33419e10edb22b78d89325a6c2aad9f184e3a2/document/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05-Testing_for_SQL_Injection.md#L361-L377",
+              "snapshot_path": "data/raw/knowledge-sources/wstg42-sqli.md",
+              "snapshot_sha256": "501ea437fcce7197ff5f993fc12d16817ba3d32da7494f1df559f562fb2d7ad3",
+              "reviewed_segment_sha256": "736d18f22948267f587b8566ec642b763f2ea64d7dc9762ebe9d372a6716ecfc"
+            },
+            {
+              "commit": "3ac27901c711bdf3f5b65a7b1d1820a1f65bd09a",
+              "line_end": 420,
+              "line_start": 414,
+              "repository_path": "SQL Injection/MySQL Injection.md",
+              "section": "Using Conditional Statements",
+              "source_id": "payloadsallthethings",
+              "source_sha256": "8fd90e87a6ccce3dde2b673492c0b975296a16d90f1c8f5833a63e4b2f0fc6d9",
+              "url": "https://github.com/swisskyrepo/PayloadsAllTheThings/blob/3ac27901c711bdf3f5b65a7b1d1820a1f65bd09a/SQL%20Injection/MySQL%20Injection.md#L414-L420",
+              "snapshot_path": "data/raw/knowledge-sources/patt-mysql-sections.json",
+              "snapshot_sha256": "190a4eb75b02acbf32797a1b49be876c95775f496335611114dc2f13c2167cb3",
+              "reviewed_segment_sha256": "55df80c11b643202eaea95621fb64126463116916e891bfd743a7af2b74d1ea6"
+            }
+          ]
+        },
+        {
+          "field": "title",
+          "value": "Conditional SQL sleep in a numeric input",
+          "rating": "editorial_label",
+          "note": "Label kurasi sesuai mekanisme pada dua rujukan; tidak menetapkan hasil target.",
+          "supporting_references": [
+            {
+              "commit": "dd33419e10edb22b78d89325a6c2aad9f184e3a2",
+              "line_end": 377,
+              "line_start": 361,
+              "repository_path": "document/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05-Testing_for_SQL_Injection.md",
+              "section": "Time Delay Exploitation Technique",
+              "source_id": "owasp-wstg",
+              "source_sha256": "501ea437fcce7197ff5f993fc12d16817ba3d32da7494f1df559f562fb2d7ad3",
+              "url": "https://github.com/OWASP/wstg/blob/dd33419e10edb22b78d89325a6c2aad9f184e3a2/document/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05-Testing_for_SQL_Injection.md#L361-L377",
+              "snapshot_path": "data/raw/knowledge-sources/wstg42-sqli.md",
+              "snapshot_sha256": "501ea437fcce7197ff5f993fc12d16817ba3d32da7494f1df559f562fb2d7ad3",
+              "reviewed_segment_sha256": "736d18f22948267f587b8566ec642b763f2ea64d7dc9762ebe9d372a6716ecfc"
+            },
+            {
+              "commit": "3ac27901c711bdf3f5b65a7b1d1820a1f65bd09a",
+              "line_end": 420,
+              "line_start": 414,
+              "repository_path": "SQL Injection/MySQL Injection.md",
+              "section": "Using Conditional Statements",
+              "source_id": "payloadsallthethings",
+              "source_sha256": "8fd90e87a6ccce3dde2b673492c0b975296a16d90f1c8f5833a63e4b2f0fc6d9",
+              "url": "https://github.com/swisskyrepo/PayloadsAllTheThings/blob/3ac27901c711bdf3f5b65a7b1d1820a1f65bd09a/SQL%20Injection/MySQL%20Injection.md#L414-L420",
+              "snapshot_path": "data/raw/knowledge-sources/patt-mysql-sections.json",
+              "snapshot_sha256": "190a4eb75b02acbf32797a1b49be876c95775f496335611114dc2f13c2167cb3",
+              "reviewed_segment_sha256": "55df80c11b643202eaea95621fb64126463116916e891bfd743a7af2b74d1ea6"
+            }
+          ]
+        },
+        {
+          "field": "vulnerability_type",
+          "value": "time-based blind",
+          "rating": "editorial_label",
+          "note": "Label kurasi sesuai mekanisme pada dua rujukan; tidak menetapkan hasil target.",
+          "supporting_references": [
+            {
+              "commit": "dd33419e10edb22b78d89325a6c2aad9f184e3a2",
+              "line_end": 377,
+              "line_start": 361,
+              "repository_path": "document/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05-Testing_for_SQL_Injection.md",
+              "section": "Time Delay Exploitation Technique",
+              "source_id": "owasp-wstg",
+              "source_sha256": "501ea437fcce7197ff5f993fc12d16817ba3d32da7494f1df559f562fb2d7ad3",
+              "url": "https://github.com/OWASP/wstg/blob/dd33419e10edb22b78d89325a6c2aad9f184e3a2/document/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05-Testing_for_SQL_Injection.md#L361-L377",
+              "snapshot_path": "data/raw/knowledge-sources/wstg42-sqli.md",
+              "snapshot_sha256": "501ea437fcce7197ff5f993fc12d16817ba3d32da7494f1df559f562fb2d7ad3",
+              "reviewed_segment_sha256": "736d18f22948267f587b8566ec642b763f2ea64d7dc9762ebe9d372a6716ecfc"
+            },
+            {
+              "commit": "3ac27901c711bdf3f5b65a7b1d1820a1f65bd09a",
+              "line_end": 420,
+              "line_start": 414,
+              "repository_path": "SQL Injection/MySQL Injection.md",
+              "section": "Using Conditional Statements",
+              "source_id": "payloadsallthethings",
+              "source_sha256": "8fd90e87a6ccce3dde2b673492c0b975296a16d90f1c8f5833a63e4b2f0fc6d9",
+              "url": "https://github.com/swisskyrepo/PayloadsAllTheThings/blob/3ac27901c711bdf3f5b65a7b1d1820a1f65bd09a/SQL%20Injection/MySQL%20Injection.md#L414-L420",
+              "snapshot_path": "data/raw/knowledge-sources/patt-mysql-sections.json",
+              "snapshot_sha256": "190a4eb75b02acbf32797a1b49be876c95775f496335611114dc2f13c2167cb3",
+              "reviewed_segment_sha256": "55df80c11b643202eaea95621fb64126463116916e891bfd743a7af2b74d1ea6"
+            }
+          ]
+        }
+      ],
+      "inherited_references_unused_for_projected_fields": [
+        {
+          "commit": "dd33419e10edb22b78d89325a6c2aad9f184e3a2",
+          "line_end": 555,
+          "line_start": 550,
+          "repository_path": "document/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05-Testing_for_SQL_Injection.md",
+          "section": "Remediation",
+          "source_id": "owasp-wstg",
+          "source_sha256": "501ea437fcce7197ff5f993fc12d16817ba3d32da7494f1df559f562fb2d7ad3",
+          "url": "https://github.com/OWASP/wstg/blob/dd33419e10edb22b78d89325a6c2aad9f184e3a2/document/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05-Testing_for_SQL_Injection.md#L550-L555",
+          "snapshot_path": "data/raw/knowledge-sources/wstg42-sqli.md",
+          "snapshot_sha256": "501ea437fcce7197ff5f993fc12d16817ba3d32da7494f1df559f562fb2d7ad3",
+          "reviewed_segment_sha256": "11c73155905aafc536fa35be65491b13a707a33bb4055bff20fed6ad243d3e06"
+        }
+      ]
+    },
+    {
+      "entry_id": "sqli-time-repeated",
+      "technique": "time-based blind",
+      "selected_in_v4": true,
+      "chunk_text_sha256": "5222c909a2c9f41507702d068abb3896648a6eba94643b8c5634704f9b86848e",
+      "disposition": "retain-with-explicit-editorial-provenance",
+      "fields": [
+        {
+          "field": "detection_method",
+          "value": "Use repeated candidate and no-delay control measurements at the same input. Compare their timing separation rather than treating a single slow response as proof. This repeated-control procedure is an editorial adaptation.",
+          "rating": "source_and_editorial",
+          "note": "Field sudah menyatakan editorial adaptation secara eksplisit. Prosedur repeated candidate/no-delay control tidak boleh dipresentasikan sebagai aturan repetisi yang diwajibkan sumber.",
+          "supporting_references": [
+            {
+              "commit": "dd33419e10edb22b78d89325a6c2aad9f184e3a2",
+              "line_end": 377,
+              "line_start": 361,
+              "repository_path": "document/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05-Testing_for_SQL_Injection.md",
+              "section": "Time Delay Exploitation Technique",
+              "source_id": "owasp-wstg",
+              "source_sha256": "501ea437fcce7197ff5f993fc12d16817ba3d32da7494f1df559f562fb2d7ad3",
+              "url": "https://github.com/OWASP/wstg/blob/dd33419e10edb22b78d89325a6c2aad9f184e3a2/document/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05-Testing_for_SQL_Injection.md#L361-L377",
+              "snapshot_path": "data/raw/knowledge-sources/wstg42-sqli.md",
+              "snapshot_sha256": "501ea437fcce7197ff5f993fc12d16817ba3d32da7494f1df559f562fb2d7ad3",
+              "reviewed_segment_sha256": "736d18f22948267f587b8566ec642b763f2ea64d7dc9762ebe9d372a6716ecfc"
+            },
+            {
+              "commit": "3ac27901c711bdf3f5b65a7b1d1820a1f65bd09a",
+              "line_end": 326,
+              "line_start": 301,
+              "repository_path": "SQL Injection/README.md",
+              "section": "Time Based Injection",
+              "source_id": "payloadsallthethings",
+              "source_sha256": "8f68e5b948ca8a253527e98542e022c03028f481ea287d9fbf79044a26b140e3",
+              "url": "https://github.com/swisskyrepo/PayloadsAllTheThings/blob/3ac27901c711bdf3f5b65a7b1d1820a1f65bd09a/SQL%20Injection/README.md#L301-L326",
+              "snapshot_path": "data/raw/knowledge-sources/patt-sqli.md",
+              "snapshot_sha256": "8f68e5b948ca8a253527e98542e022c03028f481ea287d9fbf79044a26b140e3",
+              "reviewed_segment_sha256": "a5f357f7260ffaaa5090e2aad6c9c021ab74f71b16b93c7ef8c6022c03e06d9b"
+            }
+          ]
+        },
+        {
+          "field": "functional_semantics",
+          "value": "A controlled conditional database delay should track predicate evaluation; unrelated network or server delay can produce slow HTTP responses without SQL injection.",
+          "rating": "source_and_editorial",
+          "note": "Conditional delay didukung sumber. Pemisahan penyebab network/server delay dari SQL delay adalah sintesis editorial; contoh sumber tidak mengukur confounder tersebut.",
+          "supporting_references": [
+            {
+              "commit": "dd33419e10edb22b78d89325a6c2aad9f184e3a2",
+              "line_end": 377,
+              "line_start": 361,
+              "repository_path": "document/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05-Testing_for_SQL_Injection.md",
+              "section": "Time Delay Exploitation Technique",
+              "source_id": "owasp-wstg",
+              "source_sha256": "501ea437fcce7197ff5f993fc12d16817ba3d32da7494f1df559f562fb2d7ad3",
+              "url": "https://github.com/OWASP/wstg/blob/dd33419e10edb22b78d89325a6c2aad9f184e3a2/document/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05-Testing_for_SQL_Injection.md#L361-L377",
+              "snapshot_path": "data/raw/knowledge-sources/wstg42-sqli.md",
+              "snapshot_sha256": "501ea437fcce7197ff5f993fc12d16817ba3d32da7494f1df559f562fb2d7ad3",
+              "reviewed_segment_sha256": "736d18f22948267f587b8566ec642b763f2ea64d7dc9762ebe9d372a6716ecfc"
+            },
+            {
+              "commit": "3ac27901c711bdf3f5b65a7b1d1820a1f65bd09a",
+              "line_end": 326,
+              "line_start": 301,
+              "repository_path": "SQL Injection/README.md",
+              "section": "Time Based Injection",
+              "source_id": "payloadsallthethings",
+              "source_sha256": "8f68e5b948ca8a253527e98542e022c03028f481ea287d9fbf79044a26b140e3",
+              "url": "https://github.com/swisskyrepo/PayloadsAllTheThings/blob/3ac27901c711bdf3f5b65a7b1d1820a1f65bd09a/SQL%20Injection/README.md#L301-L326",
+              "snapshot_path": "data/raw/knowledge-sources/patt-sqli.md",
+              "snapshot_sha256": "8f68e5b948ca8a253527e98542e022c03028f481ea287d9fbf79044a26b140e3",
+              "reviewed_segment_sha256": "a5f357f7260ffaaa5090e2aad6c9c021ab74f71b16b93c7ef8c6022c03e06d9b"
+            }
+          ]
+        },
+        {
+          "field": "limitations",
+          "value": "Timing variance and timeouts can mask the difference. The source examples do not prescribe this project's decision threshold, repetitions, or ground-truth labels.",
+          "rating": "editorial_guardrail",
+          "note": "Noise/timeout adalah batas pengukuran editorial. Benar bahwa rentang sumber ini tidak menentukan ambang proyek, jumlah konfirmasi, atau label ground truth. Review ini tidak mengesahkan kecukupan statistik tiga pengukuran.",
+          "supporting_references": [
+            {
+              "commit": "dd33419e10edb22b78d89325a6c2aad9f184e3a2",
+              "line_end": 377,
+              "line_start": 361,
+              "repository_path": "document/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05-Testing_for_SQL_Injection.md",
+              "section": "Time Delay Exploitation Technique",
+              "source_id": "owasp-wstg",
+              "source_sha256": "501ea437fcce7197ff5f993fc12d16817ba3d32da7494f1df559f562fb2d7ad3",
+              "url": "https://github.com/OWASP/wstg/blob/dd33419e10edb22b78d89325a6c2aad9f184e3a2/document/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05-Testing_for_SQL_Injection.md#L361-L377",
+              "snapshot_path": "data/raw/knowledge-sources/wstg42-sqli.md",
+              "snapshot_sha256": "501ea437fcce7197ff5f993fc12d16817ba3d32da7494f1df559f562fb2d7ad3",
+              "reviewed_segment_sha256": "736d18f22948267f587b8566ec642b763f2ea64d7dc9762ebe9d372a6716ecfc"
+            },
+            {
+              "commit": "3ac27901c711bdf3f5b65a7b1d1820a1f65bd09a",
+              "line_end": 326,
+              "line_start": 301,
+              "repository_path": "SQL Injection/README.md",
+              "section": "Time Based Injection",
+              "source_id": "payloadsallthethings",
+              "source_sha256": "8f68e5b948ca8a253527e98542e022c03028f481ea287d9fbf79044a26b140e3",
+              "url": "https://github.com/swisskyrepo/PayloadsAllTheThings/blob/3ac27901c711bdf3f5b65a7b1d1820a1f65bd09a/SQL%20Injection/README.md#L301-L326",
+              "snapshot_path": "data/raw/knowledge-sources/patt-sqli.md",
+              "snapshot_sha256": "8f68e5b948ca8a253527e98542e022c03028f481ea287d9fbf79044a26b140e3",
+              "reviewed_segment_sha256": "a5f357f7260ffaaa5090e2aad6c9c021ab74f71b16b93c7ef8c6022c03e06d9b"
+            }
+          ]
+        },
+        {
+          "field": "title",
+          "value": "Repeated timing comparison with a no-delay control",
+          "rating": "editorial_label",
+          "note": "Label kurasi sesuai mekanisme pada dua rujukan; tidak menetapkan hasil target.",
+          "supporting_references": [
+            {
+              "commit": "dd33419e10edb22b78d89325a6c2aad9f184e3a2",
+              "line_end": 377,
+              "line_start": 361,
+              "repository_path": "document/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05-Testing_for_SQL_Injection.md",
+              "section": "Time Delay Exploitation Technique",
+              "source_id": "owasp-wstg",
+              "source_sha256": "501ea437fcce7197ff5f993fc12d16817ba3d32da7494f1df559f562fb2d7ad3",
+              "url": "https://github.com/OWASP/wstg/blob/dd33419e10edb22b78d89325a6c2aad9f184e3a2/document/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05-Testing_for_SQL_Injection.md#L361-L377",
+              "snapshot_path": "data/raw/knowledge-sources/wstg42-sqli.md",
+              "snapshot_sha256": "501ea437fcce7197ff5f993fc12d16817ba3d32da7494f1df559f562fb2d7ad3",
+              "reviewed_segment_sha256": "736d18f22948267f587b8566ec642b763f2ea64d7dc9762ebe9d372a6716ecfc"
+            },
+            {
+              "commit": "3ac27901c711bdf3f5b65a7b1d1820a1f65bd09a",
+              "line_end": 326,
+              "line_start": 301,
+              "repository_path": "SQL Injection/README.md",
+              "section": "Time Based Injection",
+              "source_id": "payloadsallthethings",
+              "source_sha256": "8f68e5b948ca8a253527e98542e022c03028f481ea287d9fbf79044a26b140e3",
+              "url": "https://github.com/swisskyrepo/PayloadsAllTheThings/blob/3ac27901c711bdf3f5b65a7b1d1820a1f65bd09a/SQL%20Injection/README.md#L301-L326",
+              "snapshot_path": "data/raw/knowledge-sources/patt-sqli.md",
+              "snapshot_sha256": "8f68e5b948ca8a253527e98542e022c03028f481ea287d9fbf79044a26b140e3",
+              "reviewed_segment_sha256": "a5f357f7260ffaaa5090e2aad6c9c021ab74f71b16b93c7ef8c6022c03e06d9b"
+            }
+          ]
+        },
+        {
+          "field": "vulnerability_type",
+          "value": "time-based blind",
+          "rating": "editorial_label",
+          "note": "Label kurasi sesuai mekanisme pada dua rujukan; tidak menetapkan hasil target.",
+          "supporting_references": [
+            {
+              "commit": "dd33419e10edb22b78d89325a6c2aad9f184e3a2",
+              "line_end": 377,
+              "line_start": 361,
+              "repository_path": "document/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05-Testing_for_SQL_Injection.md",
+              "section": "Time Delay Exploitation Technique",
+              "source_id": "owasp-wstg",
+              "source_sha256": "501ea437fcce7197ff5f993fc12d16817ba3d32da7494f1df559f562fb2d7ad3",
+              "url": "https://github.com/OWASP/wstg/blob/dd33419e10edb22b78d89325a6c2aad9f184e3a2/document/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05-Testing_for_SQL_Injection.md#L361-L377",
+              "snapshot_path": "data/raw/knowledge-sources/wstg42-sqli.md",
+              "snapshot_sha256": "501ea437fcce7197ff5f993fc12d16817ba3d32da7494f1df559f562fb2d7ad3",
+              "reviewed_segment_sha256": "736d18f22948267f587b8566ec642b763f2ea64d7dc9762ebe9d372a6716ecfc"
+            },
+            {
+              "commit": "3ac27901c711bdf3f5b65a7b1d1820a1f65bd09a",
+              "line_end": 326,
+              "line_start": 301,
+              "repository_path": "SQL Injection/README.md",
+              "section": "Time Based Injection",
+              "source_id": "payloadsallthethings",
+              "source_sha256": "8f68e5b948ca8a253527e98542e022c03028f481ea287d9fbf79044a26b140e3",
+              "url": "https://github.com/swisskyrepo/PayloadsAllTheThings/blob/3ac27901c711bdf3f5b65a7b1d1820a1f65bd09a/SQL%20Injection/README.md#L301-L326",
+              "snapshot_path": "data/raw/knowledge-sources/patt-sqli.md",
+              "snapshot_sha256": "8f68e5b948ca8a253527e98542e022c03028f481ea287d9fbf79044a26b140e3",
+              "reviewed_segment_sha256": "a5f357f7260ffaaa5090e2aad6c9c021ab74f71b16b93c7ef8c6022c03e06d9b"
+            }
+          ]
+        }
+      ],
+      "inherited_references_unused_for_projected_fields": [
+        {
+          "commit": "dd33419e10edb22b78d89325a6c2aad9f184e3a2",
+          "line_end": 555,
+          "line_start": 550,
+          "repository_path": "document/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05-Testing_for_SQL_Injection.md",
+          "section": "Remediation",
+          "source_id": "owasp-wstg",
+          "source_sha256": "501ea437fcce7197ff5f993fc12d16817ba3d32da7494f1df559f562fb2d7ad3",
+          "url": "https://github.com/OWASP/wstg/blob/dd33419e10edb22b78d89325a6c2aad9f184e3a2/document/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05-Testing_for_SQL_Injection.md#L550-L555",
+          "snapshot_path": "data/raw/knowledge-sources/wstg42-sqli.md",
+          "snapshot_sha256": "501ea437fcce7197ff5f993fc12d16817ba3d32da7494f1df559f562fb2d7ad3",
+          "reviewed_segment_sha256": "11c73155905aafc536fa35be65491b13a707a33bb4055bff20fed6ad243d3e06"
+        }
+      ]
+    },
+    {
+      "entry_id": "sqli-time-subselect",
+      "technique": "time-based blind",
+      "selected_in_v4": false,
+      "chunk_text_sha256": "c1c8ee174cc055549c5f3350fb334d82009ab58f47a567f3568f8e8d81dad919",
+      "disposition": "retain-as-conditional-template",
+      "fields": [
+        {
+          "field": "detection_method",
+          "value": "Keep the subselect, numeric input prefix and delay duration fixed; switch only the predicate. Compare observed timing with the no-delay control and account for ordinary request variation.",
+          "rating": "source_and_editorial",
+          "note": "Source template mendukung struktur subselect. Menahan prefix/delay tetap, no-delay control, dan memperhitungkan variasi request adalah prosedur editorial.",
+          "supporting_references": [
+            {
+              "commit": "dd33419e10edb22b78d89325a6c2aad9f184e3a2",
+              "line_end": 377,
+              "line_start": 361,
+              "repository_path": "document/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05-Testing_for_SQL_Injection.md",
+              "section": "Time Delay Exploitation Technique",
+              "source_id": "owasp-wstg",
+              "source_sha256": "501ea437fcce7197ff5f993fc12d16817ba3d32da7494f1df559f562fb2d7ad3",
+              "url": "https://github.com/OWASP/wstg/blob/dd33419e10edb22b78d89325a6c2aad9f184e3a2/document/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05-Testing_for_SQL_Injection.md#L361-L377",
+              "snapshot_path": "data/raw/knowledge-sources/wstg42-sqli.md",
+              "snapshot_sha256": "501ea437fcce7197ff5f993fc12d16817ba3d32da7494f1df559f562fb2d7ad3",
+              "reviewed_segment_sha256": "736d18f22948267f587b8566ec642b763f2ea64d7dc9762ebe9d372a6716ecfc"
+            },
+            {
+              "commit": "3ac27901c711bdf3f5b65a7b1d1820a1f65bd09a",
+              "line_end": 412,
+              "line_start": 375,
+              "repository_path": "SQL Injection/MySQL Injection.md",
+              "section": "Using SLEEP in a Subselect",
+              "source_id": "payloadsallthethings",
+              "source_sha256": "8fd90e87a6ccce3dde2b673492c0b975296a16d90f1c8f5833a63e4b2f0fc6d9",
+              "url": "https://github.com/swisskyrepo/PayloadsAllTheThings/blob/3ac27901c711bdf3f5b65a7b1d1820a1f65bd09a/SQL%20Injection/MySQL%20Injection.md#L375-L412",
+              "snapshot_path": "data/raw/knowledge-sources/patt-mysql-sections.json",
+              "snapshot_sha256": "190a4eb75b02acbf32797a1b49be876c95775f496335611114dc2f13c2167cb3",
+              "reviewed_segment_sha256": "f4fc7052d6d9ce01e9d4d82b6689693b0e58f97a087835c14fb4db399b99d9a9"
+            }
+          ]
+        },
+        {
+          "field": "functional_semantics",
+          "value": "A subselect can invoke SLEEP only when its WHERE predicate is satisfied. Comparing a satisfied and unsatisfied predicate exposes a timing difference without selecting target secrets.",
+          "rating": "source_and_editorial",
+          "note": "PATT memperlihatkan SELECT SLEEP FROM DUAL WHERE kondisi. Penggunaan predikat konstan sebagai pengganti pembacaan informasi target dan penjelasan pasangan kontrol adalah adaptasi editorial.",
+          "supporting_references": [
+            {
+              "commit": "dd33419e10edb22b78d89325a6c2aad9f184e3a2",
+              "line_end": 377,
+              "line_start": 361,
+              "repository_path": "document/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05-Testing_for_SQL_Injection.md",
+              "section": "Time Delay Exploitation Technique",
+              "source_id": "owasp-wstg",
+              "source_sha256": "501ea437fcce7197ff5f993fc12d16817ba3d32da7494f1df559f562fb2d7ad3",
+              "url": "https://github.com/OWASP/wstg/blob/dd33419e10edb22b78d89325a6c2aad9f184e3a2/document/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05-Testing_for_SQL_Injection.md#L361-L377",
+              "snapshot_path": "data/raw/knowledge-sources/wstg42-sqli.md",
+              "snapshot_sha256": "501ea437fcce7197ff5f993fc12d16817ba3d32da7494f1df559f562fb2d7ad3",
+              "reviewed_segment_sha256": "736d18f22948267f587b8566ec642b763f2ea64d7dc9762ebe9d372a6716ecfc"
+            },
+            {
+              "commit": "3ac27901c711bdf3f5b65a7b1d1820a1f65bd09a",
+              "line_end": 412,
+              "line_start": 375,
+              "repository_path": "SQL Injection/MySQL Injection.md",
+              "section": "Using SLEEP in a Subselect",
+              "source_id": "payloadsallthethings",
+              "source_sha256": "8fd90e87a6ccce3dde2b673492c0b975296a16d90f1c8f5833a63e4b2f0fc6d9",
+              "url": "https://github.com/swisskyrepo/PayloadsAllTheThings/blob/3ac27901c711bdf3f5b65a7b1d1820a1f65bd09a/SQL%20Injection/MySQL%20Injection.md#L375-L412",
+              "snapshot_path": "data/raw/knowledge-sources/patt-mysql-sections.json",
+              "snapshot_sha256": "190a4eb75b02acbf32797a1b49be876c95775f496335611114dc2f13c2167cb3",
+              "reviewed_segment_sha256": "f4fc7052d6d9ce01e9d4d82b6689693b0e58f97a087835c14fb4db399b99d9a9"
+            }
+          ]
+        },
+        {
+          "field": "limitations",
+          "value": "A numeric context and compatible comment/subselect syntax are required. The number of evaluated rows and application logic can affect timing; no target configuration is assumed vulnerable.",
+          "rating": "editorial_guardrail",
+          "note": "Konteks numeric/subselect tampak pada template. Pengaruh jumlah row/aplikasi serta larangan mengasumsikan konfigurasi target rentan merupakan caution editorial, bukan hasil pengujian target atau versi DBMS.",
+          "supporting_references": [
+            {
+              "commit": "dd33419e10edb22b78d89325a6c2aad9f184e3a2",
+              "line_end": 377,
+              "line_start": 361,
+              "repository_path": "document/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05-Testing_for_SQL_Injection.md",
+              "section": "Time Delay Exploitation Technique",
+              "source_id": "owasp-wstg",
+              "source_sha256": "501ea437fcce7197ff5f993fc12d16817ba3d32da7494f1df559f562fb2d7ad3",
+              "url": "https://github.com/OWASP/wstg/blob/dd33419e10edb22b78d89325a6c2aad9f184e3a2/document/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05-Testing_for_SQL_Injection.md#L361-L377",
+              "snapshot_path": "data/raw/knowledge-sources/wstg42-sqli.md",
+              "snapshot_sha256": "501ea437fcce7197ff5f993fc12d16817ba3d32da7494f1df559f562fb2d7ad3",
+              "reviewed_segment_sha256": "736d18f22948267f587b8566ec642b763f2ea64d7dc9762ebe9d372a6716ecfc"
+            },
+            {
+              "commit": "3ac27901c711bdf3f5b65a7b1d1820a1f65bd09a",
+              "line_end": 412,
+              "line_start": 375,
+              "repository_path": "SQL Injection/MySQL Injection.md",
+              "section": "Using SLEEP in a Subselect",
+              "source_id": "payloadsallthethings",
+              "source_sha256": "8fd90e87a6ccce3dde2b673492c0b975296a16d90f1c8f5833a63e4b2f0fc6d9",
+              "url": "https://github.com/swisskyrepo/PayloadsAllTheThings/blob/3ac27901c711bdf3f5b65a7b1d1820a1f65bd09a/SQL%20Injection/MySQL%20Injection.md#L375-L412",
+              "snapshot_path": "data/raw/knowledge-sources/patt-mysql-sections.json",
+              "snapshot_sha256": "190a4eb75b02acbf32797a1b49be876c95775f496335611114dc2f13c2167cb3",
+              "reviewed_segment_sha256": "f4fc7052d6d9ce01e9d4d82b6689693b0e58f97a087835c14fb4db399b99d9a9"
+            }
+          ]
+        },
+        {
+          "field": "title",
+          "value": "Conditional sleep inside a subselect",
+          "rating": "editorial_label",
+          "note": "Label kurasi sesuai mekanisme pada dua rujukan; tidak menetapkan hasil target.",
+          "supporting_references": [
+            {
+              "commit": "dd33419e10edb22b78d89325a6c2aad9f184e3a2",
+              "line_end": 377,
+              "line_start": 361,
+              "repository_path": "document/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05-Testing_for_SQL_Injection.md",
+              "section": "Time Delay Exploitation Technique",
+              "source_id": "owasp-wstg",
+              "source_sha256": "501ea437fcce7197ff5f993fc12d16817ba3d32da7494f1df559f562fb2d7ad3",
+              "url": "https://github.com/OWASP/wstg/blob/dd33419e10edb22b78d89325a6c2aad9f184e3a2/document/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05-Testing_for_SQL_Injection.md#L361-L377",
+              "snapshot_path": "data/raw/knowledge-sources/wstg42-sqli.md",
+              "snapshot_sha256": "501ea437fcce7197ff5f993fc12d16817ba3d32da7494f1df559f562fb2d7ad3",
+              "reviewed_segment_sha256": "736d18f22948267f587b8566ec642b763f2ea64d7dc9762ebe9d372a6716ecfc"
+            },
+            {
+              "commit": "3ac27901c711bdf3f5b65a7b1d1820a1f65bd09a",
+              "line_end": 412,
+              "line_start": 375,
+              "repository_path": "SQL Injection/MySQL Injection.md",
+              "section": "Using SLEEP in a Subselect",
+              "source_id": "payloadsallthethings",
+              "source_sha256": "8fd90e87a6ccce3dde2b673492c0b975296a16d90f1c8f5833a63e4b2f0fc6d9",
+              "url": "https://github.com/swisskyrepo/PayloadsAllTheThings/blob/3ac27901c711bdf3f5b65a7b1d1820a1f65bd09a/SQL%20Injection/MySQL%20Injection.md#L375-L412",
+              "snapshot_path": "data/raw/knowledge-sources/patt-mysql-sections.json",
+              "snapshot_sha256": "190a4eb75b02acbf32797a1b49be876c95775f496335611114dc2f13c2167cb3",
+              "reviewed_segment_sha256": "f4fc7052d6d9ce01e9d4d82b6689693b0e58f97a087835c14fb4db399b99d9a9"
+            }
+          ]
+        },
+        {
+          "field": "vulnerability_type",
+          "value": "time-based blind",
+          "rating": "editorial_label",
+          "note": "Label kurasi sesuai mekanisme pada dua rujukan; tidak menetapkan hasil target.",
+          "supporting_references": [
+            {
+              "commit": "dd33419e10edb22b78d89325a6c2aad9f184e3a2",
+              "line_end": 377,
+              "line_start": 361,
+              "repository_path": "document/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05-Testing_for_SQL_Injection.md",
+              "section": "Time Delay Exploitation Technique",
+              "source_id": "owasp-wstg",
+              "source_sha256": "501ea437fcce7197ff5f993fc12d16817ba3d32da7494f1df559f562fb2d7ad3",
+              "url": "https://github.com/OWASP/wstg/blob/dd33419e10edb22b78d89325a6c2aad9f184e3a2/document/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05-Testing_for_SQL_Injection.md#L361-L377",
+              "snapshot_path": "data/raw/knowledge-sources/wstg42-sqli.md",
+              "snapshot_sha256": "501ea437fcce7197ff5f993fc12d16817ba3d32da7494f1df559f562fb2d7ad3",
+              "reviewed_segment_sha256": "736d18f22948267f587b8566ec642b763f2ea64d7dc9762ebe9d372a6716ecfc"
+            },
+            {
+              "commit": "3ac27901c711bdf3f5b65a7b1d1820a1f65bd09a",
+              "line_end": 412,
+              "line_start": 375,
+              "repository_path": "SQL Injection/MySQL Injection.md",
+              "section": "Using SLEEP in a Subselect",
+              "source_id": "payloadsallthethings",
+              "source_sha256": "8fd90e87a6ccce3dde2b673492c0b975296a16d90f1c8f5833a63e4b2f0fc6d9",
+              "url": "https://github.com/swisskyrepo/PayloadsAllTheThings/blob/3ac27901c711bdf3f5b65a7b1d1820a1f65bd09a/SQL%20Injection/MySQL%20Injection.md#L375-L412",
+              "snapshot_path": "data/raw/knowledge-sources/patt-mysql-sections.json",
+              "snapshot_sha256": "190a4eb75b02acbf32797a1b49be876c95775f496335611114dc2f13c2167cb3",
+              "reviewed_segment_sha256": "f4fc7052d6d9ce01e9d4d82b6689693b0e58f97a087835c14fb4db399b99d9a9"
+            }
+          ]
+        }
+      ],
+      "inherited_references_unused_for_projected_fields": [
+        {
+          "commit": "dd33419e10edb22b78d89325a6c2aad9f184e3a2",
+          "line_end": 555,
+          "line_start": 550,
+          "repository_path": "document/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05-Testing_for_SQL_Injection.md",
+          "section": "Remediation",
+          "source_id": "owasp-wstg",
+          "source_sha256": "501ea437fcce7197ff5f993fc12d16817ba3d32da7494f1df559f562fb2d7ad3",
+          "url": "https://github.com/OWASP/wstg/blob/dd33419e10edb22b78d89325a6c2aad9f184e3a2/document/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05-Testing_for_SQL_Injection.md#L550-L555",
+          "snapshot_path": "data/raw/knowledge-sources/wstg42-sqli.md",
+          "snapshot_sha256": "501ea437fcce7197ff5f993fc12d16817ba3d32da7494f1df559f562fb2d7ad3",
+          "reviewed_segment_sha256": "11c73155905aafc536fa35be65491b13a707a33bb4055bff20fed6ad243d3e06"
+        }
+      ]
+    }
+  ],
+  "coverage_review": [
+    {
+      "requirement": "Diagnostik SQL baru terhadap baseline",
+      "technique": "error-based",
+      "coverage": "partial",
+      "selected_entries": [
+        "sqli-error-quote",
+        "sqli-error-message"
+      ],
+      "basis": "Konsep baru-versus-baseline sudah ada. Matcher diagnostik yang dipakai proyek dan contoh pembanding terukur tidak dijelaskan sebagai kontrak yang dapat dieksekusi.",
+      "future_action": "Pisahkan konsep sumber dari definisi indikator proyek; review matcher memakai bukti HTTP berlabel di luar konteks model."
+    },
+    {
+      "requirement": "Arah pasangan boolean dan kelas respons",
+      "technique": "boolean-based blind",
+      "coverage": "partial",
+      "selected_entries": [
+        "sqli-boolean-numeric",
+        "sqli-boolean-quoted"
+      ],
+      "basis": "True/false dan kelas stabil ada; enum user_id_exists/user_id_missing, arah pasangan, serta pengecualian status HTTP berasal dari protokol, bukan aturan universal sumber.",
+      "future_action": "Dokumentasikan scope hasil kandidat dan aturan pemetaan observasi secara terpisah dari referensi umum."
+    },
+    {
+      "requirement": "Respons dinamis dan konsistensi normalisasi",
+      "technique": "boolean-based blind",
+      "coverage": "available-but-not-retrieved",
+      "selected_entries": [],
+      "available_entry": "sqli-boolean-template",
+      "basis": "Penjelasan lebih spesifik tersedia pada entri ketiga yang tidak terpilih untuk query boolean v4. Dua entri terpilih hanya memberi peringatan atau kelas stabil secara umum.",
+      "future_action": "Tinjau relevansi pada query/kasus baru sebelum freeze; jangan mengganti ranking v4 sesudah hasil dibuka."
+    },
+    {
+      "requirement": "Matched no-delay control dan kesesuaian respons",
+      "technique": "time-based blind",
+      "coverage": "partial",
+      "selected_entries": [
+        "sqli-time-conditional",
+        "sqli-time-repeated"
+      ],
+      "basis": "Matched control dan variasi latency disebut. Persamaan marker, status valid dan pengecualian diagnostik yang dipakai proyek tidak dijabarkan oleh referensi.",
+      "future_action": "Nyatakan aturan proyek di kontrak bersama A/B; jangan mengatribusikan marker aplikasi ke OWASP/PATT."
+    },
+    {
+      "requirement": "Perbandingan delta dengan ambang numerik",
+      "technique": "time-based blind",
+      "coverage": "not-in-reference",
+      "selected_entries": [],
+      "basis": "Sumber memberi contoh delay, bukan ambang 1500 ms atau aturan pembulatan. Pada v4 aturan numerik sudah ada di input/prompt bersama.",
+      "future_action": "Pertahankan perhitungan Decimal dan audit klaim model; contoh angka baru harus dinyatakan contoh sintetis metode proyek."
+    },
+    {
+      "requirement": "Kelengkapan tiga trial, mixed dan incomplete",
+      "technique": "all",
+      "coverage": "not-in-reference",
+      "selected_entries": [],
+      "basis": "Aturan 3/3 positive, 0/3 negative, mixed/incomplete inconclusive berasal dari kontrak proyek. Pengulangan umum dalam korpus tidak menentukan tabel ini.",
+      "future_action": "Pertahankan aturan bersama A/B; validasi pada bukti baru yang dibekukan sebelum inferensi."
+    },
+    {
+      "requirement": "Validitas sesi, baseline dan measurement",
+      "technique": "all",
+      "coverage": "partial",
+      "selected_entries": [
+        "sqli-error-quote",
+        "sqli-error-message"
+      ],
+      "basis": "Perbandingan normal-versus-kandidat ada, tetapi login redirect, timeout, pasangan hilang dan runtime invalid tidak mempunyai aturan lengkap di proyeksi.",
+      "future_action": "Nyatakan precondition sebagai protokol proyek dan verifikasi dari bukti black-box; jangan menyamakan runtime invalid dengan negative."
+    },
+    {
+      "requirement": "Konsistensi decision dan reason_code",
+      "technique": "all",
+      "coverage": "not-in-reference",
+      "selected_entries": [],
+      "basis": "Enum dan pemetaan literal berasal dari schema/prompt v2 bersama. Ini tidak diberikan oleh dua upstream dan konsistensinya tidak menjamin verdict benar.",
+      "future_action": "Audit kode secara terpisah dari ketepatan trial, verdict, abstention dan coverage."
+    }
+  ],
+  "proposed_changes_for_new_version_only": [
+    "Tambahkan provenance per field yang membedakan parafrasa sumber, sintesis editorial dan aturan operasional proyek.",
+    "Perjelas bahwa tidak adanya indikator pada kandidat tidak menetapkan target bebas SQLi; gunakan istilah negative/inconclusive sesuai scope kontrak kandidat.",
+    "Hapus pointer Remediation dari konteks analisis jika tidak mendukung field yang ditampilkan, sambil mempertahankan atribusi pada korpus asal.",
+    "Review relevansi dokumen terhadap tugas verifikasi secara eksplisit; filter teknik dan jarak vektor bukan gold relevansi.",
+    "Jika menambah worked examples, gunakan contoh sintetis generik dengan provenance, set evaluasi baru, dan pisahkan dari benchmark formal serta hasil v4."
+  ],
+  "summary": {
+    "entries_reviewed": 9,
+    "projected_fields_reviewed": 45,
+    "selected_entries_in_v4": 6,
+    "field_rating_counts": {
+      "source_and_editorial": 13,
+      "supported_paraphrase": 7,
+      "editorial_label": 18,
+      "editorial_guardrail": 6,
+      "scope_ambiguity": 1
+    },
+    "scope_ambiguities": 1,
+    "entries_with_unused_remediation_reference": 9,
+    "coverage_requirements_reviewed": 8
+  },
+  "historical_index_comparison": [
+    {
+      "path": "data/vectorstore/sqli-knowledge-ec9d1b2feda12dd3/4176542f-e8f6-4a46-8652-598aedaf3721/data_level0.bin",
+      "approval_sha256": "4f436e3e7f8625e846b7cff2b4532265da6926cead44b56134349ca0edbb6fdd",
+      "current_sha256": "2cdb190ca57adb64a6dcb7befde7599c710623ae4b7b948beadfff0f234bee46",
+      "matches_historical_approval": false,
+      "unchanged_since_review_baseline": true
+    },
+    {
+      "path": "data/vectorstore/sqli-knowledge-ec9d1b2feda12dd3/4176542f-e8f6-4a46-8652-598aedaf3721/header.bin",
+      "approval_sha256": "03cb3ac86f3e5bcb15e88b9bf99f760ec6b33e31d64a699e129b49868db6d733",
+      "current_sha256": "03cb3ac86f3e5bcb15e88b9bf99f760ec6b33e31d64a699e129b49868db6d733",
+      "matches_historical_approval": true,
+      "unchanged_since_review_baseline": true
+    },
+    {
+      "path": "data/vectorstore/sqli-knowledge-ec9d1b2feda12dd3/4176542f-e8f6-4a46-8652-598aedaf3721/length.bin",
+      "approval_sha256": "fcb1dae9ff0777ddad43e748fa01c59d180a8a1d1014d4acae17cd29dd9d16c3",
+      "current_sha256": "fcb1dae9ff0777ddad43e748fa01c59d180a8a1d1014d4acae17cd29dd9d16c3",
+      "matches_historical_approval": true,
+      "unchanged_since_review_baseline": true
+    },
+    {
+      "path": "data/vectorstore/sqli-knowledge-ec9d1b2feda12dd3/4176542f-e8f6-4a46-8652-598aedaf3721/link_lists.bin",
+      "approval_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "current_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "matches_historical_approval": true,
+      "unchanged_since_review_baseline": true
+    },
+    {
+      "path": "data/vectorstore/sqli-knowledge-ec9d1b2feda12dd3/chroma.sqlite3",
+      "approval_sha256": "32684a5b90b1f4ce81abfbf47b20182dcab1abe76ecdb4cdb47b8c3430f6a9d8",
+      "current_sha256": "7911a81a94be5c760ac93faeca0b44e5f7f95cb2a7dc0c667fd01caeb8b7454a",
+      "matches_historical_approval": false,
+      "unchanged_since_review_baseline": true
+    },
+    {
+      "path": "data/vectorstore/sqli-knowledge-ec9d1b2feda12dd3/manifest.json",
+      "approval_sha256": "e00baf7e2af3e25ea6011a4e9cea2c19bd6122c7592e576ea8400e97786a24bd",
+      "current_sha256": "e00baf7e2af3e25ea6011a4e9cea2c19bd6122c7592e576ea8400e97786a24bd",
+      "matches_historical_approval": true,
+      "unchanged_since_review_baseline": true
+    }
+  ],
+  "historical_index_interpretation": "Two active index files already differ at baseline from the 17 October receipt; preserve and report, without opening Chroma or inferring a content change.",
+  "mechanical_checks": {
+    "protected_files_unchanged": 1051,
+    "formal_sources_unchanged": 959,
+    "review_checker_revisions_recorded": 1,
+    "formal_index_files_unchanged_since_review_baseline": 6,
+    "formal_index_files_match_historical_approval": 4,
+    "locked_source_files_match_hashes": 5,
+    "per_field_source_ranges_resolve": true,
+    "projection_values_match_frozen_corpus": true,
+    "checks_prove_semantic_truth": false,
+    "checks_prove_retrieval_relevance": false
+  },
+  "model_calls": 0,
+  "embedding_calls": 0,
+  "dvwa_requests": 0,
+  "original_corpus_modified": false,
+  "formal_metrics_recomputed": false,
+  "causal_explanation_of_v4_null_result_established": false
+}

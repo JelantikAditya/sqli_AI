@@ -1,0 +1,113 @@
+{
+  "schema_version": "1.0.0",
+  "scope": "development-pilot-not-formal",
+  "experiment_id": "u06-v15-integrated-20261016",
+  "plan": "dvwa/local_run_plan.u06-integrated-pilot-v15-20261016.json",
+  "result_directory": "results/raw/pilot/u06-v15-integrated-20261016/",
+  "prompt_version": "sqli-adaptive-candidate-v15-batch-option-dedup",
+  "model": "qwen2.5:7b",
+  "run_counts": {
+    "planned_slots": 36,
+    "applicable_runs": 33,
+    "completed": 28,
+    "excluded_incomplete_budget": 5,
+    "excluded_not_applicable": 3,
+    "invalid": 0
+  },
+  "by_condition": {
+    "A": {
+      "applicable": 12,
+      "completed": 10,
+      "incomplete_budget": 2,
+      "incomplete_units": ["u06-v15-integrated-20261016-a-s1-r1", "u06-v15-integrated-20261016-a-s10-r1"],
+      "candidates_in_completed_runs": 100,
+      "candidates_in_incomplete_runs": 17,
+      "runtime_invalid": 0,
+      "generation_calls": 125,
+      "generation_retry_calls": 6,
+      "generation_retries": 8,
+      "suggestions_selected": 117,
+      "duplicate_suggestions": 150,
+      "unused_unique_suggestions": 870,
+      "invalid_suggestions_rejected_before_execution": 14
+    },
+    "B": {
+      "applicable": 12,
+      "completed": 9,
+      "incomplete_budget": 3,
+      "incomplete_units": ["u06-v15-integrated-20261016-b-s3-r1", "u06-v15-integrated-20261016-b-s6-r1", "u06-v15-integrated-20261016-b-s9-r1"],
+      "candidates_in_completed_runs": 90,
+      "candidates_in_incomplete_runs": 24,
+      "runtime_invalid": 0,
+      "generation_calls": 130,
+      "generation_retry_calls": 13,
+      "generation_retries": 16,
+      "suggestions_selected": 114,
+      "duplicate_suggestions": 315,
+      "unused_unique_suggestions": 770,
+      "invalid_suggestions_rejected_before_execution": 2
+    },
+    "C": {
+      "applicable": 9,
+      "completed": 9,
+      "not_applicable": 3,
+      "candidates_in_completed_runs": 90,
+      "runtime_invalid": 0,
+      "source": "SecLists"
+    }
+  },
+  "candidate_accounting": {
+    "llm_candidates_executed_and_analyzed": 231,
+    "seclists_candidates_executed": 90,
+    "all_ledger_candidates": 321,
+    "all_candidate_observations": 2568,
+    "a_b_budget_complete_runs": 19,
+    "a_b_applicable_runs": 24,
+    "suggestion_events": 2352,
+    "selected_suggestions": 231,
+    "duplicate_suggestions": 465,
+    "unique_suggestions_not_selected": 1640,
+    "invalid_suggestions_rejected_before_execution": 16,
+    "runtime_invalid_candidates": 0,
+    "generation_calls_with_retry_index_nonzero": 19,
+    "generation_retry_steps": 24
+  },
+  "negative_scenario_system_decisions": {
+    "A/S10": "not_evaluable_incomplete_budget",
+    "A/S11": "positive",
+    "A/S12": "positive",
+    "B/S10": "inconclusive",
+    "B/S11": "positive",
+    "B/S12": "positive"
+  },
+  "duration": {
+    "attempts": 33,
+    "first_start_utc": "2026-10-16T10:16:16.666087+00:00",
+    "last_completion_utc": "2026-10-16T14:10:26.775894+00:00",
+    "wall_span_seconds": 14050.11,
+    "longest_attempt_seconds": 947.473
+  },
+  "provenance": {
+    "loader_verified": true,
+    "runs_loaded": 36,
+    "ledger_sha256": "4c55a11b2bafd07ab965cf53ba06345be86c69267230d726a19de676232fcf89",
+    "plan_snapshot_sha256": "085e54a1657dcc0293fd57f516526b02223a277f3fe50a82f3f0aa325afde0b6"
+  },
+  "preannotation_audit": {
+    "report": "results/raw/pilot/u06-v15-integrated-20261016/preannotation-audit.json",
+    "csv": "results/raw/pilot/u06-v15-integrated-20261016/preannotation-audit.csv",
+    "human_annotations_present": false,
+    "psr_eligible": false,
+    "fpr_eligible": false,
+    "psr_blocked_run_rows": 18,
+    "fpr_blocked_condition_replicates": 6
+  },
+  "review_sample": {
+    "scope": "four-candidate-blind-pilot-sample",
+    "directory": "results/raw/u06-v15-integrated-review-sample-20261016/validator/",
+    "review_readiness": "ready_for_pilot_review",
+    "package_sha256": "0430c09924409ce536129cd1d17c007a899d953c558df5d764cc39621e09e77e",
+    "annotations_received": false
+  },
+  "interpretation": "Pilot evidence only. Five A/B runs did not meet the candidate budget. No FPR or PSR research metric was calculated. The negative-scenario system decisions are observations for this pilot, not formal results."
+}

@@ -104,6 +104,27 @@ dan tes statistik autentikasi ZAP lulus. Jumlah URL atau alert bukan ground
 truth SQLi; evaluasi tetap memakai validasi black-box di
 [`../docs/ground-truth-2026-10-01.md`](../docs/ground-truth-2026-10-01.md).
 
+## Baseline ZAP active scan API eksplisit
+
+Runner API eksplisit menjalankan dua rule SQLi 40018/40019 pada koordinat dari
+katalog skenario, memverifikasi `X-ZAP-Scan-ID`, lalu mengekspor report dan
+HAR. Sudah terbukti untuk POST pada Medium dan High. Jalur GET untuk Low dan
+Impossible tersedia agar matrix yang sama bisa ditutup. Jalankan dari root:
+
+```powershell
+.\dvwa\run_zap_api_explicit.ps1 -SecurityLevel low
+.\dvwa\run_zap_api_explicit.ps1 -SecurityLevel medium
+.\dvwa\run_zap_api_explicit.ps1 -SecurityLevel high
+.\dvwa\run_zap_api_explicit.ps1 -SecurityLevel impossible
+```
+
+Runner hanya menargetkan DVWA lokal, memakai API ZAP pada jaringan Docker tanpa
+port host yang dipublikasikan, dan menghentikan container API setelah ekspor. HAR dapat berisi cookie dan
+nilai request, jadi simpan di `results/zap/` lokal dan jangan dibagikan sebelum
+disanitasi. Ringkasan coverage tersanitasi disimpan di `results/raw/`.
+Status cakupan terbaru dan batas interpretasi ada di
+[laporan U06](../docs/u06-pilot-zap-baseline-2026-10-14.md).
+
 ## Validation loop SQLi terkontrol
 
 Discovery lokal terbaru juga mengekspor HAR seluruh pesan ZAP. Runner langsung
@@ -126,17 +147,26 @@ S1-S9 kini dapat dibangun dari sumber yang sudah diunduh secara lokal dengan
 [`../docs/candidate-sources.md`](../docs/candidate-sources.md). Label
 TP/FP/TN/FN yang dicatat masih provisional dan perlu validasi manusia.
 
-### Pilot loop adaptif Qwen S1
+### Loop pilot adaptif Qwen lintas skenario
 
 Runner pengembangan `adaptive_s1_loop.py` menghubungkan generasi kandidat,
-validasi tiga kali dengan baseline, analisis Qwen, dan feedback ke generasi
-berikutnya. Jalur loop ini hanya menerima S1 Low pada DVWA lokal dan menyimpan
-hash respons serta diagnostik allowlist. CLI mandiri memakai dua kandidat
-secara default. Runner ledger mengirim budget 10 dari protokol dan me-reset
-database sebelum setiap condition-run; eksekusi memerlukan konfirmasi eksplisit
-untuk target DVWA lokal dan reset database. Pilot r3 pada 14 Oktober
-menyelesaikan 10 kandidat untuk A dan B. Hasilnya tetap pilot, bukan FPR/PSR
-formal, sampai evidence divalidasi secara independen.
+baseline dan tiga konfirmasi, analisis Qwen, serta feedback untuk S1-S12 pada
+kondisi A/B. Adapter memilih schema kandidat tunggal error/time atau pasangan
+boolean, lalu menyimpan evidence dengan role dan hash respons yang tervalidasi.
+Runner ledger memakai budget 10 dan me-reset database setiap condition-run;
+eksekusi meminta konfirmasi target DVWA lokal dan reset database. Smoke U03
+mencakup satu kandidat untuk semua skenario S2-S12 pada A dan S2 pada B. Artifact
+awal S5/S8 menyimpan error parsing evidence references berulang; normalizer kini
+mempertahankan teks mentah, menghapus hanya ID duplikat dari record terstruktur,
+dan menandai warning audit. Replay S5 tetap menunjukkan mismatch antara klaim
+model dan sinyal executor. Pilot terpadu U06 mencoba 33 run applicable, tetapi
+hanya 15/33 menyelesaikan 10 kandidat; 124 slot kandidat belum terpenuhi.
+Follow-up API eksplisit membuktikan coverage 2/2 koordinat pada keempat level.
+Low dan Medium masing-masing menghasilkan satu alert rule 40018; High dan
+Impossible tidak menghasilkan alert pada target yang dicakup. Coverage U06.2
+selesai, tetapi stabilitas generasi U06.1 masih pending. Lihat
+[laporan pilot U06](../docs/u06-pilot-zap-baseline-2026-10-14.md) dan
+[rencana penyelesaian](../docs/rencana-penyelesaian-2026-10-16.md).
 
 Perintah berikut mereproduksi pasangan pilot 12 Oktober jika artefak seed
 lokal yang berada di `results/raw/` masih tersedia. Jalankan terpisah untuk
@@ -208,7 +238,95 @@ berstatus frozen. Candidate guard menolak operasi mutasi, file, stacked
 statement, dan delay timing di atas dua detik sebelum satu request kandidat
 dikirim.
 
-## Akses Colab melalui tunnel bertoken
+### Freeze protokol dan otorisasi dataset formal
+
+Freeze U07 dan eksekusi F01 adalah dua keputusan berbeda. Setelah paket
+kesiapan baru memiliki 10 gate selain `runtime-manifest-frozen` berstatus
+passed, audit bukti dan working tree, lalu periksa kelayakan release tanpa
+mengubah protokol:
+
+```powershell
+& .\.venv\Scripts\python.exe dvwa/release_formal_freeze.py `
+  --candidate-dir results/raw/u07-formal-readiness-20261018-v18 --check
+```
+
+Jika audit berhasil, tool dapat membuat receipt freeze berstatus `pending`.
+Peneliti meninjau ulang hash kandidat, plan, protokol, dan receipt korpus, lalu
+merekam keputusan freeze secara eksplisit pada file tersebut. Perintah release
+menolak receipt pending atau hash yang tidak cocok. Release membekukan protokol
+dan menghasilkan `formal-release-manifest.json`; status release itu sendiri
+belum memberi izin menjalankan dataset formal.
+
+```powershell
+& .\.venv\Scripts\python.exe dvwa/release_formal_freeze.py `
+  --candidate-dir results/raw/u07-formal-readiness-20261018-v18 `
+  --write-approval-template
+
+# Setelah peneliti meninjau dan merekam keputusan pada receipt:
+& .\.venv\Scripts\python.exe dvwa/release_formal_freeze.py `
+  --candidate-dir results/raw/u07-formal-readiness-20261018-v18 `
+  --release `
+  --approval results/raw/u07-formal-readiness-20261018-v18/formal-freeze-approval.json
+```
+
+Sebelum F01, peneliti membuat receipt `formal-dataset-execution` yang
+mencantumkan `experiment_id`, path dan SHA-256 plan formal, path dan SHA-256
+`formal-release-manifest.json`, serta otoritas dan waktu persetujuan. Schema
+receipt ada di `schemas/formal-execution-approval.schema.json`. Runner memeriksa
+receipt terhadap protokol aktif, snapshot sumber release, plan persis yang
+dipakai, dan release manifest sebelum membuat atau melanjutkan attempt.
+Eksekusi formal dan resume formal harus menyertakan receipt yang sama:
+
+```powershell
+& .\.venv\Scripts\python.exe dvwa/run_local_experiments.py `
+  --plan dvwa/local_run_plan.formal-20261017-approved-index.json `
+  --formal-execution-approval results/raw/formal-execution-approval.json `
+  --execute --confirm-local-dvwa --confirm-database-reset
+```
+
+Untuk mengurangi beban laptop, F01 dapat dijalankan satu blok replikasi per
+sesi. Tambahkan `--one-replicate-per-session` pada eksekusi pertama dan setiap
+resume. Runner memilih replikasi paling awal yang belum selesai, menuntaskan
+blok itu, mencatat event `execution_paused` pada ledger, lalu kembali tanpa
+memulai replikasi berikutnya. Gunakan plan, ledger, receipt formal, dan
+konfigurasi yang sama pada semua sesi. Contoh invocation lanjutan:
+
+```powershell
+& .\.venv\Scripts\python.exe dvwa/run_local_experiments.py `
+  --plan dvwa/local_run_plan.formal-20261017-approved-index.json `
+  --formal-execution-approval results/raw/formal-execution-approval.json `
+  --resume --execute --one-replicate-per-session `
+  --confirm-local-dvwa --confirm-database-reset
+```
+
+Invocation pertama memakai perintah formal di atas dengan tambahan
+`--one-replicate-per-session` dan tanpa `--resume`. Jangan menghentikan proses
+secara manual di tengah condition-run. Jika attempt terputus, perilaku invalid
+dan recovery tetap mengikuti prosedur resume/retry yang dijelaskan sebelumnya.
+Pertahankan model, parameter, index, image Docker, dan konfigurasi daya yang
+sama; ledger menyimpan waktu mulai dan selesai setiap attempt serta waktu jeda
+antarblok.
+
+Receipt keputusan korpus `approved-for-formal-use` hanya menyetujui snapshot
+korpus untuk protokol formal. Receipt itu tidak menggantikan persetujuan freeze
+atau persetujuan menjalankan F01. Untuk condition B pada pilot v18, runner
+memerlukan receipt korpus terpisah berstatus `approved-for-pilot-use` yang
+terikat ke corpus dan index Chroma yang sama; jangan mengubah receipt formal
+agar dapat dipakai untuk pilot. Jika metadata korpus yang sudah dipin masih
+menyebut `researcher_review: pending`, receipt pilot harus mencatat attestation
+review peneliti dan `approved_snapshot` yang cocok persis dengan corpus, source
+lock, dan seluruh file index. Runner memvalidasi attestation itu tanpa mengubah
+corpus atau manifest bersama, sehingga persetujuan formal yang sudah ada tetap
+terikat ke hash semula. Persetujuan penggunaan korpus ini tetap tidak
+menggantikan kesiapan pilot lokal atau otorisasi eksekusi eksperimen.
+
+## Referensi historis: akses Colab melalui tunnel bertoken (ditunda)
+
+Jalur Colab/tunnel tidak digunakan untuk eksperimen aktif; metode saat ini
+berjalan lokal sesuai [metodologi lokal](../docs/metodologi-lokal-2026-10-14.md).
+Bagian berikut dipertahankan untuk catatan pengembangan terdahulu. Jangan
+gunakan sebagai prosedur pilot aktif. Lihat [rencana penyelesaian](../docs/rencana-penyelesaian-2026-10-16.md)
+untuk status dan langkah kerja terbaru.
 
 Tunnel sementara Cloudflare menuju gateway. Gateway mewajibkan header
 `X-Lab-Token` pada **setiap** request sebelum meneruskannya ke DVWA. Token
@@ -294,3 +412,33 @@ docker compose -f dvwa/compose.yaml down
 
 Perintah ini mempertahankan volume database agar eksperimen berikutnya dapat
 dilanjutkan. Reset data eksperimen melalui tombol setup DVWA jika diperlukan.
+
+## U07: manifest kandidat dan gate formal
+
+Status 17 Oktober: audit tersedia, protokol masih pilot. Baca
+[laporan U07](../docs/u07-freeze-kesiapan-formal-2026-10-17.md) untuk gate yang
+masih terbuka. Tool persiapan membaca metadata dan evidence; tool tidak
+menjalankan eksperimen atau mengganti status protokol menjadi frozen.
+
+```powershell
+& .\.venv\Scripts\python.exe dvwa/prepare_formal_freeze.py `
+  --capture-runtime results/raw/u07-formal-readiness-20261017/runtime.json
+
+& .\.venv\Scripts\python.exe dvwa/prepare_formal_freeze.py `
+  --runtime results/raw/u07-formal-readiness-20261017/runtime.json `
+  --plan dvwa/local_run_plan.formal-20261017.json `
+  --output-dir results/raw/u07-formal-readiness-20261017
+```
+
+Mode capture memerlukan Docker/Ollama lokal. Satu GET halaman login memeriksa
+reachability DVWA; container ZAP sementara memakai `--network none` untuk
+mendaftar file versi/add-on. Mode persiapan memverifikasi ledger pilot,
+hash sumber dan artefak, index SQLite read-only, budget context, hasil tes,
+schedule, serta salinan backup. `tests.log` di direktori output harus memuat
+hasil suite offline terbaru agar gate kontrak lulus.
+
+Plan formal memuat 99 run applicable dan 990 slot kandidat. Dua belas path
+discovery adalah reservasi baru untuk tiga replikasi; report masih perlu
+dibuat pada persiapan F01. Root `results/raw/formal/` disiapkan tanpa membuat
+subfolder experiment ID atau ledger. Runner menolak plan formal sampai
+protokol benar-benar frozen. Archive dan mapping validator tetap privat lokal.

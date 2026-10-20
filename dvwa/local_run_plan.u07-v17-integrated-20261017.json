@@ -1,0 +1,66 @@
+{
+  "schema_version": "1.0.0",
+  "experiment_id": "u07-v17-integrated-20261017",
+  "dataset": "pilot",
+  "condition_ids": [
+    "A",
+    "B",
+    "C"
+  ],
+  "scenario_ids": [
+    "S1",
+    "S2",
+    "S3",
+    "S4",
+    "S5",
+    "S6",
+    "S7",
+    "S8",
+    "S9",
+    "S10",
+    "S11",
+    "S12"
+  ],
+  "replicates": [
+    1
+  ],
+  "discovery_reports": {
+    "S1": {
+      "1": "results/zap/zap-discovery-low-20261011-180846.normalized.json"
+    },
+    "S2": {
+      "1": "results/zap/zap-discovery-low-20261011-180846.normalized.json"
+    },
+    "S3": {
+      "1": "results/zap/zap-discovery-low-20261011-180846.normalized.json"
+    },
+    "S4": {
+      "1": "results/zap/zap-discovery-medium-20261011-181433.normalized.json"
+    },
+    "S5": {
+      "1": "results/zap/zap-discovery-medium-20261011-181433.normalized.json"
+    },
+    "S6": {
+      "1": "results/zap/zap-discovery-medium-20261011-181433.normalized.json"
+    },
+    "S7": {
+      "1": "results/zap/zap-discovery-high-20261011-181157.normalized.json"
+    },
+    "S8": {
+      "1": "results/zap/zap-discovery-high-20261011-181157.normalized.json"
+    },
+    "S9": {
+      "1": "results/zap/zap-discovery-high-20261011-181157.normalized.json"
+    },
+    "S10": {
+      "1": "results/zap/zap-discovery-impossible-20261011-181744.normalized.json"
+    },
+    "S11": {
+      "1": "results/zap/zap-discovery-impossible-20261011-181744.normalized.json"
+    },
+    "S12": {
+      "1": "results/zap/zap-discovery-impossible-20261011-181744.normalized.json"
+    }
+  },
+  "seclists_source_root": "results/raw/seclists/6ef78e5c253d9a6556f2d6339a7b635bf0a2115e"
+}

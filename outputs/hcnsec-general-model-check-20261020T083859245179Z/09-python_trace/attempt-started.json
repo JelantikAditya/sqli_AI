@@ -1,0 +1,10 @@
+{
+  "sequence": 9,
+  "task_id": "python_trace",
+  "requested_model": "glm-5.3-flash",
+  "started_at_utc": "2026-10-20T08:43:13.933915+00:00",
+  "http_status": null,
+  "reported_model": null,
+  "valid_json": false,
+  "passed": false
+}

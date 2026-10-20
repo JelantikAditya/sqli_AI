@@ -12,9 +12,20 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "dvwa"))
 from smoke_s1_pair import EvidenceClient, InputForms, verify_generation_audits
 from generate_candidate_batch import build_messages
 from rag_pipeline import load_catalog
+from validation_loop import sanitized_review_excerpt
 
 
 class S1SmokeEvidenceTests(unittest.TestCase):
+    def test_review_excerpt_keeps_only_allowlisted_redacted_phrases(self):
+        excerpt=sanitized_review_excerpt(
+            "secret-token mysqli_sql_exception: You have an error in your SQL syntax; private-query "
+            "First name: private-user"
+        )
+        self.assertIn("You have an error in your SQL syntax [query details redacted]",excerpt)
+        self.assertIn("First name: [record value redacted]",excerpt)
+        for secret in ("secret-token", "mysqli_sql_exception", "private-query", "private-user"):
+            self.assertNotIn(secret,excerpt)
+
     def response(self, body, status=200):
         return {"status": status, "body": body, "elapsed_ms": 4.0, "body_sha256": "fixture"}
 

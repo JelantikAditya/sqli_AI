@@ -1,0 +1,601 @@
+{
+  "schema_version": "1.0.0",
+  "corpus_version": "analysis-v5-draft-20261020",
+  "status": "draft-for-researcher-review",
+  "created_on": "2026-10-20",
+  "language": "en",
+  "source_lock_path": "knowledge/analysis-v5/sources.lock.json",
+  "source_lock_sha256": "966ce725d0c4fcd9914a174a5b3867eb2d941483051c5b991d8364bcf2a44efd",
+  "curation": {
+    "author": "Codex",
+    "method": "task-oriented-field-level-provenance",
+    "researcher_review": "pending",
+    "researcher_review_receipt": null,
+    "technical_review": "recorded-separately-in-audit-not-human-approval",
+    "source_status": "new-analysis-projection-not-covered-by-original-corpus-approval"
+  },
+  "usage": {
+    "purpose": "interpret-paired-http-evidence",
+    "method": "DAST/black-box",
+    "techniques": [
+      "error-based",
+      "boolean-based blind",
+      "time-based blind"
+    ],
+    "payload_generation": false,
+    "synthetic_examples_included": false,
+    "formal_runner_integrated": false,
+    "retrieval_policy_frozen": false,
+    "embedding_or_model_evaluation_executed": false,
+    "excluded_material": [
+      "payload examples",
+      "target source code",
+      "database contents",
+      "scenario labels",
+      "formal experiment outcomes",
+      "validator annotations",
+      "out-of-band techniques",
+      "HTTP/2 timing attack procedures"
+    ],
+    "payloadsallthethings_role": "retained-in-existing-generation-corpus-not-added-to-this-analysis-draft"
+  },
+  "prompt_contract": {
+    "placement": "mandatory-common-prompt-outside-retrieval",
+    "authority": "project-rules-not-universal-source-standards",
+    "contract_references": [
+      {
+        "contract_id": "project-error-contract",
+        "path": "development/analyze_response_v1.py",
+        "file_sha256": "269578d51ac20907f6baef62231791bf341b0d0b11112fd9a876e3cf832e7987",
+        "locator": "build_messages",
+        "scope": "error-based indicator"
+      },
+      {
+        "contract_id": "project-boolean-contract",
+        "path": "development/analyze_response_v1.py",
+        "file_sha256": "269578d51ac20907f6baef62231791bf341b0d0b11112fd9a876e3cf832e7987",
+        "locator": "build_messages",
+        "scope": "boolean marker direction"
+      },
+      {
+        "contract_id": "project-time-contract",
+        "path": "development/analyze_response_v1.py",
+        "file_sha256": "269578d51ac20907f6baef62231791bf341b0d0b11112fd9a876e3cf832e7987",
+        "locator": "build_messages",
+        "scope": "matched control, delta and threshold"
+      },
+      {
+        "contract_id": "project-evidence-contract",
+        "path": "development/analyze_response_v1.py",
+        "file_sha256": "269578d51ac20907f6baef62231791bf341b0d0b11112fd9a876e3cf832e7987",
+        "locator": "paired_view / prepared_request",
+        "scope": "measurement and runtime fields"
+      },
+      {
+        "contract_id": "project-decision-contract",
+        "path": "development/analyze_response_v2.py",
+        "file_sha256": "1662c057893e8c457186730009efcb8dd99dd4c8723c9dbb60ef0dcff6dbaf4f",
+        "locator": "build_messages",
+        "scope": "candidate trial table and verdict"
+      },
+      {
+        "contract_id": "project-frozen-validation",
+        "path": "dvwa/local_experiment_protocol.json",
+        "file_sha256": "29a19aa17307c7dab0a3051e141d6dc238b73e1ca8ce829d06cb74410b5297b9",
+        "locator": "/validation",
+        "scope": "historical validation configuration"
+      }
+    ],
+    "requirements": [
+      "runtime and baseline validity",
+      "valid HTTP statuses and marker mapping",
+      "matched timing control and unrounded delta",
+      "1500 ms threshold",
+      "exactly trial identifiers 1,2,3",
+      "3/3 positive, 0/3 negative, mixed or incomplete inconclusive",
+      "candidate conclusion differs from target vulnerability conclusion"
+    ]
+  },
+  "provenance_definitions": {
+    "source_paraphrase": "Concise paraphrase supported by the cited source segment; no project numeric rule is attributed to it.",
+    "researcher_adaptation": "Editorial proposal by Codex for researcher review, with a local contract or research-design basis; not an upstream requirement.",
+    "synthetic_example": "Reserved for a separately versioned later experiment; no such statement is included here."
+  },
+  "chunks": [
+    {
+      "chunk_id": "analysis-v5-sql-diagnostics",
+      "topic": "sql-diagnostics-vs-application-errors",
+      "title": "Database diagnostics versus generic application errors",
+      "techniques": [
+        "error-based"
+      ],
+      "question": "Does the response contain an explicit database diagnostic?",
+      "fields": {
+        "concept": [
+          {
+            "text": "Database diagnostics reveal SQL processing; generic error pages provide less specific evidence.",
+            "origin": "source_paraphrase",
+            "source_reference_ids": [
+              "wstg-detection"
+            ],
+            "adaptation_basis": [],
+            "review_status": "pending"
+          }
+        ],
+        "evidence_to_compare": [
+          {
+            "text": "Inspect recorded diagnostic matches alongside HTTP status and measurement validity.",
+            "origin": "researcher_adaptation",
+            "source_reference_ids": [],
+            "adaptation_basis": [
+              "project-evidence-contract"
+            ],
+            "review_status": "pending"
+          }
+        ],
+        "supporting_conditions": [
+          {
+            "text": "Apply the project diagnostic matcher; require the baseline comparison before accepting the technique indicator.",
+            "origin": "researcher_adaptation",
+            "source_reference_ids": [],
+            "adaptation_basis": [
+              "project-error-contract"
+            ],
+            "review_status": "pending"
+          }
+        ],
+        "confounders": [
+          {
+            "text": "A status code alone does not identify the component that failed.",
+            "origin": "researcher_adaptation",
+            "source_reference_ids": [],
+            "adaptation_basis": [
+              "research-design"
+            ],
+            "review_status": "pending"
+          }
+        ],
+        "conclusion_limits": [
+          {
+            "text": "Conditional errors and data-bearing error messages are distinct SQL inference mechanisms.",
+            "origin": "source_paraphrase",
+            "source_reference_ids": [
+              "academy-errors"
+            ],
+            "adaptation_basis": [],
+            "review_status": "pending"
+          },
+          {
+            "text": "A generic error does not satisfy this project's explicit-diagnostic indicator.",
+            "origin": "researcher_adaptation",
+            "source_reference_ids": [],
+            "adaptation_basis": [
+              "project-error-contract"
+            ],
+            "review_status": "pending"
+          }
+        ]
+      }
+    },
+    {
+      "chunk_id": "analysis-v5-baseline-comparison",
+      "topic": "baseline-comparison",
+      "title": "New diagnostics relative to a comparable baseline",
+      "techniques": [
+        "error-based"
+      ],
+      "question": "Did the candidate introduce a diagnostic absent from the baseline?",
+      "fields": {
+        "concept": [
+          {
+            "text": "Change one input while holding other variables fixed.",
+            "origin": "source_paraphrase",
+            "source_reference_ids": [
+              "wstg-detection"
+            ],
+            "adaptation_basis": [],
+            "review_status": "pending"
+          }
+        ],
+        "evidence_to_compare": [
+          {
+            "text": "Compare candidate and benign-baseline diagnostic sets from the same validated injection point.",
+            "origin": "researcher_adaptation",
+            "source_reference_ids": [],
+            "adaptation_basis": [
+              "project-error-contract"
+            ],
+            "review_status": "pending"
+          }
+        ],
+        "supporting_conditions": [
+          {
+            "text": "Only candidate diagnostics absent from baseline count as new evidence.",
+            "origin": "researcher_adaptation",
+            "source_reference_ids": [],
+            "adaptation_basis": [
+              "project-error-contract"
+            ],
+            "review_status": "pending"
+          }
+        ],
+        "confounders": [
+          {
+            "text": "Pre-existing diagnostics, expired sessions and unrelated application failures can obscure attribution.",
+            "origin": "researcher_adaptation",
+            "source_reference_ids": [],
+            "adaptation_basis": [
+              "project-evidence-contract"
+            ],
+            "review_status": "pending"
+          }
+        ],
+        "conclusion_limits": [
+          {
+            "text": "An unchanged diagnostic supplies no new-diagnostic indicator for this candidate; it does not establish target safety.",
+            "origin": "researcher_adaptation",
+            "source_reference_ids": [],
+            "adaptation_basis": [
+              "project-error-contract",
+              "project-decision-contract"
+            ],
+            "review_status": "pending"
+          }
+        ]
+      }
+    },
+    {
+      "chunk_id": "analysis-v5-boolean-direction",
+      "topic": "boolean-pair-direction",
+      "title": "Direction of a matched true and false response pair",
+      "techniques": [
+        "boolean-based blind"
+      ],
+      "question": "Are true and false responses assigned to the correct conditions?",
+      "fields": {
+        "concept": [
+          {
+            "text": "Conditional content can reveal a predicate's truth without returning query results.",
+            "origin": "source_paraphrase",
+            "source_reference_ids": [
+              "academy-boolean"
+            ],
+            "adaptation_basis": [],
+            "review_status": "pending"
+          }
+        ],
+        "evidence_to_compare": [
+          {
+            "text": "In the lab, the recognition message appears for the true condition and disappears for the false condition.",
+            "origin": "source_paraphrase",
+            "source_reference_ids": [
+              "lab-marker-mapping"
+            ],
+            "adaptation_basis": [],
+            "review_status": "pending"
+          }
+        ],
+        "supporting_conditions": [
+          {
+            "text": "Interpret both responses using the project's declared marker mapping and the same delivery context.",
+            "origin": "researcher_adaptation",
+            "source_reference_ids": [],
+            "adaptation_basis": [
+              "project-boolean-contract"
+            ],
+            "review_status": "pending"
+          }
+        ],
+        "confounders": [
+          {
+            "text": "Swapped response references or an assumed universal marker meaning can reverse the interpretation.",
+            "origin": "researcher_adaptation",
+            "source_reference_ids": [],
+            "adaptation_basis": [
+              "project-boolean-contract"
+            ],
+            "review_status": "pending"
+          }
+        ],
+        "conclusion_limits": [
+          {
+            "text": "Judge the candidate against its declared direction; a mismatch alone cannot establish whether the target is vulnerable.",
+            "origin": "researcher_adaptation",
+            "source_reference_ids": [],
+            "adaptation_basis": [
+              "project-boolean-contract",
+              "project-decision-contract"
+            ],
+            "review_status": "pending"
+          }
+        ]
+      }
+    },
+    {
+      "chunk_id": "analysis-v5-marker-stability",
+      "topic": "marker-stability",
+      "title": "Stable response features and changing page content",
+      "techniques": [
+        "boolean-based blind"
+      ],
+      "question": "Does the selected feature distinguish conditions consistently?",
+      "fields": {
+        "concept": [
+          {
+            "text": "Dynamic pages may require consistent filtering before response templates can be compared.",
+            "origin": "source_paraphrase",
+            "source_reference_ids": [
+              "wstg-dynamic-content"
+            ],
+            "adaptation_basis": [],
+            "review_status": "pending"
+          }
+        ],
+        "evidence_to_compare": [
+          {
+            "text": "Track the same selected marker or template across both conditions and repeated measurements.",
+            "origin": "researcher_adaptation",
+            "source_reference_ids": [],
+            "adaptation_basis": [
+              "research-design"
+            ],
+            "review_status": "pending"
+          }
+        ],
+        "supporting_conditions": [
+          {
+            "text": "Apply the same template-extraction function to compared responses.",
+            "origin": "source_paraphrase",
+            "source_reference_ids": [
+              "wstg-dynamic-content"
+            ],
+            "adaptation_basis": [],
+            "review_status": "pending"
+          }
+        ],
+        "confounders": [
+          {
+            "text": "Different pages from identical requests can defeat a direct true-versus-false comparison.",
+            "origin": "source_paraphrase",
+            "source_reference_ids": [
+              "wstg-dynamic-content"
+            ],
+            "adaptation_basis": [],
+            "review_status": "pending"
+          }
+        ],
+        "conclusion_limits": [
+          {
+            "text": "Do not equate incidental page differences with the declared marker indicator; do not remove the diagnostic feature during normalization.",
+            "origin": "researcher_adaptation",
+            "source_reference_ids": [],
+            "adaptation_basis": [
+              "research-design"
+            ],
+            "review_status": "pending"
+          }
+        ]
+      }
+    },
+    {
+      "chunk_id": "analysis-v5-timing-control",
+      "topic": "matched-timing-control",
+      "title": "Matched delay and no-delay measurements",
+      "techniques": [
+        "time-based blind"
+      ],
+      "question": "Is the delayed candidate compared with its matching no-delay control?",
+      "fields": {
+        "concept": [
+          {
+            "text": "Conditional database delays can change HTTP response time when query execution is synchronous.",
+            "origin": "source_paraphrase",
+            "source_reference_ids": [
+              "academy-time"
+            ],
+            "adaptation_basis": [],
+            "review_status": "pending"
+          }
+        ],
+        "evidence_to_compare": [
+          {
+            "text": "Compare the candidate and matched no-delay control from the same trial; retain both durations and their explicit delta.",
+            "origin": "researcher_adaptation",
+            "source_reference_ids": [],
+            "adaptation_basis": [
+              "project-time-contract"
+            ],
+            "review_status": "pending"
+          }
+        ],
+        "supporting_conditions": [
+          {
+            "text": "Check comparator identity and measurement validity before applying the project threshold to the unrounded delta.",
+            "origin": "researcher_adaptation",
+            "source_reference_ids": [],
+            "adaptation_basis": [
+              "project-time-contract"
+            ],
+            "review_status": "pending"
+          }
+        ],
+        "confounders": [
+          {
+            "text": "A benign baseline or control from another trial is not the declared matched comparator.",
+            "origin": "researcher_adaptation",
+            "source_reference_ids": [],
+            "adaptation_basis": [
+              "project-time-contract"
+            ],
+            "review_status": "pending"
+          }
+        ],
+        "conclusion_limits": [
+          {
+            "text": "Delay syntax depends on the database engine.",
+            "origin": "source_paraphrase",
+            "source_reference_ids": [
+              "academy-time"
+            ],
+            "adaptation_basis": [],
+            "review_status": "pending"
+          },
+          {
+            "text": "A measured difference is an observation; its project verdict also requires valid controls.",
+            "origin": "researcher_adaptation",
+            "source_reference_ids": [],
+            "adaptation_basis": [
+              "project-time-contract"
+            ],
+            "review_status": "pending"
+          }
+        ]
+      }
+    },
+    {
+      "chunk_id": "analysis-v5-timing-confounders",
+      "topic": "timing-confounders",
+      "title": "Timing signal, network jitter and server noise",
+      "techniques": [
+        "time-based blind"
+      ],
+      "question": "Could non-SQL timing variation explain the observed latency?",
+      "fields": {
+        "concept": [
+          {
+            "text": "Detectability depends on the timing signal relative to background variation.",
+            "origin": "source_paraphrase",
+            "source_reference_ids": [
+              "research-timing-noise"
+            ],
+            "adaptation_basis": [],
+            "review_status": "pending"
+          }
+        ],
+        "evidence_to_compare": [
+          {
+            "text": "Review matched measurements together with recorded transport failures, session validity and available runtime notes.",
+            "origin": "researcher_adaptation",
+            "source_reference_ids": [],
+            "adaptation_basis": [
+              "project-evidence-contract"
+            ],
+            "review_status": "pending"
+          }
+        ],
+        "supporting_conditions": [
+          {
+            "text": "Apply the declared measurement contract and report observed variability; do not invent an unmeasured cause.",
+            "origin": "researcher_adaptation",
+            "source_reference_ids": [],
+            "adaptation_basis": [
+              "research-design"
+            ],
+            "review_status": "pending"
+          }
+        ],
+        "confounders": [
+          {
+            "text": "Network latency varies; server load, interacting systems and shared hardware also introduce timing noise.",
+            "origin": "source_paraphrase",
+            "source_reference_ids": [
+              "research-timing-noise",
+              "research-server-noise"
+            ],
+            "adaptation_basis": [],
+            "review_status": "pending"
+          }
+        ],
+        "conclusion_limits": [
+          {
+            "text": "Repeating measurements cannot practically overcome arbitrarily dominant noise.",
+            "origin": "source_paraphrase",
+            "source_reference_ids": [
+              "research-timing-noise"
+            ],
+            "adaptation_basis": [],
+            "review_status": "pending"
+          },
+          {
+            "text": "These references supply no universal delay threshold or guarantee that this project's repetitions remove confounding.",
+            "origin": "researcher_adaptation",
+            "source_reference_ids": [],
+            "adaptation_basis": [
+              "research-design"
+            ],
+            "review_status": "pending"
+          }
+        ]
+      }
+    },
+    {
+      "chunk_id": "analysis-v5-conclusion-scope",
+      "topic": "conclusion-scope",
+      "title": "Technique indicators, extraction and limits of candidate conclusions",
+      "techniques": [
+        "error-based",
+        "boolean-based blind",
+        "time-based blind"
+      ],
+      "question": "What claim is justified by these observations?",
+      "fields": {
+        "concept": [
+          {
+            "text": "Blind SQL injection can exist without returned query data or visible database errors.",
+            "origin": "source_paraphrase",
+            "source_reference_ids": [
+              "academy-blind-definition"
+            ],
+            "adaptation_basis": [],
+            "review_status": "pending"
+          }
+        ],
+        "evidence_to_compare": [
+          {
+            "text": "Separate observed technique indicators, candidate decisions and any directly demonstrated data extraction.",
+            "origin": "researcher_adaptation",
+            "source_reference_ids": [],
+            "adaptation_basis": [
+              "research-design"
+            ],
+            "review_status": "pending"
+          }
+        ],
+        "supporting_conditions": [
+          {
+            "text": "Bind the claim to the measured candidate, technique and available observations.",
+            "origin": "researcher_adaptation",
+            "source_reference_ids": [],
+            "adaptation_basis": [
+              "project-decision-contract"
+            ],
+            "review_status": "pending"
+          }
+        ],
+        "confounders": [
+          {
+            "text": "Missing measurements and measured absence are different evidence states.",
+            "origin": "researcher_adaptation",
+            "source_reference_ids": [],
+            "adaptation_basis": [
+              "project-decision-contract"
+            ],
+            "review_status": "pending"
+          }
+        ],
+        "conclusion_limits": [
+          {
+            "text": "A candidate failing the declared indicator does not establish target safety. An indicator does not by itself demonstrate data extraction.",
+            "origin": "researcher_adaptation",
+            "source_reference_ids": [],
+            "adaptation_basis": [
+              "project-decision-contract",
+              "research-design"
+            ],
+            "review_status": "pending"
+          }
+        ]
+      }
+    }
+  ]
+}

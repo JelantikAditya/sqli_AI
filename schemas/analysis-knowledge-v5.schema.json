@@ -1,0 +1,124 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Analysis knowledge v5 draft, separate from the formal generation corpus",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "corpus_version", "status", "created_on", "language", "source_lock_path", "source_lock_sha256", "curation", "usage", "prompt_contract", "provenance_definitions", "chunks"],
+  "properties": {
+    "schema_version": {"const": "1.0.0"},
+    "corpus_version": {"const": "analysis-v5-draft-20261020"},
+    "status": {"const": "draft-for-researcher-review"},
+    "created_on": {"const": "2026-10-20"},
+    "language": {"const": "en"},
+    "source_lock_path": {"const": "knowledge/analysis-v5/sources.lock.json"},
+    "source_lock_sha256": {"$ref": "#/$defs/sha"},
+    "curation": {
+      "type": "object", "additionalProperties": false,
+      "required": ["author", "method", "researcher_review", "researcher_review_receipt", "technical_review", "source_status"],
+      "properties": {
+        "author": {"const": "Codex"},
+        "method": {"const": "task-oriented-field-level-provenance"},
+        "researcher_review": {"const": "pending"},
+        "researcher_review_receipt": {"type": "null"},
+        "technical_review": {"type": "string", "minLength": 1},
+        "source_status": {"type": "string", "minLength": 1}
+      }
+    },
+    "usage": {
+      "type": "object", "additionalProperties": false,
+      "required": ["purpose", "method", "techniques", "payload_generation", "synthetic_examples_included", "formal_runner_integrated", "retrieval_policy_frozen", "embedding_or_model_evaluation_executed", "excluded_material", "payloadsallthethings_role"],
+      "properties": {
+        "purpose": {"const": "interpret-paired-http-evidence"},
+        "method": {"const": "DAST/black-box"},
+        "techniques": {"type": "array", "minItems": 3, "maxItems": 3, "uniqueItems": true, "items": {"$ref": "#/$defs/technique"}},
+        "payload_generation": {"const": false},
+        "synthetic_examples_included": {"const": false},
+        "formal_runner_integrated": {"const": false},
+        "retrieval_policy_frozen": {"const": false},
+        "embedding_or_model_evaluation_executed": {"const": false},
+        "excluded_material": {"$ref": "#/$defs/strings"},
+        "payloadsallthethings_role": {"type": "string", "minLength": 1}
+      }
+    },
+    "prompt_contract": {
+      "type": "object", "additionalProperties": false,
+      "required": ["placement", "authority", "contract_references", "requirements"],
+      "properties": {
+        "placement": {"const": "mandatory-common-prompt-outside-retrieval"},
+        "authority": {"const": "project-rules-not-universal-source-standards"},
+        "requirements": {"$ref": "#/$defs/strings"},
+        "contract_references": {
+          "type": "array", "minItems": 1,
+          "items": {
+            "type": "object", "additionalProperties": false,
+            "required": ["contract_id", "path", "file_sha256", "locator", "scope"],
+            "properties": {
+              "contract_id": {"type": "string", "minLength": 1},
+              "path": {"type": "string", "minLength": 1},
+              "file_sha256": {"$ref": "#/$defs/sha"},
+              "locator": {"type": "string", "minLength": 1},
+              "scope": {"type": "string", "minLength": 1}
+            }
+          }
+        }
+      }
+    },
+    "provenance_definitions": {
+      "type": "object", "additionalProperties": false,
+      "required": ["source_paraphrase", "researcher_adaptation", "synthetic_example"],
+      "properties": {
+        "source_paraphrase": {"type": "string", "minLength": 1},
+        "researcher_adaptation": {"type": "string", "minLength": 1},
+        "synthetic_example": {"type": "string", "minLength": 1}
+      }
+    },
+    "chunks": {
+      "type": "array", "minItems": 7, "maxItems": 7,
+      "items": {
+        "type": "object", "additionalProperties": false,
+        "required": ["chunk_id", "topic", "title", "techniques", "question", "fields"],
+        "properties": {
+          "chunk_id": {"type": "string", "pattern": "^analysis-v5-[a-z-]+$"},
+          "topic": {"enum": ["sql-diagnostics-vs-application-errors", "baseline-comparison", "boolean-pair-direction", "marker-stability", "matched-timing-control", "timing-confounders", "conclusion-scope"]},
+          "title": {"type": "string", "minLength": 1},
+          "question": {"type": "string", "minLength": 1},
+          "techniques": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"$ref": "#/$defs/technique"}},
+          "fields": {
+            "type": "object", "additionalProperties": false,
+            "required": ["concept", "evidence_to_compare", "supporting_conditions", "confounders", "conclusion_limits"],
+            "properties": {
+              "concept": {"$ref": "#/$defs/statements"},
+              "evidence_to_compare": {"$ref": "#/$defs/statements"},
+              "supporting_conditions": {"$ref": "#/$defs/statements"},
+              "confounders": {"$ref": "#/$defs/statements"},
+              "conclusion_limits": {"$ref": "#/$defs/statements"}
+            }
+          }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "sha": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "technique": {"enum": ["error-based", "boolean-based blind", "time-based blind"]},
+    "strings": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+    "statements": {
+      "type": "array", "minItems": 1,
+      "items": {
+        "type": "object", "additionalProperties": false,
+        "required": ["text", "origin", "source_reference_ids", "adaptation_basis", "review_status"],
+        "properties": {
+          "text": {"type": "string", "minLength": 1},
+          "origin": {"enum": ["source_paraphrase", "researcher_adaptation"]},
+          "source_reference_ids": {"type": "array", "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+          "adaptation_basis": {"type": "array", "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+          "review_status": {"const": "pending"}
+        },
+        "allOf": [
+          {"if": {"properties": {"origin": {"const": "source_paraphrase"}}}, "then": {"properties": {"source_reference_ids": {"minItems": 1}, "adaptation_basis": {"maxItems": 0}}}},
+          {"if": {"properties": {"origin": {"const": "researcher_adaptation"}}}, "then": {"properties": {"source_reference_ids": {"maxItems": 0}, "adaptation_basis": {"minItems": 1}}}}
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "origin": "review text forwarded by user",
+  "independent_human_authorship": "not-established",
+  "researcher_adoption": "not-recorded",
+  "researcher_review": "pending",
+  "source_sha256": "5ef4e9e2e9e958a996fae46d4528b0730108e9620f5a0b3a9992f168c43f90ec",
+  "received_source_filename": "Pasted text.txt",
+  "source_scope_limit": "reviewer had not verified frozen code, actual requests or protocol.lock.json",
+  "reported_label_changes": 0,
+  "reported_trial_assessments_checked": 102,
+  "F-01": "retain conservative 768-token budget rejection; distinguish it from incomplete generation and JSON errors",
+  "F-02": "separate structural errors from semantic warnings and reference reason accuracy from internal consistency",
+  "additional_reporting": "paired A/B3 correctness transitions and explicit dataset coverage limitations"
+}

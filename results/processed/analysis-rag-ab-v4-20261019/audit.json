@@ -1,0 +1,59 @@
+{
+  "scope": "analysis-rag-v4-retrieval-and-paired-output-audit-not-formal",
+  "manifest_sha256": "8774b4e86d66895980aacd939bbd9c93ab38a555e46a1e21826e1c4b65a7724f",
+  "design_manifest_sha256": "bd6394f6962fd6865eb21828b3b704c80031ef048e509a17204a0fad002e9fa2",
+  "raw_records_reproduce": 38,
+  "raw_model_responses_preserved": 36,
+  "secondary_gate_records_reproduce": 38,
+  "matched_A_B_input_checks": 19,
+  "retrieval_checks": [
+    {
+      "technique": "error-based",
+      "selected_entry_ids": [
+        "sqli-error-quote",
+        "sqli-error-message"
+      ],
+      "eligible_entries": 3,
+      "technique_match_count": 2,
+      "source_integrity": true,
+      "cosine_top_k_reproduced": true,
+      "independent_semantic_relevance_labels": false
+    },
+    {
+      "technique": "boolean-based blind",
+      "selected_entry_ids": [
+        "sqli-boolean-numeric",
+        "sqli-boolean-quoted"
+      ],
+      "eligible_entries": 3,
+      "technique_match_count": 2,
+      "source_integrity": true,
+      "cosine_top_k_reproduced": true,
+      "independent_semantic_relevance_labels": false
+    },
+    {
+      "technique": "time-based blind",
+      "selected_entry_ids": [
+        "sqli-time-conditional",
+        "sqli-time-repeated"
+      ],
+      "eligible_entries": 3,
+      "technique_match_count": 2,
+      "source_integrity": true,
+      "cosine_top_k_reproduced": true,
+      "independent_semantic_relevance_labels": false
+    }
+  ],
+  "retrieval_interpretation": "technique-match-is-filter-controlled; source-integrity-and-ranking-do-not-prove-answer-quality",
+  "all_summary_metrics_reproduce": true,
+  "raw_model_claims_replaced": false,
+  "tests_passed": 12,
+  "test_command": ".venv/Scripts/python.exe -m unittest discover -s development -p test_analysis_rag_v4.py -v",
+  "protected_sources_unchanged": 959,
+  "history_artifacts_unchanged": 26,
+  "done_reasons": {
+    "stop": 36
+  },
+  "formal_fpr_recomputed": false,
+  "psr_recomputed": false
+}

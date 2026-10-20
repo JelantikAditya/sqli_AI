@@ -4,3 +4,29 @@ knowledge/sqli-entries.json -text whitespace=cr-at-eol
 
 # Retrieval policy identities include source-file hashes.
 *.py text eol=lf
+
+# Keep published review/metric bytes identical to their recorded SHA-256 values.
+results/processed/formal-sqli-v1-20261017/*.csv -text whitespace=cr-at-eol
+results/processed/formal-sqli-v1-20261017/metrics.reviewed.json -text
+results/processed/formal-sqli-v1-20261017/provenance.json text eol=lf
+
+# Preserve the published development pilot artifacts and their recorded hashes.
+results/processed/response-analysis-dev-v1-20261019/*.json -text
+
+# Keep v5 corpus, source pins and frozen pilot/review artifact hashes byte-exact.
+knowledge/analysis-v5/** -text
+schemas/analysis-knowledge-v5*.schema.json -text
+docs/korpus-analisis-v5-2026-10-20.md -text
+docs/revisi-korpus-analisis-v5-rev1-2026-10-20.md -text
+docs/renderer-retrieval-v5-2026-10-20.md -text
+docs/preflight-konteks-dan-profil-v5-2026-10-20.md -text
+docs/paket-pilot-analisis-v5-2026-10-20.md -text
+outputs/analysis-v5-*/** -text whitespace=cr-at-eol
+results/processed/analysis-corpus-v5-20261020/** -text
+results/processed/analysis-corpus-v5-rev1-20261020/** -text
+results/processed/analysis-v5-renderer-readiness-20261020/** -text
+results/processed/analysis-v5-context-preflight-20261020/** -text
+results/processed/analysis-v5-pilot-20261020/** -text
+results/processed/analysis-v5-pilot-20261020-r2/** -text
+docs/paket-pilot-analisis-v5-r2-2026-10-20.md -text
+results/processed/analysis-v5-pilot-r2-execution-20261020/** -text whitespace=cr-at-eol

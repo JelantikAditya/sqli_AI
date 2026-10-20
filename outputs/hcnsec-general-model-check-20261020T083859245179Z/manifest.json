@@ -1,0 +1,18 @@
+{
+  "purpose": "small-general-api-check-independent-of-TA",
+  "created_at_utc": "2026-10-20T08:38:59.246594+00:00",
+  "endpoint": "https://api.hcnsec.cn/v1/chat/completions",
+  "maximum_requests": 9,
+  "maximum_completion_tokens_per_request": 1024,
+  "timeout_seconds": 90,
+  "retries": 0,
+  "credentials_saved": false,
+  "scoring": "Exact JSON keys, values and types; no surrounding Markdown; nonempty final content; finish_reason stop required.",
+  "order": "Task blocks with rotated model order; sequential calls.",
+  "limitations": [
+    "Three easy synthetic tasks per alias, one sample each; not a general capability ranking.",
+    "Elapsed time includes network and gateway queue; this is not tokens per second.",
+    "Reported model metadata does not independently verify upstream weights.",
+    "Same token budget can affect models with different reasoning behavior."
+  ]
+}

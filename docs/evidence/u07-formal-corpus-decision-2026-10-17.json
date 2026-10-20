@@ -1,0 +1,37 @@
+{
+  "schema_version": "1.0.0",
+  "decision_id": "u07-main-nine-entry-corpus-formal-20261017",
+  "decision": "approved-for-formal-use",
+  "scope": "main-nine-entry-corpus-formal-use-after-u07-gates",
+  "authority": {
+    "role": "researcher",
+    "basis": "explicit-user-approval",
+    "quote": "iya saya setuju",
+    "in_reply_to": "Persetujuan penggunaan snapshot sembilan entri korpus yang sama untuk eksperimen formal pada penutupan audit U07.",
+    "date_local": "2026-10-17",
+    "timezone": "Asia/Jakarta"
+  },
+  "approved_snapshot": {
+    "corpus_sha256": "8e2aaf363b384eb686594b8968c38ae00fd078cfc9581d6a91d6617ba0ef4348",
+    "source_lock_sha256": "2c23da42f9db73c3241ca78e68da496b83ecdeb257bc46171e55fd69f3f6278b",
+    "knowledge_base_id": "sqli-knowledge-ec9d1b2feda12dd3",
+    "entry_count": 9,
+    "index_file_sha256": {
+      "data/vectorstore/sqli-knowledge-ec9d1b2feda12dd3/4176542f-e8f6-4a46-8652-598aedaf3721/data_level0.bin": "4f436e3e7f8625e846b7cff2b4532265da6926cead44b56134349ca0edbb6fdd",
+      "data/vectorstore/sqli-knowledge-ec9d1b2feda12dd3/4176542f-e8f6-4a46-8652-598aedaf3721/header.bin": "03cb3ac86f3e5bcb15e88b9bf99f760ec6b33e31d64a699e129b49868db6d733",
+      "data/vectorstore/sqli-knowledge-ec9d1b2feda12dd3/4176542f-e8f6-4a46-8652-598aedaf3721/length.bin": "fcb1dae9ff0777ddad43e748fa01c59d180a8a1d1014d4acae17cd29dd9d16c3",
+      "data/vectorstore/sqli-knowledge-ec9d1b2feda12dd3/4176542f-e8f6-4a46-8652-598aedaf3721/link_lists.bin": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "data/vectorstore/sqli-knowledge-ec9d1b2feda12dd3/chroma.sqlite3": "32684a5b90b1f4ce81abfbf47b20182dcab1abe76ecdb4cdb47b8c3430f6a9d8",
+      "data/vectorstore/sqli-knowledge-ec9d1b2feda12dd3/manifest.json": "e00baf7e2af3e25ea6011a4e9cea2c19bd6122c7592e576ea8400e97786a24bd"
+    }
+  },
+  "corpus_path": "knowledge/sqli-entries.json",
+  "decision_document": "docs/keputusan-korpus-formal-u07-2026-10-17.md",
+  "retrieval": {
+    "top_k": 2,
+    "usage": "generation-and-feedback-conditioned-regeneration-only",
+    "analysis_retrieval": "disabled-in-both-llm-conditions"
+  },
+  "formal_execution_approval": false,
+  "remaining_requirements": "All other U07 gates, including the full candidate budget pilot and runtime manifest release, still apply."
+}

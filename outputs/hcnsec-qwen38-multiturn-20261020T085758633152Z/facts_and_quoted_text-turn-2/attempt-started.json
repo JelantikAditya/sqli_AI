@@ -1,0 +1,14 @@
+{
+  "scenario": "facts_and_quoted_text",
+  "turn": 2,
+  "requested_model": "Qwen3.8-27B",
+  "attempted": true,
+  "passed": false,
+  "valid_json": false,
+  "reported_model": null,
+  "http_status": null,
+  "content": null,
+  "finish_reason": null,
+  "started_at_utc": "2026-10-20T08:58:38.056992+00:00",
+  "request_sha256": "82c1522c8e732f8522547e86a885eec9838a579eb8cf5fba8c83ce7c51717ffc"
+}

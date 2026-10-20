@@ -1,0 +1,33 @@
+{
+  "scope": "development-v3-artifact-replay-and-fixture-conformance-audit",
+  "manifest_sha256": "0cf2e50e87038128eec2c3c755d9aec05f4f545e0d009bd910181dea1fc83d0d",
+  "new_raw_records_reproduce": 21,
+  "historical_raw_records_identical": 27,
+  "hybrid_records_reproduce": 48,
+  "new_model_responses_preserved": 20,
+  "new_trial_total": 56,
+  "raw_trial_assessments_match_hand_declared_fixtures": 47,
+  "verifier_trial_assessments_match_hand_declared_fixtures": 56,
+  "verifier_result_interpretation": "conformance-to-coded-rules-and-constructed-fixtures-not-independent-accuracy",
+  "raw_decision_changes": 5,
+  "decimal_boundary": {
+    "case_id": "hybrid-016",
+    "candidate_ms": 2048.2,
+    "control_ms": 548.2,
+    "legacy_binary_float_delta": 1499.9999999999998,
+    "decimal_delta": "1500.0",
+    "old_normalizer_signal_retained": "CONSISTENT_NEGATIVE",
+    "new_verifier_decision": "positive"
+  },
+  "done_reasons": {
+    "stop": 20
+  },
+  "protected_sources_unchanged": 959,
+  "history_artifacts_unchanged": 16,
+  "all_summary_metrics_reproduce": true,
+  "raw_model_claims_replaced": false,
+  "tests_passed": 16,
+  "test_command": ".venv/Scripts/python.exe -m unittest discover -s development -p test_verify_response_v3.py -v",
+  "primary_formal_fpr_recomputed": false,
+  "psr_recomputed": false
+}

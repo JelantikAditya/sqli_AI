@@ -1,0 +1,95 @@
+{
+  "status": "frozen-offline-pending-researcher-review",
+  "created_at_utc": "2026-10-20T06:28:09.603561+00:00",
+  "cases": 42,
+  "eligible": 36,
+  "composition": [
+    {
+      "technique": "error-based",
+      "reference": "positive",
+      "count": 4
+    },
+    {
+      "technique": "error-based",
+      "reference": "negative",
+      "count": 4
+    },
+    {
+      "technique": "error-based",
+      "reference": "inconclusive",
+      "count": 4
+    },
+    {
+      "technique": "boolean-based blind",
+      "reference": "positive",
+      "count": 4
+    },
+    {
+      "technique": "boolean-based blind",
+      "reference": "negative",
+      "count": 4
+    },
+    {
+      "technique": "boolean-based blind",
+      "reference": "inconclusive",
+      "count": 4
+    },
+    {
+      "technique": "time-based blind",
+      "reference": "positive",
+      "count": 4
+    },
+    {
+      "technique": "time-based blind",
+      "reference": "negative",
+      "count": 4
+    },
+    {
+      "technique": "time-based blind",
+      "reference": "inconclusive",
+      "count": 4
+    },
+    {
+      "technique": "error-based",
+      "reference": "input_invalid",
+      "count": 2
+    },
+    {
+      "technique": "boolean-based blind",
+      "reference": "input_invalid",
+      "count": 2
+    },
+    {
+      "technique": "time-based blind",
+      "reference": "input_invalid",
+      "count": 2
+    }
+  ],
+  "scheduled_slots": 126,
+  "planned_model_calls": 108,
+  "gate_skipped_slots": 18,
+  "actual_case_requests_audited": 126,
+  "maximum_prompt_tokens": 1694,
+  "minimum_reserved_headroom": 1634,
+  "same_request_except_reference_context": true,
+  "model_calls_executed": 0,
+  "dvwa_requests": 0,
+  "researcher_review": "pending",
+  "independent_holdout": false,
+  "pilot_id": "analysis-v5-pilot-20261020-r2",
+  "protocol_revision": 2,
+  "parent_pilot_id": "analysis-v5-pilot-20261020",
+  "parent_manifest_sha256": "749213a07d68a7108f72767f18b2218dc9b6c9ed390f1ec3e34a53fb7f64dcac",
+  "identical_parent_artifacts": [
+    "inputs.lock.json",
+    "labels.ai.lock.json",
+    "schedule.lock.json",
+    "prepared-requests.lock.json",
+    "request-audit.lock.json",
+    "schedule-audit.lock.json"
+  ],
+  "corpus_sha256": "5dc324317ae77da379bf60f9b9059a610ca95fbd8b009ffb5c4ab0a0cddb3437",
+  "preserved_files": 1183,
+  "review_feedback_recorded": true,
+  "researcher_adoption": "not-recorded"
+}

@@ -1,0 +1,48 @@
+{
+  "record_type": "summary-of-direct-user-review-not-verbatim-transcript",
+  "reviewer": "project researcher via user message; personal identity not supplied in this review",
+  "received_on": "2026-10-20",
+  "reviewed_corpus_path": "knowledge/analysis-v5/corpus.json",
+  "reviewed_corpus_sha256": "f48a4ab4434478f2f719a0a9e14e31b5e22b9c0acabe8664841e3647f56f6d7b",
+  "reviewed_source_lock_sha256": "966ce725d0c4fcd9914a174a5b3867eb2d941483051c5b991d8364bcf2a44efd",
+  "decision": "minor-revisions-requested-before-pilot-freeze",
+  "verified_by_researcher": [
+    "7 chunks / 35 fields / 38 statements",
+    "14 source / 24 adaptations",
+    "source-lock hash matches corpus",
+    "reference IDs and adaptation IDs resolve",
+    "all 38 statement reviews pending"
+  ],
+  "not_verified_by_researcher": [
+    "source snapshot bytes and hashes",
+    "contract source code equivalence"
+  ],
+  "requests": [
+    {
+      "id": "R1",
+      "request": "Clarify executor matcher results versus model comparison; no matcher rerun."
+    },
+    {
+      "id": "R2",
+      "request": "Describe template extraction as upstream preparation only; model receives structured markers."
+    },
+    {
+      "id": "R3",
+      "request": "Verify exact new-diagnostic semantics and runtime baseline gate against frozen code."
+    },
+    {
+      "id": "R4",
+      "request": "Replace vague validated injection point wording with validated test-session context."
+    },
+    {
+      "id": "R5",
+      "request": "Replace generic research-design basis with inspectable named design decisions."
+    },
+    {
+      "id": "R6",
+      "request": "Remove delay-syntax compatibility statement from analysis retrieval."
+    }
+  ],
+  "approval_of_revised_corpus": "not-yet-given",
+  "pilot_execution_approval": "not-given-by-this-review"
+}

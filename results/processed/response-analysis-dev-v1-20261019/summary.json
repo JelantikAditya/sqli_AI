@@ -1,0 +1,212 @@
+{
+  "scope": "synthetic-development-pilot-not-formal-not-independent-holdout",
+  "experiment_id": "response-analysis-dev-v1-20261019",
+  "model": "qwen2.5:7b",
+  "model_digest": "845dbda0ea48ed749caafd9e6037047aa19acfcfd82e704d7ca97d631a0b697e",
+  "manifest_sha256": "75b005a98250f636b91078927bce596b959e96c7991fb80e6196d82d0d0196aa",
+  "dvwa_requests": 0,
+  "formal_metrics_recomputed": false,
+  "protected_sources_unchanged": 959,
+  "total_wall_seconds": 609.1099792999958,
+  "profiles": [
+    {
+      "profile": "frozen-v8",
+      "cases": 10,
+      "matches": 7,
+      "valid_cases": 9,
+      "valid_matches": 6,
+      "analysis_errors": 0,
+      "false_positive_on_three_negative_fixtures": 1,
+      "false_negative_on_three_positive_fixtures": 0,
+      "abstention_on_binary_fixtures": 2,
+      "warning_counts": {
+        "trial_assessment_evidence_mismatch": 5,
+        "model_claim_evidence_mismatch": 3,
+        "evidence_refs_incomplete": 1,
+        "model_claim_trial_assessment_mismatch": 2
+      },
+      "total_elapsed_seconds": 326.31971239999257,
+      "median_valid_case_seconds": 37.20772150000266
+    },
+    {
+      "profile": "measured-pairs-v1",
+      "cases": 10,
+      "matches": 7,
+      "valid_cases": 9,
+      "valid_matches": 6,
+      "analysis_errors": 0,
+      "false_positive_on_three_negative_fixtures": 0,
+      "false_negative_on_three_positive_fixtures": 0,
+      "abstention_on_binary_fixtures": 0,
+      "warning_counts": {
+        "decision_reason_code_mismatch": 6,
+        "model_claim_trial_assessment_mismatch": 3,
+        "model_claim_evidence_mismatch": 3
+      },
+      "total_elapsed_seconds": 282.1332512000081,
+      "median_valid_case_seconds": 30.910491899994668
+    }
+  ],
+  "results": [
+    {
+      "case_id": "case-001",
+      "profile": "frozen-v8",
+      "expected_claim": "positive",
+      "actual_claim": "positive",
+      "matches": true,
+      "analysis_status": "completed"
+    },
+    {
+      "case_id": "case-001",
+      "profile": "measured-pairs-v1",
+      "expected_claim": "positive",
+      "actual_claim": "positive",
+      "matches": true,
+      "analysis_status": "completed"
+    },
+    {
+      "case_id": "case-002",
+      "profile": "measured-pairs-v1",
+      "expected_claim": "negative",
+      "actual_claim": "negative",
+      "matches": true,
+      "analysis_status": "completed"
+    },
+    {
+      "case_id": "case-002",
+      "profile": "frozen-v8",
+      "expected_claim": "negative",
+      "actual_claim": "negative",
+      "matches": true,
+      "analysis_status": "completed"
+    },
+    {
+      "case_id": "case-003",
+      "profile": "frozen-v8",
+      "expected_claim": "positive",
+      "actual_claim": "positive",
+      "matches": true,
+      "analysis_status": "completed"
+    },
+    {
+      "case_id": "case-003",
+      "profile": "measured-pairs-v1",
+      "expected_claim": "positive",
+      "actual_claim": "positive",
+      "matches": true,
+      "analysis_status": "completed"
+    },
+    {
+      "case_id": "case-004",
+      "profile": "measured-pairs-v1",
+      "expected_claim": "negative",
+      "actual_claim": "negative",
+      "matches": true,
+      "analysis_status": "completed"
+    },
+    {
+      "case_id": "case-004",
+      "profile": "frozen-v8",
+      "expected_claim": "negative",
+      "actual_claim": "positive",
+      "matches": false,
+      "analysis_status": "completed"
+    },
+    {
+      "case_id": "case-005",
+      "profile": "frozen-v8",
+      "expected_claim": "positive",
+      "actual_claim": "inconclusive",
+      "matches": false,
+      "analysis_status": "completed"
+    },
+    {
+      "case_id": "case-005",
+      "profile": "measured-pairs-v1",
+      "expected_claim": "positive",
+      "actual_claim": "positive",
+      "matches": true,
+      "analysis_status": "completed"
+    },
+    {
+      "case_id": "case-006",
+      "profile": "measured-pairs-v1",
+      "expected_claim": "negative",
+      "actual_claim": "negative",
+      "matches": true,
+      "analysis_status": "completed"
+    },
+    {
+      "case_id": "case-006",
+      "profile": "frozen-v8",
+      "expected_claim": "negative",
+      "actual_claim": "inconclusive",
+      "matches": false,
+      "analysis_status": "completed"
+    },
+    {
+      "case_id": "case-007",
+      "profile": "frozen-v8",
+      "expected_claim": "inconclusive",
+      "actual_claim": "inconclusive",
+      "matches": true,
+      "analysis_status": "completed"
+    },
+    {
+      "case_id": "case-007",
+      "profile": "measured-pairs-v1",
+      "expected_claim": "inconclusive",
+      "actual_claim": "negative",
+      "matches": false,
+      "analysis_status": "completed"
+    },
+    {
+      "case_id": "case-008",
+      "profile": "measured-pairs-v1",
+      "expected_claim": "inconclusive",
+      "actual_claim": "positive",
+      "matches": false,
+      "analysis_status": "completed"
+    },
+    {
+      "case_id": "case-008",
+      "profile": "frozen-v8",
+      "expected_claim": "inconclusive",
+      "actual_claim": "inconclusive",
+      "matches": true,
+      "analysis_status": "completed"
+    },
+    {
+      "case_id": "case-009",
+      "profile": "frozen-v8",
+      "expected_claim": "inconclusive",
+      "actual_claim": "inconclusive",
+      "matches": true,
+      "analysis_status": "completed"
+    },
+    {
+      "case_id": "case-009",
+      "profile": "measured-pairs-v1",
+      "expected_claim": "inconclusive",
+      "actual_claim": "positive",
+      "matches": false,
+      "analysis_status": "completed"
+    },
+    {
+      "case_id": "case-010",
+      "profile": "measured-pairs-v1",
+      "expected_claim": null,
+      "actual_claim": null,
+      "matches": true,
+      "analysis_status": "runtime_invalid"
+    },
+    {
+      "case_id": "case-010",
+      "profile": "frozen-v8",
+      "expected_claim": null,
+      "actual_claim": null,
+      "matches": true,
+      "analysis_status": "runtime_invalid"
+    }
+  ]
+}

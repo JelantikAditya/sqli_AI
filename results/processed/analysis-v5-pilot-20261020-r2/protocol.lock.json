@@ -1,0 +1,106 @@
+{
+  "pilot_id": "analysis-v5-pilot-20261020-r2",
+  "scope": "synthetic-development-contract-conformance",
+  "data_origin": "AI-authored response features, not DVWA HTTP captures",
+  "independent_holdout": false,
+  "researcher_review": "pending",
+  "researcher_adoption": "not-recorded",
+  "planned_cases": 42,
+  "eligible_cases": 36,
+  "invalid_gate_cases": 6,
+  "eligible_per_technique": 12,
+  "eligible_per_technique_per_reference_class": 4,
+  "planned_model_calls": 108,
+  "gate_skipped_slots": 18,
+  "profiles": {
+    "A": {
+      "top_k": 0
+    },
+    "B2": {
+      "top_k": 2
+    },
+    "B3": {
+      "top_k": 3
+    }
+  },
+  "model": "qwen2.5:7b",
+  "model_digest": "845dbda0ea48ed749caafd9e6037047aa19acfcfd82e704d7ca97d631a0b697e",
+  "options": {
+    "temperature": 0,
+    "seed": 42,
+    "num_ctx": 4096,
+    "num_predict": 768
+  },
+  "schedule_seed": 20261020,
+  "profile_orders": "all six permutations, balanced within eligible technique",
+  "retrieval": "frozen Nomic cosine ranking reused only for exactly matching label-free technique/injection-point queries",
+  "B3_limit": "all three eligible chunks, complete technique context; no ranking-selectivity attribution",
+  "reference_labels": "contract-derived AI labels outside requests, pending researcher review",
+  "input_gate": "schema must pass; runtime_status=valid AND baseline_valid=true before every model call",
+  "budget": "recount every locked request with pinned tokenizer; abort whole execution before first call on excess; never trim",
+  "timeout_seconds": 240,
+  "content_retries": 0,
+  "transport_retries": 0,
+  "execution": "one sequential session, no resume or repeating any started slot under this run directory",
+  "content_errors": "missing content, invalid JSON/schema, unknown observation ID, unfinished generation, runtime length stop, or conservative output-budget rejection => analysis_error and continue",
+  "transport_errors": "record attempt as analysis_error and halt session without retry; all remaining valid slots unattempted",
+  "prompt_count_mismatch": "analysis_error on attempted case; halt session, retain raw response",
+  "interruption": "persist attempt_started before call; unmatched started attempt is interrupted analysis_error; never silently rerun",
+  "semantic_audit": "retain schema-valid raw decision even if tally, reason, references or trial logic contradict; report warnings separately",
+  "primary": {
+    "comparison": "A versus B3",
+    "metric": "raw three-class decision accuracy",
+    "numerator": "attempted eligible cases with schema-valid raw decision equal to reference decision",
+    "denominator": "all attempted eligible cases per profile, including analysis errors and interrupted attempts",
+    "complete_denominator_per_profile": 36,
+    "pairing": "paired correctness difference across all 36 identical eligible inputs; any missing attempt makes conclusion incomplete",
+    "direction": "B3 accuracy minus A accuracy, percentage points",
+    "content_errors_receive_credit": false
+  },
+  "companions": [
+    "3x4 reference/output matrix with analysis_error column",
+    "per-class false claims and abstentions",
+    "binary coverage on all attempted cases and separately on binary-reference cases",
+    "analysis error rate",
+    "trial accuracy using all expected available trials, including trials in errored attempts",
+    "reason code reference accuracy and internal consistency, semantic warning count, durations, tokens, completion",
+    "B2 descriptive comparison",
+    "paired A/B3 correctness transitions with case IDs"
+  ],
+  "coverage": "positive/negative non-error decisions divided by all attempted eligible cases; inconclusive is abstention",
+  "trial_scoring": "each expected available trial scores 1 only for exactly one assessment with correct outcome; missing/duplicate/errored trial scores 0",
+  "conclusion_rule": {
+    "prerequisite": "all 108 eligible slots attempted and finalized, no input gate violations",
+    "improvement_on_this_dataset": "B3 raw accuracy > A raw accuracy, with positive correct count not lower, negative false-positive count not higher, binary-reference coverage not lower, and analysis-error count not higher",
+    "tradeoff": "accuracy increases but at least one companion guard worsens",
+    "no_improvement": "B3 raw accuracy <= A raw accuracy",
+    "incomplete": "any planned eligible attempt missing or unfinished; descriptive attempted denominators only"
+  },
+  "formal_metrics": "does not replace proposal FPR ablation or PSR LLM/SecLists, and does not change R1/R2/R3",
+  "execution_started_at_freeze": false,
+  "protocol_revision": 2,
+  "supersedes_for_future_execution": "analysis-v5-pilot-20261020",
+  "review_basis": "forwarded review; authorship/independence and researcher adoption not established",
+  "output_completion": {
+    "generation-not-finished": "done is not true",
+    "generation-length-limit": "done=true and done_reason=length; runtime reports a length stop",
+    "unexpected-completion-reason": "done=true with a reason other than stop or length",
+    "invalid-generation-token-count": "non-integer, boolean, missing or nonpositive eval_count",
+    "output-budget-rejection": "done=true, done_reason=stop, integer eval_count >= 768; conservative budget policy, not proof of incomplete JSON",
+    "accepted_runtime_metadata": "done=true, done_reason=stop, 0 < eval_count < 768; content must also pass JSON/schema and known-ID checks",
+    "precedence": "prompt-count mismatch, unfinished, runtime length stop, other completion reason, invalid token count, budget rejection, content/schema, unknown ID"
+  },
+  "structural_errors": "missing required field, invalid JSON/schema, or any nonexistent observation ID => analysis_error; verdict/trials get no credit and the attempted-case denominator remains",
+  "semantic_warnings": "existing IDs with wrong/missing support, missing/duplicate expected trial entries within a schema-valid array, wrong trial outcome, tally/reason/feedback contradiction => warning only; keep raw verdict",
+  "reason_code_accuracy": "code equals the code for the reference decision and technique; denominator all attempted eligible cases, including errors",
+  "reason_code_consistency": "code agrees with the model's own raw decision and technique; denominator all attempted eligible cases, including errors; this is not reference accuracy",
+  "paired_transitions": "A/B3 wrong-to-correct, correct-to-wrong, both-correct and both-wrong, with case IDs; analysis errors count as wrong, unmatched starts as interrupted errors; report missing and unfinished pairs separately",
+  "coverage_limits": [
+    "runtime-invalid dataset cases have empty observations; full-positive runtime-invalid input is not represented in the 42 cases",
+    "baseline-invalid dataset flags agree with baseline diagnostics; contradictory upstream flags are not represented",
+    "input gate validates schema and trusts runtime_status/baseline_valid supplied upstream; it does not independently establish flag/diagnostic consistency",
+    "upstream executor is responsible for deriving truthful runtime/baseline validity from its checks; this pilot does not verify that derivation end to end",
+    "four positive boolean cases mainly vary accepted HTTP 200/404 patterns; mechanism diversity is limited",
+    "pilot-032 combines control diagnostics and negative timing delta; use per-trial assessments for diagnosis"
+  ]
+}

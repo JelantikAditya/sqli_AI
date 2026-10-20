@@ -1,12 +1,12 @@
 {
   "schema_version": "1.0.0",
   "protocol_id": "local-sqli-v5-pilot",
-  "status": "pilot",
+  "status": "frozen",
   "environment": "local-laptop",
   "target_origin": "http://127.0.0.1:4280",
   "method": "DAST-black-box",
   "methodology": {"decision_id": "local-laptop-langchain-v1", "execution_topology": "single-laptop-local-services-and-docker", "experiment_controller": "custom-python", "llm_pipeline_framework": "langchain-core-serial-runnables", "model_transport": "local-ollama-http", "knowledge_store": "persistent-local-chroma", "retrieval_adapter": "existing-proposal-structured-retrieval", "retrieval_frequency": "once-before-each-rag-on-condition-run", "rag_usage": "generation-and-feedback-conditioned-regeneration-only", "analysis_retrieval": "disabled-in-both-llm-conditions", "rag_off_vectorstore_access": "forbidden", "executor": "custom-dvwa-http", "inference_http_timing": "serial-nonoverlapping", "evidence_storage": "local-disk-separated-pilot-and-formal", "external_tracing": "disabled", "colab_and_tunnel": "deferred-outside-active-experiments"},
-  "implementation_readiness": {"local_langchain": "pending"},
+  "implementation_readiness": {"local_langchain": "verified"},
   "conditions": [
     {"condition_id": "A", "source": "LLM", "rag_mode": "off", "scenario_ids": ["S1","S2","S3","S4","S5","S6","S7","S8","S9","S10","S11","S12"]},
     {"condition_id": "B", "source": "LLM", "rag_mode": "on", "scenario_ids": ["S1","S2","S3","S4","S5","S6","S7","S8","S9","S10","S11","S12"]},
@@ -20,6 +20,7 @@
   "runtime_recovery": {"failure_is_attack_failure": false, "failed_attempt_policy": "invalidate-whole-condition-attempt", "automatic_retries": 0, "next_attempt_requires": "repair-environment-fresh-login-and-database-reset"},
   "run_decision": {"policy_id": "any-positive-else-abstain-v1", "positive": "any-positive-claim-in-complete-run", "negative": "all-negative-claims-in-complete-run", "inconclusive": "no-positive-and-at-least-one-inconclusive-in-complete-run", "not_evaluable": "runtime-invalid-or-incomplete-budget-or-incomplete-analysis", "inconclusive_retry": "none", "fpr_inconclusive": "exclude-binary-counts-report-coverage-withhold-primary", "psr_inconclusive": "retain-valid-candidates-with-independent-evidence-and-human-validation"},
   "metrics": {"fpr_conditions": ["A","B"], "fpr_unit": "scenario-condition-replicate", "psr_conditions": ["B","C"], "psr_unit": "logical-candidate", "boolean_pair_counts_as": 1, "timing_confirmations_count_as": 1, "zero_denominator": "undefined", "retain_system_prediction_before_review": true, "incomplete_budget": "exclude-run-and-report", "aggregation": "per-run-arithmetic-mean", "stddev_ddof": 1, "cross_run_success_vote": "none", "primary_summary_requires_complete_replicates": true, "fpr_requires_all_planned_negative_decisions": true, "fpr_report_decision_coverage": true},
-  "review": {"corpus_researcher_review": "approved", "independent_validator": "pending", "blind_condition_and_source": true},
+  "review": {"corpus_researcher_review": "approved", "independent_validator": "ready", "blind_condition_and_source": true},
+  "formal_freeze_release": {"approval_path":"results/raw/u07-formal-readiness-20261018-v18-r2/formal-freeze-approval.json","approval_sha256":"b751fc40d59525119a26b36a3b1e7c6935832468a2118ce0ca0ebf979dc88794","candidate_manifest_path":"results/raw/u07-formal-readiness-20261018-v18-r2/manifest.json","candidate_manifest_sha256":"46c18a8b77162ea707643b94be12adb095dc2c28730feb2bb94086d72fbf17d8","release_manifest_path":"results/raw/u07-formal-readiness-20261018-v18-r2/formal-release-manifest.json"},
   "formal_gate": ["pilot-all-techniques-and-levels-passed", "researcher-corpus-decision-recorded", "runtime-manifest-frozen", "seclists-version-and-selection-frozen", "validator-protocol-ready", "local-methodology-recorded", "local-langchain-integration-verified"]
 }

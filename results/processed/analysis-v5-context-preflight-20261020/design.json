@@ -1,0 +1,19 @@
+{
+  "scope": "runtime-context-preflight-not-model-performance-evaluation",
+  "planned_chat_probes": 9,
+  "new_dvwa_requests": 0,
+  "model": "qwen2.5:7b",
+  "expected_model_digest": "845dbda0ea48ed749caafd9e6037047aa19acfcfd82e704d7ca97d631a0b697e",
+  "num_ctx": 4096,
+  "num_predict": 768,
+  "early_stop": "{",
+  "preflight_outputs_are_verdicts": false,
+  "tokenizer_revision": "a09a35458c702b33eeacc393d103063234e8bc28",
+  "input_count_method": "official tokenizer, installed vocabulary/merges checked; installed ChatML template branch",
+  "source_sha256": {
+    "development\\preflight_analysis_v5_context.py": "b61fdde58db2fb9607c285c5b9f949e91d7fb32a9ae54eb55367f15edbb3c542"
+  },
+  "probe_plan_sha256": "570a3f2b947297648f2dc1d0e98f09cff0fc9949b20ae8f020ed28e8f0853153",
+  "tokenizer_receipt_sha256": "b0597bc078ef86998ed5d19fbc953009f6b12a9616ccb8c95f62c44abb1aa05e",
+  "researcher_adoption": "not-recorded"
+}

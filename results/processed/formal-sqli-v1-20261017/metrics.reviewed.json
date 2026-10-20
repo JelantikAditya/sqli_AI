@@ -1,0 +1,987 @@
+{
+  "scope": "validated-experiment-metrics-no-formality-asserted",
+  "experiment_ids": [
+    "formal-sqli-v1-20261017"
+  ],
+  "annotations_complete": true,
+  "psr": {
+    "eligible": true,
+    "condition_replicates": [
+      {
+        "condition_id": "B",
+        "replicate": 1,
+        "eligible": true,
+        "scenario_count": 9,
+        "success_count": 25,
+        "valid_candidates": 90,
+        "psr": 0.2777777777777778,
+        "missing_scenarios": []
+      },
+      {
+        "condition_id": "B",
+        "replicate": 2,
+        "eligible": true,
+        "scenario_count": 9,
+        "success_count": 25,
+        "valid_candidates": 90,
+        "psr": 0.2777777777777778,
+        "missing_scenarios": []
+      },
+      {
+        "condition_id": "B",
+        "replicate": 3,
+        "eligible": true,
+        "scenario_count": 9,
+        "success_count": 25,
+        "valid_candidates": 90,
+        "psr": 0.2777777777777778,
+        "missing_scenarios": []
+      },
+      {
+        "condition_id": "C",
+        "replicate": 1,
+        "eligible": true,
+        "scenario_count": 9,
+        "success_count": 67,
+        "valid_candidates": 90,
+        "psr": 0.7444444444444445,
+        "missing_scenarios": []
+      },
+      {
+        "condition_id": "C",
+        "replicate": 2,
+        "eligible": true,
+        "scenario_count": 9,
+        "success_count": 66,
+        "valid_candidates": 90,
+        "psr": 0.7333333333333333,
+        "missing_scenarios": []
+      },
+      {
+        "condition_id": "C",
+        "replicate": 3,
+        "eligible": true,
+        "scenario_count": 9,
+        "success_count": 69,
+        "valid_candidates": 90,
+        "psr": 0.7666666666666667,
+        "missing_scenarios": []
+      }
+    ],
+    "per_scenario": [
+      {
+        "condition_id": "B",
+        "scenario_id": "S1",
+        "mean": 0.3,
+        "sample_sd": 0.0,
+        "n": 3,
+        "eligible": true
+      },
+      {
+        "condition_id": "B",
+        "scenario_id": "S2",
+        "mean": 0.0,
+        "sample_sd": 0.0,
+        "n": 3,
+        "eligible": true
+      },
+      {
+        "condition_id": "B",
+        "scenario_id": "S3",
+        "mean": 0.0,
+        "sample_sd": 0.0,
+        "n": 3,
+        "eligible": true
+      },
+      {
+        "condition_id": "B",
+        "scenario_id": "S4",
+        "mean": 1.0,
+        "sample_sd": 0.0,
+        "n": 3,
+        "eligible": true
+      },
+      {
+        "condition_id": "B",
+        "scenario_id": "S5",
+        "mean": 0.3,
+        "sample_sd": 0.0,
+        "n": 3,
+        "eligible": true
+      },
+      {
+        "condition_id": "B",
+        "scenario_id": "S6",
+        "mean": 0.3,
+        "sample_sd": 0.0,
+        "n": 3,
+        "eligible": true
+      },
+      {
+        "condition_id": "B",
+        "scenario_id": "S7",
+        "mean": 0.6,
+        "sample_sd": 0.0,
+        "n": 3,
+        "eligible": true
+      },
+      {
+        "condition_id": "B",
+        "scenario_id": "S8",
+        "mean": 0.0,
+        "sample_sd": 0.0,
+        "n": 3,
+        "eligible": true
+      },
+      {
+        "condition_id": "B",
+        "scenario_id": "S9",
+        "mean": 0.0,
+        "sample_sd": 0.0,
+        "n": 3,
+        "eligible": true
+      },
+      {
+        "condition_id": "C",
+        "scenario_id": "S1",
+        "mean": 0.2,
+        "sample_sd": 0.0,
+        "n": 3,
+        "eligible": true
+      },
+      {
+        "condition_id": "C",
+        "scenario_id": "S2",
+        "mean": 0.9,
+        "sample_sd": 0.0,
+        "n": 3,
+        "eligible": true
+      },
+      {
+        "condition_id": "C",
+        "scenario_id": "S3",
+        "mean": 1.0,
+        "sample_sd": 0.0,
+        "n": 3,
+        "eligible": true
+      },
+      {
+        "condition_id": "C",
+        "scenario_id": "S4",
+        "mean": 1.0,
+        "sample_sd": 0.0,
+        "n": 3,
+        "eligible": true
+      },
+      {
+        "condition_id": "C",
+        "scenario_id": "S5",
+        "mean": 0.9,
+        "sample_sd": 0.0,
+        "n": 3,
+        "eligible": true
+      },
+      {
+        "condition_id": "C",
+        "scenario_id": "S6",
+        "mean": 1.0,
+        "sample_sd": 0.0,
+        "n": 3,
+        "eligible": true
+      },
+      {
+        "condition_id": "C",
+        "scenario_id": "S7",
+        "mean": 0.2,
+        "sample_sd": 0.0,
+        "n": 3,
+        "eligible": true
+      },
+      {
+        "condition_id": "C",
+        "scenario_id": "S8",
+        "mean": 0.9,
+        "sample_sd": 0.0,
+        "n": 3,
+        "eligible": true
+      },
+      {
+        "condition_id": "C",
+        "scenario_id": "S9",
+        "mean": 0.6333333333333333,
+        "sample_sd": 0.1527525231651947,
+        "n": 3,
+        "eligible": true
+      }
+    ],
+    "per_run": [
+      {
+        "unit_id": "formal-sqli-v1-20261017-b-s1-r1",
+        "condition_id": "B",
+        "scenario_id": "S1",
+        "replicate": 1,
+        "eligible": true,
+        "success_count": 3,
+        "valid_candidates": 10,
+        "psr": 0.3
+      },
+      {
+        "unit_id": "formal-sqli-v1-20261017-c-s1-r1",
+        "condition_id": "C",
+        "scenario_id": "S1",
+        "replicate": 1,
+        "eligible": true,
+        "success_count": 2,
+        "valid_candidates": 10,
+        "psr": 0.2
+      },
+      {
+        "unit_id": "formal-sqli-v1-20261017-c-s2-r1",
+        "condition_id": "C",
+        "scenario_id": "S2",
+        "replicate": 1,
+        "eligible": true,
+        "success_count": 9,
+        "valid_candidates": 10,
+        "psr": 0.9
+      },
+      {
+        "unit_id": "formal-sqli-v1-20261017-b-s2-r1",
+        "condition_id": "B",
+        "scenario_id": "S2",
+        "replicate": 1,
+        "eligible": true,
+        "success_count": 0,
+        "valid_candidates": 10,
+        "psr": 0.0
+      },
+      {
+        "unit_id": "formal-sqli-v1-20261017-b-s3-r1",
+        "condition_id": "B",
+        "scenario_id": "S3",
+        "replicate": 1,
+        "eligible": true,
+        "success_count": 0,
+        "valid_candidates": 10,
+        "psr": 0.0
+      },
+      {
+        "unit_id": "formal-sqli-v1-20261017-c-s3-r1",
+        "condition_id": "C",
+        "scenario_id": "S3",
+        "replicate": 1,
+        "eligible": true,
+        "success_count": 10,
+        "valid_candidates": 10,
+        "psr": 1.0
+      },
+      {
+        "unit_id": "formal-sqli-v1-20261017-c-s4-r1",
+        "condition_id": "C",
+        "scenario_id": "S4",
+        "replicate": 1,
+        "eligible": true,
+        "success_count": 10,
+        "valid_candidates": 10,
+        "psr": 1.0
+      },
+      {
+        "unit_id": "formal-sqli-v1-20261017-b-s4-r1",
+        "condition_id": "B",
+        "scenario_id": "S4",
+        "replicate": 1,
+        "eligible": true,
+        "success_count": 10,
+        "valid_candidates": 10,
+        "psr": 1.0
+      },
+      {
+        "unit_id": "formal-sqli-v1-20261017-b-s5-r1",
+        "condition_id": "B",
+        "scenario_id": "S5",
+        "replicate": 1,
+        "eligible": true,
+        "success_count": 3,
+        "valid_candidates": 10,
+        "psr": 0.3
+      },
+      {
+        "unit_id": "formal-sqli-v1-20261017-c-s5-r1",
+        "condition_id": "C",
+        "scenario_id": "S5",
+        "replicate": 1,
+        "eligible": true,
+        "success_count": 9,
+        "valid_candidates": 10,
+        "psr": 0.9
+      },
+      {
+        "unit_id": "formal-sqli-v1-20261017-c-s6-r1",
+        "condition_id": "C",
+        "scenario_id": "S6",
+        "replicate": 1,
+        "eligible": true,
+        "success_count": 10,
+        "valid_candidates": 10,
+        "psr": 1.0
+      },
+      {
+        "unit_id": "formal-sqli-v1-20261017-b-s6-r1",
+        "condition_id": "B",
+        "scenario_id": "S6",
+        "replicate": 1,
+        "eligible": true,
+        "success_count": 3,
+        "valid_candidates": 10,
+        "psr": 0.3
+      },
+      {
+        "unit_id": "formal-sqli-v1-20261017-b-s7-r1",
+        "condition_id": "B",
+        "scenario_id": "S7",
+        "replicate": 1,
+        "eligible": true,
+        "success_count": 6,
+        "valid_candidates": 10,
+        "psr": 0.6
+      },
+      {
+        "unit_id": "formal-sqli-v1-20261017-c-s7-r1",
+        "condition_id": "C",
+        "scenario_id": "S7",
+        "replicate": 1,
+        "eligible": true,
+        "success_count": 2,
+        "valid_candidates": 10,
+        "psr": 0.2
+      },
+      {
+        "unit_id": "formal-sqli-v1-20261017-c-s8-r1",
+        "condition_id": "C",
+        "scenario_id": "S8",
+        "replicate": 1,
+        "eligible": true,
+        "success_count": 9,
+        "valid_candidates": 10,
+        "psr": 0.9
+      },
+      {
+        "unit_id": "formal-sqli-v1-20261017-b-s8-r1",
+        "condition_id": "B",
+        "scenario_id": "S8",
+        "replicate": 1,
+        "eligible": true,
+        "success_count": 0,
+        "valid_candidates": 10,
+        "psr": 0.0
+      },
+      {
+        "unit_id": "formal-sqli-v1-20261017-b-s9-r1",
+        "condition_id": "B",
+        "scenario_id": "S9",
+        "replicate": 1,
+        "eligible": true,
+        "success_count": 0,
+        "valid_candidates": 10,
+        "psr": 0.0
+      },
+      {
+        "unit_id": "formal-sqli-v1-20261017-c-s9-r1",
+        "condition_id": "C",
+        "scenario_id": "S9",
+        "replicate": 1,
+        "eligible": true,
+        "success_count": 6,
+        "valid_candidates": 10,
+        "psr": 0.6
+      },
+      {
+        "unit_id": "formal-sqli-v1-20261017-b-s1-r2",
+        "condition_id": "B",
+        "scenario_id": "S1",
+        "replicate": 2,
+        "eligible": true,
+        "success_count": 3,
+        "valid_candidates": 10,
+        "psr": 0.3
+      },
+      {
+        "unit_id": "formal-sqli-v1-20261017-c-s1-r2",
+        "condition_id": "C",
+        "scenario_id": "S1",
+        "replicate": 2,
+        "eligible": true,
+        "success_count": 2,
+        "valid_candidates": 10,
+        "psr": 0.2
+      },
+      {
+        "unit_id": "formal-sqli-v1-20261017-c-s2-r2",
+        "condition_id": "C",
+        "scenario_id": "S2",
+        "replicate": 2,
+        "eligible": true,
+        "success_count": 9,
+        "valid_candidates": 10,
+        "psr": 0.9
+      },
+      {
+        "unit_id": "formal-sqli-v1-20261017-b-s2-r2",
+        "condition_id": "B",
+        "scenario_id": "S2",
+        "replicate": 2,
+        "eligible": true,
+        "success_count": 0,
+        "valid_candidates": 10,
+        "psr": 0.0
+      },
+      {
+        "unit_id": "formal-sqli-v1-20261017-b-s3-r2",
+        "condition_id": "B",
+        "scenario_id": "S3",
+        "replicate": 2,
+        "eligible": true,
+        "success_count": 0,
+        "valid_candidates": 10,
+        "psr": 0.0
+      },
+      {
+        "unit_id": "formal-sqli-v1-20261017-c-s3-r2",
+        "condition_id": "C",
+        "scenario_id": "S3",
+        "replicate": 2,
+        "eligible": true,
+        "success_count": 10,
+        "valid_candidates": 10,
+        "psr": 1.0
+      },
+      {
+        "unit_id": "formal-sqli-v1-20261017-c-s4-r2",
+        "condition_id": "C",
+        "scenario_id": "S4",
+        "replicate": 2,
+        "eligible": true,
+        "success_count": 10,
+        "valid_candidates": 10,
+        "psr": 1.0
+      },
+      {
+        "unit_id": "formal-sqli-v1-20261017-b-s4-r2",
+        "condition_id": "B",
+        "scenario_id": "S4",
+        "replicate": 2,
+        "eligible": true,
+        "success_count": 10,
+        "valid_candidates": 10,
+        "psr": 1.0
+      },
+      {
+        "unit_id": "formal-sqli-v1-20261017-b-s5-r2",
+        "condition_id": "B",
+        "scenario_id": "S5",
+        "replicate": 2,
+        "eligible": true,
+        "success_count": 3,
+        "valid_candidates": 10,
+        "psr": 0.3
+      },
+      {
+        "unit_id": "formal-sqli-v1-20261017-c-s5-r2",
+        "condition_id": "C",
+        "scenario_id": "S5",
+        "replicate": 2,
+        "eligible": true,
+        "success_count": 9,
+        "valid_candidates": 10,
+        "psr": 0.9
+      },
+      {
+        "unit_id": "formal-sqli-v1-20261017-c-s6-r2",
+        "condition_id": "C",
+        "scenario_id": "S6",
+        "replicate": 2,
+        "eligible": true,
+        "success_count": 10,
+        "valid_candidates": 10,
+        "psr": 1.0
+      },
+      {
+        "unit_id": "formal-sqli-v1-20261017-b-s6-r2",
+        "condition_id": "B",
+        "scenario_id": "S6",
+        "replicate": 2,
+        "eligible": true,
+        "success_count": 3,
+        "valid_candidates": 10,
+        "psr": 0.3
+      },
+      {
+        "unit_id": "formal-sqli-v1-20261017-b-s7-r2",
+        "condition_id": "B",
+        "scenario_id": "S7",
+        "replicate": 2,
+        "eligible": true,
+        "success_count": 6,
+        "valid_candidates": 10,
+        "psr": 0.6
+      },
+      {
+        "unit_id": "formal-sqli-v1-20261017-c-s7-r2",
+        "condition_id": "C",
+        "scenario_id": "S7",
+        "replicate": 2,
+        "eligible": true,
+        "success_count": 2,
+        "valid_candidates": 10,
+        "psr": 0.2
+      },
+      {
+        "unit_id": "formal-sqli-v1-20261017-c-s8-r2",
+        "condition_id": "C",
+        "scenario_id": "S8",
+        "replicate": 2,
+        "eligible": true,
+        "success_count": 9,
+        "valid_candidates": 10,
+        "psr": 0.9
+      },
+      {
+        "unit_id": "formal-sqli-v1-20261017-b-s8-r2",
+        "condition_id": "B",
+        "scenario_id": "S8",
+        "replicate": 2,
+        "eligible": true,
+        "success_count": 0,
+        "valid_candidates": 10,
+        "psr": 0.0
+      },
+      {
+        "unit_id": "formal-sqli-v1-20261017-b-s9-r2",
+        "condition_id": "B",
+        "scenario_id": "S9",
+        "replicate": 2,
+        "eligible": true,
+        "success_count": 0,
+        "valid_candidates": 10,
+        "psr": 0.0
+      },
+      {
+        "unit_id": "formal-sqli-v1-20261017-c-s9-r2",
+        "condition_id": "C",
+        "scenario_id": "S9",
+        "replicate": 2,
+        "eligible": true,
+        "success_count": 5,
+        "valid_candidates": 10,
+        "psr": 0.5
+      },
+      {
+        "unit_id": "formal-sqli-v1-20261017-c-s1-r3",
+        "condition_id": "C",
+        "scenario_id": "S1",
+        "replicate": 3,
+        "eligible": true,
+        "success_count": 2,
+        "valid_candidates": 10,
+        "psr": 0.2
+      },
+      {
+        "unit_id": "formal-sqli-v1-20261017-b-s1-r3",
+        "condition_id": "B",
+        "scenario_id": "S1",
+        "replicate": 3,
+        "eligible": true,
+        "success_count": 3,
+        "valid_candidates": 10,
+        "psr": 0.3
+      },
+      {
+        "unit_id": "formal-sqli-v1-20261017-b-s2-r3",
+        "condition_id": "B",
+        "scenario_id": "S2",
+        "replicate": 3,
+        "eligible": true,
+        "success_count": 0,
+        "valid_candidates": 10,
+        "psr": 0.0
+      },
+      {
+        "unit_id": "formal-sqli-v1-20261017-c-s2-r3",
+        "condition_id": "C",
+        "scenario_id": "S2",
+        "replicate": 3,
+        "eligible": true,
+        "success_count": 9,
+        "valid_candidates": 10,
+        "psr": 0.9
+      },
+      {
+        "unit_id": "formal-sqli-v1-20261017-c-s3-r3",
+        "condition_id": "C",
+        "scenario_id": "S3",
+        "replicate": 3,
+        "eligible": true,
+        "success_count": 10,
+        "valid_candidates": 10,
+        "psr": 1.0
+      },
+      {
+        "unit_id": "formal-sqli-v1-20261017-b-s3-r3",
+        "condition_id": "B",
+        "scenario_id": "S3",
+        "replicate": 3,
+        "eligible": true,
+        "success_count": 0,
+        "valid_candidates": 10,
+        "psr": 0.0
+      },
+      {
+        "unit_id": "formal-sqli-v1-20261017-b-s4-r3",
+        "condition_id": "B",
+        "scenario_id": "S4",
+        "replicate": 3,
+        "eligible": true,
+        "success_count": 10,
+        "valid_candidates": 10,
+        "psr": 1.0
+      },
+      {
+        "unit_id": "formal-sqli-v1-20261017-c-s4-r3",
+        "condition_id": "C",
+        "scenario_id": "S4",
+        "replicate": 3,
+        "eligible": true,
+        "success_count": 10,
+        "valid_candidates": 10,
+        "psr": 1.0
+      },
+      {
+        "unit_id": "formal-sqli-v1-20261017-c-s5-r3",
+        "condition_id": "C",
+        "scenario_id": "S5",
+        "replicate": 3,
+        "eligible": true,
+        "success_count": 9,
+        "valid_candidates": 10,
+        "psr": 0.9
+      },
+      {
+        "unit_id": "formal-sqli-v1-20261017-b-s5-r3",
+        "condition_id": "B",
+        "scenario_id": "S5",
+        "replicate": 3,
+        "eligible": true,
+        "success_count": 3,
+        "valid_candidates": 10,
+        "psr": 0.3
+      },
+      {
+        "unit_id": "formal-sqli-v1-20261017-b-s6-r3",
+        "condition_id": "B",
+        "scenario_id": "S6",
+        "replicate": 3,
+        "eligible": true,
+        "success_count": 3,
+        "valid_candidates": 10,
+        "psr": 0.3
+      },
+      {
+        "unit_id": "formal-sqli-v1-20261017-c-s6-r3",
+        "condition_id": "C",
+        "scenario_id": "S6",
+        "replicate": 3,
+        "eligible": true,
+        "success_count": 10,
+        "valid_candidates": 10,
+        "psr": 1.0
+      },
+      {
+        "unit_id": "formal-sqli-v1-20261017-c-s7-r3",
+        "condition_id": "C",
+        "scenario_id": "S7",
+        "replicate": 3,
+        "eligible": true,
+        "success_count": 2,
+        "valid_candidates": 10,
+        "psr": 0.2
+      },
+      {
+        "unit_id": "formal-sqli-v1-20261017-b-s7-r3",
+        "condition_id": "B",
+        "scenario_id": "S7",
+        "replicate": 3,
+        "eligible": true,
+        "success_count": 6,
+        "valid_candidates": 10,
+        "psr": 0.6
+      },
+      {
+        "unit_id": "formal-sqli-v1-20261017-b-s8-r3",
+        "condition_id": "B",
+        "scenario_id": "S8",
+        "replicate": 3,
+        "eligible": true,
+        "success_count": 0,
+        "valid_candidates": 10,
+        "psr": 0.0
+      },
+      {
+        "unit_id": "formal-sqli-v1-20261017-c-s8-r3",
+        "condition_id": "C",
+        "scenario_id": "S8",
+        "replicate": 3,
+        "eligible": true,
+        "success_count": 9,
+        "valid_candidates": 10,
+        "psr": 0.9
+      },
+      {
+        "unit_id": "formal-sqli-v1-20261017-c-s9-r3",
+        "condition_id": "C",
+        "scenario_id": "S9",
+        "replicate": 3,
+        "eligible": true,
+        "success_count": 8,
+        "valid_candidates": 10,
+        "psr": 0.8
+      },
+      {
+        "unit_id": "formal-sqli-v1-20261017-b-s9-r3",
+        "condition_id": "B",
+        "scenario_id": "S9",
+        "replicate": 3,
+        "eligible": true,
+        "success_count": 0,
+        "valid_candidates": 10,
+        "psr": 0.0
+      }
+    ],
+    "summary": [
+      {
+        "condition_id": "B",
+        "mean": 0.2777777777777778,
+        "sample_sd": 0.0,
+        "n": 3,
+        "eligible": true
+      },
+      {
+        "condition_id": "C",
+        "mean": 0.7481481481481481,
+        "sample_sd": 0.01697250257391057,
+        "n": 3,
+        "eligible": true
+      }
+    ]
+  },
+  "fpr": {
+    "eligible": false,
+    "condition_replicates": [
+      {
+        "condition_id": "A",
+        "replicate": 1,
+        "FP": 2,
+        "TN": 0,
+        "unresolved_scenarios": [
+          "S10"
+        ],
+        "decision_coverage": 0.6666666666666666,
+        "eligible": false,
+        "reason": "planned_negative_missing_invalid_or_abstained",
+        "fpr": null
+      },
+      {
+        "condition_id": "A",
+        "replicate": 2,
+        "FP": 2,
+        "TN": 0,
+        "unresolved_scenarios": [
+          "S10"
+        ],
+        "decision_coverage": 0.6666666666666666,
+        "eligible": false,
+        "reason": "planned_negative_missing_invalid_or_abstained",
+        "fpr": null
+      },
+      {
+        "condition_id": "A",
+        "replicate": 3,
+        "FP": 2,
+        "TN": 0,
+        "unresolved_scenarios": [
+          "S10"
+        ],
+        "decision_coverage": 0.6666666666666666,
+        "eligible": false,
+        "reason": "planned_negative_missing_invalid_or_abstained",
+        "fpr": null
+      },
+      {
+        "condition_id": "B",
+        "replicate": 1,
+        "FP": 2,
+        "TN": 0,
+        "unresolved_scenarios": [
+          "S10"
+        ],
+        "decision_coverage": 0.6666666666666666,
+        "eligible": false,
+        "reason": "planned_negative_missing_invalid_or_abstained",
+        "fpr": null
+      },
+      {
+        "condition_id": "B",
+        "replicate": 2,
+        "FP": 2,
+        "TN": 0,
+        "unresolved_scenarios": [
+          "S10"
+        ],
+        "decision_coverage": 0.6666666666666666,
+        "eligible": false,
+        "reason": "planned_negative_missing_invalid_or_abstained",
+        "fpr": null
+      },
+      {
+        "condition_id": "B",
+        "replicate": 3,
+        "FP": 2,
+        "TN": 0,
+        "unresolved_scenarios": [
+          "S10"
+        ],
+        "decision_coverage": 0.6666666666666666,
+        "eligible": false,
+        "reason": "planned_negative_missing_invalid_or_abstained",
+        "fpr": null
+      }
+    ],
+    "summary": [
+      {
+        "condition_id": "A",
+        "mean": null,
+        "sample_sd": null,
+        "n": 0,
+        "eligible": false
+      },
+      {
+        "condition_id": "B",
+        "mean": null,
+        "sample_sd": null,
+        "n": 0,
+        "eligible": false
+      }
+    ]
+  },
+  "system_confusion": {
+    "condition_replicates": [
+      {
+        "condition_id": "A",
+        "replicate": 1,
+        "TP": 9,
+        "FP": 2,
+        "TN": 0,
+        "FN": 0,
+        "decision_coverage": 0.9166666666666666,
+        "unresolved_scenarios": [
+          "S10"
+        ],
+        "eligible": false,
+        "reason": "planned_scenario_missing_invalid_or_abstained"
+      },
+      {
+        "condition_id": "A",
+        "replicate": 2,
+        "TP": 9,
+        "FP": 2,
+        "TN": 0,
+        "FN": 0,
+        "decision_coverage": 0.9166666666666666,
+        "unresolved_scenarios": [
+          "S10"
+        ],
+        "eligible": false,
+        "reason": "planned_scenario_missing_invalid_or_abstained"
+      },
+      {
+        "condition_id": "A",
+        "replicate": 3,
+        "TP": 9,
+        "FP": 2,
+        "TN": 0,
+        "FN": 0,
+        "decision_coverage": 0.9166666666666666,
+        "unresolved_scenarios": [
+          "S10"
+        ],
+        "eligible": false,
+        "reason": "planned_scenario_missing_invalid_or_abstained"
+      },
+      {
+        "condition_id": "B",
+        "replicate": 1,
+        "TP": 9,
+        "FP": 2,
+        "TN": 0,
+        "FN": 0,
+        "decision_coverage": 0.9166666666666666,
+        "unresolved_scenarios": [
+          "S10"
+        ],
+        "eligible": false,
+        "reason": "planned_scenario_missing_invalid_or_abstained"
+      },
+      {
+        "condition_id": "B",
+        "replicate": 2,
+        "TP": 9,
+        "FP": 2,
+        "TN": 0,
+        "FN": 0,
+        "decision_coverage": 0.9166666666666666,
+        "unresolved_scenarios": [
+          "S10"
+        ],
+        "eligible": false,
+        "reason": "planned_scenario_missing_invalid_or_abstained"
+      },
+      {
+        "condition_id": "B",
+        "replicate": 3,
+        "TP": 9,
+        "FP": 2,
+        "TN": 0,
+        "FN": 0,
+        "decision_coverage": 0.9166666666666666,
+        "unresolved_scenarios": [
+          "S10"
+        ],
+        "eligible": false,
+        "reason": "planned_scenario_missing_invalid_or_abstained"
+      }
+    ]
+  },
+  "ground_truth": {
+    "positive_scenarios": [
+      "S1",
+      "S2",
+      "S3",
+      "S4",
+      "S5",
+      "S6",
+      "S7",
+      "S8",
+      "S9"
+    ],
+    "negative_scenarios": [
+      "S10",
+      "S11",
+      "S12"
+    ],
+    "source": "dvwa/experiment_scenarios.json"
+  },
+  "validator_id": "VAL-01",
+  "source_ledger_sha256": "58a083163b62e1024992147109863158e2aa8e84f7124fc387c3bf74b94ecce6",
+  "annotation_record_count": 990,
+  "annotation_source_sha256": "5bc1b33e2eceaa5dad80692d7ba074cc8188134c71bce388312e810cfcadcbc4",
+  "review_package_sha256": "be339b984d5a25e0d77eb6124f7dfea128d8b657272af020674103c41f504e6e"
+}

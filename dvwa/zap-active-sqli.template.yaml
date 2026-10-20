@@ -1,0 +1,170 @@
+---
+env:
+  contexts:
+    - name: dvwa-sqli-active
+      urls:
+        - http://dvwa/login.php
+        - http://dvwa/security.php
+        - http://dvwa/vulnerabilities/sqli/
+        - http://dvwa/vulnerabilities/sqli_blind/
+        - http://dvwa/vulnerabilities/sqli/session-input.php
+        - http://dvwa/vulnerabilities/sqli_blind/cookie-input.php
+      includePaths:
+        - '^http://dvwa/(login\.php|security\.php|vulnerabilities/(sqli|sqli_blind)(/(session-input|cookie-input)\.php|/)?)(\?.*)?$'
+      excludePaths:
+        - '^http://dvwa/login\.php\?logout$'
+      authentication:
+        method: browser
+        parameters:
+          loginPageUrl: http://dvwa/login.php
+          loginPageWait: 2
+          browserId: firefox-headless
+          steps: []
+        verification:
+          method: response
+          loggedInRegex: '(?i)Logout'
+          loggedOutRegex: 'name="username"'
+      sessionManagement:
+        method: cookie
+      users:
+        - name: dvwa-local-user
+          credentials:
+            username: ${dvwaUser}
+            password: ${dvwaPassword}
+  vars:
+    dvwaUser: ${DVWA_USERNAME}
+    dvwaPassword: ${DVWA_PASSWORD}
+  configs:
+    anticsrf.tokens: user_token
+  parameters:
+    failOnError: true
+    failOnWarning: false
+    progressToStdout: true
+jobs:
+  - type: requestor
+    parameters:
+      user: dvwa-local-user
+    requests:
+      - name: Verify authenticated DVWA security level
+        url: http://dvwa/security.php
+        method: GET
+        responseCode: 200
+    tests:
+      - name: DVWA confirms requested security level
+        type: url
+        url: http://dvwa/security.php
+        operator: or
+        responseBodyRegex: '<option value="__DVWA_SECURITY_LEVEL__" selected="selected">'
+        onFail: error
+
+__DVWA_INPUT_SEEDS__
+
+  - type: spider
+    parameters:
+      context: dvwa-sqli-active
+      user: dvwa-local-user
+      url: http://dvwa/vulnerabilities/sqli/
+      maxDuration: 2
+      maxDepth: 5
+      maxChildren: 20
+      logoutAvoidance: true
+      postForm: true
+      processForm: true
+    tests:
+      - name: Authenticated spider reached DVWA
+        type: stats
+        statistic: stats.auth.success
+        site: http://dvwa
+        operator: '>='
+        value: 1
+        onFail: error
+      - name: Authentication saw logged-in marker
+        type: stats
+        statistic: stats.auth.state.loggedin
+        site: http://dvwa
+        operator: '>='
+        value: 1
+        onFail: error
+
+  - type: spider
+    parameters:
+      context: dvwa-sqli-active
+      user: dvwa-local-user
+      url: http://dvwa/vulnerabilities/sqli_blind/
+      maxDuration: 2
+      maxDepth: 5
+      maxChildren: 20
+      logoutAvoidance: true
+      postForm: true
+      processForm: true
+
+  - type: spider
+    parameters:
+      context: dvwa-sqli-active
+      user: dvwa-local-user
+      url: http://dvwa/vulnerabilities/sqli/session-input.php
+      maxDuration: 1
+      maxDepth: 2
+      maxChildren: 10
+      logoutAvoidance: true
+      postForm: true
+      processForm: true
+
+  - type: spider
+    parameters:
+      context: dvwa-sqli-active
+      user: dvwa-local-user
+      url: http://dvwa/vulnerabilities/sqli_blind/cookie-input.php
+      maxDuration: 1
+      maxDepth: 2
+      maxChildren: 10
+      logoutAvoidance: true
+      postForm: true
+      processForm: true
+
+  - type: activeScan-policy
+    parameters:
+      name: dvwa-sqli-only-low
+    policyDefinition:
+      defaultStrength: Low
+      defaultThreshold: "Off"
+      rules:
+        - id: 40018
+          name: SQL Injection
+          strength: Low
+          threshold: Low
+        - id: 40019
+          name: SQL Injection MySQL Time Based
+          strength: Low
+          threshold: Low
+
+  - type: activeScan-config
+    parameters:
+      maxRuleDurationInMins: 3
+      maxScanDurationInMins: 5
+      injectPluginIdInHeader: true
+      handleAntiCSRFTokens: true
+      threadPerHost: 1
+    inputVectors:
+      urlQueryStringAndDataDrivenNodes:
+        enabled: true
+      postData:
+        enabled: true
+      cookieData:
+        enabled: true
+        encodeCookieValues: true
+
+__DVWA_ACTIVE_SCAN_JOBS__
+
+  - type: export
+    parameters:
+      context: dvwa-sqli-active
+      type: har
+      source: all
+      fileName: /zap/out/__ZAP_HAR_FILE__
+
+  - type: report
+    parameters:
+      template: traditional-json
+      reportDir: /zap/out/
+      reportFile: __ZAP_REPORT_FILE__

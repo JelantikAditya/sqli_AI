@@ -1,0 +1,10 @@
+{
+  "sequence": 1,
+  "task_id": "extract_json",
+  "requested_model": "Qwen3.8-27B",
+  "started_at_utc": "2026-10-20T08:38:59.326418+00:00",
+  "http_status": null,
+  "reported_model": null,
+  "valid_json": false,
+  "passed": false
+}

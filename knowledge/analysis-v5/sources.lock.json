@@ -1,0 +1,154 @@
+{
+  "schema_version": "1.0.0",
+  "lock_id": "analysis-v5-sources-20261020",
+  "sources": [
+    {
+      "source_id": "owasp-wstg42",
+      "title": "Testing for SQL Injection, WSTG v4.2",
+      "publisher": "OWASP WSTG contributors",
+      "canonical_url": "https://github.com/OWASP/wstg/blob/dd33419e10edb22b78d89325a6c2aad9f184e3a2/document/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05-Testing_for_SQL_Injection.md",
+      "public_reading_url": "https://wstg.owasp.org/v4.2/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05-Testing_for_SQL_Injection/",
+      "version_kind": "git-commit",
+      "version": "dd33419e10edb22b78d89325a6c2aad9f184e3a2",
+      "retrieved_at_utc": "2026-10-07T10:08:44.081439+00:00",
+      "verified_for_v5_at_utc": "2026-10-20T02:44:05.890969+00:00",
+      "snapshot_path": "data/raw/knowledge-sources/wstg42-sqli.md",
+      "snapshot_sha256": "501ea437fcce7197ff5f993fc12d16817ba3d32da7494f1df559f562fb2d7ad3",
+      "snapshot_format": "utf-8-markdown",
+      "line_coordinate_basis": "splitlines-one-based-inclusive",
+      "attribution": "OWASP WSTG v4.2, CC BY-SA 4.0; short editorial paraphrases with section attribution."
+    },
+    {
+      "source_id": "portswigger-blind",
+      "title": "Blind SQL injection",
+      "publisher": "PortSwigger",
+      "canonical_url": "https://portswigger.net/web-security/sql-injection/blind",
+      "version_kind": "dated-content-snapshot-not-upstream-release",
+      "version": "1da63fe25c4cf24e68f7c9262825f32b3a220e0d2bb7926f7c3edf66102585a9",
+      "retrieved_at_utc": "2026-10-20T02:44:07.325403+00:00",
+      "snapshot_path": "data/raw/analysis-knowledge-v5-20261020/portswigger-blind.txt",
+      "snapshot_sha256": "3d417f1fb2faeeeb9c45be313fbda79fd907f0cd5196144a6703539096ce6417",
+      "raw_html_path": "data/raw/analysis-knowledge-v5-20261020/portswigger-blind.html",
+      "raw_html_sha256": "1da63fe25c4cf24e68f7c9262825f32b3a220e0d2bb7926f7c3edf66102585a9",
+      "snapshot_format": "normalized-visible-text-v1",
+      "line_coordinate_basis": "splitlines-one-based-inclusive",
+      "attribution": "PortSwigger; concise original paraphrases only. No upstream license grant asserted."
+    },
+    {
+      "source_id": "portswigger-conditional-lab",
+      "title": "Lab: Blind SQL injection with conditional responses",
+      "publisher": "PortSwigger",
+      "canonical_url": "https://portswigger.net/web-security/sql-injection/blind/lab-conditional-responses",
+      "version_kind": "dated-content-snapshot-not-upstream-release",
+      "version": "efd1efda1ca5f1566c9f4b0775cf2458ba8d520bbcab5a2b88142730ac039a43",
+      "retrieved_at_utc": "2026-10-20T02:44:08.335979+00:00",
+      "snapshot_path": "data/raw/analysis-knowledge-v5-20261020/portswigger-conditional-lab.txt",
+      "snapshot_sha256": "d1765a9d8728106a9827c1b55d7cb94608a9a41d7970c1a147a35672e5e16df0",
+      "raw_html_path": "data/raw/analysis-knowledge-v5-20261020/portswigger-conditional-lab.html",
+      "raw_html_sha256": "efd1efda1ca5f1566c9f4b0775cf2458ba8d520bbcab5a2b88142730ac039a43",
+      "snapshot_format": "normalized-visible-text-v1",
+      "line_coordinate_basis": "splitlines-one-based-inclusive",
+      "attribution": "PortSwigger; concise original paraphrases only. No upstream license grant asserted."
+    },
+    {
+      "source_id": "portswigger-timing",
+      "title": "Listen to the whispers: web timing attacks that actually work",
+      "publisher": "PortSwigger",
+      "canonical_url": "https://portswigger.net/research/listen-to-the-whispers-web-timing-attacks-that-actually-work",
+      "version_kind": "dated-content-snapshot-not-upstream-release",
+      "version": "ab206673f14d27d58e78bf8e103cfa64ecb3de093c334b874c31ff437a8e322f",
+      "retrieved_at_utc": "2026-10-20T02:44:09.632728+00:00",
+      "snapshot_path": "data/raw/analysis-knowledge-v5-20261020/portswigger-timing.txt",
+      "snapshot_sha256": "4b6bff0edac238c519e915d1230dabb76f5984c1b341d40e7a544b41f526e869",
+      "raw_html_path": "data/raw/analysis-knowledge-v5-20261020/portswigger-timing.html",
+      "raw_html_sha256": "ab206673f14d27d58e78bf8e103cfa64ecb3de093c334b874c31ff437a8e322f",
+      "snapshot_format": "normalized-visible-text-v1",
+      "line_coordinate_basis": "splitlines-one-based-inclusive",
+      "attribution": "PortSwigger; concise original paraphrases only. No upstream license grant asserted."
+    }
+  ],
+  "reference_segments": [
+    {
+      "reference_id": "wstg-detection",
+      "source_id": "owasp-wstg42",
+      "section": "Detection Techniques",
+      "line_start": 74,
+      "line_end": 74,
+      "segment_sha256": "083ab6617e55a8221a0b3fedc7d76ed64dd2b6cd21fdd815134cdf0a960b160d",
+      "coordinate_note": "Local pinned snapshot coordinates, not live website line numbers."
+    },
+    {
+      "reference_id": "wstg-dynamic-content",
+      "source_id": "owasp-wstg42",
+      "section": "Boolean Exploitation Technique",
+      "line_start": 297,
+      "line_end": 297,
+      "segment_sha256": "f588bfa61dd6cda9b11860f8d0f98f8d47b1b1507013609250e8d93b11b353f7",
+      "coordinate_note": "Local pinned snapshot coordinates, not live website line numbers."
+    },
+    {
+      "reference_id": "academy-boolean",
+      "source_id": "portswigger-blind",
+      "section": "Exploiting blind SQL injection by triggering conditional responses",
+      "line_start": 143,
+      "line_end": 150,
+      "segment_sha256": "ff58a4db2cbf81efa5d1d86957ed46c32d6762d97d1ced491c7447ac913ae5f8",
+      "coordinate_note": "Local pinned snapshot coordinates, not live website line numbers."
+    },
+    {
+      "reference_id": "academy-errors",
+      "source_id": "portswigger-blind",
+      "section": "Error-based SQL injection / conditional errors",
+      "line_start": 165,
+      "line_end": 170,
+      "segment_sha256": "40e74224d9694ba7f66357cd89d69bb859a43cc53b51106568688e802f345e50",
+      "coordinate_note": "Local pinned snapshot coordinates, not live website line numbers."
+    },
+    {
+      "reference_id": "academy-time",
+      "source_id": "portswigger-blind",
+      "section": "Exploiting blind SQL injection by triggering time delays",
+      "line_start": 193,
+      "line_end": 199,
+      "segment_sha256": "5a8241670e0acd2b33e5a4ee1f31ac742db13afe2d71ff70b75be07317f004a1",
+      "coordinate_note": "Local pinned snapshot coordinates, not live website line numbers."
+    },
+    {
+      "reference_id": "academy-blind-definition",
+      "source_id": "portswigger-blind",
+      "section": "What is blind SQL injection?",
+      "line_start": 135,
+      "line_end": 137,
+      "segment_sha256": "9e91e3734da3ba737fad4e56d32ac243aca40e8f8af61373662a1e7fdc003931",
+      "coordinate_note": "Local pinned snapshot coordinates, not live website line numbers."
+    },
+    {
+      "reference_id": "lab-marker-mapping",
+      "source_id": "portswigger-conditional-lab",
+      "section": "Lab description / Solution steps 2 and 3",
+      "line_start": 135,
+      "line_end": 149,
+      "segment_sha256": "a15330d309e6e3c794190a8f81ff3e74e5cd272d8a1096d4ff540d069304196c",
+      "coordinate_note": "Local pinned snapshot coordinates, not live website line numbers."
+    },
+    {
+      "reference_id": "research-timing-noise",
+      "source_id": "portswigger-timing",
+      "section": "Noise vs signal",
+      "line_start": 143,
+      "line_end": 148,
+      "segment_sha256": "126300855f9c4770e429b12e0ec65d627af07aee861bc7ecfa1675faaafded9c",
+      "coordinate_note": "Local pinned snapshot coordinates, not live website line numbers."
+    },
+    {
+      "reference_id": "research-server-noise",
+      "source_id": "portswigger-timing",
+      "section": "Making timing attacks feasible",
+      "line_start": 174,
+      "line_end": 175,
+      "segment_sha256": "253b91e87339ce7467924f5ab350a85462c353bfcbe51ede0f0ef74f1b84c5f4",
+      "coordinate_note": "Local pinned snapshot coordinates, not live website line numbers."
+    }
+  ],
+  "scope": "analysis-only-draft-general-knowledge; no payload-generation corpus replacement"
+}

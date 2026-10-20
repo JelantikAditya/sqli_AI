@@ -1,0 +1,22 @@
+{
+  "source_sha256": {
+    "development\\preflight_analysis_v5_context.py": "b61fdde58db2fb9607c285c5b9f949e91d7fb32a9ae54eb55367f15edbb3c542"
+  },
+  "raw_sha256": {
+    "context-probes.jsonl": "243e8794805a4334a475e118b49e64d4ddf3ab20b95a6aa4d4df9a5ed72cee14",
+    "model-inventory.json": "cc6bd110c026689da4287d419d8b8ca0835608da543363604d1a1f26645f9911",
+    "model-show.json": "b16ac8a013fe391cb203f91329ea788c6cf6250a55f053554d3bdb98be1d6325",
+    "planned-context-probes.json": "570a3f2b947297648f2dc1d0e98f09cff0fc9949b20ae8f020ed28e8f0853153",
+    "runtime-after.json": "026927bb9d6339e76dcbf275caf26e0bd5befd17bc6700efd86d100ac94ce7a7",
+    "runtime-before.json": "c8185d7527536b7dc03657326b1a27827194b94be00cdd344d8670e45ac28173",
+    "tokenizer-receipt.json": "b0597bc078ef86998ed5d19fbc953009f6b12a9616ccb8c95f62c44abb1aa05e",
+    "tokenizer.json": "c0382117ea329cdf097041132f6d735924b697924d6f6fc3945713e96ce87539",
+    "tokenizer_config.json": "5b5d4f65d0acd3b2d56a35b56d374a36cbc1c8fa5cf3b3febbbfabf22f359583"
+  },
+  "processed_sha256": {
+    "design.json": "58df36101e00756214265cf0a2603532d000452614e5e95b57ab85400034e257",
+    "offline-token-counts.json": "8f125c75aebc645176e412a0b72e5d8cfecec97a2f3648ddaabd43783fc33f0e",
+    "preservation-baseline.json": "533e9ad2ed1d64c3490a41d57a65f810c4cc493931b6acdc825ceea738b846b5",
+    "runtime-context-summary.json": "a375cb33984f6ae00623bfe826d44788ee4677567752b1f7cf79376a555a953c"
+  }
+}

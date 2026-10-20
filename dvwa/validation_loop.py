@@ -31,6 +31,50 @@ EXISTS_MARKER = "user id exists"
 MISSING_MARKER = "user id is missing"
 
 
+def sanitized_review_excerpt(body: str) -> str:
+    """Return only fixed, non-sensitive phrases useful in a blind review.
+
+    This is intentionally a normalized excerpt, not a slice of the response:
+    database values, account names, submitted SQL, tokens and arbitrary HTML
+    must never enter a reviewer package.
+    """
+    lower = (body or "").lower()
+    indicators = []
+    markers = []
+    if "you have an error in your sql syntax" in lower:
+        indicators.append("mysql_syntax_error")
+    if "xpath syntax error" in lower:
+        indicators.append("mysql_xpath_error")
+    if "unknown column" in lower:
+        indicators.append("mysql_unknown_column")
+    if EXISTS_MARKER in lower:
+        markers.append("user_id_exists")
+    if MISSING_MARKER in lower:
+        markers.append("user_id_missing")
+    if "first name:" in lower:
+        markers.append("benign_record")
+    return sanitized_review_excerpt_from_markers(indicators, markers)
+
+
+def sanitized_review_excerpt_from_markers(indicators, markers) -> str:
+    """Render already-recorded allowlist markers without claiming raw text."""
+    diagnostic_phrases = {
+        "mysql_syntax_error": "You have an error in your SQL syntax [query details redacted]",
+        "mysql_xpath_error": "XPATH syntax error [query details redacted]",
+        "mysql_unknown_column": "Unknown column [column name redacted]",
+    }
+    content_phrases = {
+        "user_id_exists": "User ID exists",
+        "user_id_missing": "User ID is MISSING",
+        "benign_record": "First name: [record value redacted]",
+    }
+    phrases = [diagnostic_phrases[key] for key in sorted(set(indicators or []))
+               if key in diagnostic_phrases]
+    phrases.extend(content_phrases[key] for key in sorted(set(markers or []))
+                    if key in content_phrases)
+    return "\n".join(phrases) if phrases else "[No allowlisted marker recorded in this observation]"
+
+
 class FormParser(HTMLParser):
     def __init__(self) -> None:
         super().__init__(convert_charrefs=True)
@@ -518,6 +562,7 @@ def emit_payload_record(
                 "baseline_time_ms": baseline["elapsed_ms"],
                 "delta_time_ms": round(response["elapsed_ms"] - baseline["elapsed_ms"], 2),
                 "response_sha256": response["body_sha256"],
+                "review_excerpt": sanitized_review_excerpt(response["body"]),
                 "response_indicators": indicators,
                 "content_markers": (["benign_record"] if "first name:" in response["body"].lower() else [])
                     + (["user_id_exists"] if blind_response_signature(response) == (True, False) else [])

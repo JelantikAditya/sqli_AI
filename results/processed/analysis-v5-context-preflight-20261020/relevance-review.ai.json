@@ -1,0 +1,450 @@
+{
+  "review_type": "post-ranking-AI-editorial-content-review-not-independent-semantic-gold",
+  "reviewer": "Codex AI",
+  "researcher_adoption": "not-recorded",
+  "human_review": "pending",
+  "ranking_and_query_tuning_performed": false,
+  "previous_rubric_replaced": false,
+  "grade_definitions": {
+    "0": "irrelevant or incompatible",
+    "1": "contextual only",
+    "2": "useful complementary guidance",
+    "3": "directly addresses the query topic"
+  },
+  "rows": [
+    {
+      "query_id": "request-01",
+      "query": "{\"injection_point\": {\"input_path\": \"/vulnerabilities/sqli/\", \"method\": \"GET\", \"parameter\": \"id\", \"result_path\": \"/vulnerabilities/sqli/\"}, \"task\": \"Interpret supplied database diagnostic identifiers relative to their benign baseline, respecting validity gates and limits of candidate conclusions.\", \"technique\": \"error-based\"}",
+      "chunk_id": "analysis-v5-sql-diagnostics",
+      "rendered_text_sha256": "a0a42725bfdf98db25c03e4a51d19ac8c0d96d24ce8948d00f57f0d629341153",
+      "ai_grade": 3,
+      "rationale": "Directly addresses the explicitly requested analysis topic; applies to supplied features rather than raw HTML.",
+      "human_grade": null,
+      "researcher_adoption": "not-recorded"
+    },
+    {
+      "query_id": "request-01",
+      "query": "{\"injection_point\": {\"input_path\": \"/vulnerabilities/sqli/\", \"method\": \"GET\", \"parameter\": \"id\", \"result_path\": \"/vulnerabilities/sqli/\"}, \"task\": \"Interpret supplied database diagnostic identifiers relative to their benign baseline, respecting validity gates and limits of candidate conclusions.\", \"technique\": \"error-based\"}",
+      "chunk_id": "analysis-v5-baseline-comparison",
+      "rendered_text_sha256": "8ae79ce083a2975ae42fdcd74ac1396b444382a7c3dc9b636875694f88c516c1",
+      "ai_grade": 3,
+      "rationale": "Directly addresses the explicitly requested analysis topic; applies to supplied features rather than raw HTML.",
+      "human_grade": null,
+      "researcher_adoption": "not-recorded"
+    },
+    {
+      "query_id": "request-01",
+      "query": "{\"injection_point\": {\"input_path\": \"/vulnerabilities/sqli/\", \"method\": \"GET\", \"parameter\": \"id\", \"result_path\": \"/vulnerabilities/sqli/\"}, \"task\": \"Interpret supplied database diagnostic identifiers relative to their benign baseline, respecting validity gates and limits of candidate conclusions.\", \"technique\": \"error-based\"}",
+      "chunk_id": "analysis-v5-conclusion-scope",
+      "rendered_text_sha256": "e894b60e8b12df647152ca938b3e933dd3bd4a613c5468f189283f65c979e837",
+      "ai_grade": 2,
+      "rationale": "Useful claim-scope guidance, but does not supply the omitted technique-specific comparison or confounder topic.",
+      "human_grade": null,
+      "researcher_adoption": "not-recorded"
+    },
+    {
+      "query_id": "request-02",
+      "query": "{\"injection_point\": {\"input_path\": \"/vulnerabilities/sqli_blind/\", \"method\": \"GET\", \"parameter\": \"id\", \"result_path\": \"/vulnerabilities/sqli_blind/\"}, \"task\": \"Interpret the direction of supplied true and false markers, marker stability and limits of candidate conclusions; raw HTML is unavailable.\", \"technique\": \"boolean-based blind\"}",
+      "chunk_id": "analysis-v5-boolean-direction",
+      "rendered_text_sha256": "fcf9abb563f5fce9a53fb32325cf86a5c9e3b748daf081946d2d68e8e946b8eb",
+      "ai_grade": 3,
+      "rationale": "Directly addresses the explicitly requested analysis topic; applies to supplied features rather than raw HTML.",
+      "human_grade": null,
+      "researcher_adoption": "not-recorded"
+    },
+    {
+      "query_id": "request-02",
+      "query": "{\"injection_point\": {\"input_path\": \"/vulnerabilities/sqli_blind/\", \"method\": \"GET\", \"parameter\": \"id\", \"result_path\": \"/vulnerabilities/sqli_blind/\"}, \"task\": \"Interpret the direction of supplied true and false markers, marker stability and limits of candidate conclusions; raw HTML is unavailable.\", \"technique\": \"boolean-based blind\"}",
+      "chunk_id": "analysis-v5-marker-stability",
+      "rendered_text_sha256": "1e21c40568f647cec16f49a42df603f405b4cdfa380440a69655ae0f9b983a27",
+      "ai_grade": 3,
+      "rationale": "Directly addresses the explicitly requested analysis topic; applies to supplied features rather than raw HTML. Template discussion is upstream background only; the model compares supplied markers.",
+      "human_grade": null,
+      "researcher_adoption": "not-recorded"
+    },
+    {
+      "query_id": "request-02",
+      "query": "{\"injection_point\": {\"input_path\": \"/vulnerabilities/sqli_blind/\", \"method\": \"GET\", \"parameter\": \"id\", \"result_path\": \"/vulnerabilities/sqli_blind/\"}, \"task\": \"Interpret the direction of supplied true and false markers, marker stability and limits of candidate conclusions; raw HTML is unavailable.\", \"technique\": \"boolean-based blind\"}",
+      "chunk_id": "analysis-v5-conclusion-scope",
+      "rendered_text_sha256": "e894b60e8b12df647152ca938b3e933dd3bd4a613c5468f189283f65c979e837",
+      "ai_grade": 2,
+      "rationale": "Useful claim-scope guidance, but does not supply the omitted technique-specific comparison or confounder topic.",
+      "human_grade": null,
+      "researcher_adoption": "not-recorded"
+    },
+    {
+      "query_id": "request-03",
+      "query": "{\"injection_point\": {\"input_path\": \"/vulnerabilities/sqli_blind/\", \"method\": \"GET\", \"parameter\": \"id\", \"result_path\": \"/vulnerabilities/sqli_blind/\"}, \"task\": \"Interpret matched candidate/no-delay timing pairs, supplied delta, validity and timing confounding limits without inventing unmeasured causes.\", \"technique\": \"time-based blind\"}",
+      "chunk_id": "analysis-v5-timing-control",
+      "rendered_text_sha256": "e5486a5a302bd06034456d154ea1f577d248842c78b66676aaa1c5d7665f61c6",
+      "ai_grade": 3,
+      "rationale": "Directly addresses the explicitly requested analysis topic; applies to supplied features rather than raw HTML.",
+      "human_grade": null,
+      "researcher_adoption": "not-recorded"
+    },
+    {
+      "query_id": "request-03",
+      "query": "{\"injection_point\": {\"input_path\": \"/vulnerabilities/sqli_blind/\", \"method\": \"GET\", \"parameter\": \"id\", \"result_path\": \"/vulnerabilities/sqli_blind/\"}, \"task\": \"Interpret matched candidate/no-delay timing pairs, supplied delta, validity and timing confounding limits without inventing unmeasured causes.\", \"technique\": \"time-based blind\"}",
+      "chunk_id": "analysis-v5-timing-confounders",
+      "rendered_text_sha256": "6c44c450243fcccc8e4204a61724349c4705c899fa9fab96e9753b1dd5d8841d",
+      "ai_grade": 3,
+      "rationale": "Directly addresses the explicitly requested analysis topic; applies to supplied features rather than raw HTML. A potential noise source is not an observed cause without independent telemetry.",
+      "human_grade": null,
+      "researcher_adoption": "not-recorded"
+    },
+    {
+      "query_id": "request-03",
+      "query": "{\"injection_point\": {\"input_path\": \"/vulnerabilities/sqli_blind/\", \"method\": \"GET\", \"parameter\": \"id\", \"result_path\": \"/vulnerabilities/sqli_blind/\"}, \"task\": \"Interpret matched candidate/no-delay timing pairs, supplied delta, validity and timing confounding limits without inventing unmeasured causes.\", \"technique\": \"time-based blind\"}",
+      "chunk_id": "analysis-v5-conclusion-scope",
+      "rendered_text_sha256": "e894b60e8b12df647152ca938b3e933dd3bd4a613c5468f189283f65c979e837",
+      "ai_grade": 2,
+      "rationale": "Useful claim-scope guidance, but does not supply the omitted technique-specific comparison or confounder topic.",
+      "human_grade": null,
+      "researcher_adoption": "not-recorded"
+    },
+    {
+      "query_id": "facet-01",
+      "query": "{\"task\": \"Does the response contain an explicit database diagnostic?\", \"technique\": \"error-based\"}",
+      "chunk_id": "analysis-v5-sql-diagnostics",
+      "rendered_text_sha256": "a0a42725bfdf98db25c03e4a51d19ac8c0d96d24ce8948d00f57f0d629341153",
+      "ai_grade": 3,
+      "rationale": "Directly addresses the explicitly requested analysis topic; applies to supplied features rather than raw HTML.",
+      "human_grade": null,
+      "researcher_adoption": "not-recorded"
+    },
+    {
+      "query_id": "facet-01",
+      "query": "{\"task\": \"Does the response contain an explicit database diagnostic?\", \"technique\": \"error-based\"}",
+      "chunk_id": "analysis-v5-baseline-comparison",
+      "rendered_text_sha256": "8ae79ce083a2975ae42fdcd74ac1396b444382a7c3dc9b636875694f88c516c1",
+      "ai_grade": 2,
+      "rationale": "Complementary technique guidance needed to interpret the requested comparison; less direct than the topic-specific chunk.",
+      "human_grade": null,
+      "researcher_adoption": "not-recorded"
+    },
+    {
+      "query_id": "facet-01",
+      "query": "{\"task\": \"Does the response contain an explicit database diagnostic?\", \"technique\": \"error-based\"}",
+      "chunk_id": "analysis-v5-conclusion-scope",
+      "rendered_text_sha256": "e894b60e8b12df647152ca938b3e933dd3bd4a613c5468f189283f65c979e837",
+      "ai_grade": 1,
+      "rationale": "Contextual limit on claims; not the specific comparator, direction, stability or timing issue asked by this query.",
+      "human_grade": null,
+      "researcher_adoption": "not-recorded"
+    },
+    {
+      "query_id": "facet-02",
+      "query": "{\"task\": \"Did the candidate introduce a diagnostic absent from the baseline?\", \"technique\": \"error-based\"}",
+      "chunk_id": "analysis-v5-sql-diagnostics",
+      "rendered_text_sha256": "a0a42725bfdf98db25c03e4a51d19ac8c0d96d24ce8948d00f57f0d629341153",
+      "ai_grade": 2,
+      "rationale": "Complementary technique guidance needed to interpret the requested comparison; less direct than the topic-specific chunk.",
+      "human_grade": null,
+      "researcher_adoption": "not-recorded"
+    },
+    {
+      "query_id": "facet-02",
+      "query": "{\"task\": \"Did the candidate introduce a diagnostic absent from the baseline?\", \"technique\": \"error-based\"}",
+      "chunk_id": "analysis-v5-baseline-comparison",
+      "rendered_text_sha256": "8ae79ce083a2975ae42fdcd74ac1396b444382a7c3dc9b636875694f88c516c1",
+      "ai_grade": 3,
+      "rationale": "Directly addresses the explicitly requested analysis topic; applies to supplied features rather than raw HTML.",
+      "human_grade": null,
+      "researcher_adoption": "not-recorded"
+    },
+    {
+      "query_id": "facet-02",
+      "query": "{\"task\": \"Did the candidate introduce a diagnostic absent from the baseline?\", \"technique\": \"error-based\"}",
+      "chunk_id": "analysis-v5-conclusion-scope",
+      "rendered_text_sha256": "e894b60e8b12df647152ca938b3e933dd3bd4a613c5468f189283f65c979e837",
+      "ai_grade": 1,
+      "rationale": "Contextual limit on claims; not the specific comparator, direction, stability or timing issue asked by this query.",
+      "human_grade": null,
+      "researcher_adoption": "not-recorded"
+    },
+    {
+      "query_id": "facet-03",
+      "query": "{\"task\": \"Are true and false responses assigned to the correct conditions?\", \"technique\": \"boolean-based blind\"}",
+      "chunk_id": "analysis-v5-boolean-direction",
+      "rendered_text_sha256": "fcf9abb563f5fce9a53fb32325cf86a5c9e3b748daf081946d2d68e8e946b8eb",
+      "ai_grade": 3,
+      "rationale": "Directly addresses the explicitly requested analysis topic; applies to supplied features rather than raw HTML.",
+      "human_grade": null,
+      "researcher_adoption": "not-recorded"
+    },
+    {
+      "query_id": "facet-03",
+      "query": "{\"task\": \"Are true and false responses assigned to the correct conditions?\", \"technique\": \"boolean-based blind\"}",
+      "chunk_id": "analysis-v5-marker-stability",
+      "rendered_text_sha256": "1e21c40568f647cec16f49a42df603f405b4cdfa380440a69655ae0f9b983a27",
+      "ai_grade": 1,
+      "rationale": "Repeatability is supporting context; it does not itself establish correct true/false orientation. Template discussion is upstream background only; the model compares supplied markers.",
+      "human_grade": null,
+      "researcher_adoption": "not-recorded"
+    },
+    {
+      "query_id": "facet-03",
+      "query": "{\"task\": \"Are true and false responses assigned to the correct conditions?\", \"technique\": \"boolean-based blind\"}",
+      "chunk_id": "analysis-v5-conclusion-scope",
+      "rendered_text_sha256": "e894b60e8b12df647152ca938b3e933dd3bd4a613c5468f189283f65c979e837",
+      "ai_grade": 1,
+      "rationale": "Contextual limit on claims; not the specific comparator, direction, stability or timing issue asked by this query.",
+      "human_grade": null,
+      "researcher_adoption": "not-recorded"
+    },
+    {
+      "query_id": "facet-04",
+      "query": "{\"task\": \"Does the selected feature distinguish conditions consistently?\", \"technique\": \"boolean-based blind\"}",
+      "chunk_id": "analysis-v5-boolean-direction",
+      "rendered_text_sha256": "fcf9abb563f5fce9a53fb32325cf86a5c9e3b748daf081946d2d68e8e946b8eb",
+      "ai_grade": 2,
+      "rationale": "Complementary technique guidance needed to interpret the requested comparison; less direct than the topic-specific chunk.",
+      "human_grade": null,
+      "researcher_adoption": "not-recorded"
+    },
+    {
+      "query_id": "facet-04",
+      "query": "{\"task\": \"Does the selected feature distinguish conditions consistently?\", \"technique\": \"boolean-based blind\"}",
+      "chunk_id": "analysis-v5-marker-stability",
+      "rendered_text_sha256": "1e21c40568f647cec16f49a42df603f405b4cdfa380440a69655ae0f9b983a27",
+      "ai_grade": 3,
+      "rationale": "Directly addresses the explicitly requested analysis topic; applies to supplied features rather than raw HTML. Template discussion is upstream background only; the model compares supplied markers.",
+      "human_grade": null,
+      "researcher_adoption": "not-recorded"
+    },
+    {
+      "query_id": "facet-04",
+      "query": "{\"task\": \"Does the selected feature distinguish conditions consistently?\", \"technique\": \"boolean-based blind\"}",
+      "chunk_id": "analysis-v5-conclusion-scope",
+      "rendered_text_sha256": "e894b60e8b12df647152ca938b3e933dd3bd4a613c5468f189283f65c979e837",
+      "ai_grade": 1,
+      "rationale": "Contextual limit on claims; not the specific comparator, direction, stability or timing issue asked by this query.",
+      "human_grade": null,
+      "researcher_adoption": "not-recorded"
+    },
+    {
+      "query_id": "facet-05",
+      "query": "{\"task\": \"Is the delayed candidate compared with its matching no-delay control?\", \"technique\": \"time-based blind\"}",
+      "chunk_id": "analysis-v5-timing-control",
+      "rendered_text_sha256": "e5486a5a302bd06034456d154ea1f577d248842c78b66676aaa1c5d7665f61c6",
+      "ai_grade": 3,
+      "rationale": "Directly addresses the explicitly requested analysis topic; applies to supplied features rather than raw HTML.",
+      "human_grade": null,
+      "researcher_adoption": "not-recorded"
+    },
+    {
+      "query_id": "facet-05",
+      "query": "{\"task\": \"Is the delayed candidate compared with its matching no-delay control?\", \"technique\": \"time-based blind\"}",
+      "chunk_id": "analysis-v5-timing-confounders",
+      "rendered_text_sha256": "6c44c450243fcccc8e4204a61724349c4705c899fa9fab96e9753b1dd5d8841d",
+      "ai_grade": 1,
+      "rationale": "Noise cautions are supporting context; they do not identify the matching no-delay comparator. A potential noise source is not an observed cause without independent telemetry.",
+      "human_grade": null,
+      "researcher_adoption": "not-recorded"
+    },
+    {
+      "query_id": "facet-05",
+      "query": "{\"task\": \"Is the delayed candidate compared with its matching no-delay control?\", \"technique\": \"time-based blind\"}",
+      "chunk_id": "analysis-v5-conclusion-scope",
+      "rendered_text_sha256": "e894b60e8b12df647152ca938b3e933dd3bd4a613c5468f189283f65c979e837",
+      "ai_grade": 1,
+      "rationale": "Contextual limit on claims; not the specific comparator, direction, stability or timing issue asked by this query.",
+      "human_grade": null,
+      "researcher_adoption": "not-recorded"
+    },
+    {
+      "query_id": "facet-06",
+      "query": "{\"task\": \"Could non-SQL timing variation explain the observed latency?\", \"technique\": \"time-based blind\"}",
+      "chunk_id": "analysis-v5-timing-control",
+      "rendered_text_sha256": "e5486a5a302bd06034456d154ea1f577d248842c78b66676aaa1c5d7665f61c6",
+      "ai_grade": 2,
+      "rationale": "Complementary technique guidance needed to interpret the requested comparison; less direct than the topic-specific chunk.",
+      "human_grade": null,
+      "researcher_adoption": "not-recorded"
+    },
+    {
+      "query_id": "facet-06",
+      "query": "{\"task\": \"Could non-SQL timing variation explain the observed latency?\", \"technique\": \"time-based blind\"}",
+      "chunk_id": "analysis-v5-timing-confounders",
+      "rendered_text_sha256": "6c44c450243fcccc8e4204a61724349c4705c899fa9fab96e9753b1dd5d8841d",
+      "ai_grade": 3,
+      "rationale": "Directly addresses the explicitly requested analysis topic; applies to supplied features rather than raw HTML. A potential noise source is not an observed cause without independent telemetry.",
+      "human_grade": null,
+      "researcher_adoption": "not-recorded"
+    },
+    {
+      "query_id": "facet-06",
+      "query": "{\"task\": \"Could non-SQL timing variation explain the observed latency?\", \"technique\": \"time-based blind\"}",
+      "chunk_id": "analysis-v5-conclusion-scope",
+      "rendered_text_sha256": "e894b60e8b12df647152ca938b3e933dd3bd4a613c5468f189283f65c979e837",
+      "ai_grade": 1,
+      "rationale": "Contextual limit on claims; not the specific comparator, direction, stability or timing issue asked by this query.",
+      "human_grade": null,
+      "researcher_adoption": "not-recorded"
+    },
+    {
+      "query_id": "facet-07",
+      "query": "{\"task\": \"What claim is justified by these observations?\", \"technique\": \"error-based\"}",
+      "chunk_id": "analysis-v5-sql-diagnostics",
+      "rendered_text_sha256": "a0a42725bfdf98db25c03e4a51d19ac8c0d96d24ce8948d00f57f0d629341153",
+      "ai_grade": 2,
+      "rationale": "Technique-specific conditions help bound a claim, while the dedicated scope chunk answers the general question directly.",
+      "human_grade": null,
+      "researcher_adoption": "not-recorded"
+    },
+    {
+      "query_id": "facet-07",
+      "query": "{\"task\": \"What claim is justified by these observations?\", \"technique\": \"error-based\"}",
+      "chunk_id": "analysis-v5-baseline-comparison",
+      "rendered_text_sha256": "8ae79ce083a2975ae42fdcd74ac1396b444382a7c3dc9b636875694f88c516c1",
+      "ai_grade": 2,
+      "rationale": "Technique-specific conditions help bound a claim, while the dedicated scope chunk answers the general question directly.",
+      "human_grade": null,
+      "researcher_adoption": "not-recorded"
+    },
+    {
+      "query_id": "facet-07",
+      "query": "{\"task\": \"What claim is justified by these observations?\", \"technique\": \"error-based\"}",
+      "chunk_id": "analysis-v5-conclusion-scope",
+      "rendered_text_sha256": "e894b60e8b12df647152ca938b3e933dd3bd4a613c5468f189283f65c979e837",
+      "ai_grade": 3,
+      "rationale": "Directly addresses the explicitly requested analysis topic; applies to supplied features rather than raw HTML.",
+      "human_grade": null,
+      "researcher_adoption": "not-recorded"
+    },
+    {
+      "query_id": "facet-08",
+      "query": "{\"task\": \"What claim is justified by these observations?\", \"technique\": \"boolean-based blind\"}",
+      "chunk_id": "analysis-v5-boolean-direction",
+      "rendered_text_sha256": "fcf9abb563f5fce9a53fb32325cf86a5c9e3b748daf081946d2d68e8e946b8eb",
+      "ai_grade": 2,
+      "rationale": "Technique-specific conditions help bound a claim, while the dedicated scope chunk answers the general question directly.",
+      "human_grade": null,
+      "researcher_adoption": "not-recorded"
+    },
+    {
+      "query_id": "facet-08",
+      "query": "{\"task\": \"What claim is justified by these observations?\", \"technique\": \"boolean-based blind\"}",
+      "chunk_id": "analysis-v5-marker-stability",
+      "rendered_text_sha256": "1e21c40568f647cec16f49a42df603f405b4cdfa380440a69655ae0f9b983a27",
+      "ai_grade": 2,
+      "rationale": "Technique-specific conditions help bound a claim, while the dedicated scope chunk answers the general question directly. Template discussion is upstream background only; the model compares supplied markers.",
+      "human_grade": null,
+      "researcher_adoption": "not-recorded"
+    },
+    {
+      "query_id": "facet-08",
+      "query": "{\"task\": \"What claim is justified by these observations?\", \"technique\": \"boolean-based blind\"}",
+      "chunk_id": "analysis-v5-conclusion-scope",
+      "rendered_text_sha256": "e894b60e8b12df647152ca938b3e933dd3bd4a613c5468f189283f65c979e837",
+      "ai_grade": 3,
+      "rationale": "Directly addresses the explicitly requested analysis topic; applies to supplied features rather than raw HTML.",
+      "human_grade": null,
+      "researcher_adoption": "not-recorded"
+    },
+    {
+      "query_id": "facet-09",
+      "query": "{\"task\": \"What claim is justified by these observations?\", \"technique\": \"time-based blind\"}",
+      "chunk_id": "analysis-v5-timing-control",
+      "rendered_text_sha256": "e5486a5a302bd06034456d154ea1f577d248842c78b66676aaa1c5d7665f61c6",
+      "ai_grade": 2,
+      "rationale": "Technique-specific conditions help bound a claim, while the dedicated scope chunk answers the general question directly.",
+      "human_grade": null,
+      "researcher_adoption": "not-recorded"
+    },
+    {
+      "query_id": "facet-09",
+      "query": "{\"task\": \"What claim is justified by these observations?\", \"technique\": \"time-based blind\"}",
+      "chunk_id": "analysis-v5-timing-confounders",
+      "rendered_text_sha256": "6c44c450243fcccc8e4204a61724349c4705c899fa9fab96e9753b1dd5d8841d",
+      "ai_grade": 2,
+      "rationale": "Technique-specific conditions help bound a claim, while the dedicated scope chunk answers the general question directly. A potential noise source is not an observed cause without independent telemetry.",
+      "human_grade": null,
+      "researcher_adoption": "not-recorded"
+    },
+    {
+      "query_id": "facet-09",
+      "query": "{\"task\": \"What claim is justified by these observations?\", \"technique\": \"time-based blind\"}",
+      "chunk_id": "analysis-v5-conclusion-scope",
+      "rendered_text_sha256": "e894b60e8b12df647152ca938b3e933dd3bd4a613c5468f189283f65c979e837",
+      "ai_grade": 3,
+      "rationale": "Directly addresses the explicitly requested analysis topic; applies to supplied features rather than raw HTML.",
+      "human_grade": null,
+      "researcher_adoption": "not-recorded"
+    }
+  ],
+  "observed_selection": [
+    {
+      "query_id": "request-01",
+      "purpose": "request-query",
+      "query": "{\"injection_point\": {\"input_path\": \"/vulnerabilities/sqli/\", \"method\": \"GET\", \"parameter\": \"id\", \"result_path\": \"/vulnerabilities/sqli/\"}, \"task\": \"Interpret supplied database diagnostic identifiers relative to their benign baseline, respecting validity gates and limits of candidate conclusions.\", \"technique\": \"error-based\"}",
+      "selected_chunk_ids": [
+        "analysis-v5-conclusion-scope",
+        "analysis-v5-sql-diagnostics"
+      ],
+      "required_topics": [
+        "sql-diagnostics-vs-application-errors",
+        "baseline-comparison"
+      ],
+      "missing_topics_at_2": [
+        "baseline-comparison"
+      ],
+      "required_topic_coverage_at_2": 0.5,
+      "all_required_topics_at_3": true,
+      "provisional_selected_grades": [
+        1,
+        3
+      ]
+    },
+    {
+      "query_id": "request-02",
+      "purpose": "request-query",
+      "query": "{\"injection_point\": {\"input_path\": \"/vulnerabilities/sqli_blind/\", \"method\": \"GET\", \"parameter\": \"id\", \"result_path\": \"/vulnerabilities/sqli_blind/\"}, \"task\": \"Interpret the direction of supplied true and false markers, marker stability and limits of candidate conclusions; raw HTML is unavailable.\", \"technique\": \"boolean-based blind\"}",
+      "selected_chunk_ids": [
+        "analysis-v5-conclusion-scope",
+        "analysis-v5-boolean-direction"
+      ],
+      "required_topics": [
+        "boolean-pair-direction",
+        "marker-stability"
+      ],
+      "missing_topics_at_2": [
+        "marker-stability"
+      ],
+      "required_topic_coverage_at_2": 0.5,
+      "all_required_topics_at_3": true,
+      "provisional_selected_grades": [
+        1,
+        3
+      ]
+    },
+    {
+      "query_id": "request-03",
+      "purpose": "request-query",
+      "query": "{\"injection_point\": {\"input_path\": \"/vulnerabilities/sqli_blind/\", \"method\": \"GET\", \"parameter\": \"id\", \"result_path\": \"/vulnerabilities/sqli_blind/\"}, \"task\": \"Interpret matched candidate/no-delay timing pairs, supplied delta, validity and timing confounding limits without inventing unmeasured causes.\", \"technique\": \"time-based blind\"}",
+      "selected_chunk_ids": [
+        "analysis-v5-conclusion-scope",
+        "analysis-v5-timing-control"
+      ],
+      "required_topics": [
+        "matched-timing-control",
+        "timing-confounders"
+      ],
+      "missing_topics_at_2": [
+        "timing-confounders"
+      ],
+      "required_topic_coverage_at_2": 0.5,
+      "all_required_topics_at_3": true,
+      "provisional_selected_grades": [
+        1,
+        3
+      ]
+    }
+  ],
+  "interpretation": [
+    "Selected conclusion-scope chunks are relevant complementary knowledge, not irrelevant retrieval.",
+    "Top-2 still omits one explicitly requested technique topic in each general query.",
+    "Top-3 covers both technique topics by including all eligible chunks; semantic selection within that pool no longer changes content membership.",
+    "These content judgments do not establish improved Qwen decisions or formal FPR/PSR."
+  ]
+}

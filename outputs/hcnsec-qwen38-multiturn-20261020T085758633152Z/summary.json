@@ -1,0 +1,574 @@
+{
+  "model": "Qwen3.8-27B",
+  "planned_turns": 9,
+  "requests_attempted": 9,
+  "responses_received": 9,
+  "turns_passed": 9,
+  "mean_elapsed_seconds_received": 11.566,
+  "median_elapsed_seconds_received": 10.063,
+  "tokens_reported": 3747,
+  "reported_models": [
+    "self-dploy/Qwen3.8-27B"
+  ],
+  "upstream_identity_independently_verified": false,
+  "stop_reason": null,
+  "results": [
+    {
+      "scenario": "order_updates",
+      "turn": 1,
+      "requested_model": "Qwen3.8-27B",
+      "attempted": true,
+      "passed": true,
+      "valid_json": true,
+      "reported_model": "self-dploy/Qwen3.8-27B",
+      "http_status": 200,
+      "content": "\n\n{\"pelanggan\":\"Rani\",\"barang\":\"buku\",\"jumlah\":3,\"kota\":null,\"status\":\"draf\"}",
+      "finish_reason": "stop",
+      "started_at_utc": "2026-10-20T08:57:58.718756+00:00",
+      "request_sha256": "7a1c7b7d381ab774787308e4380c57e67d31696626f2d8452abd9acab8e8f927",
+      "status": "response-received",
+      "usage": {
+        "prompt_tokens": 142,
+        "total_tokens": 295,
+        "completion_tokens": 153,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0,
+          "image_tokens": 0
+        },
+        "reasoning_tokens": 126,
+        "cost": 2.45e-05,
+        "cost_details": {
+          "upstream_inference_cost": 2.45e-05,
+          "upstream_inference_prompt_cost": 4.97e-06,
+          "upstream_inference_completions_cost": 1.953e-05,
+          "total_cost": 2.45e-05,
+          "input_cost": 4.97e-06,
+          "output_cost": 1.953e-05,
+          "cached_input_cost": 0,
+          "cache_write_input_cost": 0,
+          "request_cost": 0,
+          "web_search_cost": 0,
+          "image_input_cost": null,
+          "image_output_cost": null,
+          "audio_input_cost": null,
+          "data_storage_cost": 4.21e-06
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 126,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "response_id": "1817d22c715d4837ba11fd412e390a7f",
+      "parsed": {
+        "pelanggan": "Rani",
+        "barang": "buku",
+        "jumlah": 3,
+        "kota": null,
+        "status": "draf"
+      },
+      "answer_correct": true,
+      "verdict": "pass",
+      "elapsed_seconds": 15.598,
+      "finished_at_utc": "2026-10-20T08:58:14.317905+00:00"
+    },
+    {
+      "scenario": "order_updates",
+      "turn": 2,
+      "requested_model": "Qwen3.8-27B",
+      "attempted": true,
+      "passed": true,
+      "valid_json": true,
+      "reported_model": "self-dploy/Qwen3.8-27B",
+      "http_status": 200,
+      "content": "\n\n{\"pelanggan\":\"Rani\",\"barang\":\"buku\",\"jumlah\":5,\"kota\":\"Bandung\",\"status\":\"dikonfirmasi\"}",
+      "finish_reason": "stop",
+      "started_at_utc": "2026-10-20T08:58:14.319251+00:00",
+      "request_sha256": "3ebfe9c35e64af425d87f51f1a3e0c618b4c65e5333102926f2b83380305163f",
+      "status": "response-received",
+      "usage": {
+        "prompt_tokens": 209,
+        "total_tokens": 345,
+        "completion_tokens": 136,
+        "prompt_tokens_details": {
+          "cached_tokens": 128,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0,
+          "image_tokens": 0
+        },
+        "reasoning_tokens": 107,
+        "cost": 1.99346e-05,
+        "cost_details": {
+          "upstream_inference_cost": 1.99346e-05,
+          "upstream_inference_prompt_cost": 2.9246e-06,
+          "upstream_inference_completions_cost": 1.701e-05,
+          "total_cost": 1.99346e-05,
+          "input_cost": 2.835e-06,
+          "output_cost": 1.701e-05,
+          "cached_input_cost": 8.96e-08,
+          "cache_write_input_cost": 0,
+          "request_cost": 0,
+          "web_search_cost": 0,
+          "image_input_cost": null,
+          "image_output_cost": null,
+          "audio_input_cost": null,
+          "data_storage_cost": 4.52e-06
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 107,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "response_id": "94568797511e4ae8b840f565710b6e8d",
+      "parsed": {
+        "pelanggan": "Rani",
+        "barang": "buku",
+        "jumlah": 5,
+        "kota": "Bandung",
+        "status": "dikonfirmasi"
+      },
+      "answer_correct": true,
+      "verdict": "pass",
+      "elapsed_seconds": 7.876,
+      "finished_at_utc": "2026-10-20T08:58:22.195439+00:00"
+    },
+    {
+      "scenario": "order_updates",
+      "turn": 3,
+      "requested_model": "Qwen3.8-27B",
+      "attempted": true,
+      "passed": true,
+      "valid_json": true,
+      "reported_model": "self-dploy/Qwen3.8-27B",
+      "http_status": 200,
+      "content": "\n\n{\"pelanggan\":\"Rani\",\"barang\":\"buku\",\"jumlah\":3,\"kota\":\"Bandung\",\"status\":\"dikonfirmasi\"}",
+      "finish_reason": "stop",
+      "started_at_utc": "2026-10-20T08:58:22.197701+00:00",
+      "request_sha256": "f331f439113a49b38e649ae6906406362602928d32548846011b350f68f3b80a",
+      "status": "response-received",
+      "usage": {
+        "prompt_tokens": 273,
+        "total_tokens": 371,
+        "completion_tokens": 98,
+        "prompt_tokens_details": {
+          "cached_tokens": 192,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0,
+          "image_tokens": 0
+        },
+        "reasoning_tokens": 69,
+        "cost": 1.46594e-05,
+        "cost_details": {
+          "upstream_inference_cost": 1.46594e-05,
+          "upstream_inference_prompt_cost": 2.9694e-06,
+          "upstream_inference_completions_cost": 1.169e-05,
+          "total_cost": 1.46594e-05,
+          "input_cost": 2.835e-06,
+          "output_cost": 1.169e-05,
+          "cached_input_cost": 1.344e-07,
+          "cache_write_input_cost": 0,
+          "request_cost": 0,
+          "web_search_cost": 0,
+          "image_input_cost": null,
+          "image_output_cost": null,
+          "audio_input_cost": null,
+          "data_storage_cost": 4.4e-06
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 69,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "response_id": "bff4c9ba7ba749e78eee239ba627196c",
+      "parsed": {
+        "pelanggan": "Rani",
+        "barang": "buku",
+        "jumlah": 3,
+        "kota": "Bandung",
+        "status": "dikonfirmasi"
+      },
+      "answer_correct": true,
+      "verdict": "pass",
+      "elapsed_seconds": 7.393,
+      "finished_at_utc": "2026-10-20T08:58:29.591567+00:00"
+    },
+    {
+      "scenario": "facts_and_quoted_text",
+      "turn": 1,
+      "requested_model": "Qwen3.8-27B",
+      "attempted": true,
+      "passed": true,
+      "valid_json": true,
+      "reported_model": "self-dploy/Qwen3.8-27B",
+      "http_status": 200,
+      "content": "\n\n{\"nama_proyek\":\"Aurora\",\"pic\":\"Nisa\",\"tenggat\":null}",
+      "finish_reason": "stop",
+      "started_at_utc": "2026-10-20T08:58:29.593860+00:00",
+      "request_sha256": "32c5febb1633981126f357d0413e68f01ff5515cc62968c688e7ce0a0c4a0e15",
+      "status": "response-received",
+      "usage": {
+        "prompt_tokens": 127,
+        "total_tokens": 241,
+        "completion_tokens": 114,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0,
+          "image_tokens": 0
+        },
+        "reasoning_tokens": 92,
+        "cost": 1.8865e-05,
+        "cost_details": {
+          "upstream_inference_cost": 1.8865e-05,
+          "upstream_inference_prompt_cost": 4.445e-06,
+          "upstream_inference_completions_cost": 1.442e-05,
+          "total_cost": 1.8865e-05,
+          "input_cost": 4.445e-06,
+          "output_cost": 1.442e-05,
+          "cached_input_cost": 0,
+          "cache_write_input_cost": 0,
+          "request_cost": 0,
+          "web_search_cost": 0,
+          "image_input_cost": null,
+          "image_output_cost": null,
+          "audio_input_cost": null,
+          "data_storage_cost": 3.3300000000000003e-06
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 92,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "response_id": "a512280ca3fd4fd4a47602e3f05d8b93",
+      "parsed": {
+        "nama_proyek": "Aurora",
+        "pic": "Nisa",
+        "tenggat": null
+      },
+      "answer_correct": true,
+      "verdict": "pass",
+      "elapsed_seconds": 8.46,
+      "finished_at_utc": "2026-10-20T08:58:38.054929+00:00"
+    },
+    {
+      "scenario": "facts_and_quoted_text",
+      "turn": 2,
+      "requested_model": "Qwen3.8-27B",
+      "attempted": true,
+      "passed": true,
+      "valid_json": true,
+      "reported_model": "self-dploy/Qwen3.8-27B",
+      "http_status": 200,
+      "content": "\n\n{\"nama_proyek\":\"Aurora\",\"pic\":\"Damar\",\"tenggat\":null}",
+      "finish_reason": "stop",
+      "started_at_utc": "2026-10-20T08:58:38.056992+00:00",
+      "request_sha256": "82c1522c8e732f8522547e86a885eec9838a579eb8cf5fba8c83ce7c51717ffc",
+      "status": "response-received",
+      "usage": {
+        "prompt_tokens": 228,
+        "total_tokens": 397,
+        "completion_tokens": 169,
+        "prompt_tokens_details": {
+          "cached_tokens": 64,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0,
+          "image_tokens": 0
+        },
+        "reasoning_tokens": 147,
+        "cost": 2.79048e-05,
+        "cost_details": {
+          "upstream_inference_cost": 2.79048e-05,
+          "upstream_inference_prompt_cost": 5.7848e-06,
+          "upstream_inference_completions_cost": 2.212e-05,
+          "total_cost": 2.79048e-05,
+          "input_cost": 5.74e-06,
+          "output_cost": 2.212e-05,
+          "cached_input_cost": 4.48e-08,
+          "cache_write_input_cost": 0,
+          "request_cost": 0,
+          "web_search_cost": 0,
+          "image_input_cost": null,
+          "image_output_cost": null,
+          "audio_input_cost": null,
+          "data_storage_cost": 5.4400000000000004e-06
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 147,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "response_id": "3e47bed6b2634b99938fa0024073c82c",
+      "parsed": {
+        "nama_proyek": "Aurora",
+        "pic": "Damar",
+        "tenggat": null
+      },
+      "answer_correct": true,
+      "verdict": "pass",
+      "elapsed_seconds": 10.063,
+      "finished_at_utc": "2026-10-20T08:58:48.120898+00:00"
+    },
+    {
+      "scenario": "facts_and_quoted_text",
+      "turn": 3,
+      "requested_model": "Qwen3.8-27B",
+      "attempted": true,
+      "passed": true,
+      "valid_json": true,
+      "reported_model": "self-dploy/Qwen3.8-27B",
+      "http_status": 200,
+      "content": "\n\n{\"pic_sekarang\":\"Damar\",\"pic_sebelumnya\":\"Nisa\",\"tenggat\":null}",
+      "finish_reason": "stop",
+      "started_at_utc": "2026-10-20T08:58:48.122937+00:00",
+      "request_sha256": "2d6ac797ad3f4dbeea1f98ec33b29dabc622a2e2392af93a9be4413a21a78cab",
+      "status": "response-received",
+      "usage": {
+        "prompt_tokens": 307,
+        "total_tokens": 437,
+        "completion_tokens": 130,
+        "prompt_tokens_details": {
+          "cached_tokens": 192,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0,
+          "image_tokens": 0
+        },
+        "reasoning_tokens": 105,
+        "cost": 2.06094e-05,
+        "cost_details": {
+          "upstream_inference_cost": 2.06094e-05,
+          "upstream_inference_prompt_cost": 4.1593999999999995e-06,
+          "upstream_inference_completions_cost": 1.645e-05,
+          "total_cost": 2.06094e-05,
+          "input_cost": 4.025e-06,
+          "output_cost": 1.645e-05,
+          "cached_input_cost": 1.344e-07,
+          "cache_write_input_cost": 0,
+          "request_cost": 0,
+          "web_search_cost": 0,
+          "image_input_cost": null,
+          "image_output_cost": null,
+          "audio_input_cost": null,
+          "data_storage_cost": 5.42e-06
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 105,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "response_id": "00a56ee1db214b298cf4021b0f5b3179",
+      "parsed": {
+        "pic_sekarang": "Damar",
+        "pic_sebelumnya": "Nisa",
+        "tenggat": null
+      },
+      "answer_correct": true,
+      "verdict": "pass",
+      "elapsed_seconds": 6.416,
+      "finished_at_utc": "2026-10-20T08:58:54.539534+00:00"
+    },
+    {
+      "scenario": "shopping_revision",
+      "turn": 1,
+      "requested_model": "Qwen3.8-27B",
+      "attempted": true,
+      "passed": true,
+      "valid_json": true,
+      "reported_model": "self-dploy/Qwen3.8-27B",
+      "http_status": 200,
+      "content": "\n\n{\"produk_tersedia\":[\"Aster\",\"Bima\",\"Citra\"],\"total_belanja\":0}",
+      "finish_reason": "stop",
+      "started_at_utc": "2026-10-20T08:58:54.541253+00:00",
+      "request_sha256": "7daf3451edb28f6cb4f4afac3c73958af79e5d2ea29eed1a01220ebd6a2e3a2b",
+      "status": "response-received",
+      "usage": {
+        "prompt_tokens": 168,
+        "total_tokens": 373,
+        "completion_tokens": 205,
+        "prompt_tokens_details": {
+          "cached_tokens": 64,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0,
+          "image_tokens": 0
+        },
+        "reasoning_tokens": 181,
+        "cost": 3.07048e-05,
+        "cost_details": {
+          "upstream_inference_cost": 3.07048e-05,
+          "upstream_inference_prompt_cost": 3.6848e-06,
+          "upstream_inference_completions_cost": 2.702e-05,
+          "total_cost": 3.07048e-05,
+          "input_cost": 3.64e-06,
+          "output_cost": 2.702e-05,
+          "cached_input_cost": 4.48e-08,
+          "cache_write_input_cost": 0,
+          "request_cost": 0,
+          "web_search_cost": 0,
+          "image_input_cost": null,
+          "image_output_cost": null,
+          "audio_input_cost": null,
+          "data_storage_cost": 5.54e-06
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 181,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "response_id": "510a10617f204e21a2e73d4e618b0dc9",
+      "parsed": {
+        "produk_tersedia": [
+          "Aster",
+          "Bima",
+          "Citra"
+        ],
+        "total_belanja": 0
+      },
+      "answer_correct": true,
+      "verdict": "pass",
+      "elapsed_seconds": 10.386,
+      "finished_at_utc": "2026-10-20T08:59:04.928483+00:00"
+    },
+    {
+      "scenario": "shopping_revision",
+      "turn": 2,
+      "requested_model": "Qwen3.8-27B",
+      "attempted": true,
+      "passed": true,
+      "valid_json": true,
+      "reported_model": "self-dploy/Qwen3.8-27B",
+      "http_status": 200,
+      "content": "\n\n{\"total_belanja\":30000,\"sisa_anggaran\":10000,\"stok_sisa\":{\"Aster\":1,\"Bima\":0,\"Citra\":2}}",
+      "finish_reason": "stop",
+      "started_at_utc": "2026-10-20T08:59:04.930101+00:00",
+      "request_sha256": "18af6d95c37791ec45762f171c7d409dbc20075249932eb9a081496b6fac9b98",
+      "status": "response-received",
+      "usage": {
+        "prompt_tokens": 276,
+        "total_tokens": 503,
+        "completion_tokens": 227,
+        "prompt_tokens_details": {
+          "cached_tokens": 128,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0,
+          "image_tokens": 0
+        },
+        "reasoning_tokens": 182,
+        "cost": 3.38996e-05,
+        "cost_details": {
+          "upstream_inference_cost": 3.3899599999999996e-05,
+          "upstream_inference_prompt_cost": 5.2696e-06,
+          "upstream_inference_completions_cost": 2.863e-05,
+          "total_cost": 3.38996e-05,
+          "input_cost": 5.18e-06,
+          "output_cost": 2.863e-05,
+          "cached_input_cost": 8.96e-08,
+          "cache_write_input_cost": 0,
+          "request_cost": 0,
+          "web_search_cost": 0,
+          "image_input_cost": null,
+          "image_output_cost": null,
+          "audio_input_cost": null,
+          "data_storage_cost": 6.85e-06
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 182,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "response_id": "6dd7cf4e02064595aeb4057c21714d37",
+      "parsed": {
+        "total_belanja": 30000,
+        "sisa_anggaran": 10000,
+        "stok_sisa": {
+          "Aster": 1,
+          "Bima": 0,
+          "Citra": 2
+        }
+      },
+      "answer_correct": true,
+      "verdict": "pass",
+      "elapsed_seconds": 15.856,
+      "finished_at_utc": "2026-10-20T08:59:20.786265+00:00"
+    },
+    {
+      "scenario": "shopping_revision",
+      "turn": 3,
+      "requested_model": "Qwen3.8-27B",
+      "attempted": true,
+      "passed": true,
+      "valid_json": true,
+      "reported_model": "self-dploy/Qwen3.8-27B",
+      "http_status": 200,
+      "content": "\n\n{\"total_belanja\":27000,\"sisa_anggaran\":13000,\"stok_sisa\":{\"Aster\":1,\"Bima\":1,\"Citra\":1}}",
+      "finish_reason": "stop",
+      "started_at_utc": "2026-10-20T08:59:20.788338+00:00",
+      "request_sha256": "9f325423f5a379e3ac4bf18b2f8d5f60f50ce234bcc49bd604e2146e9568b51b",
+      "status": "response-received",
+      "usage": {
+        "prompt_tokens": 384,
+        "total_tokens": 785,
+        "completion_tokens": 401,
+        "prompt_tokens_details": {
+          "cached_tokens": 256,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0,
+          "image_tokens": 0
+        },
+        "reasoning_tokens": 356,
+        "cost": 5.76492e-05,
+        "cost_details": {
+          "upstream_inference_cost": 5.76492e-05,
+          "upstream_inference_prompt_cost": 4.6592e-06,
+          "upstream_inference_completions_cost": 5.299e-05,
+          "total_cost": 5.76492e-05,
+          "input_cost": 4.48e-06,
+          "output_cost": 5.299e-05,
+          "cached_input_cost": 1.792e-07,
+          "cache_write_input_cost": 0,
+          "request_cost": 0,
+          "web_search_cost": 0,
+          "image_input_cost": null,
+          "image_output_cost": null,
+          "audio_input_cost": null,
+          "data_storage_cost": 1.1410000000000001e-05
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 356,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "response_id": "18b2866842cb4e7e86c3febd8573d7b0",
+      "parsed": {
+        "total_belanja": 27000,
+        "sisa_anggaran": 13000,
+        "stok_sisa": {
+          "Aster": 1,
+          "Bima": 1,
+          "Citra": 1
+        }
+      },
+      "answer_correct": true,
+      "verdict": "pass",
+      "elapsed_seconds": 22.048,
+      "finished_at_utc": "2026-10-20T08:59:42.837595+00:00"
+    }
+  ]
+}

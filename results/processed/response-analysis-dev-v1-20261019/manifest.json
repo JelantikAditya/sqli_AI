@@ -1,0 +1,36 @@
+{
+  "scope": "synthetic-development-pilot-not-formal-not-independent-holdout",
+  "experiment_id": "response-analysis-dev-v1-20261019",
+  "created_at_utc": "2026-10-19T12:48:43.798015+00:00",
+  "profiles": [
+    "frozen-v8",
+    "measured-pairs-v1"
+  ],
+  "model": "qwen2.5:7b",
+  "seed": 42,
+  "options": {
+    "temperature": 0,
+    "num_ctx": 4096,
+    "num_predict": 768
+  },
+  "case_count": 10,
+  "planned_model_calls": 18,
+  "no_automatic_retry": true,
+  "analysis_retrieval": "disabled-for-both-profiles",
+  "dvwa_requests": 0,
+  "protected_source_count": 959,
+  "source_sha256": {
+    "development/response_analysis_pilot.py": "01e486116069ee8b2452b941dd7cbbdbf927066daf29e9bf1e04c75ad9730e8d",
+    "development/analyze_response_v1.py": "269578d51ac20907f6baef62231791bf341b0d0b11112fd9a876e3cf832e7987",
+    "dvwa/analyze_response.py": "ffba71043245baf3db73a09d9236bf4e2f3edb7e38737a250ec799e9c720a500",
+    "dvwa/langchain_runtime.py": "fe9d75add0de59d063d40bff8ed1218a64a35f1461b2073869c3a4ed5f96696d",
+    "schemas/qwen-analysis-input.schema.json": "3fc86ed45dd68d305ec717847a993235ae987d3a114ee5323535a3dd5bfb839b",
+    "schemas/qwen-analysis-output.schema.json": "99ebd9603827278357a5a011306f772ef7ceed376b197f13bb6d806ffdda5b7e",
+    "schemas/analysis-ledger.schema.json": "d2f146b625f0a3e71075cdcc5fc2fb9682f8167011cbcb108610825e62b3b5ab"
+  },
+  "artifact_sha256": {
+    "evaluation.private.json": "9c4bf882518619c3103e88caf393048b98748f4b62596154784da945b5ac9943",
+    "inputs.json": "0dc2cb1bfd91fa024cce1ed7bd891fb7a9691bf34ec3c9b33038aee4a10d64bc",
+    "prepared-requests.json": "02f37a1a022e336fc191edb0423f13e087cc93c4b91c1ddd59ae34b92aa9f0c8"
+  }
+}

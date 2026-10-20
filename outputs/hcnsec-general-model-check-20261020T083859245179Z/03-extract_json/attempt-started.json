@@ -1,0 +1,10 @@
+{
+  "sequence": 3,
+  "task_id": "extract_json",
+  "requested_model": "MiMo-V2.6-Flash",
+  "started_at_utc": "2026-10-20T08:41:12.393324+00:00",
+  "http_status": null,
+  "reported_model": null,
+  "valid_json": false,
+  "passed": false
+}

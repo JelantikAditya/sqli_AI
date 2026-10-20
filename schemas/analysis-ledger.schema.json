@@ -40,7 +40,7 @@
         "confirmed_success": {"type": ["boolean", "null"]},
         "claim_supported": {"type": ["boolean", "null"]},
         "unknown_evidence_refs": {"type": "array", "items": {"type": "string"}},
-        "analysis_warnings": {"type": "array", "uniqueItems": true, "items": {"enum": ["decision_reason_code_mismatch"]}},
+        "analysis_warnings": {"type": "array", "uniqueItems": true, "items": {"enum": ["decision_reason_code_mismatch", "model_claim_evidence_mismatch", "duplicate_evidence_refs_removed", "trial_assessment_missing", "trial_assessment_evidence_mismatch", "trial_assessment_evidence_refs_incomplete", "evidence_refs_incomplete", "model_claim_trial_assessment_mismatch"]}},
         "human_validation": {"const": "pending"},
         "audit": {
           "type": "object", "additionalProperties": false,

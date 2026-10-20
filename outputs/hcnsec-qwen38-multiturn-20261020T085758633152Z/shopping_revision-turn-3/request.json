@@ -1,0 +1,32 @@
+{
+  "model": "Qwen3.8-27B",
+  "messages": [
+    {
+      "role": "system",
+      "content": "Ikuti instruksi pengguna. Jawab hanya satu objek JSON valid tanpa Markdown atau teks tambahan. Gunakan informasi percakapan ini; jangan mengarang informasi yang belum diberikan."
+    },
+    {
+      "role": "user",
+      "content": "Daftar produk sintetis: Aster harga 12000 rupiah stok 2; Bima harga 18000 rupiah stok 1; Citra harga 15000 rupiah stok 2. Belum ada belanja. Ingat daftar ini. Balas JSON dengan tepat kunci produk_tersedia (array nama produk berurutan alfabet) dan total_belanja (integer)."
+    },
+    {
+      "role": "assistant",
+      "content": "\n\n{\"produk_tersedia\":[\"Aster\",\"Bima\",\"Citra\"],\"total_belanja\":0}"
+    },
+    {
+      "role": "user",
+      "content": "Pesan 1 Aster dan 1 Bima. Anggaran awal 40000 rupiah. Hitung total belanja, sisa anggaran, dan stok setelah pesanan dipenuhi. Balas JSON dengan tepat kunci total_belanja (integer), sisa_anggaran (integer), stok_sisa (objek dengan tepat kunci Aster, Bima, Citra bernilai integer)."
+    },
+    {
+      "role": "assistant",
+      "content": "\n\n{\"total_belanja\":30000,\"sisa_anggaran\":10000,\"stok_sisa\":{\"Aster\":1,\"Bima\":0,\"Citra\":2}}"
+    },
+    {
+      "role": "user",
+      "content": "Ubah pesanan tadi: hapus Bima dan tambahkan 1 Citra. Ini revisi pesanan yang sama, bukan transaksi baru. Anggaran awal tetap sama. Hitung ulang total, sisa anggaran, dan stok berdasarkan pesanan final. Gunakan format jawaban terakhir."
+    }
+  ],
+  "temperature": 0,
+  "max_tokens": 1024,
+  "stream": false
+}
