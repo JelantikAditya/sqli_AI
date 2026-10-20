@@ -1,0 +1,64 @@
+{
+  "scenario": "shopping_revision",
+  "turn": 3,
+  "requested_model": "Qwen3.8-27B",
+  "attempted": true,
+  "passed": true,
+  "valid_json": true,
+  "reported_model": "self-dploy/Qwen3.8-27B",
+  "http_status": 200,
+  "content": "\n\n{\"total_belanja\":27000,\"sisa_anggaran\":13000,\"stok_sisa\":{\"Aster\":1,\"Bima\":1,\"Citra\":1}}",
+  "finish_reason": "stop",
+  "started_at_utc": "2026-10-20T08:59:20.788338+00:00",
+  "request_sha256": "9f325423f5a379e3ac4bf18b2f8d5f60f50ce234bcc49bd604e2146e9568b51b",
+  "status": "response-received",
+  "usage": {
+    "prompt_tokens": 384,
+    "total_tokens": 785,
+    "completion_tokens": 401,
+    "prompt_tokens_details": {
+      "cached_tokens": 256,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0,
+      "image_tokens": 0
+    },
+    "reasoning_tokens": 356,
+    "cost": 5.76492e-05,
+    "cost_details": {
+      "upstream_inference_cost": 5.76492e-05,
+      "upstream_inference_prompt_cost": 4.6592e-06,
+      "upstream_inference_completions_cost": 5.299e-05,
+      "total_cost": 5.76492e-05,
+      "input_cost": 4.48e-06,
+      "output_cost": 5.299e-05,
+      "cached_input_cost": 1.792e-07,
+      "cache_write_input_cost": 0,
+      "request_cost": 0,
+      "web_search_cost": 0,
+      "image_input_cost": null,
+      "image_output_cost": null,
+      "audio_input_cost": null,
+      "data_storage_cost": 1.1410000000000001e-05
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 356,
+      "image_tokens": 0,
+      "audio_tokens": 0
+    }
+  },
+  "response_id": "18b2866842cb4e7e86c3febd8573d7b0",
+  "parsed": {
+    "total_belanja": 27000,
+    "sisa_anggaran": 13000,
+    "stok_sisa": {
+      "Aster": 1,
+      "Bima": 1,
+      "Citra": 1
+    }
+  },
+  "answer_correct": true,
+  "verdict": "pass",
+  "elapsed_seconds": 22.048,
+  "finished_at_utc": "2026-10-20T08:59:42.837595+00:00"
+}

@@ -1,0 +1,59 @@
+{
+  "profile_id": "analysis-v5-rev2-development-pilot-candidate-20261020",
+  "status": "concrete-development-profile-not-formal-release",
+  "scope": "SQLi response-feature interpretation; no payload generation or PSR experiment",
+  "corpus_path": "knowledge/analysis-v5/corpus.rev2.json",
+  "corpus_sha256": "5dc324317ae77da379bf60f9b9059a610ca95fbd8b009ffb5c4ab0a0cddb3437",
+  "source_lock_sha256": "966ce725d0c4fcd9914a174a5b3867eb2d941483051c5b991d8364bcf2a44efd",
+  "model": "qwen2.5:7b",
+  "model_digest": "845dbda0ea48ed749caafd9e6037047aa19acfcfd82e704d7ca97d631a0b697e",
+  "options": {
+    "temperature": 0,
+    "seed": 42,
+    "num_ctx": 4096,
+    "num_predict": 768
+  },
+  "stop_override_from_preflight_in_pilot": false,
+  "profiles": {
+    "A": {
+      "reference_context": "empty",
+      "role": "reference-free comparison"
+    },
+    "B2": {
+      "top_k": 2,
+      "role": "ranked semantic retrieval comparison retained for diagnosis"
+    },
+    "B3": {
+      "top_k": 3,
+      "role": "preferred complete eligible technique-context candidate"
+    }
+  },
+  "preferred_development_profile": "A versus B3; retain B2 as secondary development comparison",
+  "basis": [
+    "post-ranking AI content review identifies missing technical topic under top-2",
+    "predeclared top-3 covers both technique topics",
+    "9 runtime context probes match offline counts with full 768-token output reserve"
+  ],
+  "method_limit": "B3 includes all three eligible chunks; compare knowledge context, without claiming semantic ranking caused a model improvement.",
+  "common_contract": "same system prompt, schema, measurements and options across profiles; only reference_context differs",
+  "model_outputs": "raw claim retained; deterministic verification remains separately reported",
+  "evaluation_data_policy": {
+    "renderer_fixtures": "wiring/preflight only, excluded from model-performance denominators",
+    "previous_v1_v4_cases": "development history, not new holdout",
+    "next_cases": "new prespecified response evidence, with evaluator labels outside model input and retrieval",
+    "holdout_independence": "not established merely by changing numbers or hashes"
+  },
+  "planned_model_evaluation_executed": false,
+  "pilot_execution_started": false,
+  "researcher_review": "pending",
+  "researcher_adoption": "not-recorded",
+  "context_evidence_path": "results\\processed\\analysis-v5-context-preflight-20261020\\runtime-context-summary.json",
+  "context_evidence_sha256": "a375cb33984f6ae00623bfe826d44788ee4677567752b1f7cf79376a555a953c",
+  "relevance_review_sha256": "18af8073de8395ed239b4a82b2008970d66bf8240073cb56531f6e51eaeccd0d",
+  "required_next_checks": [
+    "freeze new evaluation cases and schedule before first performance call",
+    "check full output completion, not just input fit, on the future pilot",
+    "record analysis error, false positive/negative, abstention, coverage and runtime separately"
+  ],
+  "formal_data_or_protocol_modified": false
+}

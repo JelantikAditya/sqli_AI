@@ -1,0 +1,10 @@
+{
+  "sequence": 4,
+  "task_id": "arithmetic",
+  "requested_model": "glm-5.3-flash",
+  "started_at_utc": "2026-10-20T08:41:16.812587+00:00",
+  "http_status": null,
+  "reported_model": null,
+  "valid_json": false,
+  "passed": false
+}

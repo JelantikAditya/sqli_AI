@@ -1,0 +1,442 @@
+{
+  "scope": "synthetic-development-only",
+  "formal_FPR_PSR": false,
+  "audited_at_utc": "2026-10-20T09:56:14.870914+00:00",
+  "model_calls_during_audit": 0,
+  "dvwa_requests_during_audit": 0,
+  "eligible_attempts_replayed": 36,
+  "invalid_inputs_skipped": 6,
+  "plan_sha256": "0744285c52cb0d10947e621806214254bd04c2b161a700879ad32e8a1f61d972",
+  "previous_plan_sha256": "6e6bceab8809a94c0bb820bdef8061123c3be48e2df8d45ee17f38e53cd7c27c",
+  "api_status": {
+    "http-error": 1,
+    "ok": 27,
+    "truncated": 6,
+    "transport-error": 2
+  },
+  "analysis_status": {
+    "analysis_error": 9,
+    "ok": 27
+  },
+  "finish_reasons": {
+    "None": 3,
+    "stop": 27,
+    "length": 6
+  },
+  "reported_models": {
+    "None": 3,
+    "self-dploy/Qwen3.8-27B": 33
+  },
+  "usage_sum": {
+    "prompt_tokens": 43246,
+    "completion_tokens": 37865,
+    "reasoning_tokens": 27664
+  },
+  "elapsed_seconds_sum": 1584.397,
+  "score": {
+    "scope": "synthetic-development-only",
+    "formal_FPR_PSR": false,
+    "prior_attempts_max_tokens": 1024,
+    "new_attempts_max_tokens": 2048,
+    "comparable_single_output_budget": false,
+    "counts": {
+      "attempted": 36,
+      "correct": 26,
+      "analysis_error": 9,
+      "negative_false_positive": 1,
+      "trial_reference_total": 102,
+      "trial_correct": 72
+    },
+    "by_technique": {
+      "error-based": {
+        "attempted": 12,
+        "correct": 6
+      },
+      "boolean-based blind": {
+        "attempted": 12,
+        "correct": 9
+      },
+      "time-based blind": {
+        "attempted": 12,
+        "correct": 11
+      }
+    },
+    "by_output_budget": {
+      "1024": {
+        "attempted": 9,
+        "correct": 3,
+        "analysis_error": 6
+      },
+      "2048": {
+        "attempted": 27,
+        "correct": 23,
+        "analysis_error": 3
+      }
+    },
+    "rows": [
+      {
+        "case_id": "pilot-001",
+        "technique": "error-based",
+        "expected": "positive",
+        "actual": "analysis_error",
+        "error": "api-http-error",
+        "warnings": []
+      },
+      {
+        "case_id": "pilot-013",
+        "technique": "boolean-based blind",
+        "expected": "positive",
+        "actual": "positive",
+        "error": null,
+        "warnings": []
+      },
+      {
+        "case_id": "pilot-025",
+        "technique": "time-based blind",
+        "expected": "positive",
+        "actual": "positive",
+        "error": null,
+        "warnings": []
+      },
+      {
+        "case_id": "pilot-002",
+        "technique": "error-based",
+        "expected": "positive",
+        "actual": "analysis_error",
+        "error": "api-truncated",
+        "warnings": []
+      },
+      {
+        "case_id": "pilot-003",
+        "technique": "error-based",
+        "expected": "positive",
+        "actual": "analysis_error",
+        "error": "api-truncated",
+        "warnings": []
+      },
+      {
+        "case_id": "pilot-004",
+        "technique": "error-based",
+        "expected": "positive",
+        "actual": "analysis_error",
+        "error": "api-truncated",
+        "warnings": []
+      },
+      {
+        "case_id": "pilot-005",
+        "technique": "error-based",
+        "expected": "negative",
+        "actual": "negative",
+        "error": null,
+        "warnings": []
+      },
+      {
+        "case_id": "pilot-006",
+        "technique": "error-based",
+        "expected": "negative",
+        "actual": "analysis_error",
+        "error": "api-truncated",
+        "warnings": []
+      },
+      {
+        "case_id": "pilot-007",
+        "technique": "error-based",
+        "expected": "negative",
+        "actual": "analysis_error",
+        "error": "api-truncated",
+        "warnings": []
+      },
+      {
+        "case_id": "pilot-008",
+        "technique": "error-based",
+        "expected": "negative",
+        "actual": "negative",
+        "error": null,
+        "warnings": []
+      },
+      {
+        "case_id": "pilot-009",
+        "technique": "error-based",
+        "expected": "inconclusive",
+        "actual": "inconclusive",
+        "error": null,
+        "warnings": []
+      },
+      {
+        "case_id": "pilot-010",
+        "technique": "error-based",
+        "expected": "inconclusive",
+        "actual": "inconclusive",
+        "error": null,
+        "warnings": []
+      },
+      {
+        "case_id": "pilot-011",
+        "technique": "error-based",
+        "expected": "inconclusive",
+        "actual": "inconclusive",
+        "error": null,
+        "warnings": []
+      },
+      {
+        "case_id": "pilot-012",
+        "technique": "error-based",
+        "expected": "inconclusive",
+        "actual": "inconclusive",
+        "error": null,
+        "warnings": []
+      },
+      {
+        "case_id": "pilot-014",
+        "technique": "boolean-based blind",
+        "expected": "positive",
+        "actual": "positive",
+        "error": null,
+        "warnings": []
+      },
+      {
+        "case_id": "pilot-015",
+        "technique": "boolean-based blind",
+        "expected": "positive",
+        "actual": "positive",
+        "error": null,
+        "warnings": []
+      },
+      {
+        "case_id": "pilot-016",
+        "technique": "boolean-based blind",
+        "expected": "positive",
+        "actual": "positive",
+        "error": null,
+        "warnings": []
+      },
+      {
+        "case_id": "pilot-017",
+        "technique": "boolean-based blind",
+        "expected": "negative",
+        "actual": "negative",
+        "error": null,
+        "warnings": []
+      },
+      {
+        "case_id": "pilot-018",
+        "technique": "boolean-based blind",
+        "expected": "negative",
+        "actual": "negative",
+        "error": null,
+        "warnings": []
+      },
+      {
+        "case_id": "pilot-019",
+        "technique": "boolean-based blind",
+        "expected": "negative",
+        "actual": "analysis_error",
+        "error": "api-transport-error",
+        "warnings": []
+      },
+      {
+        "case_id": "pilot-020",
+        "technique": "boolean-based blind",
+        "expected": "negative",
+        "actual": "analysis_error",
+        "error": "api-transport-error",
+        "warnings": []
+      },
+      {
+        "case_id": "pilot-021",
+        "technique": "boolean-based blind",
+        "expected": "inconclusive",
+        "actual": "inconclusive",
+        "error": null,
+        "warnings": []
+      },
+      {
+        "case_id": "pilot-022",
+        "technique": "boolean-based blind",
+        "expected": "inconclusive",
+        "actual": "analysis_error",
+        "error": "api-truncated",
+        "warnings": []
+      },
+      {
+        "case_id": "pilot-023",
+        "technique": "boolean-based blind",
+        "expected": "inconclusive",
+        "actual": "inconclusive",
+        "error": null,
+        "warnings": []
+      },
+      {
+        "case_id": "pilot-024",
+        "technique": "boolean-based blind",
+        "expected": "inconclusive",
+        "actual": "inconclusive",
+        "error": null,
+        "warnings": []
+      },
+      {
+        "case_id": "pilot-026",
+        "technique": "time-based blind",
+        "expected": "positive",
+        "actual": "positive",
+        "error": null,
+        "warnings": []
+      },
+      {
+        "case_id": "pilot-027",
+        "technique": "time-based blind",
+        "expected": "positive",
+        "actual": "positive",
+        "error": null,
+        "warnings": []
+      },
+      {
+        "case_id": "pilot-028",
+        "technique": "time-based blind",
+        "expected": "positive",
+        "actual": "positive",
+        "error": null,
+        "warnings": []
+      },
+      {
+        "case_id": "pilot-029",
+        "technique": "time-based blind",
+        "expected": "negative",
+        "actual": "negative",
+        "error": null,
+        "warnings": []
+      },
+      {
+        "case_id": "pilot-030",
+        "technique": "time-based blind",
+        "expected": "negative",
+        "actual": "negative",
+        "error": null,
+        "warnings": []
+      },
+      {
+        "case_id": "pilot-031",
+        "technique": "time-based blind",
+        "expected": "negative",
+        "actual": "positive",
+        "error": null,
+        "warnings": []
+      },
+      {
+        "case_id": "pilot-032",
+        "technique": "time-based blind",
+        "expected": "negative",
+        "actual": "negative",
+        "error": null,
+        "warnings": []
+      },
+      {
+        "case_id": "pilot-033",
+        "technique": "time-based blind",
+        "expected": "inconclusive",
+        "actual": "inconclusive",
+        "error": null,
+        "warnings": []
+      },
+      {
+        "case_id": "pilot-034",
+        "technique": "time-based blind",
+        "expected": "inconclusive",
+        "actual": "inconclusive",
+        "error": null,
+        "warnings": []
+      },
+      {
+        "case_id": "pilot-035",
+        "technique": "time-based blind",
+        "expected": "inconclusive",
+        "actual": "inconclusive",
+        "error": null,
+        "warnings": []
+      },
+      {
+        "case_id": "pilot-036",
+        "technique": "time-based blind",
+        "expected": "inconclusive",
+        "actual": "inconclusive",
+        "error": null,
+        "warnings": []
+      }
+    ],
+    "reported_at_utc": "2026-10-20T09:56:14.870721+00:00"
+  },
+  "raw_file_sha256": {
+    "results/raw/development/qwen38-api-analysis-diagnosis-20261020-v2/pilot-001/attempt-started.json": "4e7ff17cd80bf0fb229e4719ad67e57f98643508c224299cc435e9efa0e956b4",
+    "results/raw/development/qwen38-api-analysis-diagnosis-20261020-v2/pilot-001/result.json": "b96ef2a1ac14076a4b9faaa8121837ee0226a66d976783b1e64368cca7779f87",
+    "results/raw/development/qwen38-api-analysis-diagnosis-20261020-v2/pilot-002/attempt-started.json": "71611cb5410fe2d15a1ec1d11d111b2c61def1a0e4ee0f14b1d9acd4585d4127",
+    "results/raw/development/qwen38-api-analysis-diagnosis-20261020-v2/pilot-002/result.json": "8b993baee8642dada642b79e0849ca7975c67d0bc4ea03c197f56203f6efff97",
+    "results/raw/development/qwen38-api-analysis-diagnosis-20261020-v2/pilot-003/attempt-started.json": "10fc9051c00f3b7385020486a035a90c36775e62b280ef6efceb2caa60302f2b",
+    "results/raw/development/qwen38-api-analysis-diagnosis-20261020-v2/pilot-003/result.json": "c0e3d69251f2a6a2d7546f7490c802c863b743c2dcd4b5167739363e9e1fade0",
+    "results/raw/development/qwen38-api-analysis-diagnosis-20261020-v2/pilot-004/attempt-started.json": "6940c167f66e6b7082fd202fc5919e6dad69621f3499e83458cc513ef0255e34",
+    "results/raw/development/qwen38-api-analysis-diagnosis-20261020-v2/pilot-004/result.json": "3f7a094d6f1eb529dde080b2617a9f7a246d2782dead1a66cc2fbb232c996878",
+    "results/raw/development/qwen38-api-analysis-diagnosis-20261020-v2/pilot-005/attempt-started.json": "7a3d9b729439afebe6972b8fc96ef130b7c95e9cea02f9cf2182c43bf179d47c",
+    "results/raw/development/qwen38-api-analysis-diagnosis-20261020-v2/pilot-005/result.json": "2d47069377d950d125f27a26ed9b59895f778e36b2f6f7362dc869853e47df9a",
+    "results/raw/development/qwen38-api-analysis-diagnosis-20261020-v2/pilot-006/attempt-started.json": "fed14562ca8054863a16f77e713e2b4f59d30f3493bb2bd0be6582a6abb36246",
+    "results/raw/development/qwen38-api-analysis-diagnosis-20261020-v2/pilot-006/result.json": "b856af0036656635559e3022bb6e94fc877b90d07ec77cd39bfaed930102502f",
+    "results/raw/development/qwen38-api-analysis-diagnosis-20261020-v2/pilot-007/attempt-started.json": "c5dea141fceab03c746e529220d04db47065a64d576713d92d1bdfbbe09d0db7",
+    "results/raw/development/qwen38-api-analysis-diagnosis-20261020-v2/pilot-007/result.json": "4f55edccfa9a18a1e8e38a489481156995c0c32b7fd36e264c1e819db93ada09",
+    "results/raw/development/qwen38-api-analysis-diagnosis-20261020-v2/pilot-013/attempt-started.json": "6b943f55a1dce1f97605e042206141854f64af01890e52632839e2f39950e628",
+    "results/raw/development/qwen38-api-analysis-diagnosis-20261020-v2/pilot-013/result.json": "5895f3ead43a5de2391ebc5da6ba7bb7749977bc820554ca18f79ed0b65d6003",
+    "results/raw/development/qwen38-api-analysis-diagnosis-20261020-v2/pilot-025/attempt-started.json": "317218be83f68e8602e013c09f3a14be1b4564d438f97cd2931022478f6d72d2",
+    "results/raw/development/qwen38-api-analysis-diagnosis-20261020-v2/pilot-025/result.json": "0ed2135b4d7d8582435e0fdad9feac125fb250a3457e041b92a574bcbd29973e",
+    "results/raw/development/qwen38-api-analysis-diagnosis-20261020-v3/pilot-008/attempt-started.json": "8983074803e443a329cee7942deccce277fd85d48684d5fd044abc2980cd2cbf",
+    "results/raw/development/qwen38-api-analysis-diagnosis-20261020-v3/pilot-008/result.json": "cb04cd57d262d800efc27b67b78633627b9404cfa2eb480437a056a0c30b1e89",
+    "results/raw/development/qwen38-api-analysis-diagnosis-20261020-v3/pilot-009/attempt-started.json": "aaf01937190e7e5bafee4162dd8552b223d4ce911ba41a4ce5ddd6212c667802",
+    "results/raw/development/qwen38-api-analysis-diagnosis-20261020-v3/pilot-009/result.json": "8c47fdd6c898bf11281ed7904f3a161ee644066a499f9c86938f85165abd6fec",
+    "results/raw/development/qwen38-api-analysis-diagnosis-20261020-v3/pilot-010/attempt-started.json": "d3c954f26d24b38d4e3fba36d5de0566b91e983a9b15b9fc8a8261dee57581f9",
+    "results/raw/development/qwen38-api-analysis-diagnosis-20261020-v3/pilot-010/result.json": "b47af819fe6a042618c34b3df8c8dda345719f69978a4ecba45d8f7a85e2ebc6",
+    "results/raw/development/qwen38-api-analysis-diagnosis-20261020-v3/pilot-011/attempt-started.json": "4d527ee661c95385b484d7101de2d4433644efaee160b6479cc9c01f497d2504",
+    "results/raw/development/qwen38-api-analysis-diagnosis-20261020-v3/pilot-011/result.json": "48807d91dfc72286b435b04e6af26948ee74c4b62358b7b84963f4a6efd5cdda",
+    "results/raw/development/qwen38-api-analysis-diagnosis-20261020-v3/pilot-012/attempt-started.json": "c78d8c9a6cb0f3b4ef4aa46e4f2b8b7294ff4c108daeca00ef53e371130d4aa1",
+    "results/raw/development/qwen38-api-analysis-diagnosis-20261020-v3/pilot-012/result.json": "6d894e523f5e123b428dbaaa68a821aa6d7c95542a0671097401aabab097d1e2",
+    "results/raw/development/qwen38-api-analysis-diagnosis-20261020-v3/pilot-014/attempt-started.json": "c48663fdc2dcced90e6ebee665bc0ef00e3054d3e0c0f25d03d2be5045692932",
+    "results/raw/development/qwen38-api-analysis-diagnosis-20261020-v3/pilot-014/result.json": "361d86ea091a70aecd45f123ba7c58f3c7cf207183ab4af6ec6b902c62b675d9",
+    "results/raw/development/qwen38-api-analysis-diagnosis-20261020-v3/pilot-015/attempt-started.json": "330a143e647ecc4ef144c2100fb6e58a2c1f3f76501c626a3d76b874f581931d",
+    "results/raw/development/qwen38-api-analysis-diagnosis-20261020-v3/pilot-015/result.json": "686d26a4b9878056a2ce5c70cef753e36431076552c21782ccf1aa6b8eb6c824",
+    "results/raw/development/qwen38-api-analysis-diagnosis-20261020-v3/pilot-016/attempt-started.json": "0504286a72b6e006641de1244dd9354c5a777f827d154d8c995042e4c084c49c",
+    "results/raw/development/qwen38-api-analysis-diagnosis-20261020-v3/pilot-016/result.json": "2698f04e4614e00b592587dfc9dd5eb5774c28ccda40199d03dedb8db5e96cff",
+    "results/raw/development/qwen38-api-analysis-diagnosis-20261020-v3/pilot-017/attempt-started.json": "94b1170f975de87ab4759ae26bd501a3a97b20d1d7816cae37f85b762bd9e19a",
+    "results/raw/development/qwen38-api-analysis-diagnosis-20261020-v3/pilot-017/result.json": "b042120e4ea60e5cf1ac0219d18330b6a6cad7e6d55cd4427a9b5ecf2d9dd71d",
+    "results/raw/development/qwen38-api-analysis-diagnosis-20261020-v3/pilot-018/attempt-started.json": "41f1d3a864f6968ff91178e944f7d3eb437534b87fc97356e4060948ca4b7269",
+    "results/raw/development/qwen38-api-analysis-diagnosis-20261020-v3/pilot-018/result.json": "0623ae6ebb24535a597facfe4fec793ad5854fabd9814751e1535d5f00f98c73",
+    "results/raw/development/qwen38-api-analysis-diagnosis-20261020-v3/pilot-019/attempt-started.json": "b1ad3bd17e8eec3a6c3093d4f7468b80fe91db301803565cf53f61f2f4e9320d",
+    "results/raw/development/qwen38-api-analysis-diagnosis-20261020-v3/pilot-019/result.json": "27477f72a060141c032a4486d8020783740200235cb3cb45f796ee2f747a180e",
+    "results/raw/development/qwen38-api-analysis-diagnosis-20261020-v3/pilot-020/attempt-started.json": "fe9b6a984f75319bde4102a33862fb2b0b0f0f2533008a0c0f00eb1f85b0e403",
+    "results/raw/development/qwen38-api-analysis-diagnosis-20261020-v3/pilot-020/result.json": "7ee596a83f3990858d93f735f2b5342d8d7ef798261cf306a0bc6a7b91dba93f",
+    "results/raw/development/qwen38-api-analysis-diagnosis-20261020-v3/pilot-021/attempt-started.json": "1c89aa0000b50bf6eb6b06667c26024842fe27ba64d884063ac47e0a414a4259",
+    "results/raw/development/qwen38-api-analysis-diagnosis-20261020-v3/pilot-021/result.json": "a167a1739753c990d32cb12887fa7368238bc6f3b219f0ee0dd6a47bf5d9fad1",
+    "results/raw/development/qwen38-api-analysis-diagnosis-20261020-v3/pilot-022/attempt-started.json": "55b0b4c9ed0d9d5886e499bcc7f73a4dbf9308cfe746b18c62caee74b3069a38",
+    "results/raw/development/qwen38-api-analysis-diagnosis-20261020-v3/pilot-022/result.json": "ed0194d5bbe61c2a0d189d4ad045b387454d124698a7d2f06a2a61d5646064a6",
+    "results/raw/development/qwen38-api-analysis-diagnosis-20261020-v3/pilot-023/attempt-started.json": "7c6f453ed66034cff6054430d2d40734bc4b4ae8963c08f6fff730a95ecb4a91",
+    "results/raw/development/qwen38-api-analysis-diagnosis-20261020-v3/pilot-023/result.json": "bd84a6ae28879c5eb0e2fac61e7b1e7cff31e09df099da64d7ba7582f08d1b8a",
+    "results/raw/development/qwen38-api-analysis-diagnosis-20261020-v3/pilot-024/attempt-started.json": "cbd17e7594383056203740031e7c140225f6257cf73cae31df987f3d6c71557f",
+    "results/raw/development/qwen38-api-analysis-diagnosis-20261020-v3/pilot-024/result.json": "df73c3d4a4fe569a8b74e376ab3fa2233a9aaf8e7d3a1fce647387208e208d6d",
+    "results/raw/development/qwen38-api-analysis-diagnosis-20261020-v3/pilot-026/attempt-started.json": "a941f614646a06ea76b1e1e60c7fa76b880e2b4e772d51913b7f5878f65f3833",
+    "results/raw/development/qwen38-api-analysis-diagnosis-20261020-v3/pilot-026/result.json": "968e3d2b44013bb9fa9cb80c53e4737f1f9d42e050ab2f2a25b55e8a995be67e",
+    "results/raw/development/qwen38-api-analysis-diagnosis-20261020-v3/pilot-027/attempt-started.json": "ba13355c87fcd5acfb2a2dbbc2ad9a4d47ecd93140df4c6a2a9c06de12d3d576",
+    "results/raw/development/qwen38-api-analysis-diagnosis-20261020-v3/pilot-027/result.json": "6c59265bf970b49682c8fac0643708ed66e29450125a0b2146711ec9002a2725",
+    "results/raw/development/qwen38-api-analysis-diagnosis-20261020-v3/pilot-028/attempt-started.json": "88db3bed7c767db7b8c503770081f9edfb1618426f3257bdd39091976b578c80",
+    "results/raw/development/qwen38-api-analysis-diagnosis-20261020-v3/pilot-028/result.json": "0d0171ecef36c97c2d5fc6982cc1641748481bc46afeedd1da6667e4fcbff613",
+    "results/raw/development/qwen38-api-analysis-diagnosis-20261020-v3/pilot-029/attempt-started.json": "b7a3f579fbf7c47d548ffedeabcc32dadec13d4b2f0f45c94691666780d203ed",
+    "results/raw/development/qwen38-api-analysis-diagnosis-20261020-v3/pilot-029/result.json": "ea00afda8bd9aa21433118d753b3f94845fa8ff0462439fcfd1b08c8593aabb7",
+    "results/raw/development/qwen38-api-analysis-diagnosis-20261020-v3/pilot-030/attempt-started.json": "e1e2a66eb956e9d8aa083aaf76a33a5a7cbfeeee89b35ef43435b8ca6d523306",
+    "results/raw/development/qwen38-api-analysis-diagnosis-20261020-v3/pilot-030/result.json": "2e7d8de4a890a76cf26772d53779e175427bf1543c4ee111f0c819588f8022aa",
+    "results/raw/development/qwen38-api-analysis-diagnosis-20261020-v3/pilot-031/attempt-started.json": "489c1aed15b8670be0497daa46886746918477489169ec8451b9a55b746084ca",
+    "results/raw/development/qwen38-api-analysis-diagnosis-20261020-v3/pilot-031/result.json": "18652ba1051c4e03c09ddf4b31e4a35b79c76e1b4b7a0d3d197854cfd4ecf703",
+    "results/raw/development/qwen38-api-analysis-diagnosis-20261020-v3/pilot-032/attempt-started.json": "2f663cb744c56b8868ff51807cb702f1c6820d405430be5ce649a9a852ac547c",
+    "results/raw/development/qwen38-api-analysis-diagnosis-20261020-v3/pilot-032/result.json": "fd8e4815a830bb2a9f0d86af2525695c89f577f5c166f578575b8faf98d4fd84",
+    "results/raw/development/qwen38-api-analysis-diagnosis-20261020-v3/pilot-033/attempt-started.json": "fb09e802d2f8f4d210a4581841870663ab674121ace0048190bda90e2a8e7336",
+    "results/raw/development/qwen38-api-analysis-diagnosis-20261020-v3/pilot-033/result.json": "b27fa1a00c682d5e7c07b6dad31ccb86dba058480be2264b41e695337e82a8ab",
+    "results/raw/development/qwen38-api-analysis-diagnosis-20261020-v3/pilot-034/attempt-started.json": "2d7bf96c74a32ba8be07114bd00b8f074ab10de75c7a551e1e7b4ef8ab731e59",
+    "results/raw/development/qwen38-api-analysis-diagnosis-20261020-v3/pilot-034/result.json": "c9dc6d266a4d385e4ea1d932e092e90c2e0989146511a4a0d6d332144cc59637",
+    "results/raw/development/qwen38-api-analysis-diagnosis-20261020-v3/pilot-035/attempt-started.json": "9e3370d965b3d3c6c539f1a711aad39c2cd027accbf4cabf9ac8121cb97d2559",
+    "results/raw/development/qwen38-api-analysis-diagnosis-20261020-v3/pilot-035/result.json": "8b9433f6a71f04ca5fc2f8f25c42e48479ff6d12ae7a687c464f078da7778eb6",
+    "results/raw/development/qwen38-api-analysis-diagnosis-20261020-v3/pilot-036/attempt-started.json": "ca601646de2606d3ccd2b9bc4c5ce486f34f9b2918dacd34c5cdd5d9a5a03e34",
+    "results/raw/development/qwen38-api-analysis-diagnosis-20261020-v3/pilot-036/result.json": "5d700bbb7519993096b4fa5728ae85042e08665f56b572a5c2a8ca52eccaf12e"
+  }
+}

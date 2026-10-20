@@ -1,5 +1,9 @@
 # Review progres proyek TA, 12 Oktober 2026
 
+> Snapshot status per 12 Oktober. Perkembangan setelah tanggal ini dirangkum di
+> [README](../README.md) dan [rencana penyelesaian aktif](rencana-penyelesaian-2026-10-16.md).
+> Temuan dan angka berikut dipertahankan sebagai catatan historis.
+
 ## Kesimpulan
 
 Proyek sudah memiliki prototipe lokal yang membuktikan alur discovery ZAP,

@@ -13,6 +13,7 @@ TEST_TEMP_ROOT.mkdir(parents=True, exist_ok=True)
 from experiment_protocol import load_protocol
 from run_local_experiments import (
     ExperimentLedger,
+    adaptive_manifest_args,
     candidate_policy_violation,
     experiment_lock,
     execute_plan,
@@ -42,6 +43,99 @@ class LocalExperimentOrchestratorTests(unittest.TestCase):
         path = root / "local-run-plan.json"
         path.write_text(json.dumps(plan), encoding="utf-8")
         return path, plan, report
+
+    def write_knowledge_snapshot(self, root):
+        directory = root / "results" / "raw" / "candidate-knowledge"
+        directory.mkdir(parents=True)
+        corpus_path = directory / "corpus.json"
+        corpus_path.write_text(json.dumps({"curation": {"researcher_review": "reviewed"}}), encoding="utf-8")
+        corpus_sha = sha256_file(corpus_path)
+        store = root / "data" / "vectorstore" / "candidate"
+        store.mkdir(parents=True)
+        manifest_path = directory / "manifest.json"
+        manifest_path.write_text(json.dumps({
+            "schema_version": "1.0.0", "knowledge_base_id": "candidate-test",
+            "corpus_kind": "structured-sqli-knowledge-v1", "purpose": "proposal-rag",
+            "corpus_path": corpus_path.relative_to(root).as_posix(),
+            "corpus_sha256": corpus_sha,
+            "store_path": store.relative_to(root).as_posix(),
+        }), encoding="utf-8")
+        decision_path = directory / "review.json"
+        decision_path.write_text(json.dumps({
+            "decision": "approved-for-generation-only-preflight",
+            "scope": "seeded-local-generation-diagnostic-only",
+            "formal_experiment_approval": False,
+            "candidate_corpus_sha256": corpus_sha,
+        }), encoding="utf-8")
+        return {
+            "manifest_path": manifest_path.relative_to(root).as_posix(),
+            "manifest_sha256": sha256_file(manifest_path),
+            "corpus_path": corpus_path.relative_to(root).as_posix(),
+            "corpus_sha256": corpus_sha,
+            "review_decision_path": decision_path.relative_to(root).as_posix(),
+            "review_decision_sha256": sha256_file(decision_path),
+        }
+
+    def write_formal_knowledge_snapshot(self, root):
+        directory = root / "results" / "raw" / "formal-knowledge"
+        directory.mkdir(parents=True)
+        corpus_path = directory / "corpus.json"
+        corpus_path.write_text(json.dumps({"curation": {"researcher_review": "pending"}}), encoding="utf-8")
+        source_lock_path = directory / "sources.lock.json"
+        source_lock_path.write_text(json.dumps({"revision": "fixture"}), encoding="utf-8")
+        store = root / "data" / "vectorstore" / "formal-candidate"
+        store.mkdir(parents=True)
+        (store / "index.bin").write_bytes(b"fixed-index-bytes")
+        corpus_sha = sha256_file(corpus_path)
+        source_lock_sha = sha256_file(source_lock_path)
+        manifest_path = store / "manifest.json"
+        manifest_path.write_text(json.dumps({
+            "schema_version": "1.0.0", "knowledge_base_id": "formal-candidate",
+            "corpus_kind": "structured-sqli-knowledge-v1", "purpose": "proposal-rag",
+            "corpus_path": corpus_path.relative_to(root).as_posix(),
+            "corpus_sha256": corpus_sha, "source_lock_sha256": source_lock_sha,
+            "store_path": store.relative_to(root).as_posix(), "entry_count": 9,
+        }), encoding="utf-8")
+        index_hashes = {path.relative_to(root).as_posix(): sha256_file(path)
+                        for path in store.rglob("*") if path.is_file()}
+        decision_path = directory / "formal-decision.json"
+        decision_path.write_text(json.dumps({
+            "schema_version": "1.0.0", "decision": "approved-for-formal-use",
+            "scope": "main-nine-entry-corpus-formal-use-after-u07-gates",
+            "authority": {"role": "researcher", "basis": "explicit-user-approval"},
+            "approved_snapshot": {"corpus_sha256": corpus_sha, "source_lock_sha256": source_lock_sha,
+                                  "knowledge_base_id": "formal-candidate", "entry_count": 9,
+                                  "index_file_sha256": index_hashes},
+            "formal_execution_approval": False,
+        }), encoding="utf-8")
+        return {
+            "manifest_path": manifest_path.relative_to(root).as_posix(),
+            "manifest_sha256": sha256_file(manifest_path),
+            "corpus_path": corpus_path.relative_to(root).as_posix(),
+            "corpus_sha256": corpus_sha,
+            "review_decision_path": decision_path.relative_to(root).as_posix(),
+            "review_decision_sha256": sha256_file(decision_path),
+            "source_lock_path": source_lock_path.relative_to(root).as_posix(),
+            "source_lock_sha256": source_lock_sha,
+            "index_file_sha256": index_hashes,
+        }
+
+    def write_pilot_knowledge_snapshot(self, root):
+        snapshot = self.write_formal_knowledge_snapshot(root)
+        formal_decision = json.loads((root / snapshot["review_decision_path"]).read_text(encoding="utf-8"))
+        pilot_decision = {
+            **formal_decision,
+            "decision": "approved-for-pilot-use",
+            "scope": "local-pilot-corpus-use-only",
+            "candidate_corpus_sha256": snapshot["corpus_sha256"],
+            "researcher_review_status": "reviewed",
+            "formal_experiment_approval": False,
+            "authority": {**formal_decision["authority"], "quote": "Approve this fixture for pilot use."},
+        }
+        decision_path = root / "results/raw/formal-knowledge/pilot-decision.json"
+        decision_path.write_text(json.dumps(pilot_decision), encoding="utf-8")
+        return {**snapshot, "review_decision_path": decision_path.relative_to(root).as_posix(),
+                "review_decision_sha256": sha256_file(decision_path)}
 
     def test_ab_pair_has_same_seed_and_discovery_hash(self):
         with tempfile.TemporaryDirectory(dir=TEST_TEMP_ROOT) as temporary:
@@ -74,8 +168,112 @@ class LocalExperimentOrchestratorTests(unittest.TestCase):
         with tempfile.TemporaryDirectory(dir=TEST_TEMP_ROOT) as temporary:
             root = Path(temporary)
             _, plan, _ = self.write_plan(root, dataset="formal")
+            protocol = load_protocol()
+            protocol["status"] = "pilot"
             with self.assertRaisesRegex(ValueError, "protocol is frozen"):
-                validate_plan(plan, load_protocol(), root)
+                validate_plan(plan, protocol, root)
+
+    def test_knowledge_snapshot_is_hash_pinned_and_only_passed_to_condition_b(self):
+        with tempfile.TemporaryDirectory(dir=TEST_TEMP_ROOT) as temporary:
+            root = Path(temporary)
+            _, plan_value, _ = self.write_plan(root, conditions=["A", "B"], scenarios=["S3"])
+            plan_value["discovery_reports"] = {"S3": {"1": "results/zap/s1-r1.json"}}
+            plan_value["knowledge_snapshot"] = self.write_knowledge_snapshot(root)
+            plan = validate_plan(plan_value, load_protocol(), root)
+            self.assertEqual(plan["knowledge_snapshot_resolved"]["knowledge_base_id"], "candidate-test")
+            self.assertEqual(adaptive_manifest_args(plan, {"condition_id": "A"}, root), [])
+            self.assertEqual(adaptive_manifest_args(plan, {"condition_id": "B"}, root)[0], "--manifest")
+
+    def test_knowledge_snapshot_hash_drift_blocks_plan_validation(self):
+        with tempfile.TemporaryDirectory(dir=TEST_TEMP_ROOT) as temporary:
+            root = Path(temporary)
+            _, plan_value, _ = self.write_plan(root, conditions=["A", "B"], scenarios=["S3"])
+            plan_value["discovery_reports"] = {"S3": {"1": "results/zap/s1-r1.json"}}
+            plan_value["knowledge_snapshot"] = self.write_knowledge_snapshot(root)
+            corpus_path = root / plan_value["knowledge_snapshot"]["corpus_path"]
+            corpus_path.write_text('{"curation":{"researcher_review":"reviewed"},"changed":true}',
+                                   encoding="utf-8")
+            with self.assertRaisesRegex(ValueError, "corpus_path is missing or its hash changed"):
+                validate_plan(plan_value, load_protocol(), root)
+
+    def test_formal_receipt_pins_source_lock_and_every_chroma_file(self):
+        with tempfile.TemporaryDirectory(dir=TEST_TEMP_ROOT) as temporary:
+            root = Path(temporary)
+            _, plan_value, _ = self.write_plan(root, conditions=["A", "B"], scenarios=["S3"])
+            plan_value["discovery_reports"] = {"S3": {"1": "results/zap/s1-r1.json"}}
+            plan_value["knowledge_snapshot"] = self.write_formal_knowledge_snapshot(root)
+            plan = validate_plan(plan_value, load_protocol(), root)
+            self.assertEqual(plan["knowledge_snapshot_resolved"]["knowledge_base_id"], "formal-candidate")
+            self.assertEqual(adaptive_manifest_args(plan, {"condition_id": "B"}, root)[0], "--manifest")
+
+    def test_formal_receipt_rejects_chroma_file_hash_drift(self):
+        with tempfile.TemporaryDirectory(dir=TEST_TEMP_ROOT) as temporary:
+            root = Path(temporary)
+            _, plan_value, _ = self.write_plan(root, conditions=["A", "B"], scenarios=["S3"])
+            plan_value["discovery_reports"] = {"S3": {"1": "results/zap/s1-r1.json"}}
+            plan_value["knowledge_snapshot"] = self.write_formal_knowledge_snapshot(root)
+            plan = validate_plan(plan_value, load_protocol(), root)
+            index_key = next(path for path in plan_value["knowledge_snapshot"]["index_file_sha256"]
+                             if path.endswith("index.bin"))
+            index_path = root / index_key
+            index_path.write_bytes(b"changed-index-bytes")
+            with self.assertRaisesRegex(ValueError, "index_file_sha256 differs"):
+                adaptive_manifest_args(plan, {"condition_id": "B"}, root)
+
+    def test_pilot_receipt_reviews_pinned_snapshot_without_changing_formal_assets(self):
+        with tempfile.TemporaryDirectory(dir=TEST_TEMP_ROOT) as temporary:
+            root = Path(temporary)
+            _, plan_value, _ = self.write_plan(root)
+            snapshot = self.write_pilot_knowledge_snapshot(root)
+            plan_value["knowledge_snapshot"] = snapshot
+            before = {path: sha256_file(path) for path in root.rglob("*") if path.is_file()}
+            validate_plan(plan_value, load_protocol(), root)
+            self.assertEqual(before, {path: sha256_file(path) for path in root.rglob("*") if path.is_file()})
+            corpus = json.loads((root / snapshot["corpus_path"]).read_text(encoding="utf-8"))
+            self.assertEqual(corpus["curation"]["researcher_review"], "pending")
+
+    def test_pilot_receipt_rejects_missing_review_or_mismatched_index_attestation(self):
+        with tempfile.TemporaryDirectory(dir=TEST_TEMP_ROOT) as temporary:
+            root = Path(temporary)
+            _, plan_value, _ = self.write_plan(root)
+            snapshot = self.write_pilot_knowledge_snapshot(root)
+            plan_value["knowledge_snapshot"] = snapshot
+            decision_path = root / snapshot["review_decision_path"]
+            baseline = json.loads(decision_path.read_text(encoding="utf-8"))
+            wrong_snapshot = json.loads(json.dumps(baseline["approved_snapshot"]))
+            index_key = next(iter(wrong_snapshot["index_file_sha256"]))
+            wrong_snapshot["index_file_sha256"][index_key] = "0" * 64
+            for field, value in (("researcher_review_status", "pending"),
+                                 ("authority", {**baseline["authority"], "quote": " "}),
+                                 ("approved_snapshot", wrong_snapshot)):
+                with self.subTest(field=field):
+                    decision_path.write_text(json.dumps({**baseline, field: value}), encoding="utf-8")
+                    # Even a newly pinned receipt must still attest the exact approved assets.
+                    snapshot["review_decision_sha256"] = sha256_file(decision_path)
+                    with self.assertRaisesRegex(ValueError, "must attest researcher review"):
+                        validate_plan(plan_value, load_protocol(), root)
+
+    def test_formal_plan_with_rag_requires_exact_index_hashes(self):
+        with tempfile.TemporaryDirectory(dir=TEST_TEMP_ROOT) as temporary:
+            root = Path(temporary)
+            _, plan_value, _ = self.write_plan(root, conditions=["A", "B"], dataset="formal")
+            protocol = load_protocol()
+            protocol["status"] = "frozen"
+            with self.assertRaisesRegex(ValueError, "must pin the exact Chroma index file hashes"):
+                validate_plan(plan_value, protocol, root)
+
+    def test_non_pilot_corpus_approvals_block_pilot_execution(self):
+        for fixture in (self.write_knowledge_snapshot, self.write_formal_knowledge_snapshot):
+            with self.subTest(fixture=fixture.__name__), tempfile.TemporaryDirectory(dir=TEST_TEMP_ROOT) as temporary:
+                root = Path(temporary)
+                plan_path, plan_value, _ = self.write_plan(root, conditions=["A", "B"], scenarios=["S3"])
+                plan_value["discovery_reports"] = {"S3": {"1": "results/zap/s1-r1.json"}}
+                plan_value["knowledge_snapshot"] = fixture(root)
+                plan_path.write_text(json.dumps(plan_value), encoding="utf-8")
+                with self.assertRaisesRegex(ValueError, "decision=approved-for-pilot-use"):
+                    execute_plan(plan_path, execute=True, confirm_local_dvwa=True,
+                                 confirm_database_reset=True, root=root)
+                self.assertFalse((root / "results/raw/pilot/t05-test").exists())
 
     def test_live_lock_blocks_a_second_orchestrator(self):
         with tempfile.TemporaryDirectory(dir=TEST_TEMP_ROOT) as temporary:
@@ -168,6 +366,48 @@ class LocalExperimentOrchestratorTests(unittest.TestCase):
             retry = next(event for event in events if event["event_type"] == "attempt_retried")
             self.assertFalse(retry["state_reused"])
             self.assertTrue(retry["reset_required"])
+
+    def test_one_replicate_per_session_pauses_and_resumes_at_boundary(self):
+        with tempfile.TemporaryDirectory(dir=TEST_TEMP_ROOT) as temporary:
+            root = Path(temporary)
+            plan_path, plan_value, _ = self.write_plan(
+                root, conditions=["A"], scenarios=["S1"], replicates=[1, 2])
+            second_report = root / "results" / "zap" / "s1-r2.json"
+            second_report.write_text('{"schema_version":"1.0.0","inputs":[]}', encoding="utf-8")
+            plan_value["discovery_reports"]["S1"]["2"] = "results/zap/s1-r2.json"
+            plan_path.write_text(json.dumps(plan_value), encoding="utf-8")
+            calls = []
+
+            def fake_executor(unit, attempt, plan, protocol, directory, fake_root):
+                calls.append((unit["replicate"], attempt["attempt_id"]))
+                return {"metric_eligible": True, "candidate_budget": 10,
+                        "valid_candidates_executed": 10, "database_reset_performed": True}
+
+            first_session = execute_plan(
+                plan_path, execute=True, one_replicate_per_session=True, root=root,
+                confirm_local_dvwa=True, confirm_database_reset=True,
+                execute_one=fake_executor)
+
+            self.assertEqual([replicate for replicate, _ in calls], [1])
+            self.assertEqual(first_session["replicate_session"], {
+                "status": "paused_at_replicate_boundary",
+                "finished_replicate": 1,
+                "next_replicate": 2,
+            })
+
+            second_session = execute_plan(
+                plan_path, resume=True, execute=True, one_replicate_per_session=True, root=root,
+                confirm_local_dvwa=True, confirm_database_reset=True,
+                execute_one=fake_executor)
+
+            self.assertEqual([replicate for replicate, _ in calls], [1, 2])
+            self.assertEqual(second_session["status_counts"]["completed"], 2)
+            self.assertEqual(second_session["replicate_session"]["status"], "plan_complete")
+            events = [json.loads(line) for line in Path(first_session["ledger_path"]).read_text().splitlines()]
+            pauses = [event for event in events if event["event_type"] == "execution_paused"]
+            self.assertEqual(len(pauses), 1)
+            self.assertEqual(pauses[0]["replicate"], 1)
+            self.assertEqual(pauses[0]["next_replicate"], 2)
 
     def test_resume_rejects_code_or_schema_hash_drift(self):
         with tempfile.TemporaryDirectory(dir=TEST_TEMP_ROOT) as temporary:

@@ -1,0 +1,107 @@
+{
+  "scope": "development-generation-preflight-no-dvwa-execution",
+  "formal_FPR_PSR": false,
+  "audited_at_utc": "2026-10-20T10:08:00.198898+00:00",
+  "model_calls_during_audit": 0,
+  "dvwa_requests_during_audit": 0,
+  "attempts_replayed": 5,
+  "api_status": {
+    "ok": 1,
+    "truncated": 2,
+    "transport-error": 2
+  },
+  "generation_status": {
+    "generated": 1,
+    "model_service_error": 4
+  },
+  "rows": [
+    {
+      "batch": "qwen38-api-generation-smoke-20261020",
+      "scenario_id": "S1",
+      "max_tokens": 2048,
+      "timeout_seconds": 90,
+      "api_status": "ok",
+      "generation_status": "generated",
+      "candidate": {
+        "payload": "1'"
+      },
+      "finish_reason": "stop",
+      "reported_model": "self-dploy/Qwen3.8-27B",
+      "completion_tokens": 185,
+      "reasoning_tokens": 157,
+      "elapsed_seconds": 7.621
+    },
+    {
+      "batch": "qwen38-api-generation-smoke-20261020",
+      "scenario_id": "S2",
+      "max_tokens": 2048,
+      "timeout_seconds": 90,
+      "api_status": "truncated",
+      "generation_status": "model_service_error",
+      "candidate": null,
+      "finish_reason": "length",
+      "reported_model": "self-dploy/Qwen3.8-27B",
+      "completion_tokens": 2048,
+      "reasoning_tokens": 2048,
+      "elapsed_seconds": 60.031
+    },
+    {
+      "batch": "qwen38-api-generation-smoke-20261020",
+      "scenario_id": "S3",
+      "max_tokens": 2048,
+      "timeout_seconds": 90,
+      "api_status": "transport-error",
+      "generation_status": "model_service_error",
+      "candidate": null,
+      "finish_reason": null,
+      "reported_model": null,
+      "completion_tokens": null,
+      "reasoning_tokens": null,
+      "elapsed_seconds": 90.134
+    },
+    {
+      "batch": "qwen38-api-generation-smoke-20261020-v2",
+      "scenario_id": "S2",
+      "max_tokens": 4096,
+      "timeout_seconds": 150,
+      "api_status": "transport-error",
+      "generation_status": "model_service_error",
+      "candidate": null,
+      "finish_reason": null,
+      "reported_model": null,
+      "completion_tokens": null,
+      "reasoning_tokens": null,
+      "elapsed_seconds": 150.476
+    },
+    {
+      "batch": "qwen38-api-generation-smoke-20261020-v2",
+      "scenario_id": "S3",
+      "max_tokens": 4096,
+      "timeout_seconds": 150,
+      "api_status": "truncated",
+      "generation_status": "model_service_error",
+      "candidate": null,
+      "finish_reason": "length",
+      "reported_model": "self-dploy/Qwen3.8-27B",
+      "completion_tokens": 4096,
+      "reasoning_tokens": 4096,
+      "elapsed_seconds": 138.49
+    }
+  ],
+  "raw_file_sha256": {
+    "results/raw/development/qwen38-api-generation-smoke-20261020-v2/S2/attempt-started.json": "1bc81a9f72523cb1c3b96fee9bf9f4aa9acb35fbc3f3eb798f38029ddf9f2b91",
+    "results/raw/development/qwen38-api-generation-smoke-20261020-v2/S2/result.json": "e2131422af3260a73d2b727eae5aba7562ee06f41b1794745fa4746a27b575a9",
+    "results/raw/development/qwen38-api-generation-smoke-20261020-v2/S3/attempt-started.json": "c4e203f255a06bf317cb31f2044a7e997b4efc5c0fec4348c189071a591b62db",
+    "results/raw/development/qwen38-api-generation-smoke-20261020-v2/S3/result.json": "d6d45d782bf18a98ade7d05bfdc4b20e972ccc5fe3d0067c3c9c6d1e44fe8d45",
+    "results/raw/development/qwen38-api-generation-smoke-20261020-v2/plan.json": "57acbf54da36158025b848747d6df024164e736f17d84dff82772da44a0477b1",
+    "results/raw/development/qwen38-api-generation-smoke-20261020-v2/plan.receipt.json": "86db3adbd9eb5fa66bf0e2535a7d49a48e51ebef3630547b5d997f19331cb5de",
+    "results/raw/development/qwen38-api-generation-smoke-20261020/S1/attempt-started.json": "499e117508563d92b6f14642c746a6d4e85e101965cc5e5345b3b39079d9a441",
+    "results/raw/development/qwen38-api-generation-smoke-20261020/S1/result.json": "7b314b4b9696e7fbbec5f22ee371e1b27c21b9acf48109bb64cb9ec859b103a6",
+    "results/raw/development/qwen38-api-generation-smoke-20261020/S2/attempt-started.json": "915b33f15df011caa0b0f2237232bd09ee89aa311d88f26dce7b2fd7b0fffa38",
+    "results/raw/development/qwen38-api-generation-smoke-20261020/S2/result.json": "9ceb0f2232e643ce8dc3e089ba0b7daffc1ed7b4dddd5900d9c0573fd86e1949",
+    "results/raw/development/qwen38-api-generation-smoke-20261020/S3/attempt-started.json": "6d9dac77f464f21dad002fa72817083d922ef4ea1362b32ea6ec78ae6c8cd935",
+    "results/raw/development/qwen38-api-generation-smoke-20261020/S3/result.json": "0a55eed3d1c8e2905f36b706f2f3872c83328b816e3937625b237ca4dc88ef15",
+    "results/raw/development/qwen38-api-generation-smoke-20261020/plan.json": "b39ca0d7a3fe4505334fa03d468ec8f285fbf13f4e742e226276aaae2e1b406a",
+    "results/raw/development/qwen38-api-generation-smoke-20261020/plan.receipt.json": "9264bf67f94b46f1c35befd35a327a01d654353f64080b79073f6adc59d0de7c"
+  }
+}

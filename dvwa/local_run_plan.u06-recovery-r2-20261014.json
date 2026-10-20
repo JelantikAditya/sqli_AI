@@ -1,0 +1,12 @@
+{
+  "schema_version": "1.0.0",
+  "experiment_id": "u06-recovery-r2-20261014",
+  "dataset": "pilot",
+  "condition_ids": ["A"],
+  "scenario_ids": ["S7"],
+  "replicates": [1],
+  "discovery_reports": {
+    "S7": {"1": "results/zap/zap-discovery-high-20261011-181157.normalized.json"}
+  },
+  "seclists_source_root": null
+}

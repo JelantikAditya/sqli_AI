@@ -1,0 +1,443 @@
+{
+  "schema_version": "1.0.0",
+  "scope": "development-pilot-not-formal",
+  "experiment_id": "u07-v17-integrated-20261017",
+  "protocol_status": "pilot",
+  "formal_evaluation_executed": false,
+  "formal_psr_calculated": false,
+  "formal_fpr_calculated": false,
+  "ledger_path": "results/raw/pilot/u07-v17-integrated-20261017/ledger.jsonl",
+  "ledger_sha256": "5eb723f835e851f5f96eaa647e46bc9c351bcd09502a05ed95f7d64b8f6f5a22",
+  "plan_snapshot_sha256": "1a5c82fddcce6eda96d5133d0d4eadf179c7992a1c93c295a525d380a0001e49",
+  "started_at_utc": "2026-10-17T08:38:41.329778+00:00",
+  "finished_at_utc": "2026-10-17T12:47:00.663548+00:00",
+  "wall_seconds": 14899.33377,
+  "runs": {
+    "scheduled_slots": 36,
+    "status_counts": {
+      "completed": 33,
+      "excluded": 3
+    },
+    "applicable_completed": 33,
+    "invalid": 0,
+    "budget_mismatches": [],
+    "metric_eligible_completed": 33,
+    "expected_completed_pairs": 33,
+    "observed_completed_pairs": 33,
+    "coverage_complete": true,
+    "expected_exclusions": [
+      {
+        "scenario_id": "S10",
+        "condition_id": "C",
+        "reason": "condition_does_not_include_scenario"
+      },
+      {
+        "scenario_id": "S11",
+        "condition_id": "C",
+        "reason": "condition_does_not_include_scenario"
+      },
+      {
+        "scenario_id": "S12",
+        "condition_id": "C",
+        "reason": "condition_does_not_include_scenario"
+      }
+    ],
+    "candidate_count_by_condition": {
+      "A": {
+        "completed_runs": 12,
+        "candidate_count": 120,
+        "confirmed_successes": 24,
+        "confirmed_negatives": 96,
+        "pilot_candidate_confirmation_rate_all_scenarios": 0.2
+      },
+      "B": {
+        "completed_runs": 12,
+        "candidate_count": 120,
+        "confirmed_successes": 25,
+        "confirmed_negatives": 95,
+        "pilot_candidate_confirmation_rate_all_scenarios": 0.20833333333333334
+      },
+      "C": {
+        "completed_runs": 9,
+        "candidate_count": 90,
+        "confirmed_successes": 68,
+        "confirmed_negatives": 22,
+        "pilot_candidate_confirmation_rate_all_scenarios": 0.7555555555555555
+      }
+    }
+  },
+  "candidate_outcomes_by_scenario": {
+    "S1": {
+      "dvwa_level": "low",
+      "technique": "error-based",
+      "conditions": {
+        "A": {
+          "candidate_count": 10,
+          "confirmed_successes": 3,
+          "confirmed_negatives": 7
+        },
+        "B": {
+          "candidate_count": 10,
+          "confirmed_successes": 3,
+          "confirmed_negatives": 7
+        },
+        "C": {
+          "candidate_count": 10,
+          "confirmed_successes": 2,
+          "confirmed_negatives": 8
+        }
+      }
+    },
+    "S2": {
+      "dvwa_level": "low",
+      "technique": "boolean-based blind",
+      "conditions": {
+        "A": {
+          "candidate_count": 10,
+          "confirmed_successes": 0,
+          "confirmed_negatives": 10
+        },
+        "B": {
+          "candidate_count": 10,
+          "confirmed_successes": 0,
+          "confirmed_negatives": 10
+        },
+        "C": {
+          "candidate_count": 10,
+          "confirmed_successes": 9,
+          "confirmed_negatives": 1
+        }
+      }
+    },
+    "S3": {
+      "dvwa_level": "low",
+      "technique": "time-based blind",
+      "conditions": {
+        "A": {
+          "candidate_count": 10,
+          "confirmed_successes": 0,
+          "confirmed_negatives": 10
+        },
+        "B": {
+          "candidate_count": 10,
+          "confirmed_successes": 0,
+          "confirmed_negatives": 10
+        },
+        "C": {
+          "candidate_count": 10,
+          "confirmed_successes": 10,
+          "confirmed_negatives": 0
+        }
+      }
+    },
+    "S4": {
+      "dvwa_level": "medium",
+      "technique": "error-based",
+      "conditions": {
+        "A": {
+          "candidate_count": 10,
+          "confirmed_successes": 10,
+          "confirmed_negatives": 0
+        },
+        "B": {
+          "candidate_count": 10,
+          "confirmed_successes": 10,
+          "confirmed_negatives": 0
+        },
+        "C": {
+          "candidate_count": 10,
+          "confirmed_successes": 10,
+          "confirmed_negatives": 0
+        }
+      }
+    },
+    "S5": {
+      "dvwa_level": "medium",
+      "technique": "boolean-based blind",
+      "conditions": {
+        "A": {
+          "candidate_count": 10,
+          "confirmed_successes": 3,
+          "confirmed_negatives": 7
+        },
+        "B": {
+          "candidate_count": 10,
+          "confirmed_successes": 3,
+          "confirmed_negatives": 7
+        },
+        "C": {
+          "candidate_count": 10,
+          "confirmed_successes": 9,
+          "confirmed_negatives": 1
+        }
+      }
+    },
+    "S6": {
+      "dvwa_level": "medium",
+      "technique": "time-based blind",
+      "conditions": {
+        "A": {
+          "candidate_count": 10,
+          "confirmed_successes": 5,
+          "confirmed_negatives": 5
+        },
+        "B": {
+          "candidate_count": 10,
+          "confirmed_successes": 3,
+          "confirmed_negatives": 7
+        },
+        "C": {
+          "candidate_count": 10,
+          "confirmed_successes": 10,
+          "confirmed_negatives": 0
+        }
+      }
+    },
+    "S7": {
+      "dvwa_level": "high",
+      "technique": "error-based",
+      "conditions": {
+        "A": {
+          "candidate_count": 10,
+          "confirmed_successes": 3,
+          "confirmed_negatives": 7
+        },
+        "B": {
+          "candidate_count": 10,
+          "confirmed_successes": 6,
+          "confirmed_negatives": 4
+        },
+        "C": {
+          "candidate_count": 10,
+          "confirmed_successes": 2,
+          "confirmed_negatives": 8
+        }
+      }
+    },
+    "S8": {
+      "dvwa_level": "high",
+      "technique": "boolean-based blind",
+      "conditions": {
+        "A": {
+          "candidate_count": 10,
+          "confirmed_successes": 0,
+          "confirmed_negatives": 10
+        },
+        "B": {
+          "candidate_count": 10,
+          "confirmed_successes": 0,
+          "confirmed_negatives": 10
+        },
+        "C": {
+          "candidate_count": 10,
+          "confirmed_successes": 9,
+          "confirmed_negatives": 1
+        }
+      }
+    },
+    "S9": {
+      "dvwa_level": "high",
+      "technique": "time-based blind",
+      "conditions": {
+        "A": {
+          "candidate_count": 10,
+          "confirmed_successes": 0,
+          "confirmed_negatives": 10
+        },
+        "B": {
+          "candidate_count": 10,
+          "confirmed_successes": 0,
+          "confirmed_negatives": 10
+        },
+        "C": {
+          "candidate_count": 10,
+          "confirmed_successes": 7,
+          "confirmed_negatives": 3
+        }
+      }
+    },
+    "S10": {
+      "dvwa_level": "impossible",
+      "technique": "error-based",
+      "conditions": {
+        "A": {
+          "candidate_count": 10,
+          "confirmed_successes": 0,
+          "confirmed_negatives": 10
+        },
+        "B": {
+          "candidate_count": 10,
+          "confirmed_successes": 0,
+          "confirmed_negatives": 10
+        }
+      }
+    },
+    "S11": {
+      "dvwa_level": "impossible",
+      "technique": "boolean-based blind",
+      "conditions": {
+        "A": {
+          "candidate_count": 10,
+          "confirmed_successes": 0,
+          "confirmed_negatives": 10
+        },
+        "B": {
+          "candidate_count": 10,
+          "confirmed_successes": 0,
+          "confirmed_negatives": 10
+        }
+      }
+    },
+    "S12": {
+      "dvwa_level": "impossible",
+      "technique": "time-based blind",
+      "conditions": {
+        "A": {
+          "candidate_count": 10,
+          "confirmed_successes": 0,
+          "confirmed_negatives": 10
+        },
+        "B": {
+          "candidate_count": 10,
+          "confirmed_successes": 0,
+          "confirmed_negatives": 10
+        }
+      }
+    }
+  },
+  "adaptive_runtime": {
+    "generation_calls": 241,
+    "analysis_calls": 240,
+    "generation_prompt_versions": [
+      "sqli-adaptive-candidate-v16-slot-nonce"
+    ],
+    "analysis_prompt_versions": [
+      "sqli-response-analysis-v8-count-trials"
+    ],
+    "all_generation_calls_stopped_cleanly": true,
+    "all_analysis_calls_stopped_cleanly": true
+  },
+  "offline_suite": {
+    "log_path": "results/raw/u07-formal-readiness-20261017-v17/tests.log",
+    "tests_run": 181,
+    "passed": true,
+    "log_sha256": "c78172173eab069d07fc715377d37582186fe80ecac898b38276cbaf3139225f"
+  },
+  "runtime_snapshot": {
+    "path": "results/raw/u07-formal-readiness-20261017-v17/runtime.json",
+    "sha256": "38bb1ba2a6449949778f2c9f6f77d08261f82a246d8e57b6dfe8b00aec8536b2",
+    "captured_at": "2026-10-17T19:58:57.669673+07:00",
+    "tunnel_and_gateway_running": false,
+    "pilot_server_log_coverage_verified": false
+  },
+  "retrieval_index_snapshot_audit": {
+    "formal_use_decision": "snapshot-mismatch",
+    "pilot_plan_pins_index_hash": false,
+    "formal_plan_pins_index_hash": false,
+    "content_and_metadata_match_validated_corpus": true,
+    "approved_archive_path": "results/raw/u07-formal-readiness-20261017/source-index-evidence.zip",
+    "approved_archive_integrity_verified": true,
+    "active_files_with_changed_hashes": [
+      "data/vectorstore/sqli-knowledge-ec9d1b2feda12dd3/4176542f-e8f6-4a46-8652-598aedaf3721/data_level0.bin",
+      "data/vectorstore/sqli-knowledge-ec9d1b2feda12dd3/4176542f-e8f6-4a46-8652-598aedaf3721/length.bin",
+      "data/vectorstore/sqli-knowledge-ec9d1b2feda12dd3/chroma.sqlite3"
+    ]
+  },
+  "readiness_gate_counts": {
+    "passed": 7,
+    "pending": 4,
+    "formal_ready": false
+  },
+  "interpretation": "Pilot candidate confirmations are descriptive engineering evidence only. They are not formal PSR/FPR; blind ground-truth review and all formal gates remain separate.",
+  "positive_ground_truth_scenario_comparison": {
+    "A": {
+      "scenario_scope": [
+        "S1",
+        "S2",
+        "S3",
+        "S4",
+        "S5",
+        "S6",
+        "S7",
+        "S8",
+        "S9"
+      ],
+      "candidate_count": 90,
+      "confirmed_successes": 24,
+      "confirmed_negatives": 66,
+      "pilot_confirmation_rate": 0.26666666666666666
+    },
+    "B": {
+      "scenario_scope": [
+        "S1",
+        "S2",
+        "S3",
+        "S4",
+        "S5",
+        "S6",
+        "S7",
+        "S8",
+        "S9"
+      ],
+      "candidate_count": 90,
+      "confirmed_successes": 25,
+      "confirmed_negatives": 65,
+      "pilot_confirmation_rate": 0.2777777777777778
+    },
+    "C": {
+      "scenario_scope": [
+        "S1",
+        "S2",
+        "S3",
+        "S4",
+        "S5",
+        "S6",
+        "S7",
+        "S8",
+        "S9"
+      ],
+      "candidate_count": 90,
+      "confirmed_successes": 68,
+      "confirmed_negatives": 22,
+      "pilot_confirmation_rate": 0.7555555555555555
+    }
+  },
+  "negative_ground_truth_scenarios": {
+    "S10": {
+      "A": {
+        "candidate_count": 10,
+        "confirmed_successes": 0,
+        "confirmed_negatives": 10
+      },
+      "B": {
+        "candidate_count": 10,
+        "confirmed_successes": 0,
+        "confirmed_negatives": 10
+      }
+    },
+    "S11": {
+      "A": {
+        "candidate_count": 10,
+        "confirmed_successes": 0,
+        "confirmed_negatives": 10
+      },
+      "B": {
+        "candidate_count": 10,
+        "confirmed_successes": 0,
+        "confirmed_negatives": 10
+      }
+    },
+    "S12": {
+      "A": {
+        "candidate_count": 10,
+        "confirmed_successes": 0,
+        "confirmed_negatives": 10
+      },
+      "B": {
+        "candidate_count": 10,
+        "confirmed_successes": 0,
+        "confirmed_negatives": 10
+      }
+    }
+  }
+}

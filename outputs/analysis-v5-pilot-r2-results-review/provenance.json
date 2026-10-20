@@ -1,0 +1,13 @@
+{
+  "scope": "saved-pilot-evidence-review",
+  "source_sha256": {
+    "results/processed/analysis-v5-pilot-20261020-r2/inputs.lock.json": "e613739c75349bdf317a1e582fe347ea9303f7889d93adffb5e074c7cc9226f9",
+    "results/processed/analysis-v5-pilot-20261020-r2/labels.ai.lock.json": "09ec7cefedd56c268108e17354dadb1dcba8c05b2f73f2411be13352d2410a72",
+    "results/raw/development/analysis-v5-pilot-20261020-r2/events.jsonl": "50f19cff2ad00659ad665b337c524a93afadb1d1bd3bbf58ebac321061c8e784"
+  },
+  "artifact_sha256": {
+    "pilot-011.review.json": "4c9a87fcb622f8daed94ec939e258582aa5f8c647121beefb09b322440299f16"
+  },
+  "model_calls": 0,
+  "dvwa_requests": 0
+}

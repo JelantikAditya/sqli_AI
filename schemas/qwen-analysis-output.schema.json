@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "qwen-analysis-output.schema.json",
-  "title": "Qwen claim and evidence references, without evaluator labels",
+  "title": "Qwen claim, per-trial assessments and evidence references, without evaluator labels",
   "type": "object", "additionalProperties": false,
   "required": ["decision", "reason_code", "reason", "evidence_refs", "feedback_action"],
   "properties": {
@@ -9,7 +9,20 @@
     "reason_code": {"enum": ["new_database_diagnostic", "no_new_database_diagnostic", "boolean_difference", "no_boolean_difference", "matched_delay", "no_matched_delay", "insufficient_evidence"]},
     "reason": {"type": "string", "minLength": 1, "maxLength": 600},
     "evidence_refs": {"type": "array", "uniqueItems": true, "maxItems": 40, "items": {"type": "string", "pattern": "^obs-[0-9]{3}$"}},
-    "feedback_action": {"enum": ["none", "revise_candidate", "collect_more_evidence"]}
+    "feedback_action": {"enum": ["none", "revise_candidate", "collect_more_evidence"]},
+    "trial_assessments": {
+      "type": "array", "minItems": 1, "maxItems": 3,
+      "items": {
+        "type": "object", "additionalProperties": false,
+        "required": ["trial", "outcome", "evidence_refs"],
+        "properties": {
+          "trial": {"type": "integer", "minimum": 1},
+          "outcome": {"enum": ["positive", "negative"]},
+          "evidence_refs": {"type": "array", "minItems": 1, "maxItems": 3, "uniqueItems": true,
+                            "items": {"type": "string", "pattern": "^obs-[0-9]{3}$"}}
+        }
+      }
+    }
   },
   "allOf": [{
     "if": {"properties": {"decision": {"enum": ["positive", "negative"]}}},

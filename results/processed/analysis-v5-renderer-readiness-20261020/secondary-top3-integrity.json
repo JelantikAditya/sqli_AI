@@ -1,0 +1,74 @@
+[
+  {
+    "case_id": "view-001",
+    "same_contract": true,
+    "same_complete_paired_evidence": true,
+    "primary_B_bytes": 5697,
+    "secondary_B_bytes": 6990,
+    "renderer_truncation": false
+  },
+  {
+    "case_id": "view-002",
+    "same_contract": true,
+    "same_complete_paired_evidence": true,
+    "primary_B_bytes": 5498,
+    "secondary_B_bytes": 6791,
+    "renderer_truncation": false
+  },
+  {
+    "case_id": "view-003",
+    "same_contract": true,
+    "same_complete_paired_evidence": true,
+    "primary_B_bytes": 5145,
+    "secondary_B_bytes": 6438,
+    "renderer_truncation": false
+  },
+  {
+    "case_id": "view-004",
+    "same_contract": true,
+    "same_complete_paired_evidence": true,
+    "primary_B_bytes": 5913,
+    "secondary_B_bytes": 7395,
+    "renderer_truncation": false
+  },
+  {
+    "case_id": "view-005",
+    "same_contract": true,
+    "same_complete_paired_evidence": true,
+    "primary_B_bytes": 5643,
+    "secondary_B_bytes": 7125,
+    "renderer_truncation": false
+  },
+  {
+    "case_id": "view-006",
+    "same_contract": true,
+    "same_complete_paired_evidence": true,
+    "primary_B_bytes": 5108,
+    "secondary_B_bytes": 6590,
+    "renderer_truncation": false
+  },
+  {
+    "case_id": "view-007",
+    "same_contract": true,
+    "same_complete_paired_evidence": true,
+    "primary_B_bytes": 6231,
+    "secondary_B_bytes": 7535,
+    "renderer_truncation": false
+  },
+  {
+    "case_id": "view-008",
+    "same_contract": true,
+    "same_complete_paired_evidence": true,
+    "primary_B_bytes": 5886,
+    "secondary_B_bytes": 7190,
+    "renderer_truncation": false
+  },
+  {
+    "case_id": "view-009",
+    "same_contract": true,
+    "same_complete_paired_evidence": true,
+    "primary_B_bytes": 5209,
+    "secondary_B_bytes": 6513,
+    "renderer_truncation": false
+  }
+]

@@ -1,0 +1,44 @@
+{
+  "audit_id": "analysis-corpus-v5-20261020",
+  "created_at_utc": "2026-10-20T02:48:54.469258+00:00",
+  "status": "mechanical-checks-passed-draft-awaiting-researcher-review",
+  "corpus_path": "knowledge/analysis-v5/corpus.json",
+  "corpus_sha256": "f48a4ab4434478f2f719a0a9e14e31b5e22b9c0acabe8664841e3647f56f6d7b",
+  "source_lock_sha256": "966ce725d0c4fcd9914a174a5b3867eb2d941483051c5b991d8364bcf2a44efd",
+  "schema_sha256": "14c448afda2783824700c190b80b50e777649feb0490ee6da8a1a8cf047eaf10",
+  "checker_sha256": "9a453f4efc5b0f9df0e11a8ddbd6c409ab003bb1b3b100597b1901a6fed43a6a",
+  "preservation_baseline_sha256": "afaed54dcbf462cf6196f396261ffe2c995afdf91fa02c1f217d586ec41079b8",
+  "summary": {
+    "chunks": 7,
+    "substantive_fields": 35,
+    "statements": 38,
+    "origin_counts": {
+      "source_paraphrase": 14,
+      "researcher_adaptation": 24
+    },
+    "sources": 4,
+    "source_segments": 9,
+    "source_paraphrase_word_counts_by_page": {
+      "owasp-wstg42": 51,
+      "portswigger-blind": 55,
+      "portswigger-conditional-lab": 17,
+      "portswigger-timing": 32
+    },
+    "all_field_source_coordinates_resolve": true,
+    "all_project_contract_hashes_match": true,
+    "all_project_contract_locators_resolve": true,
+    "synthetic_examples": 0
+  },
+  "protected_files_unchanged": 1053,
+  "formal_inventory_files_unchanged": 959,
+  "researcher_review": "pending",
+  "independent_or_blinded_review": false,
+  "editorial_review": "Codex source reading and per-statement provenance; post-v4 development",
+  "checks_prove_source_entailment": false,
+  "checks_prove_retrieval_quality": false,
+  "model_calls": 0,
+  "embedding_calls": 0,
+  "dvwa_requests": 0,
+  "formal_metrics_recomputed": false,
+  "retrieval_policy_frozen": false
+}

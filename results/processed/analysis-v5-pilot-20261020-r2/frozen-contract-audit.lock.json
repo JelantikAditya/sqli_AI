@@ -1,0 +1,10 @@
+{
+  "cases_checked": 42,
+  "eligible_cases_checked": 36,
+  "eligible_trial_assessments_checked": 102,
+  "labels_match_frozen_executor": true,
+  "frozen_analysis_source_sha256": "ffba71043245baf3db73a09d9236bf4e2f3edb7e38737a250ec799e9c720a500",
+  "independent_human_validation": false,
+  "model_calls": 0,
+  "dvwa_requests": 0
+}

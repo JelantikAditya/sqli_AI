@@ -9,7 +9,7 @@
     "event_id": { "type": "string", "pattern": "^[0-9a-f]{32}$" },
     "sequence": { "type": "integer", "minimum": 1 },
     "experiment_id": { "type": "string", "pattern": "^[a-z0-9][a-z0-9_-]{0,31}$" },
-    "event_type": { "enum": ["experiment_created", "run_planned", "run_excluded", "attempt_started", "attempt_retried", "attempt_completed", "attempt_invalid"] },
+    "event_type": { "enum": ["experiment_created", "formal_execution_authorized", "run_planned", "run_excluded", "attempt_started", "attempt_retried", "attempt_completed", "attempt_invalid", "execution_paused"] },
     "recorded_at_utc": { "type": "string", "format": "date-time" },
     "unit_id": { "type": "string", "minLength": 1 },
     "run_id": { "type": "string", "minLength": 1 },
@@ -28,7 +28,16 @@
     "state_reused": { "type": "boolean" },
     "metric_eligible": { "type": "boolean" },
     "failure_code": { "type": "string", "minLength": 1 },
-    "exclusion_reason": { "type": ["string", "null"], "minLength": 1 }
+    "exclusion_reason": { "type": ["string", "null"], "minLength": 1 },
+    "next_replicate": { "type": "integer", "minimum": 1, "maximum": 3 },
+    "pause_policy_id": { "const": "one-replicate-per-session-v1" },
+    "pause_reason": { "const": "replicate_block_finished" }
   },
+  "allOf": [
+    {
+      "if": { "properties": { "event_type": { "const": "execution_paused" } }, "required": ["event_type"] },
+      "then": { "required": ["replicate", "next_replicate", "pause_policy_id", "pause_reason"] }
+    }
+  ],
   "additionalProperties": true
 }

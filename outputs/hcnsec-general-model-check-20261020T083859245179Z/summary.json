@@ -1,0 +1,528 @@
+{
+  "scope": "small-general-api-check-independent-of-TA",
+  "upstream_weights_independently_verified": false,
+  "stop_reason": null,
+  "requests_attempted": 9,
+  "requests_not_attempted": 0,
+  "models": [
+    {
+      "requested_model": "Qwen3.8-27B",
+      "tasks_planned": 3,
+      "requests_attempted": 3,
+      "responses_received": 3,
+      "tasks_passed": 3,
+      "valid_json": 3,
+      "reported_models": [
+        "self-dploy/Qwen3.8-27B"
+      ],
+      "mean_elapsed_seconds_received": 20.877,
+      "median_elapsed_seconds_received": 10.607,
+      "tokens_reported": 1015
+    },
+    {
+      "requested_model": "glm-5.3-flash",
+      "tasks_planned": 3,
+      "requests_attempted": 3,
+      "responses_received": 2,
+      "tasks_passed": 2,
+      "valid_json": 2,
+      "reported_models": [
+        "self-dploy/GLM-5.3-Flash",
+        "z-ai/glm-5.3-flash"
+      ],
+      "mean_elapsed_seconds_received": 40.177,
+      "median_elapsed_seconds_received": 40.177,
+      "tokens_reported": 562
+    },
+    {
+      "requested_model": "MiMo-V2.6-Flash",
+      "tasks_planned": 3,
+      "requests_attempted": 3,
+      "responses_received": 3,
+      "tasks_passed": 3,
+      "valid_json": 3,
+      "reported_models": [
+        "self-dploy/MiMo-V2.6-Flash"
+      ],
+      "mean_elapsed_seconds_received": 9.989,
+      "median_elapsed_seconds_received": 8.013,
+      "tokens_reported": 622
+    }
+  ],
+  "results": [
+    {
+      "sequence": 1,
+      "task_id": "extract_json",
+      "requested_model": "Qwen3.8-27B",
+      "started_at_utc": "2026-10-20T08:38:59.326418+00:00",
+      "http_status": 200,
+      "reported_model": "self-dploy/Qwen3.8-27B",
+      "valid_json": true,
+      "passed": true,
+      "status": "response-received",
+      "response_id": "71f72fc35bc449c58210a63167e3dddb",
+      "content": "\n\n{\"nama\":\"Rani\",\"jumlah\":3,\"kota\":null}",
+      "finish_reason": "stop",
+      "usage": {
+        "prompt_tokens": 115,
+        "total_tokens": 254,
+        "completion_tokens": 139,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0,
+          "image_tokens": 0
+        },
+        "reasoning_tokens": 123,
+        "cost": 2.2365e-05,
+        "cost_details": {
+          "upstream_inference_cost": 2.2365e-05,
+          "upstream_inference_prompt_cost": 4.025e-06,
+          "upstream_inference_completions_cost": 1.834e-05,
+          "total_cost": 2.2365e-05,
+          "input_cost": 4.025e-06,
+          "output_cost": 1.834e-05,
+          "cached_input_cost": 0,
+          "cache_write_input_cost": 0,
+          "request_cost": 0,
+          "web_search_cost": 0,
+          "image_input_cost": null,
+          "image_output_cost": null,
+          "audio_input_cost": null,
+          "data_storage_cost": 3.77e-06
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 123,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "parsed": {
+        "nama": "Rani",
+        "jumlah": 3,
+        "kota": null
+      },
+      "truncated": false,
+      "answer_correct": true,
+      "verdict": "pass",
+      "elapsed_seconds": 42.688,
+      "finished_at_utc": "2026-10-20T08:39:42.015536+00:00"
+    },
+    {
+      "sequence": 2,
+      "task_id": "extract_json",
+      "requested_model": "glm-5.3-flash",
+      "started_at_utc": "2026-10-20T08:39:42.017057+00:00",
+      "http_status": null,
+      "reported_model": null,
+      "valid_json": false,
+      "passed": false,
+      "status": "connection-or-response-error",
+      "verdict": "connection-or-response-error",
+      "detail": "The read operation timed out",
+      "elapsed_seconds": 90.373,
+      "finished_at_utc": "2026-10-20T08:41:12.390731+00:00"
+    },
+    {
+      "sequence": 3,
+      "task_id": "extract_json",
+      "requested_model": "MiMo-V2.6-Flash",
+      "started_at_utc": "2026-10-20T08:41:12.393324+00:00",
+      "http_status": 200,
+      "reported_model": "self-dploy/MiMo-V2.6-Flash",
+      "valid_json": true,
+      "passed": true,
+      "status": "response-received",
+      "response_id": "a2023351f02d44dc8e7e75a9d5075e2d",
+      "content": "{\"nama\": \"Rani\", \"jumlah\": 3, \"kota\": null}",
+      "finish_reason": "stop",
+      "usage": {
+        "prompt_tokens": 86,
+        "total_tokens": 126,
+        "completion_tokens": 40,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0,
+          "image_tokens": 0
+        },
+        "reasoning_tokens": 0,
+        "cost": 2.324e-05,
+        "cost_details": {
+          "upstream_inference_cost": 2.324e-05,
+          "upstream_inference_prompt_cost": 1.204e-05,
+          "upstream_inference_completions_cost": 1.12e-05,
+          "total_cost": 2.324e-05,
+          "input_cost": 1.204e-05,
+          "output_cost": 1.12e-05,
+          "cached_input_cost": 0,
+          "cache_write_input_cost": 0,
+          "request_cost": 0,
+          "web_search_cost": 0,
+          "image_input_cost": null,
+          "image_output_cost": null,
+          "audio_input_cost": null,
+          "data_storage_cost": 1.44e-06
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "parsed": {
+        "nama": "Rani",
+        "jumlah": 3,
+        "kota": null
+      },
+      "truncated": false,
+      "answer_correct": true,
+      "verdict": "pass",
+      "elapsed_seconds": 4.417,
+      "finished_at_utc": "2026-10-20T08:41:16.811066+00:00"
+    },
+    {
+      "sequence": 4,
+      "task_id": "arithmetic",
+      "requested_model": "glm-5.3-flash",
+      "started_at_utc": "2026-10-20T08:41:16.812587+00:00",
+      "http_status": 200,
+      "reported_model": "self-dploy/GLM-5.3-Flash",
+      "valid_json": true,
+      "passed": true,
+      "status": "response-received",
+      "response_id": "chatcmpl-2VRB3k4AHOch49CYNmGRx9ZzK0lfAwhIzClc71ZH",
+      "content": "{\"pensil\": 1045}",
+      "finish_reason": "stop",
+      "usage": {
+        "prompt_tokens": 99,
+        "total_tokens": 221,
+        "completion_tokens": 122,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "created_cache_tokens": 0,
+          "multimodal_tokens": null,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0,
+          "image_tokens": 0
+        },
+        "cost": 9.604e-05,
+        "cost_details": {
+          "upstream_inference_cost": 9.604e-05,
+          "upstream_inference_prompt_cost": 2.772e-05,
+          "upstream_inference_completions_cost": 6.832e-05,
+          "total_cost": 9.604e-05,
+          "input_cost": 2.772e-05,
+          "output_cost": 6.832e-05,
+          "cached_input_cost": 0,
+          "cache_write_input_cost": 0,
+          "request_cost": 0,
+          "web_search_cost": 0,
+          "image_input_cost": null,
+          "image_output_cost": null,
+          "audio_input_cost": null,
+          "data_storage_cost": 3.19e-06
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 98,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "parsed": {
+        "pensil": 1045
+      },
+      "truncated": false,
+      "answer_correct": true,
+      "verdict": "pass",
+      "elapsed_seconds": 71.616,
+      "finished_at_utc": "2026-10-20T08:42:28.429121+00:00"
+    },
+    {
+      "sequence": 5,
+      "task_id": "arithmetic",
+      "requested_model": "MiMo-V2.6-Flash",
+      "started_at_utc": "2026-10-20T08:42:28.430833+00:00",
+      "http_status": 200,
+      "reported_model": "self-dploy/MiMo-V2.6-Flash",
+      "valid_json": true,
+      "passed": true,
+      "status": "response-received",
+      "response_id": "75a57ce090944b2aaf5319f8ed7f1814",
+      "content": "{\"pensil\": 1045}",
+      "finish_reason": "stop",
+      "usage": {
+        "prompt_tokens": 98,
+        "total_tokens": 165,
+        "completion_tokens": 67,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0,
+          "image_tokens": 0
+        },
+        "reasoning_tokens": 0,
+        "cost": 3.248e-05,
+        "cost_details": {
+          "upstream_inference_cost": 3.248e-05,
+          "upstream_inference_prompt_cost": 1.372e-05,
+          "upstream_inference_completions_cost": 1.876e-05,
+          "total_cost": 3.248e-05,
+          "input_cost": 1.372e-05,
+          "output_cost": 1.876e-05,
+          "cached_input_cost": 0,
+          "cache_write_input_cost": 0,
+          "request_cost": 0,
+          "web_search_cost": 0,
+          "image_input_cost": null,
+          "image_output_cost": null,
+          "audio_input_cost": null,
+          "data_storage_cost": 1.8000000000000001e-06
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "parsed": {
+        "pensil": 1045
+      },
+      "truncated": false,
+      "answer_correct": true,
+      "verdict": "pass",
+      "elapsed_seconds": 8.013,
+      "finished_at_utc": "2026-10-20T08:42:36.444884+00:00"
+    },
+    {
+      "sequence": 6,
+      "task_id": "arithmetic",
+      "requested_model": "Qwen3.8-27B",
+      "started_at_utc": "2026-10-20T08:42:36.446428+00:00",
+      "http_status": 200,
+      "reported_model": "self-dploy/Qwen3.8-27B",
+      "valid_json": true,
+      "passed": true,
+      "status": "response-received",
+      "response_id": "2f8c878e38874b64af5aa2e7edc2e132",
+      "content": "\n\n{\"pensil\":1045}",
+      "finish_reason": "stop",
+      "usage": {
+        "prompt_tokens": 120,
+        "total_tokens": 342,
+        "completion_tokens": 222,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0,
+          "image_tokens": 0
+        },
+        "reasoning_tokens": 211,
+        "cost": 3.451e-05,
+        "cost_details": {
+          "upstream_inference_cost": 3.451e-05,
+          "upstream_inference_prompt_cost": 4.2e-06,
+          "upstream_inference_completions_cost": 3.031e-05,
+          "total_cost": 3.451e-05,
+          "input_cost": 4.2e-06,
+          "output_cost": 3.031e-05,
+          "cached_input_cost": 0,
+          "cache_write_input_cost": 0,
+          "request_cost": 0,
+          "web_search_cost": 0,
+          "image_input_cost": null,
+          "image_output_cost": null,
+          "audio_input_cost": null,
+          "data_storage_cost": 5.53e-06
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 211,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "parsed": {
+        "pensil": 1045
+      },
+      "truncated": false,
+      "answer_correct": true,
+      "verdict": "pass",
+      "elapsed_seconds": 9.336,
+      "finished_at_utc": "2026-10-20T08:42:45.783486+00:00"
+    },
+    {
+      "sequence": 7,
+      "task_id": "python_trace",
+      "requested_model": "MiMo-V2.6-Flash",
+      "started_at_utc": "2026-10-20T08:42:45.785258+00:00",
+      "http_status": 200,
+      "reported_model": "self-dploy/MiMo-V2.6-Flash",
+      "valid_json": true,
+      "passed": true,
+      "status": "response-received",
+      "response_id": "cd59d115d8c54e99a84839046101927d",
+      "content": "{\"out\": [2, 6, 0, 10, 1]}",
+      "finish_reason": "stop",
+      "usage": {
+        "prompt_tokens": 116,
+        "total_tokens": 331,
+        "completion_tokens": 215,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0,
+          "image_tokens": 0
+        },
+        "reasoning_tokens": 0,
+        "cost": 7.644e-05,
+        "cost_details": {
+          "upstream_inference_cost": 7.643999999999999e-05,
+          "upstream_inference_prompt_cost": 1.624e-05,
+          "upstream_inference_completions_cost": 6.02e-05,
+          "total_cost": 7.644e-05,
+          "input_cost": 1.624e-05,
+          "output_cost": 6.02e-05,
+          "cached_input_cost": 0,
+          "cache_write_input_cost": 0,
+          "request_cost": 0,
+          "web_search_cost": 0,
+          "image_input_cost": null,
+          "image_output_cost": null,
+          "audio_input_cost": null,
+          "data_storage_cost": 4.21e-06
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "parsed": {
+        "out": [
+          2,
+          6,
+          0,
+          10,
+          1
+        ]
+      },
+      "truncated": false,
+      "answer_correct": true,
+      "verdict": "pass",
+      "elapsed_seconds": 17.537,
+      "finished_at_utc": "2026-10-20T08:43:03.323011+00:00"
+    },
+    {
+      "sequence": 8,
+      "task_id": "python_trace",
+      "requested_model": "Qwen3.8-27B",
+      "started_at_utc": "2026-10-20T08:43:03.324726+00:00",
+      "http_status": 200,
+      "reported_model": "self-dploy/Qwen3.8-27B",
+      "valid_json": true,
+      "passed": true,
+      "status": "response-received",
+      "response_id": "45e683d9a4a84a46a526bfa039edf5e1",
+      "content": "\n\n{\"out\":[2,6,0,10,1]}",
+      "finish_reason": "stop",
+      "usage": {
+        "prompt_tokens": 155,
+        "total_tokens": 419,
+        "completion_tokens": 264,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0,
+          "image_tokens": 0
+        },
+        "reasoning_tokens": 248,
+        "cost": 4.1265e-05,
+        "cost_details": {
+          "upstream_inference_cost": 4.1265000000000006e-05,
+          "upstream_inference_prompt_cost": 5.425e-06,
+          "upstream_inference_completions_cost": 3.584e-05,
+          "total_cost": 4.1265e-05,
+          "input_cost": 5.425e-06,
+          "output_cost": 3.584e-05,
+          "cached_input_cost": 0,
+          "cache_write_input_cost": 0,
+          "request_cost": 0,
+          "web_search_cost": 0,
+          "image_input_cost": null,
+          "image_output_cost": null,
+          "audio_input_cost": null,
+          "data_storage_cost": 6.67e-06
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 248,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "parsed": {
+        "out": [
+          2,
+          6,
+          0,
+          10,
+          1
+        ]
+      },
+      "truncated": false,
+      "answer_correct": true,
+      "verdict": "pass",
+      "elapsed_seconds": 10.607,
+      "finished_at_utc": "2026-10-20T08:43:13.932439+00:00"
+    },
+    {
+      "sequence": 9,
+      "task_id": "python_trace",
+      "requested_model": "glm-5.3-flash",
+      "started_at_utc": "2026-10-20T08:43:13.933915+00:00",
+      "http_status": 200,
+      "reported_model": "z-ai/glm-5.3-flash",
+      "valid_json": true,
+      "passed": true,
+      "status": "response-received",
+      "response_id": "chatcmpl-a6319475-69bf-4438-8201-dc1a5aace114",
+      "content": "{\"out\":[2,6,0,10,1]}",
+      "finish_reason": "stop",
+      "usage": {
+        "prompt_tokens": 121,
+        "completion_tokens": 220,
+        "total_tokens": 341,
+        "prompt_tokens_details": {
+          "audio_tokens": null,
+          "cached_tokens": 0
+        },
+        "completion_tokens_details": {
+          "accepted_prediction_tokens": null,
+          "audio_tokens": null,
+          "reasoning_tokens": 207,
+          "rejected_prediction_tokens": null
+        }
+      },
+      "parsed": {
+        "out": [
+          2,
+          6,
+          0,
+          10,
+          1
+        ]
+      },
+      "truncated": false,
+      "answer_correct": true,
+      "verdict": "pass",
+      "elapsed_seconds": 8.738,
+      "finished_at_utc": "2026-10-20T08:43:22.672754+00:00"
+    }
+  ]
+}

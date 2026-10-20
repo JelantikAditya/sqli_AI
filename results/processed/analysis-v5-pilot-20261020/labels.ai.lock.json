@@ -1,0 +1,1196 @@
+{
+  "origin": "AI-authored synthetic contract labels",
+  "researcher_review": "pending",
+  "researcher_adoption": "not-recorded",
+  "independent_holdout": false,
+  "cases": [
+    {
+      "case_id": "pilot-001",
+      "technique": "error-based",
+      "decision": "positive",
+      "trial_assessments": [
+        {
+          "trial": 1,
+          "outcome": "positive",
+          "evidence_refs": [
+            "obs-001",
+            "obs-002"
+          ]
+        },
+        {
+          "trial": 2,
+          "outcome": "positive",
+          "evidence_refs": [
+            "obs-003",
+            "obs-004"
+          ]
+        },
+        {
+          "trial": 3,
+          "outcome": "positive",
+          "evidence_refs": [
+            "obs-005",
+            "obs-006"
+          ]
+        }
+      ],
+      "gate": "eligible",
+      "rationale": "One newly supplied syntax identifier in every trial"
+    },
+    {
+      "case_id": "pilot-002",
+      "technique": "error-based",
+      "decision": "positive",
+      "trial_assessments": [
+        {
+          "trial": 1,
+          "outcome": "positive",
+          "evidence_refs": [
+            "obs-001",
+            "obs-002"
+          ]
+        },
+        {
+          "trial": 2,
+          "outcome": "positive",
+          "evidence_refs": [
+            "obs-003",
+            "obs-004"
+          ]
+        },
+        {
+          "trial": 3,
+          "outcome": "positive",
+          "evidence_refs": [
+            "obs-005",
+            "obs-006"
+          ]
+        }
+      ],
+      "gate": "eligible",
+      "rationale": "New XPath diagnostic with status variation"
+    },
+    {
+      "case_id": "pilot-003",
+      "technique": "error-based",
+      "decision": "positive",
+      "trial_assessments": [
+        {
+          "trial": 1,
+          "outcome": "positive",
+          "evidence_refs": [
+            "obs-001",
+            "obs-002"
+          ]
+        },
+        {
+          "trial": 2,
+          "outcome": "positive",
+          "evidence_refs": [
+            "obs-003",
+            "obs-004"
+          ]
+        },
+        {
+          "trial": 3,
+          "outcome": "positive",
+          "evidence_refs": [
+            "obs-005",
+            "obs-006"
+          ]
+        }
+      ],
+      "gate": "eligible",
+      "rationale": "New unknown-column diagnostic"
+    },
+    {
+      "case_id": "pilot-004",
+      "technique": "error-based",
+      "decision": "positive",
+      "trial_assessments": [
+        {
+          "trial": 1,
+          "outcome": "positive",
+          "evidence_refs": [
+            "obs-001",
+            "obs-002"
+          ]
+        },
+        {
+          "trial": 2,
+          "outcome": "positive",
+          "evidence_refs": [
+            "obs-003",
+            "obs-004"
+          ]
+        },
+        {
+          "trial": 3,
+          "outcome": "positive",
+          "evidence_refs": [
+            "obs-005",
+            "obs-006"
+          ]
+        }
+      ],
+      "gate": "eligible",
+      "rationale": "Different nonempty new diagnostic sets"
+    },
+    {
+      "case_id": "pilot-005",
+      "technique": "error-based",
+      "decision": "negative",
+      "trial_assessments": [
+        {
+          "trial": 1,
+          "outcome": "negative",
+          "evidence_refs": [
+            "obs-001",
+            "obs-002"
+          ]
+        },
+        {
+          "trial": 2,
+          "outcome": "negative",
+          "evidence_refs": [
+            "obs-003",
+            "obs-004"
+          ]
+        },
+        {
+          "trial": 3,
+          "outcome": "negative",
+          "evidence_refs": [
+            "obs-005",
+            "obs-006"
+          ]
+        }
+      ],
+      "gate": "eligible",
+      "rationale": "HTTP 500 alone has no database diagnostic"
+    },
+    {
+      "case_id": "pilot-006",
+      "technique": "error-based",
+      "decision": "negative",
+      "trial_assessments": [
+        {
+          "trial": 1,
+          "outcome": "negative",
+          "evidence_refs": [
+            "obs-001",
+            "obs-002"
+          ]
+        },
+        {
+          "trial": 2,
+          "outcome": "negative",
+          "evidence_refs": [
+            "obs-003",
+            "obs-004"
+          ]
+        },
+        {
+          "trial": 3,
+          "outcome": "negative",
+          "evidence_refs": [
+            "obs-005",
+            "obs-006"
+          ]
+        }
+      ],
+      "gate": "eligible",
+      "rationale": "Status differences alone"
+    },
+    {
+      "case_id": "pilot-007",
+      "technique": "error-based",
+      "decision": "negative",
+      "trial_assessments": [
+        {
+          "trial": 1,
+          "outcome": "negative",
+          "evidence_refs": [
+            "obs-001",
+            "obs-002"
+          ]
+        },
+        {
+          "trial": 2,
+          "outcome": "negative",
+          "evidence_refs": [
+            "obs-003",
+            "obs-004"
+          ]
+        },
+        {
+          "trial": 3,
+          "outcome": "negative",
+          "evidence_refs": [
+            "obs-005",
+            "obs-006"
+          ]
+        }
+      ],
+      "gate": "eligible",
+      "rationale": "Redirect without diagnostic"
+    },
+    {
+      "case_id": "pilot-008",
+      "technique": "error-based",
+      "decision": "negative",
+      "trial_assessments": [
+        {
+          "trial": 1,
+          "outcome": "negative",
+          "evidence_refs": [
+            "obs-001",
+            "obs-002"
+          ]
+        },
+        {
+          "trial": 2,
+          "outcome": "negative",
+          "evidence_refs": [
+            "obs-003",
+            "obs-004"
+          ]
+        },
+        {
+          "trial": 3,
+          "outcome": "negative",
+          "evidence_refs": [
+            "obs-005",
+            "obs-006"
+          ]
+        }
+      ],
+      "gate": "eligible",
+      "rationale": "Candidate response change without diagnostic"
+    },
+    {
+      "case_id": "pilot-009",
+      "technique": "error-based",
+      "decision": "inconclusive",
+      "trial_assessments": [
+        {
+          "trial": 1,
+          "outcome": "positive",
+          "evidence_refs": [
+            "obs-001",
+            "obs-002"
+          ]
+        },
+        {
+          "trial": 2,
+          "outcome": "negative",
+          "evidence_refs": [
+            "obs-003",
+            "obs-004"
+          ]
+        },
+        {
+          "trial": 3,
+          "outcome": "negative",
+          "evidence_refs": [
+            "obs-005",
+            "obs-006"
+          ]
+        }
+      ],
+      "gate": "eligible",
+      "rationale": "One positive trial"
+    },
+    {
+      "case_id": "pilot-010",
+      "technique": "error-based",
+      "decision": "inconclusive",
+      "trial_assessments": [
+        {
+          "trial": 1,
+          "outcome": "positive",
+          "evidence_refs": [
+            "obs-001",
+            "obs-002"
+          ]
+        },
+        {
+          "trial": 2,
+          "outcome": "negative",
+          "evidence_refs": [
+            "obs-003",
+            "obs-004"
+          ]
+        },
+        {
+          "trial": 3,
+          "outcome": "positive",
+          "evidence_refs": [
+            "obs-005",
+            "obs-006"
+          ]
+        }
+      ],
+      "gate": "eligible",
+      "rationale": "Two positive trials"
+    },
+    {
+      "case_id": "pilot-011",
+      "technique": "error-based",
+      "decision": "inconclusive",
+      "trial_assessments": [
+        {
+          "trial": 1,
+          "outcome": "positive",
+          "evidence_refs": [
+            "obs-001",
+            "obs-002"
+          ]
+        },
+        {
+          "trial": 3,
+          "outcome": "positive",
+          "evidence_refs": [
+            "obs-003",
+            "obs-004"
+          ]
+        }
+      ],
+      "gate": "eligible",
+      "rationale": "Only trials 1 and 3"
+    },
+    {
+      "case_id": "pilot-012",
+      "technique": "error-based",
+      "decision": "inconclusive",
+      "trial_assessments": [
+        {
+          "trial": 1,
+          "outcome": "negative",
+          "evidence_refs": [
+            "obs-001",
+            "obs-002"
+          ]
+        },
+        {
+          "trial": 2,
+          "outcome": "negative",
+          "evidence_refs": [
+            "obs-003",
+            "obs-004"
+          ]
+        }
+      ],
+      "gate": "eligible",
+      "rationale": "Only trials 1 and 2, both negative"
+    },
+    {
+      "case_id": "pilot-013",
+      "technique": "boolean-based blind",
+      "decision": "positive",
+      "trial_assessments": [
+        {
+          "trial": 1,
+          "outcome": "positive",
+          "evidence_refs": [
+            "obs-002",
+            "obs-003"
+          ]
+        },
+        {
+          "trial": 2,
+          "outcome": "positive",
+          "evidence_refs": [
+            "obs-005",
+            "obs-006"
+          ]
+        },
+        {
+          "trial": 3,
+          "outcome": "positive",
+          "evidence_refs": [
+            "obs-008",
+            "obs-009"
+          ]
+        }
+      ],
+      "gate": "eligible",
+      "rationale": "Opposed markers, HTTP 200 on both sides"
+    },
+    {
+      "case_id": "pilot-014",
+      "technique": "boolean-based blind",
+      "decision": "positive",
+      "trial_assessments": [
+        {
+          "trial": 1,
+          "outcome": "positive",
+          "evidence_refs": [
+            "obs-002",
+            "obs-003"
+          ]
+        },
+        {
+          "trial": 2,
+          "outcome": "positive",
+          "evidence_refs": [
+            "obs-005",
+            "obs-006"
+          ]
+        },
+        {
+          "trial": 3,
+          "outcome": "positive",
+          "evidence_refs": [
+            "obs-008",
+            "obs-009"
+          ]
+        }
+      ],
+      "gate": "eligible",
+      "rationale": "Missing marker with HTTP 404"
+    },
+    {
+      "case_id": "pilot-015",
+      "technique": "boolean-based blind",
+      "decision": "positive",
+      "trial_assessments": [
+        {
+          "trial": 1,
+          "outcome": "positive",
+          "evidence_refs": [
+            "obs-002",
+            "obs-003"
+          ]
+        },
+        {
+          "trial": 2,
+          "outcome": "positive",
+          "evidence_refs": [
+            "obs-005",
+            "obs-006"
+          ]
+        },
+        {
+          "trial": 3,
+          "outcome": "positive",
+          "evidence_refs": [
+            "obs-008",
+            "obs-009"
+          ]
+        }
+      ],
+      "gate": "eligible",
+      "rationale": "Stable direction despite status variation"
+    },
+    {
+      "case_id": "pilot-016",
+      "technique": "boolean-based blind",
+      "decision": "positive",
+      "trial_assessments": [
+        {
+          "trial": 1,
+          "outcome": "positive",
+          "evidence_refs": [
+            "obs-002",
+            "obs-003"
+          ]
+        },
+        {
+          "trial": 2,
+          "outcome": "positive",
+          "evidence_refs": [
+            "obs-005",
+            "obs-006"
+          ]
+        },
+        {
+          "trial": 3,
+          "outcome": "positive",
+          "evidence_refs": [
+            "obs-008",
+            "obs-009"
+          ]
+        }
+      ],
+      "gate": "eligible",
+      "rationale": "Stable markers across alternate status pattern"
+    },
+    {
+      "case_id": "pilot-017",
+      "technique": "boolean-based blind",
+      "decision": "negative",
+      "trial_assessments": [
+        {
+          "trial": 1,
+          "outcome": "negative",
+          "evidence_refs": [
+            "obs-002",
+            "obs-003"
+          ]
+        },
+        {
+          "trial": 2,
+          "outcome": "negative",
+          "evidence_refs": [
+            "obs-005",
+            "obs-006"
+          ]
+        },
+        {
+          "trial": 3,
+          "outcome": "negative",
+          "evidence_refs": [
+            "obs-008",
+            "obs-009"
+          ]
+        }
+      ],
+      "gate": "eligible",
+      "rationale": "Opposed markers in the wrong direction"
+    },
+    {
+      "case_id": "pilot-018",
+      "technique": "boolean-based blind",
+      "decision": "negative",
+      "trial_assessments": [
+        {
+          "trial": 1,
+          "outcome": "negative",
+          "evidence_refs": [
+            "obs-002",
+            "obs-003"
+          ]
+        },
+        {
+          "trial": 2,
+          "outcome": "negative",
+          "evidence_refs": [
+            "obs-005",
+            "obs-006"
+          ]
+        },
+        {
+          "trial": 3,
+          "outcome": "negative",
+          "evidence_refs": [
+            "obs-008",
+            "obs-009"
+          ]
+        }
+      ],
+      "gate": "eligible",
+      "rationale": "Both sides have the same marker"
+    },
+    {
+      "case_id": "pilot-019",
+      "technique": "boolean-based blind",
+      "decision": "negative",
+      "trial_assessments": [
+        {
+          "trial": 1,
+          "outcome": "negative",
+          "evidence_refs": [
+            "obs-002",
+            "obs-003"
+          ]
+        },
+        {
+          "trial": 2,
+          "outcome": "negative",
+          "evidence_refs": [
+            "obs-005",
+            "obs-006"
+          ]
+        },
+        {
+          "trial": 3,
+          "outcome": "negative",
+          "evidence_refs": [
+            "obs-008",
+            "obs-009"
+          ]
+        }
+      ],
+      "gate": "eligible",
+      "rationale": "Database diagnostic invalidates opposed-marker indicator"
+    },
+    {
+      "case_id": "pilot-020",
+      "technique": "boolean-based blind",
+      "decision": "negative",
+      "trial_assessments": [
+        {
+          "trial": 1,
+          "outcome": "negative",
+          "evidence_refs": [
+            "obs-002",
+            "obs-003"
+          ]
+        },
+        {
+          "trial": 2,
+          "outcome": "negative",
+          "evidence_refs": [
+            "obs-005",
+            "obs-006"
+          ]
+        },
+        {
+          "trial": 3,
+          "outcome": "negative",
+          "evidence_refs": [
+            "obs-008",
+            "obs-009"
+          ]
+        }
+      ],
+      "gate": "eligible",
+      "rationale": "Candidate comparison status invalid, baseline remains valid"
+    },
+    {
+      "case_id": "pilot-021",
+      "technique": "boolean-based blind",
+      "decision": "inconclusive",
+      "trial_assessments": [
+        {
+          "trial": 1,
+          "outcome": "positive",
+          "evidence_refs": [
+            "obs-002",
+            "obs-003"
+          ]
+        },
+        {
+          "trial": 2,
+          "outcome": "negative",
+          "evidence_refs": [
+            "obs-005",
+            "obs-006"
+          ]
+        },
+        {
+          "trial": 3,
+          "outcome": "negative",
+          "evidence_refs": [
+            "obs-008",
+            "obs-009"
+          ]
+        }
+      ],
+      "gate": "eligible",
+      "rationale": "One valid opposed pair"
+    },
+    {
+      "case_id": "pilot-022",
+      "technique": "boolean-based blind",
+      "decision": "inconclusive",
+      "trial_assessments": [
+        {
+          "trial": 1,
+          "outcome": "positive",
+          "evidence_refs": [
+            "obs-002",
+            "obs-003"
+          ]
+        },
+        {
+          "trial": 2,
+          "outcome": "negative",
+          "evidence_refs": [
+            "obs-005",
+            "obs-006"
+          ]
+        },
+        {
+          "trial": 3,
+          "outcome": "positive",
+          "evidence_refs": [
+            "obs-008",
+            "obs-009"
+          ]
+        }
+      ],
+      "gate": "eligible",
+      "rationale": "Two valid opposed pairs"
+    },
+    {
+      "case_id": "pilot-023",
+      "technique": "boolean-based blind",
+      "decision": "inconclusive",
+      "trial_assessments": [
+        {
+          "trial": 1,
+          "outcome": "positive",
+          "evidence_refs": [
+            "obs-002",
+            "obs-003"
+          ]
+        },
+        {
+          "trial": 3,
+          "outcome": "positive",
+          "evidence_refs": [
+            "obs-005",
+            "obs-006"
+          ]
+        }
+      ],
+      "gate": "eligible",
+      "rationale": "Only trials 1 and 3"
+    },
+    {
+      "case_id": "pilot-024",
+      "technique": "boolean-based blind",
+      "decision": "inconclusive",
+      "trial_assessments": [
+        {
+          "trial": 1,
+          "outcome": "negative",
+          "evidence_refs": [
+            "obs-002",
+            "obs-003"
+          ]
+        },
+        {
+          "trial": 2,
+          "outcome": "negative",
+          "evidence_refs": [
+            "obs-005",
+            "obs-006"
+          ]
+        }
+      ],
+      "gate": "eligible",
+      "rationale": "Incomplete negative pairs"
+    },
+    {
+      "case_id": "pilot-025",
+      "technique": "time-based blind",
+      "decision": "positive",
+      "trial_assessments": [
+        {
+          "trial": 1,
+          "outcome": "positive",
+          "evidence_refs": [
+            "obs-002",
+            "obs-003"
+          ]
+        },
+        {
+          "trial": 2,
+          "outcome": "positive",
+          "evidence_refs": [
+            "obs-005",
+            "obs-006"
+          ]
+        },
+        {
+          "trial": 3,
+          "outcome": "positive",
+          "evidence_refs": [
+            "obs-008",
+            "obs-009"
+          ]
+        }
+      ],
+      "gate": "eligible",
+      "rationale": "Exact inclusive threshold with matched controls"
+    },
+    {
+      "case_id": "pilot-026",
+      "technique": "time-based blind",
+      "decision": "positive",
+      "trial_assessments": [
+        {
+          "trial": 1,
+          "outcome": "positive",
+          "evidence_refs": [
+            "obs-002",
+            "obs-003"
+          ]
+        },
+        {
+          "trial": 2,
+          "outcome": "positive",
+          "evidence_refs": [
+            "obs-005",
+            "obs-006"
+          ]
+        },
+        {
+          "trial": 3,
+          "outcome": "positive",
+          "evidence_refs": [
+            "obs-008",
+            "obs-009"
+          ]
+        }
+      ],
+      "gate": "eligible",
+      "rationale": "Above-threshold matched exists markers"
+    },
+    {
+      "case_id": "pilot-027",
+      "technique": "time-based blind",
+      "decision": "positive",
+      "trial_assessments": [
+        {
+          "trial": 1,
+          "outcome": "positive",
+          "evidence_refs": [
+            "obs-002",
+            "obs-003"
+          ]
+        },
+        {
+          "trial": 2,
+          "outcome": "positive",
+          "evidence_refs": [
+            "obs-005",
+            "obs-006"
+          ]
+        },
+        {
+          "trial": 3,
+          "outcome": "positive",
+          "evidence_refs": [
+            "obs-008",
+            "obs-009"
+          ]
+        }
+      ],
+      "gate": "eligible",
+      "rationale": "Matched missing markers with valid HTTP 404"
+    },
+    {
+      "case_id": "pilot-028",
+      "technique": "time-based blind",
+      "decision": "positive",
+      "trial_assessments": [
+        {
+          "trial": 1,
+          "outcome": "positive",
+          "evidence_refs": [
+            "obs-002",
+            "obs-003"
+          ]
+        },
+        {
+          "trial": 2,
+          "outcome": "positive",
+          "evidence_refs": [
+            "obs-005",
+            "obs-006"
+          ]
+        },
+        {
+          "trial": 3,
+          "outcome": "positive",
+          "evidence_refs": [
+            "obs-008",
+            "obs-009"
+          ]
+        }
+      ],
+      "gate": "eligible",
+      "rationale": "Each trial independently reaches threshold"
+    },
+    {
+      "case_id": "pilot-029",
+      "technique": "time-based blind",
+      "decision": "negative",
+      "trial_assessments": [
+        {
+          "trial": 1,
+          "outcome": "negative",
+          "evidence_refs": [
+            "obs-002",
+            "obs-003"
+          ]
+        },
+        {
+          "trial": 2,
+          "outcome": "negative",
+          "evidence_refs": [
+            "obs-005",
+            "obs-006"
+          ]
+        },
+        {
+          "trial": 3,
+          "outcome": "negative",
+          "evidence_refs": [
+            "obs-008",
+            "obs-009"
+          ]
+        }
+      ],
+      "gate": "eligible",
+      "rationale": "1499.8 ms is below 1500 ms without rounding"
+    },
+    {
+      "case_id": "pilot-030",
+      "technique": "time-based blind",
+      "decision": "negative",
+      "trial_assessments": [
+        {
+          "trial": 1,
+          "outcome": "negative",
+          "evidence_refs": [
+            "obs-002",
+            "obs-003"
+          ]
+        },
+        {
+          "trial": 2,
+          "outcome": "negative",
+          "evidence_refs": [
+            "obs-005",
+            "obs-006"
+          ]
+        },
+        {
+          "trial": 3,
+          "outcome": "negative",
+          "evidence_refs": [
+            "obs-008",
+            "obs-009"
+          ]
+        }
+      ],
+      "gate": "eligible",
+      "rationale": "Slow absolute responses with small matched deltas"
+    },
+    {
+      "case_id": "pilot-031",
+      "technique": "time-based blind",
+      "decision": "negative",
+      "trial_assessments": [
+        {
+          "trial": 1,
+          "outcome": "negative",
+          "evidence_refs": [
+            "obs-002",
+            "obs-003"
+          ]
+        },
+        {
+          "trial": 2,
+          "outcome": "negative",
+          "evidence_refs": [
+            "obs-005",
+            "obs-006"
+          ]
+        },
+        {
+          "trial": 3,
+          "outcome": "negative",
+          "evidence_refs": [
+            "obs-008",
+            "obs-009"
+          ]
+        }
+      ],
+      "gate": "eligible",
+      "rationale": "Large delay with mismatched control marker"
+    },
+    {
+      "case_id": "pilot-032",
+      "technique": "time-based blind",
+      "decision": "negative",
+      "trial_assessments": [
+        {
+          "trial": 1,
+          "outcome": "negative",
+          "evidence_refs": [
+            "obs-002",
+            "obs-003"
+          ]
+        },
+        {
+          "trial": 2,
+          "outcome": "negative",
+          "evidence_refs": [
+            "obs-005",
+            "obs-006"
+          ]
+        },
+        {
+          "trial": 3,
+          "outcome": "negative",
+          "evidence_refs": [
+            "obs-008",
+            "obs-009"
+          ]
+        }
+      ],
+      "gate": "eligible",
+      "rationale": "Diagnostic controls and negative signed delta"
+    },
+    {
+      "case_id": "pilot-033",
+      "technique": "time-based blind",
+      "decision": "inconclusive",
+      "trial_assessments": [
+        {
+          "trial": 1,
+          "outcome": "positive",
+          "evidence_refs": [
+            "obs-002",
+            "obs-003"
+          ]
+        },
+        {
+          "trial": 2,
+          "outcome": "negative",
+          "evidence_refs": [
+            "obs-005",
+            "obs-006"
+          ]
+        },
+        {
+          "trial": 3,
+          "outcome": "negative",
+          "evidence_refs": [
+            "obs-008",
+            "obs-009"
+          ]
+        }
+      ],
+      "gate": "eligible",
+      "rationale": "One qualifying matched delay"
+    },
+    {
+      "case_id": "pilot-034",
+      "technique": "time-based blind",
+      "decision": "inconclusive",
+      "trial_assessments": [
+        {
+          "trial": 1,
+          "outcome": "positive",
+          "evidence_refs": [
+            "obs-002",
+            "obs-003"
+          ]
+        },
+        {
+          "trial": 2,
+          "outcome": "negative",
+          "evidence_refs": [
+            "obs-005",
+            "obs-006"
+          ]
+        },
+        {
+          "trial": 3,
+          "outcome": "positive",
+          "evidence_refs": [
+            "obs-008",
+            "obs-009"
+          ]
+        }
+      ],
+      "gate": "eligible",
+      "rationale": "Two qualifying delays"
+    },
+    {
+      "case_id": "pilot-035",
+      "technique": "time-based blind",
+      "decision": "inconclusive",
+      "trial_assessments": [
+        {
+          "trial": 1,
+          "outcome": "positive",
+          "evidence_refs": [
+            "obs-002",
+            "obs-003"
+          ]
+        },
+        {
+          "trial": 3,
+          "outcome": "positive",
+          "evidence_refs": [
+            "obs-005",
+            "obs-006"
+          ]
+        }
+      ],
+      "gate": "eligible",
+      "rationale": "Only trials 1 and 3"
+    },
+    {
+      "case_id": "pilot-036",
+      "technique": "time-based blind",
+      "decision": "inconclusive",
+      "trial_assessments": [
+        {
+          "trial": 1,
+          "outcome": "negative",
+          "evidence_refs": [
+            "obs-002",
+            "obs-003"
+          ]
+        },
+        {
+          "trial": 2,
+          "outcome": "negative",
+          "evidence_refs": [
+            "obs-005",
+            "obs-006"
+          ]
+        }
+      ],
+      "gate": "eligible",
+      "rationale": "Incomplete negative timings"
+    },
+    {
+      "case_id": "pilot-037",
+      "technique": "error-based",
+      "decision": null,
+      "trial_assessments": [],
+      "gate": "input_invalid",
+      "rationale": "runtime-invalid"
+    },
+    {
+      "case_id": "pilot-038",
+      "technique": "error-based",
+      "decision": null,
+      "trial_assessments": [],
+      "gate": "input_invalid",
+      "rationale": "baseline-invalid"
+    },
+    {
+      "case_id": "pilot-039",
+      "technique": "boolean-based blind",
+      "decision": null,
+      "trial_assessments": [],
+      "gate": "input_invalid",
+      "rationale": "runtime-invalid"
+    },
+    {
+      "case_id": "pilot-040",
+      "technique": "boolean-based blind",
+      "decision": null,
+      "trial_assessments": [],
+      "gate": "input_invalid",
+      "rationale": "baseline-invalid"
+    },
+    {
+      "case_id": "pilot-041",
+      "technique": "time-based blind",
+      "decision": null,
+      "trial_assessments": [],
+      "gate": "input_invalid",
+      "rationale": "runtime-invalid"
+    },
+    {
+      "case_id": "pilot-042",
+      "technique": "time-based blind",
+      "decision": null,
+      "trial_assessments": [],
+      "gate": "input_invalid",
+      "rationale": "baseline-invalid"
+    }
+  ]
+}

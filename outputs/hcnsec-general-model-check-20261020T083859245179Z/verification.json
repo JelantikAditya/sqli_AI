@@ -1,0 +1,10 @@
+{
+  "status": "pass",
+  "request_hashes_verified": 9,
+  "raw_responses_verified": 8,
+  "grades_verified": 9,
+  "tasks_passed": 8,
+  "timeouts": 1,
+  "credential_pattern_matches": 0,
+  "network_calls": 0
+}

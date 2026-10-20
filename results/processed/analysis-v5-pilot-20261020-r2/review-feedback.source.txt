@@ -1,0 +1,109 @@
+**Saya sudah mencocokkan tabel dengan pengukuran di `inputs.lock.json`. Tidak ditemukan label yang perlu diganti: 42 label kasus dan 102 asesmen trial pada kasus eligible konsisten dengan aturan operasional yang dijelaskan.** Rancangan pilot juga sudah jauh lebih lengkap.
+
+Ada **dua aturan penilaian output yang perlu diperjelas**, serta beberapa batas cakupan pengujian. Saya tidak mengubah paket terkunci.
+
+Penilaian ini memeriksa konsistensi bukti dengan kontrak yang dijelaskan dalam lampiran. Kesesuaian persis dengan kode frozen, request aktual, dan `protocol.lock.json` belum dapat diverifikasi karena berkas tersebut tidak disertakan.
+
+**1. Hasil review label kasus**
+
+`P` = positive, `N` = negative. Label berikut berlaku untuk **indikator kandidat menurut kontrak proyek**, bukan kesimpulan bahwa target bebas atau pasti memiliki SQLi.
+
+| ID kasus | Bukti yang diperiksa | Penilaian |
+|---|---|---|
+| `pilot-001–004` | Baseline tanpa diagnostik; setiap kandidat memiliki identifier diagnostik baru | **Positive tepat**, seluruh trial P |
+| `pilot-005–008` | Tidak ada diagnostik kandidat, meskipun status atau marker berubah | **Negative tepat**, seluruh trial N |
+| `pilot-009` | Pola P/N/N | **Inconclusive tepat** |
+| `pilot-010` | Pola P/N/P | **Inconclusive tepat** |
+| `pilot-011–012` | Hanya trial 1/3 yang positif atau 1/2 yang negatif | **Inconclusive tepat**, keduanya tidak lengkap |
+| `pilot-013–016` | Arah true→exists dan false→missing konsisten; variasi status sesuai aturan yang dijelaskan | **Positive tepat** |
+| `pilot-017` | Arah marker terbalik pada seluruh trial | **Negative tepat** |
+| `pilot-018` | Kedua kondisi sama-sama menghasilkan exists | **Negative tepat** |
+| `pilot-019` | Respons false mengandung diagnostik pada seluruh trial | **Negative tepat** menurut syarat pasangan bebas diagnostik |
+| `pilot-020` | Respons true berstatus 500 pada seluruh trial | **Negative tepat** menurut aturan status pasangan |
+| `pilot-021–022` | Pola P/N/N dan P/N/P | **Inconclusive tepat** |
+| `pilot-023–024` | Pasangan tersedia hanya untuk dua trial | **Inconclusive tepat** |
+| `pilot-025–028` | Seluruh delta memenuhi ambang dengan pembanding yang sesuai | **Positive tepat** |
+| `pilot-029–032` | Delta di bawah ambang atau pasangan gagal syarat kontrol | **Negative tepat** |
+| `pilot-033–034` | Pola P/N/N dan P/N/P | **Inconclusive tepat** |
+| `pilot-035–036` | Hanya dua trial tersedia | **Inconclusive tepat** |
+| `pilot-037, 039, 041` | `runtime_status=invalid`, observasi kosong | **Input_invalid tepat** |
+| `pilot-038, 040, 042` | `baseline_valid=false`; baseline memuat diagnostik | **Input_invalid tepat**, harus dilewati sebelum inferensi |
+
+Perhitungan timing yang rawan salah juga cocok:
+
+| ID | Delta per trial, ms | Catatan |
+|---|---|---|
+| `pilot-025` | 1500 / 1500 / 1500 | Tepat pada ambang inklusif |
+| `pilot-028` | 1500 / 2700 / 1800 | Masing-masing memenuhi ambang |
+| `pilot-029` | 1499,8 / 1499,8 / 1499,8 | Tidak boleh dibulatkan menjadi 1500 |
+| `pilot-030` | 120 / 120 / 120 | Respons absolut lambat tidak cukup |
+| `pilot-031` | 1900 / 1900 / 1900 | Marker kandidat dan kontrol berbeda |
+| `pilot-032` | 1800 / −20 / 1800 | Trial 1/3 memiliki diagnostik kontrol; trial 2 memiliki delta negatif |
+| `pilot-033` | 1800 / 1499,8 / 1900 | Trial 3 gagal kecocokan marker |
+| `pilot-034` | 1600 / 120 / 1500 | Dua trial memenuhi indikator |
+
+Totalnya sesuai: **12 positive, 12 negative, 12 inconclusive, dan 6 input_invalid**. Pada sesi lengkap, tersedia **36 keputusan dan 102 trial per profil**.
+
+**2. Temuan yang perlu diperjelas sebelum eksekusi**
+
+**F-01 — Aturan “menyentuh 768 token” terlalu luas jika dianggap bukti output terpotong.**
+
+Dokumen menyatakan semua output yang menyentuh batas 768 menjadi analysis error. Padahal, jumlah token mencapai batas **belum dengan sendirinya membuktikan JSON tidak lengkap**.
+
+Pilihan perbaikannya:
+
+- Bedakan `done_reason=length` atau keluaran tidak selesai dari keluaran lengkap yang selesai tepat pada batas.
+- Jika memang sengaja menolak semua keluaran yang mencapai 768 sebagai kebijakan konservatif, namai sebagai **penolakan karena batas anggaran**, bukan otomatis “JSON terpotong”.
+
+Ini berpengaruh langsung pada skor. Jika diperjelas sekarang, lakukan melalui versi protokol baru sebelum inferensi.
+
+**F-02 — Batas antara kesalahan struktur dan kesalahan makna perlu dinyatakan lebih tegas.**
+
+Dokumen membedakan referensi observasi tidak dikenal sebagai error, sementara citation yang bertentangan menjadi warning. Pembedaan itu masuk akal, tetapi sebaiknya ditulis eksplisit:
+
+| Kondisi | Perlakuan |
+|---|---|
+| ID observasi tidak ada pada kasus | Analysis error |
+| ID ada, tetapi tidak mendukung klaim | Warning semantik; verdict mentah tetap dinilai |
+| `reason_code` sesuai decision tetapi decision salah | Konsisten secara internal, tetapi keputusan tetap salah |
+| Trial assessment hilang/ganda | Nol untuk trial terkait sesuai aturan, dengan penyebut tetap |
+
+**“Reason-code accuracy” juga perlu dibedakan dari “reason-code consistency”.** Pengalaman v2 sudah menunjukkan kode bisa konsisten dengan keputusan yang keliru.
+
+**3. Batas cakupan kasus yang perlu dicatat, bukan alasan mengganti label**
+
+- **`pilot-037/039/041`:** runtime invalid selalu disertai observasi kosong. Kasus ini belum membuktikan gate menolak runtime invalid ketika observasinya lengkap dan tampak positif.
+- **`pilot-038/040/042`:** flag baseline invalid selalu sejalan dengan diagnostik baseline. Kasus ini belum menguji input yang kontradiktif, misalnya flag valid tetapi baseline memuat diagnostik. Jika konsistensi tersebut dijamin upstream, tuliskan batas tanggung jawabnya.
+- **`pilot-013–016`:** empat kasus positif boolean terutama memvariasikan pola HTTP 200/404. Berguna untuk menguji kepatuhan aturan status, tetapi cakupan mekanismenya sempit.
+- **`pilot-032`:** menggabungkan diagnostik kontrol dan delta negatif dalam satu kasus. Labelnya benar, tetapi diagnosis penyebab kegagalan harus melihat asesmen trial, bukan verdict saja.
+
+Tidak wajib memperbesar pilot untuk menutup semuanya. Cukup jangan mengklaim pengujian gate atau variasi bukti sudah menyeluruh.
+
+**4. Review protokol A/B2/B3**
+
+Bagian utama sudah baik:
+
+- **108 panggilan dan 18 skip** cocok dengan komposisi kasus.
+- Jadwal permutasi yang dijelaskan seimbang.
+- Error tetap masuk penyebut kasus yang dicoba.
+- Abstention dipisahkan dari klaim positif/negatif keliru.
+- Sesi tidak lengkap tidak diberi kesimpulan perbandingan penuh.
+- Kriteria peningkatan beserta pemeriksaan dampak buruk ditetapkan sebelum hasil.
+- B3 diposisikan sebagai konteks lengkap per teknik.
+- Pilot sintetis dibedakan dari FPR/PSR formal.
+
+Untuk pembacaan hasil nanti, tampilkan juga **salah→benar dan benar→salah pada pasangan A/B3**. Ini membantu menjelaskan delta tanpa mengubah metrik utama.
+
+**5. Review korpus aktif**
+
+`corpus.rev2(1).json` **identik secara byte** dengan rev2 yang sebelumnya saya review. Jadi, temuan sebelumnya tetap berlaku:
+
+- Peran model dibatasi pada fitur yang disediakan.
+- Pembanding error, boolean, dan timing dibedakan.
+- Confounder tidak dijadikan penyebab yang boleh dikarang.
+- Batas klaim kandidat versus keamanan target jelas.
+- Parafrasa sumber dan adaptasi AI dipisahkan.
+
+Tidak ada revisi isi chunk tambahan dari pemeriksaan ini. Pemeriksaan tersebut tetap tidak menggantikan verifikasi snapshot sumber atau adopsi peneliti.
+
+**Rekomendasi saya: pertahankan 42 label dan korpus rev2. Perjelas F-01 dan F-02 dalam versi paket baru sebelum inferensi; batas cakupan lainnya cukup dicatat.** Paket ini layak untuk pilot development dengan cakupan tersebut, tanpa perlu memulai desainnya dari awal.

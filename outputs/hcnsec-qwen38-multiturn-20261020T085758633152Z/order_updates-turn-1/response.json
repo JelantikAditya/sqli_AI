@@ -1,0 +1,78 @@
+{
+  "id": "1817d22c715d4837ba11fd412e390a7f",
+  "object": "chat.completion",
+  "created": 1792486698,
+  "model": "self-dploy/Qwen3.8-27B",
+  "choices": [
+    {
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "\n\n{\"pelanggan\":\"Rani\",\"barang\":\"buku\",\"jumlah\":3,\"kota\":null,\"status\":\"draf\"}",
+        "tool_calls": null,
+        "reasoning": "We need answer user in Indonesian. User: \"Ini contoh data sintetis. Catat pesanan: pelanggan Rani, barang buku, jumlah 3, kota belum diketahui, status draf. Balas snapshot dengan tepat kunci pelanggan, barang, jumlah, kota, status. Jumlah harus integer; informasi yang belum diketahui harus null.\"\n\nNeed output only one valid JSON object no markdown or extra text. Keys exactly pelanggan, barang, jumlah, kota, status. Values: pelanggan \"Rani\", barang \"buku\", jumlah 3 integer, kota null, status \"draf\". Ensure valid JSON. No markdown.\n"
+      },
+      "logprobs": null,
+      "finish_reason": "stop",
+      "matched_stop": 248046
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 142,
+    "total_tokens": 295,
+    "completion_tokens": 153,
+    "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0,
+      "image_tokens": 0
+    },
+    "reasoning_tokens": 126,
+    "cost": 2.45e-05,
+    "cost_details": {
+      "upstream_inference_cost": 2.45e-05,
+      "upstream_inference_prompt_cost": 4.97e-06,
+      "upstream_inference_completions_cost": 1.953e-05,
+      "total_cost": 2.45e-05,
+      "input_cost": 4.97e-06,
+      "output_cost": 1.953e-05,
+      "cached_input_cost": 0,
+      "cache_write_input_cost": 0,
+      "request_cost": 0,
+      "web_search_cost": 0,
+      "image_input_cost": null,
+      "image_output_cost": null,
+      "audio_input_cost": null,
+      "data_storage_cost": 4.21e-06
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 126,
+      "image_tokens": 0,
+      "audio_tokens": 0
+    }
+  },
+  "metadata": {
+    "request_id": "FR5JJoyOoeXqLbXNpMNGfabSf6zQZzEBzENJJXI8",
+    "requested_model": "Qwen3.8-27B",
+    "requested_provider": null,
+    "used_model": "Qwen3.8-27B",
+    "used_provider": "self-dploy",
+    "underlying_used_model": "Qwen3.8-27B",
+    "routing": [
+      {
+        "provider": "self-dploy",
+        "model": "Qwen3.8-27B",
+        "status_code": 200,
+        "error_type": "none",
+        "succeeded": true,
+        "apiKeyHash": "ce10dea265c1cb6e0219ebfdc40832cca3d0949c855b2b05409513e79fdc4d91",
+        "logId": "pa39AlySaggXT0avBuzR"
+      }
+    ],
+    "log_id": "pa39AlySaggXT0avBuzR",
+    "organization_id": "oneclick-org-58873",
+    "project_id": "oneclick-project-58873",
+    "discount": null
+  }
+}

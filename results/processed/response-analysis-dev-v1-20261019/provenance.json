@@ -1,0 +1,30 @@
+{
+  "scope": "published-synthetic-development-pilot-not-formal-not-independent-holdout",
+  "experiment_id": "response-analysis-dev-v1-20261019",
+  "source_directory": "results/raw/development/response-analysis-v1-20261019",
+  "exact_byte_copies": [
+    "summary.json",
+    "manifest.json",
+    "runtime.json"
+  ],
+  "trial_summary_derivation": "All original top-level audit fields except private per-trial details; source audit SHA-256 added.",
+  "file_sha256": {
+    "summary.json": "d229ffdc66809bb44ca3b48552d0c7b945772e6c77685b0c70557964492d4518",
+    "manifest.json": "75b005a98250f636b91078927bce596b959e96c7991fb80e6196d82d0d0196aa",
+    "runtime.json": "ccc4fcc3efbd7e101926d258ffae5694ef662859d080a856a9c5d0bac9a5c0ca",
+    "trial-summary.json": "db5c64206683d350d58e7de4e53ef77c174c80c7fb37089da126d803f26f8432"
+  },
+  "local_source_sha256": {
+    "evaluation.private.json": "9c4bf882518619c3103e88caf393048b98748f4b62596154784da945b5ac9943",
+    "inputs.json": "0dc2cb1bfd91fa024cce1ed7bd891fb7a9691bf34ec3c9b33038aee4a10d64bc",
+    "manifest.json": "75b005a98250f636b91078927bce596b959e96c7991fb80e6196d82d0d0196aa",
+    "prepared-requests.json": "02f37a1a022e336fc191edb0423f13e087cc93c4b91c1ddd59ae34b92aa9f0c8",
+    "replay.jsonl": "06b87127fa9b1d166eeef5ca3cb10bd38bdcb358d501130276ea35b62fe7b8b3",
+    "runtime.json": "ccc4fcc3efbd7e101926d258ffae5694ef662859d080a856a9c5d0bac9a5c0ca",
+    "summary.json": "d229ffdc66809bb44ca3b48552d0c7b945772e6c77685b0c70557964492d4518",
+    "trial-audit.private.json": "78808668aa648d1e7dbf2e034b0df77b4882bb0607b7f99ad78fe36b0a6c5cd8"
+  },
+  "formal_results_changed": false,
+  "model_claims_replaced": false,
+  "prototype_promoted_to_formal_runner": false
+}

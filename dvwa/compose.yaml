@@ -22,7 +22,7 @@ services:
     restart: unless-stopped
 
   zap:
-    image: ghcr.io/zaproxy/zaproxy:stable
+    image: ghcr.io/zaproxy/zaproxy@sha256:781a2bdaea47324e7bab583e2263f21d257b0aee61ed51521a5be45f5f5081ef
     profiles: ["zap"]
     environment:
       DVWA_USERNAME: ${DVWA_USERNAME:-admin}
@@ -31,6 +31,28 @@ services:
     volumes:
       - ../results/zap:/zap/out:rw
     command: ["zap.sh", "-cmd", "-autorun", "/zap/out/${ZAP_PLAN_FILE:-zap-auth.template.yaml}"]
+    depends_on:
+      - dvwa
+    restart: "no"
+
+  zap-api:
+    image: ghcr.io/zaproxy/zaproxy@sha256:781a2bdaea47324e7bab583e2263f21d257b0aee61ed51521a5be45f5f5081ef
+    profiles: ["zap-api"]
+    environment:
+      ZAP_API_KEY: ${ZAP_API_KEY:?A temporary ZAP_API_KEY must be provided}
+      ZAP_API_PORT: "8080"
+      DVWA_USERNAME: ${DVWA_USERNAME:-admin}
+      DVWA_PASSWORD: ${DVWA_PASSWORD:-password}
+    volumes:
+      - ../results/zap:/zap/out:rw
+    command:
+      - sh
+      - -c
+      - >-
+        exec zap.sh -daemon -host 0.0.0.0 -port 8080
+        -config api.key=$${ZAP_API_KEY}
+        -config api.addrs.addr.name=.*
+        -config api.addrs.addr.regex=true
     depends_on:
       - dvwa
     restart: "no"

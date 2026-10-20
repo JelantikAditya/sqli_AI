@@ -7,8 +7,11 @@ import hashlib
 import json
 import os
 import re
+import shutil
 import subprocess
 import sys
+import time
+import zipfile
 from contextlib import contextmanager
 from datetime import datetime, timezone
 from pathlib import Path
@@ -17,6 +20,8 @@ from uuid import uuid4
 from jsonschema import Draft202012Validator, ValidationError
 
 from confirmation_policy import CONFIRMATION_POLICY_ID, classify_confirmations
+from adaptive_candidate_policy import candidate_probe_payload
+from analyze_response import trial_rule_signals
 from execution_order_policy import ordered_run_slots
 from experiment_protocol import DEFAULT_PROTOCOL, load_protocol
 from prepare_candidate_batch import validate_batch
@@ -70,7 +75,355 @@ def resolve_project_path(value: str | Path, root: Path, field: str) -> Path:
     return resolved
 
 
-def validate_plan(plan: dict, protocol: dict, root: Path = ROOT) -> dict:
+def validate_knowledge_snapshot(snapshot: dict, root: Path = ROOT, *, verify_index: bool = True) -> dict:
+    """Pin a plan to a reviewed local RAG manifest, corpus, and decision receipt."""
+    legacy_fields = {"manifest_path", "manifest_sha256", "corpus_path", "corpus_sha256",
+                     "review_decision_path", "review_decision_sha256"}
+    pinned_fields = legacy_fields | {"source_lock_path", "source_lock_sha256", "index_file_sha256"}
+    if not isinstance(snapshot, dict) or set(snapshot) not in (legacy_fields, pinned_fields):
+        raise ValueError("knowledge_snapshot must pin manifest, corpus, and review decision paths and hashes.")
+    is_index_pinned = set(snapshot) == pinned_fields
+    path_fields = ["manifest_path", "corpus_path", "review_decision_path"]
+    hash_fields = [("manifest_sha256", "manifest_path"), ("corpus_sha256", "corpus_path"),
+                   ("review_decision_sha256", "review_decision_path")]
+    if is_index_pinned:
+        path_fields.append("source_lock_path")
+        hash_fields.append(("source_lock_sha256", "source_lock_path"))
+    resolved = {field: resolve_project_path(snapshot[field], root, f"knowledge_snapshot.{field}")
+                for field in path_fields}
+    for hash_field, path_field in hash_fields:
+        expected = snapshot[hash_field]
+        if not isinstance(expected, str) or not re.fullmatch(r"[a-f0-9]{64}", expected):
+            raise ValueError(f"knowledge_snapshot.{hash_field} must be a SHA-256 hash.")
+        if not resolved[path_field].is_file() or sha256_file(resolved[path_field]) != expected:
+            raise ValueError(f"knowledge_snapshot {path_field} is missing or its hash changed.")
+
+    manifest = read_json(resolved["manifest_path"])
+    corpus = read_json(resolved["corpus_path"])
+    decision = read_json(resolved["review_decision_path"])
+    manifest_corpus = resolve_project_path(manifest.get("corpus_path", ""), root,
+                                           "knowledge manifest corpus_path")
+    store_value = manifest.get("store_path", "")
+    store_path = resolve_project_path(store_value, root, "knowledge manifest store_path")
+    vectorstore_root = (root / "data" / "vectorstore").resolve()
+    if not store_path.is_relative_to(vectorstore_root):
+        raise ValueError("Knowledge manifest store_path must stay under data/vectorstore/.")
+    if (manifest_corpus != resolved["corpus_path"]
+            or manifest.get("corpus_sha256") != snapshot["corpus_sha256"]
+            or manifest.get("corpus_kind") != "structured-sqli-knowledge-v1"
+            or manifest.get("purpose") != "proposal-rag"):
+        raise ValueError("knowledge_snapshot manifest does not identify the pinned proposal corpus.")
+    if is_index_pinned:
+        if manifest.get("source_lock_sha256") != snapshot["source_lock_sha256"]:
+            raise ValueError("knowledge_snapshot manifest does not identify the pinned source lock.")
+        expected_index = snapshot["index_file_sha256"]
+        if not isinstance(expected_index, dict) or not expected_index:
+            raise ValueError("knowledge_snapshot.index_file_sha256 must pin every active Chroma file.")
+        observed_index = {}
+        for relative_path, expected_hash in expected_index.items():
+            if not isinstance(relative_path, str):
+                raise ValueError("knowledge_snapshot.index_file_sha256 contains an invalid path or hash.")
+            candidate = Path(relative_path)
+            if (candidate.is_absolute() or ".." in candidate.parts
+                    or not isinstance(expected_hash, str)
+                    or not re.fullmatch(r"[a-f0-9]{64}", expected_hash)):
+                raise ValueError("knowledge_snapshot.index_file_sha256 contains an invalid path or hash.")
+            resolved_index = resolve_project_path(relative_path, root, "knowledge_snapshot index file")
+            if not resolved_index.is_relative_to(store_path) or not resolved_index.is_file():
+                raise ValueError("knowledge_snapshot index file must exist inside the pinned Chroma store.")
+            observed_index[relative_path.replace("\\", "/")] = sha256_file(resolved_index)
+        active_index = {path.relative_to(root).as_posix(): sha256_file(path)
+                        for path in store_path.rglob("*") if path.is_file()}
+        if verify_index and (observed_index != expected_index or active_index != expected_index):
+            raise ValueError("knowledge_snapshot index_file_sha256 differs from the active Chroma store.")
+    candidate_decisions = {"approved-for-generation-only-preflight", "approved-for-pilot-use"}
+    if decision.get("decision") in candidate_decisions:
+        common_candidate_checks = (
+            decision.get("candidate_corpus_sha256") == snapshot["corpus_sha256"]
+            and decision.get("formal_experiment_approval") is False
+        )
+        corpus_reviewed = corpus.get("curation", {}).get("researcher_review") == "reviewed"
+        if decision.get("decision") == "approved-for-generation-only-preflight":
+            if not common_candidate_checks or not corpus_reviewed:
+                raise ValueError("knowledge_snapshot review decision does not match the corpus or its permitted use.")
+        elif corpus_reviewed:
+            # Preserve compatibility with pilot receipts for corpora whose review flag is already pinned.
+            if not common_candidate_checks:
+                raise ValueError("knowledge_snapshot review decision does not match the corpus or its permitted use.")
+        else:
+            # A receipt may carry the researcher's review attestation when changing the shared corpus metadata
+            # would invalidate a separately approved formal snapshot. Bind that attestation to the full index.
+            if not is_index_pinned:
+                raise ValueError("A pilot receipt for an unreviewed corpus must pin the source lock and full index.")
+            authority = decision.get("authority", {})
+            expected_approval = {"corpus_sha256": snapshot["corpus_sha256"],
+                                 "source_lock_sha256": snapshot["source_lock_sha256"],
+                                 "knowledge_base_id": manifest.get("knowledge_base_id"),
+                                 "entry_count": manifest.get("entry_count"),
+                                 "index_file_sha256": snapshot["index_file_sha256"]}
+            if (not common_candidate_checks
+                    or decision.get("schema_version") != "1.0.0"
+                    or decision.get("researcher_review_status") != "reviewed"
+                    or authority.get("role") != "researcher"
+                    or authority.get("basis") != "explicit-user-approval"
+                    or not isinstance(authority.get("quote"), str)
+                    or not authority["quote"].strip()
+                    or decision.get("approved_snapshot") != expected_approval):
+                raise ValueError("knowledge_snapshot pilot receipt must attest researcher review and match the pinned corpus and index.")
+    elif decision.get("decision") == "approved-for-formal-use" and is_index_pinned:
+        authority = decision.get("authority", {})
+        expected_approval = {"corpus_sha256": snapshot["corpus_sha256"],
+                             "source_lock_sha256": snapshot["source_lock_sha256"],
+                             "knowledge_base_id": manifest.get("knowledge_base_id"),
+                             "entry_count": manifest.get("entry_count"),
+                             "index_file_sha256": snapshot["index_file_sha256"]}
+        if (decision.get("schema_version") != "1.0.0"
+                or decision.get("scope") != "main-nine-entry-corpus-formal-use-after-u07-gates"
+                or authority.get("role") != "researcher"
+                or authority.get("basis") != "explicit-user-approval"
+                or decision.get("formal_execution_approval") is not False
+                or decision.get("approved_snapshot") != expected_approval):
+            raise ValueError("knowledge_snapshot formal receipt does not match the pinned corpus and index.")
+    else:
+        raise ValueError("knowledge_snapshot review decision does not match the corpus or its permitted use.")
+    resolved_paths = {f"{field}_resolved": resolved[field] for field in path_fields}
+    return {**snapshot, **resolved_paths, "knowledge_base_id": manifest.get("knowledge_base_id"),
+            "store_path_resolved": store_path}
+
+
+def validate_formal_execution_approval(approval_path: Path, plan_path: Path, plan: dict,
+                                       protocol: dict, root: Path = ROOT, *,
+                                       runner_amendment: dict | None = None) -> dict:
+    """Verify an explicit execution receipt against this plan and active frozen release."""
+    if plan.get("dataset") != "formal" or protocol.get("status") != "frozen":
+        raise ValueError("Formal execution approval is valid only for a frozen formal plan.")
+    release_record = protocol.get("formal_freeze_release", {})
+    release_value = release_record.get("release_manifest_path")
+    if not isinstance(release_value, str) or not release_value:
+        raise ValueError("The active frozen protocol does not pin a formal release manifest.")
+    release_path = resolve_project_path(release_value, root, "formal_freeze_release.release_manifest_path")
+    if not release_path.is_file():
+        raise ValueError("The formal release manifest pinned by the protocol is missing.")
+    release_hash = sha256_file(release_path)
+    release = read_json(release_path)
+    if (release.get("scope") != "formal-protocol-freeze-release"
+            or release.get("status") != "released"
+            or release.get("ready_for_formal") is not True
+            or release.get("protocol_frozen") is not True
+            or release.get("formal_evaluation_executed") is not False
+            or release.get("formal_execution_authorized") is not False
+            or not isinstance(release.get("gates"), dict)
+            or not release["gates"]
+            or any(gate.get("status") != "passed" for gate in release["gates"].values())):
+        raise ValueError("The pinned release manifest is not a complete, unreleased formal package.")
+
+    release_rel = release_path.relative_to(root.resolve()).as_posix()
+    if release_record.get("release_manifest_path") != release_rel:
+        raise ValueError("Active protocol and release manifest paths disagree.")
+    freeze_approval = release.get("approval", {})
+    if (freeze_approval.get("path") != release_record.get("approval_path")
+            or freeze_approval.get("sha256") != release_record.get("approval_sha256")
+            or freeze_approval.get("formal_execution_approval") is not False
+            or freeze_approval.get("decision") != "approved-for-formal-freeze"):
+        raise ValueError("Freeze approval in the release differs from the active protocol receipt.")
+    freeze_approval_path = resolve_project_path(freeze_approval.get("path", ""), root,
+                                                "release.approval.path")
+    if not freeze_approval_path.is_file() or sha256_file(freeze_approval_path) != freeze_approval.get("sha256"):
+        raise ValueError("Researcher freeze approval receipt is missing or changed.")
+    freeze_approval_value = read_json(freeze_approval_path)
+    freeze_schema = read_json(root / "schemas/formal-freeze-approval.schema.json")
+    Draft202012Validator(freeze_schema).validate(freeze_approval_value)
+    candidate_record = release.get("candidate", {})
+    if (freeze_approval_value.get("decision") != "approved-for-formal-freeze"
+            or freeze_approval_value.get("formal_execution_approval") is not False
+            or freeze_approval_value.get("candidate_manifest_path") != candidate_record.get("manifest_path")
+            or freeze_approval_value.get("candidate_manifest_sha256") != candidate_record.get("manifest_sha256")
+            or freeze_approval_value.get("formal_plan_sha256") != release.get("formal_plan", {}).get("sha256")
+            or freeze_approval_value.get("protocol_sha256") != release.get("protocol", {}).get("before_sha256")
+            or candidate_record.get("manifest_path") != release_record.get("candidate_manifest_path")
+            or candidate_record.get("manifest_sha256") != release_record.get("candidate_manifest_sha256")):
+        raise ValueError("Freeze approval does not bind the released candidate package.")
+    candidate_path = resolve_project_path(candidate_record.get("manifest_path", ""), root,
+                                          "release.candidate.manifest_path")
+    if not candidate_path.is_file() or sha256_file(candidate_path) != candidate_record.get("manifest_sha256"):
+        raise ValueError("Released candidate manifest is missing or changed.")
+    candidate = read_json(candidate_path)
+    if (candidate.get("scope") != "U07-formal-readiness-candidate"
+            or candidate.get("protocol", {}).get("sha256") != release.get("protocol", {}).get("before_sha256")
+            or candidate.get("protocol", {}).get("status") != "pilot"
+            or candidate.get("source_tree_sha256") != candidate_record.get("source_tree_sha256")
+            or candidate.get("formal_evaluation_executed") is not False
+            or candidate.get("protocol_frozen") is not False):
+        raise ValueError("Released candidate does not match the pre-freeze protocol snapshot.")
+    candidate_gates = candidate.get("gates", {})
+    release_gates = release.get("gates", {})
+    if (not isinstance(candidate_gates, dict) or set(candidate_gates) != set(release_gates)
+            or [gate_id for gate_id, gate in candidate_gates.items()
+                if gate.get("status") != "passed"] != ["runtime-manifest-frozen"]
+            or any(gate.get("status") != "passed" for gate in release_gates.values())):
+        raise ValueError("Candidate and release gate inventories do not show a complete U07 freeze.")
+
+    def verify_pinned_file(path_value: str, expected_hash: str, label: str) -> Path:
+        path = resolve_project_path(path_value, root, label)
+        if not path.is_file() or sha256_file(path) != expected_hash:
+            raise ValueError(f"Released {label} is missing or changed.")
+        return path
+
+    source_archive = release.get("source_archive", {})
+    source_archive_path = verify_pinned_file(source_archive.get("path", ""),
+                                             source_archive.get("sha256", ""), "source_archive.path")
+    source_archive_backup = verify_pinned_file(source_archive.get("backup_copy", ""),
+                                               source_archive.get("backup_copy_sha256", ""),
+                                               "source_archive.backup_copy")
+    if sha256_file(source_archive_path) != sha256_file(source_archive_backup):
+        raise ValueError("Candidate source archive and backup copy differ.")
+    try:
+        with zipfile.ZipFile(source_archive_path) as archive:
+            if archive.testzip() is not None:
+                raise ValueError("Candidate source archive failed CRC validation.")
+    except (OSError, zipfile.BadZipFile) as error:
+        raise ValueError("Candidate source archive is not readable.") from error
+
+    requirements_lock = release.get("requirements_lock", {})
+    verify_pinned_file(requirements_lock.get("path", ""), requirements_lock.get("sha256", ""),
+                       "requirements_lock.path")
+    offline_checks = release.get("offline_checks", {})
+    verify_pinned_file(offline_checks.get("log", ""), offline_checks.get("log_sha256", ""),
+                       "offline_checks.log")
+    pilot = release.get("pilot", {})
+    pilot_directory = resolve_project_path(pilot.get("path", ""), root, "release.pilot.path")
+    if not pilot_directory.is_relative_to((root / "results/raw/pilot").resolve()):
+        raise ValueError("Released pilot evidence must remain under results/raw/pilot/.")
+    verify_pinned_file(str(pilot_directory / "ledger.jsonl"), pilot.get("ledger_sha256", ""),
+                       "pilot.ledger")
+    verify_pinned_file(str(pilot_directory / "plan.snapshot.json"), pilot.get("plan_snapshot_sha256", ""),
+                       "pilot.plan_snapshot")
+    pilot_server_log = release.get("runtime_preflight", {}).get("pilot_server_log", {})
+    if release.get("runtime_preflight", {}).get("passed") is not True:
+        raise ValueError("Formal release does not record a passed runtime preflight.")
+    verify_pinned_file(pilot_server_log.get("snapshot_path", ""), pilot_server_log.get("sha256", ""),
+                       "runtime_preflight.pilot_server_log")
+
+    release_archive = release.get("release_evidence_archive", {})
+    archive_path = resolve_project_path(release_archive.get("path", ""), root,
+                                        "release.release_evidence_archive.path")
+    backup_path = resolve_project_path(release_archive.get("backup_copy", ""), root,
+                                       "release.release_evidence_archive.backup_copy")
+    if (release_archive.get("crc_verified") is not True
+            or not archive_path.is_file() or sha256_file(archive_path) != release_archive.get("sha256")
+            or not backup_path.is_file() or sha256_file(backup_path) != release_archive.get("backup_copy_sha256")
+            or sha256_file(archive_path) != sha256_file(backup_path)):
+        raise ValueError("Formal release evidence archive or backup is missing or changed.")
+    try:
+        with zipfile.ZipFile(archive_path) as archive:
+            if archive.testzip() is not None:
+                raise ValueError("Formal release evidence archive failed CRC validation.")
+    except (OSError, zipfile.BadZipFile) as error:
+        raise ValueError("Formal release evidence archive is not readable.") from error
+
+    active_protocol_hash = sha256_file(root / Path("dvwa/local_experiment_protocol.json"))
+    protocol_release = release.get("protocol", {})
+    protocol_snapshot_path = resolve_project_path(protocol_release.get("snapshot_path", ""), root,
+                                                  "release.protocol.snapshot_path")
+    if (protocol_release.get("path") != "dvwa/local_experiment_protocol.json"
+            or protocol_release.get("after_sha256") != active_protocol_hash
+            or protocol_release.get("snapshot_sha256") != active_protocol_hash
+            or not protocol_snapshot_path.is_file()
+            or sha256_file(protocol_snapshot_path) != active_protocol_hash):
+        raise ValueError("Active protocol bytes do not match the released protocol snapshot.")
+
+    plan_resolved = plan_path.resolve()
+    plan_rel = plan_resolved.relative_to(root.resolve()).as_posix()
+    plan_file_hash = sha256_file(plan_resolved)
+    release_plan = release.get("formal_plan", {})
+    if (release_plan.get("path") != plan_rel
+            or release_plan.get("sha256") != plan_file_hash):
+        raise ValueError("The formal plan does not match the plan pinned in the release manifest.")
+    plan_knowledge = plan.get("knowledge_snapshot", {})
+    release_corpus = release.get("corpus", {})
+    candidate_knowledge = candidate.get("knowledge", {})
+    candidate_snapshot = candidate.get("formal_knowledge_snapshot", {})
+    if (release_corpus.get("decision_path") != plan_knowledge.get("review_decision_path")
+            or release_corpus.get("decision_sha256") != plan_knowledge.get("review_decision_sha256")
+            or release_corpus.get("corpus_sha256") != plan_knowledge.get("corpus_sha256")
+            or release_corpus.get("source_lock_sha256") != plan_knowledge.get("source_lock_sha256")
+            or release_corpus.get("index_file_sha256") != plan_knowledge.get("index_file_sha256")
+            or candidate_knowledge.get("formal_use_decision") != "approved"
+            or candidate_knowledge.get("formal_decision_path") != release_corpus.get("decision_path")
+            or candidate_knowledge.get("formal_decision_sha256") != release_corpus.get("decision_sha256")
+            or candidate_snapshot.get("review_decision_sha256") != release_corpus.get("decision_sha256")
+            or candidate_snapshot.get("source_lock_sha256") != release_corpus.get("source_lock_sha256")
+            or candidate_snapshot.get("index_file_sha256") != release_corpus.get("index_file_sha256")):
+        raise ValueError("Formal plan corpus receipt and index do not match the released U07 snapshot.")
+
+    snapshot = release.get("released_source_snapshot", {})
+    source_hash_path = resolve_project_path(snapshot.get("path", ""), root,
+                                            "release.released_source_snapshot.path")
+    if not source_hash_path.is_file() or sha256_file(source_hash_path) != snapshot.get("sha256"):
+        raise ValueError("Released source hash inventory is missing or changed.")
+    with source_hash_path.open("r", encoding="utf-8") as source:
+        source_hashes = json.load(source)
+    if not isinstance(source_hashes, dict):
+        raise ValueError("Released source hash inventory must be a JSON object.")
+    encoded_hashes = json.dumps(source_hashes, sort_keys=True, separators=(",", ":")).encode("utf-8")
+    if sha256_bytes(encoded_hashes) != snapshot.get("source_tree_sha256"):
+        raise ValueError("Released source tree digest does not match its inventory.")
+    current_source_hashes = source_snapshot_hashes(root)
+    if runner_amendment is not None:
+        # The original release stays immutable; only this explicitly bound runner may differ.
+        runner = "dvwa/run_local_experiments.py"
+        if source_hashes.get(runner) != runner_amendment["runner_before_sha256"]:
+            raise ValueError("Runner amendment does not start from the released runner.")
+        source_hashes = {**source_hashes, runner: runner_amendment["runner_after_sha256"]}
+    if current_source_hashes != source_hashes:
+        differences = sorted(name for name in set(current_source_hashes) | set(source_hashes)
+                             if current_source_hashes.get(name) != source_hashes.get(name))
+        raise ValueError("Source inventory differs from the formal release snapshot: "
+                         + ", ".join(differences[:12]))
+
+    approval_resolved = resolve_project_path(approval_path, root, "--formal-execution-approval")
+    if not approval_resolved.is_file():
+        raise ValueError("Formal execution approval receipt does not exist.")
+    approval = read_json(approval_resolved)
+    schema = read_json(root / "schemas/formal-execution-approval.schema.json")
+    Draft202012Validator(schema).validate(approval)
+    approval_rel = approval_resolved.relative_to(root.resolve()).as_posix()
+    if runner_amendment is not None and (
+            approval_rel != runner_amendment["original_execution_approval_path"]
+            or sha256_file(approval_resolved) != runner_amendment["original_execution_approval_sha256"]):
+        raise ValueError("Runner amendment must retain the original execution approval.")
+    if (approval.get("decision") != "approved-for-formal-execution"
+            or approval.get("experiment_id") != plan.get("experiment_id")
+            or approval.get("formal_plan_path") != plan_rel
+            or approval.get("formal_plan_sha256") != plan_file_hash
+            or approval.get("release_manifest_path") != release_rel
+            or approval.get("release_manifest_sha256") != release_hash
+            or approval.get("formal_execution_approval") is not True):
+        raise ValueError("Formal execution approval does not match this experiment, plan, and release.")
+    return {
+        "scope": approval["scope"],
+        "decision": approval["decision"],
+        "formal_execution_approval": True,
+        "experiment_id": approval["experiment_id"],
+        "formal_plan_path": plan_rel,
+        "formal_plan_sha256": plan_file_hash,
+        "release_manifest_path": release_rel,
+        "release_manifest_sha256": release_hash,
+        "approval_path": approval_rel,
+        "approval_sha256": sha256_file(approval_resolved),
+        "authority": approval["authority"],
+    }
+
+
+def adaptive_manifest_args(plan: dict, unit: dict, root: Path = ROOT) -> list[str]:
+    """Return a hash-checked manifest override for the planned RAG-on run only."""
+    if unit.get("condition_id") != "B" or plan.get("knowledge_snapshot") is None:
+        return []
+    snapshot = validate_knowledge_snapshot(plan["knowledge_snapshot"], root)
+    return ["--manifest", str(snapshot["manifest_path_resolved"])]
+
+
+def validate_plan(plan: dict, protocol: dict, root: Path = ROOT, *, verify_index: bool = True) -> dict:
     if plan.get("schema_version") != PLAN_SCHEMA_VERSION:
         raise ValueError(f"plan schema_version must be {PLAN_SCHEMA_VERSION}.")
     experiment_id = plan.get("experiment_id")
@@ -131,6 +484,15 @@ def validate_plan(plan: dict, protocol: dict, root: Path = ROOT) -> dict:
                            if item["condition_id"] == "C")["scenario_ids"])
     if "C" in condition_ids and c_scenarios.intersection(scenario_ids) and resolved_source_root is None:
         raise ValueError("Plans containing condition C must set seclists_source_root.")
+    knowledge_snapshot = plan.get("knowledge_snapshot")
+    knowledge_resolved = None
+    if dataset == "formal" and "B" in condition_ids:
+        if not isinstance(knowledge_snapshot, dict) or "index_file_sha256" not in knowledge_snapshot:
+            raise ValueError("Formal RAG plans must pin the exact Chroma index file hashes.")
+    if knowledge_snapshot is not None:
+        if "B" not in condition_ids:
+            raise ValueError("knowledge_snapshot is only valid for a plan containing RAG-on condition B.")
+        knowledge_resolved = validate_knowledge_snapshot(knowledge_snapshot, root, verify_index=verify_index)
     return {
         **plan,
         "condition_ids": condition_ids,
@@ -138,6 +500,7 @@ def validate_plan(plan: dict, protocol: dict, root: Path = ROOT) -> dict:
         "replicates": replicates,
         "discovery_reports_resolved": resolved_reports,
         "seclists_source_root_resolved": resolved_source_root,
+        "knowledge_snapshot_resolved": knowledge_resolved,
     }
 
 
@@ -175,12 +538,200 @@ def artifact_hashes(root: Path = ROOT) -> dict[str, str]:
              "dvwa/run_decision_policy.py", "dvwa/run_decision_evaluator.py",
              "dvwa/methodology_policy.py",
              "dvwa/execution_order_policy.py", "requirements-orchestration.txt", "requirements-rag.txt",
-             "dvwa/analyze_response.py", "dvwa/adaptive_s1_loop.py", "schemas/analysis-ledger.schema.json",
+             "dvwa/analyze_response.py", "dvwa/adaptive_s1_loop.py", "dvwa/adaptive_candidate_policy.py",
+             "dvwa/summarize_zap_active.py", "dvwa/zap-active-sqli.template.yaml",
+             "dvwa/run_zap_active_baseline.ps1", "dvwa/run_zap_api_explicit.ps1",
+             "dvwa/summarize_zap_api_active.py", "dvwa/compose.yaml",
+             "schemas/analysis-ledger.schema.json",
              "dvwa/langchain_runtime.py",
              "schemas/local-run-plan.schema.json", "schemas/experiment-ledger-event.schema.json",
              "schemas/validation-payloads.schema.json", "schemas/candidate-batch.schema.json",
+             "dvwa/release_formal_freeze.py", "schemas/formal-freeze-approval.schema.json",
+             "schemas/formal-execution-approval.schema.json",
              "docs/candidate-sources.md", "docs/evidence/seclists-selection-plan-2026-10-12.json")
     return {name: sha256_file(root / Path(name)) for name in names if (root / Path(name)).is_file()}
+
+
+def source_snapshot_hashes(root: Path = ROOT) -> dict[str, str]:
+    """Mirror the U07 source inventory so added and changed files both block F01."""
+    files = [path for folder in ("dvwa", "schemas", "knowledge", "tests")
+             for path in (root / folder).glob("*")
+             if path.is_file() and path.suffix in {".py", ".json", ".yaml", ".ps1", ".md"}
+             and ".local." not in path.name]
+    files.extend(root.glob("requirements*.txt"))
+    return {path.resolve().relative_to(root.resolve()).as_posix(): sha256_file(path)
+            for path in sorted(set(files))}
+
+
+def validate_condition_b_runner_amendment(path: Path, plan_path: Path, plan: dict,
+                                          protocol: dict, root: Path = ROOT) -> dict:
+    """Bind the B recovery patch to the unchanged release and preserved R1/R2 history."""
+    path = resolve_project_path(path, root, "runner amendment")
+    amendment = read_json(path)
+    authority = amendment.get("authority", {})
+    if (amendment.get("schema_version") != "1.0.0"
+            or amendment.get("scope") != "condition-b-index-recovery-r3"
+            or amendment.get("decision") != "approved-for-condition-b-runner-amendment"
+            or amendment.get("runner_amendment_approval") is not True
+            or amendment.get("formal_execution_approval") is not False
+            or amendment.get("condition_ids") != ["B"]
+            or amendment.get("applies_to_replicates") != [3]
+            or amendment.get("preserve_replicates") != [1, 2]
+            or authority.get("role") != "researcher"
+            or authority.get("basis") != "explicit-user-approval"
+            or not isinstance(authority.get("quote"), str) or not authority["quote"].strip()):
+        raise ValueError("An explicit B-only runner amendment preserving R1/R2 is required.")
+    release_path = protocol.get("formal_freeze_release", {}).get("release_manifest_path")
+    if (plan.get("dataset") != "formal" or protocol.get("status") != "frozen"
+            or amendment.get("experiment_id") != plan["experiment_id"]
+            or amendment.get("formal_plan_path") != plan_path.resolve().relative_to(root.resolve()).as_posix()
+            or amendment.get("formal_plan_sha256") != sha256_file(plan_path)
+            or amendment.get("protocol_sha256") != sha256_file(root / "dvwa/local_experiment_protocol.json")
+            or amendment.get("release_manifest_path") != release_path
+            or amendment.get("release_manifest_sha256") != sha256_file(
+                resolve_project_path(release_path, root, "original release"))
+            or amendment.get("runner_after_sha256") != sha256_file(root / "dvwa/run_local_experiments.py")):
+        raise ValueError("Runner amendment does not match the active plan, protocol, release, or runner.")
+    directory = root / "results/raw/formal" / plan["experiment_id"]
+    snapshot_path = directory / "plan.snapshot.json"
+    snapshot = read_json(snapshot_path)
+    if (amendment.get("plan_snapshot_sha256") != sha256_file(snapshot_path)
+            or snapshot.get("artifact_sha256", {}).get("dvwa/run_local_experiments.py")
+            != amendment.get("runner_before_sha256")):
+        raise ValueError("Runner amendment does not match the original experiment snapshot.")
+    history = amendment.get("preserved_history", {})
+    prefix_size = history.get("ledger_prefix_bytes")
+    ledger_path = directory / "ledger.jsonl"
+    if type(prefix_size) is not int or prefix_size < 1:
+        raise ValueError("Runner amendment must pin the preserved ledger prefix.")
+    with ledger_path.open("rb") as source:
+        prefix = source.read(prefix_size)
+        suffix = source.read()
+    if (len(prefix) != prefix_size or not prefix.endswith(b"\n")
+            or sha256_bytes(prefix) != history.get("ledger_prefix_sha256")):
+        raise ValueError("Preserved R1/R2 ledger prefix changed.")
+    events = [json.loads(line) for line in prefix.splitlines()]
+    if len(events) != history.get("ledger_event_count"):
+        raise ValueError("Preserved ledger event count differs from the amendment.")
+    original = ExperimentLedger(directory, plan["experiment_id"], events)
+    validate_ledger_schedule(original, plan, protocol)
+    states = original.statuses()
+    for replicate in (1, 2):
+        selected = [state for state in states.values() if state["unit"]["replicate"] == replicate]
+        if not selected or any(state["status"] not in {"completed", "excluded"} for state in selected):
+            raise ValueError("Runner amendment requires completed R1/R2; they cannot be replayed.")
+    if any(state["attempt_count"] for state in states.values() if state["unit"]["replicate"] == 3):
+        raise ValueError("Runner amendment must precede the first R3 attempt.")
+    expected_record = {**amendment, "amendment_path": path.relative_to(root).as_posix(),
+                       "amendment_sha256": sha256_file(path)}
+    amendment_recorded = False
+    for line in suffix.splitlines():
+        event = json.loads(line)
+        if "condition_b_runner_amendment" in event:
+            if event["condition_b_runner_amendment"] != expected_record:
+                raise ValueError("Recorded runner amendment differs from the approved receipt.")
+            amendment_recorded = True
+        unit = states.get(event.get("unit_id"), {}).get("unit", {})
+        if event.get("event_type", "").startswith("attempt_") and unit.get("replicate") in {1, 2}:
+            raise ValueError("Preserved R1/R2 contain a new attempt after the amendment boundary.")
+        if (event.get("event_type", "").startswith("attempt_") and unit.get("replicate") == 3
+                and not amendment_recorded):
+            raise ValueError("R3 attempt precedes its recorded runner amendment.")
+    inventory_path = resolve_project_path(history.get("inventory_path", ""), root, "preserved history inventory")
+    if sha256_file(inventory_path) != history.get("inventory_sha256"):
+        raise ValueError("Preserved history inventory changed.")
+    inventory = read_json(inventory_path)["files"]
+    attempts = directory / "attempts"
+    preserved_attempts = {name for name in inventory
+                          if name.startswith(attempts.relative_to(root).as_posix() + "/")}
+    current_attempts = {file.relative_to(root).as_posix()
+                        for unit in attempts.glob("*") if unit.name.endswith(("-r1", "-r2"))
+                        for file in unit.rglob("*") if file.is_file()}
+    if current_attempts != preserved_attempts:
+        raise ValueError("Preserved R1/R2 artifact inventory changed.")
+    dynamic = {ledger_path.relative_to(root).as_posix(),
+               (directory / "checkpoint.json").relative_to(root).as_posix()}
+    for name, expected in inventory.items():
+        if name not in dynamic and sha256_file(resolve_project_path(name, root, "preserved artifact")) != expected:
+            raise ValueError(f"Preserved R1/R2 artifact changed: {name}")
+    archive_path = resolve_project_path(amendment.get("index_archive_path", ""), root, "approved index archive")
+    if sha256_file(archive_path) != amendment.get("index_archive_sha256"):
+        raise ValueError("Approved recovery archive changed.")
+    expected = plan["knowledge_snapshot"]["index_file_sha256"]
+    with zipfile.ZipFile(archive_path) as archive:
+        names = archive.namelist()
+        if any(names.count(name) != 1 for name in expected):
+            raise ValueError("Recovery archive must contain exactly one copy of each pinned index file.")
+        payload = {name: archive.read(name) for name in expected}
+    if {name: sha256_bytes(value) for name, value in payload.items()} != expected:
+        raise ValueError("Recovery archive does not contain the approved index bytes.")
+    return {**expected_record, "index_payload_resolved": payload}
+
+
+def condition_b_amendment_record(amendment: dict) -> dict:
+    return {key: value for key, value in amendment.items() if not key.endswith("_resolved")}
+
+
+def prepare_condition_b_index(unit: dict, attempt: dict, plan: dict,
+                              directory: Path, root: Path = ROOT) -> dict | None:
+    """Restore and verify synchronously before B retrieval, without database or model calls."""
+    amendment = plan.get("condition_b_runner_amendment_resolved")
+    if unit["condition_id"] != "B" or amendment is None:
+        return None
+    if unit["replicate"] not in amendment["applies_to_replicates"]:
+        raise ValueError("Condition B amendment is restricted to R3.")
+    snapshot = validate_knowledge_snapshot(plan["knowledge_snapshot"], root, verify_index=False)
+    store = snapshot["store_path_resolved"]
+    expected = snapshot["index_file_sha256"]
+
+    def hashes() -> dict:
+        result = {}
+        for file in store.rglob("*"):
+            if file.is_symlink():
+                raise ValueError("Index recovery refuses symbolic links.")
+            if file.is_file():
+                resolved = resolve_project_path(file, root, "active index file")
+                if not resolved.is_relative_to(store):
+                    raise ValueError("Active index file escapes the pinned store.")
+                result[file.relative_to(root).as_posix()] = sha256_file(file)
+        return result
+
+    started = time.monotonic()
+    before = hashes()
+    if set(before) != set(expected):
+        raise ValueError("Active Chroma file inventory changed; automatic restore is refused.")
+    recovery_root = resolve_project_path(directory / "index-recovery/synchronous-b", root, "index recovery output")
+    recovery_root.mkdir(parents=True, exist_ok=True)
+    receipt_path = recovery_root / f"{attempt['attempt_id']}.json"
+    if receipt_path.exists():
+        raise ValueError("Condition B preflight receipt already exists.")
+    backup = None
+    if before != expected:
+        backup_path = recovery_root / f"{attempt['attempt_id']}-backup"
+        shutil.copytree(store, backup_path)
+        if hashes() != before:
+            raise ValueError("Chroma changed during backup; stop the other index writer before retrying.")
+        # Only byte drift is repaired. Metadata, file inventory and corpus guards remain strict.
+        for name, payload in amendment["index_payload_resolved"].items():
+            if sha256_bytes(payload) != expected[name]:
+                raise ValueError("Recovery source bytes changed before restoration.")
+            resolve_project_path(name, root, "recovery destination").write_bytes(payload)
+        backup = backup_path.relative_to(root).as_posix()
+    after = hashes()
+    if after != expected:
+        raise ValueError("Chroma hash verification failed after synchronous recovery.")
+    validate_knowledge_snapshot(plan["knowledge_snapshot"], root)
+    record = {"status": "restored-and-verified" if backup else "verified-unchanged",
+              "unit_id": unit["unit_id"], "attempt_id": attempt["attempt_id"],
+              "amendment_sha256": amendment["amendment_sha256"],
+              "preserved_active_backup": backup, "before_index_file_sha256": before,
+              "index_file_sha256": after, "elapsed_seconds": time.monotonic() - started,
+              "database_reset_performed": False, "probe_submissions": 0,
+              "recorded_at_utc": now_utc()}
+    safe_write_json(receipt_path, record)
+    return {"receipt_path": receipt_path.relative_to(root).as_posix(),
+            "receipt_sha256": sha256_file(receipt_path), "status": record["status"],
+            "elapsed_seconds": record["elapsed_seconds"]}
 
 
 def safe_write_json(path: Path, value: dict) -> None:
@@ -191,7 +742,15 @@ def safe_write_json(path: Path, value: dict) -> None:
         destination.write("\n")
         destination.flush()
         os.fsync(destination.fileno())
-    os.replace(temporary, path)
+    for attempt in range(6):
+        try:
+            os.replace(temporary, path)
+            return
+        except PermissionError:
+            if os.name != "nt" or attempt == 5:
+                raise
+            # Antivirus/indexing software can briefly hold an existing checkpoint on Windows.
+            time.sleep(min(0.05 * (2 ** attempt), 0.5))
 
 
 class ExperimentLedger:
@@ -206,7 +765,8 @@ class ExperimentLedger:
 
     @classmethod
     def create(cls, directory: Path, plan: dict, protocol: dict, plan_hash: str,
-               protocol_hash: str, root: Path = ROOT):
+               protocol_hash: str, root: Path = ROOT,
+               formal_execution_authorization: dict | None = None):
         directory.mkdir(parents=True, exist_ok=False)
         ledger = cls(directory, plan["experiment_id"])
         safe_write_json(directory / "plan.snapshot.json", {
@@ -217,10 +777,13 @@ class ExperimentLedger:
             "protocol_sha256": protocol_hash,
             "git_revision": git_revision(root),
             "artifact_sha256": artifact_hashes(root),
+            "formal_execution_authorization": formal_execution_authorization,
             "created_at_utc": now_utc(),
         })
         ledger.append("experiment_created", dataset=plan["dataset"], plan_sha256=plan_hash,
-                      protocol_sha256=protocol_hash, protocol_id=protocol["protocol_id"])
+                      protocol_sha256=protocol_hash, protocol_id=protocol["protocol_id"],
+                      **({"formal_execution_authorization": formal_execution_authorization}
+                         if formal_execution_authorization is not None else {}))
         for unit in planned_units(plan, protocol, root):
             if unit["status"] == "excluded":
                 ledger.append("run_excluded", **unit)
@@ -230,7 +793,9 @@ class ExperimentLedger:
 
     @classmethod
     def resume(cls, directory: Path, plan: dict, plan_hash: str, protocol_hash: str,
-               root: Path = ROOT):
+               root: Path = ROOT,
+               formal_execution_authorization: dict | None = None,
+               runner_amendment: dict | None = None):
         path = directory / "ledger.jsonl"
         if not path.is_file():
             raise ValueError("Cannot resume: ledger.jsonl is missing.")
@@ -253,6 +818,22 @@ class ExperimentLedger:
         if not created or created.get("plan_sha256") != plan_hash or created.get("protocol_sha256") != protocol_hash:
             raise ValueError("Resume plan or protocol differs from the saved experiment snapshot.")
         snapshot = read_json(directory / "plan.snapshot.json")
+        authorization_events = [event.get("formal_execution_authorization") for event in events
+                                if event["event_type"] == "formal_execution_authorized"]
+        authorization_records = [record for record in (
+            snapshot.get("formal_execution_authorization"),
+            created.get("formal_execution_authorization"), *authorization_events) if record is not None]
+        if authorization_records and any(record != authorization_records[0]
+                                         for record in authorization_records[1:]):
+            raise ValueError("Formal execution authorization records disagree within the saved ledger.")
+        saved_authorization = authorization_records[0] if authorization_records else None
+        if (formal_execution_authorization is not None and saved_authorization is not None
+                and formal_execution_authorization != saved_authorization):
+            raise ValueError("Resume formal execution receipt differs from the saved authorization.")
+        if (formal_execution_authorization is not None and saved_authorization is None
+                and any(event["event_type"] in {"attempt_started", "attempt_completed", "attempt_invalid"}
+                        for event in events)):
+            raise ValueError("Cannot authorize a formal ledger after an attempt has already started.")
         current_artifacts = artifact_hashes(root)
         saved_artifacts = snapshot.get("artifact_sha256", {})
         if saved_artifacts != current_artifacts:
@@ -266,9 +847,22 @@ class ExperimentLedger:
                 and event.get("runner_hash_before") == saved_artifacts.get("dvwa/run_local_experiments.py")
                 and event.get("runner_hash_after") == current_artifacts.get("dvwa/run_local_experiments.py")
                 for event in recoveries)
-            if not authorized_recovery:
+            authorized_amendment = (
+                runner_amendment is not None and plan.get("dataset") == "formal"
+                and differences == {"dvwa/run_local_experiments.py"}
+                and runner_amendment["runner_before_sha256"] == saved_artifacts.get("dvwa/run_local_experiments.py")
+                and runner_amendment["runner_after_sha256"] == current_artifacts.get("dvwa/run_local_experiments.py"))
+            if not authorized_recovery and not authorized_amendment:
                 raise ValueError("Resume code or schema hashes differ from the saved experiment snapshot.")
         ledger = cls(directory, plan["experiment_id"], events)
+        if formal_execution_authorization is not None and saved_authorization is None:
+            ledger.append("formal_execution_authorized",
+                          formal_execution_authorization=formal_execution_authorization)
+            snapshot["formal_execution_authorization"] = formal_execution_authorization
+            safe_write_json(directory / "plan.snapshot.json", snapshot)
+        elif saved_authorization is not None and snapshot.get("formal_execution_authorization") is None:
+            snapshot["formal_execution_authorization"] = saved_authorization
+            safe_write_json(directory / "plan.snapshot.json", snapshot)
         validate_ledger_schedule(ledger, plan, load_protocol())
         ledger.checkpoint()
         return ledger
@@ -600,13 +1194,14 @@ def execute_adaptive_s1_unit(unit: dict, attempt: dict, plan: dict, protocol: di
     generation = protocol["generation"]
     comparison_id = plan["experiment_id"]
     command = [sys.executable, str(root / "dvwa" / "adaptive_s1_loop.py"),
-               "--rag-mode", unit["rag_mode"], "--zap-report", str(report),
+               "--scenario", unit["scenario_id"], "--rag-mode", unit["rag_mode"], "--zap-report", str(report),
                "--comparison-id", comparison_id, "--replicate", str(unit["replicate"]),
                "--pilot-slots", str(generation["candidate_budget"]),
                "--model", generation["model"], "--temperature", str(generation["temperature"]),
                "--num-ctx", str(generation["num_ctx"]), "--num-predict", str(generation["num_predict"]),
                "--run-id", attempt["run_id"], "--attempt-id", attempt["attempt_id"],
                "--output-dir", str(adaptive_directory), "--reset-before-run", "--confirm-local-dvwa"]
+    command.extend(adaptive_manifest_args(plan, unit, root))
     if adaptive_result_path is None:
         result = run_command(command, unit_directory / "adaptive-command.log", root)
         summary = parse_summary(result.stdout)
@@ -666,7 +1261,7 @@ def execute_adaptive_s1_unit(unit: dict, attempt: dict, plan: dict, protocol: di
             "database_reset_performed": bool(runtime.get("database_reset")),
             "adaptive_result_path": str(adaptive_path)})
 
-    scenario = {item["scenario_id"]: item for item in load_catalog()["scenarios"]}["S1"]
+    scenario = {item["scenario_id"]: item for item in load_catalog()["scenarios"]}[unit["scenario_id"]]
     records = []
     candidate_rows = []
     if validation_log.exists() and validation_log.stat().st_size != 0:
@@ -677,10 +1272,11 @@ def execute_adaptive_s1_unit(unit: dict, attempt: dict, plan: dict, protocol: di
             data = event["data"]
             if data.get("record") != analysis:
                 raise ExecutionFailure("adaptive_s1_analysis_event_mismatch")
-            candidate_id, payload = analysis["context"]["candidate_id"], data["payload"]
+            candidate_id = analysis["context"]["candidate_id"]
+            candidate_values = (data["candidate"] if "candidate" in data
+                                else {"payload": data["payload"]})
             observations = analysis["evidence"]["observations"]
-            trial_candidates = {item["trial"]: item for item in observations if item["role"] == "candidate"}
-            signals = {trial: bool(item["diagnostics"]) for trial, item in trial_candidates.items()}
+            signals = trial_rule_signals(analysis["evidence"])
             if set(signals) != {1, 2, 3}:
                 raise ExecutionFailure("adaptive_s1_confirmation_count_mismatch")
             derived = classify_confirmations(signals)
@@ -688,19 +1284,22 @@ def execute_adaptive_s1_unit(unit: dict, attempt: dict, plan: dict, protocol: di
                    ("evidence_status", "valid_confirmation_count", "positive_confirmation_count",
                     "confirmed_success")):
                 raise ExecutionFailure("adaptive_s1_evidence_semantics_mismatch")
-            candidate = {"candidate_id": candidate_id, "source": "LLM", "rag_mode": unit["rag_mode"]}
+            candidate = {"candidate_id": candidate_id, "source": "LLM", "rag_mode": unit["rag_mode"],
+                         **candidate_values}
             for observation in observations:
+                role = observation["role"]
                 payload_record = {"record_type": "payload", "run_id": attempt["run_id"],
                                   "attempt_id": attempt["attempt_id"], "experiment_id": plan["experiment_id"],
                                   "condition_id": unit["condition_id"], "candidate_id": candidate_id,
-                                  "scenario_id": "S1", "replicate": unit["replicate"],
+                                  "scenario_id": unit["scenario_id"], "replicate": unit["replicate"],
                                   "confirmation_index": observation["trial"],
                                   "payload_source": "LLM", "rag_mode": unit["rag_mode"],
-                                  "payload_role": observation["role"],
-                                  "payload": "1" if observation["role"] == "baseline" else payload,
+                                  "payload_role": "single" if role == "candidate" else role,
+                                  "payload": candidate_probe_payload(candidate_values, role),
                                   "http_status": observation["http_status"],
                                   "response_time_ms": observation["elapsed_ms"],
                                   "response_sha256": observation["response_sha256"],
+                                  "review_excerpt": observation.get("review_excerpt"),
                                   "response_indicators": observation["diagnostics"],
                                   "content_markers": observation["content_markers"],
                                   "human_validation": "pending"}
@@ -710,7 +1309,7 @@ def execute_adaptive_s1_unit(unit: dict, attempt: dict, plan: dict, protocol: di
                 decision = {"record_type": "decision", "run_id": attempt["run_id"],
                             "attempt_id": attempt["attempt_id"], "experiment_id": plan["experiment_id"],
                             "condition_id": unit["condition_id"], "candidate_id": candidate_id,
-                            "scenario_id": "S1", "replicate": unit["replicate"],
+                            "scenario_id": unit["scenario_id"], "replicate": unit["replicate"],
                             "confirmation_index": index, "payload_source": "LLM",
                             "rag_mode": unit["rag_mode"], "system_signal": signals[index]}
                 output.write(json.dumps(decision, ensure_ascii=False) + "\n")
@@ -720,11 +1319,12 @@ def execute_adaptive_s1_unit(unit: dict, attempt: dict, plan: dict, protocol: di
                 attempt_id=attempt["attempt_id"], experiment_id=plan["experiment_id"],
                 condition_id=unit["condition_id"])
             records.append(evidence_record)
-            candidate_rows.append({"candidate_id": candidate_id, "payload": payload})
+            candidate_rows.append({"candidate_id": candidate_id, **candidate_values})
         runtime = adaptive["runtime"]
         output.write(json.dumps({"record_type": "run_end", "attempt_status":
                                  "complete" if adaptive["run_summary"]["execution_status"] == "complete" else "incomplete",
-                                 "logical_probe_submissions": sum(6 for _ in candidate_rows),
+                                 "logical_probe_submissions": sum(3 * (3 if scenario["probe_kind"] != "single_error" else 2)
+                                                                   for _ in candidate_rows),
                                  "http_request_calls": runtime["http_request_attempt_count"],
                                  "database_reset_performed": bool(runtime["database_reset"])}) + "\n")
     validate_probe_evidence(records, scenario, unit, attempt,
@@ -736,7 +1336,7 @@ def execute_adaptive_s1_unit(unit: dict, attempt: dict, plan: dict, protocol: di
     first_prompt_audit = next((event["data"]["audit"] for event in adaptive["events"]
                                if event.get("kind") == "generation"
                                and event["data"].get("status") == "generated"), {})
-    batch_document = {"schema_version": "1.0.0", "scenario_id": "S1", "source": "LLM",
+    batch_document = {"schema_version": "1.0.0", "scenario_id": unit["scenario_id"], "source": "LLM",
                       "rag_mode": unit["rag_mode"],
                       "provenance": {"comparison_id": plan["experiment_id"],
                                      "model": generation["model"],
@@ -764,7 +1364,7 @@ def execute_adaptive_s1_unit(unit: dict, attempt: dict, plan: dict, protocol: di
         "candidate_generation_failed_count": max(0, generation["candidate_budget"] - generated_count),
         "runner_batch_sha256": sha256_file(batch_path), "runner_batch_path": str(batch_path),
         "candidate_id_map_path": None,
-        "condition_id": unit["condition_id"], "scenario_id": "S1",
+        "condition_id": unit["condition_id"], "scenario_id": unit["scenario_id"],
         "replicate": unit["replicate"], "seed": unit["seed"],
         "source_batch_sha256": sha256_file(batch_path),
         "generation_audit_sha256": sha256_file(audit_path),
@@ -777,9 +1377,10 @@ def execute_adaptive_s1_unit(unit: dict, attempt: dict, plan: dict, protocol: di
         "binary_decision_eligible": adaptive["run_summary"]["binary_decision_eligible"],
         "psr_evidence_eligible": adaptive["run_summary"]["psr_evidence_eligible"],
         "candidate_budget": generation["candidate_budget"], "valid_candidates_executed": generated_count,
-        "decision_records": generated_count * 3, "payload_records": generated_count * 6,
+        "decision_records": generated_count * 3,
+        "payload_records": generated_count * 3 * (2 if scenario["probe_kind"] == "single_error" else 3),
         "confirmations_per_candidate": 3,
-        "logical_probe_submissions": generated_count * 6,
+        "logical_probe_submissions": generated_count * 3 * (3 if scenario["probe_kind"] != "single_error" else 2),
         "http_request_calls": adaptive["runtime"]["http_request_attempt_count"],
         "database_reset_performed": bool(adaptive["runtime"]["database_reset"]),
         "budget_complete": budget_complete, "metric_eligible": budget_complete,
@@ -831,8 +1432,8 @@ def execute_unit(unit: dict, attempt: dict, plan: dict, protocol: dict,
     if not unit_directory.resolve().is_relative_to(raw_root):
         raise ValueError("Attempt output must stay under results/raw/.")
 
-    # S1 A/B use the feedback loop; other techniques retain their bounded batch path.
-    if unit["scenario_id"] == "S1" and unit["condition_id"] in {"A", "B"}:
+    # Every LLM scenario uses the same bounded adaptive generation/feedback loop.
+    if unit["condition_id"] in {"A", "B"}:
         return execute_adaptive_s1_unit(unit, attempt, plan, protocol, unit_directory, root)
 
     if unit["condition_id"] in {"A", "B"}:
@@ -990,34 +1591,79 @@ def summarize(ledger: ExperimentLedger) -> dict:
 
 def execute_plan(plan_path: Path, *, execute: bool = False, resume: bool = False,
                  retry_invalid: bool = False, confirm_local_dvwa: bool = False,
-                 confirm_database_reset: bool = False, root: Path = ROOT,
+                 confirm_database_reset: bool = False,
+                 one_replicate_per_session: bool = False,
+                 formal_execution_approval_path: Path | None = None,
+                 condition_b_runner_amendment_path: Path | None = None, root: Path = ROOT,
                  execute_one=execute_unit) -> dict:
     plan_path = plan_path.resolve()
     if not plan_path.is_relative_to(root.resolve()):
         raise ValueError("--plan must resolve inside the project workspace.")
-    plan = validate_plan(read_json(plan_path), load_protocol(), root)
+    if condition_b_runner_amendment_path is not None and not (resume and execute):
+        raise ValueError("--condition-b-runner-amendment requires --resume --execute.")
+    plan = validate_plan(read_json(plan_path), load_protocol(), root,
+                         verify_index=condition_b_runner_amendment_path is None)
     protocol = load_protocol()
+    runner_amendment = None
+    if condition_b_runner_amendment_path is not None:
+        runner_amendment = validate_condition_b_runner_amendment(
+            condition_b_runner_amendment_path, plan_path, plan, protocol, root)
+        plan["condition_b_runner_amendment_resolved"] = runner_amendment
     if retry_invalid and not execute:
         raise ValueError("--retry-invalid requires --execute so every retry gets a fresh database reset.")
+    if one_replicate_per_session and not execute:
+        raise ValueError("--one-replicate-per-session requires --execute.")
+    if formal_execution_approval_path is not None and not execute:
+        raise ValueError("--formal-execution-approval requires --execute.")
+    if execute and plan["dataset"] == "formal" and formal_execution_approval_path is None:
+        raise ValueError("Formal dataset execution requires --formal-execution-approval bound to this plan and release.")
+    if formal_execution_approval_path is not None and plan["dataset"] != "formal":
+        raise ValueError("--formal-execution-approval can only be used with a formal dataset plan.")
+    formal_execution_authorization = None
     if execute:
         if not confirm_local_dvwa or not confirm_database_reset:
             raise ValueError("Execution requires --confirm-local-dvwa and --confirm-database-reset.")
+        if plan["dataset"] == "formal":
+            formal_execution_authorization = validate_formal_execution_approval(
+                formal_execution_approval_path, plan_path, plan, protocol, root,
+                runner_amendment=runner_amendment)
+        snapshot = plan.get("knowledge_snapshot_resolved")
+        if snapshot is not None and "B" in plan["condition_ids"]:
+            decision = read_json(snapshot["review_decision_path_resolved"])
+            required_decision = ("approved-for-pilot-use" if plan["dataset"] == "pilot"
+                                 else "approved-for-formal-use")
+            if decision.get("decision") != required_decision:
+                raise ValueError(f"Condition B execution requires a corpus receipt with decision={required_decision}.")
         require_local_target(protocol["target_origin"])
     plan_hash = sha256_bytes(json_bytes({key: value for key, value in plan.items()
                                          if not key.endswith("_resolved")}))
     protocol_hash = sha256_file(PROTOCOL_SNAPSHOT_PATH)
     data_directory = root / "results" / "raw" / plan["dataset"] / plan["experiment_id"]
     if resume:
-        ledger = ExperimentLedger.resume(data_directory, plan, plan_hash, protocol_hash, root)
+        ledger = ExperimentLedger.resume(data_directory, plan, plan_hash, protocol_hash, root,
+                                         formal_execution_authorization, runner_amendment)
     else:
         if data_directory.exists():
             raise ValueError("Experiment directory already exists. Use --resume with the unchanged plan.")
-        ledger = ExperimentLedger.create(data_directory, plan, protocol, plan_hash, protocol_hash, root)
+        ledger = ExperimentLedger.create(data_directory, plan, protocol, plan_hash, protocol_hash, root,
+                                         formal_execution_authorization)
 
     with experiment_lock(data_directory, recover_stale=resume):
+        if runner_amendment is not None:
+            record = condition_b_amendment_record(runner_amendment)
+            recorded = [event["condition_b_runner_amendment"] for event in ledger.events
+                        if "condition_b_runner_amendment" in event]
+            if recorded and any(value != record for value in recorded):
+                raise ValueError("Saved runner amendment differs from the supplied receipt.")
+            if not recorded:
+                ledger.append("formal_execution_authorized",
+                              formal_execution_authorization=formal_execution_authorization,
+                              condition_b_runner_amendment=record)
         recovered = recover_interrupted_attempts(ledger) if resume else 0
         return execute_ledger(ledger, plan, protocol, data_directory, execute=execute,
-                              retry_invalid=retry_invalid, recovered=recovered, root=root,
+                              retry_invalid=retry_invalid,
+                              one_replicate_per_session=one_replicate_per_session,
+                              recovered=recovered, root=root,
                               execute_one=execute_one)
 
 
@@ -1133,7 +1779,13 @@ def ordered_ledger_states(ledger):
 
 def execute_ledger(ledger: ExperimentLedger, plan: dict, protocol: dict, data_directory: Path,
                    *, execute: bool, retry_invalid: bool, recovered: int, root: Path,
-                   execute_one) -> dict:
+                   execute_one, one_replicate_per_session: bool = False) -> dict:
+
+    session_replicate = None
+    if execute and one_replicate_per_session:
+        unfinished = [state["unit"]["replicate"] for _, state in ordered_ledger_states(ledger)
+                      if state["status"] not in {"completed", "excluded"}]
+        session_replicate = min(unfinished, default=None)
 
     if execute:
         for unit_id, state in ordered_ledger_states(ledger):
@@ -1155,13 +1807,21 @@ def execute_ledger(ledger: ExperimentLedger, plan: dict, protocol: dict, data_di
         result = summarize(ledger)
         result.update(recovered_interrupted_attempts=recovered,
                       blocked_by_invalid_runs=recoverable_invalids,
-                      next_action="repair the local runtime, then resume with --retry-invalid")
+                      next_action="repair the local runtime, then resume with --retry-invalid",
+                      **({"replicate_session": {"status": "blocked_by_invalid_runs",
+                                                  "replicate": session_replicate}}
+                         if one_replicate_per_session else {}))
         return result
 
     if execute:
         for unit_id, state in ordered_ledger_states(ledger):
             unit = state.get("unit")
-            if unit is None or state["status"] in {"completed", "excluded"}:
+            if unit is None:
+                continue
+            if (one_replicate_per_session and session_replicate is not None
+                    and unit["replicate"] > session_replicate):
+                break
+            if state["status"] in {"completed", "excluded"}:
                 continue
             was_invalid = state["status"] == "invalid"
             if was_invalid and not retry_invalid:
@@ -1181,8 +1841,13 @@ def execute_ledger(ledger: ExperimentLedger, plan: dict, protocol: dict, data_di
             ledger.append("attempt_started", **unit, run_id=run_id, attempt_id=attempt_id,
                           attempt_number=attempt_number, retry_of_attempt_id=prior_attempt,
                           reset_required=True, fresh_login_required=True, state_reused=False)
+            index_preflight = None
             try:
+                if unit["condition_id"] == "B":
+                    index_preflight = prepare_condition_b_index(unit, attempt, plan, data_directory, root)
                 details = execute_one(unit, attempt, plan, protocol, data_directory, root)
+                if index_preflight is not None:
+                    details["condition_b_index_preflight"] = index_preflight
             except KeyboardInterrupt:
                 ledger.append("attempt_invalid", unit_id=unit_id, run_id=run_id, attempt_id=attempt_id,
                               attempt_number=attempt_number, failure_code="orchestrator_interrupted",
@@ -1193,6 +1858,8 @@ def execute_ledger(ledger: ExperimentLedger, plan: dict, protocol: dict, data_di
                 code = failure.code if isinstance(failure, ExecutionFailure) else "orchestrator_error"
                 details = failure.details if isinstance(failure, ExecutionFailure) else {
                     "message": str(failure), "exception_type": type(failure).__name__}
+                if index_preflight is not None:
+                    details = {**details, "condition_b_index_preflight": index_preflight}
                 budget = protocol["generation"]["candidate_budget"]
                 generated_count = details.get("generated_candidate_count", 0)
                 ledger.append("attempt_invalid", unit_id=unit_id, run_id=run_id, attempt_id=attempt_id,
@@ -1221,6 +1888,40 @@ def execute_ledger(ledger: ExperimentLedger, plan: dict, protocol: dict, data_di
 
     result = summarize(ledger)
     result["recovered_interrupted_attempts"] = recovered
+    if execute and one_replicate_per_session and session_replicate is not None:
+        states = ordered_ledger_states(ledger)
+        replicate_states = [state for _, state in states
+                            if state["unit"]["replicate"] == session_replicate]
+        block_finished = bool(replicate_states) and all(
+            state["status"] in {"completed", "excluded"} for state in replicate_states)
+        remaining_replicates = [state["unit"]["replicate"] for _, state in states
+                                if state["unit"]["replicate"] > session_replicate
+                                and state["status"] not in {"completed", "excluded"}]
+        next_replicate = min(remaining_replicates, default=None)
+        if block_finished and next_replicate is not None:
+            ledger.append("execution_paused", replicate=session_replicate,
+                          next_replicate=next_replicate,
+                          pause_policy_id="one-replicate-per-session-v1",
+                          pause_reason="replicate_block_finished")
+            result = summarize(ledger)
+            result["recovered_interrupted_attempts"] = recovered
+            result["replicate_session"] = {
+                "status": "paused_at_replicate_boundary",
+                "finished_replicate": session_replicate,
+                "next_replicate": next_replicate,
+            }
+            result["next_action"] = (
+                "Lanjutkan plan dan ledger yang sama dengan --resume --execute "
+                "--one-replicate-per-session."
+            )
+        else:
+            result["replicate_session"] = {
+                "status": "plan_complete" if block_finished else "replicate_incomplete",
+                "finished_replicate": session_replicate if block_finished else None,
+                "next_replicate": next_replicate,
+            }
+    elif execute and one_replicate_per_session:
+        result["replicate_session"] = {"status": "plan_already_complete"}
     return result
 
 
@@ -1231,20 +1932,31 @@ def main() -> None:
                         help="Rebuild one interrupted S1 A ledger summary from its saved adaptive artifact, without sending probes.")
     parser.add_argument("--resume", action="store_true", help="Continue an existing ledger without reusing session state.")
     parser.add_argument("--execute", action="store_true", help="Generate candidates and send probes to local DVWA.")
+    parser.add_argument("--one-replicate-per-session", action="store_true",
+                        help="Run the next unfinished replicate block, record a pause at its boundary, then return.")
     parser.add_argument("--retry-invalid", action="store_true",
                         help="Start new attempts for invalid runs after runtime repair; each attempt resets the database.")
     parser.add_argument("--confirm-local-dvwa", action="store_true",
                         help="Confirm the configured target is the researcher's local DVWA.")
     parser.add_argument("--confirm-database-reset", action="store_true",
                         help="Confirm the runner may reset the local DVWA sample database before each condition-run.")
+    parser.add_argument("--formal-execution-approval", type=Path,
+                        help="Researcher-authored formal execution receipt bound to the active release and exact plan.")
+    parser.add_argument("--condition-b-runner-amendment", type=Path,
+                        help="Explicit B index recovery amendment for R3, preserving completed R1/R2 and the original release.")
     args = parser.parse_args()
-    if args.recover_adaptive_artifact and (args.execute or args.resume or args.retry_invalid):
-        parser.error("--recover-adaptive-artifact cannot be combined with execute, resume, or retry flags.")
+    if args.recover_adaptive_artifact and (args.execute or args.resume or args.retry_invalid
+                                            or args.one_replicate_per_session
+                                            or args.formal_execution_approval or args.condition_b_runner_amendment):
+        parser.error("--recover-adaptive-artifact cannot be combined with execution, resume, retry, or replicate-session flags.")
     result = (recover_adaptive_s1_attempt(args.plan) if args.recover_adaptive_artifact else
               execute_plan(args.plan, execute=args.execute, resume=args.resume,
                            retry_invalid=args.retry_invalid,
                            confirm_local_dvwa=args.confirm_local_dvwa,
-                           confirm_database_reset=args.confirm_database_reset))
+                           confirm_database_reset=args.confirm_database_reset,
+                           one_replicate_per_session=args.one_replicate_per_session,
+                           formal_execution_approval_path=args.formal_execution_approval,
+                           condition_b_runner_amendment_path=args.condition_b_runner_amendment))
     print(json.dumps(result,
                      ensure_ascii=False, indent=2))
 

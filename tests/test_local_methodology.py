@@ -1,4 +1,4 @@
-"""Keep T01 design choices distinct from unimplemented LangChain readiness."""
+"""Check recorded local LangChain readiness and its formal freeze gate."""
 
 import json
 import sys
@@ -19,9 +19,9 @@ class LocalMethodologyTests(unittest.TestCase):
             with self.assertRaisesRegex(ValueError, pattern):
                 load_protocol(path)
 
-    def test_design_does_not_claim_local_langchain_is_already_implemented(self):
+    def test_formal_protocol_records_verified_local_langchain_integration(self):
         protocol = load_protocol()
-        self.assertEqual(protocol["implementation_readiness"]["local_langchain"], "pending")
+        self.assertEqual(protocol["implementation_readiness"]["local_langchain"], "verified")
         self.assertEqual(len(experiment_matrix(protocol)), 99)
         self.assertIn("local-langchain-integration-verified", protocol["formal_gate"])
 
@@ -41,6 +41,7 @@ class LocalMethodologyTests(unittest.TestCase):
         protocol = load_protocol()
         protocol["status"] = "frozen"
         protocol["review"]["independent_validator"] = "approved"
+        protocol["implementation_readiness"]["local_langchain"] = "pending"
         self.check_rejected(protocol, "verified local LangChain integration")
 
     def test_gate_cannot_be_removed_and_snapshot_tracks_framework_packages(self):

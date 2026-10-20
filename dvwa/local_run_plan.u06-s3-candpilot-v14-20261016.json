@@ -1,0 +1,29 @@
+{
+  "schema_version": "1.0.0",
+  "experiment_id": "u06-s3-candpilot-v14-20261016",
+  "dataset": "pilot",
+  "condition_ids": [
+    "A",
+    "B"
+  ],
+  "scenario_ids": [
+    "S3"
+  ],
+  "replicates": [
+    1
+  ],
+  "discovery_reports": {
+    "S3": {
+      "1": "results/zap/u06-zap-active-sqli-low-20261014-205755.normalized.json"
+    }
+  },
+  "seclists_source_root": null,
+  "knowledge_snapshot": {
+    "manifest_path": "results/raw/u06-generation-diagnostic-20261014/candidate-manifest-s3-review.json",
+    "manifest_sha256": "52e8d0518424c0a9f93d8edeb16ff74f9e3079fda6a65aed981f70836839a0e9",
+    "corpus_path": "results/raw/u06-generation-diagnostic-20261014/candidate-sqli-entries-s3-review.json",
+    "corpus_sha256": "d38499f68f5a6530cd87e35d54c83242aa09f650d7c666dc2e686300d36659e2",
+    "review_decision_path": "results/raw/decision-receipts/u06-s3-candpilot-v14-20261016.json",
+    "review_decision_sha256": "635c1e05c734cad0c78474e8302980b69d0591efb8ee671e1cf88bc5d5e69743"
+  }
+}

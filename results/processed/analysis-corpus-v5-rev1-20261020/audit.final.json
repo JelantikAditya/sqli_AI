@@ -1,0 +1,55 @@
+{
+  "audit_id": "analysis-corpus-v5-rev1-20261020",
+  "created_at_utc": "2026-10-20T03:00:36.122863+00:00",
+  "status": "mechanical-checks-passed-draft-awaiting-researcher-review",
+  "corpus_path": "knowledge/analysis-v5/corpus.rev1.json",
+  "corpus_sha256": "3e036d0b7c0feed5aa5549890d0e45e255055aea5df7812a3c7a62f8a24ca472",
+  "source_lock_sha256": "966ce725d0c4fcd9914a174a5b3867eb2d941483051c5b991d8364bcf2a44efd",
+  "schema_sha256": "ca5d523f5261171a869dfee9eb827ca8e07d72f90b306e1d922d2fd36ec1d2df",
+  "checker_sha256": "430cf547d3daa13a4c35a9da085de90157b12cbb349b0779e5d67318a28e88c2",
+  "preservation_baseline_sha256": "e7e3b906f9fd958cda05e55a75afa4cd013f32e3f91a5f29dcd6e9a3e9e90c12",
+  "summary": {
+    "chunks": 7,
+    "substantive_fields": 35,
+    "statements": 38,
+    "origin_counts": {
+      "source_paraphrase": 13,
+      "researcher_adaptation": 25
+    },
+    "sources": 4,
+    "source_segments": 9,
+    "source_paraphrase_word_counts_by_page": {
+      "owasp-wstg42": 60,
+      "portswigger-blind": 48,
+      "portswigger-conditional-lab": 17,
+      "portswigger-timing": 32
+    },
+    "all_field_source_coordinates_resolve": true,
+    "all_project_contract_hashes_match": true,
+    "all_project_contract_locators_resolve": true,
+    "named_design_decisions": 5,
+    "synthetic_examples": 0
+  },
+  "protected_files_unchanged": 1072,
+  "formal_inventory_files_unchanged": 959,
+  "researcher_review": "pending",
+  "independent_or_blinded_review": false,
+  "editorial_review": "Codex source reading and per-statement provenance; post-v4 development",
+  "checks_prove_source_entailment": false,
+  "checks_prove_retrieval_quality": false,
+  "model_calls": 0,
+  "embedding_calls": 0,
+  "dvwa_requests": 0,
+  "formal_metrics_recomputed": false,
+  "retrieval_policy_frozen": false,
+  "researcher_feedback_on_previous_draft": {
+    "supersedes_corpus_path": "knowledge/analysis-v5/corpus.json",
+    "supersedes_corpus_sha256": "f48a4ab4434478f2f719a0a9e14e31b5e22b9c0acabe8664841e3647f56f6d7b",
+    "feedback_path": "results/processed/analysis-corpus-v5-rev1-20261020/researcher-feedback.json",
+    "feedback_sha256": "17ab544ebd2d06892a43a0f2b1fe4d62b38919127084170a5f97e6104819a643",
+    "feedback_decision": "minor-revisions-requested-before-pilot-freeze",
+    "revised_draft_approval": "pending"
+  },
+  "contract_semantics_evidence_path": "results/processed/analysis-corpus-v5-rev1-20261020/contract-semantics.json",
+  "contract_semantics_evidence_sha256": "58f948769c2f1d6ab2271b23195eeca23a4c251c5917f06e7846bc195e54e9d1"
+}

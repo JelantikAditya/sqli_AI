@@ -11,7 +11,11 @@ import unittest
 from pathlib import Path
 from unittest.mock import patch
 
-sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "dvwa"))
+ROOT_DIR = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT_DIR / "development"))
+sys.path.insert(0, str(ROOT_DIR / "dvwa"))
+from test_prerequisites import require_local_snapshots
+from generate_candidate_batch import build_messages as build_generation_messages
 from jsonschema.exceptions import ValidationError
 from knowledge_corpus import ROOT, CORPUS_KIND, prepare_documents, validate_corpus
 from rag_pipeline import injection_point_context, load_catalog, scenario_query
@@ -19,6 +23,10 @@ from retrieve_structured_knowledge import retrieve
 
 
 class ProposalKnowledgeTests(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        require_local_snapshots("knowledge/sources.lock.json")
+
     def setUp(self):
         (ROOT / "tmp").mkdir(exist_ok=True)
         self.temp = tempfile.TemporaryDirectory(prefix="proposal-tests-", dir=ROOT / "tmp")
@@ -44,6 +52,17 @@ class ProposalKnowledgeTests(unittest.TestCase):
             self.path.write_text(json.dumps(data), encoding="utf-8")
             with self.assertRaises(ValidationError):
                 validate_corpus(self.path, self.root)
+
+    def test_generation_prompt_contains_rules_only_for_selected_probe_technique(self):
+        error = "\n".join(item["content"] for item in build_generation_messages(self.scenario, 1))
+        self.assertIn("single error-based diagnostic probe", error)
+        self.assertIn("Never use delays, timing functions", error)
+        self.assertNotIn("For timing probes use a bounded delay", error)
+        timing = next(item for item in load_catalog()["scenarios"] if item["scenario_id"] == "S3")
+        time_prompt = "\n".join(item["content"] for item in build_generation_messages(timing, 1))
+        self.assertIn("time-based blind probe", time_prompt)
+        self.assertIn("at most two seconds", time_prompt)
+        self.assertNotIn("single error-based diagnostic probe", time_prompt)
 
     def test_source_snapshot_tampering_is_rejected(self):
         snapshot = self.root / self.lock["sources"][0]["files"][0]["snapshot_path"]

@@ -1,0 +1,59 @@
+{
+  "sequence": 1,
+  "task_id": "extract_json",
+  "requested_model": "Qwen3.8-27B",
+  "started_at_utc": "2026-10-20T08:38:59.326418+00:00",
+  "http_status": 200,
+  "reported_model": "self-dploy/Qwen3.8-27B",
+  "valid_json": true,
+  "passed": true,
+  "status": "response-received",
+  "response_id": "71f72fc35bc449c58210a63167e3dddb",
+  "content": "\n\n{\"nama\":\"Rani\",\"jumlah\":3,\"kota\":null}",
+  "finish_reason": "stop",
+  "usage": {
+    "prompt_tokens": 115,
+    "total_tokens": 254,
+    "completion_tokens": 139,
+    "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0,
+      "image_tokens": 0
+    },
+    "reasoning_tokens": 123,
+    "cost": 2.2365e-05,
+    "cost_details": {
+      "upstream_inference_cost": 2.2365e-05,
+      "upstream_inference_prompt_cost": 4.025e-06,
+      "upstream_inference_completions_cost": 1.834e-05,
+      "total_cost": 2.2365e-05,
+      "input_cost": 4.025e-06,
+      "output_cost": 1.834e-05,
+      "cached_input_cost": 0,
+      "cache_write_input_cost": 0,
+      "request_cost": 0,
+      "web_search_cost": 0,
+      "image_input_cost": null,
+      "image_output_cost": null,
+      "audio_input_cost": null,
+      "data_storage_cost": 3.77e-06
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 123,
+      "image_tokens": 0,
+      "audio_tokens": 0
+    }
+  },
+  "parsed": {
+    "nama": "Rani",
+    "jumlah": 3,
+    "kota": null
+  },
+  "truncated": false,
+  "answer_correct": true,
+  "verdict": "pass",
+  "elapsed_seconds": 42.688,
+  "finished_at_utc": "2026-10-20T08:39:42.015536+00:00"
+}

@@ -4,6 +4,14 @@
 
 # Rahasia lokal dan hasil sementara.
 **/.env
+**/.env.*
+!**/.env.example
+**/*.pem
+**/*.p12
+**/*.pfx
+**/*.key
+**/id_rsa
+**/id_ed25519
 dvwa/validation_payloads.local.json
 dvwa/candidate_batch.local.json
 dvwa/local_run_plan.local.json
@@ -18,6 +26,10 @@ dvwa/local_run_plan.local.json
 /data/vectorstore/
 /knowledge/active-index.local.json
 /results/raw/
+# U06 ZAP active-scan artifacts include local session traffic and stay local.
+/results/zap/u06-zap-active-sqli-*
+/results/zap/u06-zap-api-explicit-*
+/results/zap/*.har
 /models/
 
 # Local runtime evidence, review extracts, bundles and temporary files.
@@ -25,4 +37,5 @@ dvwa/local_run_plan.local.json
 /outputs/rag-local-smoke/
 /outputs/rag-retrieval-review/
 /outputs/proposal-rag/
+/outputs/val01-format-20261019/
 /tmp/

@@ -1,5 +1,8 @@
 # Review teknis korpus SQLi, 11 Oktober 2026
 
+> Catatan review teknis per 11 Oktober. Review peneliti disetujui pada 12
+> Oktober; status aktif dan pekerjaan tersisa ada di [rencana penyelesaian](rencana-penyelesaian-2026-10-16.md).
+
 ## Hasil
 
 Sembilan entri diperiksa terhadap snapshot OWASP WSTG v4.2 dan PayloadsAllTheThings pada commit yang dikunci di `knowledge/sources.lock.json`. Schema, hash snapshot, ketersediaan rujukan baris, heading sumber, dan tiga kelompok teknik lulus validasi. Enam komponen pengetahuan proposal tersedia pada seluruh entri. Tidak ditemukan koreksi isi yang wajib untuk smoke integrasi S1.
@@ -33,3 +36,9 @@ Persetujuan ini adalah review peneliti atas dokumen dan kecukupan korpus untuk t
 ## Penggunaan berikutnya
 
 Korpus disetujui peneliti untuk penggunaan pada tahap pilot. Perubahan isi berikutnya memerlukan rebuild index dan manifest baru sebelum konfigurasi eksperimen dibekukan.
+
+Pembaruan 17 Oktober 2026: peneliti menyetujui penggunaan snapshot sembilan entri
+yang sama untuk eksperimen formal setelah gate U07 lainnya terpenuhi. Keputusan
+baru dan hash korpus/index tercatat terpisah dalam
+[keputusan korpus U07](keputusan-korpus-formal-u07-2026-10-17.md). Persetujuan ini
+tidak mengubah hasil review pilot atau isi korpus yang sudah diindeks.

@@ -1,0 +1,78 @@
+{
+  "id": "94568797511e4ae8b840f565710b6e8d",
+  "object": "chat.completion",
+  "created": 1792486706,
+  "model": "self-dploy/Qwen3.8-27B",
+  "choices": [
+    {
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "\n\n{\"pelanggan\":\"Rani\",\"barang\":\"buku\",\"jumlah\":5,\"kota\":\"Bandung\",\"status\":\"dikonfirmasi\"}",
+        "tool_calls": null,
+        "reasoning": "Pengguna meminta koreksi pesanan sebelumnya: jumlah menjadi 5, kota Bandung, status dikonfirmasi. Pertahankan informasi lain: pelanggan Rani, barang buku. Format snapshot yang sama: satu objek JSON valid tanpa Markdown atau teks tambahan. Kunci: pelanggan, barang, jumlah, kota, status. Jumlah integer. Informasi belum diketahui null, tapi sekarang kota diketahui Bandung. Jadi output JSON: {\"pelanggan\":\"Rani\",\"barang\":\"buku\",\"jumlah\":5,\"kota\":\"Bandung\",\"status\":\"dikonfirmasi\"}\n"
+      },
+      "logprobs": null,
+      "finish_reason": "stop",
+      "matched_stop": 248046
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 209,
+    "total_tokens": 345,
+    "completion_tokens": 136,
+    "prompt_tokens_details": {
+      "cached_tokens": 128,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0,
+      "image_tokens": 0
+    },
+    "reasoning_tokens": 107,
+    "cost": 1.99346e-05,
+    "cost_details": {
+      "upstream_inference_cost": 1.99346e-05,
+      "upstream_inference_prompt_cost": 2.9246e-06,
+      "upstream_inference_completions_cost": 1.701e-05,
+      "total_cost": 1.99346e-05,
+      "input_cost": 2.835e-06,
+      "output_cost": 1.701e-05,
+      "cached_input_cost": 8.96e-08,
+      "cache_write_input_cost": 0,
+      "request_cost": 0,
+      "web_search_cost": 0,
+      "image_input_cost": null,
+      "image_output_cost": null,
+      "audio_input_cost": null,
+      "data_storage_cost": 4.52e-06
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 107,
+      "image_tokens": 0,
+      "audio_tokens": 0
+    }
+  },
+  "metadata": {
+    "request_id": "ir2D7hBN5pQ7NgBICRKPb4IAONqaKyncx0P6dMec",
+    "requested_model": "Qwen3.8-27B",
+    "requested_provider": null,
+    "used_model": "Qwen3.8-27B",
+    "used_provider": "self-dploy",
+    "underlying_used_model": "Qwen3.8-27B",
+    "routing": [
+      {
+        "provider": "self-dploy",
+        "model": "Qwen3.8-27B",
+        "status_code": 200,
+        "error_type": "none",
+        "succeeded": true,
+        "apiKeyHash": "ce10dea265c1cb6e0219ebfdc40832cca3d0949c855b2b05409513e79fdc4d91",
+        "logId": "iubbNQMUtyzlOswFGRkQ"
+      }
+    ],
+    "log_id": "iubbNQMUtyzlOswFGRkQ",
+    "organization_id": "oneclick-org-58873",
+    "project_id": "oneclick-project-58873",
+    "discount": null
+  }
+}

@@ -1,0 +1,62 @@
+{
+  "scenario": "order_updates",
+  "turn": 2,
+  "requested_model": "Qwen3.8-27B",
+  "attempted": true,
+  "passed": true,
+  "valid_json": true,
+  "reported_model": "self-dploy/Qwen3.8-27B",
+  "http_status": 200,
+  "content": "\n\n{\"pelanggan\":\"Rani\",\"barang\":\"buku\",\"jumlah\":5,\"kota\":\"Bandung\",\"status\":\"dikonfirmasi\"}",
+  "finish_reason": "stop",
+  "started_at_utc": "2026-10-20T08:58:14.319251+00:00",
+  "request_sha256": "3ebfe9c35e64af425d87f51f1a3e0c618b4c65e5333102926f2b83380305163f",
+  "status": "response-received",
+  "usage": {
+    "prompt_tokens": 209,
+    "total_tokens": 345,
+    "completion_tokens": 136,
+    "prompt_tokens_details": {
+      "cached_tokens": 128,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0,
+      "image_tokens": 0
+    },
+    "reasoning_tokens": 107,
+    "cost": 1.99346e-05,
+    "cost_details": {
+      "upstream_inference_cost": 1.99346e-05,
+      "upstream_inference_prompt_cost": 2.9246e-06,
+      "upstream_inference_completions_cost": 1.701e-05,
+      "total_cost": 1.99346e-05,
+      "input_cost": 2.835e-06,
+      "output_cost": 1.701e-05,
+      "cached_input_cost": 8.96e-08,
+      "cache_write_input_cost": 0,
+      "request_cost": 0,
+      "web_search_cost": 0,
+      "image_input_cost": null,
+      "image_output_cost": null,
+      "audio_input_cost": null,
+      "data_storage_cost": 4.52e-06
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 107,
+      "image_tokens": 0,
+      "audio_tokens": 0
+    }
+  },
+  "response_id": "94568797511e4ae8b840f565710b6e8d",
+  "parsed": {
+    "pelanggan": "Rani",
+    "barang": "buku",
+    "jumlah": 5,
+    "kota": "Bandung",
+    "status": "dikonfirmasi"
+  },
+  "answer_correct": true,
+  "verdict": "pass",
+  "elapsed_seconds": 7.876,
+  "finished_at_utc": "2026-10-20T08:58:22.195439+00:00"
+}

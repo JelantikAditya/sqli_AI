@@ -1,0 +1,63 @@
+{
+  "scenario": "shopping_revision",
+  "turn": 1,
+  "requested_model": "Qwen3.8-27B",
+  "attempted": true,
+  "passed": true,
+  "valid_json": true,
+  "reported_model": "self-dploy/Qwen3.8-27B",
+  "http_status": 200,
+  "content": "\n\n{\"produk_tersedia\":[\"Aster\",\"Bima\",\"Citra\"],\"total_belanja\":0}",
+  "finish_reason": "stop",
+  "started_at_utc": "2026-10-20T08:58:54.541253+00:00",
+  "request_sha256": "7daf3451edb28f6cb4f4afac3c73958af79e5d2ea29eed1a01220ebd6a2e3a2b",
+  "status": "response-received",
+  "usage": {
+    "prompt_tokens": 168,
+    "total_tokens": 373,
+    "completion_tokens": 205,
+    "prompt_tokens_details": {
+      "cached_tokens": 64,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0,
+      "image_tokens": 0
+    },
+    "reasoning_tokens": 181,
+    "cost": 3.07048e-05,
+    "cost_details": {
+      "upstream_inference_cost": 3.07048e-05,
+      "upstream_inference_prompt_cost": 3.6848e-06,
+      "upstream_inference_completions_cost": 2.702e-05,
+      "total_cost": 3.07048e-05,
+      "input_cost": 3.64e-06,
+      "output_cost": 2.702e-05,
+      "cached_input_cost": 4.48e-08,
+      "cache_write_input_cost": 0,
+      "request_cost": 0,
+      "web_search_cost": 0,
+      "image_input_cost": null,
+      "image_output_cost": null,
+      "audio_input_cost": null,
+      "data_storage_cost": 5.54e-06
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 181,
+      "image_tokens": 0,
+      "audio_tokens": 0
+    }
+  },
+  "response_id": "510a10617f204e21a2e73d4e618b0dc9",
+  "parsed": {
+    "produk_tersedia": [
+      "Aster",
+      "Bima",
+      "Citra"
+    ],
+    "total_belanja": 0
+  },
+  "answer_correct": true,
+  "verdict": "pass",
+  "elapsed_seconds": 10.386,
+  "finished_at_utc": "2026-10-20T08:59:04.928483+00:00"
+}

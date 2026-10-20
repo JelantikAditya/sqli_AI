@@ -1,0 +1,114 @@
+{
+  "review_id": "analysis-rag-corpus-review-20261019",
+  "reviewer": "Codex",
+  "review_type": "technical-editorial-review-after-v4-results",
+  "independent_or_blinded": false,
+  "human_approval_of_this_review": "not-recorded",
+  "rating_definitions": {
+    "supported_paraphrase": "Mekanisme pokok dijelaskan oleh bagian sumber yang dirujuk; bukan kutipan literal.",
+    "source_and_editorial": "Mekanisme bersumber, dengan kontrol, pembatasan atau prosedur tambahan dari kurasi proyek.",
+    "editorial_guardrail": "Batas interpretasi atau kehati-hatian editorial; jangan mengatribusikannya sebagai persyaratan eksplisit sumber.",
+    "scope_ambiguity": "Wording umum berpotensi berbeda makna dari label operasional kandidat pada proyek.",
+    "editorial_label": "Judul atau klasifikasi editorial yang konsisten dengan mekanisme; bukan label hasil target."
+  },
+  "entries": [
+    {
+      "entry_id": "sqli-error-quote",
+      "disposition": "retain-with-explicit-editorial-provenance",
+      "fields": {
+        "functional_semantics": {"rating": "supported_paraphrase", "source_ref_indices": [0, 1], "note": "WSTG menjelaskan quote sebagai terminator literal yang dapat memunculkan syntax error jika input tidak difilter; PATT memuat probing karakter khusus."},
+        "detection_method": {"rating": "source_and_editorial", "source_ref_indices": [0, 1], "note": "Pengujian satu variabel serta pemeriksaan error dalam HTML didukung WSTG. Syarat diagnostik baru terhadap baseline adalah kontrol operasional editorial/proyek."},
+        "limitations": {"rating": "source_and_editorial", "source_ref_indices": [0, 1], "note": "WSTG membedakan error rinci dari HTTP 500 umum dan menyebut filtering. Pembatasan bahwa sinyal tidak membuktikan ekstraksi adalah batas klaim editorial yang sesuai dengan probe diagnostik proyek."}
+      }
+    },
+    {
+      "entry_id": "sqli-error-message",
+      "disposition": "retain-with-explicit-editorial-provenance",
+      "fields": {
+        "functional_semantics": {"rating": "supported_paraphrase", "source_ref_indices": [0, 1], "note": "Contoh pesan syntax/parser error beberapa DBMS mendukung inferensi konteks database dari respons eksternal. Tidak menyatakan query internal target sudah diketahui."},
+        "detection_method": {"rating": "source_and_editorial", "source_ref_indices": [0, 1], "note": "Inspeksi pesan diagnostik didukung sumber. Pengecualian error generik dan error yang telah muncul pada baseline adalah kontrol editorial, bukan prosedur lengkap dalam dua rentang ini."},
+        "limitations": {"rating": "editorial_guardrail", "source_ref_indices": [0, 1], "note": "Perbedaan engine dan custom error mempunyai dasar pada sumber. Klaim tentang versi serta batas fingerprinting terhadap keberhasilan/label target adalah kehati-hatian editorial, bukan verifikasi lintas versi."}
+      }
+    },
+    {
+      "entry_id": "sqli-error-xml",
+      "disposition": "retain-as-conditional-template",
+      "fields": {
+        "functional_semantics": {"rating": "source_and_editorial", "source_ref_indices": [0, 1], "note": "WSTG mendukung error pembawa informasi; PATT memberi contoh EXTRACTVALUE/UPDATEXML dengan CONCAT. Penggantian informasi target menjadi marker konstan adalah adaptasi editorial."},
+        "detection_method": {"rating": "source_and_editorial", "source_ref_indices": [0, 1], "note": "Pencarian marker pada error sesuai mekanisme. Perbandingan baseline dan pembedaan missing-function dari marker-bearing diagnostic adalah prosedur kurasi, tidak ditetapkan eksplisit dalam contoh sumber."},
+        "limitations": {"rating": "editorial_guardrail", "source_ref_indices": [0, 1], "note": "Snapshot PATT mencantumkan batas versi pada contoh. Kompatibilitas seluruh MySQL/MariaDB tidak diverifikasi di review ini; field tepat dibaca sebagai peringatan bersyarat dan kebutuhan adaptasi konteks."}
+      }
+    },
+    {
+      "entry_id": "sqli-boolean-numeric",
+      "disposition": "retain-with-explicit-editorial-provenance",
+      "fields": {
+        "functional_semantics": {"rating": "supported_paraphrase", "source_ref_indices": [0, 1], "note": "WSTG SELECT Statement secara langsung membandingkan predikat AND false dan true pada input numerik serta respons konten."},
+        "detection_method": {"rating": "source_and_editorial", "source_ref_indices": [0, 1], "note": "Perbandingan true/false didukung sumber. Pengulangan, koordinat delivery yang tetap, dan penolakan ketergantungan pada satu status HTTP merupakan operasionalisasi editorial."},
+        "limitations": {"rating": "editorial_guardrail", "source_ref_indices": [0, 1], "note": "Permintaan harus comparable agar perbedaan dapat ditafsirkan. Peringatan konten tidak stabil/input ditolak adalah guardrail editorial; tidak membuktikan kedua input benar-benar mencapai ekspresi SQL tersembunyi."}
+      }
+    },
+    {
+      "entry_id": "sqli-boolean-quoted",
+      "disposition": "clarify-outcome-scope-in-future-version",
+      "fields": {
+        "functional_semantics": {"rating": "supported_paraphrase", "source_ref_indices": [0, 1], "note": "WSTG memberikan inferential query pada string dengan quote balancing serta false-control query. PATT mendukung dua kelas respons true/false."},
+        "detection_method": {"rating": "source_and_editorial", "source_ref_indices": [0, 1], "note": "WSTG menjelaskan kelas false dan template respons stabil. Struktur matched, field lain tetap, serta larangan memperlakukan query tersembunyi sebagai ground truth adalah penegasan editorial untuk DAST."},
+        "limitations": {"rating": "scope_ambiguity", "source_ref_indices": [0, 1], "note": "Kebutuhan konteks quote kompatibel sesuai contoh. Kalimat identical responses are inconclusive tidak menetapkan pembedaan hasil negatif kandidat dari status kerentanan target. Proyek menilai bukti lengkap 0/3 sebagai negative untuk kandidat; sumber tidak mendefinisikan enum kandidat itu. Klarifikasi scope diperlukan pada versi mendatang."}
+      }
+    },
+    {
+      "entry_id": "sqli-boolean-template",
+      "disposition": "retain-and-evaluate-task-relevance-before-next-pilot",
+      "fields": {
+        "functional_semantics": {"rating": "supported_paraphrase", "source_ref_indices": [0, 1], "note": "WSTG membahas ASCII/SUBSTRING dan template untuk konten dinamis; PATT memberi ekuivalen fungsi substring untuk blind inference."},
+        "detection_method": {"rating": "supported_paraphrase", "source_ref_indices": [0, 1], "note": "WSTG baris 297 menjelaskan request identik berulang, filtering bagian berubah, penerapan fungsi template yang sama, dan perbandingan hasil inferensi dengan kontrol."},
+        "limitations": {"rating": "source_and_editorial", "source_ref_indices": [0, 1], "note": "Konsistensi filtering mengikuti prosedur WSTG. Penolakan content-length saja serta larangan membuang sinyal relevan merupakan guardrail editorial yang menyempitkan pembacaan indikator umum."}
+      }
+    },
+    {
+      "entry_id": "sqli-time-conditional",
+      "disposition": "retain-with-explicit-editorial-provenance",
+      "fields": {
+        "functional_semantics": {"rating": "supported_paraphrase", "source_ref_indices": [0, 1], "note": "WSTG dan contoh conditional MySQL PATT mendukung pemanggilan delay pada cabang predikat tertentu sebagai kanal blind inference."},
+        "detection_method": {"rating": "source_and_editorial", "source_ref_indices": [0, 1], "note": "Matched no-delay control, injection point tetap dan hanya mengganti predikat adalah prosedur editorial yang masuk akal; sumber memberi mekanisme/contoh tetapi bukan prosedur pengukuran lengkap ini."},
+        "limitations": {"rating": "editorial_guardrail", "source_ref_indices": [0, 1], "note": "Ketergantungan DBMS dan konteks terlihat pada contoh. Batas latency tunggal sebagai bukti adalah kehati-hatian editorial; tidak ada ambang 1500 ms atau persyaratan marker proyek pada sumber ini."}
+      }
+    },
+    {
+      "entry_id": "sqli-time-repeated",
+      "disposition": "retain-with-explicit-editorial-provenance",
+      "fields": {
+        "functional_semantics": {"rating": "source_and_editorial", "source_ref_indices": [0, 1], "note": "Conditional delay didukung sumber. Pemisahan penyebab network/server delay dari SQL delay adalah sintesis editorial; contoh sumber tidak mengukur confounder tersebut."},
+        "detection_method": {"rating": "source_and_editorial", "source_ref_indices": [0, 1], "note": "Field sudah menyatakan editorial adaptation secara eksplisit. Prosedur repeated candidate/no-delay control tidak boleh dipresentasikan sebagai aturan repetisi yang diwajibkan sumber."},
+        "limitations": {"rating": "editorial_guardrail", "source_ref_indices": [0, 1], "note": "Noise/timeout adalah batas pengukuran editorial. Benar bahwa rentang sumber ini tidak menentukan ambang proyek, jumlah konfirmasi, atau label ground truth. Review ini tidak mengesahkan kecukupan statistik tiga pengukuran."}
+      }
+    },
+    {
+      "entry_id": "sqli-time-subselect",
+      "disposition": "retain-as-conditional-template",
+      "fields": {
+        "functional_semantics": {"rating": "source_and_editorial", "source_ref_indices": [0, 1], "note": "PATT memperlihatkan SELECT SLEEP FROM DUAL WHERE kondisi. Penggunaan predikat konstan sebagai pengganti pembacaan informasi target dan penjelasan pasangan kontrol adalah adaptasi editorial."},
+        "detection_method": {"rating": "source_and_editorial", "source_ref_indices": [0, 1], "note": "Source template mendukung struktur subselect. Menahan prefix/delay tetap, no-delay control, dan memperhitungkan variasi request adalah prosedur editorial."},
+        "limitations": {"rating": "editorial_guardrail", "source_ref_indices": [0, 1], "note": "Konteks numeric/subselect tampak pada template. Pengaruh jumlah row/aplikasi serta larangan mengasumsikan konfigurasi target rentan merupakan caution editorial, bukan hasil pengujian target atau versi DBMS."}
+      }
+    }
+  ],
+  "coverage_review": [
+    {"requirement": "Diagnostik SQL baru terhadap baseline", "technique": "error-based", "coverage": "partial", "selected_entries": ["sqli-error-quote", "sqli-error-message"], "basis": "Konsep baru-versus-baseline sudah ada. Matcher diagnostik yang dipakai proyek dan contoh pembanding terukur tidak dijelaskan sebagai kontrak yang dapat dieksekusi.", "future_action": "Pisahkan konsep sumber dari definisi indikator proyek; review matcher memakai bukti HTTP berlabel di luar konteks model."},
+    {"requirement": "Arah pasangan boolean dan kelas respons", "technique": "boolean-based blind", "coverage": "partial", "selected_entries": ["sqli-boolean-numeric", "sqli-boolean-quoted"], "basis": "True/false dan kelas stabil ada; enum user_id_exists/user_id_missing, arah pasangan, serta pengecualian status HTTP berasal dari protokol, bukan aturan universal sumber.", "future_action": "Dokumentasikan scope hasil kandidat dan aturan pemetaan observasi secara terpisah dari referensi umum."},
+    {"requirement": "Respons dinamis dan konsistensi normalisasi", "technique": "boolean-based blind", "coverage": "available-but-not-retrieved", "selected_entries": [], "available_entry": "sqli-boolean-template", "basis": "Penjelasan lebih spesifik tersedia pada entri ketiga yang tidak terpilih untuk query boolean v4. Dua entri terpilih hanya memberi peringatan atau kelas stabil secara umum.", "future_action": "Tinjau relevansi pada query/kasus baru sebelum freeze; jangan mengganti ranking v4 sesudah hasil dibuka."},
+    {"requirement": "Matched no-delay control dan kesesuaian respons", "technique": "time-based blind", "coverage": "partial", "selected_entries": ["sqli-time-conditional", "sqli-time-repeated"], "basis": "Matched control dan variasi latency disebut. Persamaan marker, status valid dan pengecualian diagnostik yang dipakai proyek tidak dijabarkan oleh referensi.", "future_action": "Nyatakan aturan proyek di kontrak bersama A/B; jangan mengatribusikan marker aplikasi ke OWASP/PATT."},
+    {"requirement": "Perbandingan delta dengan ambang numerik", "technique": "time-based blind", "coverage": "not-in-reference", "selected_entries": [], "basis": "Sumber memberi contoh delay, bukan ambang 1500 ms atau aturan pembulatan. Pada v4 aturan numerik sudah ada di input/prompt bersama.", "future_action": "Pertahankan perhitungan Decimal dan audit klaim model; contoh angka baru harus dinyatakan contoh sintetis metode proyek."},
+    {"requirement": "Kelengkapan tiga trial, mixed dan incomplete", "technique": "all", "coverage": "not-in-reference", "selected_entries": [], "basis": "Aturan 3/3 positive, 0/3 negative, mixed/incomplete inconclusive berasal dari kontrak proyek. Pengulangan umum dalam korpus tidak menentukan tabel ini.", "future_action": "Pertahankan aturan bersama A/B; validasi pada bukti baru yang dibekukan sebelum inferensi."},
+    {"requirement": "Validitas sesi, baseline dan measurement", "technique": "all", "coverage": "partial", "selected_entries": ["sqli-error-quote", "sqli-error-message"], "basis": "Perbandingan normal-versus-kandidat ada, tetapi login redirect, timeout, pasangan hilang dan runtime invalid tidak mempunyai aturan lengkap di proyeksi.", "future_action": "Nyatakan precondition sebagai protokol proyek dan verifikasi dari bukti black-box; jangan menyamakan runtime invalid dengan negative."},
+    {"requirement": "Konsistensi decision dan reason_code", "technique": "all", "coverage": "not-in-reference", "selected_entries": [], "basis": "Enum dan pemetaan literal berasal dari schema/prompt v2 bersama. Ini tidak diberikan oleh dua upstream dan konsistensinya tidak menjamin verdict benar.", "future_action": "Audit kode secara terpisah dari ketepatan trial, verdict, abstention dan coverage."}
+  ],
+  "proposed_changes_for_new_version_only": [
+    "Tambahkan provenance per field yang membedakan parafrasa sumber, sintesis editorial dan aturan operasional proyek.",
+    "Perjelas bahwa tidak adanya indikator pada kandidat tidak menetapkan target bebas SQLi; gunakan istilah negative/inconclusive sesuai scope kontrak kandidat.",
+    "Hapus pointer Remediation dari konteks analisis jika tidak mendukung field yang ditampilkan, sambil mempertahankan atribusi pada korpus asal.",
+    "Review relevansi dokumen terhadap tugas verifikasi secara eksplisit; filter teknik dan jarak vektor bukan gold relevansi.",
+    "Jika menambah worked examples, gunakan contoh sintetis generik dengan provenance, set evaluasi baru, dan pisahkan dari benchmark formal serta hasil v4."
+  ]
+}

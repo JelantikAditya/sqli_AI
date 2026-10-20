@@ -11,7 +11,8 @@ from jsonschema import ValidationError
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "dvwa"))
 from analyze_response import (analyze_with_qwen, build_messages, confusion_class,
-                             input_from_s1_smoke, normalize_analysis, rule_signal,
+                             audit_trial_assessments, comparison_observation_ids,
+                             input_from_s1_smoke, load_catalog, normalize_analysis, rule_signal,
                              summarize_run, validate_input)
 
 
@@ -54,6 +55,32 @@ class ResponseAnalysisTests(unittest.TestCase):
                 "evidence_refs": [f"obs-{i:03d}" for i in range(1, 7)] if refs is None else refs,
                 "feedback_action": "none" if decision == "positive" else "revise_candidate"}
 
+    def trial_output(self, doc, decision, positive_trials=(), *, top_refs=None, assessment_refs=None):
+        roles = {"error-based": ("baseline", "candidate"),
+                 "boolean-based blind": ("true_condition", "false_condition"),
+                 "time-based blind": ("candidate", "no_delay_control")}[doc["technique"]]
+        by_trial = {}
+        for observation in doc["observations"]:
+            by_trial.setdefault(observation["trial"], {})[observation["role"]] = observation["observation_id"]
+        comparisons = {trial: [by_trial[trial][role] for role in roles]
+                       for trial in sorted(by_trial) if all(role in by_trial[trial] for role in roles)}
+        assessments = [{"trial": trial,
+                        "outcome": "positive" if trial in positive_trials else "negative",
+                        "evidence_refs": (assessment_refs or {}).get(trial, comparisons[trial])}
+                       for trial in comparisons]
+        refs = top_refs if top_refs is not None else [ref for values in comparisons.values() for ref in values]
+        reason_codes = {
+            "error-based": {"positive": "new_database_diagnostic", "negative": "no_new_database_diagnostic"},
+            "boolean-based blind": {"positive": "boolean_difference", "negative": "no_boolean_difference"},
+            "time-based blind": {"positive": "matched_delay", "negative": "no_matched_delay"},
+        }[doc["technique"]]
+        reason_codes["inconclusive"] = "insufficient_evidence"
+        return {"decision": decision, "reason_code": reason_codes[decision],
+                "reason": "Per-trial comparison of supplied observations.",
+                "evidence_refs": refs,
+                "feedback_action": "none" if decision == "positive" else "revise_candidate",
+                "trial_assessments": assessments}
+
     def test_prompt_and_input_reject_evaluator_labels_and_raw_page_fields(self):
         doc = self.evidence()
         for field in ("ground_truth", "scenario_id", "security_level", "condition_id", "rag_mode", "raw_body", "cookie"):
@@ -78,6 +105,7 @@ class ResponseAnalysisTests(unittest.TestCase):
     def test_positive_claim_is_preserved_without_rule_support_and_becomes_fp(self):
         record = normalize_analysis(self.evidence(False), self.output(), self.context())
         self.assertFalse(record["claim_supported"])
+        self.assertIn("model_claim_evidence_mismatch", record["analysis_warnings"])
         self.assertEqual(record["system_claim"], "positive")
         summary = summarize_run([record], 1)
         self.assertEqual(confusion_class(summary, "negative"), "FP")
@@ -90,11 +118,125 @@ class ResponseAnalysisTests(unittest.TestCase):
         self.assertEqual(record["analysis_warnings"], ["decision_reason_code_mismatch"])
         self.assertEqual(confusion_class(summarize_run([record], 1), "negative"), "FP")
 
+    def test_negative_claim_against_three_positive_diagnostics_is_flagged_and_preserved(self):
+        record = normalize_analysis(self.evidence(True), self.output("negative"), self.context())
+        self.assertEqual(record["system_claim"], "negative")
+        self.assertTrue(record["confirmed_success"])
+        self.assertIn("model_claim_evidence_mismatch", record["analysis_warnings"])
+
+    def test_mixed_evidence_requires_inconclusive_claim_warning_for_confident_model_verdict(self):
+        record = normalize_analysis(self.evidence(True, positive_count=2), self.output("negative"), self.context())
+        self.assertEqual(record["evidence_status"], "MIXED_EVIDENCE")
+        self.assertIn("model_claim_evidence_mismatch", record["analysis_warnings"])
+
     def test_citations_must_include_supporting_comparison(self):
         record = normalize_analysis(self.evidence(), self.output(refs=["obs-001"]), self.context())
         self.assertFalse(record["claim_supported"])
         record = normalize_analysis(self.evidence(), self.output(), self.context())
         self.assertTrue(record["claim_supported"])
+
+    def test_per_trial_contract_covers_zero_one_two_three_and_missing_confirmations(self):
+        cases = ((0, "negative", ("negative", "negative", "negative")),
+                 (1, "inconclusive", ("positive", "negative", "negative")),
+                 (2, "inconclusive", ("positive", "positive", "negative")),
+                 (3, "positive", ("positive", "positive", "positive")))
+        for count, decision, outcomes in cases:
+            with self.subTest(positive_count=count):
+                doc = self.evidence(positive_count=count)
+                output = self.trial_output(doc, decision, range(1, count + 1))
+                self.assertEqual(audit_trial_assessments(doc, output), [])
+                record = normalize_analysis(doc, output, self.context())
+                self.assertEqual(record["system_claim"], decision)
+                self.assertNotIn("model_claim_evidence_mismatch", record["analysis_warnings"])
+                self.assertEqual(tuple(item["outcome"] for item in output["trial_assessments"]), outcomes)
+
+        incomplete = self.evidence(positive_count=2)
+        incomplete["observations"] = [o for o in incomplete["observations"] if o["trial"] <= 2]
+        output = self.trial_output(incomplete, "positive", (1, 2))
+        record = normalize_analysis(incomplete, output, self.context())
+        self.assertIn("model_claim_evidence_mismatch", record["analysis_warnings"])
+        self.assertIn("model_claim_trial_assessment_mismatch", record["analysis_warnings"])
+        self.assertFalse(record["claim_supported"])
+        self.assertEqual(record["system_claim"], "positive")
+
+    def test_per_trial_contract_audits_pair_references_and_preserves_claim(self):
+        doc = self.evidence()
+        full_pairs = comparison_observation_ids(doc)
+        candidates_only = [o["observation_id"] for o in doc["observations"] if o["role"] == "candidate"]
+        output = self.trial_output(doc, "positive", (1, 2, 3), top_refs=candidates_only)
+        record = normalize_analysis(doc, output, self.context())
+        self.assertTrue(record["claim_supported"] is False)
+        self.assertIn("evidence_refs_incomplete", record["analysis_warnings"])
+        self.assertEqual(record["system_claim"], "positive")
+
+        incomplete_trial_refs = {trial: [next(iter(ids - {next(o["observation_id"] for o in doc["observations"]
+                                                           if o["trial"] == trial and o["role"] == "baseline")}))]
+                                 for trial, ids in full_pairs.items()}
+        output = self.trial_output(doc, "positive", (1, 2, 3), assessment_refs=incomplete_trial_refs)
+        record = normalize_analysis(doc, output, self.context())
+        self.assertIn("trial_assessment_evidence_refs_incomplete", record["analysis_warnings"])
+        self.assertNotIn("evidence_refs_incomplete", record["analysis_warnings"])
+
+        output["trial_assessments"][0]["outcome"] = "negative"
+        record = normalize_analysis(doc, output, self.context())
+        self.assertIn("trial_assessment_evidence_mismatch", record["analysis_warnings"])
+
+    def test_new_model_contract_requires_trial_assessments_and_prompts_for_comparison_ids(self):
+        doc = self.evidence()
+        output = self.trial_output(doc, "positive", (1, 2, 3))
+        requests = []
+        response = {"model": "qwen2.5:7b", "message": {"content": json.dumps(output)}, "done": True}
+        with patch("analyze_response.post_ollama", side_effect=lambda endpoint, payload, timeout: (requests.append(payload) or response)):
+            record = analyze_with_qwen(doc, self.context())
+        self.assertEqual(record["analysis_status"], "completed")
+        self.assertTrue(record["claim_supported"])
+        self.assertEqual(record["audit"]["provenance"]["prompt_version"], "sqli-response-analysis-v8-count-trials")
+        self.assertIn("trial_assessments", requests[0]["format"]["required"])
+        self.assertIn("both sides of each pair", requests[0]["messages"][0]["content"])
+
+        legacy_response = {"model": "qwen2.5:7b", "message": {"content": json.dumps(self.output())}, "done": True}
+        with patch("analyze_response.post_ollama", return_value=legacy_response):
+            rejected = analyze_with_qwen(doc, self.context())
+        self.assertEqual(rejected["analysis_status"], "analysis_error")
+        self.assertIsNone(rejected["system_claim"])
+        self.assertEqual(rejected["audit"]["provenance"]["analysis_error"], "invalid-model-json-or-schema")
+
+    def test_trial_contract_uses_the_correct_comparison_pair_for_each_technique(self):
+        scenarios = load_catalog()["scenarios"]
+        roles = {"error-based": ("baseline", "candidate"),
+                 "boolean-based blind": ("baseline", "true_condition", "false_condition"),
+                 "time-based blind": ("baseline", "candidate", "no_delay_control")}
+        scenario_ids = {"error-based": "S1", "boolean-based blind": "S2", "time-based blind": "S3"}
+        for technique, scenario_id in scenario_ids.items():
+            with self.subTest(technique=technique):
+                scenario = next(item for item in scenarios if item["scenario_id"] == scenario_id)
+                doc = {"schema_version": "1.0.0", "technique": technique,
+                       "injection_point": {key: scenario[key] for key in
+                                           ("method", "input_path", "result_path", "parameter")},
+                       "runtime_status": "valid", "baseline_valid": True,
+                       "time_threshold_ms": 1500, "observations": []}
+                for trial in (1, 2, 3):
+                    for role in roles[technique]:
+                        index = len(doc["observations"]) + 1
+                        kwargs = {}
+                        if technique == "error-based" and role == "baseline":
+                            kwargs["markers"] = ["benign_record"]
+                        elif technique == "error-based" and role == "candidate":
+                            kwargs["diagnostics"] = ["mysql_syntax_error"]
+                        elif technique == "boolean-based blind":
+                            kwargs["markers"] = {"baseline": ["benign_record"],
+                                                 "true_condition": ["user_id_exists"],
+                                                 "false_condition": ["user_id_missing"]}[role]
+                        elif technique == "time-based blind":
+                            kwargs["markers"] = ["benign_record"] if role == "baseline" else ["user_id_exists"]
+                            kwargs["elapsed"] = 2000 if role == "candidate" else 10
+                        doc["observations"].append(self.observation(index, role, trial=trial, **kwargs))
+                validate_input(doc)
+                output = self.trial_output(doc, "positive", (1, 2, 3))
+                context = {**self.context(), "scenario_id": scenario_id}
+                record = normalize_analysis(doc, output, context)
+                self.assertTrue(record["claim_supported"])
+                self.assertEqual(record["analysis_warnings"], [])
 
     def test_hallucinated_reference_is_quarantined_without_erasing_claim(self):
         record = normalize_analysis(self.evidence(), self.output(refs=["obs-999"]), self.context())
@@ -103,6 +245,14 @@ class ResponseAnalysisTests(unittest.TestCase):
         summary = summarize_run([record], 1)
         self.assertEqual(summary["run_status"], "incomplete")
         self.assertIsNone(confusion_class(summary, "negative"))
+
+        doc = self.evidence()
+        output = self.trial_output(doc, "positive", (1, 2, 3))
+        output["trial_assessments"][0]["evidence_refs"].append("obs-999")
+        nested_record = normalize_analysis(doc, output, self.context())
+        self.assertEqual(nested_record["system_claim"], "positive")
+        self.assertEqual(nested_record["analysis_status"], "invalid_evidence_reference")
+        self.assertEqual(nested_record["unknown_evidence_refs"], ["obs-999"])
 
     def test_invalid_runtime_skips_inference_and_never_becomes_negative(self):
         doc = self.evidence()
@@ -150,8 +300,8 @@ class ResponseAnalysisTests(unittest.TestCase):
         doc = self.evidence()
         doc["technique"] = "time-based blind"
         doc["observations"] = [self.observation(1, "baseline", elapsed=1),
-                               self.observation(2, "candidate", elapsed=2200),
-                               self.observation(3, "no_delay_control", elapsed=2100)]
+                               self.observation(2, "candidate", markers=["user_id_exists"], elapsed=2200),
+                               self.observation(3, "no_delay_control", markers=["user_id_exists"], elapsed=2100)]
         validate_input(doc)
         self.expand_trials(doc)
         self.assertEqual(rule_signal(doc), "CONSISTENT_NEGATIVE")
@@ -209,7 +359,7 @@ class ResponseAnalysisTests(unittest.TestCase):
                         for trial in (1, 2, 3):
                             roles = ("baseline", "true_condition", "false_condition") if technique == "boolean-based blind" else ("baseline", "candidate", "no_delay_control")
                             for role in roles:
-                                markers = (["user_id_exists"] if role == "true_condition" else
+                                markers = (["user_id_exists"] if role in {"true_condition", "candidate", "no_delay_control"} else
                                            ["user_id_missing"] if role == "false_condition" and trial <= positive_count else [])
                                 elapsed = 1510 if role == "candidate" and trial <= positive_count else 10
                                 doc["observations"].append(self.observation(
@@ -330,6 +480,28 @@ class ResponseAnalysisTests(unittest.TestCase):
             self.assertEqual(analyze_with_qwen(doc, self.context())["analysis_status"], "analysis_error")
         with patch("analyze_response.post_ollama", return_value={"message": None}):
             self.assertEqual(analyze_with_qwen(doc, self.context())["analysis_status"], "analysis_error")
+
+    def test_duplicate_model_evidence_references_are_audited_and_canonicalized(self):
+        doc = self.evidence()
+        output = {"decision": "positive", "reason_code": "new_database_diagnostic",
+                  "reason": "The candidate has the diagnostic in all confirmations.",
+                  "evidence_refs": ["obs-002", "obs-002", "obs-004", "obs-006"],
+                  "trial_assessments": [
+                      {"trial": trial, "outcome": "positive",
+                       "evidence_refs": [f"obs-{trial * 2:03d}", f"obs-{trial * 2:03d}", f"obs-{trial * 2 - 1:03d}"]}
+                      for trial in (1, 2, 3)],
+                  "feedback_action": "none"}
+        response = {"model": "qwen2.5:7b", "message": {"content": json.dumps(output)},
+                    "done": True}
+        with patch("analyze_response.post_ollama", return_value=response):
+            record = analyze_with_qwen(doc, self.context())
+        self.assertEqual(record["analysis_status"], "completed")
+        self.assertEqual(record["model_output"]["evidence_refs"], ["obs-002", "obs-004", "obs-006"])
+        self.assertIn("duplicate_evidence_refs_removed", record["analysis_warnings"])
+        provenance = record["audit"]["provenance"]
+        self.assertEqual(provenance["duplicate_evidence_reference_count"], 4)
+        self.assertIn('"obs-002", "obs-002"', provenance["raw_model_content"])
+        self.assertEqual(summarize_run([record], 10)["analysis_completed_count"], 1)
 
 
 if __name__ == "__main__":

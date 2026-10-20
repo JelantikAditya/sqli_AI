@@ -1,5 +1,8 @@
 # Kelanjutan lokal: protokol pilot dan discovery ZAP, 11 Oktober 2026
 
+> Snapshot status per 11 Oktober. Perkembangan setelah tanggal ini dirangkum di
+> [README](../README.md) dan [rencana penyelesaian aktif](rencana-penyelesaian-2026-10-16.md).
+
 ## Hasil
 
 Protokol pilot lokal tersedia sebagai konfigurasi dan dokumentasi. Discovery

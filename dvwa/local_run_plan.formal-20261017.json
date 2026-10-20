@@ -1,0 +1,92 @@
+{
+  "schema_version": "1.0.0",
+  "experiment_id": "formal-sqli-v1-20261017",
+  "dataset": "formal",
+  "condition_ids": [
+    "A",
+    "B",
+    "C"
+  ],
+  "scenario_ids": [
+    "S1",
+    "S2",
+    "S3",
+    "S4",
+    "S5",
+    "S6",
+    "S7",
+    "S8",
+    "S9",
+    "S10",
+    "S11",
+    "S12"
+  ],
+  "replicates": [
+    1,
+    2,
+    3
+  ],
+  "discovery_reports": {
+    "S1": {
+      "1": "results/raw/formal-discovery/formal-sqli-v1-20261017/replicate-1/zap-discovery-low.normalized.json",
+      "2": "results/raw/formal-discovery/formal-sqli-v1-20261017/replicate-2/zap-discovery-low.normalized.json",
+      "3": "results/raw/formal-discovery/formal-sqli-v1-20261017/replicate-3/zap-discovery-low.normalized.json"
+    },
+    "S2": {
+      "1": "results/raw/formal-discovery/formal-sqli-v1-20261017/replicate-1/zap-discovery-low.normalized.json",
+      "2": "results/raw/formal-discovery/formal-sqli-v1-20261017/replicate-2/zap-discovery-low.normalized.json",
+      "3": "results/raw/formal-discovery/formal-sqli-v1-20261017/replicate-3/zap-discovery-low.normalized.json"
+    },
+    "S3": {
+      "1": "results/raw/formal-discovery/formal-sqli-v1-20261017/replicate-1/zap-discovery-low.normalized.json",
+      "2": "results/raw/formal-discovery/formal-sqli-v1-20261017/replicate-2/zap-discovery-low.normalized.json",
+      "3": "results/raw/formal-discovery/formal-sqli-v1-20261017/replicate-3/zap-discovery-low.normalized.json"
+    },
+    "S4": {
+      "1": "results/raw/formal-discovery/formal-sqli-v1-20261017/replicate-1/zap-discovery-medium.normalized.json",
+      "2": "results/raw/formal-discovery/formal-sqli-v1-20261017/replicate-2/zap-discovery-medium.normalized.json",
+      "3": "results/raw/formal-discovery/formal-sqli-v1-20261017/replicate-3/zap-discovery-medium.normalized.json"
+    },
+    "S5": {
+      "1": "results/raw/formal-discovery/formal-sqli-v1-20261017/replicate-1/zap-discovery-medium.normalized.json",
+      "2": "results/raw/formal-discovery/formal-sqli-v1-20261017/replicate-2/zap-discovery-medium.normalized.json",
+      "3": "results/raw/formal-discovery/formal-sqli-v1-20261017/replicate-3/zap-discovery-medium.normalized.json"
+    },
+    "S6": {
+      "1": "results/raw/formal-discovery/formal-sqli-v1-20261017/replicate-1/zap-discovery-medium.normalized.json",
+      "2": "results/raw/formal-discovery/formal-sqli-v1-20261017/replicate-2/zap-discovery-medium.normalized.json",
+      "3": "results/raw/formal-discovery/formal-sqli-v1-20261017/replicate-3/zap-discovery-medium.normalized.json"
+    },
+    "S7": {
+      "1": "results/raw/formal-discovery/formal-sqli-v1-20261017/replicate-1/zap-discovery-high.normalized.json",
+      "2": "results/raw/formal-discovery/formal-sqli-v1-20261017/replicate-2/zap-discovery-high.normalized.json",
+      "3": "results/raw/formal-discovery/formal-sqli-v1-20261017/replicate-3/zap-discovery-high.normalized.json"
+    },
+    "S8": {
+      "1": "results/raw/formal-discovery/formal-sqli-v1-20261017/replicate-1/zap-discovery-high.normalized.json",
+      "2": "results/raw/formal-discovery/formal-sqli-v1-20261017/replicate-2/zap-discovery-high.normalized.json",
+      "3": "results/raw/formal-discovery/formal-sqli-v1-20261017/replicate-3/zap-discovery-high.normalized.json"
+    },
+    "S9": {
+      "1": "results/raw/formal-discovery/formal-sqli-v1-20261017/replicate-1/zap-discovery-high.normalized.json",
+      "2": "results/raw/formal-discovery/formal-sqli-v1-20261017/replicate-2/zap-discovery-high.normalized.json",
+      "3": "results/raw/formal-discovery/formal-sqli-v1-20261017/replicate-3/zap-discovery-high.normalized.json"
+    },
+    "S10": {
+      "1": "results/raw/formal-discovery/formal-sqli-v1-20261017/replicate-1/zap-discovery-impossible.normalized.json",
+      "2": "results/raw/formal-discovery/formal-sqli-v1-20261017/replicate-2/zap-discovery-impossible.normalized.json",
+      "3": "results/raw/formal-discovery/formal-sqli-v1-20261017/replicate-3/zap-discovery-impossible.normalized.json"
+    },
+    "S11": {
+      "1": "results/raw/formal-discovery/formal-sqli-v1-20261017/replicate-1/zap-discovery-impossible.normalized.json",
+      "2": "results/raw/formal-discovery/formal-sqli-v1-20261017/replicate-2/zap-discovery-impossible.normalized.json",
+      "3": "results/raw/formal-discovery/formal-sqli-v1-20261017/replicate-3/zap-discovery-impossible.normalized.json"
+    },
+    "S12": {
+      "1": "results/raw/formal-discovery/formal-sqli-v1-20261017/replicate-1/zap-discovery-impossible.normalized.json",
+      "2": "results/raw/formal-discovery/formal-sqli-v1-20261017/replicate-2/zap-discovery-impossible.normalized.json",
+      "3": "results/raw/formal-discovery/formal-sqli-v1-20261017/replicate-3/zap-discovery-impossible.normalized.json"
+    }
+  },
+  "seclists_source_root": "results/raw/seclists/6ef78e5c253d9a6556f2d6339a7b635bf0a2115e"
+}

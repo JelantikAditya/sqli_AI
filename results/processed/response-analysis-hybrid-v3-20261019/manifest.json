@@ -1,0 +1,90 @@
+{
+  "scope": "development-shadow-hybrid-not-independent-holdout-not-formal",
+  "experiment_id": "response-analysis-hybrid-v3-20261019",
+  "created_at_utc": "2026-10-19T13:58:51.707950+00:00",
+  "model": "qwen2.5:7b",
+  "expected_model_digest": "845dbda0ea48ed749caafd9e6037047aa19acfcfd82e704d7ca97d631a0b697e",
+  "options": {
+    "temperature": 0,
+    "seed": 42,
+    "num_ctx": 4096,
+    "num_predict": 768
+  },
+  "raw_model_prompt_unchanged_from_v2": true,
+  "combination_policy": "binary-agreement-else-abstain-v3",
+  "verifier_version": "measured-evidence-decimal-v3",
+  "combination_table": {
+    "matching_binary": "retain_binary",
+    "conflicting_binary": "inconclusive",
+    "either_inconclusive": "inconclusive",
+    "model_error": "inconclusive",
+    "verifier_invalid": "not_evaluable"
+  },
+  "new_cases": 21,
+  "valid_cases": 20,
+  "planned_model_calls": 20,
+  "runtime_invalid_skips": 1,
+  "opened_regression_records": 27,
+  "dvwa_requests": 0,
+  "retrieval": "disabled",
+  "no_automatic_retry": true,
+  "adaptation_after_first_inference": false,
+  "development_checks": [
+    "preserve-all-raw-records",
+    "independent-verifier-matches-predeclared-fixtures",
+    "no-combined-positive-without-both-positive",
+    "no-combined-negative-without-both-negative"
+  ],
+  "empirical_readiness_criteria": {
+    "combined_positive_controls_correct": "4/4",
+    "negative_fixture_binary_coverage": "7/7",
+    "combined_verdict_matches": "20/20",
+    "analysis_errors": 0
+  },
+  "automatic_promotion_to_formal": false,
+  "primary_formal_fpr_recomputed": false,
+  "labels": "hand-declared-outside-model-and-verifier; fixture-conformance-not-independent-accuracy-proof",
+  "protected_source_count": 959,
+  "history_sha256": {
+    "results/raw/development/response-analysis-v1-20261019/evaluation.private.json": "9c4bf882518619c3103e88caf393048b98748f4b62596154784da945b5ac9943",
+    "results/raw/development/response-analysis-v1-20261019/inputs.json": "0dc2cb1bfd91fa024cce1ed7bd891fb7a9691bf34ec3c9b33038aee4a10d64bc",
+    "results/raw/development/response-analysis-v1-20261019/manifest.json": "75b005a98250f636b91078927bce596b959e96c7991fb80e6196d82d0d0196aa",
+    "results/raw/development/response-analysis-v1-20261019/prepared-requests.json": "02f37a1a022e336fc191edb0423f13e087cc93c4b91c1ddd59ae34b92aa9f0c8",
+    "results/raw/development/response-analysis-v1-20261019/replay.jsonl": "06b87127fa9b1d166eeef5ca3cb10bd38bdcb358d501130276ea35b62fe7b8b3",
+    "results/raw/development/response-analysis-v1-20261019/runtime.json": "ccc4fcc3efbd7e101926d258ffae5694ef662859d080a856a9c5d0bac9a5c0ca",
+    "results/raw/development/response-analysis-v1-20261019/summary.json": "d229ffdc66809bb44ca3b48552d0c7b945772e6c77685b0c70557964492d4518",
+    "results/raw/development/response-analysis-v1-20261019/trial-audit.private.json": "78808668aa648d1e7dbf2e034b0df77b4882bb0607b7f99ad78fe36b0a6c5cd8",
+    "results/raw/development/response-analysis-v2-20261019/audit.json": "bb4581a66ac552f4b4511f7565dc2a0722c25d642ba0d4d0c3c4a4a8f781bbbf",
+    "results/raw/development/response-analysis-v2-20261019/evaluation.private.json": "f8720f08698d5d6fe9b2d468f7d861e259d79114bfe5c9de92ea706723b6c098",
+    "results/raw/development/response-analysis-v2-20261019/inputs.json": "2f8d941cf5397e1c75f78a9a2bbde1b7d2e27947adb732c6297c9f5bbb4b3480",
+    "results/raw/development/response-analysis-v2-20261019/manifest.json": "db85faf79fc55d0d47e43b5edbbf84034f7fc32bf5dd5d8bc7c73f04f647704b",
+    "results/raw/development/response-analysis-v2-20261019/prepared-requests.json": "ff1984ab3d57a189c9ffd66db333d11ff593517defff859108faddecfbe13fd0",
+    "results/raw/development/response-analysis-v2-20261019/replay.jsonl": "24ed8df94878e23f037f82b2135dcec7b0749ceba6402ab557e6169aaf84a2ea",
+    "results/raw/development/response-analysis-v2-20261019/runtime.json": "ccc4fcc3efbd7e101926d258ffae5694ef662859d080a856a9c5d0bac9a5c0ca",
+    "results/raw/development/response-analysis-v2-20261019/summary.json": "76bfeb20b51addfadb2c53bd571b38fa4c6d630cf851bbd0e5a86e965b9a44f1"
+  },
+  "source_sha256": {
+    "development/hybrid_validation_v3.py": "8549f271e3e374f6cddaff7192871917810ce35dd3eb66ea658f8973b8e49235",
+    "development/verify_response_v3.py": "e1372d135d1daf3a00dda3b52b83d695f17fe9cfafc6a7e23df2cec5d544bb53",
+    "development/analyze_response_v2.py": "1662c057893e8c457186730009efcb8dd99dd4c8723c9dbb60ef0dcff6dbaf4f",
+    "development/analyze_response_v1.py": "269578d51ac20907f6baef62231791bf341b0d0b11112fd9a876e3cf832e7987",
+    "development/response_analysis_pilot.py": "01e486116069ee8b2452b941dd7cbbdbf927066daf29e9bf1e04c75ad9730e8d",
+    "development/audit_hybrid_v3.py": "856b16d9eb482476add9e4f9472d918e5006b72be37a029e1706137fb5b326e8",
+    "development/test_verify_response_v3.py": "7fbbfb08eb1f5a175c3a05d80fc6926d39a3872871ba72b803f8b81b9de64ff9",
+    "dvwa/analyze_response.py": "ffba71043245baf3db73a09d9236bf4e2f3edb7e38737a250ec799e9c720a500",
+    "dvwa/confirmation_policy.py": "76d3f891585170f53b784523faade226a5ac4529b77de1c0937d170d1ea37cbd",
+    "dvwa/langchain_runtime.py": "fe9d75add0de59d063d40bff8ed1218a64a35f1461b2073869c3a4ed5f96696d",
+    "dvwa/rag_pipeline.py": "750cbbeb9cf0240221b83121113adfcb91a1eeb970c2f0ced1b90005d20df6ef",
+    "dvwa/run_decision_policy.py": "8ece03a16a8ef8a01c115d6c65fabeb00cb690dd78c00988487c638cf2e0e9e7",
+    "dvwa/experiment_scenarios.json": "ca73f6acb8258702140bde1cb316141d1176270d2751d9c4a66c7f2676e1da00",
+    "schemas/qwen-analysis-input.schema.json": "3fc86ed45dd68d305ec717847a993235ae987d3a114ee5323535a3dd5bfb839b",
+    "schemas/qwen-analysis-output.schema.json": "99ebd9603827278357a5a011306f772ef7ceed376b197f13bb6d806ffdda5b7e",
+    "schemas/analysis-ledger.schema.json": "d2f146b625f0a3e71075cdcc5fc2fb9682f8167011cbcb108610825e62b3b5ab"
+  },
+  "artifact_sha256": {
+    "evaluation.private.json": "b65ca2af444246e529fc604c166233e66d5c45778ca3690cbe7a1c472fc7fcb8",
+    "inputs.json": "6a114a35760cbe0a7be0b281ae0455a9d7681d4bf6cde6fdae487d177ef7a6ed",
+    "prepared-requests.json": "0fab4aedbe23164c01d98d85d737e164e781d0985687f61701ee7d28f245456c",
+    "regression.jsonl": "559dfa91abcad8ba5d5b0f0795aecb05a54e0ea741dcc5f6616ce0ca2a40813c"
+  }
+}

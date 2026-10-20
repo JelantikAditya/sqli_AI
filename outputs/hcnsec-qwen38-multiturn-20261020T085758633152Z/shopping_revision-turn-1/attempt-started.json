@@ -1,0 +1,14 @@
+{
+  "scenario": "shopping_revision",
+  "turn": 1,
+  "requested_model": "Qwen3.8-27B",
+  "attempted": true,
+  "passed": false,
+  "valid_json": false,
+  "reported_model": null,
+  "http_status": null,
+  "content": null,
+  "finish_reason": null,
+  "started_at_utc": "2026-10-20T08:58:54.541253+00:00",
+  "request_sha256": "7daf3451edb28f6cb4f4afac3c73958af79e5d2ea29eed1a01220ebd6a2e3a2b"
+}

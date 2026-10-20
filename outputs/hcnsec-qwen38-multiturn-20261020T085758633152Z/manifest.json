@@ -1,0 +1,21 @@
+{
+  "scope": "general-multiturn-check-independent-of-TA",
+  "model": "Qwen3.8-27B",
+  "endpoint": "https://api.hcnsec.cn/v1/chat/completions",
+  "created_at_utc": "2026-10-20T08:57:58.634683+00:00",
+  "maximum_requests": 9,
+  "temperature": 0,
+  "max_tokens": 1024,
+  "stream": false,
+  "socket_timeout_seconds": 90,
+  "retries": 0,
+  "credentials_saved": false,
+  "allowed_reported_model_metadata": [
+    "Qwen3.8-27B",
+    "self-dploy/Qwen3.8-27B"
+  ],
+  "scoring": "Exact JSON keys, values and types; finish_reason stop; no surrounding text or duplicate keys.",
+  "history": "Actual final assistant content is appended after each completed response; no reference answers are inserted.",
+  "failure_policy": "Stop a conversation after transport failure, missing content or truncation. Stop the entire run on HTTP 401/402/429 or unrecognized model metadata. No retries.",
+  "limits": "Three short synthetic conversations, one sample each. This is not a general benchmark or an independent model identity check."
+}

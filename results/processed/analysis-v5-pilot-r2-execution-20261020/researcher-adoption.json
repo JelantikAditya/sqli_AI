@@ -1,0 +1,20 @@
+{
+  "document_type": "researcher-adoption-and-pilot-execution-authorization",
+  "recorded_at_utc": "2026-10-20T06:44:06.495412+00:00",
+  "authorization_source": "direct human user message in this chat",
+  "user_statement": "okeh saya setuju dengan  penjelasan revisi r2, lanjurkan progresnya",
+  "decision": "approved-to-continue-development-pilot",
+  "approval_scope": [
+    "r2 explanation and operational scoring rules",
+    "execution of the locked A/B2/B3 synthetic development pilot"
+  ],
+  "pilot_id": "analysis-v5-pilot-20261020-r2",
+  "manifest_sha256": "ad4e5d1d80e0c430c7e8023b08077ce525332ff186c52584c6f33a8dd4a29565",
+  "protocol_sha256": "56c77f24cb6acc207bfcf068cdb1680ce093cd50c29b9ae9f2170c9cf1647119",
+  "explanation_sha256": "d174bbdd2e5848428eaad5bdf20910e7b6c9f965f5a7a80ec128ccaa79a67bb3",
+  "input_sha256": "e613739c75349bdf317a1e582fe347ea9303f7889d93adffb5e074c7cc9226f9",
+  "labels_sha256": "09ec7cefedd56c268108e17354dadb1dcba8c05b2f73f2411be13352d2410a72",
+  "corpus_sha256": "5dc324317ae77da379bf60f9b9059a610ca95fbd8b009ffb5c4ab0a0cddb3437",
+  "interpretation_limit": "Approval of r2 and its pilot execution does not establish independent human gold labels, source-snapshot verification, or formal FPR/PSR improvement.",
+  "frozen_pending_metadata": "Preserved as the status at freeze; this separate receipt records the later approval without rewriting locked artifacts."
+}

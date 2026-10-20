@@ -1,0 +1,15 @@
+{
+  "sequence": 2,
+  "task_id": "extract_json",
+  "requested_model": "glm-5.3-flash",
+  "started_at_utc": "2026-10-20T08:39:42.017057+00:00",
+  "http_status": null,
+  "reported_model": null,
+  "valid_json": false,
+  "passed": false,
+  "status": "connection-or-response-error",
+  "verdict": "connection-or-response-error",
+  "detail": "The read operation timed out",
+  "elapsed_seconds": 90.373,
+  "finished_at_utc": "2026-10-20T08:41:12.390731+00:00"
+}

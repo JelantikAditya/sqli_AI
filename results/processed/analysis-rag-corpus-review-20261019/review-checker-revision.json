@@ -1,0 +1,11 @@
+{
+  "changed_file": "development/audit_analysis_corpus_review.py",
+  "baseline_sha256": "bcd262abc39ea8ebd9239fa03eb79b4b7d5ffe80b46bf9609cedbdfc51a62997",
+  "original_checker_sha256": "395f25ba748113ae27663125c7bfa2ce611bc80ea3a5de6dcaf40151a02d8a63",
+  "revised_checker_sha256": "25bce1121eb260d0b2207c55e7882df627eb6998e781dc856bf2c3e7f1de0a1b",
+  "reason": "Initial review phase rejected existing local index byte differences against the 17 October receipt. Preserve the historical comparison as a reported finding and enforce unchanged-since-review-baseline for the active files. The checker also uses LF source coordinates consistently.",
+  "initial_failure": "Formal vector index differs from approval receipt.",
+  "initial_review_json_written": false,
+  "source_or_index_files_changed": false,
+  "original_baseline_replaced": false
+}

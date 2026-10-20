@@ -1,5 +1,9 @@
 # Menyiapkan kandidat LLM dan SecLists
 
+> Jalur aktif menggunakan eksperimen lokal. Petunjuk Colab di dokumen ini
+> dipertahankan sebagai referensi historis yang ditunda; status aktif dan
+> pekerjaan tersisa ada di [rencana penyelesaian](rencana-penyelesaian-2026-10-16.md).
+
 ## Tujuan
 
 `dvwa/prepare_candidate_batch.py` memeriksa satu batch untuk satu skenario dan
@@ -9,14 +13,13 @@ tidak masuk Git. Normalizer ini tidak mengunduh SecLists. Pipeline RAG dan
 generator LLM ada di `dvwa/build_knowledge_base.py`,
 `dvwa/retrieve_knowledge.py`, dan `dvwa/generate_candidate_batch.py`.
 
-Skrip lokal memakai API Ollama dan Chroma untuk memverifikasi RAG proposal.
+Skrip lokal memakai API Ollama dan Chroma untuk menjalankan RAG proposal.
 Notebook [`colab_langchain_setup.ipynb`](../notebooks/colab_langchain_setup.ipynb)
-memakai LangChain dengan korpus JSON, validator, prefix Nomic, dan query yang
-sama. Kode/korpus ditempatkan di `MyDrive/TA-SQLi/project-code/`; sumber resmi
-terkunci dipulihkan ke disk runtime. Drive menyimpan ZIP Chroma pada
-`chroma-archives/` dan manifest di `knowledge-base-manifests/`. Database
-berjalan dari `/content`, tidak langsung dari mount Drive. Notebook belum
-dijalankan di Colab. Lihat [penyesuaian proposal](proposal-rag-2026-10-07.md).
+merupakan rancangan jalur Colab yang ditunda, bukan workflow eksperimen aktif.
+Dokumentasi notebook masih menjelaskan LangChain, korpus JSON, prefix Nomic,
+serta arsip Chroma dan manifest di Google Drive. Notebook belum dijalankan di
+Colab. Lihat [penyesuaian proposal](proposal-rag-2026-10-07.md) untuk konteks
+historis.
 
 Kontrak batch ada di [`../schemas/candidate-batch.schema.json`](../schemas/candidate-batch.schema.json).
 Validasi tambahan memastikan pasangan payload sesuai jenis skenario, jumlah
@@ -46,8 +49,13 @@ Sumber terbatas pada OWASP WSTG v4.2 dan PayloadsAllTheThings bagian SQL
 Injection. Entri ada di `knowledge/sqli-entries.json`, schema di
 `schemas/sqli-knowledge-corpus.schema.json`, dan versi sumber di
 `knowledge/sources.lock.json`. Setiap pola memuat enam komponen proposal,
-rujukan bagian/baris, dan penandaan adaptasi. Researcher review masih pending.
-Proposal, PDF paper, dan SecLists evaluasi tidak menjadi korpus generator.
+rujukan bagian/baris, dan penandaan adaptasi. Korpus sembilan entri disetujui
+peneliti pada 12 Oktober 2026 untuk pilot. Pada 17 Oktober peneliti menyetujui
+penggunaan snapshot identik untuk eksperimen formal, dengan hash tercatat di
+[keputusan korpus U07](keputusan-korpus-formal-u07-2026-10-17.md).
+Perubahan kandidat korpus memerlukan review dan versi sumber/index tersendiri
+sebelum freeze formal. Proposal, PDF
+paper, dan SecLists evaluasi tidak menjadi korpus generator.
 
 Satu entri JSON utuh menjadi satu vector Nomic (`search_document:`), dengan
 query memakai `search_query:` dan API `truncate: false`. Chroma memakai cosine

@@ -1,0 +1,10 @@
+{
+  "status": "pass",
+  "request_hashes_verified": 9,
+  "raw_responses_verified": 9,
+  "actual_history_transitions_verified": 6,
+  "grades_verified": 9,
+  "turns_passed": 9,
+  "credential_pattern_matches": 0,
+  "network_calls": 0
+}

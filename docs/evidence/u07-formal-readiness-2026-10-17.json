@@ -1,0 +1,248 @@
+{
+  "schema_version": "1.0.0",
+  "review_date_local": "2026-10-17",
+  "timezone": "Asia/Jakarta",
+  "scope": "U07-readiness-audit-not-formal-release",
+  "status": "candidate-prepared-freeze-held",
+  "ready_for_formal": false,
+  "protocol_frozen": false,
+  "formal_evaluation_executed": false,
+  "raw_manifest": "results/raw/u07-formal-readiness-20261017/manifest.json",
+  "report": "docs/u07-freeze-kesiapan-formal-2026-10-17.md",
+  "base_git_revision": "31f41c61d29f53b3a6649616b49fa324b84d8d35",
+  "source_tree_sha256": "262775d3795e4a86451e1dd9cd8e337afbcf9a3c0228dc241d8ab80c3f5aa7b7",
+  "differences_from_pilot_snapshot": {
+    "dvwa/compose.yaml": {
+      "pilot_sha256": "6c552a8456914f33d877d0e050efaf2e496e6c1f223cd6ad3d4ecded0b664b24",
+      "current_sha256": "650f68aaac15f25fde5ea235a430df04c375b8464532089f0cb9c3c27b230a03"
+    },
+    "docs/candidate-sources.md": {
+      "pilot_sha256": "cbbb17f599fc91e06350e47797c6ad71b0b9e3876a24458d3d2a43c45030d223",
+      "current_sha256": "0a213132dafa1f3d61ca73f3af3b8a9d2af55a517b823e95bf37d4556255deab"
+    }
+  },
+  "formal_plan": {
+    "path": "dvwa/local_run_plan.formal-20261017.json",
+    "sha256": "9ed06bcfe698a762d1f1a6d8424b9ab9d165bfece60295d3d567185173498fc8",
+    "schema_valid": true,
+    "applicable_runs": 99,
+    "by_condition": {
+      "A": 36,
+      "B": 36,
+      "C": 27
+    },
+    "not_applicable_slots": 9,
+    "candidate_slots": 990,
+    "runner_admission": "Formal dataset execution is blocked until the protocol is frozen.",
+    "fresh_discovery_paths": [
+      "results/raw/formal-discovery/formal-sqli-v1-20261017/replicate-1/zap-discovery-high.normalized.json",
+      "results/raw/formal-discovery/formal-sqli-v1-20261017/replicate-1/zap-discovery-impossible.normalized.json",
+      "results/raw/formal-discovery/formal-sqli-v1-20261017/replicate-1/zap-discovery-low.normalized.json",
+      "results/raw/formal-discovery/formal-sqli-v1-20261017/replicate-1/zap-discovery-medium.normalized.json",
+      "results/raw/formal-discovery/formal-sqli-v1-20261017/replicate-2/zap-discovery-high.normalized.json",
+      "results/raw/formal-discovery/formal-sqli-v1-20261017/replicate-2/zap-discovery-impossible.normalized.json",
+      "results/raw/formal-discovery/formal-sqli-v1-20261017/replicate-2/zap-discovery-low.normalized.json",
+      "results/raw/formal-discovery/formal-sqli-v1-20261017/replicate-2/zap-discovery-medium.normalized.json",
+      "results/raw/formal-discovery/formal-sqli-v1-20261017/replicate-3/zap-discovery-high.normalized.json",
+      "results/raw/formal-discovery/formal-sqli-v1-20261017/replicate-3/zap-discovery-impossible.normalized.json",
+      "results/raw/formal-discovery/formal-sqli-v1-20261017/replicate-3/zap-discovery-low.normalized.json",
+      "results/raw/formal-discovery/formal-sqli-v1-20261017/replicate-3/zap-discovery-medium.normalized.json"
+    ],
+    "fresh_discovery_present": 0,
+    "discovery_refresh_stage": "F01 preparation, four fresh levels per replicate; never reuse pilot reports"
+  },
+  "runtime_versions": {
+    "python": "3.13.3",
+    "ollama": "0.40.5",
+    "docker": "29.6.2 29.6.2",
+    "packages_pinned": 98
+  },
+  "models": [
+    {
+      "name": "nomic-embed-text:latest",
+      "digest": "0a109f422b47e3a30ba2b10eca18548e944e8a23073ee3f3e947efcf3c45e59f",
+      "details": {
+        "parent_model": "",
+        "format": "gguf",
+        "family": "nomic-bert",
+        "families": [
+          "nomic-bert"
+        ],
+        "parameter_size": "137M",
+        "quantization_level": "F16",
+        "context_length": 2048,
+        "embedding_length": 768,
+        "runner": "ggml"
+      }
+    },
+    {
+      "name": "qwen2.5:7b",
+      "digest": "845dbda0ea48ed749caafd9e6037047aa19acfcfd82e704d7ca97d631a0b697e",
+      "details": {
+        "parent_model": "",
+        "format": "gguf",
+        "family": "qwen2",
+        "families": [
+          "qwen2"
+        ],
+        "parameter_size": "7.6B",
+        "quantization_level": "Q4_K_M",
+        "context_length": 32768,
+        "embedding_length": 3584,
+        "runner": "ggml"
+      }
+    }
+  ],
+  "docker_images": {
+    "dvwa": "ghcr.io/digininja/dvwa@sha256:ed35515e9111801e6e386a6fbb11165508cc7f72e0cb8da4dbb3df70182986c6",
+    "database": "mariadb@sha256:7f22313fc130a377a44999965bcb0a08dd5b21e8502824c1b864f792f9bc66ab",
+    "zap": "ghcr.io/zaproxy/zaproxy@sha256:781a2bdaea47324e7bab583e2263f21d257b0aee61ed51521a5be45f5f5081ef"
+  },
+  "pilot": {
+    "loader_verified": true,
+    "run_count": 36,
+    "status_counts": {
+      "excluded": 8,
+      "completed": 28
+    },
+    "candidate_count": 321,
+    "incomplete_runs": [
+      {
+        "unit_id": "u06-v15-integrated-20261016-a-s1-r1",
+        "candidate_count": 8,
+        "candidate_budget": 10
+      },
+      {
+        "unit_id": "u06-v15-integrated-20261016-b-s3-r1",
+        "candidate_count": 8,
+        "candidate_budget": 10
+      },
+      {
+        "unit_id": "u06-v15-integrated-20261016-b-s6-r1",
+        "candidate_count": 8,
+        "candidate_budget": 10
+      },
+      {
+        "unit_id": "u06-v15-integrated-20261016-b-s9-r1",
+        "candidate_count": 8,
+        "candidate_budget": 10
+      },
+      {
+        "unit_id": "u06-v15-integrated-20261016-a-s10-r1",
+        "candidate_count": 9,
+        "candidate_budget": 10
+      }
+    ],
+    "generation_context": {
+      "status": "passed_for_recorded_calls",
+      "calls": 255,
+      "accounted_calls": 255,
+      "maximum_prompt_tokens": 3057,
+      "maximum_output_tokens": 481,
+      "minimum_reserved_context_headroom": 271,
+      "issues": {},
+      "scope": "Observed pilot calls; token counts alone do not prove future prompts cannot truncate."
+    },
+    "analysis_context": {
+      "status": "passed_for_recorded_calls",
+      "calls": 231,
+      "accounted_calls": 231,
+      "maximum_prompt_tokens": 896,
+      "maximum_output_tokens": 329,
+      "minimum_reserved_context_headroom": 2432,
+      "issues": {},
+      "scope": "Observed pilot calls; token counts alone do not prove future prompts cannot truncate."
+    },
+    "generation_prompt_versions": [
+      "sqli-adaptive-candidate-v15-batch-option-dedup"
+    ],
+    "analysis_prompt_versions": [
+      "sqli-response-analysis-v8-count-trials"
+    ],
+    "langchain_serial_verified": true,
+    "rag_isolation_verified": true
+  },
+  "corpus": {
+    "knowledge_base_id": "sqli-knowledge-ec9d1b2feda12dd3",
+    "corpus_sha256": "8e2aaf363b384eb686594b8968c38ae00fd078cfc9581d6a91d6617ba0ef4348",
+    "source_lock_sha256": "2c23da42f9db73c3241ca78e68da496b83ecdeb257bc46171e55fd69f3f6278b",
+    "entry_count": 9,
+    "formal_use_decision": "approved",
+    "decision_document": "docs/keputusan-korpus-formal-u07-2026-10-17.md",
+    "decision_receipt": "docs/evidence/u07-formal-corpus-decision-2026-10-17.json",
+    "decision_receipt_sha256": "9fc84d0d0ed8f6c9d3c8ab9cf77bed1fd1e783a4e5256acb8bb3ce4b2f9e2d81"
+  },
+  "checks": {
+    "offline_tests": {
+      "passed": true,
+      "log": "results/raw/u07-formal-readiness-20261017/tests.log",
+      "log_sha256": "843007492703602f65ea92fd2872bad187de64345b088030dbea3e14f6fdc596",
+      "tests_run": 174,
+      "command": ".venv/Scripts/python.exe -m unittest discover -s tests -v"
+    },
+    "pip_check_passed": true,
+    "interpreter_startup_stderr_empty": true,
+    "pilot_server_log_nonzero_truncation_count": 0,
+    "backup_copy_hash_matches": true,
+    "archive_crc_verified": true
+  },
+  "gates": {
+    "pilot-all-techniques-and-levels-passed": {
+      "status": "pending",
+      "evidence": "results/raw/pilot/u06-v15-integrated-20261016",
+      "reason": "5 A/B runs below candidate budget; keep excluded."
+    },
+    "researcher-corpus-decision-recorded": {
+      "status": "passed",
+      "evidence": "docs/evidence/u07-formal-corpus-decision-2026-10-17.json",
+      "reason": "Explicit researcher approval matches the exact nine-entry corpus and index; other U07 gates remain applicable."
+    },
+    "runtime-manifest-frozen": {
+      "status": "pending",
+      "evidence": "results/raw/u07-formal-readiness-20261017/manifest.json",
+      "reason": "Candidate runtime and source snapshot captured; release depends on the other formal gates."
+    },
+    "seclists-version-and-selection-frozen": {
+      "status": "passed",
+      "evidence": "docs/evidence/seclists-selection-plan-2026-10-12.json",
+      "reason": "Pinned revision, original source files, line selections and transformations verified."
+    },
+    "validator-protocol-ready": {
+      "status": "passed",
+      "evidence": "results/raw/u06-v15-integrated-review-sample-20261016/annotations.imported.json",
+      "reason": "VAL-01 qualifications recorded; four blind pilot annotations imported. Formal annotations follow F01."
+    },
+    "local-methodology-recorded": {
+      "status": "passed",
+      "evidence": "docs/metodologi-lokal-2026-10-14.md",
+      "reason": "Local serial pipeline, retrieval for generation only, and fixed evaluation policies recorded."
+    },
+    "local-langchain-integration-verified": {
+      "status": "passed",
+      "evidence": "results/raw/pilot/u06-v15-integrated-20261016",
+      "reason": "24 A/B attempts cover S1-S12; serial LangChain and RAG isolation verified separately from generation budget."
+    },
+    "context-and-runtime-preflight": {
+      "status": "passed",
+      "evidence": "results/raw/u07-formal-readiness-20261017/runtime.json",
+      "reason": "Local metadata, clean interpreter, dependency consistency and observed pilot token budgets checked."
+    },
+    "active-zap-coordinate-coverage": {
+      "status": "passed",
+      "evidence": "results/raw/u06-zap-api-explicit-20261016",
+      "reason": "Scanner-tagged coordinates and raw artifact hashes checked for four levels."
+    },
+    "offline-contract-checks": {
+      "status": "passed",
+      "evidence": "results/raw/u07-formal-readiness-20261017/tests.log",
+      "reason": "Complete offline suite, including U07 admission and token-budget regression checks."
+    }
+  },
+  "timing_estimate": {
+    "pilot_wall_seconds": 14050.11,
+    "pilot_applicable_runs": 33,
+    "three_replicate_linear_reference_hours": 11.71,
+    "limitations": "Linear reference only: five incomplete pilot runs, startup and discovery overhead, and laptop load may change duration. Human annotation time excluded."
+  },
+  "interpretation": "Readiness audit only. Researcher approved the exact nine-entry corpus and index on 2026-10-17. Five incomplete-budget pilot runs remain open, so runtime manifest release is still pending. No formal dataset or FPR/PSR research result was produced."
+}

@@ -1,0 +1,111 @@
+{
+  "status": "passed-for-recorded-context-probes",
+  "scope": "runtime-context-preflight-not-model-performance-evaluation",
+  "chat_probes": 9,
+  "verdicts_evaluated": 0,
+  "dvwa_requests": 0,
+  "rows": [
+    {
+      "probe_id": "view-001.A",
+      "exact_prompt_count_match": true,
+      "prompt_tokens": 768,
+      "generated_tokens": 1,
+      "configured_output_reserve": 768,
+      "context_tokens": 4096,
+      "reserved_headroom": 2560,
+      "no_input_token_loss_observed": true
+    },
+    {
+      "probe_id": "view-001.B-top2",
+      "exact_prompt_count_match": true,
+      "prompt_tokens": 1252,
+      "generated_tokens": 1,
+      "configured_output_reserve": 768,
+      "context_tokens": 4096,
+      "reserved_headroom": 2076,
+      "no_input_token_loss_observed": true
+    },
+    {
+      "probe_id": "view-001.B-top3",
+      "exact_prompt_count_match": true,
+      "prompt_tokens": 1509,
+      "generated_tokens": 1,
+      "configured_output_reserve": 768,
+      "context_tokens": 4096,
+      "reserved_headroom": 1819,
+      "no_input_token_loss_observed": true
+    },
+    {
+      "probe_id": "view-004.A",
+      "exact_prompt_count_match": true,
+      "prompt_tokens": 838,
+      "generated_tokens": 1,
+      "configured_output_reserve": 768,
+      "context_tokens": 4096,
+      "reserved_headroom": 2490,
+      "no_input_token_loss_observed": true
+    },
+    {
+      "probe_id": "view-004.B-top2",
+      "exact_prompt_count_match": true,
+      "prompt_tokens": 1297,
+      "generated_tokens": 1,
+      "configured_output_reserve": 768,
+      "context_tokens": 4096,
+      "reserved_headroom": 2031,
+      "no_input_token_loss_observed": true
+    },
+    {
+      "probe_id": "view-004.B-top3",
+      "exact_prompt_count_match": true,
+      "prompt_tokens": 1591,
+      "generated_tokens": 1,
+      "configured_output_reserve": 768,
+      "context_tokens": 4096,
+      "reserved_headroom": 1737,
+      "no_input_token_loss_observed": true
+    },
+    {
+      "probe_id": "view-007.A",
+      "exact_prompt_count_match": true,
+      "prompt_tokens": 956,
+      "generated_tokens": 1,
+      "configured_output_reserve": 768,
+      "context_tokens": 4096,
+      "reserved_headroom": 2372,
+      "no_input_token_loss_observed": true
+    },
+    {
+      "probe_id": "view-007.B-top2",
+      "exact_prompt_count_match": true,
+      "prompt_tokens": 1414,
+      "generated_tokens": 1,
+      "configured_output_reserve": 768,
+      "context_tokens": 4096,
+      "reserved_headroom": 1914,
+      "no_input_token_loss_observed": true
+    },
+    {
+      "probe_id": "view-007.B-top3",
+      "exact_prompt_count_match": true,
+      "prompt_tokens": 1684,
+      "generated_tokens": 1,
+      "configured_output_reserve": 768,
+      "context_tokens": 4096,
+      "reserved_headroom": 1644,
+      "no_input_token_loss_observed": true
+    }
+  ],
+  "maximum_prompt_tokens": 1684,
+  "minimum_reserved_headroom": 1644,
+  "expected_model_digest": "845dbda0ea48ed749caafd9e6037047aa19acfcfd82e704d7ca97d631a0b697e",
+  "digest_unchanged": true,
+  "tokenizer_matched_installed_model": true,
+  "all_full_input_counts_match_runtime": true,
+  "server_log_truncation_audit": "not-used; independent full-input token counts compared with each runtime prompt count",
+  "full_output_completion_tested": false,
+  "future_prompt_fit_guaranteed": false,
+  "early_stop_override_is_for_preflight_only": true,
+  "researcher_adoption": "not-recorded",
+  "protected_files_unchanged": 1126
+}

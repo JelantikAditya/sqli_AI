@@ -1,0 +1,77 @@
+{
+  "schema_version": "1.0.0",
+  "recorded_date_local": "2026-10-17",
+  "timezone": "Asia/Jakarta",
+  "scope": "Restore researcher-approved Chroma index and prepare, but do not execute, a pinned U07 pilot plan.",
+  "approved_receipt": {
+    "path": "docs/evidence/u07-formal-corpus-decision-2026-10-17.json",
+    "sha256": "9fc84d0d0ed8f6c9d3c8ab9cf77bed1fd1e783a4e5256acb8bb3ce4b2f9e2d81",
+    "formal_execution_approval": false
+  },
+  "approved_archive": {
+    "path": "results/raw/u07-formal-readiness-20261017/source-index-evidence.zip",
+    "sha256": "735bdcd322a2688bbf75a0768aaf0b4578a010af8a6170b3a64d16d1fff73005",
+    "crc_verified": true
+  },
+  "pre_restore_backup": {
+    "directory": "results/raw/backups/chroma-active-before-approved-restore-u07-20261017/",
+    "inventory_path": "results/raw/backups/chroma-active-before-approved-restore-u07-20261017/inventory.json",
+    "inventory_sha256": "1f7e03248e46491cf564c2d6c76e0fd6361219187f02248c2574e3052aec8c44",
+    "active_pointer_sha256": "9bcbb3d1c8f51e13f82e1b67491b3e534ccb61e1110e873159c23a8c1ed108cf",
+    "purpose": "Preserve the active index bytes and pointer before restoring the approved snapshot."
+  },
+  "restoration": {
+    "completed": true,
+    "active_index_matches_approved_receipt": true,
+    "active_index_file_count": 6,
+    "index_file_sha256": {
+      "data/vectorstore/sqli-knowledge-ec9d1b2feda12dd3/4176542f-e8f6-4a46-8652-598aedaf3721/data_level0.bin": "4f436e3e7f8625e846b7cff2b4532265da6926cead44b56134349ca0edbb6fdd",
+      "data/vectorstore/sqli-knowledge-ec9d1b2feda12dd3/4176542f-e8f6-4a46-8652-598aedaf3721/header.bin": "03cb3ac86f3e5bcb15e88b9bf99f760ec6b33e31d64a699e129b49868db6d733",
+      "data/vectorstore/sqli-knowledge-ec9d1b2feda12dd3/4176542f-e8f6-4a46-8652-598aedaf3721/length.bin": "fcb1dae9ff0777ddad43e748fa01c59d180a8a1d1014d4acae17cd29dd9d16c3",
+      "data/vectorstore/sqli-knowledge-ec9d1b2feda12dd3/4176542f-e8f6-4a46-8652-598aedaf3721/link_lists.bin": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "data/vectorstore/sqli-knowledge-ec9d1b2feda12dd3/chroma.sqlite3": "32684a5b90b1f4ce81abfbf47b20182dcab1abe76ecdb4cdb47b8c3430f6a9d8",
+      "data/vectorstore/sqli-knowledge-ec9d1b2feda12dd3/manifest.json": "e00baf7e2af3e25ea6011a4e9cea2c19bd6122c7592e576ea8400e97786a24bd"
+    },
+    "content_and_metadata_verified": true
+  },
+  "plans": {
+    "historical_u07_v17_plan_changed": false,
+    "pilot_revalidation": {
+      "path": "dvwa/local_run_plan.u07-v18-index-pinned-20261017.json",
+      "sha256": "15b110eba7020600b5e319c228c174a01df3e287a8dc660d9da36d71d1a377d5",
+      "prepared_only": true,
+      "executed": false,
+      "formal_run_count": 33,
+      "nominal_slot_count": 36,
+      "pins_all_six_index_files": true
+    },
+    "formal_draft": {
+      "path": "dvwa/local_run_plan.formal-20261017-approved-index.json",
+      "sha256": "9ffdfcea8d3c9ddf2177adb4df0c6ea320597b3e523db90e0952b6b60561dc1f",
+      "applicable_runs": 99,
+      "admission": "blocked because protocol remains pilot",
+      "formal_execution_approval": false
+    }
+  },
+  "readiness_package": {
+    "path": "results/raw/u07-formal-readiness-20261017-v18-index-pinned/",
+    "note": "manifest.json is the authoritative record of the readiness archive and gate status.",
+    "offline_tests": {
+      "command": ".venv/Scripts/python.exe -m unittest discover -s tests -v",
+      "tests_run": 184,
+      "passed": true,
+      "log_path": "results/raw/u07-formal-readiness-20261017-v18-index-pinned/tests.log",
+      "log_sha256": "01cf376f1f26fbbadb6f0aa8464842d596cab26dc13f8fd54024c15c57818607"
+    },
+    "gates_passed": 8,
+    "gates_total": 11,
+    "pending_gates": [
+      "runtime-manifest-frozen",
+      "retrieval-index-snapshot-pinned",
+      "context-and-runtime-preflight"
+    ]
+  },
+  "u07_like_experiment_executed_during_this_work": false,
+  "dvwa_probes_sent_during_this_work": false,
+  "ollama_inference_performed_during_this_work": false
+}

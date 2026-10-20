@@ -7,9 +7,12 @@ Validator dan snapshot: `dvwa/experiment_protocol.py`.
 
 Protokol ini menjadi acuan implementasi dan pilot setelah peneliti mengarahkan
 pengujian ke laptop lokal. Statusnya `pilot`, belum pembekuan eksperimen formal.
-Review korpus disetujui peneliti pada 12 Oktober. Identitas validator independen
-masih pending. Sejak penutupan T01 pada 14 Oktober, protokol aktif adalah `local-sqli-v5-pilot`
-dengan keputusan konfirmasi 3/3, abstention run dan metodologi lokal.
+Review korpus disetujui peneliti pada 12 Oktober. Identitas, kualifikasi, dan
+independensi validator `VAL-01` dikonfirmasi pada 14 Oktober; prosedur anotasi
+telah diuji pada tiga kandidat. Anotasi formal masih menunggu paket data U06
+dan protokol belum frozen. Sejak penutupan T01 pada 14 Oktober, protokol aktif
+adalah `local-sqli-v5-pilot` dengan keputusan konfirmasi 3/3, abstention run
+dan metodologi lokal.
 Bukti pilot lama tetap histori.
 Kontrak evaluasi dan keputusan metodologi T01 selesai; status pilot tetap
 berlaku hingga gate implementasi, validasi, pilot dan freeze terpenuhi.
@@ -87,11 +90,14 @@ ledger. Retrieval B dilakukan sebelum loop condition-run dengan konteks yang
 dipakai pada generasi/regenerasi; analisis A/B tidak melakukan retrieval.
 RAG-off tidak membuka vector store dan inferensi tidak overlap dengan probe.
 
-Peran tersebut telah ditetapkan pada T01, tetapi adapter LangChain lokal belum
-diimplementasikan. implementation_readiness.local_langchain=pending dan gate
-local-langchain-integration-verified harus dibuktikan pada T02/T05 sebelum
-freeze T08. Lihat [keputusan metode](keputusan-metodologi-lokal-langchain-2026-10-14.md)
-dan [narasi metodologi](metodologi-lokal-2026-10-14.md).
+Peran tersebut telah ditetapkan pada T01. Chain LangChain lokal dan feedback
+adaptif sudah dibuktikan pada pilot S1 A/B 14 Oktober dengan
+`langchain-core` 1.6.10. `implementation_readiness.local_langchain` tetap
+pending karena gate formal mencakup pipeline seluruh teknik dan level dalam
+pilot T07. Bukti S1 tersebut tidak menutup gate keseluruhan. Lihat
+[keputusan metode](keputusan-metodologi-lokal-langchain-2026-10-14.md),
+[narasi metodologi](metodologi-lokal-2026-10-14.md), dan
+[evidence pilot S1 A/B](evidence/t05-ab-s1-langchain-live-pilot-2026-10-14.json).
 
 ## Metrik dan review
 

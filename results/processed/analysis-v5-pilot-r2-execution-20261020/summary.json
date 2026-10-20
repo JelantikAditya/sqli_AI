@@ -1,0 +1,380 @@
+{
+  "scope": "synthetic-development-only",
+  "profiles": {
+    "A": {
+      "planned_eligible": 36,
+      "attempted_eligible": 36,
+      "unattempted_eligible": 0,
+      "unfinished_attempts": 0,
+      "raw_correct": 23,
+      "raw_accuracy": 0.6388888888888888,
+      "reference_output_matrix": {
+        "positive": {
+          "positive": 10,
+          "negative": 0,
+          "inconclusive": 2,
+          "analysis_error": 0
+        },
+        "negative": {
+          "positive": 6,
+          "negative": 5,
+          "inconclusive": 1,
+          "analysis_error": 0
+        },
+        "inconclusive": {
+          "positive": 3,
+          "negative": 1,
+          "inconclusive": 8,
+          "analysis_error": 0
+        }
+      },
+      "per_reference_class": {
+        "positive": {
+          "attempted": 12,
+          "outputs": {
+            "positive": 10,
+            "negative": 0,
+            "inconclusive": 2,
+            "analysis_error": 0
+          },
+          "correct": 10,
+          "abstentions": 2,
+          "analysis_errors": 0,
+          "abstention_rate": 0.16666666666666666,
+          "wrong_negative_claims": 0
+        },
+        "negative": {
+          "attempted": 12,
+          "outputs": {
+            "positive": 6,
+            "negative": 5,
+            "inconclusive": 1,
+            "analysis_error": 0
+          },
+          "correct": 5,
+          "abstentions": 1,
+          "analysis_errors": 0,
+          "abstention_rate": 0.08333333333333333,
+          "wrong_positive_claims": 6
+        },
+        "inconclusive": {
+          "attempted": 12,
+          "outputs": {
+            "positive": 3,
+            "negative": 1,
+            "inconclusive": 8,
+            "analysis_error": 0
+          },
+          "correct": 8,
+          "abstentions": 8,
+          "analysis_errors": 0,
+          "abstention_rate": 0.6666666666666666
+        }
+      },
+      "analysis_errors": 0,
+      "analysis_error_rate": 0.0,
+      "binary_coverage_numerator": 25,
+      "binary_coverage_denominator": 36,
+      "binary_coverage": 0.6944444444444444,
+      "binary_reference_coverage_numerator": 21,
+      "binary_reference_coverage_denominator": 24,
+      "binary_reference_coverage": 0.875,
+      "trial_correct": 75,
+      "trial_denominator": 102,
+      "trial_accuracy": 0.7352941176470589,
+      "reason_code_correct": 23,
+      "reason_code_denominator": 36,
+      "reason_code_accuracy": 0.6388888888888888,
+      "reason_code_consistent": 36,
+      "reason_code_consistency_denominator": 36,
+      "reason_code_consistency": 1.0,
+      "semantic_warning_cases": 16,
+      "runtime": {
+        "finalized_attempts": 36,
+        "wall_seconds_sum": 1074.1515684000005,
+        "prompt_tokens_sum": 30321,
+        "generated_tokens_sum": 9616,
+        "completion_reasons": {
+          "stop": 36
+        },
+        "analysis_error_types": {}
+      }
+    },
+    "B2": {
+      "planned_eligible": 36,
+      "attempted_eligible": 36,
+      "unattempted_eligible": 0,
+      "unfinished_attempts": 0,
+      "raw_correct": 24,
+      "raw_accuracy": 0.6666666666666666,
+      "reference_output_matrix": {
+        "positive": {
+          "positive": 10,
+          "negative": 0,
+          "inconclusive": 2,
+          "analysis_error": 0
+        },
+        "negative": {
+          "positive": 6,
+          "negative": 5,
+          "inconclusive": 1,
+          "analysis_error": 0
+        },
+        "inconclusive": {
+          "positive": 2,
+          "negative": 1,
+          "inconclusive": 9,
+          "analysis_error": 0
+        }
+      },
+      "per_reference_class": {
+        "positive": {
+          "attempted": 12,
+          "outputs": {
+            "positive": 10,
+            "negative": 0,
+            "inconclusive": 2,
+            "analysis_error": 0
+          },
+          "correct": 10,
+          "abstentions": 2,
+          "analysis_errors": 0,
+          "abstention_rate": 0.16666666666666666,
+          "wrong_negative_claims": 0
+        },
+        "negative": {
+          "attempted": 12,
+          "outputs": {
+            "positive": 6,
+            "negative": 5,
+            "inconclusive": 1,
+            "analysis_error": 0
+          },
+          "correct": 5,
+          "abstentions": 1,
+          "analysis_errors": 0,
+          "abstention_rate": 0.08333333333333333,
+          "wrong_positive_claims": 6
+        },
+        "inconclusive": {
+          "attempted": 12,
+          "outputs": {
+            "positive": 2,
+            "negative": 1,
+            "inconclusive": 9,
+            "analysis_error": 0
+          },
+          "correct": 9,
+          "abstentions": 9,
+          "analysis_errors": 0,
+          "abstention_rate": 0.75
+        }
+      },
+      "analysis_errors": 0,
+      "analysis_error_rate": 0.0,
+      "binary_coverage_numerator": 24,
+      "binary_coverage_denominator": 36,
+      "binary_coverage": 0.6666666666666666,
+      "binary_reference_coverage_numerator": 21,
+      "binary_reference_coverage_denominator": 24,
+      "binary_reference_coverage": 0.875,
+      "trial_correct": 74,
+      "trial_denominator": 102,
+      "trial_accuracy": 0.7254901960784313,
+      "reason_code_correct": 24,
+      "reason_code_denominator": 36,
+      "reason_code_accuracy": 0.6666666666666666,
+      "reason_code_consistent": 36,
+      "reason_code_consistency_denominator": 36,
+      "reason_code_consistency": 1.0,
+      "semantic_warning_cases": 17,
+      "runtime": {
+        "finalized_attempts": 36,
+        "wall_seconds_sum": 1123.5196478999997,
+        "prompt_tokens_sum": 47133,
+        "generated_tokens_sum": 9861,
+        "completion_reasons": {
+          "stop": 36
+        },
+        "analysis_error_types": {}
+      }
+    },
+    "B3": {
+      "planned_eligible": 36,
+      "attempted_eligible": 36,
+      "unattempted_eligible": 0,
+      "unfinished_attempts": 0,
+      "raw_correct": 24,
+      "raw_accuracy": 0.6666666666666666,
+      "reference_output_matrix": {
+        "positive": {
+          "positive": 10,
+          "negative": 0,
+          "inconclusive": 2,
+          "analysis_error": 0
+        },
+        "negative": {
+          "positive": 6,
+          "negative": 5,
+          "inconclusive": 1,
+          "analysis_error": 0
+        },
+        "inconclusive": {
+          "positive": 2,
+          "negative": 1,
+          "inconclusive": 9,
+          "analysis_error": 0
+        }
+      },
+      "per_reference_class": {
+        "positive": {
+          "attempted": 12,
+          "outputs": {
+            "positive": 10,
+            "negative": 0,
+            "inconclusive": 2,
+            "analysis_error": 0
+          },
+          "correct": 10,
+          "abstentions": 2,
+          "analysis_errors": 0,
+          "abstention_rate": 0.16666666666666666,
+          "wrong_negative_claims": 0
+        },
+        "negative": {
+          "attempted": 12,
+          "outputs": {
+            "positive": 6,
+            "negative": 5,
+            "inconclusive": 1,
+            "analysis_error": 0
+          },
+          "correct": 5,
+          "abstentions": 1,
+          "analysis_errors": 0,
+          "abstention_rate": 0.08333333333333333,
+          "wrong_positive_claims": 6
+        },
+        "inconclusive": {
+          "attempted": 12,
+          "outputs": {
+            "positive": 2,
+            "negative": 1,
+            "inconclusive": 9,
+            "analysis_error": 0
+          },
+          "correct": 9,
+          "abstentions": 9,
+          "analysis_errors": 0,
+          "abstention_rate": 0.75
+        }
+      },
+      "analysis_errors": 0,
+      "analysis_error_rate": 0.0,
+      "binary_coverage_numerator": 24,
+      "binary_coverage_denominator": 36,
+      "binary_coverage": 0.6666666666666666,
+      "binary_reference_coverage_numerator": 21,
+      "binary_reference_coverage_denominator": 24,
+      "binary_reference_coverage": 0.875,
+      "trial_correct": 74,
+      "trial_denominator": 102,
+      "trial_accuracy": 0.7254901960784313,
+      "reason_code_correct": 24,
+      "reason_code_denominator": 36,
+      "reason_code_accuracy": 0.6666666666666666,
+      "reason_code_consistent": 36,
+      "reason_code_consistency_denominator": 36,
+      "reason_code_consistency": 1.0,
+      "semantic_warning_cases": 17,
+      "runtime": {
+        "finalized_attempts": 36,
+        "wall_seconds_sum": 1164.1768953000005,
+        "prompt_tokens_sum": 56985,
+        "generated_tokens_sum": 9943,
+        "completion_reasons": {
+          "stop": 36
+        },
+        "analysis_error_types": {}
+      }
+    }
+  },
+  "primary": {
+    "comparison": "A-versus-B3",
+    "paired_attempted_cases": 36,
+    "paired_accuracy_difference_percentage_points": 2.7777777777777777,
+    "paired_correctness_transitions": {
+      "wrong_to_correct": {
+        "count": 1,
+        "case_ids": [
+          "pilot-011"
+        ]
+      },
+      "correct_to_wrong": {
+        "count": 0,
+        "case_ids": []
+      },
+      "both_correct": {
+        "count": 23,
+        "case_ids": [
+          "pilot-001",
+          "pilot-002",
+          "pilot-003",
+          "pilot-004",
+          "pilot-005",
+          "pilot-006",
+          "pilot-007",
+          "pilot-008",
+          "pilot-009",
+          "pilot-010",
+          "pilot-013",
+          "pilot-014",
+          "pilot-018",
+          "pilot-021",
+          "pilot-022",
+          "pilot-023",
+          "pilot-024",
+          "pilot-025",
+          "pilot-026",
+          "pilot-027",
+          "pilot-028",
+          "pilot-034",
+          "pilot-036"
+        ]
+      },
+      "both_wrong": {
+        "count": 12,
+        "case_ids": [
+          "pilot-012",
+          "pilot-015",
+          "pilot-016",
+          "pilot-017",
+          "pilot-019",
+          "pilot-020",
+          "pilot-029",
+          "pilot-030",
+          "pilot-031",
+          "pilot-032",
+          "pilot-033",
+          "pilot-035"
+        ]
+      }
+    },
+    "unpaired_eligible_case_ids": [],
+    "unfinished_pair_case_ids": [],
+    "complete": true,
+    "guards": {
+      "positive_correct_not_lower": true,
+      "negative_false_positive_not_higher": true,
+      "binary_reference_coverage_not_lower": true,
+      "analysis_errors_not_higher": true
+    },
+    "conclusion": "improvement-on-this-synthetic-dataset"
+  },
+  "input_gate_violations": [],
+  "skipped_invalid_slots": 18,
+  "labels_researcher_review": "pending",
+  "formal_FPR_or_PSR_claim": false,
+  "session_status": "completed",
+  "events_sha256": "50f19cff2ad00659ad665b337c524a93afadb1d1bd3bbf58ebac321061c8e784"
+}

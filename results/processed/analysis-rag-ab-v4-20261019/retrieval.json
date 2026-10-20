@@ -1,0 +1,317 @@
+{
+  "4107c161aa6f67d9d36b5ad875cdae985698258a675f7104261c6dc713fb5747": {
+    "query": "{\"injection_point\": {\"input_path\": \"/vulnerabilities/sqli/\", \"method\": \"GET\", \"parameter\": \"id\", \"result_path\": \"/vulnerabilities/sqli/\"}, \"task\": \"Interpret paired HTTP evidence and appropriate controls for SQL injection; identify limitations and false alarms.\", \"technique\": \"error-based\"}",
+    "policy": {
+      "version": "analysis-reference-projection-semantic-v4",
+      "metric": "cosine",
+      "top_k": 2,
+      "technique_filter": true,
+      "reranking": false,
+      "query_uses_observations": false,
+      "unit": "complete-analysis-projection-of-locked-entry",
+      "persistent_index_opened": false
+    },
+    "candidate_pool": [
+      {
+        "entry_id": "sqli-error-quote",
+        "distance": 0.20383399724960327
+      },
+      {
+        "entry_id": "sqli-error-message",
+        "distance": 0.2494899034500122
+      },
+      {
+        "entry_id": "sqli-error-xml",
+        "distance": 0.30812060832977295
+      }
+    ],
+    "chunks": [
+      {
+        "entry_id": "sqli-error-quote",
+        "technique": "error-based",
+        "text": "{\"detection_method\": \"Vary one injection parameter while holding other inputs constant. Compare the normal response and candidate response for a new database-specific error, including errors present in HTML source.\", \"functional_semantics\": \"A quote can change the boundary of a SQL literal and cause the database parser to return a syntax error through the HTTP response.\", \"limitations\": \"A generic HTTP 500 is not a database-specific error. The probe is diagnostic evidence, not proof that data extraction succeeded; a filtered quote can produce no signal.\", \"title\": \"Quote-induced SQL syntax error\", \"vulnerability_type\": \"error-based\"}",
+        "text_sha256": "02a4b827b093139e90b52e4c429fccc5c9d422d4a32e6c8bedc7198e59635efe",
+        "source_refs": [
+          {
+            "commit": "dd33419e10edb22b78d89325a6c2aad9f184e3a2",
+            "line_end": 74,
+            "line_start": 46,
+            "repository_path": "document/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05-Testing_for_SQL_Injection.md",
+            "section": "Detection Techniques",
+            "source_id": "owasp-wstg",
+            "source_sha256": "501ea437fcce7197ff5f993fc12d16817ba3d32da7494f1df559f562fb2d7ad3",
+            "url": "https://github.com/OWASP/wstg/blob/dd33419e10edb22b78d89325a6c2aad9f184e3a2/document/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05-Testing_for_SQL_Injection.md#L46-L74"
+          },
+          {
+            "commit": "3ac27901c711bdf3f5b65a7b1d1820a1f65bd09a",
+            "line_end": 79,
+            "line_start": 46,
+            "repository_path": "SQL Injection/README.md",
+            "section": "Entry Point Detection",
+            "source_id": "payloadsallthethings",
+            "source_sha256": "8f68e5b948ca8a253527e98542e022c03028f481ea287d9fbf79044a26b140e3",
+            "url": "https://github.com/swisskyrepo/PayloadsAllTheThings/blob/3ac27901c711bdf3f5b65a7b1d1820a1f65bd09a/SQL%20Injection/README.md#L46-L79"
+          },
+          {
+            "commit": "dd33419e10edb22b78d89325a6c2aad9f184e3a2",
+            "line_end": 555,
+            "line_start": 550,
+            "repository_path": "document/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05-Testing_for_SQL_Injection.md",
+            "section": "Remediation",
+            "source_id": "owasp-wstg",
+            "source_sha256": "501ea437fcce7197ff5f993fc12d16817ba3d32da7494f1df559f562fb2d7ad3",
+            "url": "https://github.com/OWASP/wstg/blob/dd33419e10edb22b78d89325a6c2aad9f184e3a2/document/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05-Testing_for_SQL_Injection.md#L550-L555"
+          }
+        ]
+      },
+      {
+        "entry_id": "sqli-error-message",
+        "technique": "error-based",
+        "text": "{\"detection_method\": \"Inspect the candidate response for a SQL syntax diagnostic and distinguish it from a generic application error or an error already present in the normal response.\", \"functional_semantics\": \"A malformed SQL literal can expose a database-specific parser message. Such a message helps infer SQL context without reading application source.\", \"limitations\": \"Error wording depends on engine, version and application error handling. Fingerprinting alone does not establish successful exploitation or a target vulnerability label.\", \"title\": \"Interpret database-specific returned errors\", \"vulnerability_type\": \"error-based\"}",
+        "text_sha256": "25d35835a70015d667db7e30f92cde99525e713ff6c6e86b0e48279a2e0c1c0c",
+        "source_refs": [
+          {
+            "commit": "dd33419e10edb22b78d89325a6c2aad9f184e3a2",
+            "line_end": 216,
+            "line_start": 174,
+            "repository_path": "document/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05-Testing_for_SQL_Injection.md",
+            "section": "Errors Returned by the Application",
+            "source_id": "owasp-wstg",
+            "source_sha256": "501ea437fcce7197ff5f993fc12d16817ba3d32da7494f1df559f562fb2d7ad3",
+            "url": "https://github.com/OWASP/wstg/blob/dd33419e10edb22b78d89325a6c2aad9f184e3a2/document/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05-Testing_for_SQL_Injection.md#L174-L216"
+          },
+          {
+            "commit": "3ac27901c711bdf3f5b65a7b1d1820a1f65bd09a",
+            "line_end": 126,
+            "line_start": 112,
+            "repository_path": "SQL Injection/README.md",
+            "section": "DBMS Identification Error Based",
+            "source_id": "payloadsallthethings",
+            "source_sha256": "8f68e5b948ca8a253527e98542e022c03028f481ea287d9fbf79044a26b140e3",
+            "url": "https://github.com/swisskyrepo/PayloadsAllTheThings/blob/3ac27901c711bdf3f5b65a7b1d1820a1f65bd09a/SQL%20Injection/README.md#L112-L126"
+          },
+          {
+            "commit": "dd33419e10edb22b78d89325a6c2aad9f184e3a2",
+            "line_end": 555,
+            "line_start": 550,
+            "repository_path": "document/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05-Testing_for_SQL_Injection.md",
+            "section": "Remediation",
+            "source_id": "owasp-wstg",
+            "source_sha256": "501ea437fcce7197ff5f993fc12d16817ba3d32da7494f1df559f562fb2d7ad3",
+            "url": "https://github.com/OWASP/wstg/blob/dd33419e10edb22b78d89325a6c2aad9f184e3a2/document/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05-Testing_for_SQL_Injection.md#L550-L555"
+          }
+        ]
+      }
+    ]
+  },
+  "c2e7403494c661861f2ef1e2f8dc6640920d42fd471eb00d1ec3a1186312f647": {
+    "query": "{\"injection_point\": {\"input_path\": \"/vulnerabilities/sqli_blind/\", \"method\": \"GET\", \"parameter\": \"id\", \"result_path\": \"/vulnerabilities/sqli_blind/\"}, \"task\": \"Interpret paired HTTP evidence and appropriate controls for SQL injection; identify limitations and false alarms.\", \"technique\": \"boolean-based blind\"}",
+    "policy": {
+      "version": "analysis-reference-projection-semantic-v4",
+      "metric": "cosine",
+      "top_k": 2,
+      "technique_filter": true,
+      "reranking": false,
+      "query_uses_observations": false,
+      "unit": "complete-analysis-projection-of-locked-entry",
+      "persistent_index_opened": false
+    },
+    "candidate_pool": [
+      {
+        "entry_id": "sqli-boolean-numeric",
+        "distance": 0.22032564878463745
+      },
+      {
+        "entry_id": "sqli-boolean-quoted",
+        "distance": 0.2779455780982971
+      },
+      {
+        "entry_id": "sqli-boolean-template",
+        "distance": 0.3336558938026428
+      }
+    ],
+    "chunks": [
+      {
+        "entry_id": "sqli-boolean-numeric",
+        "technique": "boolean-based blind",
+        "text": "{\"detection_method\": \"Compare the same parameter and delivery method with a true predicate and a false predicate. Identify a repeatable difference in application content rather than assuming a particular HTTP status code.\", \"functional_semantics\": \"A true or false predicate added to a numeric SQL expression can change whether matching rows are returned, yielding observable differences in HTTP content.\", \"limitations\": \"Both controls must reach the same SQL expression. Unstable page content or a rejected input can mimic a difference without confirming predicate execution.\", \"title\": \"Paired numeric Boolean predicates\", \"vulnerability_type\": \"boolean-based blind\"}",
+        "text_sha256": "91226c53d1675c5153617fcfa2d628c5d67cda3300eeef392f7ce9d1945b84f4",
+        "source_refs": [
+          {
+            "commit": "dd33419e10edb22b78d89325a6c2aad9f184e3a2",
+            "line_end": 152,
+            "line_start": 132,
+            "repository_path": "document/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05-Testing_for_SQL_Injection.md",
+            "section": "SELECT Statement",
+            "source_id": "owasp-wstg",
+            "source_sha256": "501ea437fcce7197ff5f993fc12d16817ba3d32da7494f1df559f562fb2d7ad3",
+            "url": "https://github.com/OWASP/wstg/blob/dd33419e10edb22b78d89325a6c2aad9f184e3a2/document/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05-Testing_for_SQL_Injection.md#L132-L152"
+          },
+          {
+            "commit": "3ac27901c711bdf3f5b65a7b1d1820a1f65bd09a",
+            "line_end": 79,
+            "line_start": 46,
+            "repository_path": "SQL Injection/README.md",
+            "section": "Entry Point Detection",
+            "source_id": "payloadsallthethings",
+            "source_sha256": "8f68e5b948ca8a253527e98542e022c03028f481ea287d9fbf79044a26b140e3",
+            "url": "https://github.com/swisskyrepo/PayloadsAllTheThings/blob/3ac27901c711bdf3f5b65a7b1d1820a1f65bd09a/SQL%20Injection/README.md#L46-L79"
+          },
+          {
+            "commit": "dd33419e10edb22b78d89325a6c2aad9f184e3a2",
+            "line_end": 555,
+            "line_start": 550,
+            "repository_path": "document/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05-Testing_for_SQL_Injection.md",
+            "section": "Remediation",
+            "source_id": "owasp-wstg",
+            "source_sha256": "501ea437fcce7197ff5f993fc12d16817ba3d32da7494f1df559f562fb2d7ad3",
+            "url": "https://github.com/OWASP/wstg/blob/dd33419e10edb22b78d89325a6c2aad9f184e3a2/document/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05-Testing_for_SQL_Injection.md#L550-L555"
+          }
+        ]
+      },
+      {
+        "entry_id": "sqli-boolean-quoted",
+        "technique": "boolean-based blind",
+        "text": "{\"detection_method\": \"Send structurally matched true and false values, then map their content to stable response classes. Keep other request fields unchanged and do not infer the hidden query as ground truth.\", \"functional_semantics\": \"Closing a SQL string and adding a Boolean expression can yield two response classes. Balanced quotes allow the application remainder to close the final literal.\", \"limitations\": \"The pattern assumes a compatible quoted SQL context. Parentheses and comment handling may require adaptation; identical responses are inconclusive.\", \"title\": \"Balanced Boolean predicates in a quoted input\", \"vulnerability_type\": \"boolean-based blind\"}",
+        "text_sha256": "3ca68d5c1b21f19314e2bef383ef0d824cac0c2b385f9c1a23f80a6118fd5a0c",
+        "source_refs": [
+          {
+            "commit": "dd33419e10edb22b78d89325a6c2aad9f184e3a2",
+            "line_end": 311,
+            "line_start": 261,
+            "repository_path": "document/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05-Testing_for_SQL_Injection.md",
+            "section": "Boolean Exploitation Technique",
+            "source_id": "owasp-wstg",
+            "source_sha256": "501ea437fcce7197ff5f993fc12d16817ba3d32da7494f1df559f562fb2d7ad3",
+            "url": "https://github.com/OWASP/wstg/blob/dd33419e10edb22b78d89325a6c2aad9f184e3a2/document/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05-Testing_for_SQL_Injection.md#L261-L311"
+          },
+          {
+            "commit": "3ac27901c711bdf3f5b65a7b1d1820a1f65bd09a",
+            "line_end": 289,
+            "line_start": 256,
+            "repository_path": "SQL Injection/README.md",
+            "section": "Boolean Based Injection",
+            "source_id": "payloadsallthethings",
+            "source_sha256": "8f68e5b948ca8a253527e98542e022c03028f481ea287d9fbf79044a26b140e3",
+            "url": "https://github.com/swisskyrepo/PayloadsAllTheThings/blob/3ac27901c711bdf3f5b65a7b1d1820a1f65bd09a/SQL%20Injection/README.md#L256-L289"
+          },
+          {
+            "commit": "dd33419e10edb22b78d89325a6c2aad9f184e3a2",
+            "line_end": 555,
+            "line_start": 550,
+            "repository_path": "document/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05-Testing_for_SQL_Injection.md",
+            "section": "Remediation",
+            "source_id": "owasp-wstg",
+            "source_sha256": "501ea437fcce7197ff5f993fc12d16817ba3d32da7494f1df559f562fb2d7ad3",
+            "url": "https://github.com/OWASP/wstg/blob/dd33419e10edb22b78d89325a6c2aad9f184e3a2/document/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05-Testing_for_SQL_Injection.md#L550-L555"
+          }
+        ]
+      }
+    ]
+  },
+  "fc10dee24777b462d6dc13aeef274bf77f8a93e9c11001517b8e8a06a68a3bd8": {
+    "query": "{\"injection_point\": {\"input_path\": \"/vulnerabilities/sqli_blind/\", \"method\": \"GET\", \"parameter\": \"id\", \"result_path\": \"/vulnerabilities/sqli_blind/\"}, \"task\": \"Interpret paired HTTP evidence and appropriate controls for SQL injection; identify limitations and false alarms.\", \"technique\": \"time-based blind\"}",
+    "policy": {
+      "version": "analysis-reference-projection-semantic-v4",
+      "metric": "cosine",
+      "top_k": 2,
+      "technique_filter": true,
+      "reranking": false,
+      "query_uses_observations": false,
+      "unit": "complete-analysis-projection-of-locked-entry",
+      "persistent_index_opened": false
+    },
+    "candidate_pool": [
+      {
+        "entry_id": "sqli-time-conditional",
+        "distance": 0.24859797954559326
+      },
+      {
+        "entry_id": "sqli-time-repeated",
+        "distance": 0.25403910875320435
+      },
+      {
+        "entry_id": "sqli-time-subselect",
+        "distance": 0.30421656370162964
+      }
+    ],
+    "chunks": [
+      {
+        "entry_id": "sqli-time-conditional",
+        "technique": "time-based blind",
+        "text": "{\"detection_method\": \"Measure the candidate against a structurally matched no-delay control using the same injection point. Change the predicate while retaining the delay duration and request structure.\", \"functional_semantics\": \"IF evaluates a predicate and calls SLEEP only on the chosen branch. The induced delay supplies a timing signal when content and SQL errors reveal little.\", \"limitations\": \"SQL context, engine function support and predicate evaluation affect whether SLEEP executes. Latency alone does not prove a conditional SQL delay.\", \"title\": \"Conditional SQL sleep in a numeric input\", \"vulnerability_type\": \"time-based blind\"}",
+        "text_sha256": "cc0aa1420c410011fd391dbcf35fc1c50d34e26763c4b967e21c55ebd38ad4b5",
+        "source_refs": [
+          {
+            "commit": "dd33419e10edb22b78d89325a6c2aad9f184e3a2",
+            "line_end": 377,
+            "line_start": 361,
+            "repository_path": "document/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05-Testing_for_SQL_Injection.md",
+            "section": "Time Delay Exploitation Technique",
+            "source_id": "owasp-wstg",
+            "source_sha256": "501ea437fcce7197ff5f993fc12d16817ba3d32da7494f1df559f562fb2d7ad3",
+            "url": "https://github.com/OWASP/wstg/blob/dd33419e10edb22b78d89325a6c2aad9f184e3a2/document/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05-Testing_for_SQL_Injection.md#L361-L377"
+          },
+          {
+            "commit": "3ac27901c711bdf3f5b65a7b1d1820a1f65bd09a",
+            "line_end": 420,
+            "line_start": 414,
+            "repository_path": "SQL Injection/MySQL Injection.md",
+            "section": "Using Conditional Statements",
+            "source_id": "payloadsallthethings",
+            "source_sha256": "8fd90e87a6ccce3dde2b673492c0b975296a16d90f1c8f5833a63e4b2f0fc6d9",
+            "url": "https://github.com/swisskyrepo/PayloadsAllTheThings/blob/3ac27901c711bdf3f5b65a7b1d1820a1f65bd09a/SQL%20Injection/MySQL%20Injection.md#L414-L420"
+          },
+          {
+            "commit": "dd33419e10edb22b78d89325a6c2aad9f184e3a2",
+            "line_end": 555,
+            "line_start": 550,
+            "repository_path": "document/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05-Testing_for_SQL_Injection.md",
+            "section": "Remediation",
+            "source_id": "owasp-wstg",
+            "source_sha256": "501ea437fcce7197ff5f993fc12d16817ba3d32da7494f1df559f562fb2d7ad3",
+            "url": "https://github.com/OWASP/wstg/blob/dd33419e10edb22b78d89325a6c2aad9f184e3a2/document/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05-Testing_for_SQL_Injection.md#L550-L555"
+          }
+        ]
+      },
+      {
+        "entry_id": "sqli-time-repeated",
+        "technique": "time-based blind",
+        "text": "{\"detection_method\": \"Use repeated candidate and no-delay control measurements at the same input. Compare their timing separation rather than treating a single slow response as proof. This repeated-control procedure is an editorial adaptation.\", \"functional_semantics\": \"A controlled conditional database delay should track predicate evaluation; unrelated network or server delay can produce slow HTTP responses without SQL injection.\", \"limitations\": \"Timing variance and timeouts can mask the difference. The source examples do not prescribe this project's decision threshold, repetitions, or ground-truth labels.\", \"title\": \"Repeated timing comparison with a no-delay control\", \"vulnerability_type\": \"time-based blind\"}",
+        "text_sha256": "5222c909a2c9f41507702d068abb3896648a6eba94643b8c5634704f9b86848e",
+        "source_refs": [
+          {
+            "commit": "dd33419e10edb22b78d89325a6c2aad9f184e3a2",
+            "line_end": 377,
+            "line_start": 361,
+            "repository_path": "document/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05-Testing_for_SQL_Injection.md",
+            "section": "Time Delay Exploitation Technique",
+            "source_id": "owasp-wstg",
+            "source_sha256": "501ea437fcce7197ff5f993fc12d16817ba3d32da7494f1df559f562fb2d7ad3",
+            "url": "https://github.com/OWASP/wstg/blob/dd33419e10edb22b78d89325a6c2aad9f184e3a2/document/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05-Testing_for_SQL_Injection.md#L361-L377"
+          },
+          {
+            "commit": "3ac27901c711bdf3f5b65a7b1d1820a1f65bd09a",
+            "line_end": 326,
+            "line_start": 301,
+            "repository_path": "SQL Injection/README.md",
+            "section": "Time Based Injection",
+            "source_id": "payloadsallthethings",
+            "source_sha256": "8f68e5b948ca8a253527e98542e022c03028f481ea287d9fbf79044a26b140e3",
+            "url": "https://github.com/swisskyrepo/PayloadsAllTheThings/blob/3ac27901c711bdf3f5b65a7b1d1820a1f65bd09a/SQL%20Injection/README.md#L301-L326"
+          },
+          {
+            "commit": "dd33419e10edb22b78d89325a6c2aad9f184e3a2",
+            "line_end": 555,
+            "line_start": 550,
+            "repository_path": "document/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05-Testing_for_SQL_Injection.md",
+            "section": "Remediation",
+            "source_id": "owasp-wstg",
+            "source_sha256": "501ea437fcce7197ff5f993fc12d16817ba3d32da7494f1df559f562fb2d7ad3",
+            "url": "https://github.com/OWASP/wstg/blob/dd33419e10edb22b78d89325a6c2aad9f184e3a2/document/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05-Testing_for_SQL_Injection.md#L550-L555"
+          }
+        ]
+      }
+    ]
+  }
+}

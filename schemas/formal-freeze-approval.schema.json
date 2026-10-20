@@ -1,0 +1,58 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "formal-freeze-approval.schema.json",
+  "title": "Researcher approval to freeze the formal protocol",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "scope",
+    "decision",
+    "candidate_manifest_path",
+    "candidate_manifest_sha256",
+    "formal_plan_sha256",
+    "protocol_sha256",
+    "corpus_decision_sha256",
+    "formal_execution_approval",
+    "authority"
+  ],
+  "properties": {
+    "schema_version": { "const": "1.0.0" },
+    "scope": { "const": "formal-protocol-freeze" },
+    "decision": { "enum": ["pending", "approved-for-formal-freeze"] },
+    "candidate_manifest_path": { "type": "string", "minLength": 1 },
+    "candidate_manifest_sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "formal_plan_sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "protocol_sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "corpus_decision_sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "formal_execution_approval": { "const": false },
+    "authority": {
+      "oneOf": [
+        { "type": "null" },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["role", "basis", "recorded_as", "approved_at_local", "quote"],
+          "properties": {
+            "role": { "const": "researcher" },
+            "basis": { "const": "explicit-user-approval" },
+            "recorded_as": { "type": "string", "minLength": 1 },
+            "approved_at_local": { "type": "string", "minLength": 1 },
+            "quote": { "type": "string", "minLength": 1 }
+          }
+        }
+      ]
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": { "decision": { "const": "approved-for-formal-freeze" } },
+        "required": ["decision"]
+      },
+      "then": {
+        "properties": { "authority": { "type": "object" } }
+      }
+    }
+  ]
+}
