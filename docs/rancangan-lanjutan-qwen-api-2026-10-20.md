@@ -2,7 +2,7 @@
 
 Disusun: 20 Oktober 2026. Tenggat peneliti: 30 Oktober 2026.
 Target internal: hasil dan naskah lengkap pada 28 Oktober; 29 Oktober untuk koreksi dan 30 Oktober untuk pengumpulan.
-Status: usulan kerja dan desain eksperimen. Penyusunan dokumen ini tidak menjalankan API, DVWA, atau eksperimen formal baru.
+Status: rancangan kerja untuk versi API. Pada 21 Oktober 2026 peneliti melaporkan pembimbing setuju mencoba API LLM. Ini belum menjadi bukti persetujuan formal amendemen proposal; batasan proposal lama tetap harus direvisi atau dijelaskan sebelum mengklaim kesesuaian formal.
 
 ## 1. Arah dan posisi penelitian
 
@@ -84,6 +84,14 @@ Hasil: client dan wrapper versi baru, konfigurasi tanpa rahasia, serta pemeriksa
 7. Pada set baru, simpan hasil satu kali tanpa tuning ulang. Sebanyak 18 inferensi eligible merupakan rencana, bukan jumlah yang sudah dijalankan. Bukti yang hilang tidak boleh dilengkapi model; pelanggaran struktural harus ditandai sesuai kontrak baru dan respons mentah tetap disimpan.
 
 Hasil: tabel diagnosis lama, dataset baru beserta provenance/label, hasil kelayakan analisis, dan daftar batas kemampuan. Tidak mensyaratkan B harus lebih unggul atau mengubah skor agar RAG terlihat berhasil.
+
+**Checkpoint 21 Oktober 2026:** analisis diagnosis lama pada 36 kasus eligible dan enam input invalid telah dijalankan pada 20 Oktober dan tidak diulang. Kontrak `analyze_response_v2` dibekukan tanpa RAG, dengan keluaran maksimum 2048 token dan timeout 90 detik. Paket dari salinan bukti U06 v15 berisi 18 kasus blind, seimbang dua positive, dua negative, dan dua inconclusive per teknik; enam gate invalid tertahan sebelum API. Lima kasus inconclusive menggunakan penghilangan satu trial utuh yang dicatat sebagai konstruksi pada pemetaan privat. Penilai independen mengunci seluruh 18 label sebelum inferensi.
+
+Semua 18 request telah dicoba satu kali. Empat belas respons berhasil diparse dan cocok dengan label reviewer pada 14/14 kasus yang dapat dinilai. Empat lainnya belum terselesaikan: tiga `ambiguous-no-response` dari proses terputus dan satu `transport-error` setelah timeout 90 detik tanpa respons HTTP. Tidak ada yang dikirim ulang. Cakupan data adalah 14/18 atau 77,8 persen; ini bukan angka kemajuan proyek, FPR, atau PSR formal. Status run `completed_with_ambiguity`.
+
+**Kemajuan P2: 80% menuju penutupan**, dihitung sebagai empat dari lima gerbang kerja yang selesai: diagnosis lama, pembekuan kontrak dan paket, penguncian label independen, serta eksekusi dan assessment satu kali. Satu gerbang tersisa adalah keputusan peneliti atas empat hasil yang belum terselesaikan dan penerimaan batas interpretasi. Angka ini adalah estimasi kemajuan milestone, bukan metrik eksperimen. Jangan retry empat ID tersebut pada run yang sama. Jika diputuskan perlu pengumpulan tambahan, buat run terpisah dengan ID, alasan, dan budget baru.
+
+Tindakan berikutnya: (1) peneliti meninjau status empat kasus dan memutuskan apakah P2 ditutup dengan batasan tersebut atau perlu addendum terpisah; (2) setelah keputusan dicatat, bekukan assessment dan lanjut ke P3; (3) audit generasi kandidat API dan deduplikasi agar identitas kandidat tidak mengubah payload; (4) jalankan smoke generation terisolasi sebelum matriks pilot A/B dan C, dengan logging API terpisah dari pengukuran HTTP SQLi. Paket validator dan hasil rinci tetap di `results/raw/` yang dikecualikan dari Git.
 
 ### P3. Periksa generasi payload dan pilot end-to-end
 

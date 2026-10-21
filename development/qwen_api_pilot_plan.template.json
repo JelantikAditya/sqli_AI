@@ -1,0 +1,20 @@
+{
+  "schema_version": "1.0.0",
+  "experiment_id": "qwen38-api-s1-a-pilot-20261021",
+  "dataset": "pilot",
+  "condition_ids": [
+    "A"
+  ],
+  "scenario_ids": [
+    "S1"
+  ],
+  "replicates": [
+    1
+  ],
+  "discovery_reports": {
+    "S1": {
+      "1": "results/zap/zap-discovery-low-20261011-180846.normalized.json"
+    }
+  },
+  "seclists_source_root": null
+}

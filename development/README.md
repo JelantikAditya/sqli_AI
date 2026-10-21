@@ -393,6 +393,49 @@ Jalankan `qwen_api_generation_s1_s3_context_smoke.py --report` untuk membaca
 ringkasan generasi. Skrip hanya membaca checkpoint dan tidak mengulang request.
 Log executor tiap skenario tersimpan pada folder run lokal yang sama.
 
+## Adapter Qwen API ke ledger pilot
+
+`run_qwen_api_experiments.py` menyediakan jalur terpisah untuk generasi dan
+analisis API pada runner A/B. Ia memakai protokol berstatus pilot, menolak plan
+formal, mem-pin source/config untuk resume, dan mencatat checkpoint setiap
+request sebelum koneksi. Prompt API mengikuti batas DAST black-box. Belum ada
+eksekusi API/DVWA melalui adapter ini.
+
+Panduan, gate eksekusi, estimasi biaya, plan A S1 Low, serta plan B S1 Low
+ada di
+[runner Qwen API pilot](QWEN_API_PILOT.md).
+
+## Evaluasi analisis API P2
+
+`prepare_qwen_api_p2_eval.py` membekukan 18 request analisis tanpa RAG.
+Runner mengirim setiap request paling banyak sekali. Key API diminta lewat
+prompt tersembunyi bila belum tersedia pada environment. Jalankan dari root
+project:
+
+```powershell
+.\.venv\Scripts\python.exe .\development\run_qwen_api_p2_eval.py `
+  --execute --skip-ambiguous-and-continue
+```
+
+Jika proses terputus setelah request ditandai mulai, hasilnya dicatat sebagai
+`ambiguous-no-response` dan tidak dikirim ulang. Timeout tanpa respons HTTP
+dicatat sebagai `transport-error` dengan status penyelesaian tidak pasti;
+opsi lanjut melewati hasil itu tanpa retry. Pengunci Windows memakai named
+mutex agar dua runner tidak memproses batch yang sama bersamaan. Ringkasan JSON
+selalu diperbarui di `results/raw/development/qwen38-api-p2-eval-20261021-run-001/evaluation-results.json`;
+respons rinci per kasus ada di subfolder `results/`.
+
+Setelah respons lengkap, bandingkan keluaran yang berhasil diparse dengan label
+reviewer terkunci:
+
+```powershell
+.\.venv\Scripts\python.exe development/assess_qwen_api_p2_results.py
+```
+
+Hasilnya disimpan di `evaluation-assessment.json`. Agreement dihitung hanya
+pada respons yang berhasil diparse; coverage tetap memakai seluruh 18 kasus.
+Assessment P2 ini bukan perhitungan FPR atau PSR formal.
+
 ## Menjalankan tes offline dari clone publik
 
 ```powershell

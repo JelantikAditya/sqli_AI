@@ -1,0 +1,19 @@
+{
+  "schema_version": "1.0.0",
+  "model": "Qwen3.8-27B",
+  "endpoint": "https://api.hcnsec.cn/v1/chat/completions",
+  "temperature": 0,
+  "timeout_seconds": 90,
+  "token_limits": {
+    "generation": 1024,
+    "analysis": 2048
+  },
+  "limits": {
+    "max_total_api_calls": 5760,
+    "max_retrieved_chars_per_chunk": 1800
+  },
+  "prompt_versions": {
+    "generation": "qwen38-api-blackbox-generation-v1",
+    "analysis": "qwen38-api-blackbox-analysis-v1"
+  }
+}
