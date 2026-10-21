@@ -1,0 +1,170 @@
+{
+  "schema_version": "1.0.0",
+  "receipt_id": "qwen-api-b-pilot-run-receipt-2026-10-21",
+  "issued_at_utc": "2026-10-21T05:06:03.882946+00:00",
+  "status": "bounded-pilot-attempt-completed",
+  "execution_authorization": {
+    "basis": "explicit-user-authorization-in-conversation",
+    "recorded_quote": "ya jalankan",
+    "scope": "condition B, S1 Low, pilot dataset, one replicate, local DVWA reset and API spending",
+    "formal_experiment_approval": false
+  },
+  "scope": {
+    "experiment_id": "qwen38-api-b-s1-r1-20261021",
+    "dataset": "pilot",
+    "condition_id": "B",
+    "scenario_id": "S1",
+    "security_level": "low",
+    "replicate": 1,
+    "rag_mode": "on",
+    "formal_eligible": false
+  },
+  "approved_snapshot": {
+    "decision_receipt_path": "docs/evidence/qwen-api-b-pilot-decision-2026-10-21.json",
+    "decision_receipt_sha256": "4f60255357440dcd2a2a040c70026d1a7653cfb1e1db52dee2b01961dd0f4fbf",
+    "manifest_path": "data/vectorstore/sqli-knowledge-ec9d1b2feda12dd3/manifest.json",
+    "manifest_sha256": "e00baf7e2af3e25ea6011a4e9cea2c19bd6122c7592e576ea8400e97786a24bd",
+    "corpus_path": "knowledge/sqli-entries.json",
+    "corpus_sha256": "8e2aaf363b384eb686594b8968c38ae00fd078cfc9581d6a91d6617ba0ef4348",
+    "source_lock_path": "knowledge/sources.lock.json",
+    "source_lock_sha256": "2c23da42f9db73c3241ca78e68da496b83ecdeb257bc46171e55fd69f3f6278b",
+    "index_file_sha256": {
+      "data/vectorstore/sqli-knowledge-ec9d1b2feda12dd3/4176542f-e8f6-4a46-8652-598aedaf3721/data_level0.bin": "2cdb190ca57adb64a6dcb7befde7599c710623ae4b7b948beadfff0f234bee46",
+      "data/vectorstore/sqli-knowledge-ec9d1b2feda12dd3/4176542f-e8f6-4a46-8652-598aedaf3721/header.bin": "03cb3ac86f3e5bcb15e88b9bf99f760ec6b33e31d64a699e129b49868db6d733",
+      "data/vectorstore/sqli-knowledge-ec9d1b2feda12dd3/4176542f-e8f6-4a46-8652-598aedaf3721/length.bin": "fcb1dae9ff0777ddad43e748fa01c59d180a8a1d1014d4acae17cd29dd9d16c3",
+      "data/vectorstore/sqli-knowledge-ec9d1b2feda12dd3/4176542f-e8f6-4a46-8652-598aedaf3721/link_lists.bin": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "data/vectorstore/sqli-knowledge-ec9d1b2feda12dd3/chroma.sqlite3": "7911a81a94be5c760ac93faeca0b44e5f7f95cb2a7dc0c667fd01caeb8b7454a",
+      "data/vectorstore/sqli-knowledge-ec9d1b2feda12dd3/manifest.json": "e00baf7e2af3e25ea6011a4e9cea2c19bd6122c7592e576ea8400e97786a24bd"
+    }
+  },
+  "execution": {
+    "attempt_status": "completed",
+    "analysis_run_status": "complete",
+    "system_decision": "positive",
+    "candidate_budget": 10,
+    "generated_candidate_count": 10,
+    "valid_candidates_executed": 10,
+    "candidate_evidence_records": 10,
+    "confirmed_success_count": 3,
+    "mixed_evidence_count": 0,
+    "decision_records": 30,
+    "payload_records": 60,
+    "logical_probe_submissions": 60,
+    "http_request_calls": 159,
+    "database_reset_performed": true,
+    "metric_eligible_for_complete_pilot_run": true,
+    "binary_decision_eligible": true,
+    "psr_evidence_eligible": true,
+    "psr_success_count": null,
+    "psr": null,
+    "human_validation": "pending",
+    "formal_experiment_approval": false
+  },
+  "api_usage": {
+    "recovery_attempt_requests": 20,
+    "failed_first_attempt_requests": 1,
+    "total_requests_across_both_attempts": 21,
+    "recovery_plan_worst_case_requests": 40,
+    "maximum_total_requests_across_both_attempts": 41,
+    "request_artifact_count": 20,
+    "all_requests_checkpointed": true
+  },
+  "index_isolation": {
+    "status": "verified-source-unchanged-during-retrieval",
+    "copy_store_path": "results/raw/pilot/qwen38-api-b-s1-r1-20261021/attempts/qwen38-api-b-s1-r1-20261021-b-s1-r1/attempt-1-b581ee7c3b/knowledge-index-copy",
+    "source_store_path": "data/vectorstore/sqli-knowledge-ec9d1b2feda12dd3",
+    "approved_file_sha256_before_copy": {
+      "4176542f-e8f6-4a46-8652-598aedaf3721/data_level0.bin": "2cdb190ca57adb64a6dcb7befde7599c710623ae4b7b948beadfff0f234bee46",
+      "4176542f-e8f6-4a46-8652-598aedaf3721/header.bin": "03cb3ac86f3e5bcb15e88b9bf99f760ec6b33e31d64a699e129b49868db6d733",
+      "4176542f-e8f6-4a46-8652-598aedaf3721/length.bin": "fcb1dae9ff0777ddad43e748fa01c59d180a8a1d1014d4acae17cd29dd9d16c3",
+      "4176542f-e8f6-4a46-8652-598aedaf3721/link_lists.bin": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "chroma.sqlite3": "7911a81a94be5c760ac93faeca0b44e5f7f95cb2a7dc0c667fd01caeb8b7454a",
+      "manifest.json": "e00baf7e2af3e25ea6011a4e9cea2c19bd6122c7592e576ea8400e97786a24bd"
+    },
+    "source_file_sha256_after_retrieval": {
+      "chroma.sqlite3": "7911a81a94be5c760ac93faeca0b44e5f7f95cb2a7dc0c667fd01caeb8b7454a",
+      "manifest.json": "e00baf7e2af3e25ea6011a4e9cea2c19bd6122c7592e576ea8400e97786a24bd",
+      "4176542f-e8f6-4a46-8652-598aedaf3721/data_level0.bin": "2cdb190ca57adb64a6dcb7befde7599c710623ae4b7b948beadfff0f234bee46",
+      "4176542f-e8f6-4a46-8652-598aedaf3721/header.bin": "03cb3ac86f3e5bcb15e88b9bf99f760ec6b33e31d64a699e129b49868db6d733",
+      "4176542f-e8f6-4a46-8652-598aedaf3721/length.bin": "fcb1dae9ff0777ddad43e748fa01c59d180a8a1d1014d4acae17cd29dd9d16c3",
+      "4176542f-e8f6-4a46-8652-598aedaf3721/link_lists.bin": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "retrieval_copy_sha256_before_query": {
+      "chroma.sqlite3": "7911a81a94be5c760ac93faeca0b44e5f7f95cb2a7dc0c667fd01caeb8b7454a",
+      "manifest.json": "e00baf7e2af3e25ea6011a4e9cea2c19bd6122c7592e576ea8400e97786a24bd",
+      "4176542f-e8f6-4a46-8652-598aedaf3721/data_level0.bin": "2cdb190ca57adb64a6dcb7befde7599c710623ae4b7b948beadfff0f234bee46",
+      "4176542f-e8f6-4a46-8652-598aedaf3721/header.bin": "03cb3ac86f3e5bcb15e88b9bf99f760ec6b33e31d64a699e129b49868db6d733",
+      "4176542f-e8f6-4a46-8652-598aedaf3721/length.bin": "fcb1dae9ff0777ddad43e748fa01c59d180a8a1d1014d4acae17cd29dd9d16c3",
+      "4176542f-e8f6-4a46-8652-598aedaf3721/link_lists.bin": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "retrieval_copy_sha256_after_query": {
+      "chroma.sqlite3": "7fd1155f3d176de2715c6266d40c52d372db20e21d676247aa95dbbd0690d6ca",
+      "manifest.json": "e00baf7e2af3e25ea6011a4e9cea2c19bd6122c7592e576ea8400e97786a24bd",
+      "4176542f-e8f6-4a46-8652-598aedaf3721/data_level0.bin": "f1c2377024938c036b96679109e36323ef5be52bb8d7588e5d7a38305c93d631",
+      "4176542f-e8f6-4a46-8652-598aedaf3721/header.bin": "03cb3ac86f3e5bcb15e88b9bf99f760ec6b33e31d64a699e129b49868db6d733",
+      "4176542f-e8f6-4a46-8652-598aedaf3721/length.bin": "e63709e9690c24e469c9966d142a9a126d2ce5a601a85d05c7b139e7a26155f8",
+      "4176542f-e8f6-4a46-8652-598aedaf3721/link_lists.bin": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "source_remained_at_approved_hashes": true
+  },
+  "evidence": {
+    "plan_path": "development/qwen_api_b_pilot_recovery_20261021.template.json",
+    "plan_sha256": "08c3490f079b467a503246642f46a34e7618a0579c5540acd0be0b9c6b2f7196",
+    "protocol_sha256": "3ddbb70642f52f7bbc1acddbf771eec39f51ac4dd1734e1db8d8e0a9eb5d77dd",
+    "api_runtime_source_snapshot_sha256": "0158dea640e22b829ca98340604c566ed0b5f45141812a00f430f2e96655afbc",
+    "ledger_event_count": 4,
+    "ledger_sha256": "0d0900f3f800fbdc55a38781b75db76a951f24edcee924537dd5844d4c51f6b9",
+    "checkpoint_sha256": "7cb1ff2d21e09e891f4ad65b7c0123ffa5636ed0df73c9f3940727cbc479ae8a",
+    "artifact_sha256": {
+      "experiment_ledger": {
+        "path": "results/raw/pilot/qwen38-api-b-s1-r1-20261021/ledger.jsonl",
+        "sha256": "0d0900f3f800fbdc55a38781b75db76a951f24edcee924537dd5844d4c51f6b9"
+      },
+      "experiment_checkpoint": {
+        "path": "results/raw/pilot/qwen38-api-b-s1-r1-20261021/checkpoint.json",
+        "sha256": "7cb1ff2d21e09e891f4ad65b7c0123ffa5636ed0df73c9f3940727cbc479ae8a"
+      },
+      "api_runtime_snapshot": {
+        "path": "results/raw/pilot/qwen38-api-b-s1-r1-20261021/api-runtime-snapshot.json",
+        "sha256": "0158dea640e22b829ca98340604c566ed0b5f45141812a00f430f2e96655afbc"
+      },
+      "adaptive_result": {
+        "path": "results/raw/pilot/qwen38-api-b-s1-r1-20261021/attempts/qwen38-api-b-s1-r1-20261021-b-s1-r1/attempt-1-b581ee7c3b/qwen-api-adaptive-result.json",
+        "sha256": "beec34770e687581ac082914f594c541f275085fbe240ac11ca5bb641437cbc2"
+      },
+      "validation_log": {
+        "path": "results/raw/pilot/qwen38-api-b-s1-r1-20261021/attempts/qwen38-api-b-s1-r1-20261021-b-s1-r1/attempt-1-b581ee7c3b/validation.jsonl",
+        "sha256": "169000dc6bbb32c590ff1192f2510137905863d5b3037579967781cc4fba5841"
+      },
+      "generation_audit": {
+        "path": "results/raw/pilot/qwen38-api-b-s1-r1-20261021/attempts/qwen38-api-b-s1-r1-20261021-b-s1-r1/attempt-1-b581ee7c3b/adaptive-generation-audit.json",
+        "sha256": "1f25de099d001cb761840f7b8372eb5d4a19e4db13b8363e354797c7066f8472"
+      },
+      "candidate_batch": {
+        "path": "results/raw/pilot/qwen38-api-b-s1-r1-20261021/attempts/qwen38-api-b-s1-r1-20261021-b-s1-r1/attempt-1-b581ee7c3b/adaptive-candidates.json",
+        "sha256": "4db11bbaab89b3bdd40d4d384c3e6f960c0f0708209ae796e2ba544793bfeaef"
+      },
+      "incident_report": {
+        "path": "docs/evidence/qwen-api-b-pilot-attempt-incident-2026-10-21.json",
+        "sha256": "8fb238d69d8710f862baef1612e638cdcef548cdf7e58a666df57d8570527987"
+      },
+      "incident_report_markdown": {
+        "path": "docs/evidence/qwen-api-b-pilot-attempt-incident-2026-10-21.md",
+        "sha256": "f5f4d4a10f47bf5809b1f1dee09b6b07bf0186327f477f68bc9f99c9d92ccc84"
+      }
+    },
+    "first_attempt_incident_path": "docs/evidence/qwen-api-b-pilot-attempt-incident-2026-10-21.json",
+    "first_attempt_incident_sha256": "8fb238d69d8710f862baef1612e638cdcef548cdf7e58a666df57d8570527987"
+  },
+  "interpretation_and_limits": [
+    "The bounded B/S1 Low pilot completed its ten-candidate budget with ten completed analyses and three confirmed-positive candidates.",
+    "The run-level PSR value remains null and human validation is pending; this receipt does not claim a final PSR.",
+    "One condition, one scenario, and one replicate do not establish comparative FPR or PSR for the proposal.",
+    "This receipt documents pilot evidence only and does not approve formal execution or publication of a formal result."
+  ],
+  "credential_handling": {
+    "credential_value_stored": false,
+    "prior_helper_exposure_documented_in_incident": true,
+    "rotation_status": "not independently verified"
+  }
+}

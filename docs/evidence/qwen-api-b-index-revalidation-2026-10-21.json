@@ -1,0 +1,154 @@
+{
+  "schema_version": "1.0.0",
+  "evidence_id": "qwen-api-b-index-revalidation-2026-10-21",
+  "created_at_local": "2026-10-21T11:05:51.520061+07:00",
+  "timezone": "Asia/Jakarta",
+  "purpose": "Hash-only preparation for researcher review of a Qwen API pilot B snapshot.",
+  "status": "pending-researcher-review",
+  "api_b_execution_ready": false,
+  "researcher_approval_created": false,
+  "scope": {
+    "chroma_opened": false,
+    "sqlite_opened": false,
+    "model_or_embedding_calls": 0,
+    "dvwa_requests": 0,
+    "source_files_modified": false
+  },
+  "existing_approval": {
+    "path": "docs/evidence/u07-formal-corpus-decision-2026-10-17.json",
+    "sha256": "9fc84d0d0ed8f6c9d3c8ab9cf77bed1fd1e783a4e5256acb8bb3ce4b2f9e2d81",
+    "decision": "approved-for-formal-use",
+    "formal_execution_approval": false,
+    "approved_snapshot": {
+      "corpus_sha256": "8e2aaf363b384eb686594b8968c38ae00fd078cfc9581d6a91d6617ba0ef4348",
+      "source_lock_sha256": "2c23da42f9db73c3241ca78e68da496b83ecdeb257bc46171e55fd69f3f6278b",
+      "knowledge_base_id": "sqli-knowledge-ec9d1b2feda12dd3",
+      "entry_count": 9
+    }
+  },
+  "active_identity_checks": {
+    "active_pointer_path": "knowledge/active-index.local.json",
+    "manifest_path": "data/vectorstore/sqli-knowledge-ec9d1b2feda12dd3/manifest.json",
+    "manifest_sha256": "e00baf7e2af3e25ea6011a4e9cea2c19bd6122c7592e576ea8400e97786a24bd",
+    "corpus_sha256": "8e2aaf363b384eb686594b8968c38ae00fd078cfc9581d6a91d6617ba0ef4348",
+    "source_lock_sha256": "2c23da42f9db73c3241ca78e68da496b83ecdeb257bc46171e55fd69f3f6278b",
+    "approval_identity_matches": true,
+    "active_file_count": 6,
+    "expected_file_count": 6,
+    "active_file_set_matches_approval_inventory": true
+  },
+  "index_file_comparison": {
+    "approval_match_count": 4,
+    "approval_file_count": 6,
+    "mismatch_paths": [
+      "data/vectorstore/sqli-knowledge-ec9d1b2feda12dd3/4176542f-e8f6-4a46-8652-598aedaf3721/data_level0.bin",
+      "data/vectorstore/sqli-knowledge-ec9d1b2feda12dd3/chroma.sqlite3"
+    ],
+    "matches_previous_review_hashes": true,
+    "files": [
+      {
+        "path": "data/vectorstore/sqli-knowledge-ec9d1b2feda12dd3/4176542f-e8f6-4a46-8652-598aedaf3721/data_level0.bin",
+        "sha256": "2cdb190ca57adb64a6dcb7befde7599c710623ae4b7b948beadfff0f234bee46",
+        "size_bytes": 321200,
+        "modified_utc": "2026-10-19T10:56:49.559750+00:00",
+        "matches_2026_10_17_approval": false,
+        "matches_2026_10_19_review_record": true
+      },
+      {
+        "path": "data/vectorstore/sqli-knowledge-ec9d1b2feda12dd3/4176542f-e8f6-4a46-8652-598aedaf3721/header.bin",
+        "sha256": "03cb3ac86f3e5bcb15e88b9bf99f760ec6b33e31d64a699e129b49868db6d733",
+        "size_bytes": 100,
+        "modified_utc": "2026-10-19T10:56:49.559750+00:00",
+        "matches_2026_10_17_approval": true,
+        "matches_2026_10_19_review_record": true
+      },
+      {
+        "path": "data/vectorstore/sqli-knowledge-ec9d1b2feda12dd3/4176542f-e8f6-4a46-8652-598aedaf3721/length.bin",
+        "sha256": "fcb1dae9ff0777ddad43e748fa01c59d180a8a1d1014d4acae17cd29dd9d16c3",
+        "size_bytes": 400,
+        "modified_utc": "2026-10-19T10:56:49.559750+00:00",
+        "matches_2026_10_17_approval": true,
+        "matches_2026_10_19_review_record": true
+      },
+      {
+        "path": "data/vectorstore/sqli-knowledge-ec9d1b2feda12dd3/4176542f-e8f6-4a46-8652-598aedaf3721/link_lists.bin",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "size_bytes": 0,
+        "modified_utc": "2026-10-19T10:56:49.559750+00:00",
+        "matches_2026_10_17_approval": true,
+        "matches_2026_10_19_review_record": true
+      },
+      {
+        "path": "data/vectorstore/sqli-knowledge-ec9d1b2feda12dd3/chroma.sqlite3",
+        "sha256": "7911a81a94be5c760ac93faeca0b44e5f7f95cb2a7dc0c667fd01caeb8b7454a",
+        "size_bytes": 479232,
+        "modified_utc": "2026-10-19T10:56:49.543759+00:00",
+        "matches_2026_10_17_approval": false,
+        "matches_2026_10_19_review_record": true
+      },
+      {
+        "path": "data/vectorstore/sqli-knowledge-ec9d1b2feda12dd3/manifest.json",
+        "sha256": "e00baf7e2af3e25ea6011a4e9cea2c19bd6122c7592e576ea8400e97786a24bd",
+        "size_bytes": 5819,
+        "modified_utc": "2026-10-19T10:56:47.168862+00:00",
+        "matches_2026_10_17_approval": true,
+        "matches_2026_10_19_review_record": true
+      }
+    ]
+  },
+  "prior_review_reproduction": {
+    "review_path": "results/processed/analysis-rag-corpus-review-20261019/review.json",
+    "review_sha256": "8e27fddd375e46e7d55b937668736a9a3dbac9326db862ab559f5bfe451b984d",
+    "previous_review_recorded_all_index_files_unchanged_since_baseline": true,
+    "baseline_path": "results/processed/analysis-rag-corpus-review-20261019/review-baseline.json",
+    "baseline_expected_sha256": "bcd262abc39ea8ebd9239fa03eb79b4b7d5ffe80b46bf9609cedbdfc51a62997",
+    "baseline_current_sha256": "58a072df63d6ca33c906918bc9af8fd921a601740ca5bdda83cd6f0c845692b2",
+    "baseline_hash_matches_checker_revision": false,
+    "checker_expected_sha256": "25bce1121eb260d0b2207c55e7882df627eb6998e781dc856bf2c3e7f1de0a1b",
+    "checker_current_sha256": "25bce1121eb260d0b2207c55e7882df627eb6998e781dc856bf2c3e7f1de0a1b",
+    "checker_matches_revision": true,
+    "protected_file_mismatch_count_excluding_revised_checker": 26,
+    "protected_file_mismatch_paths": [
+      "docs/prosedur-validator-u04.md",
+      "dvwa/local_experiment_protocol.json",
+      "development/analysis_corpus_review_notes.json",
+      "docs/keputusan-korpus-formal-u07-2026-10-17.md",
+      "results/processed/analysis-rag-ab-v4-20261019/analysis-corpus.json",
+      "results/processed/analysis-rag-ab-v4-20261019/audit.json",
+      "results/processed/analysis-rag-ab-v4-20261019/design-manifest.json",
+      "results/processed/analysis-rag-ab-v4-20261019/manifest.json",
+      "results/processed/analysis-rag-ab-v4-20261019/provenance.json",
+      "results/processed/analysis-rag-ab-v4-20261019/README.md",
+      "results/processed/analysis-rag-ab-v4-20261019/retrieval.json",
+      "results/processed/analysis-rag-ab-v4-20261019/runtime.json",
+      "results/processed/analysis-rag-ab-v4-20261019/summary.json",
+      "results/processed/response-analysis-dev-v1-20261019/README.md",
+      "results/processed/response-analysis-dev-v2-20261019/audit.json",
+      "results/processed/response-analysis-dev-v2-20261019/manifest.json",
+      "results/processed/response-analysis-dev-v2-20261019/provenance.json",
+      "results/processed/response-analysis-dev-v2-20261019/README.md",
+      "results/processed/response-analysis-dev-v2-20261019/runtime.json",
+      "results/processed/response-analysis-dev-v2-20261019/summary.json",
+      "results/processed/response-analysis-hybrid-v3-20261019/audit.json",
+      "results/processed/response-analysis-hybrid-v3-20261019/manifest.json",
+      "results/processed/response-analysis-hybrid-v3-20261019/provenance.json",
+      "results/processed/response-analysis-hybrid-v3-20261019/README.md",
+      "results/processed/response-analysis-hybrid-v3-20261019/runtime.json",
+      "results/processed/response-analysis-hybrid-v3-20261019/summary.json"
+    ],
+    "full_historical_verification_reproduced": false,
+    "interpretation": "Current index hashes match the 19 October review record, but the full historical audit does not reproduce because its baseline hash and protected-file inventory differ in this workspace."
+  },
+  "readiness": {
+    "current_index_matches_old_approval": false,
+    "new_pilot_receipt_present": false,
+    "api_runner_receipt_requirement": "approved-for-pilot-use",
+    "decision_required": "Researcher review and explicit approval bound to the exact corpus, source lock, and all six index file hashes.",
+    "reason_blocked": "Two active index file hashes differ from the 17 October approval, and no pilot approval receipt for these active hashes exists."
+  },
+  "required_next_steps": [
+    "Researcher reviews this hash-only packet and decides whether the current active index is suitable for a new pilot snapshot.",
+    "If approved, record a new approved-for-pilot-use receipt bound to the exact hashes in this packet; do not edit the 17 October receipt.",
+    "Add the new receipt and pinned hashes to a B plan, then rerun dry-run validation before any live API or DVWA run."
+  ]
+}

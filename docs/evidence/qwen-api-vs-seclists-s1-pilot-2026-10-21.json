@@ -1,0 +1,283 @@
+{
+  "schema_version": "1.0.0",
+  "result_id": "qwen-api-vs-seclists-s1-pilot-2026-10-21",
+  "created_at_local": "2026-10-21",
+  "timezone": "Asia/Jakarta",
+  "scope": {
+    "dataset": "pilot",
+    "formal_eligible": false,
+    "target": "DVWA",
+    "scenario_id": "S1",
+    "security_level": "low",
+    "technique": "error-based SQL injection",
+    "replicate": 1,
+    "candidate_budget_per_condition": 10,
+    "confirmations_per_candidate": 3,
+    "success_rule": "A new SQL diagnostic is present in all three candidate responses and absent from same-trial baselines.",
+    "formal_psr": null,
+    "formal_psr_status": "not_computed",
+    "comparison_status": "researcher_confirmed_pilot_counts_only"
+  },
+  "conditions": {
+    "B": {
+      "candidate_source": "Qwen 3.8 API",
+      "rag_mode": "on",
+      "experiment_id": "qwen38-api-b-s1-r1-20261021",
+      "run_id": "run-13ca67684eb44cf5",
+      "attempt_id": "attempt-1-b581ee7c3b",
+      "technical_status": "complete",
+      "candidate_count": 10,
+      "valid_executed_count": 10,
+      "confirmed_success_count": 3,
+      "confirmed_non_success_count": 7,
+      "decision_records": 30,
+      "payload_records": 60,
+      "logical_probe_submissions": 60,
+      "http_request_calls": 159,
+      "database_reset_performed": true,
+      "api_calls_recovery_attempt": 20,
+      "api_calls_including_invalid_first_attempt": 21,
+      "raw_human_validation_status_at_execution": "pending",
+      "researcher_review": {
+        "status": "confirmed_post_report_review",
+        "review_date": "2026-10-21",
+        "independent_blind_validation": false,
+        "confirmed_positive_count": 3,
+        "confirmed_negative_count": 7,
+        "qwen_claims_match_reviewer_labels": true
+      },
+      "candidates": [
+        {
+          "candidate_id": "candidate-001",
+          "executor_label": "positive",
+          "qwen_claim": "VULNERABLE",
+          "confirmed_success_3_of_3": true,
+          "researcher_label": "positive"
+        },
+        {
+          "candidate_id": "candidate-002",
+          "executor_label": "negative",
+          "qwen_claim": "NOT_VULNERABLE",
+          "confirmed_success_3_of_3": false,
+          "researcher_label": "negative"
+        },
+        {
+          "candidate_id": "candidate-003",
+          "executor_label": "negative",
+          "qwen_claim": "NOT_VULNERABLE",
+          "confirmed_success_3_of_3": false,
+          "researcher_label": "negative"
+        },
+        {
+          "candidate_id": "candidate-004",
+          "executor_label": "negative",
+          "qwen_claim": "NOT_VULNERABLE",
+          "confirmed_success_3_of_3": false,
+          "researcher_label": "negative"
+        },
+        {
+          "candidate_id": "candidate-005",
+          "executor_label": "negative",
+          "qwen_claim": "NOT_VULNERABLE",
+          "confirmed_success_3_of_3": false,
+          "researcher_label": "negative"
+        },
+        {
+          "candidate_id": "candidate-006",
+          "executor_label": "positive",
+          "qwen_claim": "VULNERABLE",
+          "confirmed_success_3_of_3": true,
+          "researcher_label": "positive"
+        },
+        {
+          "candidate_id": "candidate-007",
+          "executor_label": "negative",
+          "qwen_claim": "NOT_VULNERABLE",
+          "confirmed_success_3_of_3": false,
+          "researcher_label": "negative"
+        },
+        {
+          "candidate_id": "candidate-008",
+          "executor_label": "positive",
+          "qwen_claim": "VULNERABLE",
+          "confirmed_success_3_of_3": true,
+          "researcher_label": "positive"
+        },
+        {
+          "candidate_id": "candidate-009",
+          "executor_label": "negative",
+          "qwen_claim": "NOT_VULNERABLE",
+          "confirmed_success_3_of_3": false,
+          "researcher_label": "negative"
+        },
+        {
+          "candidate_id": "candidate-010",
+          "executor_label": "negative",
+          "qwen_claim": "NOT_VULNERABLE",
+          "confirmed_success_3_of_3": false,
+          "researcher_label": "negative"
+        }
+      ]
+    },
+    "C": {
+      "candidate_source": "SecLists",
+      "rag_mode": "not_applicable",
+      "experiment_id": "qwen38-c-s1-pilot-20261021",
+      "run_id": "run-e4f6c7cf2297411b",
+      "attempt_id": "attempt-1-bc2cdec5a1",
+      "technical_status": "complete",
+      "candidate_count": 10,
+      "unique_candidate_count": 10,
+      "valid_executed_count": 10,
+      "confirmed_success_count": 2,
+      "confirmed_non_success_count": 8,
+      "decision_records": 30,
+      "payload_records": 60,
+      "logical_probe_submissions": 60,
+      "http_request_calls": 156,
+      "database_reset_performed": true,
+      "api_calls": 0,
+      "seclists_source": {
+        "repository": "danielmiessler/SecLists",
+        "revision": "6ef78e5c253d9a6556f2d6339a7b635bf0a2115e",
+        "list_path": "Fuzzing/Databases/SQLi/sqlmap-risk-classified/Low-Risk-Payloads/error_based.txt",
+        "list_sha256": "b87234b9266f87c8867e58aa320e43e53ea51ef45870e52a3a69a08138080ee8",
+        "selection_manifest_sha256": "55dd7509a06fbbbb4ae054c9c061ac5b2bd5434c3b36ab21fd11324c8ae7c3a3"
+      },
+      "researcher_review": {
+        "status": "confirmed_post_report_review",
+        "independent_blind_validation": false,
+        "confirmed_success_count": 2,
+        "confirmed_failure_count": 8,
+        "review_date": "2026-10-21"
+      },
+      "candidates": [
+        {
+          "candidate_id": "run-e4f6c7cf2297411b-c001",
+          "source_line_number": 1,
+          "executor_label": "positive",
+          "confirmed_success_3_of_3": true,
+          "diagnostics": [
+            "mysql_syntax_error"
+          ],
+          "researcher_label": "positive"
+        },
+        {
+          "candidate_id": "run-e4f6c7cf2297411b-c002",
+          "source_line_number": 2,
+          "executor_label": "negative",
+          "confirmed_success_3_of_3": false,
+          "diagnostics": [],
+          "researcher_label": "negative"
+        },
+        {
+          "candidate_id": "run-e4f6c7cf2297411b-c003",
+          "source_line_number": 3,
+          "executor_label": "negative",
+          "confirmed_success_3_of_3": false,
+          "diagnostics": [],
+          "researcher_label": "negative"
+        },
+        {
+          "candidate_id": "run-e4f6c7cf2297411b-c004",
+          "source_line_number": 4,
+          "executor_label": "negative",
+          "confirmed_success_3_of_3": false,
+          "diagnostics": [],
+          "researcher_label": "negative"
+        },
+        {
+          "candidate_id": "run-e4f6c7cf2297411b-c005",
+          "source_line_number": 5,
+          "executor_label": "negative",
+          "confirmed_success_3_of_3": false,
+          "diagnostics": [],
+          "researcher_label": "negative"
+        },
+        {
+          "candidate_id": "run-e4f6c7cf2297411b-c006",
+          "source_line_number": 6,
+          "executor_label": "negative",
+          "confirmed_success_3_of_3": false,
+          "diagnostics": [],
+          "researcher_label": "negative"
+        },
+        {
+          "candidate_id": "run-e4f6c7cf2297411b-c007",
+          "source_line_number": 7,
+          "executor_label": "negative",
+          "confirmed_success_3_of_3": false,
+          "diagnostics": [],
+          "researcher_label": "negative"
+        },
+        {
+          "candidate_id": "run-e4f6c7cf2297411b-c008",
+          "source_line_number": 8,
+          "executor_label": "positive",
+          "confirmed_success_3_of_3": true,
+          "diagnostics": [
+            "mysql_xpath_error"
+          ],
+          "researcher_label": "positive"
+        },
+        {
+          "candidate_id": "run-e4f6c7cf2297411b-c009",
+          "source_line_number": 9,
+          "executor_label": "negative",
+          "confirmed_success_3_of_3": false,
+          "diagnostics": [],
+          "researcher_label": "negative"
+        },
+        {
+          "candidate_id": "run-e4f6c7cf2297411b-c010",
+          "source_line_number": 13,
+          "executor_label": "negative",
+          "confirmed_success_3_of_3": false,
+          "diagnostics": [],
+          "researcher_label": "negative"
+        }
+      ]
+    }
+  },
+  "interpretation_limits": [
+    "Label kondisi C dikonfirmasi peneliti setelah melihat laporan, bukan validasi independen atau anotasi blind VAL-01.",
+    "Pilot ini hanya mencakup satu kondisi per sumber, satu skenario, dan satu replikasi.",
+    "Hasil ini bukan PSR formal dan tidak menetapkan bahwa Qwen atau SecLists lebih unggul.",
+    "Label B merupakan konfirmasi peneliti setelah laporan dilihat, bukan anotasi blind VAL-01."
+  ],
+  "artifacts": {
+    "comparison_report_markdown": "docs/evidence/qwen-api-vs-seclists-s1-pilot-2026-10-21.md",
+    "condition_b_receipt": {
+      "path": "docs/evidence/qwen-api-b-pilot-run-receipt-2026-10-21.json",
+      "sha256": "6efeb91c02d372e27babb1bfeb1f071db495f5e6f43d11bf51ddbc5111f0725e"
+    },
+    "condition_b_researcher_review": {
+      "path": "docs/evidence/qwen-api-b-pilot-human-review-2026-10-21.md",
+      "sha256": "0de8bf67864f147acfe5236144c75b4dc53519a27c571b541505e33b52f87583"
+    },
+    "condition_c_plan_snapshot": {
+      "path": "results/raw/pilot/qwen38-c-s1-pilot-20261021/plan.snapshot.json",
+      "sha256": "2b67d26c2805ea2158a7c15019dbb0a8d8a73c72529a28f090c4c30084a4b445"
+    },
+    "condition_c_checkpoint": {
+      "path": "results/raw/pilot/qwen38-c-s1-pilot-20261021/checkpoint.json",
+      "sha256": "566e27d4f744cd7947aa5d1c5a3661ac772d7e5b0e7c887edfbe17d0a9d707fe"
+    },
+    "condition_c_ledger": {
+      "path": "results/raw/pilot/qwen38-c-s1-pilot-20261021/ledger.jsonl",
+      "sha256": "78f84aa4bf97a22fa57b86d10a86881a7f4b5e098dfe5f8ff234e7a05b32726d"
+    },
+    "condition_c_validation_log": {
+      "path": "results/raw/pilot/qwen38-c-s1-pilot-20261021/attempts/qwen38-c-s1-pilot-20261021-c-s1-r1/attempt-1-bc2cdec5a1/validation.jsonl",
+      "sha256": "55fb58746301c8c880c2d707d3753a5dde864b3deeaf136fded390c53f6a441e"
+    },
+    "condition_c_runner_input": {
+      "path": "results/raw/pilot/qwen38-c-s1-pilot-20261021/attempts/qwen38-c-s1-pilot-20261021-c-s1-r1/attempt-1-bc2cdec5a1/runner-input.json",
+      "sha256": "5027e2b3c716affcfdf333e5b7ac9924bb73cad7e5f98bd889e7e74c0ac5853d"
+    },
+    "condition_c_candidate_id_map": {
+      "path": "results/raw/pilot/qwen38-c-s1-pilot-20261021/attempts/qwen38-c-s1-pilot-20261021-c-s1-r1/attempt-1-bc2cdec5a1/candidate-id-map.json",
+      "sha256": "8c38f3859b530310d368218d84b3a367207eac530e9958553a4a7a645912ec88"
+    }
+  }
+}

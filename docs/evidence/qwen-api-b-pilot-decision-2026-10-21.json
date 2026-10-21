@@ -1,0 +1,77 @@
+{
+  "schema_version": "1.0.0",
+  "evidence_id": "qwen-api-b-pilot-decision-2026-10-21",
+  "created_at_local": "2026-10-21T11:30:27+07:00",
+  "timezone": "Asia/Jakarta",
+  "decision": "approved-for-pilot-use",
+  "scope": "qwen-api-pilot-b-current-active-snapshot",
+  "candidate_corpus_sha256": "8e2aaf363b384eb686594b8968c38ae00fd078cfc9581d6a91d6617ba0ef4348",
+  "formal_execution_approval": false,
+  "researcher_review_status": "reviewed",
+  "authority": {
+    "role": "researcher",
+    "basis": "explicit-user-approval",
+    "quote": "okeh saya setuju untuk pilot B",
+    "recorded_in": "current Codex conversation"
+  },
+  "approved_snapshot": {
+    "corpus_sha256": "8e2aaf363b384eb686594b8968c38ae00fd078cfc9581d6a91d6617ba0ef4348",
+    "source_lock_sha256": "2c23da42f9db73c3241ca78e68da496b83ecdeb257bc46171e55fd69f3f6278b",
+    "knowledge_base_id": "sqli-knowledge-ec9d1b2feda12dd3",
+    "entry_count": 9,
+    "index_file_sha256": {
+      "data/vectorstore/sqli-knowledge-ec9d1b2feda12dd3/4176542f-e8f6-4a46-8652-598aedaf3721/data_level0.bin": "2cdb190ca57adb64a6dcb7befde7599c710623ae4b7b948beadfff0f234bee46",
+      "data/vectorstore/sqli-knowledge-ec9d1b2feda12dd3/4176542f-e8f6-4a46-8652-598aedaf3721/header.bin": "03cb3ac86f3e5bcb15e88b9bf99f760ec6b33e31d64a699e129b49868db6d733",
+      "data/vectorstore/sqli-knowledge-ec9d1b2feda12dd3/4176542f-e8f6-4a46-8652-598aedaf3721/length.bin": "fcb1dae9ff0777ddad43e748fa01c59d180a8a1d1014d4acae17cd29dd9d16c3",
+      "data/vectorstore/sqli-knowledge-ec9d1b2feda12dd3/4176542f-e8f6-4a46-8652-598aedaf3721/link_lists.bin": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "data/vectorstore/sqli-knowledge-ec9d1b2feda12dd3/chroma.sqlite3": "7911a81a94be5c760ac93faeca0b44e5f7f95cb2a7dc0c667fd01caeb8b7454a",
+      "data/vectorstore/sqli-knowledge-ec9d1b2feda12dd3/manifest.json": "e00baf7e2af3e25ea6011a4e9cea2c19bd6122c7592e576ea8400e97786a24bd"
+    }
+  },
+  "permitted_use": {
+    "condition": "B",
+    "dataset": "pilot",
+    "scenario": "S1",
+    "replicates": [
+      1
+    ],
+    "snapshot_use": "Use only while the pinned corpus, source lock, and all six active index hashes remain unchanged."
+  },
+  "execution_approval": {
+    "pilot_live_execution": false,
+    "api_spending": false,
+    "local_dvwa_requests": false,
+    "database_reset": false,
+    "formal_experiment": false
+  },
+  "evidence": {
+    "content_inspection": {
+      "path": "docs/evidence/qwen-api-b-index-content-inspection-2026-10-21.json",
+      "sha256": "00b44178b08b6d59c204ac791686af70b43a682223b10992ec95b9f83ba62713",
+      "findings": "All nine IDs, documents, metadata, vectors, collection configuration, and tested retrieval rankings match the approved archive/reference."
+    },
+    "hash_revalidation": {
+      "path": "docs/evidence/qwen-api-b-index-revalidation-2026-10-21.json",
+      "sha256": "3179ee3b69538ac12e0694adfcaea6fe1a769c37cbc8e3098c270e5fe7cbcaa3"
+    },
+    "checker_baseline_reconciliation": {
+      "path": "docs/evidence/qwen-api-b-review-reconciliation-2026-10-21.json",
+      "sha256": "167530e68cacf9f77b874a740abedaf864b4d37771f6c141b4d0ac781dc01e02"
+    },
+    "normalized_historical_verification": {
+      "path": "docs/evidence/qwen-api-b-review-verification-2026-10-21.json",
+      "sha256": "2fdb183d7970608404cdc22d4946f991a0ca9d2ed89a15c3a604673db31f2362"
+    },
+    "approved_archive": {
+      "path": "results/raw/u07-formal-readiness-20261017/source-index-evidence.zip",
+      "sha256": "735bdcd322a2688bbf75a0768aaf0b4578a010af8a6170b3a64d16d1fff73005"
+    }
+  },
+  "known_differences_and_limits": [
+    "The active Chroma database is approved for this bounded pilot snapshot despite byte-level differences from the 17 October archive.",
+    "data_level0.bin and chroma.sqlite3 differ byte-for-byte from the archive; the active SQLite copy has one additional acquire_write row (69, 1).",
+    "The inspected records, documents, metadata, stored vectors, collection settings, and nine tested retrieval rankings match the approved reference.",
+    "This receipt does not authorize live API calls, spending, DVWA requests, database resets, or formal experiment execution."
+  ],
+  "formal_experiment_approval": false
+}

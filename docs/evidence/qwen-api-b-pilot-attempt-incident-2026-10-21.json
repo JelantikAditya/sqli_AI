@@ -1,0 +1,94 @@
+{
+  "schema_version": "1.0.0",
+  "recorded_at_utc": "2026-10-21T05:06:03.872409+00:00",
+  "incident_type": "pilot_attempt_invalid_before_candidate_observation",
+  "experiment_id": "qwen38-api-b-s1-20261021",
+  "attempt_id": "attempt-1-042d130e59",
+  "run_id": "run-0cb9babd372447fb",
+  "plan_path": "development/qwen_api_b_pilot_plan.template.json",
+  "pilot_decision_receipt": "docs/evidence/qwen-api-b-pilot-decision-2026-10-21.json",
+  "failure": {
+    "failure_code": "orchestrator_error",
+    "exception_type": "ValueError",
+    "message": "An adaptive candidate must be an object.",
+    "root_cause": "S1 generation adapter returned a payload string while adaptive_s1_loop.observe_candidate expects a candidate object containing payload."
+  },
+  "api": {
+    "generation_requests_started": 1,
+    "request_artifact": "results/raw/pilot/qwen38-api-b-s1-20261021/attempts/qwen38-api-b-s1-20261021-b-s1-r1/attempt-1-042d130e59/api-calls/00001-generation-152209f0",
+    "candidate_response_received": true,
+    "candidate_observation_started": false,
+    "candidate_sql_injection_probe_sent": false
+  },
+  "dvwa": {
+    "ledger_database_reset_performed": false,
+    "ledger_http_request_calls": null,
+    "control_flow_assessment": "The execution path calls reset_database, login, session-level verification, and baseline submission before the recorded generation API request. Their completion is therefore implied by the request artifact. The attempt_invalid record used generic exception defaults and did not capture those facts, so its false/null fields are not reliable negative evidence.",
+    "candidate_probe_executed": false
+  },
+  "ledger_metrics_assessment": "Generic exception handling defaulted generated_candidate_count and related attempt metrics. The append-only ledger is preserved as recorded; this report documents the discrepancy.",
+  "credential_handling": {
+    "finding": "The secure helper contained a credential literal in its Read-Host prompt and the value appeared in tool output.",
+    "action_taken": "The helper was immediately rewritten with a generic hidden-input prompt. The exposed key must be revoked and replaced before any further API request.",
+    "credential_value_recorded": false,
+    "rotation_status": "not independently verified; user reported entering an API key after the rotation warning"
+  },
+  "repair": {
+    "source_file": "development/run_qwen_api_experiments.py",
+    "change": "Wrap an S1 string payload as {payload: ...} at the adaptive observation boundary; retain execution facts on orchestration exceptions.",
+    "test_file": "development/test_qwen_api_experiment_adapter.py"
+  },
+  "recovery_plan_path": "development/qwen_api_b_pilot_recovery_20261021.template.json",
+  "recovery_experiment_id": "qwen38-api-b-s1-r1-20261021",
+  "recovery_plan_status": "executed_completed",
+  "index_integrity": {
+    "mutation_observed_after_attempt": {
+      "4176542f-e8f6-4a46-8652-598aedaf3721/data_level0.bin": {
+        "approved_sha256": "2cdb190ca57adb64a6dcb7befde7599c710623ae4b7b948beadfff0f234bee46",
+        "observed_sha256": "3efb642c1bb463a575e3c5aaf415b3fc98bfbb846cfa72edba6e49f9b3e06936"
+      },
+      "chroma.sqlite3": {
+        "approved_sha256": "7911a81a94be5c760ac93faeca0b44e5f7f95cb2a7dc0c667fd01caeb8b7454a",
+        "observed_sha256": "7fd1155f3d176de2715c6266d40c52d372db20e21d676247aa95dbbd0690d6ca"
+      }
+    },
+    "cause_assessment": "The pilot retrieval path opened the approved source store with Chroma PersistentClient before querying. The subsequent hash drift is consistent with Chroma write activity during retrieval.",
+    "pre_attempt_copy": "tmp/qwen-api-b-index-inspection-20261021/active-copy",
+    "pre_attempt_copy_verified_against_all_six_approved_hashes": true,
+    "post_attempt_mutation_backup": "results/raw/pilot/qwen38-api-b-s1-20261021/index-mutation-backup",
+    "backup_verified_against_observed_post_attempt_store": true,
+    "active_store_restored_to_approved_hashes": true,
+    "active_store_sha256_after_restore": {
+      "data/vectorstore/sqli-knowledge-ec9d1b2feda12dd3/chroma.sqlite3": "7911a81a94be5c760ac93faeca0b44e5f7f95cb2a7dc0c667fd01caeb8b7454a",
+      "data/vectorstore/sqli-knowledge-ec9d1b2feda12dd3/manifest.json": "e00baf7e2af3e25ea6011a4e9cea2c19bd6122c7592e576ea8400e97786a24bd",
+      "data/vectorstore/sqli-knowledge-ec9d1b2feda12dd3/4176542f-e8f6-4a46-8652-598aedaf3721/data_level0.bin": "2cdb190ca57adb64a6dcb7befde7599c710623ae4b7b948beadfff0f234bee46",
+      "data/vectorstore/sqli-knowledge-ec9d1b2feda12dd3/4176542f-e8f6-4a46-8652-598aedaf3721/header.bin": "03cb3ac86f3e5bcb15e88b9bf99f760ec6b33e31d64a699e129b49868db6d733",
+      "data/vectorstore/sqli-knowledge-ec9d1b2feda12dd3/4176542f-e8f6-4a46-8652-598aedaf3721/length.bin": "fcb1dae9ff0777ddad43e748fa01c59d180a8a1d1014d4acae17cd29dd9d16c3",
+      "data/vectorstore/sqli-knowledge-ec9d1b2feda12dd3/4176542f-e8f6-4a46-8652-598aedaf3721/link_lists.bin": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "restoration_method": "Copied only the six verified approved snapshot files from the preserved pre-attempt copy after preserving and verifying the post-attempt store."
+  },
+  "recovery_plan_estimated_worst_case_api_calls": 40,
+  "first_attempt_api_requests_used": 1,
+  "maximum_total_requests_across_first_attempt_and_recovery": 41,
+  "offline_validation": {
+    "adapter_and_client_tests_passed": 18,
+    "source_syntax_check_passed": true,
+    "recovery_plan_dry_run_passed": true,
+    "execution_started": true,
+    "approved_index_hashes_match": true,
+    "isolated_retrieval_copy_test_passed": true
+  },
+  "recovery_result": {
+    "experiment_id": "qwen38-api-b-s1-r1-20261021",
+    "attempt_id": "attempt-1-b581ee7c3b",
+    "status": "completed",
+    "api_request_count": 20,
+    "candidate_budget": 10,
+    "generated_candidate_count": 10,
+    "valid_candidates_executed": 10,
+    "payload_records": 60,
+    "metric_eligible": true,
+    "database_reset_performed": true
+  }
+}

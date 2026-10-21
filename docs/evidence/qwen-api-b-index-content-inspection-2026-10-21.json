@@ -1,0 +1,249 @@
+{
+  "schema_version": "1.0.0",
+  "evidence_id": "qwen-api-b-index-content-inspection-2026-10-21",
+  "created_at_local": "2026-10-21T11:21:00.565621+07:00",
+  "purpose": "Read-only content verification of consistent active and approved snapshot copies for Qwen API pilot B review.",
+  "status": "content-check-complete-researcher-decision-pending",
+  "source_protection": {
+    "active_index_source_unchanged_during_inspection": true,
+    "sealed_inspection_copies_unchanged_during_sqlite_reads": true,
+    "all_chroma_client_reads_used_disposable_working_copies": true,
+    "source_directory_read_or_modified": false,
+    "api_or_embedding_model_calls": 0,
+    "dvwa_requests": 0,
+    "formal_or_pilot_receipt_created": false
+  },
+  "snapshot_origins": {
+    "current_active_index_root": "data/vectorstore/sqli-knowledge-ec9d1b2feda12dd3",
+    "active_copy_root": "tmp/qwen-api-b-index-inspection-20261021/active-copy",
+    "approved_copy_root": "tmp/qwen-api-b-index-inspection-20261021/approved-copy",
+    "approved_archive_path": "results/raw/u07-formal-readiness-20261017/source-index-evidence.zip",
+    "approved_archive_expected_sha256": "735bdcd322a2688bbf75a0768aaf0b4578a010af8a6170b3a64d16d1fff73005",
+    "approved_archive_sha256": "735bdcd322a2688bbf75a0768aaf0b4578a010af8a6170b3a64d16d1fff73005",
+    "archive_hash_matches_restoration_receipt": true,
+    "archive_index_members_match_formal_receipt": true,
+    "active_source_hashes_unchanged_before_and_after": true,
+    "active_file_count_and_sidecars": {
+      "count": 6,
+      "paths": [
+        "data/vectorstore/sqli-knowledge-ec9d1b2feda12dd3/4176542f-e8f6-4a46-8652-598aedaf3721/data_level0.bin",
+        "data/vectorstore/sqli-knowledge-ec9d1b2feda12dd3/4176542f-e8f6-4a46-8652-598aedaf3721/header.bin",
+        "data/vectorstore/sqli-knowledge-ec9d1b2feda12dd3/4176542f-e8f6-4a46-8652-598aedaf3721/length.bin",
+        "data/vectorstore/sqli-knowledge-ec9d1b2feda12dd3/4176542f-e8f6-4a46-8652-598aedaf3721/link_lists.bin",
+        "data/vectorstore/sqli-knowledge-ec9d1b2feda12dd3/chroma.sqlite3",
+        "data/vectorstore/sqli-knowledge-ec9d1b2feda12dd3/manifest.json"
+      ],
+      "wal_or_shm_sidecars_present": false
+    }
+  },
+  "corpus_match": {
+    "source_corpus_sha256": "8e2aaf363b384eb686594b8968c38ae00fd078cfc9581d6a91d6617ba0ef4348",
+    "source_lock_sha256": "2c23da42f9db73c3241ca78e68da496b83ecdeb257bc46171e55fd69f3f6278b",
+    "expected_record_count": 9,
+    "active_sqlite_record_count": 9,
+    "approved_sqlite_record_count": 9,
+    "active_sqlite_records_match_corpus": true,
+    "approved_sqlite_records_match_corpus": true,
+    "active_chroma_records_match_corpus": true,
+    "records": [
+      {
+        "chunk_id": "04eddb2069a2d931c0eed60a23fcccaa4a9542b4f4a56fb6a67ee4c7753bda12",
+        "entry_id": "sqli-time-conditional",
+        "technique": "time-based blind",
+        "document_sha256": "403e61aa0c99934149d56e597618cfa7d5b4d8fff11705bd904e66df11730f05",
+        "metadata_sha256": "8c629fb0d8c68e47f3e60b1fb6eae7c4d6a28b7ee69c2b612d888dd05d12d72a",
+        "active_document_metadata_match_corpus": true,
+        "stored_vector_sha256": "4d82c5aca0335ca867395abb8ad1c1387d89e2809784b3e9622a3d41b19fdce0",
+        "active_vector_matches_approved_and_queue": true,
+        "vector_dimension": 768
+      },
+      {
+        "chunk_id": "17cd8eb5544079fb620c0bc6004c7a8199d23af3ae545fb81ba4ccb2314d9091",
+        "entry_id": "sqli-boolean-quoted",
+        "technique": "boolean-based blind",
+        "document_sha256": "4caacf49872146be44e993b37abd287e453f35147ad024a70b08c2599073424e",
+        "metadata_sha256": "2e2fbdf89ea2b12531bb6bb86bc458325db644362cfcac45b2ef86db4e01bc58",
+        "active_document_metadata_match_corpus": true,
+        "stored_vector_sha256": "dc021ea6e21ad48a9548051ea89993312f3a670340998742ed5ed63adcb6f556",
+        "active_vector_matches_approved_and_queue": true,
+        "vector_dimension": 768
+      },
+      {
+        "chunk_id": "39bd32a32d91ce39c8b31a86187fa5d2e3b24b391020df28a2423172223838ee",
+        "entry_id": "sqli-error-quote",
+        "technique": "error-based",
+        "document_sha256": "952cd30e65754f09b043264b5b654e1aa676a9f200270e51ef78aadd25d6995f",
+        "metadata_sha256": "5c0f57377b513934f4f4f5702bfb4061f5ebc19ee77b55c56a2eb6fdeaa472cd",
+        "active_document_metadata_match_corpus": true,
+        "stored_vector_sha256": "ace5c2ae8b464f3bfaa661110ba5323fa1075522e02e38528abebfe6bfcce857",
+        "active_vector_matches_approved_and_queue": true,
+        "vector_dimension": 768
+      },
+      {
+        "chunk_id": "abaa444836244c5f2a1aa6632ee8a2269c389efa4237833c170c7be66059daad",
+        "entry_id": "sqli-time-subselect",
+        "technique": "time-based blind",
+        "document_sha256": "61a9b039626be3ddd1cc46e41ce3858790a236ac36c13a7d5688bd8b9f903e65",
+        "metadata_sha256": "e18edcc90ece57ed81834ea11abf8c9b76d80239e59a242a7ccf978cbaf8b5d7",
+        "active_document_metadata_match_corpus": true,
+        "stored_vector_sha256": "a302d7b2255c2d37ffacf3c6c9687be6abdd45398b98a1c8c1a1167a3975e4e2",
+        "active_vector_matches_approved_and_queue": true,
+        "vector_dimension": 768
+      },
+      {
+        "chunk_id": "c6855bcf83194ec0d156940f1021b7e283e9703ed7256c1abe1e4808e3fa7468",
+        "entry_id": "sqli-boolean-template",
+        "technique": "boolean-based blind",
+        "document_sha256": "2c52ed49b7d53fc14c9571a76f8bb1f2feadb9967dfcf561f8e61f8f2fe31018",
+        "metadata_sha256": "c48ddced2200f65d53fc9dddbcbba8783f8c1b35a4b2a394ff7833f0eeb0ab55",
+        "active_document_metadata_match_corpus": true,
+        "stored_vector_sha256": "04c11cae826930a71dc2469e801434b86fb4601dea1cd5b39875e1c107cb3b96",
+        "active_vector_matches_approved_and_queue": true,
+        "vector_dimension": 768
+      },
+      {
+        "chunk_id": "cd3492835052166c13eb9d1d74b907e7571f693bc7051621cd7c502fd574e95a",
+        "entry_id": "sqli-boolean-numeric",
+        "technique": "boolean-based blind",
+        "document_sha256": "15001a60ebf90890e31c4bac817c027a9f534ad05e5f79d1f6d480d8cbcd5ef0",
+        "metadata_sha256": "a401ada25c7eb69293c18459f7132dd0cfe713be80b56bd7e20343c0cdc9b852",
+        "active_document_metadata_match_corpus": true,
+        "stored_vector_sha256": "b362c92c922e6f3e632ab5c9252daa56c63db4e5559f4917eff42d2111d189c2",
+        "active_vector_matches_approved_and_queue": true,
+        "vector_dimension": 768
+      },
+      {
+        "chunk_id": "d9b81b2aeb5dd527dcf9d1305d6531bba13b9fe9915df01bb1e14a3e5097df1d",
+        "entry_id": "sqli-error-message",
+        "technique": "error-based",
+        "document_sha256": "433e201fe0fc7afccc3097ca5cd57a67432f8d6b3a69eaf2d11522f1ac09f97d",
+        "metadata_sha256": "8cc3bf01f11e5c8b5df1ad43757b6e7b777fcfef69d1382b27b525b6877d060a",
+        "active_document_metadata_match_corpus": true,
+        "stored_vector_sha256": "f9729b053dc8a224f47e2726f824a8e0c04e74863ecb6519bfbc55c695c0d73f",
+        "active_vector_matches_approved_and_queue": true,
+        "vector_dimension": 768
+      },
+      {
+        "chunk_id": "da853c27bb474a02ad89b0011c0fe7c2097bc8504276c40bef53786977258b5e",
+        "entry_id": "sqli-time-repeated",
+        "technique": "time-based blind",
+        "document_sha256": "ae76c9fea451503429e1baab3e30304d1c15accbad2c428916214970f7cf4b54",
+        "metadata_sha256": "d760b47f534ff53fee69e3a8d79c786329b06dd57139f07e140e851882f21ab1",
+        "active_document_metadata_match_corpus": true,
+        "stored_vector_sha256": "4100a6c157b3260981dec3ddbf5c1b0ff780890fa11961b5952f50d5650b8a70",
+        "active_vector_matches_approved_and_queue": true,
+        "vector_dimension": 768
+      },
+      {
+        "chunk_id": "e0c43d925812fe54c766af758153d3bfe89390edc429286bf3b1cd56bd0b7642",
+        "entry_id": "sqli-error-xml",
+        "technique": "error-based",
+        "document_sha256": "252b97cb78e1ecb371d2d246bc80528a41406ae7c399c1c5087cfea18e259a83",
+        "metadata_sha256": "c5d46a57d46ede7cb049aaef0bd86c6218679af6a48973208ce243392555ca4e",
+        "active_document_metadata_match_corpus": true,
+        "stored_vector_sha256": "27cd7b0a60ec7b547163ff7315650ba31418d9dce62f17fc1531130863d77c3e",
+        "active_vector_matches_approved_and_queue": true,
+        "vector_dimension": 768
+      }
+    ]
+  },
+  "collection_and_embedding_configuration": {
+    "collection_count": 1,
+    "collection_name": "sqli_knowledge",
+    "collection_id": "e199a663-1f97-4aca-8d58-00432e860e81",
+    "active_collection_record_count": 9,
+    "approved_collection_record_count": 9,
+    "metadata": {
+      "hnsw:space": "cosine",
+      "knowledge_base_id": "sqli-knowledge-ec9d1b2feda12dd3"
+    },
+    "metadata_matches_approved": true,
+    "dimension": 768,
+    "manifest_embedding_model": "nomic-embed-text",
+    "manifest_embedding_input_format": "nomic-search-prefix-v1",
+    "manifest_config_matches_rebuilt_configuration": true,
+    "derived_knowledge_base_id": "sqli-knowledge-ec9d1b2feda12dd3",
+    "knowledge_base_id_matches": true,
+    "distance_metric": "cosine",
+    "vector_schema_matches_cosine_configuration": true,
+    "vector_queue_encoding": [
+      "FLOAT32"
+    ],
+    "queue_vector_bytes_per_record": [
+      3072
+    ],
+    "active_and_approved_stored_vectors_match_exactly": true,
+    "active_and_approved_retrieval_rankings_match": true,
+    "retrieval_query_count": 9,
+    "retrieval_ranking_mismatch_count": 0,
+    "retrieval_ranking_mismatches": []
+  },
+  "byte_level_differences": {
+    "file_comparison": {
+      "4176542f-e8f6-4a46-8652-598aedaf3721/data_level0.bin": {
+        "active_sha256": "2cdb190ca57adb64a6dcb7befde7599c710623ae4b7b948beadfff0f234bee46",
+        "approved_sha256": "4f436e3e7f8625e846b7cff2b4532265da6926cead44b56134349ca0edbb6fdd",
+        "matches": false
+      },
+      "4176542f-e8f6-4a46-8652-598aedaf3721/header.bin": {
+        "active_sha256": "03cb3ac86f3e5bcb15e88b9bf99f760ec6b33e31d64a699e129b49868db6d733",
+        "approved_sha256": "03cb3ac86f3e5bcb15e88b9bf99f760ec6b33e31d64a699e129b49868db6d733",
+        "matches": true
+      },
+      "4176542f-e8f6-4a46-8652-598aedaf3721/length.bin": {
+        "active_sha256": "fcb1dae9ff0777ddad43e748fa01c59d180a8a1d1014d4acae17cd29dd9d16c3",
+        "approved_sha256": "fcb1dae9ff0777ddad43e748fa01c59d180a8a1d1014d4acae17cd29dd9d16c3",
+        "matches": true
+      },
+      "4176542f-e8f6-4a46-8652-598aedaf3721/link_lists.bin": {
+        "active_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "approved_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "matches": true
+      },
+      "chroma.sqlite3": {
+        "active_sha256": "7911a81a94be5c760ac93faeca0b44e5f7f95cb2a7dc0c667fd01caeb8b7454a",
+        "approved_sha256": "32684a5b90b1f4ce81abfbf47b20182dcab1abe76ecdb4cdb47b8c3430f6a9d8",
+        "matches": false
+      },
+      "manifest.json": {
+        "active_sha256": "e00baf7e2af3e25ea6011a4e9cea2c19bd6122c7592e576ea8400e97786a24bd",
+        "approved_sha256": "e00baf7e2af3e25ea6011a4e9cea2c19bd6122c7592e576ea8400e97786a24bd",
+        "matches": true
+      }
+    },
+    "sqlite_table_differences": [
+      {
+        "table": "acquire_write",
+        "active_row_count": 69,
+        "approved_row_count": 68,
+        "active_only_rows": [
+          [
+            69,
+            1
+          ]
+        ],
+        "approved_only_rows": []
+      }
+    ],
+    "only_sqlite_table_difference_is_acquire_write": true,
+    "interpretation": "The only relational-table difference is one additional acquire_write row in the active database. The HNSW data_level0.bin bytes also differ, while record IDs, documents, metadata, stored vectors, collection configuration, and tested retrieval rankings are compared separately.",
+    "disposable_copy_files_changed_by_chroma_client": {
+      "active": [
+        "4176542f-e8f6-4a46-8652-598aedaf3721/data_level0.bin",
+        "4176542f-e8f6-4a46-8652-598aedaf3721/length.bin",
+        "chroma.sqlite3"
+      ],
+      "approved": [
+        "4176542f-e8f6-4a46-8652-598aedaf3721/data_level0.bin",
+        "chroma.sqlite3"
+      ]
+    }
+  },
+  "limits_and_decision": {
+    "current_active_snapshot_content_equivalent_to_approved_reference_for_checked_records": true,
+    "this_report_is_researcher_approval": false,
+    "formal_execution_approval": false,
+    "new_pilot_receipt_created": false,
+    "required_next_step": "Researcher decides whether to approve the exact active six-file snapshot for pilot B; any receipt must cite this inspection and the hash reconciliation addendum."
+  }
+}
