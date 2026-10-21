@@ -4,6 +4,16 @@ Disusun: 20 Oktober 2026. Tenggat peneliti: 30 Oktober 2026.
 Target internal: hasil dan naskah lengkap pada 28 Oktober; 29 Oktober untuk koreksi dan 30 Oktober untuk pengumpulan.
 Status: rancangan kerja untuk versi API. Pada 21 Oktober 2026 peneliti melaporkan pembimbing setuju mencoba API LLM. Ini belum menjadi bukti persetujuan formal amendemen proposal; batasan proposal lama tetap harus direvisi atau dijelaskan sebelum mengklaim kesesuaian formal.
 
+**Status operasional terakhir, 21 Oktober:** pengujian ulang P2 tertunda karena
+Qwen API belum dapat melayani request analisis P2 secara stabil. Run-002 sampai
+run-004 masing-masing berhenti pada request pertama dengan HTTP 503
+`system_cpu_overloaded`; uji singkat `API_OK` sempat berhasil di antaranya.
+P2 tetap belum ditutup. Audit offline P3 selesai, tetapi dua celah gate integrasi
+belum diperbaiki dan profil analisis P2/pilot belum diselaraskan atau divalidasi
+terpisah. Draft 33 run applicable lolos dry-run; belum ada pilot live baru.
+Tindak lanjut offline adalah perbaikan gate dan profil analisis, sementara
+pengumpulan API berikutnya menunggu kesiapan provider serta budget run baru.
+
 ## 1. Arah dan posisi penelitian
 
 Lanjutkan penelitian menggunakan layanan API dengan alias `Qwen3.8-27B` sebagai backend LLM pada versi eksperimen baru. Pertahankan pertanyaan utama: implementasi pipeline DAST, kontribusi RAG terhadap FPR, dan perbandingan PSR payload LLM+RAG dengan SecLists. Keberhasilan penyelesaian penelitian berarti metode terlaksana dan kesimpulan didukung data, termasuk jika RAG setara atau lebih buruk.
@@ -93,6 +103,34 @@ Semua 18 request telah dicoba satu kali. Empat belas respons berhasil diparse da
 
 Tindakan berikutnya: (1) peneliti meninjau status empat kasus dan memutuskan apakah P2 ditutup dengan batasan tersebut atau perlu addendum terpisah; (2) setelah keputusan dicatat, bekukan assessment dan lanjut ke P3; (3) audit generasi kandidat API dan deduplikasi agar identitas kandidat tidak mengubah payload; (4) jalankan smoke generation terisolasi sebelum matriks pilot A/B dan C, dengan logging API terpisah dari pengukuran HTTP SQLi. Paket validator dan hasil rinci tetap di `results/raw/` yang dikecualikan dari Git.
 
+**Checkpoint replikasi 21 Oktober, 19:13 WIB:** peneliti menyetujui satu run
+tambahan atas 18 kasus yang sama. Run-002 menggunakan payload serta parameter
+identik dan batas 18 request tanpa retry. Request pertama menerima HTTP 503
+`system_cpu_overloaded`; gateway melaporkan CPU 99,6% terhadap ambang 98%.
+Batch berhenti: satu request dikirim, 17 belum dimulai, nol respons analisis
+yang dapat dinilai. Tidak ada retry/run pengganti dan hasil run-001 tetap utuh.
+Run ini adalah replikasi teknis pada set yang sudah diketahui, bukan holdout
+baru. P2 belum ditutup; penutupan atau run tambahan memerlukan keputusan baru
+berdasarkan keterbatasan yang tercatat. Lihat
+[laporan run-002](p2-replikasi-2026-10-21.md).
+
+**Pemeriksaan ulang 21 Oktober, 19:56 WIB:** run-003 yang diminta peneliti
+kembali berhenti pada request pertama akibat HTTP 503 `system_cpu_overloaded`.
+Gateway melaporkan CPU 99,5% terhadap ambang 98%. Satu request dikirim dan 17
+belum dimulai; tidak ada respons analisis yang dapat dinilai atau retry.
+P2 belum ditutup. [Receipt run-003](evidence/qwen-api-p2-run003-receipt-2026-10-21.json)
+dan laporan replikasi menyimpan kegagalan operasional ini terpisah dari
+hasil kompetensi run-001.
+
+**Checkpoint 21 Oktober, 20:36 WIB:** uji akses singkat sebelumnya berhasil
+pada 20:34 WIB (HTTP 200, `API_OK`, 2,57 detik). Peneliti lalu meminta batch
+P2 run-004, tetapi request pertamanya kembali menerima HTTP 503
+`system_cpu_overloaded` (CPU layanan 99,5%, ambang 98%). Run berhenti dengan
+satu request dikirim dan 17 belum dimulai, tanpa jawaban analisis atau retry.
+Belum ada dasar untuk menyatakan batch P2 bisa diselesaikan secara stabil.
+Hasil run-001 tetap utuh dan milestone P2 belum ditutup. Lihat
+[receipt run-004](evidence/qwen-api-p2-run004-receipt-2026-10-21.json).
+
 ### P3. Periksa generasi payload dan pilot end-to-end
 
 1. Audit kewajiban angka pembeda slot 101-110 pada generator lama. Pada versi baru, identitas kandidat disimpan sebagai metadata dan deduplikasi dilakukan pada struktur payload; angka unik tidak boleh diwajibkan mengubah makna nilai injection point. Uji perubahan ini pada development dan terapkan sama pada A/B.
@@ -103,6 +141,16 @@ Tindakan berikutnya: (1) peneliti meninjau status empat kasus dan memutuskan apa
 6. Ukur durasi dan penggunaan API pada workload SQLi sesungguhnya. Periksa kecukupan kuota dan jadwal validator sebelum memulai matriks formal. Kegagalan model dan refusal dicatat, tidak diisi dengan payload manual atau SecLists pada A/B.
 
 Hasil: laporan pilot lintas teknik dan level, estimasi durasi/kuota yang bersumber dari pilot, dan paket kesiapan. Perubahan kebijakan kandidat, prompt atau parser pada versi ini harus disebutkan saat membandingkan dengan versi lama; peningkatan tidak boleh diatribusikan hanya kepada pergantian model.
+
+**Checkpoint audit offline 21 Oktober:** 179 tes regresi lulus dan 1.080 file
+yang dipin tetap utuh. Dua celah integrasi aktif direproduksi dengan API palsu:
+gate runtime/baseline invalid terlambat dan penolakan struktural parser dapat
+dinormalisasi sebagai `completed`. Profil pesan/opsi analisis P2 dan pilot
+juga belum identik. Draft matriks 33 run applicable lolos validasi tanpa
+eksekusi (330 kandidat, 990 konfirmasi, worst-case 960 request API pada attempt
+terencana). Perbaikan kedua gate dan penyelarasan/validasi profil analisis
+mendahului smoke serta pilot live. Audit ini tidak menutup P2 atau menyatakan
+P3 selesai. Lihat [laporan audit offline](audit-p3-offline-2026-10-21.md).
 
 ### P4. Bekukan konfigurasi dan jalankan formal versi baru
 

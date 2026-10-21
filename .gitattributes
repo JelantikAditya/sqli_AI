@@ -30,3 +30,8 @@ results/processed/analysis-v5-pilot-20261020/** -text
 results/processed/analysis-v5-pilot-20261020-r2/** -text
 docs/paket-pilot-analisis-v5-r2-2026-10-20.md -text
 results/processed/analysis-v5-pilot-r2-execution-20261020/** -text whitespace=cr-at-eol
+
+# Preserve the byte hashes in the published P2 replication and P3 audit receipts.
+docs/evidence/qwen-api-p2-run00[234]-*.json -text whitespace=cr-at-eol
+docs/evidence/p3-offline-audit-2026-10-21.json -text whitespace=cr-at-eol
+development/qwen_api_p3_pilot_plan.template.json -text whitespace=cr-at-eol

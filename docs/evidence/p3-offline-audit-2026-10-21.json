@@ -1,0 +1,329 @@
+{
+  "schema": "p3-offline-audit-v1",
+  "audited_at_utc": "2026-10-21T13:51:56+00:00",
+  "scope": "offline audit, no runtime repairs or live pilot",
+  "plan": "development/qwen_api_p3_pilot_plan.template.json",
+  "source_sha256": {
+    "development/run_qwen_api_experiments.py": "6553d2c834f3399b4c3ec9fda08f5595ce5a18c83809b559f23f39b238775d93",
+    "development/qwen_api_runtime.py": "78add1bb0b9495a0c78f3accc4925076dd459adbb3549ccbdf88a9a37c025ae9",
+    "development/qwen_api_runtime_config.json": "75f2efa927be51f28b08c932fbf7ac797d18076b044d78ab6bb5d4c1c7c1264c",
+    "development/qwen_api_client.py": "8f5b34403ff486d33d34f9e351542f34ef57d3a3769a791b8d443526e4d29454",
+    "development/qwen_api_credentials.py": "ae13e9fe6875a2d16b04d075e87c00cae17495a470f07f5aab92ffab39078907",
+    "development/qwen_api_generation.py": "b0fbe2d6da56dc258aa484c9f225eb158b37319af4b82be956740f9a70c225f3",
+    "development/qwen_api_analysis.py": "38ec2abe95f201058379c71ba6ac052eea20e30ef87fc7f9c6b181c192283640",
+    "development/analysis_v5_pilot_cases.py": "be34647f7f9e17f24a7bf0e1586932b10695eb44b886d26a439da3138736119a",
+    "development/analyze_response_v1.py": "269578d51ac20907f6baef62231791bf341b0d0b11112fd9a876e3cf832e7987",
+    "development/analyze_response_v2.py": "1662c057893e8c457186730009efcb8dd99dd4c8723c9dbb60ef0dcff6dbaf4f",
+    "dvwa/adaptive_s1_loop.py": "42610de34327c4801192f402357a740a8e9674ae9bc3d33aedb4e47b69433c0a",
+    "dvwa/adaptive_candidate_policy.py": "afbd25d6ecb96b14c0c02b3317adbc54a59e8e68e7622a9a7bf7139921cd33a2",
+    "dvwa/analyze_response.py": "ffba71043245baf3db73a09d9236bf4e2f3edb7e38737a250ec799e9c720a500",
+    "dvwa/confirmation_policy.py": "76d3f891585170f53b784523faade226a5ac4529b77de1c0937d170d1ea37cbd",
+    "dvwa/experiment_protocol.py": "d6ef3b99276da687caffe4860bbaa72fa36e40c0723cb2a66083865c696403ca",
+    "dvwa/generate_candidate_batch.py": "b5532c8f41c46208ab7143579822c2f8b30aba0780e4ae41e205356917f1ee8e",
+    "dvwa/rag_pipeline.py": "750cbbeb9cf0240221b83121113adfcb91a1eeb970c2f0ced1b90005d20df6ef",
+    "dvwa/retrieve_structured_knowledge.py": "a04feb51c323ef5187f1dcb61d21fd34a24c010f3870cfcdfb8b4b0e569ed35f",
+    "dvwa/run_local_experiments.py": "e713851af20a9315338a929531a92f00908140b18f4141df14b5dd6b85055a1f",
+    "dvwa/validation_loop.py": "bada3ea7029f83d3df39c7dd86c7acff6bea89e5e5e6a2187b18ffab0d814234",
+    "dvwa/prepare_candidate_batch.py": "c8981ec339f6d2fae0f217946b402d6432beed027405069da01867f653086f18",
+    "dvwa/execution_order_policy.py": "d66146da5d1984dd67f427179348ba247162d52ba129b601e280e5f789784325",
+    "dvwa/run_decision_policy.py": "8ece03a16a8ef8a01c115d6c65fabeb00cb690dd78c00988487c638cf2e0e9e7",
+    "schemas/analysis-ledger.schema.json": "95ef72fab2e72017856eec4a8c3a4d0679e14ddf1b7a46a5a29abb860eaf65ff",
+    "schemas/candidate-evidence.schema.json": "79907344498893da0ad21177a82a62247ff746d78d6e79ef272952c96a182b0f",
+    "schemas/candidate-batch.schema.json": "ed38c6d52f1c73ac6425cbb414dec022272019aa2816dd48c26d8adeeb030ad1",
+    "schemas/local-run-plan.schema.json": "0dbf1f3fbfd146f5578bfb3cd06f32ee445a6fa70fdc44770e59ce2a9231af14",
+    "schemas/experiment-ledger-event.schema.json": "040b618354e3e42fa5acbe29ee0a01306a46ba9d9e7f9e2dbabe0c5fca1e9c1b",
+    "schemas/qwen-analysis-input.schema.json": "a71552ff3081bff2b37db0dd55166474a179793fceeb13a176f3b22ba80249c6",
+    "schemas/qwen-analysis-output.schema.json": "f73ce369bad22c513b0f70b4dcd8e630af6daffc7295e7b67c75b162045c3e10",
+    "schemas/validation-payloads.schema.json": "afc6badd8e8f81fe2ef6eea47c422d6c97f1f484cdc893fd3c2a70ecd2448dfb"
+  },
+  "audit_script_sha256": "9a29cd3c08d45749e99692949463ade1623fa59e4f1e7a282511311b983bebb8",
+  "checks": [
+    {
+      "check": "pilot_matrix_and_dry_run",
+      "passed": true,
+      "details": {
+        "applicable_runs": {
+          "A": 12,
+          "B": 12,
+          "C": 9
+        },
+        "planned_slots": 36,
+        "excluded_C_Impossible_slots": 3,
+        "candidate_budget": 330,
+        "logical_confirmations": 990,
+        "worst_case_API_requests": 960,
+        "configured_API_ceiling": 5760,
+        "plan_sha256": "1c12971364593a4928bcf19b356b8be26e0f7ee3d0ea960a8b01584af0d725d1"
+      }
+    },
+    {
+      "check": "historical_verified_discovery_S1_S12",
+      "passed": true,
+      "details": [
+        {
+          "scenario": "S1",
+          "method": "GET",
+          "path": "/vulnerabilities/sqli/",
+          "parameter": "id",
+          "report_sha256": "336e7e747e78a405ef43a00fde99ecea9f9f2f38e3ee5813c22e5c352fe13bdf"
+        },
+        {
+          "scenario": "S2",
+          "method": "GET",
+          "path": "/vulnerabilities/sqli_blind/",
+          "parameter": "id",
+          "report_sha256": "336e7e747e78a405ef43a00fde99ecea9f9f2f38e3ee5813c22e5c352fe13bdf"
+        },
+        {
+          "scenario": "S3",
+          "method": "GET",
+          "path": "/vulnerabilities/sqli_blind/",
+          "parameter": "id",
+          "report_sha256": "336e7e747e78a405ef43a00fde99ecea9f9f2f38e3ee5813c22e5c352fe13bdf"
+        },
+        {
+          "scenario": "S4",
+          "method": "POST",
+          "path": "/vulnerabilities/sqli/",
+          "parameter": "id",
+          "report_sha256": "4cfa1164b1658cb8c5d943a2bab1376a09e11493e826216f65b7f7d85b95ff65"
+        },
+        {
+          "scenario": "S5",
+          "method": "POST",
+          "path": "/vulnerabilities/sqli_blind/",
+          "parameter": "id",
+          "report_sha256": "4cfa1164b1658cb8c5d943a2bab1376a09e11493e826216f65b7f7d85b95ff65"
+        },
+        {
+          "scenario": "S6",
+          "method": "POST",
+          "path": "/vulnerabilities/sqli_blind/",
+          "parameter": "id",
+          "report_sha256": "4cfa1164b1658cb8c5d943a2bab1376a09e11493e826216f65b7f7d85b95ff65"
+        },
+        {
+          "scenario": "S7",
+          "method": "POST",
+          "path": "/vulnerabilities/sqli/session-input.php",
+          "parameter": "id",
+          "report_sha256": "15edaa55c1795444f59cb6e86967b992b15d11a6cba258322795b37fc9eb1dc6"
+        },
+        {
+          "scenario": "S8",
+          "method": "POST",
+          "path": "/vulnerabilities/sqli_blind/cookie-input.php",
+          "parameter": "id",
+          "report_sha256": "15edaa55c1795444f59cb6e86967b992b15d11a6cba258322795b37fc9eb1dc6"
+        },
+        {
+          "scenario": "S9",
+          "method": "POST",
+          "path": "/vulnerabilities/sqli_blind/cookie-input.php",
+          "parameter": "id",
+          "report_sha256": "15edaa55c1795444f59cb6e86967b992b15d11a6cba258322795b37fc9eb1dc6"
+        },
+        {
+          "scenario": "S10",
+          "method": "GET",
+          "path": "/vulnerabilities/sqli/",
+          "parameter": "id",
+          "report_sha256": "8b25471e2a244c5988b7b681ce18ad1cbcc14c4fa2cd20585fbf095238a17dec"
+        },
+        {
+          "scenario": "S11",
+          "method": "GET",
+          "path": "/vulnerabilities/sqli_blind/",
+          "parameter": "id",
+          "report_sha256": "8b25471e2a244c5988b7b681ce18ad1cbcc14c4fa2cd20585fbf095238a17dec"
+        },
+        {
+          "scenario": "S12",
+          "method": "GET",
+          "path": "/vulnerabilities/sqli_blind/",
+          "parameter": "id",
+          "report_sha256": "8b25471e2a244c5988b7b681ce18ad1cbcc14c4fa2cd20585fbf095238a17dec"
+        }
+      ]
+    },
+    {
+      "check": "A_B_prompt_isolation_and_slot_identity",
+      "passed": true,
+      "details": {
+        "paired_generation_requests_checked": 120,
+        "only_treatment_difference": "retrieved_reference_chunks",
+        "ground_truth_level_scenario_fields_in_model_task": false,
+        "numeric_slot_nonce_required": false
+      }
+    },
+    {
+      "check": "structural_deduplication",
+      "passed": true,
+      "details": {
+        "numeric_only_variants_collapse": true
+      }
+    },
+    {
+      "check": "matched_time_control",
+      "passed": true,
+      "details": {
+        "only_sleep_argument_changes": true,
+        "threshold_ms": 1500
+      }
+    },
+    {
+      "check": "valid_analysis_control",
+      "passed": true,
+      "details": {
+        "fake_API_calls": 1
+      }
+    },
+    {
+      "check": "invalid_evidence_gate_before_API",
+      "passed": false,
+      "details": [
+        {
+          "invalid_field": "runtime_status",
+          "fake_API_calls": 1,
+          "outcome": "ValueError"
+        },
+        {
+          "invalid_field": "baseline_valid",
+          "fake_API_calls": 1,
+          "outcome": "ValueError"
+        }
+      ],
+      "finding": "P3-01"
+    },
+    {
+      "check": "parser_rejection_propagation",
+      "passed": false,
+      "details": [
+        {
+          "mutation": "fabricated_trial",
+          "analysis_status": "completed",
+          "parser_error": "trial-set-mismatch",
+          "system_claim": "positive"
+        },
+        {
+          "mutation": "cross_trial_references",
+          "analysis_status": "completed",
+          "parser_error": "missing-trial-evidence",
+          "system_claim": "positive"
+        }
+      ],
+      "finding": "P3-02"
+    },
+    {
+      "check": "P2_to_pilot_analysis_request_equivalence",
+      "passed": false,
+      "details": {
+        "messages_equal": false,
+        "P2_template_kwargs": null,
+        "pilot_template_kwargs": {
+          "enable_thinking": false
+        },
+        "same_base_contract": true,
+        "alignment_or_separate_validation_required": true
+      },
+      "finding": "P3-03"
+    },
+    {
+      "check": "serial_orchestration_and_time_separation",
+      "passed": true,
+      "details": {
+        "stage_trace": [
+          "generation",
+          "HTTP_observation",
+          "analysis",
+          "generation",
+          "HTTP_observation",
+          "analysis"
+        ],
+        "fake_API_elapsed_seconds": 999999,
+        "HTTP_evidence_unchanged": true
+      }
+    },
+    {
+      "check": "checkpoint_call_ceiling_and_redaction",
+      "passed": true,
+      "details": {
+        "fake_transport_calls": 1,
+        "started_calls_after_reinit": 1,
+        "failure_codes": [
+          "api_http_error",
+          "api_call_ceiling_reached"
+        ],
+        "dummy_key_redacted": true
+      }
+    },
+    {
+      "check": "resume_refuses_changed_source_snapshot",
+      "passed": true,
+      "details": {
+        "changed_snapshot_refused": true
+      }
+    },
+    {
+      "check": "batch_error_halt_static_inspection",
+      "passed": true,
+      "details": {
+        "method": "source inspection plus fake transport error propagation",
+        "behavior": "API failure raises ExecutionFailure; execute_ledger records invalid attempt and breaks."
+      }
+    },
+    {
+      "check": "existing_offline_regression_suite",
+      "passed": true,
+      "details": {
+        "run": 179,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "successful": true
+      }
+    },
+    {
+      "check": "preservation",
+      "passed": true,
+      "details": {
+        "files_checked": 1080,
+        "changed_files": []
+      }
+    },
+    {
+      "check": "network_guard",
+      "passed": true,
+      "details": {
+        "blocked_connection_attempts": 0,
+        "real_API_calls": 0,
+        "real_DVWA_requests": 0
+      }
+    }
+  ],
+  "tests": {
+    "run": 179,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "successful": true
+  },
+  "findings": [
+    "P3-01",
+    "P3-02",
+    "P3-03"
+  ],
+  "live_pilot_ready": false,
+  "formal_ready": false,
+  "pending_live_work": [
+    "fresh executor controls S1-S12",
+    "isolated generation smoke",
+    "33 applicable pilot runs",
+    "independent review",
+    "measured duration and quota"
+  ],
+  "real_API_calls": 0,
+  "real_DVWA_requests": 0,
+  "preserved_file_count": 1080,
+  "changed_preserved_files": []
+}

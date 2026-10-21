@@ -49,11 +49,25 @@ Estimasi worst-case-nya 40 request API dari batas 5.760. Dry-run mengembalikan
 
 ## Eksekusi eksplisit
 
-API key dibaca dari `HCNSEC_API_KEY` atau diminta melalui prompt tersembunyi.
-Jangan menaruh key di plan, prompt, atau berkas konfigurasi.
+Runner pilot dan P2 membaca API key dengan urutan: environment `HCNSEC_API_KEY`,
+file lokal `.env.hcnsec.local` di root proyek, lalu prompt tersembunyi. Simpan
+sekali agar tidak perlu mengetiknya pada setiap eksekusi:
 
 ```powershell
-$env:HCNSEC_API_KEY = "<API key>"
+.\.venv\Scripts\python.exe development/qwen_api_credentials.py --save
+.\.venv\Scripts\python.exe development/qwen_api_credentials.py --check
+```
+
+Perintah `--save` meminta key melalui input tersembunyi; jalankan lagi untuk
+mengganti key. `--check` hanya memeriksa ketersediaan, tanpa menampilkan key
+atau menghubungi API. File lokal ini berupa teks biasa, diabaikan Git oleh pola
+`**/.env.*`, dan tidak masuk snapshot runtime. Hindari membagikan file tersebut.
+Jangan menaruh key di source code, plan, prompt, atau konfigurasi yang dilacak Git.
+Skrip smoke historis tetap memakai environment atau prompt seperti sebelumnya.
+Perubahan loader dipin untuk run pilot baru; jangan mengganti snapshot lama
+untuk meloloskan resume dengan source yang berubah.
+
+```powershell
 \.venv\Scripts\python.exe development/run_qwen_api_experiments.py `
   --plan development/qwen_api_b_pilot_plan.template.json `
   --execute --confirm-api-spending --confirm-local-dvwa --confirm-database-reset

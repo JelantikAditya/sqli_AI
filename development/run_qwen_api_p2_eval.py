@@ -10,7 +10,6 @@ import argparse
 from collections import Counter
 from contextlib import contextmanager
 from datetime import datetime, timezone
-import getpass
 import hashlib
 import json
 import os
@@ -25,6 +24,7 @@ sys.path.insert(0, str(ROOT / "development"))
 sys.path.insert(0, str(ROOT / "dvwa"))
 
 from qwen_api_client import ChatSettings, QwenAPIClient, encoded_payload, redact, request_payload
+from qwen_api_credentials import get_api_key
 from qwen_api_p2_analysis import PROMPT_VERSION, TIMEOUT_SECONDS, MAX_OUTPUT_TOKENS, canonical_hash, parse
 
 
@@ -506,11 +506,7 @@ def main() -> int:
     try:
         output_dir.mkdir(parents=True, exist_ok=True)
         with exclusive_execution_lock(output_dir / ".execution.lock"):
-            api_key = os.environ.get("HCNSEC_API_KEY", "").strip()
-            if not api_key:
-                api_key = getpass.getpass("HCNSEC_API_KEY (input is hidden): ").strip()
-            if not api_key:
-                parser.error("API key was empty; no request was sent")
+            api_key = get_api_key()
 
             client = QwenAPIClient(api_key, settings=ChatSettings(
                 max_tokens=MAX_OUTPUT_TOKENS, timeout_seconds=TIMEOUT_SECONDS))

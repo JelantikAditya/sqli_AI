@@ -6,7 +6,34 @@ boolean-based blind, dan time-based blind pada level Low, Medium, High, serta
 Impossible. Evaluasi utama membandingkan **FPR** sistem dengan/tanpa RAG dan
 **PSR** payload LLM terhadap SecLists.
 
-## Status audit terakhir per 20 Oktober 2026
+## Status proyek per 21 Oktober 2026
+
+**Pengujian ulang P2 tertunda karena layanan Qwen API belum dapat melayani
+analisis P2 secara stabil.** Run-002, run-003 dan run-004 masing-masing berhenti
+pada request pertama dengan HTTP 503 `system_cpu_overloaded`. Gateway
+melaporkan CPU layanan 99,5-99,6% terhadap ambang 98%; ini bukan pengukuran CPU
+laptop peneliti. Satu uji singkat `API_OK` sempat berhasil pukul 20:34 WIB,
+tetapi batch P2 pukul 20:36 WIB kembali ditolak. Tidak ada retry otomatis.
+
+- **P2 belum ditutup:** hasil run-001 tetap 14/18 respons evaluable dengan
+  agreement 14/14 terhadap label terkunci. Empat kasus unresolved tetap
+  dipertahankan; estimasi milestone 80% menuju penutupan. Percobaan ulang belum
+  menambah jawaban model dan tidak mengganti hasil awal.
+- **Audit offline P3 selesai:** 179 tes regresi lulus, 13 dari 16 pemeriksaan
+  audit lolos, dan 1.080 file yang dipin tetap utuh. Dua celah integrasi belum
+  diperbaiki: gate input runtime/baseline invalid terlambat dan penolakan
+  struktural parser bisa dinormalisasi sebagai `completed`. Profil analisis P2
+  dan pilot juga perlu diselaraskan atau divalidasi terpisah.
+- **Pilot live P3 belum dijalankan:** draft 33 run applicable lolos dry-run,
+  dengan tiga slot C/Impossible excluded. Perbaikan gate, penyelarasan profil,
+  kontrol executor aktual dan kesiapan provider mendahului eksekusi pilot.
+
+Lihat [progres 21 Oktober](docs/progress-2026-10-21.md),
+[riwayat replikasi P2](docs/p2-replikasi-2026-10-21.md),
+[hasil audit P3](docs/audit-p3-offline-2026-10-21.md), dan
+[roadmap lanjutan](docs/rancangan-lanjutan-qwen-api-2026-10-20.md).
+
+## Riwayat audit per 20 Oktober 2026
 
 Diagnosis SQLi API pada 36 kasus sintetis selesai dan diaudit: 26 verdict benar,
 sembilan analysis error, dan satu verdict valid keliru pada marker time-based.
@@ -30,7 +57,7 @@ menilai kedua packet pilot dengan keputusan `success`; anotasi manusia telah
 diimpor secara terpisah. Lihat
 [hasil uji prompt S1/S3](docs/hasil-uji-prompt-khusus-s1-s3-2026-10-20.md).
 
-**Tahap saat ini:** pilot API S1/S3 dan review VAL-01 selesai; persiapan
+**Checkpoint 20 Oktober:** pilot API S1/S3 dan review VAL-01 selesai; persiapan
 eksperimen formal API masih berlangsung dan belum ada run formal. Sebelum
 memulai, catat pemicu peralihan bersyarat dari model lokal, finalkan cakupan
 provider/model, dan bekukan metode serta gate pipeline API.

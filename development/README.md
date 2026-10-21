@@ -408,9 +408,13 @@ ada di
 ## Evaluasi analisis API P2
 
 `prepare_qwen_api_p2_eval.py` membekukan 18 request analisis tanpa RAG.
-Runner mengirim setiap request paling banyak sekali. Key API diminta lewat
-prompt tersembunyi bila belum tersedia pada environment. Jalankan dari root
-project:
+Runner mengirim setiap request paling banyak sekali. Key API dibaca dari
+environment `HCNSEC_API_KEY` atau file lokal `.env.hcnsec.local`, lalu diminta
+melalui prompt tersembunyi bila keduanya belum tersedia. Untuk menyimpan key
+sekali, jalankan `development/qwen_api_credentials.py --save`; perintah `--check`
+memeriksa ketersediaan tanpa API dan tanpa menampilkan nilainya. File key berupa
+teks biasa yang diabaikan Git. Lihat [panduan credential lokal](QWEN_API_PILOT.md).
+Jalankan runner dari root project:
 
 ```powershell
 .\.venv\Scripts\python.exe .\development\run_qwen_api_p2_eval.py `

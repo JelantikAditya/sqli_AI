@@ -4,7 +4,6 @@ from __future__ import annotations
 
 import argparse
 import copy
-import getpass
 import hashlib
 import importlib.metadata
 import json
@@ -29,6 +28,7 @@ import analyze_response_v2
 import qwen_api_analysis
 import qwen_api_generation
 from qwen_api_client import ChatSettings, MODEL
+from qwen_api_credentials import get_api_key
 from qwen_api_runtime import APIRuntimeFailure, CheckpointedQwenAPI
 import run_local_experiments as local_runner
 from rag_pipeline import (injection_point_context, load_catalog, read_manifest,
@@ -118,6 +118,7 @@ def runtime_source_hashes(root: Path = ROOT) -> dict[str, str]:
         "development/qwen_api_runtime.py",
         "development/qwen_api_runtime_config.json",
         "development/qwen_api_client.py",
+        "development/qwen_api_credentials.py",
         "development/qwen_api_generation.py",
         "development/qwen_api_analysis.py",
         "development/analysis_v5_pilot_cases.py",
@@ -630,9 +631,7 @@ def run(plan_path: Path, *, execute: bool = False, resume: bool = False,
             data_directory, plan, protocol, plan_hash, protocol_hash, root)
     check_or_write_runtime_snapshot(data_directory, expected_snapshot, ledger)
 
-    api_key = os.environ.get("HCNSEC_API_KEY", "").strip()
-    if not api_key:
-        api_key = getpass.getpass("HCNSEC_API_KEY: ").strip()
+    api_key = get_api_key()
     api = CheckpointedQwenAPI(api_key, data_directory, config)
 
     with local_runner.experiment_lock(data_directory, recover_stale=resume):
