@@ -1,0 +1,124 @@
+{
+  "schema": "poolside-laguna-generation-qualification-evidence-v1",
+  "experiment_id": "poolside-s21-p3-q2-20261022",
+  "protocol_id": "poolside-laguna-s21-sqli-v3-qualification-no-examples",
+  "generation_prompt_version": "poolside-laguna-sqli-generation-v3-rag-no-payload-examples",
+  "retrieval_context_policy_id": "structured-chunks-remove-payload-examples-v1",
+  "date": "2026-10-22",
+  "dataset": "pilot",
+  "provider": "Poolside",
+  "reported_model": "poolside/laguna-s-2.1",
+  "qualification_passed": false,
+  "formal_eligible": false,
+  "scope": {
+    "scenario_count": 12,
+    "conditions": ["A", "B"],
+    "expected_units": 24,
+    "executed_units": 24,
+    "candidate_budget_per_unit": 10,
+    "expected_candidates": 240
+  },
+  "unit_status": {
+    "completed": 21,
+    "excluded": 3,
+    "invalid": 0,
+    "planned": 0,
+    "running": 0
+  },
+  "conditions": {
+    "A": {
+      "complete_units": 12,
+      "excluded_units": 0,
+      "valid_candidates": 120,
+      "candidate_target": 120
+    },
+    "B": {
+      "complete_units": 9,
+      "excluded_units": 3,
+      "valid_candidates": 115,
+      "candidate_target": 120
+    }
+  },
+  "valid_candidates": 235,
+  "candidate_shortfall": 5,
+  "excluded_units": [
+    {
+      "unit": "B/S7",
+      "valid_candidates": 9,
+      "cause": "Final slot returned invalid JSON, followed by two fallback attempts without a valid distinct candidate."
+    },
+    {
+      "unit": "B/S10",
+      "valid_candidates": 9,
+      "cause": "Final slot returned invalid JSON, followed by two fallback attempts without a valid distinct candidate."
+    },
+    {
+      "unit": "B/S11",
+      "valid_candidates": 7,
+      "cause": "Six generation attempts across multiple slots returned no valid distinct candidate."
+    }
+  ],
+  "retrieval_prompt_audit": {
+    "rag_enabled_in_B": true,
+    "chunks_per_B_generation_request": 2,
+    "B_generation_requests_checked": 138,
+    "B_generation_requests_without_payload_examples": 138,
+    "B_generation_prompt_violations": 0,
+    "projected_chunk_characters_min": 948,
+    "projected_chunk_characters_max": 1038,
+    "original_corpus_and_index_changed": false
+  },
+  "generation_events": {
+    "A": {
+      "attempts": 131,
+      "generated_candidates": 120,
+      "invalid_candidate_format": 4,
+      "no_valid_distinct_candidate": 7,
+      "prompt_tokens_mean": 779.3,
+      "prompt_tokens_median": 816
+    },
+    "B": {
+      "attempts": 138,
+      "generated_candidates": 115,
+      "invalid_candidate_format": 3,
+      "no_valid_distinct_candidate": 20,
+      "prompt_tokens_mean": 1283.9,
+      "prompt_tokens_median": 1304.5
+    }
+  },
+  "api": {
+    "requests": 504,
+    "generation_requests": 269,
+    "analysis_requests": 235,
+    "http_statuses": {"200": 504},
+    "transport_statuses": {"ok": 504},
+    "reported_models": {"poolside/laguna-s-2.1": 504},
+    "prompt_tokens": 557974,
+    "completion_tokens": 69233,
+    "total_tokens": 627207,
+    "mean_latency_seconds": 5.02,
+    "median_latency_seconds": 4.4245,
+    "request_ceiling": 960
+  },
+  "comparison_with_q1": {
+    "q1_B_complete_units": 7,
+    "q2_B_complete_units": 9,
+    "q1_B_valid_candidates": 109,
+    "q2_B_valid_candidates": 115,
+    "q1_B_no_valid_distinct_candidate_attempts": 29,
+    "q2_B_no_valid_distinct_candidate_attempts": 20,
+    "q1_B_generation_prompt_tokens_mean": 1565.5,
+    "q2_B_generation_prompt_tokens_mean": 1283.9,
+    "scenarios_incomplete_to_complete": ["S4", "S8", "S12"],
+    "scenarios_complete_to_incomplete": ["S10"],
+    "scenarios_incomplete_in_both": ["S7", "S11"],
+    "paired_exact_two_sided_p": 0.625,
+    "causal_claim": false
+  },
+  "metrics": {
+    "fpr_computed": false,
+    "psr_computed": false,
+    "formal_result_claimed": false
+  },
+  "raw_artifact_directory": "results/raw/pilot/poolside-s21-p3-q2-20261022"
+}

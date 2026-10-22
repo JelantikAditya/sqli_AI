@@ -41,6 +41,12 @@
   memuat contoh payload. Ini belum membuktikan sebab-akibat atau perubahan
   akurasi, karena Q1 tidak melakukan validasi buta dan tidak menghasilkan
   PSR/FPR. Lihat bagian [audit efek retrieval](poolside-laguna-qualification-q1-2026-10-22.md#audit-awal-efek-retrieval-pada-generasi-kondisi-b).
+- Qualification Q2 `poolside-s21-p3-q2-20261022` mempertahankan retrieval B,
+  tetapi menghapus `payload_examples` dari teks prompt. Seluruh 138 request
+  generasi B lulus pemeriksaan ini. Hasilnya 21/24 unit lengkap, 235/240
+  kandidat valid, dan tiga unit B excluded: S7, S10, S11. Gate tetap gagal,
+  tanpa FPR/PSR; rinciannya ada di [laporan Q2](poolside-laguna-qualification-q2-2026-10-22.md)
+  dan [evidence Q2](evidence/poolside-laguna-qualification-q2-2026-10-22.json).
 
 Rujukan: [hasil Poolside P2 dan preflight](hasil-preflight-poolside-2026-10-22.md),
 [hasil P3](poolside-p3-run-2026-10-22.md),
@@ -94,12 +100,15 @@ blind, hasil agregasi terperinci, serta key API tetap lokal dan diabaikan Git.
 - [x] Jalankan qualification cohort terpisah dan evaluasi gate kelengkapan.
   Q1 selesai tetapi gagal gate: 19/24 unit lengkap. Hasil tetap terpisah dari
   pilot r1 dan dataset formal.
+- [x] Uji profil B retrieval tanpa `payload_examples` pada cohort Q2 dengan ID
+  baru. Hasilnya 21/24 unit lengkap, tetapi tiga unit B masih gagal kuota.
 - [ ] Luluskan gate sebelum formal: semua unit qualification mencapai kuota
-  kandidat valid. Qualification Q1 belum lulus karena lima unit B tidak
-  mencapai kuota. Audit retrieval sudah dicatat, tetapi belum mengubah protokol.
-  Tinjau peran contoh payload dan kecocokan chunk terhadap level, bekukan setiap
-  revisi profil dengan ID protocol/cohort baru, lalu jalankan ulang seluruh 24
-  unit sebelum P4 formal.
+  kandidat valid. Qualification Q2 belum lulus karena B/S7, B/S10, dan B/S11
+  tidak mencapai kuota. Penghapusan contoh mengurangi prompt dan disertai
+  perbaikan deskriptif, tetapi belum membuktikan efek kausal atau memperbaiki
+  semua kegagalan. Audit keragaman kandidat dan fallback sebelum menentukan
+  revisi baru; setiap revisi harus dibekukan dengan ID protocol/cohort baru
+  sebelum menjalankan ulang seluruh 24 unit.
 
 ### 4. Verifikasi layanan dan lingkungan eksperimen
 
