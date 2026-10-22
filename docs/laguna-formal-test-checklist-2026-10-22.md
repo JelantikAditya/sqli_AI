@@ -116,6 +116,11 @@ blind, hasil agregasi terperinci, serta key API tetap lokal dan diabaikan Git.
   seluruh 24 unit. Gate formal tetap mensyaratkan seluruh unit mencapai kuota
   kandidat valid; hasil Q2 tidak boleh diisi secara retroaktif.
 
+Titik lanjut sesi berikutnya tersimpan di [progress harian](progress-2026-10-22.md#titik-lanjut-untuk-sesi-berikutnya):
+siapkan profil v4 dan plan baru, uji replay offline, bekukan semua hash dan
+budget, lalu jalankan qualification penuh 24 unit. P4 formal, validasi buta
+baru, dan FPR/PSR belum dimulai.
+
 ### 4. Verifikasi layanan dan lingkungan eksperimen
 
 - [ ] Sebelum run, verifikasi key hanya dari penyimpanan lokal, endpoint,
