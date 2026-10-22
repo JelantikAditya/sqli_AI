@@ -38,7 +38,10 @@ sebagai data tidak tepercaya. Parser tetap menolak JSON rusak, duplikat, dan
 kandidat yang melanggar kebijakan. Tidak ada perbaikan otomatis terhadap JSON
 atau penggantian payload oleh kode.
 
-Plan dan budget qualification disimpan terpisah di
+Plan qualification memuat kondisi A/B saja pada 12 skenario di empat level,
+sehingga mencakup 24 unit LLM, 240 kandidat, dan 720 konfirmasi logis. Kondisi
+SecLists tidak diperlukan untuk menilai perubahan generasi API. Plan dan budget
+qualification disimpan terpisah di
 `development/poolside_laguna_qualification_plan_20261022.json` dan
 `development/poolside_laguna_qualification_budget_20261022.json`. Runner hanya
 menerima ID baru `poolside-s21-p3-q1-20261022`, mempertahankan 10 kandidat,

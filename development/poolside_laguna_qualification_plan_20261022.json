@@ -4,8 +4,7 @@
   "dataset": "pilot",
   "condition_ids": [
     "A",
-    "B",
-    "C"
+    "B"
   ],
   "scenario_ids": [
     "S1",

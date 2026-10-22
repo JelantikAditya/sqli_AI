@@ -3,7 +3,7 @@
   "experiment_id": "poolside-s21-p3-q1-20261022",
   "status": "prepared-not-executed",
   "scope": "P3 generation qualification only; not formal data",
-  "plan_sha256": "1a82355c05dbe941558f0cb5e9539b3504013dff742768e3b8aab6fafca81e59",
+  "plan_sha256": "a9ff07ba5634472e604eb9fd5d5c27ad2bb82e031c2ee5e760ebcbee9063e9c4",
   "max_api_calls": 960,
   "max_wall_seconds": 21600,
   "automatic_transport_retries": 0,
