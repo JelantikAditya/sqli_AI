@@ -37,6 +37,46 @@
       "candidate_target": 120
     }
   },
+  "retrieval_effect_audit": {
+    "scope": "descriptive-generation-qualification-only",
+    "causal_claim": false,
+    "manual_relevance_review": false,
+    "paired_completion": {
+      "A_complete_B_complete": 7,
+      "A_complete_B_incomplete": 5,
+      "A_incomplete_B_complete": 0,
+      "A_incomplete_B_incomplete": 0,
+      "two_sided_exact_p": 0.0625
+    },
+    "generation_events": {
+      "A": {
+        "attempts": 133,
+        "generated_candidates": 120,
+        "invalid_candidate_format": 5,
+        "no_valid_distinct_candidate": 8,
+        "prompt_tokens_mean": 782.9,
+        "prompt_tokens_median": 818
+      },
+      "B": {
+        "attempts": 141,
+        "generated_candidates": 109,
+        "invalid_candidate_format": 3,
+        "no_valid_distinct_candidate": 29,
+        "prompt_tokens_mean": 1565.5,
+        "prompt_tokens_median": 1627
+      }
+    },
+    "retrieval_context": {
+      "chunks_per_B_unit": 2,
+      "chunk_metadata_technique_matches": 24,
+      "chunk_metadata_placements": 24,
+      "unique_chunk_pairs_per_technique": 1,
+      "scenario_levels_reusing_pair_per_technique": 4,
+      "chunks_containing_payload_examples": 24,
+      "retrieved_chunks_total": 24
+    },
+    "interpretation": "B is descriptively associated with lower generation completeness, more no-valid-distinct-candidate events, and higher prompt-token usage. Q1 does not establish causality or measure PSR/FPR."
+  },
   "valid_candidates": 229,
   "candidate_shortfall": 11,
   "excluded_units": [

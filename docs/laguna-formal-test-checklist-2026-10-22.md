@@ -34,6 +34,13 @@
   FPR/PSR formal dari cohort ini. Rincian unit, penggunaan token, serta sebab
   eksklusi ada di [laporan qualification Q1](poolside-laguna-qualification-q1-2026-10-22.md)
   dan [evidence mesin](evidence/poolside-laguna-qualification-q1-2026-10-22.json).
+- Audit retrieval Q1 menemukan sinyal awal bahwa B lebih sering menerima
+  percobaan berstatus `no_valid_distinct_candidate` (29 kali dibanding 8 di A) dan memakai kira-kira dua kali token
+  prompt generasi per request. Chunk cocok secara metadata teknik, tetapi
+  pasangan yang sama digunakan pada empat level per teknik dan seluruh chunk
+  memuat contoh payload. Ini belum membuktikan sebab-akibat atau perubahan
+  akurasi, karena Q1 tidak melakukan validasi buta dan tidak menghasilkan
+  PSR/FPR. Lihat bagian [audit efek retrieval](poolside-laguna-qualification-q1-2026-10-22.md#audit-awal-efek-retrieval-pada-generasi-kondisi-b).
 
 Rujukan: [hasil Poolside P2 dan preflight](hasil-preflight-poolside-2026-10-22.md),
 [hasil P3](poolside-p3-run-2026-10-22.md),
@@ -89,8 +96,10 @@ blind, hasil agregasi terperinci, serta key API tetap lokal dan diabaikan Git.
   pilot r1 dan dataset formal.
 - [ ] Luluskan gate sebelum formal: semua unit qualification mencapai kuota
   kandidat valid. Qualification Q1 belum lulus karena lima unit B tidak
-  mencapai kuota; revisi profil harus dibekukan dan diuji dengan ID cohort
-  baru sebelum P4 formal.
+  mencapai kuota. Audit retrieval sudah dicatat, tetapi belum mengubah protokol.
+  Tinjau peran contoh payload dan kecocokan chunk terhadap level, bekukan setiap
+  revisi profil dengan ID protocol/cohort baru, lalu jalankan ulang seluruh 24
+  unit sebelum P4 formal.
 
 ### 4. Verifikasi layanan dan lingkungan eksperimen
 
