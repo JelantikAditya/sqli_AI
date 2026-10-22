@@ -1,0 +1,267 @@
+{
+  "schema": "poolside-generation-replay-audit-v1",
+  "experiment_id": "poolside-s21-p3-r1-20261022",
+  "api_requests_sent": 0,
+  "dvwa_requests_sent": 0,
+  "llm_units": 24,
+  "complete_units": 18,
+  "partial_units": [
+    {
+      "scenario": "S1",
+      "condition": "A",
+      "candidate_count": 9,
+      "budget_complete": false,
+      "generation_calls": 12,
+      "status_counts": {
+        "generated": 9,
+        "invalid_candidate_format": 3
+      },
+      "terminal_slot": 10,
+      "terminal_reasons": [
+        {
+          "category": "json_syntax",
+          "line": 1,
+          "column": 33
+        },
+        {
+          "category": "json_syntax",
+          "line": 1,
+          "column": 33
+        },
+        {
+          "category": "json_syntax",
+          "line": 1,
+          "column": 33
+        }
+      ],
+      "terminal_duplicate_slots": [
+        [],
+        [],
+        []
+      ],
+      "terminal_unique_request_hashes": 2,
+      "terminal_unique_response_contents": 1
+    },
+    {
+      "scenario": "S6",
+      "condition": "A",
+      "candidate_count": 9,
+      "budget_complete": false,
+      "generation_calls": 14,
+      "status_counts": {
+        "generated": 9,
+        "no_valid_distinct_candidate": 5
+      },
+      "terminal_slot": 10,
+      "terminal_reasons": [
+        {
+          "category": "candidate_rejection",
+          "suggestions": {
+            "duplicate_structure": 1
+          }
+        },
+        {
+          "category": "candidate_rejection",
+          "suggestions": {
+            "invalid_policy": 1
+          }
+        },
+        {
+          "category": "candidate_rejection",
+          "suggestions": {
+            "duplicate_structure": 1
+          }
+        }
+      ],
+      "terminal_duplicate_slots": [
+        [
+          9
+        ],
+        [],
+        [
+          9
+        ]
+      ],
+      "terminal_unique_request_hashes": 2,
+      "terminal_unique_response_contents": 3
+    },
+    {
+      "scenario": "S7",
+      "condition": "A",
+      "candidate_count": 9,
+      "budget_complete": false,
+      "generation_calls": 12,
+      "status_counts": {
+        "generated": 9,
+        "invalid_candidate_format": 3
+      },
+      "terminal_slot": 10,
+      "terminal_reasons": [
+        {
+          "category": "json_syntax",
+          "line": 1,
+          "column": 33
+        },
+        {
+          "category": "json_syntax",
+          "line": 1,
+          "column": 33
+        },
+        {
+          "category": "json_syntax",
+          "line": 1,
+          "column": 33
+        }
+      ],
+      "terminal_duplicate_slots": [
+        [],
+        [],
+        []
+      ],
+      "terminal_unique_request_hashes": 2,
+      "terminal_unique_response_contents": 1
+    },
+    {
+      "scenario": "S11",
+      "condition": "B",
+      "candidate_count": 5,
+      "budget_complete": false,
+      "generation_calls": 9,
+      "status_counts": {
+        "generated": 5,
+        "no_valid_distinct_candidate": 4
+      },
+      "terminal_slot": 6,
+      "terminal_reasons": [
+        {
+          "category": "candidate_rejection",
+          "suggestions": {
+            "duplicate_structure": 1
+          }
+        },
+        {
+          "category": "candidate_rejection",
+          "suggestions": {
+            "duplicate_structure": 1
+          }
+        },
+        {
+          "category": "candidate_rejection",
+          "suggestions": {
+            "duplicate_structure": 1
+          }
+        }
+      ],
+      "terminal_duplicate_slots": [
+        [
+          5
+        ],
+        [
+          5
+        ],
+        [
+          1
+        ]
+      ],
+      "terminal_unique_request_hashes": 3,
+      "terminal_unique_response_contents": 3
+    },
+    {
+      "scenario": "S2",
+      "condition": "B",
+      "candidate_count": 7,
+      "budget_complete": false,
+      "generation_calls": 10,
+      "status_counts": {
+        "generated": 7,
+        "no_valid_distinct_candidate": 3
+      },
+      "terminal_slot": 8,
+      "terminal_reasons": [
+        {
+          "category": "candidate_rejection",
+          "suggestions": {
+            "duplicate_structure": 1
+          }
+        },
+        {
+          "category": "candidate_rejection",
+          "suggestions": {
+            "duplicate_structure": 1
+          }
+        },
+        {
+          "category": "candidate_rejection",
+          "suggestions": {
+            "duplicate_structure": 1
+          }
+        }
+      ],
+      "terminal_duplicate_slots": [
+        [
+          3
+        ],
+        [
+          1
+        ],
+        [
+          3
+        ]
+      ],
+      "terminal_unique_request_hashes": 3,
+      "terminal_unique_response_contents": 3
+    },
+    {
+      "scenario": "S4",
+      "condition": "B",
+      "candidate_count": 9,
+      "budget_complete": false,
+      "generation_calls": 12,
+      "status_counts": {
+        "generated": 9,
+        "invalid_candidate_format": 3
+      },
+      "terminal_slot": 10,
+      "terminal_reasons": [
+        {
+          "category": "json_syntax",
+          "line": 1,
+          "column": 33
+        },
+        {
+          "category": "json_syntax",
+          "line": 1,
+          "column": 33
+        },
+        {
+          "category": "json_syntax",
+          "line": 1,
+          "column": 33
+        }
+      ],
+      "terminal_duplicate_slots": [
+        [],
+        [],
+        []
+      ],
+      "terminal_unique_request_hashes": 2,
+      "terminal_unique_response_contents": 1
+    }
+  ],
+  "generation_calls_replayed": 296,
+  "status_counts": {
+    "generated": 228,
+    "invalid_candidate_format": 13,
+    "no_valid_distinct_candidate": 55
+  },
+  "rejection_categories": {
+    "json_syntax": 13,
+    "candidate_rejection": 55
+  },
+  "request_hash_mismatches": 0,
+  "replay_mismatches": [],
+  "preserved_files": 1916,
+  "input_inventory_sha256": "c9a557b6cfe47e2b2665b3304f27a38e02b7b7f0b042541c8307dcd198014928",
+  "inputs_unchanged": true,
+  "interpretation": "Replay verifies historical rejection and preservation; it does not predict a new prompt's generation success."
+}

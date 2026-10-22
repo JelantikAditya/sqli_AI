@@ -26,6 +26,9 @@
   tetapi FPR keseluruhan belum eligible karena hanya satu replikasi dan B/S11
   tidak lengkap. Angka pilot tidak digabung dengan Qwen atau eksperimen formal
   lokal.
+- Audit offline terhadap enam unit parsial selesai. Profil generasi v2 dan
+  qualification cohort terpisah sudah disiapkan, tetapi belum dikirim ke API
+  atau DVWA. Gate formal masih menunggu hasil qualification.
 
 Rujukan: [hasil Poolside P2 dan preflight](hasil-preflight-poolside-2026-10-22.md),
 [hasil P3](poolside-p3-run-2026-10-22.md),
@@ -67,14 +70,17 @@ blind, hasil agregasi terperinci, serta key API tetap lokal dan diabaikan Git.
 
 ### 3. Tuntaskan risiko kelengkapan generasi
 
-- [ ] Audit enam unit parsial dan klasifikasikan penyebab per slot. Semua
+- [x] Audit enam unit parsial dan klasifikasikan penyebab per slot. Semua
   request provider berhasil, sehingga temuan utama pilot adalah kelengkapan
-  format dan keragaman kandidat, bukan kegagalan transport API.
-- [ ] Perbaiki atau tetapkan kebijakan generasi secara offline. Jika profil
-  diubah, beri versi dan hash baru; jangan mengubahnya setelah P4 dimulai.
-- [ ] Bila perubahan generasi dianggap perlu, jalankan satu qualification
-  pilot terpisah dengan ID, budget, serta kriteria lulus yang dibekukan.
-  Pastikan kasus representatif mencakup tiga teknik dan variasi level DVWA.
+  format dan keragaman kandidat, bukan kegagalan transport API. Lihat
+  [audit generasi](poolside-p3-generation-audit-2026-10-22.md).
+- [x] Perbaikan offline diberi prompt version dan retry policy baru. Parser,
+  kebijakan kandidat, jumlah retry, serta batas payload tetap dipertahankan.
+- [x] Plan qualification terpisah mencakup semua level DVWA dan tiga teknik,
+  dengan 24 unit A/B serta kriteria kelulusan 10 kandidat per unit. Dry-run
+  memvalidasi hash dan estimasi budget.
+- [ ] Jalankan qualification cohort terpisah dan evaluasi gate kelengkapan.
+  Hasilnya harus tetap terpisah dari pilot r1 dan dataset formal.
 - [ ] Luluskan gate sebelum formal: semua unit qualification mencapai kuota
   kandidat valid atau aturan eksklusi/kelengkapan yang telah dipreregistrasi
   menunjukkan bahwa data formal tetap dapat dianalisis.

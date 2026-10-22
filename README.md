@@ -22,12 +22,15 @@ Satu pilot ini belum memenuhi replikasi formal. PSR B belum eligible karena
 S2 dan S4 tidak lengkap; PSR C r1 secara deskriptif 66/90 atau 73,33%.
 FPR keseluruhan belum eligible karena hanya ada satu replikasi dan kondisi B
 kehilangan keputusan S11. Hasil pilot tidak digabung dengan Qwen atau formal
-lokal. Status rinci serta gate dan checklist menuju P4 ada di
+lokal. Audit offline enam unit parsial selesai dan profil generasi v2 telah
+disiapkan dalam cohort qualification terpisah. Qualification belum dijalankan,
+jadi kelengkapan profil baru belum terbukti. Status rinci serta gate dan checklist menuju P4 ada di
 [status dan checklist kesiapan uji formal Laguna](docs/laguna-formal-test-checklist-2026-10-22.md).
 
 Catatan teknis pendukung: [hasil P2 dan preflight Poolside](docs/hasil-preflight-poolside-2026-10-22.md),
 [hasil cohort P3](docs/poolside-p3-run-2026-10-22.md),
 [validasi manual buta](docs/poolside-p3-blind-review-2026-10-22.md), dan
+[audit generasi P3](docs/poolside-p3-generation-audit-2026-10-22.md), serta
 [riwayat pengujian 22 Oktober](docs/progress-2026-10-22.md).
 
 ## Riwayat eksperimen Qwen API
