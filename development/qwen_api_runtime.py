@@ -10,6 +10,7 @@ import re
 from uuid import uuid4
 
 from qwen_api_client import ChatSettings, QwenAPIClient, request_payload
+from qwen_api_p2_analysis import default_settings as p2_analysis_settings
 
 
 class APIRuntimeFailure(RuntimeError):
@@ -49,14 +50,21 @@ class CheckpointedQwenAPI:
         self.api_key = api_key.strip()
         self.experiment_directory = experiment_directory.resolve()
         self.max_total_calls = config["limits"]["max_total_api_calls"]
+        # P3 analysis must send the same envelope and options evaluated in P2.
+        analysis_settings = ChatSettings(
+            model=config["model"], endpoint=config["endpoint"], temperature=config["temperature"],
+            max_tokens=config["token_limits"]["analysis"], timeout_seconds=config["timeout_seconds"])
+        if analysis_settings != p2_analysis_settings():
+            raise ValueError("Pilot analysis settings differ from the frozen P2 profile.")
         self.settings = {
             stage: ChatSettings(
                 model=config["model"], endpoint=config["endpoint"], temperature=config["temperature"],
                 max_tokens=config["token_limits"][stage], timeout_seconds=config["timeout_seconds"],
                 chat_template_kwargs={"enable_thinking": False},
             )
-            for stage in ("generation", "analysis")
+            for stage in ("generation",)
         }
+        self.settings["analysis"] = analysis_settings
         self.client = {stage: QwenAPIClient(self.api_key, settings=settings)
                        for stage, settings in self.settings.items()}
         self.used_calls = self.count_started_calls(self.experiment_directory)

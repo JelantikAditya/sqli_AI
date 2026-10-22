@@ -1,0 +1,102 @@
+{
+  "schema": "p3-recovery-plan-draft-v1",
+  "prepared_at_utc": "2026-10-22T05:29:40+00:00",
+  "researcher_decision": "iya lanjutkan",
+  "decision_scope": "Prepare a fresh bounded plan with a distinct experiment ID. This receipt does not authorize starting live execution.",
+  "experiment_id": "qwen38-api-r2-20261022",
+  "protocol_id": "qwen38-api-sqli-v3-pilot",
+  "cohort_scope": {
+    "applicable_runs": 33,
+    "design_excluded_C_Impossible_slots": 3,
+    "conditions": [
+      "A",
+      "B",
+      "C"
+    ],
+    "scenarios": [
+      "S1",
+      "S2",
+      "S3",
+      "S4",
+      "S5",
+      "S6",
+      "S7",
+      "S8",
+      "S9",
+      "S10",
+      "S11",
+      "S12"
+    ],
+    "replicates": [
+      1
+    ],
+    "full_fresh_cohort": true,
+    "merge_previous_experiment_results": false
+  },
+  "budget": {
+    "max_api_calls": 960,
+    "max_wall_seconds": 21600,
+    "automatic_transport_retries": 0,
+    "automatic_replacement_attempts": 0,
+    "status": "draft-awaiting-execution-decision"
+  },
+  "dry_run_completed": true,
+  "execution_started": false,
+  "new_api_calls": 0,
+  "new_dvwa_requests": 0,
+  "bound_artifact_sha256": {
+    "development/qwen_api_p3_v3_recovery_002_plan.template.json": "1e09747de4d728a86943ac90c10527b9c0b5418ec3cff209aa676960bc29e502",
+    "development/qwen_api_p3_v3_recovery_002_budget_20261022.json": "7b3ddfebe9cf33e851ec7c7ba6cdc03af4e07580e97c99dd5db5f1e871835824",
+    "development/run_bounded_qwen_p3_pilot.py": "33658a548eb67626a050521f1f2b1e852f4f13cea65bdb73e3e0bb502c9acfcb",
+    "docs/evidence/p3-v3-execution-audit-r2-2026-10-22.json": "30d2588db76e8009473d409152ab77e26ec2c7b6f67b386b1bfe25c4c2d3fd44",
+    "docs/evidence/qwen-api-access-check-post-v3-2026-10-22.json": "0373f44ef0bc116f090b9ec7a894bb232209400b54ce7a4acc8c8ceb18c18354",
+    "docs/evidence/p3-v3-execution-approval-2026-10-22.json": "0211ebb1d9320ae24b5071f8e940d579b2d5e749646f3c0acda8ff3373f1b3d8"
+  },
+  "runtime_source_sha256": {
+    "development/run_qwen_api_experiments.py": "7ebb901f915c0488edfe69341253f924e4bcfee6332772c0fc19f4d2f576a4cb",
+    "development/qwen_api_runtime.py": "64e5963fafd1447b90bc35cfbb468d8bbd7ad0ea04e144ec05bffd70eb4505de",
+    "development/qwen_api_runtime_config.json": "5a098538060d5f9bb6522e23dd0add037295a9e0eaed34e0a978880317068016",
+    "development/qwen_api_client.py": "8f5b34403ff486d33d34f9e351542f34ef57d3a3769a791b8d443526e4d29454",
+    "development/qwen_api_credentials.py": "ae13e9fe6875a2d16b04d075e87c00cae17495a470f07f5aab92ffab39078907",
+    "development/qwen_api_generation.py": "b0fbe2d6da56dc258aa484c9f225eb158b37319af4b82be956740f9a70c225f3",
+    "development/qwen_api_analysis.py": "38ec2abe95f201058379c71ba6ac052eea20e30ef87fc7f9c6b181c192283640",
+    "development/qwen_api_p2_analysis.py": "0bca9b16aef1894f467ccd13faf64b9f63fbf675884f7c078cd6924851c4e9be",
+    "development/analysis_v5_pilot_cases.py": "be34647f7f9e17f24a7bf0e1586932b10695eb44b886d26a439da3138736119a",
+    "development/analyze_response_v1.py": "269578d51ac20907f6baef62231791bf341b0d0b11112fd9a876e3cf832e7987",
+    "development/analyze_response_v2.py": "1662c057893e8c457186730009efcb8dd99dd4c8723c9dbb60ef0dcff6dbaf4f",
+    "dvwa/adaptive_s1_loop.py": "42610de34327c4801192f402357a740a8e9674ae9bc3d33aedb4e47b69433c0a",
+    "dvwa/adaptive_candidate_policy.py": "afbd25d6ecb96b14c0c02b3317adbc54a59e8e68e7622a9a7bf7139921cd33a2",
+    "dvwa/analyze_response.py": "ffba71043245baf3db73a09d9236bf4e2f3edb7e38737a250ec799e9c720a500",
+    "dvwa/confirmation_policy.py": "76d3f891585170f53b784523faade226a5ac4529b77de1c0937d170d1ea37cbd",
+    "dvwa/experiment_protocol.py": "d6ef3b99276da687caffe4860bbaa72fa36e40c0723cb2a66083865c696403ca",
+    "dvwa/generate_candidate_batch.py": "b5532c8f41c46208ab7143579822c2f8b30aba0780e4ae41e205356917f1ee8e",
+    "dvwa/rag_pipeline.py": "750cbbeb9cf0240221b83121113adfcb91a1eeb970c2f0ced1b90005d20df6ef",
+    "dvwa/retrieve_structured_knowledge.py": "a04feb51c323ef5187f1dcb61d21fd34a24c010f3870cfcdfb8b4b0e569ed35f",
+    "dvwa/run_local_experiments.py": "e713851af20a9315338a929531a92f00908140b18f4141df14b5dd6b85055a1f",
+    "dvwa/validation_loop.py": "bada3ea7029f83d3df39c7dd86c7acff6bea89e5e5e6a2187b18ffab0d814234",
+    "dvwa/prepare_candidate_batch.py": "c8981ec339f6d2fae0f217946b402d6432beed027405069da01867f653086f18",
+    "dvwa/execution_order_policy.py": "d66146da5d1984dd67f427179348ba247162d52ba129b601e280e5f789784325",
+    "dvwa/run_decision_policy.py": "8ece03a16a8ef8a01c115d6c65fabeb00cb690dd78c00988487c638cf2e0e9e7",
+    "schemas/analysis-ledger.schema.json": "95ef72fab2e72017856eec4a8c3a4d0679e14ddf1b7a46a5a29abb860eaf65ff",
+    "schemas/candidate-evidence.schema.json": "79907344498893da0ad21177a82a62247ff746d78d6e79ef272952c96a182b0f",
+    "schemas/candidate-batch.schema.json": "ed38c6d52f1c73ac6425cbb414dec022272019aa2816dd48c26d8adeeb030ad1",
+    "schemas/local-run-plan.schema.json": "0dbf1f3fbfd146f5578bfb3cd06f32ee445a6fa70fdc44770e59ce2a9231af14",
+    "schemas/experiment-ledger-event.schema.json": "040b618354e3e42fa5acbe29ee0a01306a46ba9d9e7f9e2dbabe0c5fca1e9c1b",
+    "schemas/qwen-analysis-input.schema.json": "a71552ff3081bff2b37db0dd55166474a179793fceeb13a176f3b22ba80249c6",
+    "schemas/qwen-analysis-output.schema.json": "f73ce369bad22c513b0f70b4dcd8e630af6daffc7295e7b67c75b162045c3e10",
+    "schemas/validation-payloads.schema.json": "afc6badd8e8f81fe2ef6eea47c422d6c97f1f484cdc893fd3c2a70ecd2448dfb"
+  },
+  "prior_partial_pilot_preserved": true,
+  "dry_run_result": {
+    "experiment_id": "qwen38-api-r2-20261022",
+    "protocol_id": "qwen38-api-sqli-v3-pilot",
+    "worst_case_api_calls": 960,
+    "api_call_ceiling": 960,
+    "max_wall_seconds": 21600,
+    "planned_slots": 36,
+    "execution_started": false,
+    "new_api_calls": 0,
+    "new_dvwa_requests": 0
+  },
+  "dry_run_at_utc": "2026-10-22T05:30:09+00:00"
+}

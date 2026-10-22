@@ -1,0 +1,177 @@
+{
+  "schema": "qwen-p3-execution-audit-v1",
+  "status": "halted-invalid-on-first-applicable-unit",
+  "experiment_id": "qwen38-api-r4-20261022",
+  "protocol_id": "qwen38-api-sqli-v5-pilot",
+  "retry_policy_id": "same-slot-duplicate-exclusion-v1",
+  "plan_sha256": "744e9bd713fb90689016f3b9bfe7181326bbecefb9f70d13c85b47a4674302c1",
+  "budget_sha256": "f8f4c4cf70c3484da9b01637cdfeb9601bafe83fe1a871ddfb287ee9386a2487",
+  "execution_approval_path": "docs/evidence/p3-v5-execution-approval-2026-10-22.json",
+  "execution_approval_sha256": "a3990b561f10bde9b3a195f3e609256c5cc6f98a29706982b66bd798ab5d5352",
+  "started_at_utc": "2026-10-22T08:14:44.923009+00:00",
+  "attempt_started_at_utc": "2026-10-22T08:14:45.272785+00:00",
+  "halted_at_utc": "2026-10-22T08:16:06.934983+00:00",
+  "failed_unit": "qwen38-api-r4-20261022-a-s1-r1",
+  "failed_stage": "analysis",
+  "failure_code": "api_http_error",
+  "api_call_ceiling": 960,
+  "api_calls_used": 6,
+  "api_status_counts": {
+    "200": 5,
+    "500": 1
+  },
+  "api_stage_counts": {
+    "generation": {
+      "calls": 3,
+      "http_statuses": {
+        "200": 3
+      }
+    },
+    "analysis": {
+      "calls": 3,
+      "http_statuses": {
+        "200": 2,
+        "500": 1
+      }
+    }
+  },
+  "api_calls": [
+    {
+      "call_id": "00001-generation-fa2f1b7e",
+      "stage": "generation",
+      "http_status": 200,
+      "requested_model": "Qwen3.8-27B",
+      "reported_model": "self-dploy/Qwen3.8-27B",
+      "response_id": "88cb1f6e33e6423ba13975928ec20d4c",
+      "request_sha256": "0c8a855b7855b996712a41064531b9f20e8e1d68727922b4c38f916aed87c4af",
+      "elapsed_seconds": 3.89,
+      "finish_reason": "stop"
+    },
+    {
+      "call_id": "00002-analysis-d85f9057",
+      "stage": "analysis",
+      "http_status": 200,
+      "requested_model": "Qwen3.8-27B",
+      "reported_model": "self-dploy/Qwen3.8-27B",
+      "response_id": "309f1df627614d1fb00b80b60377c0a3",
+      "request_sha256": "d536fa43ff5b44f386757a0ece10bbd94b72092df8bd398c244e5816870687dd",
+      "elapsed_seconds": 36.822,
+      "finish_reason": "stop"
+    },
+    {
+      "call_id": "00003-generation-25a0c7dd",
+      "stage": "generation",
+      "http_status": 200,
+      "requested_model": "Qwen3.8-27B",
+      "reported_model": "self-dploy/Qwen3.8-27B",
+      "response_id": "a50c2ab4973a4af7b42cb3a7bd98c047",
+      "request_sha256": "2a4445171a3d031f8edd253435713c84ec97c68662fd18819c70d54803462b4a",
+      "elapsed_seconds": 6.312,
+      "finish_reason": "stop"
+    },
+    {
+      "call_id": "00004-analysis-54086a33",
+      "stage": "analysis",
+      "http_status": 200,
+      "requested_model": "Qwen3.8-27B",
+      "reported_model": "self-dploy/Qwen3.8-27B",
+      "response_id": "c62768cbd04848278e655e2c8dbfa727",
+      "request_sha256": "5a84354426854509e926fbdbe6d0281a432f0b89673013a4c6af8866b52fddce",
+      "elapsed_seconds": 26.757,
+      "finish_reason": "stop"
+    },
+    {
+      "call_id": "00005-generation-f83d6ab9",
+      "stage": "generation",
+      "http_status": 200,
+      "requested_model": "Qwen3.8-27B",
+      "reported_model": "self-dploy/Qwen3.8-27B",
+      "response_id": "8b2f30f8e37d45c5808d5eec26e8067a",
+      "request_sha256": "7b07a0bb88208c34f3381b0cdac9a17892aa3344175b12e67f05c627fae30ee3",
+      "elapsed_seconds": 4.361,
+      "finish_reason": "stop"
+    },
+    {
+      "call_id": "00006-analysis-a21cad5c",
+      "stage": "analysis",
+      "http_status": 500,
+      "requested_model": "Qwen3.8-27B",
+      "reported_model": null,
+      "response_id": null,
+      "request_sha256": "5a84354426854509e926fbdbe6d0281a432f0b89673013a4c6af8866b52fddce",
+      "elapsed_seconds": 2.624,
+      "finish_reason": null
+    }
+  ],
+  "provider_error": {
+    "http_status": 500,
+    "code": "get_channel_failed",
+    "type": "new_api_error",
+    "message": "分组 auto 下模型 Qwen3.8-27B 的可用渠道不存在（retry） (request id: 202610220816063529369008268d9d6wBWJC3AH)",
+    "request_id": "202610220816063529369008268d9d6wBWJC3AH",
+    "elapsed_seconds": 2.624,
+    "request_sha256": "5a84354426854509e926fbdbe6d0281a432f0b89673013a4c6af8866b52fddce"
+  },
+  "provider_error_assessment": "Gateway routing/channel availability failure for the auto group and requested Qwen3.8-27B model alias. This matches the prior r3 get_channel_failed class. It is not a transport timeout; the single failed response cannot establish the provider-wide cause or duration.",
+  "runner_retry_policy": {
+    "automatic_transport_retries": 0,
+    "automatic_replacement_attempts": 0,
+    "retried_attempts": 0
+  },
+  "dvwa": {
+    "http_request_calls": 54,
+    "database_reset_performed": true,
+    "attack_failure": false,
+    "valid_candidates_executed": 0,
+    "logical_probe_submissions": null
+  },
+  "final_slot_status_counts": {
+    "planned": 32,
+    "running": 0,
+    "retried": 0,
+    "completed": 0,
+    "invalid": 1,
+    "excluded": 3
+  },
+  "completed_slots": 0,
+  "formal_metrics_eligible": false,
+  "duplicate_retry_policy_exercised_in_live_run": false,
+  "result_directory": "results/raw/pilot/qwen38-api-r4-20261022",
+  "ledger_path": "results/raw/pilot/qwen38-api-r4-20261022/ledger.jsonl",
+  "checkpoint_path": "results/raw/pilot/qwen38-api-r4-20261022/checkpoint.json",
+  "execution_result_path": "results/raw/pilot/qwen38-api-r4-20261022/bounded-execution-result.json",
+  "audit_recorded_at_utc": "2026-10-22T08:17:59+00:00",
+  "post_halt_route_check": {
+    "receipt_path": "docs/evidence/qwen-api-post-r4-route-check-2026-10-22.json",
+    "receipt_sha256": "fa7a3be2a0ed70c923af28e00df9080ccb3270e48d7ee45930ec4331cd77b5c8",
+    "api_calls": 1,
+    "http_status": 200,
+    "api_client_status": "truncated",
+    "requested_model": "Qwen3.8-27B",
+    "reported_model": "self-dploy/Qwen3.8-27B",
+    "finish_reason": "length",
+    "max_tokens": 16,
+    "completion_tokens": 16,
+    "reasoning_tokens": 16,
+    "elapsed_seconds": 6.153,
+    "provider_request_id": "rpialMTj641D09bnFomNHT7clzg3qJs0mqVcK8RJ",
+    "interpretation": "The gateway returned HTTP 200 and reported self-dploy/Qwen3.8-27B, showing that the route responded at this check time. The 16-token diagnostic limit was consumed entirely by reasoning, so finish_reason was length and no response content was available. This does not establish successful completion of the full analysis request or sustained channel availability."
+  },
+  "separate_api_calls_after_cohort_halt": 2,
+  "post_halt_route_check_v2": {
+    "receipt_path": "docs/evidence/qwen-api-post-r4-route-check-v2-2026-10-22.json",
+    "receipt_sha256": "d44dedb8b0422b70beba3ec4d6db4369d24bf062abd8bdf62dd08b96ab98c3e9",
+    "api_calls": 1,
+    "http_status": 200,
+    "api_client_status": "ok",
+    "requested_model": "Qwen3.8-27B",
+    "reported_model": "self-dploy/Qwen3.8-27B",
+    "finish_reason": "stop",
+    "max_tokens": 128,
+    "elapsed_seconds": 1.835,
+    "response_matches_expected": true,
+    "response_preview": "API_OK",
+    "interpretation": "A one-call preflight using the previously validated 128-token non-thinking prompt returned HTTP 200 and API_OK at this check time. This confirms short-request routing then, not sustained availability for full analysis calls."
+  },
+  "total_api_calls_including_post_halt_checks": 8
+}

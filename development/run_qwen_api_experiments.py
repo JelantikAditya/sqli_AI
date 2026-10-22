@@ -24,8 +24,7 @@ sys.path.insert(0, str(DEVELOPMENT))
 import adaptive_candidate_policy
 import adaptive_s1_loop
 import analyze_response
-import analyze_response_v2
-import qwen_api_analysis
+import qwen_api_p2_analysis
 import qwen_api_generation
 from qwen_api_client import ChatSettings, MODEL
 from qwen_api_credentials import get_api_key
@@ -40,8 +39,8 @@ from validation_loop import (LocalRuntimeFailure, blind_response_signature,
 CONFIG_PATH = DEVELOPMENT / "qwen_api_runtime_config.json"
 PLAN_SCHEMA_PATH = ROOT / "schemas" / "local-run-plan.schema.json"
 PROMPT_VERSION = "qwen38-api-blackbox-generation-v1"
-ANALYSIS_PROMPT_VERSION = "qwen38-api-blackbox-analysis-v1"
-API_PROTOCOL_ID = "qwen38-api-sqli-v1-pilot"
+ANALYSIS_PROMPT_VERSION = qwen_api_p2_analysis.PROMPT_VERSION
+API_PROTOCOL_ID = "qwen38-api-sqli-v3-pilot"
 POLICY_DENY = re.compile(
     r"\b(?:union|select|from|information_schema|database|schema|version|user|"
     r"table_name|column_name|group_concat|load_file|benchmark|waitfor|pg_sleep|"
@@ -84,6 +83,11 @@ def load_config(path: Path = CONFIG_PATH) -> tuple[dict, str]:
     if config["prompt_versions"] != {"generation": PROMPT_VERSION,
                                      "analysis": ANALYSIS_PROMPT_VERSION}:
         raise ValueError("Prompt version mismatch. Update the protocol and runtime snapshot together.")
+    analysis_settings = ChatSettings(
+        model=config["model"], endpoint=config["endpoint"], temperature=config["temperature"],
+        max_tokens=tokens["analysis"], timeout_seconds=config["timeout_seconds"])
+    if analysis_settings != qwen_api_p2_analysis.default_settings():
+        raise ValueError("Pilot analysis must use the frozen P2 settings.")
     return config, sha256_bytes(raw)
 
 
@@ -121,6 +125,7 @@ def runtime_source_hashes(root: Path = ROOT) -> dict[str, str]:
         "development/qwen_api_credentials.py",
         "development/qwen_api_generation.py",
         "development/qwen_api_analysis.py",
+        "development/qwen_api_p2_analysis.py",
         "development/analysis_v5_pilot_cases.py",
         "development/analyze_response_v1.py",
         "development/analyze_response_v2.py",
@@ -351,7 +356,7 @@ def make_generation_callback(api: CheckpointedQwenAPI, attempt_directory: Path,
             feedback_projection(previous), retry_index, rejection_code)
         api_result, checkpoint = api.chat("generation", messages, attempt_directory)
         parsed = qwen_api_generation.parse(prepared, attempted, scenario["probe_kind"], api_result)
-        audit = {**parsed["audit"], "prompt_version": PROMPT_VERSION,
+        audit = {**parsed["audit"], "status": parsed["status"], "prompt_version": PROMPT_VERSION,
                  "checkpoint": checkpoint, "variation_family": prepared["family"]}
         candidate = parsed["candidate"]
         if candidate is not None:
@@ -373,16 +378,29 @@ def make_generation_callback(api: CheckpointedQwenAPI, attempt_directory: Path,
 def make_analysis_callback(api: CheckpointedQwenAPI, attempt_directory: Path,
                            context: dict):
     def analyze(document: dict, candidate_context: dict) -> dict:
-        messages = analyze_response_v2.build_messages(document)
-        schema = analyze_response_v2.output_schema(document)
-        messages[0]["content"] += (
-            "\nReturn one JSON object only that matches this schema exactly: "
-            + json.dumps(schema, ensure_ascii=False, separators=(",", ":"))
-        )
+        # Reject invalid evidence/coordinates locally before spending an API call.
+        analyze_response.validate_input(document)
+        analyze_response.validate_case(document, candidate_context)
+        if document["runtime_status"] != "valid" or not document["baseline_valid"]:
+            return analyze_response.normalize_analysis(document, None, candidate_context, {
+                "prompt_version": ANALYSIS_PROMPT_VERSION,
+                "analysis_gate_version": "p3-structural-gates-v2",
+                "analysis_skipped": "runtime_or_baseline_invalid",
+                "api_call_performed": False,
+            })
+
+        # Reuse the exact message/schema renderer evaluated in P2, without RAG.
+        prepared = qwen_api_p2_analysis.prepare(document)
+        messages = prepared["payload"]["messages"]
         api_result, checkpoint = api.chat("analysis", messages, attempt_directory)
-        parsed = qwen_api_analysis.parse(document, schema, api_result)
+        parsed = qwen_api_p2_analysis.parse(document, prepared, api_result)
+        if checkpoint["request_sha256"] != prepared["request_sha256"]:
+            raise APIRuntimeFailure("api_analysis_profile_mismatch", checkpoint)
         provenance = {
             "prompt_version": ANALYSIS_PROMPT_VERSION,
+            "analysis_gate_version": "p3-structural-gates-v2",
+            "analysis_document_sha256": prepared["document_sha256"],
+            "analysis_schema_sha256": prepared["schema_sha256"],
             "api_model": api_result.get("reported_model"),
             "api_request_sha256": checkpoint["request_sha256"],
             "api_response_id": api_result.get("response_id"),
@@ -392,8 +410,13 @@ def make_analysis_callback(api: CheckpointedQwenAPI, attempt_directory: Path,
             "model_confirmation_summary": (parsed.get("model_output") or {}).get("confirmation_summary"),
             "model_summary_warnings": parsed.get("warnings", []),
             "analysis_parser_error": parsed.get("error"),
+            "analysis_parser_status": parsed["status"],
         }
-        output = parsed.get("model_output")
+        # A rejected raw claim stays in the audit, never in the valid-claim field.
+        output = parsed.get("model_output") if parsed["status"] == "ok" else None
+        if parsed["status"] != "ok":
+            provenance["rejected_model_output"] = parsed.get("model_output")
+            provenance["rejected_raw_response"] = api_result.get("content")
         if output is not None:
             output = {key: value for key, value in output.items() if key != "confirmation_summary"}
         return analyze_response.normalize_analysis(document, output, candidate_context, provenance)
@@ -520,7 +543,7 @@ def execute_api_unit(unit: dict, attempt: dict, plan: dict, protocol: dict,
         "retrieval": retrieval,
         "api_calls_used": api.used_calls,
         "api_max_total_calls": api.max_total_calls,
-        "orchestration": {"adapter": "checkpointed-qwen-api-v1",
+        "orchestration": {"adapter": "checkpointed-qwen-api-v3-generation-status",
                           "generation_prompt_version": PROMPT_VERSION,
                           "analysis_prompt_version": ANALYSIS_PROMPT_VERSION},
     }

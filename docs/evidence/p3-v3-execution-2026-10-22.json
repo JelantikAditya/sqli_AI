@@ -1,0 +1,2326 @@
+{
+  "schema": "p3-v3-execution-audit-v1",
+  "audited_at_utc": "2026-10-22T05:07:26+00:00",
+  "experiment_id": "qwen38-api-p3-v3-pilot-20261022",
+  "execution_result": {
+    "experiment_id": "qwen38-api-p3-v3-pilot-20261022",
+    "run_count": 36,
+    "status_counts": {
+      "planned": 28,
+      "running": 0,
+      "retried": 0,
+      "completed": 3,
+      "invalid": 1,
+      "excluded": 4
+    },
+    "ledger_path": "C:\\Users\\ASUS TUF\\.codex\\.chatgpt-projects\\g-p-6ab75383a4588191b804a0f2a132b014\\results\\raw\\pilot\\qwen38-api-p3-v3-pilot-20261022\\ledger.jsonl",
+    "checkpoint_path": "C:\\Users\\ASUS TUF\\.codex\\.chatgpt-projects\\g-p-6ab75383a4588191b804a0f2a132b014\\results\\raw\\pilot\\qwen38-api-p3-v3-pilot-20261022\\checkpoint.json",
+    "recovered_interrupted_attempts": 0,
+    "protocol_id": "qwen38-api-sqli-v3-pilot",
+    "api_calls_used": 45,
+    "api_call_ceiling": 960,
+    "execution_started": true,
+    "max_wall_seconds": 21600
+  },
+  "execution_started_at_utc": "2026-10-22T04:45:29.871724+00:00",
+  "execution_stopped_at_utc": "2026-10-22T05:00:45.055347+00:00",
+  "elapsed_seconds": 915.183623,
+  "API_requests": 45,
+  "API_stage_counts": {
+    "generation": 24,
+    "analysis": 21
+  },
+  "API_status_counts": {
+    "ok": 44,
+    "transport-error": 1
+  },
+  "HTTP_status_counts": {
+    "200": 44,
+    "None": 1
+  },
+  "returned_total_tokens": 63121,
+  "requests_with_reported_tokens": 44,
+  "requests_without_reported_tokens": 1,
+  "HTTP_request_calls": 732,
+  "HTTP_count_missing_units": [],
+  "logical_probe_submissions_known": 258,
+  "logical_probe_count_missing_units": [
+    "qwen38-api-p3-v3-pilot-20261022-b-s2-r1"
+  ],
+  "database_resets_recorded": 5,
+  "design_exclusions": 3,
+  "operational_exclusions": 1,
+  "units": [
+    {
+      "unit_id": "qwen38-api-p3-v3-pilot-20261022-a-s1-r1",
+      "event_type": "attempt_completed",
+      "failure_code": null,
+      "failure_details": null,
+      "metric_eligible": false,
+      "exclusion_reason": "incomplete_candidate_budget",
+      "generated_candidate_count": 8,
+      "candidate_generation_failed_count": 2,
+      "valid_candidates_executed": 8,
+      "http_request_calls": 129,
+      "logical_probe_submissions": 48,
+      "database_reset_performed": true,
+      "api_request_count": 19,
+      "API_requests_from_checkpoints": 19,
+      "API_stage_counts": {
+        "generation": 11,
+        "analysis": 8
+      },
+      "adaptive_stop_reason": "generation_exhausted",
+      "candidate_analysis_statuses": {
+        "completed": 8
+      },
+      "generation_event_statuses": {
+        "generated": 8,
+        "no_valid_distinct_candidate": 3
+      }
+    },
+    {
+      "unit_id": "qwen38-api-p3-v3-pilot-20261022-b-s1-r1",
+      "event_type": "attempt_completed",
+      "failure_code": null,
+      "failure_details": null,
+      "metric_eligible": true,
+      "exclusion_reason": null,
+      "generated_candidate_count": 10,
+      "candidate_generation_failed_count": 0,
+      "valid_candidates_executed": 10,
+      "http_request_calls": 159,
+      "logical_probe_submissions": 60,
+      "database_reset_performed": true,
+      "api_request_count": 20,
+      "API_requests_from_checkpoints": 20,
+      "API_stage_counts": {
+        "generation": 10,
+        "analysis": 10
+      },
+      "adaptive_stop_reason": "budget_exhausted",
+      "candidate_analysis_statuses": {
+        "completed": 10
+      },
+      "generation_event_statuses": {
+        "generated": 10
+      }
+    },
+    {
+      "unit_id": "qwen38-api-p3-v3-pilot-20261022-c-s1-r1",
+      "event_type": "attempt_completed",
+      "failure_code": null,
+      "failure_details": null,
+      "metric_eligible": true,
+      "exclusion_reason": null,
+      "generated_candidate_count": 10,
+      "candidate_generation_failed_count": 0,
+      "valid_candidates_executed": 10,
+      "http_request_calls": 156,
+      "logical_probe_submissions": 60,
+      "database_reset_performed": true,
+      "api_request_count": null,
+      "API_requests_from_checkpoints": 0,
+      "API_stage_counts": {}
+    },
+    {
+      "unit_id": "qwen38-api-p3-v3-pilot-20261022-c-s2-r1",
+      "event_type": "attempt_completed",
+      "failure_code": null,
+      "failure_details": null,
+      "metric_eligible": true,
+      "exclusion_reason": null,
+      "generated_candidate_count": 10,
+      "candidate_generation_failed_count": 0,
+      "valid_candidates_executed": 10,
+      "http_request_calls": 216,
+      "logical_probe_submissions": 90,
+      "database_reset_performed": true,
+      "api_request_count": null,
+      "API_requests_from_checkpoints": 0,
+      "API_stage_counts": {}
+    },
+    {
+      "unit_id": "qwen38-api-p3-v3-pilot-20261022-b-s2-r1",
+      "event_type": "attempt_invalid",
+      "failure_code": "api_transport_error",
+      "failure_details": {
+        "call_id": "00045-analysis-4080eac3",
+        "request_sha256": "5657ad590916ea5bb2a98781388779998fa3d757952095492a0f0ab86d4c3e3f",
+        "checkpoint_directory": "attempts/qwen38-api-p3-v3-pilot-20261022-b-s2-r1/attempt-1-64bf650c63/api-calls/00045-analysis-4080eac3",
+        "api_status": "transport-error",
+        "http_status": null,
+        "halt": false,
+        "http_request_calls": 72,
+        "api_request_count": 6,
+        "database_reset_performed": true,
+        "attack_failure": false
+      },
+      "metric_eligible": null,
+      "exclusion_reason": null,
+      "generated_candidate_count": 0,
+      "candidate_generation_failed_count": 10,
+      "valid_candidates_executed": 0,
+      "http_request_calls": 72,
+      "logical_probe_submissions": null,
+      "database_reset_performed": true,
+      "api_request_count": null,
+      "API_requests_from_checkpoints": 6,
+      "API_stage_counts": {
+        "generation": 3,
+        "analysis": 3
+      }
+    }
+  ],
+  "calls": [
+    {
+      "call_id": "00001-generation-6034fb20",
+      "stage": "generation",
+      "unit_id": "qwen38-api-p3-v3-pilot-20261022-a-s1-r1",
+      "status": "ok",
+      "http_status": 200,
+      "reported_model": "self-dploy/Qwen3.8-27B",
+      "elapsed_seconds": 8.543,
+      "usage": {
+        "prompt_tokens": 375,
+        "total_tokens": 402,
+        "completion_tokens": 27,
+        "prompt_tokens_details": {
+          "cached_tokens": 192,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0,
+          "image_tokens": 0
+        },
+        "reasoning_tokens": 0,
+        "cost": 8.4294e-06,
+        "cost_details": {
+          "upstream_inference_cost": 8.4294e-06,
+          "upstream_inference_prompt_cost": 6.5394e-06,
+          "upstream_inference_completions_cost": 1.89e-06,
+          "total_cost": 8.4294e-06,
+          "input_cost": 6.405e-06,
+          "output_cost": 1.89e-06,
+          "cached_input_cost": 1.344e-07,
+          "cache_write_input_cost": 0,
+          "request_cost": 0,
+          "web_search_cost": 0,
+          "image_input_cost": null,
+          "image_output_cost": null,
+          "audio_input_cost": null,
+          "data_storage_cost": 4.0200000000000005e-06
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      }
+    },
+    {
+      "call_id": "00002-analysis-45e58727",
+      "stage": "analysis",
+      "unit_id": "qwen38-api-p3-v3-pilot-20261022-a-s1-r1",
+      "status": "ok",
+      "http_status": 200,
+      "reported_model": "self-dploy/Qwen3.8-27B",
+      "elapsed_seconds": 28.239,
+      "usage": {
+        "prompt_tokens": 1149,
+        "total_tokens": 1772,
+        "completion_tokens": 623,
+        "prompt_tokens_details": {
+          "cached_tokens": 1088,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0,
+          "image_tokens": 0
+        },
+        "reasoning_tokens": 281,
+        "cost": 6.61766e-05,
+        "cost_details": {
+          "upstream_inference_cost": 6.61766e-05,
+          "upstream_inference_prompt_cost": 2.8966e-06,
+          "upstream_inference_completions_cost": 6.328e-05,
+          "total_cost": 6.61766e-05,
+          "input_cost": 2.135e-06,
+          "output_cost": 6.328e-05,
+          "cached_input_cost": 7.616e-07,
+          "cache_write_input_cost": 0,
+          "request_cost": 0,
+          "web_search_cost": 0,
+          "image_input_cost": null,
+          "image_output_cost": null,
+          "audio_input_cost": null,
+          "data_storage_cost": 2.053e-05
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 281,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      }
+    },
+    {
+      "call_id": "00003-generation-8fcf4116",
+      "stage": "generation",
+      "unit_id": "qwen38-api-p3-v3-pilot-20261022-a-s1-r1",
+      "status": "ok",
+      "http_status": 200,
+      "reported_model": "self-dploy/Qwen3.8-27B",
+      "elapsed_seconds": 32.497,
+      "usage": {
+        "prompt_tokens": 601,
+        "total_tokens": 628,
+        "completion_tokens": 27,
+        "prompt_tokens_details": {
+          "cached_tokens": 128,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0,
+          "image_tokens": 0
+        },
+        "reasoning_tokens": 0,
+        "cost": 1.85346e-05,
+        "cost_details": {
+          "upstream_inference_cost": 1.85346e-05,
+          "upstream_inference_prompt_cost": 1.66446e-05,
+          "upstream_inference_completions_cost": 1.89e-06,
+          "total_cost": 1.85346e-05,
+          "input_cost": 1.6555e-05,
+          "output_cost": 1.89e-06,
+          "cached_input_cost": 8.96e-08,
+          "cache_write_input_cost": 0,
+          "request_cost": 0,
+          "web_search_cost": 0,
+          "image_input_cost": null,
+          "image_output_cost": null,
+          "audio_input_cost": null,
+          "data_storage_cost": 6.28e-06
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      }
+    },
+    {
+      "call_id": "00004-analysis-a16b32ac",
+      "stage": "analysis",
+      "unit_id": "qwen38-api-p3-v3-pilot-20261022-a-s1-r1",
+      "status": "ok",
+      "http_status": 200,
+      "reported_model": "self-dploy/Qwen3.8-27B",
+      "elapsed_seconds": 33.399,
+      "usage": {
+        "prompt_tokens": 1137,
+        "total_tokens": 1932,
+        "completion_tokens": 795,
+        "prompt_tokens_details": {
+          "cached_tokens": 1088,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0,
+          "image_tokens": 0
+        },
+        "reasoning_tokens": 442,
+        "cost": 8.90666e-05,
+        "cost_details": {
+          "upstream_inference_cost": 8.906659999999999e-05,
+          "upstream_inference_prompt_cost": 2.4766e-06,
+          "upstream_inference_completions_cost": 8.659e-05,
+          "total_cost": 8.90666e-05,
+          "input_cost": 1.715e-06,
+          "output_cost": 8.659e-05,
+          "cached_input_cost": 7.616e-07,
+          "cache_write_input_cost": 0,
+          "request_cost": 0,
+          "web_search_cost": 0,
+          "image_input_cost": null,
+          "image_output_cost": null,
+          "audio_input_cost": null,
+          "data_storage_cost": 2.374e-05
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 442,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      }
+    },
+    {
+      "call_id": "00005-generation-fe25df4a",
+      "stage": "generation",
+      "unit_id": "qwen38-api-p3-v3-pilot-20261022-a-s1-r1",
+      "status": "ok",
+      "http_status": 200,
+      "reported_model": "self-dploy/Qwen3.8-27B",
+      "elapsed_seconds": 5.935,
+      "usage": {
+        "prompt_tokens": 608,
+        "total_tokens": 636,
+        "completion_tokens": 28,
+        "prompt_tokens_details": {
+          "cached_tokens": 128,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0,
+          "image_tokens": 0
+        },
+        "reasoning_tokens": 0,
+        "cost": 1.88496e-05,
+        "cost_details": {
+          "upstream_inference_cost": 1.8849599999999997e-05,
+          "upstream_inference_prompt_cost": 1.68896e-05,
+          "upstream_inference_completions_cost": 1.96e-06,
+          "total_cost": 1.88496e-05,
+          "input_cost": 1.68e-05,
+          "output_cost": 1.96e-06,
+          "cached_input_cost": 8.96e-08,
+          "cache_write_input_cost": 0,
+          "request_cost": 0,
+          "web_search_cost": 0,
+          "image_input_cost": null,
+          "image_output_cost": null,
+          "audio_input_cost": null,
+          "data_storage_cost": 6.36e-06
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      }
+    },
+    {
+      "call_id": "00006-analysis-9f92ee59",
+      "stage": "analysis",
+      "unit_id": "qwen38-api-p3-v3-pilot-20261022-a-s1-r1",
+      "status": "ok",
+      "http_status": 200,
+      "reported_model": "self-dploy/Qwen3.8-27B",
+      "elapsed_seconds": 34.093,
+      "usage": {
+        "prompt_tokens": 1137,
+        "total_tokens": 1932,
+        "completion_tokens": 795,
+        "prompt_tokens_details": {
+          "cached_tokens": 1088,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0,
+          "image_tokens": 0
+        },
+        "reasoning_tokens": 442,
+        "cost": 8.90666e-05,
+        "cost_details": {
+          "upstream_inference_cost": 8.906659999999999e-05,
+          "upstream_inference_prompt_cost": 2.4766e-06,
+          "upstream_inference_completions_cost": 8.659e-05,
+          "total_cost": 8.90666e-05,
+          "input_cost": 1.715e-06,
+          "output_cost": 8.659e-05,
+          "cached_input_cost": 7.616e-07,
+          "cache_write_input_cost": 0,
+          "request_cost": 0,
+          "web_search_cost": 0,
+          "image_input_cost": null,
+          "image_output_cost": null,
+          "audio_input_cost": null,
+          "data_storage_cost": 2.374e-05
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 442,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      }
+    },
+    {
+      "call_id": "00007-generation-0db27cca",
+      "stage": "generation",
+      "unit_id": "qwen38-api-p3-v3-pilot-20261022-a-s1-r1",
+      "status": "ok",
+      "http_status": 200,
+      "reported_model": "self-dploy/Qwen3.8-27B",
+      "elapsed_seconds": 3.288,
+      "usage": {
+        "prompt_tokens": 611,
+        "total_tokens": 638,
+        "completion_tokens": 27,
+        "prompt_tokens_details": {
+          "cached_tokens": 128,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0,
+          "image_tokens": 0
+        },
+        "reasoning_tokens": 0,
+        "cost": 1.88846e-05,
+        "cost_details": {
+          "upstream_inference_cost": 1.8884600000000002e-05,
+          "upstream_inference_prompt_cost": 1.69946e-05,
+          "upstream_inference_completions_cost": 1.89e-06,
+          "total_cost": 1.88846e-05,
+          "input_cost": 1.6905e-05,
+          "output_cost": 1.89e-06,
+          "cached_input_cost": 8.96e-08,
+          "cache_write_input_cost": 0,
+          "request_cost": 0,
+          "web_search_cost": 0,
+          "image_input_cost": null,
+          "image_output_cost": null,
+          "audio_input_cost": null,
+          "data_storage_cost": 6.38e-06
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      }
+    },
+    {
+      "call_id": "00008-analysis-3b2c24c3",
+      "stage": "analysis",
+      "unit_id": "qwen38-api-p3-v3-pilot-20261022-a-s1-r1",
+      "status": "ok",
+      "http_status": 200,
+      "reported_model": "self-dploy/Qwen3.8-27B",
+      "elapsed_seconds": 30.419,
+      "usage": {
+        "prompt_tokens": 1137,
+        "total_tokens": 1932,
+        "completion_tokens": 795,
+        "prompt_tokens_details": {
+          "cached_tokens": 1088,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0,
+          "image_tokens": 0
+        },
+        "reasoning_tokens": 442,
+        "cost": 8.90666e-05,
+        "cost_details": {
+          "upstream_inference_cost": 8.906659999999999e-05,
+          "upstream_inference_prompt_cost": 2.4766e-06,
+          "upstream_inference_completions_cost": 8.659e-05,
+          "total_cost": 8.90666e-05,
+          "input_cost": 1.715e-06,
+          "output_cost": 8.659e-05,
+          "cached_input_cost": 7.616e-07,
+          "cache_write_input_cost": 0,
+          "request_cost": 0,
+          "web_search_cost": 0,
+          "image_input_cost": null,
+          "image_output_cost": null,
+          "audio_input_cost": null,
+          "data_storage_cost": 2.374e-05
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 442,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      }
+    },
+    {
+      "call_id": "00009-generation-71220820",
+      "stage": "generation",
+      "unit_id": "qwen38-api-p3-v3-pilot-20261022-a-s1-r1",
+      "status": "ok",
+      "http_status": 200,
+      "reported_model": "self-dploy/Qwen3.8-27B",
+      "elapsed_seconds": 3.05,
+      "usage": {
+        "prompt_tokens": 613,
+        "total_tokens": 640,
+        "completion_tokens": 27,
+        "prompt_tokens_details": {
+          "cached_tokens": 128,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0,
+          "image_tokens": 0
+        },
+        "reasoning_tokens": 0,
+        "cost": 1.89546e-05,
+        "cost_details": {
+          "upstream_inference_cost": 1.89546e-05,
+          "upstream_inference_prompt_cost": 1.70646e-05,
+          "upstream_inference_completions_cost": 1.89e-06,
+          "total_cost": 1.89546e-05,
+          "input_cost": 1.6975e-05,
+          "output_cost": 1.89e-06,
+          "cached_input_cost": 8.96e-08,
+          "cache_write_input_cost": 0,
+          "request_cost": 0,
+          "web_search_cost": 0,
+          "image_input_cost": null,
+          "image_output_cost": null,
+          "audio_input_cost": null,
+          "data_storage_cost": 6.4000000000000006e-06
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      }
+    },
+    {
+      "call_id": "00010-analysis-09c08e84",
+      "stage": "analysis",
+      "unit_id": "qwen38-api-p3-v3-pilot-20261022-a-s1-r1",
+      "status": "ok",
+      "http_status": 200,
+      "reported_model": "self-dploy/Qwen3.8-27B",
+      "elapsed_seconds": 28.126,
+      "usage": {
+        "prompt_tokens": 1137,
+        "total_tokens": 1932,
+        "completion_tokens": 795,
+        "prompt_tokens_details": {
+          "cached_tokens": 1088,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0,
+          "image_tokens": 0
+        },
+        "reasoning_tokens": 442,
+        "cost": 8.90666e-05,
+        "cost_details": {
+          "upstream_inference_cost": 8.906659999999999e-05,
+          "upstream_inference_prompt_cost": 2.4766e-06,
+          "upstream_inference_completions_cost": 8.659e-05,
+          "total_cost": 8.90666e-05,
+          "input_cost": 1.715e-06,
+          "output_cost": 8.659e-05,
+          "cached_input_cost": 7.616e-07,
+          "cache_write_input_cost": 0,
+          "request_cost": 0,
+          "web_search_cost": 0,
+          "image_input_cost": null,
+          "image_output_cost": null,
+          "audio_input_cost": null,
+          "data_storage_cost": 2.374e-05
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 442,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      }
+    },
+    {
+      "call_id": "00011-generation-fe0a76e8",
+      "stage": "generation",
+      "unit_id": "qwen38-api-p3-v3-pilot-20261022-a-s1-r1",
+      "status": "ok",
+      "http_status": 200,
+      "reported_model": "self-dploy/Qwen3.8-27B",
+      "elapsed_seconds": 4.273,
+      "usage": {
+        "prompt_tokens": 611,
+        "total_tokens": 641,
+        "completion_tokens": 30,
+        "prompt_tokens_details": {
+          "cached_tokens": 128,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0,
+          "image_tokens": 0
+        },
+        "reasoning_tokens": 0,
+        "cost": 1.90946e-05,
+        "cost_details": {
+          "upstream_inference_cost": 1.9094600000000002e-05,
+          "upstream_inference_prompt_cost": 1.69946e-05,
+          "upstream_inference_completions_cost": 2.1e-06,
+          "total_cost": 1.90946e-05,
+          "input_cost": 1.6905e-05,
+          "output_cost": 2.1e-06,
+          "cached_input_cost": 8.96e-08,
+          "cache_write_input_cost": 0,
+          "request_cost": 0,
+          "web_search_cost": 0,
+          "image_input_cost": null,
+          "image_output_cost": null,
+          "audio_input_cost": null,
+          "data_storage_cost": 6.41e-06
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      }
+    },
+    {
+      "call_id": "00012-analysis-b976df11",
+      "stage": "analysis",
+      "unit_id": "qwen38-api-p3-v3-pilot-20261022-a-s1-r1",
+      "status": "ok",
+      "http_status": 200,
+      "reported_model": "self-dploy/Qwen3.8-27B",
+      "elapsed_seconds": 22.983,
+      "usage": {
+        "prompt_tokens": 1149,
+        "total_tokens": 1772,
+        "completion_tokens": 623,
+        "prompt_tokens_details": {
+          "cached_tokens": 1088,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0,
+          "image_tokens": 0
+        },
+        "reasoning_tokens": 281,
+        "cost": 6.61766e-05,
+        "cost_details": {
+          "upstream_inference_cost": 6.61766e-05,
+          "upstream_inference_prompt_cost": 2.8966e-06,
+          "upstream_inference_completions_cost": 6.328e-05,
+          "total_cost": 6.61766e-05,
+          "input_cost": 2.135e-06,
+          "output_cost": 6.328e-05,
+          "cached_input_cost": 7.616e-07,
+          "cache_write_input_cost": 0,
+          "request_cost": 0,
+          "web_search_cost": 0,
+          "image_input_cost": null,
+          "image_output_cost": null,
+          "audio_input_cost": null,
+          "data_storage_cost": 2.053e-05
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 281,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      }
+    },
+    {
+      "call_id": "00013-generation-1ee00403",
+      "stage": "generation",
+      "unit_id": "qwen38-api-p3-v3-pilot-20261022-a-s1-r1",
+      "status": "ok",
+      "http_status": 200,
+      "reported_model": "self-dploy/Qwen3.8-27B",
+      "elapsed_seconds": 3.437,
+      "usage": {
+        "prompt_tokens": 617,
+        "total_tokens": 645,
+        "completion_tokens": 28,
+        "prompt_tokens_details": {
+          "cached_tokens": 128,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0,
+          "image_tokens": 0
+        },
+        "reasoning_tokens": 0,
+        "cost": 1.91646e-05,
+        "cost_details": {
+          "upstream_inference_cost": 1.9164600000000003e-05,
+          "upstream_inference_prompt_cost": 1.72046e-05,
+          "upstream_inference_completions_cost": 1.96e-06,
+          "total_cost": 1.91646e-05,
+          "input_cost": 1.7115e-05,
+          "output_cost": 1.96e-06,
+          "cached_input_cost": 8.96e-08,
+          "cache_write_input_cost": 0,
+          "request_cost": 0,
+          "web_search_cost": 0,
+          "image_input_cost": null,
+          "image_output_cost": null,
+          "audio_input_cost": null,
+          "data_storage_cost": 6.45e-06
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      }
+    },
+    {
+      "call_id": "00014-analysis-4b6261e9",
+      "stage": "analysis",
+      "unit_id": "qwen38-api-p3-v3-pilot-20261022-a-s1-r1",
+      "status": "ok",
+      "http_status": 200,
+      "reported_model": "self-dploy/Qwen3.8-27B",
+      "elapsed_seconds": 29.499,
+      "usage": {
+        "prompt_tokens": 1137,
+        "total_tokens": 1932,
+        "completion_tokens": 795,
+        "prompt_tokens_details": {
+          "cached_tokens": 1088,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0,
+          "image_tokens": 0
+        },
+        "reasoning_tokens": 442,
+        "cost": 8.90666e-05,
+        "cost_details": {
+          "upstream_inference_cost": 8.906659999999999e-05,
+          "upstream_inference_prompt_cost": 2.4766e-06,
+          "upstream_inference_completions_cost": 8.659e-05,
+          "total_cost": 8.90666e-05,
+          "input_cost": 1.715e-06,
+          "output_cost": 8.659e-05,
+          "cached_input_cost": 7.616e-07,
+          "cache_write_input_cost": 0,
+          "request_cost": 0,
+          "web_search_cost": 0,
+          "image_input_cost": null,
+          "image_output_cost": null,
+          "audio_input_cost": null,
+          "data_storage_cost": 2.374e-05
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 442,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      }
+    },
+    {
+      "call_id": "00015-generation-e7b7f26f",
+      "stage": "generation",
+      "unit_id": "qwen38-api-p3-v3-pilot-20261022-a-s1-r1",
+      "status": "ok",
+      "http_status": 200,
+      "reported_model": "self-dploy/Qwen3.8-27B",
+      "elapsed_seconds": 4.688,
+      "usage": {
+        "prompt_tokens": 622,
+        "total_tokens": 650,
+        "completion_tokens": 28,
+        "prompt_tokens_details": {
+          "cached_tokens": 128,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0,
+          "image_tokens": 0
+        },
+        "reasoning_tokens": 0,
+        "cost": 1.93396e-05,
+        "cost_details": {
+          "upstream_inference_cost": 1.93396e-05,
+          "upstream_inference_prompt_cost": 1.73796e-05,
+          "upstream_inference_completions_cost": 1.96e-06,
+          "total_cost": 1.93396e-05,
+          "input_cost": 1.729e-05,
+          "output_cost": 1.96e-06,
+          "cached_input_cost": 8.96e-08,
+          "cache_write_input_cost": 0,
+          "request_cost": 0,
+          "web_search_cost": 0,
+          "image_input_cost": null,
+          "image_output_cost": null,
+          "audio_input_cost": null,
+          "data_storage_cost": 6.5e-06
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      }
+    },
+    {
+      "call_id": "00016-analysis-6c7e9be6",
+      "stage": "analysis",
+      "unit_id": "qwen38-api-p3-v3-pilot-20261022-a-s1-r1",
+      "status": "ok",
+      "http_status": 200,
+      "reported_model": "self-dploy/Qwen3.8-27B",
+      "elapsed_seconds": 22.732,
+      "usage": {
+        "prompt_tokens": 1149,
+        "total_tokens": 1772,
+        "completion_tokens": 623,
+        "prompt_tokens_details": {
+          "cached_tokens": 1088,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0,
+          "image_tokens": 0
+        },
+        "reasoning_tokens": 281,
+        "cost": 6.61766e-05,
+        "cost_details": {
+          "upstream_inference_cost": 6.61766e-05,
+          "upstream_inference_prompt_cost": 2.8966e-06,
+          "upstream_inference_completions_cost": 6.328e-05,
+          "total_cost": 6.61766e-05,
+          "input_cost": 2.135e-06,
+          "output_cost": 6.328e-05,
+          "cached_input_cost": 7.616e-07,
+          "cache_write_input_cost": 0,
+          "request_cost": 0,
+          "web_search_cost": 0,
+          "image_input_cost": null,
+          "image_output_cost": null,
+          "audio_input_cost": null,
+          "data_storage_cost": 2.053e-05
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 281,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      }
+    },
+    {
+      "call_id": "00017-generation-0c85ce23",
+      "stage": "generation",
+      "unit_id": "qwen38-api-p3-v3-pilot-20261022-a-s1-r1",
+      "status": "ok",
+      "http_status": 200,
+      "reported_model": "self-dploy/Qwen3.8-27B",
+      "elapsed_seconds": 2.175,
+      "usage": {
+        "prompt_tokens": 627,
+        "total_tokens": 655,
+        "completion_tokens": 28,
+        "prompt_tokens_details": {
+          "cached_tokens": 128,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0,
+          "image_tokens": 0
+        },
+        "reasoning_tokens": 0,
+        "cost": 1.95146e-05,
+        "cost_details": {
+          "upstream_inference_cost": 1.9514599999999998e-05,
+          "upstream_inference_prompt_cost": 1.75546e-05,
+          "upstream_inference_completions_cost": 1.96e-06,
+          "total_cost": 1.95146e-05,
+          "input_cost": 1.7465e-05,
+          "output_cost": 1.96e-06,
+          "cached_input_cost": 8.96e-08,
+          "cache_write_input_cost": 0,
+          "request_cost": 0,
+          "web_search_cost": 0,
+          "image_input_cost": null,
+          "image_output_cost": null,
+          "audio_input_cost": null,
+          "data_storage_cost": 6.55e-06
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      }
+    },
+    {
+      "call_id": "00018-generation-2cc419cb",
+      "stage": "generation",
+      "unit_id": "qwen38-api-p3-v3-pilot-20261022-a-s1-r1",
+      "status": "ok",
+      "http_status": 200,
+      "reported_model": "self-dploy/Qwen3.8-27B",
+      "elapsed_seconds": 2.172,
+      "usage": {
+        "prompt_tokens": 631,
+        "total_tokens": 659,
+        "completion_tokens": 28,
+        "prompt_tokens_details": {
+          "cached_tokens": 256,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0,
+          "image_tokens": 0
+        },
+        "reasoning_tokens": 0,
+        "cost": 1.52642e-05,
+        "cost_details": {
+          "upstream_inference_cost": 1.5264200000000002e-05,
+          "upstream_inference_prompt_cost": 1.33042e-05,
+          "upstream_inference_completions_cost": 1.96e-06,
+          "total_cost": 1.52642e-05,
+          "input_cost": 1.3125e-05,
+          "output_cost": 1.96e-06,
+          "cached_input_cost": 1.792e-07,
+          "cache_write_input_cost": 0,
+          "request_cost": 0,
+          "web_search_cost": 0,
+          "image_input_cost": null,
+          "image_output_cost": null,
+          "audio_input_cost": null,
+          "data_storage_cost": 6.59e-06
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      }
+    },
+    {
+      "call_id": "00019-generation-ea18e850",
+      "stage": "generation",
+      "unit_id": "qwen38-api-p3-v3-pilot-20261022-a-s1-r1",
+      "status": "ok",
+      "http_status": 200,
+      "reported_model": "self-dploy/Qwen3.8-27B",
+      "elapsed_seconds": 4.024,
+      "usage": {
+        "prompt_tokens": 631,
+        "total_tokens": 659,
+        "completion_tokens": 28,
+        "prompt_tokens_details": {
+          "cached_tokens": 576,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0,
+          "image_tokens": 0
+        },
+        "reasoning_tokens": 0,
+        "cost": 4.2882e-06,
+        "cost_details": {
+          "upstream_inference_cost": 4.2882e-06,
+          "upstream_inference_prompt_cost": 2.3282e-06,
+          "upstream_inference_completions_cost": 1.96e-06,
+          "total_cost": 4.2882e-06,
+          "input_cost": 1.925e-06,
+          "output_cost": 1.96e-06,
+          "cached_input_cost": 4.032e-07,
+          "cache_write_input_cost": 0,
+          "request_cost": 0,
+          "web_search_cost": 0,
+          "image_input_cost": null,
+          "image_output_cost": null,
+          "audio_input_cost": null,
+          "data_storage_cost": 6.59e-06
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      }
+    },
+    {
+      "call_id": "00020-generation-83094f85",
+      "stage": "generation",
+      "unit_id": "qwen38-api-p3-v3-pilot-20261022-b-s1-r1",
+      "status": "ok",
+      "http_status": 200,
+      "reported_model": "self-dploy/Qwen3.8-27B",
+      "elapsed_seconds": 3.657,
+      "usage": {
+        "prompt_tokens": 1049,
+        "total_tokens": 1076,
+        "completion_tokens": 27,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0,
+          "image_tokens": 0
+        },
+        "reasoning_tokens": 0,
+        "cost": 3.8605e-05,
+        "cost_details": {
+          "upstream_inference_cost": 3.8605e-05,
+          "upstream_inference_prompt_cost": 3.6715e-05,
+          "upstream_inference_completions_cost": 1.89e-06,
+          "total_cost": 3.8605e-05,
+          "input_cost": 3.6715e-05,
+          "output_cost": 1.89e-06,
+          "cached_input_cost": 0,
+          "cache_write_input_cost": 0,
+          "request_cost": 0,
+          "web_search_cost": 0,
+          "image_input_cost": null,
+          "image_output_cost": null,
+          "audio_input_cost": null,
+          "data_storage_cost": 1.0759999999999999e-05
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      }
+    },
+    {
+      "call_id": "00021-analysis-35e597fe",
+      "stage": "analysis",
+      "unit_id": "qwen38-api-p3-v3-pilot-20261022-b-s1-r1",
+      "status": "ok",
+      "http_status": 200,
+      "reported_model": "self-dploy/Qwen3.8-27B",
+      "elapsed_seconds": 22.655,
+      "usage": {
+        "prompt_tokens": 1149,
+        "total_tokens": 1772,
+        "completion_tokens": 623,
+        "prompt_tokens_details": {
+          "cached_tokens": 1088,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0,
+          "image_tokens": 0
+        },
+        "reasoning_tokens": 281,
+        "cost": 6.61766e-05,
+        "cost_details": {
+          "upstream_inference_cost": 6.61766e-05,
+          "upstream_inference_prompt_cost": 2.8966e-06,
+          "upstream_inference_completions_cost": 6.328e-05,
+          "total_cost": 6.61766e-05,
+          "input_cost": 2.135e-06,
+          "output_cost": 6.328e-05,
+          "cached_input_cost": 7.616e-07,
+          "cache_write_input_cost": 0,
+          "request_cost": 0,
+          "web_search_cost": 0,
+          "image_input_cost": null,
+          "image_output_cost": null,
+          "audio_input_cost": null,
+          "data_storage_cost": 2.053e-05
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 281,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      }
+    },
+    {
+      "call_id": "00022-generation-634fbb6e",
+      "stage": "generation",
+      "unit_id": "qwen38-api-p3-v3-pilot-20261022-b-s1-r1",
+      "status": "ok",
+      "http_status": 200,
+      "reported_model": "self-dploy/Qwen3.8-27B",
+      "elapsed_seconds": 3.69,
+      "usage": {
+        "prompt_tokens": 1275,
+        "total_tokens": 1302,
+        "completion_tokens": 27,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0,
+          "image_tokens": 0
+        },
+        "reasoning_tokens": 0,
+        "cost": 4.6515e-05,
+        "cost_details": {
+          "upstream_inference_cost": 4.6515e-05,
+          "upstream_inference_prompt_cost": 4.4625e-05,
+          "upstream_inference_completions_cost": 1.89e-06,
+          "total_cost": 4.6515e-05,
+          "input_cost": 4.4625e-05,
+          "output_cost": 1.89e-06,
+          "cached_input_cost": 0,
+          "cache_write_input_cost": 0,
+          "request_cost": 0,
+          "web_search_cost": 0,
+          "image_input_cost": null,
+          "image_output_cost": null,
+          "audio_input_cost": null,
+          "data_storage_cost": 1.302e-05
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      }
+    },
+    {
+      "call_id": "00023-analysis-28457dbc",
+      "stage": "analysis",
+      "unit_id": "qwen38-api-p3-v3-pilot-20261022-b-s1-r1",
+      "status": "ok",
+      "http_status": 200,
+      "reported_model": "self-dploy/Qwen3.8-27B",
+      "elapsed_seconds": 30.707,
+      "usage": {
+        "prompt_tokens": 1137,
+        "total_tokens": 1921,
+        "completion_tokens": 784,
+        "prompt_tokens_details": {
+          "cached_tokens": 1088,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0,
+          "image_tokens": 0
+        },
+        "reasoning_tokens": 431,
+        "cost": 8.75266e-05,
+        "cost_details": {
+          "upstream_inference_cost": 8.752659999999999e-05,
+          "upstream_inference_prompt_cost": 2.4766e-06,
+          "upstream_inference_completions_cost": 8.505e-05,
+          "total_cost": 8.75266e-05,
+          "input_cost": 1.715e-06,
+          "output_cost": 8.505e-05,
+          "cached_input_cost": 7.616e-07,
+          "cache_write_input_cost": 0,
+          "request_cost": 0,
+          "web_search_cost": 0,
+          "image_input_cost": null,
+          "image_output_cost": null,
+          "audio_input_cost": null,
+          "data_storage_cost": 2.352e-05
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 431,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      }
+    },
+    {
+      "call_id": "00024-generation-69515faf",
+      "stage": "generation",
+      "unit_id": "qwen38-api-p3-v3-pilot-20261022-b-s1-r1",
+      "status": "ok",
+      "http_status": 200,
+      "reported_model": "self-dploy/Qwen3.8-27B",
+      "elapsed_seconds": 1.799,
+      "usage": {
+        "prompt_tokens": 1280,
+        "total_tokens": 1290,
+        "completion_tokens": 10,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0,
+          "image_tokens": 0
+        },
+        "reasoning_tokens": 0,
+        "cost": 4.55e-05,
+        "cost_details": {
+          "upstream_inference_cost": 4.5499999999999995e-05,
+          "upstream_inference_prompt_cost": 4.48e-05,
+          "upstream_inference_completions_cost": 7e-07,
+          "total_cost": 4.55e-05,
+          "input_cost": 4.48e-05,
+          "output_cost": 7e-07,
+          "cached_input_cost": 0,
+          "cache_write_input_cost": 0,
+          "request_cost": 0,
+          "web_search_cost": 0,
+          "image_input_cost": null,
+          "image_output_cost": null,
+          "audio_input_cost": null,
+          "data_storage_cost": 1.29e-05
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      }
+    },
+    {
+      "call_id": "00025-analysis-c94afaae",
+      "stage": "analysis",
+      "unit_id": "qwen38-api-p3-v3-pilot-20261022-b-s1-r1",
+      "status": "ok",
+      "http_status": 200,
+      "reported_model": "self-dploy/Qwen3.8-27B",
+      "elapsed_seconds": 26.879,
+      "usage": {
+        "prompt_tokens": 1137,
+        "total_tokens": 1982,
+        "completion_tokens": 845,
+        "prompt_tokens_details": {
+          "cached_tokens": 1088,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0,
+          "image_tokens": 0
+        },
+        "reasoning_tokens": 492,
+        "cost": 9.60666e-05,
+        "cost_details": {
+          "upstream_inference_cost": 9.60666e-05,
+          "upstream_inference_prompt_cost": 2.4766e-06,
+          "upstream_inference_completions_cost": 9.359e-05,
+          "total_cost": 9.60666e-05,
+          "input_cost": 1.715e-06,
+          "output_cost": 9.359e-05,
+          "cached_input_cost": 7.616e-07,
+          "cache_write_input_cost": 0,
+          "request_cost": 0,
+          "web_search_cost": 0,
+          "image_input_cost": null,
+          "image_output_cost": null,
+          "audio_input_cost": null,
+          "data_storage_cost": 2.474e-05
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 492,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      }
+    },
+    {
+      "call_id": "00026-generation-180bc458",
+      "stage": "generation",
+      "unit_id": "qwen38-api-p3-v3-pilot-20261022-b-s1-r1",
+      "status": "ok",
+      "http_status": 200,
+      "reported_model": "self-dploy/Qwen3.8-27B",
+      "elapsed_seconds": 8.636,
+      "usage": {
+        "prompt_tokens": 1283,
+        "total_tokens": 1310,
+        "completion_tokens": 27,
+        "prompt_tokens_details": {
+          "cached_tokens": 256,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0,
+          "image_tokens": 0
+        },
+        "reasoning_tokens": 0,
+        "cost": 3.80142e-05,
+        "cost_details": {
+          "upstream_inference_cost": 3.80142e-05,
+          "upstream_inference_prompt_cost": 3.61242e-05,
+          "upstream_inference_completions_cost": 1.89e-06,
+          "total_cost": 3.80142e-05,
+          "input_cost": 3.5945e-05,
+          "output_cost": 1.89e-06,
+          "cached_input_cost": 1.792e-07,
+          "cache_write_input_cost": 0,
+          "request_cost": 0,
+          "web_search_cost": 0,
+          "image_input_cost": null,
+          "image_output_cost": null,
+          "audio_input_cost": null,
+          "data_storage_cost": 1.31e-05
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      }
+    },
+    {
+      "call_id": "00027-analysis-3c56976f",
+      "stage": "analysis",
+      "unit_id": "qwen38-api-p3-v3-pilot-20261022-b-s1-r1",
+      "status": "ok",
+      "http_status": 200,
+      "reported_model": "self-dploy/Qwen3.8-27B",
+      "elapsed_seconds": 34.103,
+      "usage": {
+        "prompt_tokens": 1137,
+        "total_tokens": 1968,
+        "completion_tokens": 831,
+        "prompt_tokens_details": {
+          "cached_tokens": 1088,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0,
+          "image_tokens": 0
+        },
+        "reasoning_tokens": 478,
+        "cost": 9.41066e-05,
+        "cost_details": {
+          "upstream_inference_cost": 9.41066e-05,
+          "upstream_inference_prompt_cost": 2.4766e-06,
+          "upstream_inference_completions_cost": 9.163e-05,
+          "total_cost": 9.41066e-05,
+          "input_cost": 1.715e-06,
+          "output_cost": 9.163e-05,
+          "cached_input_cost": 7.616e-07,
+          "cache_write_input_cost": 0,
+          "request_cost": 0,
+          "web_search_cost": 0,
+          "image_input_cost": null,
+          "image_output_cost": null,
+          "audio_input_cost": null,
+          "data_storage_cost": 2.446e-05
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 478,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      }
+    },
+    {
+      "call_id": "00028-generation-a04ca147",
+      "stage": "generation",
+      "unit_id": "qwen38-api-p3-v3-pilot-20261022-b-s1-r1",
+      "status": "ok",
+      "http_status": 200,
+      "reported_model": "self-dploy/Qwen3.8-27B",
+      "elapsed_seconds": 13.753,
+      "usage": {
+        "prompt_tokens": 1288,
+        "total_tokens": 1298,
+        "completion_tokens": 10,
+        "prompt_tokens_details": {
+          "cached_tokens": 256,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0,
+          "image_tokens": 0
+        },
+        "reasoning_tokens": 0,
+        "cost": 3.69992e-05,
+        "cost_details": {
+          "upstream_inference_cost": 3.6999199999999996e-05,
+          "upstream_inference_prompt_cost": 3.62992e-05,
+          "upstream_inference_completions_cost": 7e-07,
+          "total_cost": 3.69992e-05,
+          "input_cost": 3.612e-05,
+          "output_cost": 7e-07,
+          "cached_input_cost": 1.792e-07,
+          "cache_write_input_cost": 0,
+          "request_cost": 0,
+          "web_search_cost": 0,
+          "image_input_cost": null,
+          "image_output_cost": null,
+          "audio_input_cost": null,
+          "data_storage_cost": 1.298e-05
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      }
+    },
+    {
+      "call_id": "00029-analysis-873f78b0",
+      "stage": "analysis",
+      "unit_id": "qwen38-api-p3-v3-pilot-20261022-b-s1-r1",
+      "status": "ok",
+      "http_status": 200,
+      "reported_model": "self-dploy/Qwen3.8-27B",
+      "elapsed_seconds": 27.939,
+      "usage": {
+        "prompt_tokens": 1137,
+        "total_tokens": 1932,
+        "completion_tokens": 795,
+        "prompt_tokens_details": {
+          "cached_tokens": 1088,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0,
+          "image_tokens": 0
+        },
+        "reasoning_tokens": 442,
+        "cost": 8.90666e-05,
+        "cost_details": {
+          "upstream_inference_cost": 8.906659999999999e-05,
+          "upstream_inference_prompt_cost": 2.4766e-06,
+          "upstream_inference_completions_cost": 8.659e-05,
+          "total_cost": 8.90666e-05,
+          "input_cost": 1.715e-06,
+          "output_cost": 8.659e-05,
+          "cached_input_cost": 7.616e-07,
+          "cache_write_input_cost": 0,
+          "request_cost": 0,
+          "web_search_cost": 0,
+          "image_input_cost": null,
+          "image_output_cost": null,
+          "audio_input_cost": null,
+          "data_storage_cost": 2.374e-05
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 442,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      }
+    },
+    {
+      "call_id": "00030-generation-112c31bd",
+      "stage": "generation",
+      "unit_id": "qwen38-api-p3-v3-pilot-20261022-b-s1-r1",
+      "status": "ok",
+      "http_status": 200,
+      "reported_model": "self-dploy/Qwen3.8-27B",
+      "elapsed_seconds": 4.515,
+      "usage": {
+        "prompt_tokens": 1287,
+        "total_tokens": 1317,
+        "completion_tokens": 30,
+        "prompt_tokens_details": {
+          "cached_tokens": 192,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0,
+          "image_tokens": 0
+        },
+        "reasoning_tokens": 0,
+        "cost": 4.05594e-05,
+        "cost_details": {
+          "upstream_inference_cost": 4.05594e-05,
+          "upstream_inference_prompt_cost": 3.8459400000000007e-05,
+          "upstream_inference_completions_cost": 2.1e-06,
+          "total_cost": 4.05594e-05,
+          "input_cost": 3.8325e-05,
+          "output_cost": 2.1e-06,
+          "cached_input_cost": 1.344e-07,
+          "cache_write_input_cost": 0,
+          "request_cost": 0,
+          "web_search_cost": 0,
+          "image_input_cost": null,
+          "image_output_cost": null,
+          "audio_input_cost": null,
+          "data_storage_cost": 1.3170000000000001e-05
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      }
+    },
+    {
+      "call_id": "00031-analysis-386ffcaf",
+      "stage": "analysis",
+      "unit_id": "qwen38-api-p3-v3-pilot-20261022-b-s1-r1",
+      "status": "ok",
+      "http_status": 200,
+      "reported_model": "self-dploy/Qwen3.8-27B",
+      "elapsed_seconds": 20.679,
+      "usage": {
+        "prompt_tokens": 1149,
+        "total_tokens": 1772,
+        "completion_tokens": 623,
+        "prompt_tokens_details": {
+          "cached_tokens": 1088,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0,
+          "image_tokens": 0
+        },
+        "reasoning_tokens": 281,
+        "cost": 6.61766e-05,
+        "cost_details": {
+          "upstream_inference_cost": 6.61766e-05,
+          "upstream_inference_prompt_cost": 2.8966e-06,
+          "upstream_inference_completions_cost": 6.328e-05,
+          "total_cost": 6.61766e-05,
+          "input_cost": 2.135e-06,
+          "output_cost": 6.328e-05,
+          "cached_input_cost": 7.616e-07,
+          "cache_write_input_cost": 0,
+          "request_cost": 0,
+          "web_search_cost": 0,
+          "image_input_cost": null,
+          "image_output_cost": null,
+          "audio_input_cost": null,
+          "data_storage_cost": 2.053e-05
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 281,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      }
+    },
+    {
+      "call_id": "00032-generation-7981cd60",
+      "stage": "generation",
+      "unit_id": "qwen38-api-p3-v3-pilot-20261022-b-s1-r1",
+      "status": "ok",
+      "http_status": 200,
+      "reported_model": "self-dploy/Qwen3.8-27B",
+      "elapsed_seconds": 3.216,
+      "usage": {
+        "prompt_tokens": 1291,
+        "total_tokens": 1301,
+        "completion_tokens": 10,
+        "prompt_tokens_details": {
+          "cached_tokens": 192,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0,
+          "image_tokens": 0
+        },
+        "reasoning_tokens": 0,
+        "cost": 3.92994e-05,
+        "cost_details": {
+          "upstream_inference_cost": 3.92994e-05,
+          "upstream_inference_prompt_cost": 3.85994e-05,
+          "upstream_inference_completions_cost": 7e-07,
+          "total_cost": 3.92994e-05,
+          "input_cost": 3.8465e-05,
+          "output_cost": 7e-07,
+          "cached_input_cost": 1.344e-07,
+          "cache_write_input_cost": 0,
+          "request_cost": 0,
+          "web_search_cost": 0,
+          "image_input_cost": null,
+          "image_output_cost": null,
+          "audio_input_cost": null,
+          "data_storage_cost": 1.301e-05
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      }
+    },
+    {
+      "call_id": "00033-analysis-5b9d02be",
+      "stage": "analysis",
+      "unit_id": "qwen38-api-p3-v3-pilot-20261022-b-s1-r1",
+      "status": "ok",
+      "http_status": 200,
+      "reported_model": "self-dploy/Qwen3.8-27B",
+      "elapsed_seconds": 48.225,
+      "usage": {
+        "prompt_tokens": 1137,
+        "total_tokens": 1932,
+        "completion_tokens": 795,
+        "prompt_tokens_details": {
+          "cached_tokens": 1088,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0,
+          "image_tokens": 0
+        },
+        "reasoning_tokens": 442,
+        "cost": 8.90666e-05,
+        "cost_details": {
+          "upstream_inference_cost": 8.906659999999999e-05,
+          "upstream_inference_prompt_cost": 2.4766e-06,
+          "upstream_inference_completions_cost": 8.659e-05,
+          "total_cost": 8.90666e-05,
+          "input_cost": 1.715e-06,
+          "output_cost": 8.659e-05,
+          "cached_input_cost": 7.616e-07,
+          "cache_write_input_cost": 0,
+          "request_cost": 0,
+          "web_search_cost": 0,
+          "image_input_cost": null,
+          "image_output_cost": null,
+          "audio_input_cost": null,
+          "data_storage_cost": 2.374e-05
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 442,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      }
+    },
+    {
+      "call_id": "00034-generation-c2375d34",
+      "stage": "generation",
+      "unit_id": "qwen38-api-p3-v3-pilot-20261022-b-s1-r1",
+      "status": "ok",
+      "http_status": 200,
+      "reported_model": "self-dploy/Qwen3.8-27B",
+      "elapsed_seconds": 19.97,
+      "usage": {
+        "prompt_tokens": 1293,
+        "total_tokens": 1304,
+        "completion_tokens": 11,
+        "prompt_tokens_details": {
+          "cached_tokens": 256,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0,
+          "image_tokens": 0
+        },
+        "reasoning_tokens": 0,
+        "cost": 3.72442e-05,
+        "cost_details": {
+          "upstream_inference_cost": 3.72442e-05,
+          "upstream_inference_prompt_cost": 3.64742e-05,
+          "upstream_inference_completions_cost": 7.7e-07,
+          "total_cost": 3.72442e-05,
+          "input_cost": 3.6295e-05,
+          "output_cost": 7.7e-07,
+          "cached_input_cost": 1.792e-07,
+          "cache_write_input_cost": 0,
+          "request_cost": 0,
+          "web_search_cost": 0,
+          "image_input_cost": null,
+          "image_output_cost": null,
+          "audio_input_cost": null,
+          "data_storage_cost": 1.304e-05
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      }
+    },
+    {
+      "call_id": "00035-analysis-2ff2c8d8",
+      "stage": "analysis",
+      "unit_id": "qwen38-api-p3-v3-pilot-20261022-b-s1-r1",
+      "status": "ok",
+      "http_status": 200,
+      "reported_model": "self-dploy/Qwen3.8-27B",
+      "elapsed_seconds": 24.603,
+      "usage": {
+        "prompt_tokens": 1149,
+        "total_tokens": 1860,
+        "completion_tokens": 711,
+        "prompt_tokens_details": {
+          "cached_tokens": 1088,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0,
+          "image_tokens": 0
+        },
+        "reasoning_tokens": 367,
+        "cost": 7.83566e-05,
+        "cost_details": {
+          "upstream_inference_cost": 7.83566e-05,
+          "upstream_inference_prompt_cost": 2.8966e-06,
+          "upstream_inference_completions_cost": 7.546e-05,
+          "total_cost": 7.83566e-05,
+          "input_cost": 2.135e-06,
+          "output_cost": 7.546e-05,
+          "cached_input_cost": 7.616e-07,
+          "cache_write_input_cost": 0,
+          "request_cost": 0,
+          "web_search_cost": 0,
+          "image_input_cost": null,
+          "image_output_cost": null,
+          "audio_input_cost": null,
+          "data_storage_cost": 2.227e-05
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 367,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      }
+    },
+    {
+      "call_id": "00036-generation-498f341d",
+      "stage": "generation",
+      "unit_id": "qwen38-api-p3-v3-pilot-20261022-b-s1-r1",
+      "status": "ok",
+      "http_status": 200,
+      "reported_model": "self-dploy/Qwen3.8-27B",
+      "elapsed_seconds": 5.74,
+      "usage": {
+        "prompt_tokens": 1298,
+        "total_tokens": 1309,
+        "completion_tokens": 11,
+        "prompt_tokens_details": {
+          "cached_tokens": 256,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0,
+          "image_tokens": 0
+        },
+        "reasoning_tokens": 0,
+        "cost": 3.74192e-05,
+        "cost_details": {
+          "upstream_inference_cost": 3.74192e-05,
+          "upstream_inference_prompt_cost": 3.66492e-05,
+          "upstream_inference_completions_cost": 7.7e-07,
+          "total_cost": 3.74192e-05,
+          "input_cost": 3.647e-05,
+          "output_cost": 7.7e-07,
+          "cached_input_cost": 1.792e-07,
+          "cache_write_input_cost": 0,
+          "request_cost": 0,
+          "web_search_cost": 0,
+          "image_input_cost": null,
+          "image_output_cost": null,
+          "audio_input_cost": null,
+          "data_storage_cost": 1.309e-05
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      }
+    },
+    {
+      "call_id": "00037-analysis-ebde6e46",
+      "stage": "analysis",
+      "unit_id": "qwen38-api-p3-v3-pilot-20261022-b-s1-r1",
+      "status": "ok",
+      "http_status": 200,
+      "reported_model": "self-dploy/Qwen3.8-27B",
+      "elapsed_seconds": 59.855,
+      "usage": {
+        "prompt_tokens": 1137,
+        "total_tokens": 1932,
+        "completion_tokens": 795,
+        "prompt_tokens_details": {
+          "cached_tokens": 1088,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0,
+          "image_tokens": 0
+        },
+        "reasoning_tokens": 442,
+        "cost": 8.90666e-05,
+        "cost_details": {
+          "upstream_inference_cost": 8.906659999999999e-05,
+          "upstream_inference_prompt_cost": 2.4766e-06,
+          "upstream_inference_completions_cost": 8.659e-05,
+          "total_cost": 8.90666e-05,
+          "input_cost": 1.715e-06,
+          "output_cost": 8.659e-05,
+          "cached_input_cost": 7.616e-07,
+          "cache_write_input_cost": 0,
+          "request_cost": 0,
+          "web_search_cost": 0,
+          "image_input_cost": null,
+          "image_output_cost": null,
+          "audio_input_cost": null,
+          "data_storage_cost": 2.374e-05
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 442,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      }
+    },
+    {
+      "call_id": "00038-generation-c5436ae4",
+      "stage": "generation",
+      "unit_id": "qwen38-api-p3-v3-pilot-20261022-b-s1-r1",
+      "status": "ok",
+      "http_status": 200,
+      "reported_model": "self-dploy/Qwen3.8-27B",
+      "elapsed_seconds": 3.811,
+      "usage": {
+        "prompt_tokens": 1302,
+        "total_tokens": 1330,
+        "completion_tokens": 28,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0,
+          "image_tokens": 0
+        },
+        "reasoning_tokens": 0,
+        "cost": 4.753e-05,
+        "cost_details": {
+          "upstream_inference_cost": 4.753e-05,
+          "upstream_inference_prompt_cost": 4.557e-05,
+          "upstream_inference_completions_cost": 1.96e-06,
+          "total_cost": 4.753e-05,
+          "input_cost": 4.557e-05,
+          "output_cost": 1.96e-06,
+          "cached_input_cost": 0,
+          "cache_write_input_cost": 0,
+          "request_cost": 0,
+          "web_search_cost": 0,
+          "image_input_cost": null,
+          "image_output_cost": null,
+          "audio_input_cost": null,
+          "data_storage_cost": 1.33e-05
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      }
+    },
+    {
+      "call_id": "00039-analysis-84aac270",
+      "stage": "analysis",
+      "unit_id": "qwen38-api-p3-v3-pilot-20261022-b-s1-r1",
+      "status": "ok",
+      "http_status": 200,
+      "reported_model": "self-dploy/Qwen3.8-27B",
+      "elapsed_seconds": 31.903,
+      "usage": {
+        "prompt_tokens": 1137,
+        "total_tokens": 1932,
+        "completion_tokens": 795,
+        "prompt_tokens_details": {
+          "cached_tokens": 1088,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0,
+          "image_tokens": 0
+        },
+        "reasoning_tokens": 442,
+        "cost": 8.90666e-05,
+        "cost_details": {
+          "upstream_inference_cost": 8.906659999999999e-05,
+          "upstream_inference_prompt_cost": 2.4766e-06,
+          "upstream_inference_completions_cost": 8.659e-05,
+          "total_cost": 8.90666e-05,
+          "input_cost": 1.715e-06,
+          "output_cost": 8.659e-05,
+          "cached_input_cost": 7.616e-07,
+          "cache_write_input_cost": 0,
+          "request_cost": 0,
+          "web_search_cost": 0,
+          "image_input_cost": null,
+          "image_output_cost": null,
+          "audio_input_cost": null,
+          "data_storage_cost": 2.374e-05
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 442,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      }
+    },
+    {
+      "call_id": "00040-generation-c6736e7b",
+      "stage": "generation",
+      "unit_id": "qwen38-api-p3-v3-pilot-20261022-b-s2-r1",
+      "status": "ok",
+      "http_status": 200,
+      "reported_model": "self-dploy/Qwen3.8-27B",
+      "elapsed_seconds": 3.434,
+      "usage": {
+        "prompt_tokens": 1213,
+        "total_tokens": 1260,
+        "completion_tokens": 47,
+        "prompt_tokens_details": {
+          "cached_tokens": 128,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0,
+          "image_tokens": 0
+        },
+        "reasoning_tokens": 0,
+        "cost": 4.13546e-05,
+        "cost_details": {
+          "upstream_inference_cost": 4.13546e-05,
+          "upstream_inference_prompt_cost": 3.80646e-05,
+          "upstream_inference_completions_cost": 3.29e-06,
+          "total_cost": 4.13546e-05,
+          "input_cost": 3.7975e-05,
+          "output_cost": 3.29e-06,
+          "cached_input_cost": 8.96e-08,
+          "cache_write_input_cost": 0,
+          "request_cost": 0,
+          "web_search_cost": 0,
+          "image_input_cost": null,
+          "image_output_cost": null,
+          "audio_input_cost": null,
+          "data_storage_cost": 1.2600000000000001e-05
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      }
+    },
+    {
+      "call_id": "00041-analysis-addf3ab4",
+      "stage": "analysis",
+      "unit_id": "qwen38-api-p3-v3-pilot-20261022-b-s2-r1",
+      "status": "ok",
+      "http_status": 200,
+      "reported_model": "self-dploy/Qwen3.8-27B",
+      "elapsed_seconds": 45.389,
+      "usage": {
+        "prompt_tokens": 1207,
+        "total_tokens": 2459,
+        "completion_tokens": 1252,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0,
+          "image_tokens": 0
+        },
+        "reasoning_tokens": 895,
+        "cost": 0.000192535,
+        "cost_details": {
+          "upstream_inference_cost": 0.000192535,
+          "upstream_inference_prompt_cost": 4.2245e-05,
+          "upstream_inference_completions_cost": 0.00015029,
+          "total_cost": 0.000192535,
+          "input_cost": 4.2245e-05,
+          "output_cost": 0.00015029,
+          "cached_input_cost": 0,
+          "cache_write_input_cost": 0,
+          "request_cost": 0,
+          "web_search_cost": 0,
+          "image_input_cost": null,
+          "image_output_cost": null,
+          "audio_input_cost": null,
+          "data_storage_cost": 3.354e-05
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 895,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      }
+    },
+    {
+      "call_id": "00042-generation-b186ece7",
+      "stage": "generation",
+      "unit_id": "qwen38-api-p3-v3-pilot-20261022-b-s2-r1",
+      "status": "ok",
+      "http_status": 200,
+      "reported_model": "self-dploy/Qwen3.8-27B",
+      "elapsed_seconds": 5.042,
+      "usage": {
+        "prompt_tokens": 1561,
+        "total_tokens": 1608,
+        "completion_tokens": 47,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0,
+          "image_tokens": 0
+        },
+        "reasoning_tokens": 0,
+        "cost": 5.7925e-05,
+        "cost_details": {
+          "upstream_inference_cost": 5.7925e-05,
+          "upstream_inference_prompt_cost": 5.4635e-05,
+          "upstream_inference_completions_cost": 3.29e-06,
+          "total_cost": 5.7925e-05,
+          "input_cost": 5.4635e-05,
+          "output_cost": 3.29e-06,
+          "cached_input_cost": 0,
+          "cache_write_input_cost": 0,
+          "request_cost": 0,
+          "web_search_cost": 0,
+          "image_input_cost": null,
+          "image_output_cost": null,
+          "audio_input_cost": null,
+          "data_storage_cost": 1.6080000000000002e-05
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      }
+    },
+    {
+      "call_id": "00043-analysis-3963ff12",
+      "stage": "analysis",
+      "unit_id": "qwen38-api-p3-v3-pilot-20261022-b-s2-r1",
+      "status": "ok",
+      "http_status": 200,
+      "reported_model": "self-dploy/Qwen3.8-27B",
+      "elapsed_seconds": 47.613,
+      "usage": {
+        "prompt_tokens": 1207,
+        "total_tokens": 2490,
+        "completion_tokens": 1283,
+        "prompt_tokens_details": {
+          "cached_tokens": 1152,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0,
+          "image_tokens": 0
+        },
+        "reasoning_tokens": 931,
+        "cost": 0.0001577114,
+        "cost_details": {
+          "upstream_inference_cost": 0.00015771140000000002,
+          "upstream_inference_prompt_cost": 2.7314000000000002e-06,
+          "upstream_inference_completions_cost": 0.00015498,
+          "total_cost": 0.0001577114,
+          "input_cost": 1.925e-06,
+          "output_cost": 0.00015498,
+          "cached_input_cost": 8.064e-07,
+          "cache_write_input_cost": 0,
+          "request_cost": 0,
+          "web_search_cost": 0,
+          "image_input_cost": null,
+          "image_output_cost": null,
+          "audio_input_cost": null,
+          "data_storage_cost": 3.421e-05
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 931,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      }
+    },
+    {
+      "call_id": "00044-generation-5b246ad5",
+      "stage": "generation",
+      "unit_id": "qwen38-api-p3-v3-pilot-20261022-b-s2-r1",
+      "status": "ok",
+      "http_status": 200,
+      "reported_model": "self-dploy/Qwen3.8-27B",
+      "elapsed_seconds": 3.014,
+      "usage": {
+        "prompt_tokens": 1588,
+        "total_tokens": 1635,
+        "completion_tokens": 47,
+        "prompt_tokens_details": {
+          "cached_tokens": 128,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0,
+          "image_tokens": 0
+        },
+        "reasoning_tokens": 0,
+        "cost": 5.44796e-05,
+        "cost_details": {
+          "upstream_inference_cost": 5.44796e-05,
+          "upstream_inference_prompt_cost": 5.11896e-05,
+          "upstream_inference_completions_cost": 3.29e-06,
+          "total_cost": 5.44796e-05,
+          "input_cost": 5.11e-05,
+          "output_cost": 3.29e-06,
+          "cached_input_cost": 8.96e-08,
+          "cache_write_input_cost": 0,
+          "request_cost": 0,
+          "web_search_cost": 0,
+          "image_input_cost": null,
+          "image_output_cost": null,
+          "audio_input_cost": null,
+          "data_storage_cost": 1.635e-05
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      }
+    },
+    {
+      "call_id": "00045-analysis-4080eac3",
+      "stage": "analysis",
+      "unit_id": "qwen38-api-p3-v3-pilot-20261022-b-s2-r1",
+      "status": "transport-error",
+      "http_status": null,
+      "reported_model": null,
+      "elapsed_seconds": 90.114,
+      "usage": null
+    }
+  ],
+  "preserved_historical_files": 1301,
+  "changed_historical_files": [],
+  "changed_runtime_sources": [],
+  "reconciliation_mismatches": [],
+  "reconciliation_passed": true,
+  "automatic_replacement_attempts_started": 0,
+  "formal_eligible": false,
+  "human_validation": "pending",
+  "interpretation": "Development pilot only. Transport success does not establish candidate validity, attack success or formal FPR/PSR. Missing usage or missing probe aggregates are not zero.",
+  "source_artifact_sha256": {
+    "results/raw/pilot/qwen38-api-p3-v3-pilot-20261022/api-runtime-snapshot.json": "113aa7d8a12916cb1c378d172b3981bb36cfe616afc8803c5c1957ce08f289f5",
+    "results/raw/pilot/qwen38-api-p3-v3-pilot-20261022/attempts/qwen38-api-p3-v3-pilot-20261022-a-s1-r1/attempt-1-a5c2d1837f/adaptive-candidates.json": "8546c66d7541859dc4f1619837f0ad49a8c613224d815b43b496460e1b6a9867",
+    "results/raw/pilot/qwen38-api-p3-v3-pilot-20261022/attempts/qwen38-api-p3-v3-pilot-20261022-a-s1-r1/attempt-1-a5c2d1837f/adaptive-generation-audit.json": "e70c5c701152475c279cafbceb6c6abb8afb4c44026a5ea98867e0040c26dd19",
+    "results/raw/pilot/qwen38-api-p3-v3-pilot-20261022/attempts/qwen38-api-p3-v3-pilot-20261022-a-s1-r1/attempt-1-a5c2d1837f/api-calls/00001-generation-6034fb20/request-started.json": "f5a38fa9eb25f3544fe8779b52e4a0a3cfb81ff8e0b1d04efba59829642dd4ab",
+    "results/raw/pilot/qwen38-api-p3-v3-pilot-20261022/attempts/qwen38-api-p3-v3-pilot-20261022-a-s1-r1/attempt-1-a5c2d1837f/api-calls/00001-generation-6034fb20/request.json": "5744ac11d02bc58e80dba3d79d28269e25e5c5d46eed5e5220fabd97ae10c81e",
+    "results/raw/pilot/qwen38-api-p3-v3-pilot-20261022/attempts/qwen38-api-p3-v3-pilot-20261022-a-s1-r1/attempt-1-a5c2d1837f/api-calls/00001-generation-6034fb20/result.json": "336769155eaf5a95d206ec4a63a8b8428a713d88327f15b04a3bd2f327d9cfae",
+    "results/raw/pilot/qwen38-api-p3-v3-pilot-20261022/attempts/qwen38-api-p3-v3-pilot-20261022-a-s1-r1/attempt-1-a5c2d1837f/api-calls/00002-analysis-45e58727/request-started.json": "b36ddaf504205f4a3424ecb793a5a8b02adbfd80064353ea1328824371cfb7ea",
+    "results/raw/pilot/qwen38-api-p3-v3-pilot-20261022/attempts/qwen38-api-p3-v3-pilot-20261022-a-s1-r1/attempt-1-a5c2d1837f/api-calls/00002-analysis-45e58727/request.json": "f54b35cf523e47b72aec0f1f16a0dfe007477f46db4d2dc21da1ff11ec144651",
+    "results/raw/pilot/qwen38-api-p3-v3-pilot-20261022/attempts/qwen38-api-p3-v3-pilot-20261022-a-s1-r1/attempt-1-a5c2d1837f/api-calls/00002-analysis-45e58727/result.json": "64d8e10d2299161eda964d5e0bd738f7fc87ae9dbcd96b4607640810e169953f",
+    "results/raw/pilot/qwen38-api-p3-v3-pilot-20261022/attempts/qwen38-api-p3-v3-pilot-20261022-a-s1-r1/attempt-1-a5c2d1837f/api-calls/00003-generation-8fcf4116/request-started.json": "54f6e49425d8d2fc3af5fdb8f4714cd63875091434c292c649727795a3fb5e6f",
+    "results/raw/pilot/qwen38-api-p3-v3-pilot-20261022/attempts/qwen38-api-p3-v3-pilot-20261022-a-s1-r1/attempt-1-a5c2d1837f/api-calls/00003-generation-8fcf4116/request.json": "55a1343bc3446a2c346afdc01875f155d867fdafb902f122214edb01a01f2fea",
+    "results/raw/pilot/qwen38-api-p3-v3-pilot-20261022/attempts/qwen38-api-p3-v3-pilot-20261022-a-s1-r1/attempt-1-a5c2d1837f/api-calls/00003-generation-8fcf4116/result.json": "93771d8bf091d001b6d78c88de1bf88c1b3efcdc9acb34745d09238790cc01d7",
+    "results/raw/pilot/qwen38-api-p3-v3-pilot-20261022/attempts/qwen38-api-p3-v3-pilot-20261022-a-s1-r1/attempt-1-a5c2d1837f/api-calls/00004-analysis-a16b32ac/request-started.json": "3172a117fc4b4c8ec142ffbd65a706f5db4ae330ff1caf59bbd0a50c2613e2de",
+    "results/raw/pilot/qwen38-api-p3-v3-pilot-20261022/attempts/qwen38-api-p3-v3-pilot-20261022-a-s1-r1/attempt-1-a5c2d1837f/api-calls/00004-analysis-a16b32ac/request.json": "5f9b2e9f98bde21fafda882227f932cf032d8025be13b1a5ef9a3e08c29b39c1",
+    "results/raw/pilot/qwen38-api-p3-v3-pilot-20261022/attempts/qwen38-api-p3-v3-pilot-20261022-a-s1-r1/attempt-1-a5c2d1837f/api-calls/00004-analysis-a16b32ac/result.json": "c88fe4473cbb7c1ed0c311d76bbbfa668646cbd0f5ede5c26072bec52d4bb452",
+    "results/raw/pilot/qwen38-api-p3-v3-pilot-20261022/attempts/qwen38-api-p3-v3-pilot-20261022-a-s1-r1/attempt-1-a5c2d1837f/api-calls/00005-generation-fe25df4a/request-started.json": "48f39746940e4d5a27b7e4bdbbd964c3ecfc6adf9724aa330b49595fef4a96d6",
+    "results/raw/pilot/qwen38-api-p3-v3-pilot-20261022/attempts/qwen38-api-p3-v3-pilot-20261022-a-s1-r1/attempt-1-a5c2d1837f/api-calls/00005-generation-fe25df4a/request.json": "62cd304cb9c0b6f436d7c8aca4c82547d1fa6875abad6fb8f62aeac06e52cfab",
+    "results/raw/pilot/qwen38-api-p3-v3-pilot-20261022/attempts/qwen38-api-p3-v3-pilot-20261022-a-s1-r1/attempt-1-a5c2d1837f/api-calls/00005-generation-fe25df4a/result.json": "2b45a567fbd5b586f1299257d746cfd411ef9f39f4ce5485a95e33bea2ca820f",
+    "results/raw/pilot/qwen38-api-p3-v3-pilot-20261022/attempts/qwen38-api-p3-v3-pilot-20261022-a-s1-r1/attempt-1-a5c2d1837f/api-calls/00006-analysis-9f92ee59/request-started.json": "e7d1f67271286c2f0d8ad93c2c32d68801d520a35c202ae365968c075aeddfc2",
+    "results/raw/pilot/qwen38-api-p3-v3-pilot-20261022/attempts/qwen38-api-p3-v3-pilot-20261022-a-s1-r1/attempt-1-a5c2d1837f/api-calls/00006-analysis-9f92ee59/request.json": "339b9840765610b5d911354cfd9e1e8f5e326fd85e9e43eb5311f7c283028cf1",
+    "results/raw/pilot/qwen38-api-p3-v3-pilot-20261022/attempts/qwen38-api-p3-v3-pilot-20261022-a-s1-r1/attempt-1-a5c2d1837f/api-calls/00006-analysis-9f92ee59/result.json": "59e933df4a76269289651dded715d0519503a348d91215f982b5fd26eeb9cebf",
+    "results/raw/pilot/qwen38-api-p3-v3-pilot-20261022/attempts/qwen38-api-p3-v3-pilot-20261022-a-s1-r1/attempt-1-a5c2d1837f/api-calls/00007-generation-0db27cca/request-started.json": "44a0a8ee44d5d2a477b5ff57820c1d6f8e9f2006b07691f522a8bfc19669dc29",
+    "results/raw/pilot/qwen38-api-p3-v3-pilot-20261022/attempts/qwen38-api-p3-v3-pilot-20261022-a-s1-r1/attempt-1-a5c2d1837f/api-calls/00007-generation-0db27cca/request.json": "97c74152cfd100613e42fa02f29e53ba92247edde5ac8acd441b3aa6faa1dd82",
+    "results/raw/pilot/qwen38-api-p3-v3-pilot-20261022/attempts/qwen38-api-p3-v3-pilot-20261022-a-s1-r1/attempt-1-a5c2d1837f/api-calls/00007-generation-0db27cca/result.json": "2bd7dafe6a6a486b29defdd0ee3872dda3e26e4eb8f280d1ab74352335f7db79",
+    "results/raw/pilot/qwen38-api-p3-v3-pilot-20261022/attempts/qwen38-api-p3-v3-pilot-20261022-a-s1-r1/attempt-1-a5c2d1837f/api-calls/00008-analysis-3b2c24c3/request-started.json": "97f662815e41a548ddd023904efec54afc5204854fc3d5cdf24b936bd8306d31",
+    "results/raw/pilot/qwen38-api-p3-v3-pilot-20261022/attempts/qwen38-api-p3-v3-pilot-20261022-a-s1-r1/attempt-1-a5c2d1837f/api-calls/00008-analysis-3b2c24c3/request.json": "eb0c608a50efe5fb148f60a3b67757a1c63381168f153548108cfaba85a5ac65",
+    "results/raw/pilot/qwen38-api-p3-v3-pilot-20261022/attempts/qwen38-api-p3-v3-pilot-20261022-a-s1-r1/attempt-1-a5c2d1837f/api-calls/00008-analysis-3b2c24c3/result.json": "9ce9ccfdad7edc546206925169e852634f86047fe690c5fd684ca0ebe8ca4e28",
+    "results/raw/pilot/qwen38-api-p3-v3-pilot-20261022/attempts/qwen38-api-p3-v3-pilot-20261022-a-s1-r1/attempt-1-a5c2d1837f/api-calls/00009-generation-71220820/request-started.json": "0d3c315abce5c1bb114fd27056467023e40a6310a5d978f326643bb1ff9a54cd",
+    "results/raw/pilot/qwen38-api-p3-v3-pilot-20261022/attempts/qwen38-api-p3-v3-pilot-20261022-a-s1-r1/attempt-1-a5c2d1837f/api-calls/00009-generation-71220820/request.json": "4352d0329b0e22be124f6964eb5ccbba337b5226164114c8a48acc89664cb3db",
+    "results/raw/pilot/qwen38-api-p3-v3-pilot-20261022/attempts/qwen38-api-p3-v3-pilot-20261022-a-s1-r1/attempt-1-a5c2d1837f/api-calls/00009-generation-71220820/result.json": "d993188fc03defde2c8128400fa8333c996b7900d34daaa84c9154adb414eade",
+    "results/raw/pilot/qwen38-api-p3-v3-pilot-20261022/attempts/qwen38-api-p3-v3-pilot-20261022-a-s1-r1/attempt-1-a5c2d1837f/api-calls/00010-analysis-09c08e84/request-started.json": "518ed4fcf261ae619090ec385d5907571e3d05acd696795e674c0f3f5c7729c3",
+    "results/raw/pilot/qwen38-api-p3-v3-pilot-20261022/attempts/qwen38-api-p3-v3-pilot-20261022-a-s1-r1/attempt-1-a5c2d1837f/api-calls/00010-analysis-09c08e84/request.json": "91d68712baccf1c92c30564cfbda5ce06d2086b7ee03d36599ba565f7ec1a240",
+    "results/raw/pilot/qwen38-api-p3-v3-pilot-20261022/attempts/qwen38-api-p3-v3-pilot-20261022-a-s1-r1/attempt-1-a5c2d1837f/api-calls/00010-analysis-09c08e84/result.json": "916b786ed3e98780fc86e326e1fce45bc8a1bf4f11b2886baaf6612047025530",
+    "results/raw/pilot/qwen38-api-p3-v3-pilot-20261022/attempts/qwen38-api-p3-v3-pilot-20261022-a-s1-r1/attempt-1-a5c2d1837f/api-calls/00011-generation-fe0a76e8/request-started.json": "368c521e4b36026fc78eb8261c6e18f857e5d8b6f559f20161ad2f2077afd037",
+    "results/raw/pilot/qwen38-api-p3-v3-pilot-20261022/attempts/qwen38-api-p3-v3-pilot-20261022-a-s1-r1/attempt-1-a5c2d1837f/api-calls/00011-generation-fe0a76e8/request.json": "a26f1c151fd1037c903ab0065f4616dc0749950805aabd4ff4586a84fcf1d27a",
+    "results/raw/pilot/qwen38-api-p3-v3-pilot-20261022/attempts/qwen38-api-p3-v3-pilot-20261022-a-s1-r1/attempt-1-a5c2d1837f/api-calls/00011-generation-fe0a76e8/result.json": "48316bf4ff74787a767be7fdb59563c50081a6c5cbf01c5fef397918d36ab1cf",
+    "results/raw/pilot/qwen38-api-p3-v3-pilot-20261022/attempts/qwen38-api-p3-v3-pilot-20261022-a-s1-r1/attempt-1-a5c2d1837f/api-calls/00012-analysis-b976df11/request-started.json": "6a8c86a4812697df2e7668af3371ee3f7d9aaa21a9246fb9d70ea54e795ce404",
+    "results/raw/pilot/qwen38-api-p3-v3-pilot-20261022/attempts/qwen38-api-p3-v3-pilot-20261022-a-s1-r1/attempt-1-a5c2d1837f/api-calls/00012-analysis-b976df11/request.json": "bc320e00bb7c252d9fbda3fe174431ff2a94948032e656f9e02ae29cbc6a9b22",
+    "results/raw/pilot/qwen38-api-p3-v3-pilot-20261022/attempts/qwen38-api-p3-v3-pilot-20261022-a-s1-r1/attempt-1-a5c2d1837f/api-calls/00012-analysis-b976df11/result.json": "4740ebeb62b58222e63a1d534c6399cfecaf90344bbacc97388427d28444d862",
+    "results/raw/pilot/qwen38-api-p3-v3-pilot-20261022/attempts/qwen38-api-p3-v3-pilot-20261022-a-s1-r1/attempt-1-a5c2d1837f/api-calls/00013-generation-1ee00403/request-started.json": "08b9945909ce7380af546ffa43de59206157ba27324ac71dfbaf1036bb9b950b",
+    "results/raw/pilot/qwen38-api-p3-v3-pilot-20261022/attempts/qwen38-api-p3-v3-pilot-20261022-a-s1-r1/attempt-1-a5c2d1837f/api-calls/00013-generation-1ee00403/request.json": "b6f25c4fb69d1a5245854ec3dda7def451f4b4b10dcf405d5e695c3d8ef93b4c",
+    "results/raw/pilot/qwen38-api-p3-v3-pilot-20261022/attempts/qwen38-api-p3-v3-pilot-20261022-a-s1-r1/attempt-1-a5c2d1837f/api-calls/00013-generation-1ee00403/result.json": "48e4a512803a959aa60f890cc0b818995425ca121f859baf9adc5df03376035b",
+    "results/raw/pilot/qwen38-api-p3-v3-pilot-20261022/attempts/qwen38-api-p3-v3-pilot-20261022-a-s1-r1/attempt-1-a5c2d1837f/api-calls/00014-analysis-4b6261e9/request-started.json": "13578046bb8a3c8403444fc24ea9cb83c54ea307526f776b1c735980441c9b3d",
+    "results/raw/pilot/qwen38-api-p3-v3-pilot-20261022/attempts/qwen38-api-p3-v3-pilot-20261022-a-s1-r1/attempt-1-a5c2d1837f/api-calls/00014-analysis-4b6261e9/request.json": "e1233179785fa41b3dd7518d40e474a5a2218188b72519a33dd5ee275cccbb0e",
+    "results/raw/pilot/qwen38-api-p3-v3-pilot-20261022/attempts/qwen38-api-p3-v3-pilot-20261022-a-s1-r1/attempt-1-a5c2d1837f/api-calls/00014-analysis-4b6261e9/result.json": "a14015dd57111b8b3a5a32355af2bb38e68fe3028dd32dd4de65bc3f0f0d12ba",
+    "results/raw/pilot/qwen38-api-p3-v3-pilot-20261022/attempts/qwen38-api-p3-v3-pilot-20261022-a-s1-r1/attempt-1-a5c2d1837f/api-calls/00015-generation-e7b7f26f/request-started.json": "89bc92654606f196e50c6be5e5d8f15a7ebaf5b664b4f0f50211f9edafea1acf",
+    "results/raw/pilot/qwen38-api-p3-v3-pilot-20261022/attempts/qwen38-api-p3-v3-pilot-20261022-a-s1-r1/attempt-1-a5c2d1837f/api-calls/00015-generation-e7b7f26f/request.json": "96ace7ff98c3cf82dac845b2d01b2707383dd207e8c306e74d20d0858872718f",
+    "results/raw/pilot/qwen38-api-p3-v3-pilot-20261022/attempts/qwen38-api-p3-v3-pilot-20261022-a-s1-r1/attempt-1-a5c2d1837f/api-calls/00015-generation-e7b7f26f/result.json": "f8e2b2c7fea91f4c872d1b45a07fc1172d9bd12ead8ee5824139d6e7d49934fb",
+    "results/raw/pilot/qwen38-api-p3-v3-pilot-20261022/attempts/qwen38-api-p3-v3-pilot-20261022-a-s1-r1/attempt-1-a5c2d1837f/api-calls/00016-analysis-6c7e9be6/request-started.json": "c00bc9874be900bbbe9ea8b6ea805ba6a0536dda0772dc22d69edc3f10e5a1b5",
+    "results/raw/pilot/qwen38-api-p3-v3-pilot-20261022/attempts/qwen38-api-p3-v3-pilot-20261022-a-s1-r1/attempt-1-a5c2d1837f/api-calls/00016-analysis-6c7e9be6/request.json": "ef981e2cc6370e72cde9dbcca73e96efe3ed9cebf510bbeeaff81db15ae5bc37",
+    "results/raw/pilot/qwen38-api-p3-v3-pilot-20261022/attempts/qwen38-api-p3-v3-pilot-20261022-a-s1-r1/attempt-1-a5c2d1837f/api-calls/00016-analysis-6c7e9be6/result.json": "aacc9240432e8ad0167806f0fe648c86cb3649f5d86b2a4df5b4abdedaceefc3",
+    "results/raw/pilot/qwen38-api-p3-v3-pilot-20261022/attempts/qwen38-api-p3-v3-pilot-20261022-a-s1-r1/attempt-1-a5c2d1837f/api-calls/00017-generation-0c85ce23/request-started.json": "874c3791a80db96611be2b37c5d0dae26d8d81d9fa49d1c479571d48a42eacc7",
+    "results/raw/pilot/qwen38-api-p3-v3-pilot-20261022/attempts/qwen38-api-p3-v3-pilot-20261022-a-s1-r1/attempt-1-a5c2d1837f/api-calls/00017-generation-0c85ce23/request.json": "7351b1fe70aa826b1b29971bea0bca3a0d2ac30ba9fa809ff691c314ddc8cafe",
+    "results/raw/pilot/qwen38-api-p3-v3-pilot-20261022/attempts/qwen38-api-p3-v3-pilot-20261022-a-s1-r1/attempt-1-a5c2d1837f/api-calls/00017-generation-0c85ce23/result.json": "d6def030c9bf149a95336a63cc21e58edd25c3075d03eb749369a7d86c47d21e",
+    "results/raw/pilot/qwen38-api-p3-v3-pilot-20261022/attempts/qwen38-api-p3-v3-pilot-20261022-a-s1-r1/attempt-1-a5c2d1837f/api-calls/00018-generation-2cc419cb/request-started.json": "0d01f987c03b92b2393b700cc627c3abfb516d7ace3faf39fb0db744f59b34a3",
+    "results/raw/pilot/qwen38-api-p3-v3-pilot-20261022/attempts/qwen38-api-p3-v3-pilot-20261022-a-s1-r1/attempt-1-a5c2d1837f/api-calls/00018-generation-2cc419cb/request.json": "75699f9833a9f9996e7edbe151f3c7e6e0ff7a63177346a59713e3416dd8ae77",
+    "results/raw/pilot/qwen38-api-p3-v3-pilot-20261022/attempts/qwen38-api-p3-v3-pilot-20261022-a-s1-r1/attempt-1-a5c2d1837f/api-calls/00018-generation-2cc419cb/result.json": "1e20e65ab9bac53d56d508fc5d5f6aadd394a6402d179bf3866726009da15a54",
+    "results/raw/pilot/qwen38-api-p3-v3-pilot-20261022/attempts/qwen38-api-p3-v3-pilot-20261022-a-s1-r1/attempt-1-a5c2d1837f/api-calls/00019-generation-ea18e850/request-started.json": "4c380c119c3742969fb114c790b78e1d0fcd9d7e85f2c733df41a65b8a388d1f",
+    "results/raw/pilot/qwen38-api-p3-v3-pilot-20261022/attempts/qwen38-api-p3-v3-pilot-20261022-a-s1-r1/attempt-1-a5c2d1837f/api-calls/00019-generation-ea18e850/request.json": "64f805dc92d5a9dc4c4950d162b18b5bf9d08c920351eec28066813d9b3b234c",
+    "results/raw/pilot/qwen38-api-p3-v3-pilot-20261022/attempts/qwen38-api-p3-v3-pilot-20261022-a-s1-r1/attempt-1-a5c2d1837f/api-calls/00019-generation-ea18e850/result.json": "705d64213bb7a9616a5e7bd1048dfa2883e634693f0d6df4b3168db4ae238ec6",
+    "results/raw/pilot/qwen38-api-p3-v3-pilot-20261022/attempts/qwen38-api-p3-v3-pilot-20261022-a-s1-r1/attempt-1-a5c2d1837f/qwen-api-adaptive-result.json": "881d564891b1f54c432ab522eb466c60b9a05a2074cdef20a5d18aecbbac2149",
+    "results/raw/pilot/qwen38-api-p3-v3-pilot-20261022/attempts/qwen38-api-p3-v3-pilot-20261022-a-s1-r1/attempt-1-a5c2d1837f/validation.jsonl": "8161a79111cb6445c960be189ad3f7d912af88aad03a159d67810508b82b6601",
+    "results/raw/pilot/qwen38-api-p3-v3-pilot-20261022/attempts/qwen38-api-p3-v3-pilot-20261022-b-s1-r1/attempt-1-992d1a881f/adaptive-candidates.json": "2b2a52a5c00d7b8cef70a5608f67b05b161240e7b807f4525db463176d6e0ea5",
+    "results/raw/pilot/qwen38-api-p3-v3-pilot-20261022/attempts/qwen38-api-p3-v3-pilot-20261022-b-s1-r1/attempt-1-992d1a881f/adaptive-generation-audit.json": "84ce2eed0c17460039b2156040c453b996ae867ccb4e89408eb59e29d70714b9",
+    "results/raw/pilot/qwen38-api-p3-v3-pilot-20261022/attempts/qwen38-api-p3-v3-pilot-20261022-b-s1-r1/attempt-1-992d1a881f/api-calls/00020-generation-83094f85/request-started.json": "dace0aec5a29b909b7da51e8796f3c330ef3871626fe1e58004cf83ddc333e3a",
+    "results/raw/pilot/qwen38-api-p3-v3-pilot-20261022/attempts/qwen38-api-p3-v3-pilot-20261022-b-s1-r1/attempt-1-992d1a881f/api-calls/00020-generation-83094f85/request.json": "206726d1817d28b3a91a81ce35872d0b8010075bbaa46a47c1e5170309dc2156",
+    "results/raw/pilot/qwen38-api-p3-v3-pilot-20261022/attempts/qwen38-api-p3-v3-pilot-20261022-b-s1-r1/attempt-1-992d1a881f/api-calls/00020-generation-83094f85/result.json": "0923797be2db233e8916e8d510c6931683dfc6cd1e28a869f0cc37575ab77472",
+    "results/raw/pilot/qwen38-api-p3-v3-pilot-20261022/attempts/qwen38-api-p3-v3-pilot-20261022-b-s1-r1/attempt-1-992d1a881f/api-calls/00021-analysis-35e597fe/request-started.json": "5f3b086a57eec291643257f2096fd37807bbf145fc7f7cd22ad59ee17cd129e3",
+    "results/raw/pilot/qwen38-api-p3-v3-pilot-20261022/attempts/qwen38-api-p3-v3-pilot-20261022-b-s1-r1/attempt-1-992d1a881f/api-calls/00021-analysis-35e597fe/request.json": "e6c8f1bbd9a708217b3ec43b72e3b301f96cc8dc9db7af292ed6259e20b32ac1",
+    "results/raw/pilot/qwen38-api-p3-v3-pilot-20261022/attempts/qwen38-api-p3-v3-pilot-20261022-b-s1-r1/attempt-1-992d1a881f/api-calls/00021-analysis-35e597fe/result.json": "545cf771bfbc6bdf0d817d9cf78c2e2bbc4ce565da9efd898a41adf90c49f187",
+    "results/raw/pilot/qwen38-api-p3-v3-pilot-20261022/attempts/qwen38-api-p3-v3-pilot-20261022-b-s1-r1/attempt-1-992d1a881f/api-calls/00022-generation-634fbb6e/request-started.json": "d8d63d9eeab0922dbade7470eb99073de2731acf7284dea36d67648f23682209",
+    "results/raw/pilot/qwen38-api-p3-v3-pilot-20261022/attempts/qwen38-api-p3-v3-pilot-20261022-b-s1-r1/attempt-1-992d1a881f/api-calls/00022-generation-634fbb6e/request.json": "b0a8a8e224e0044433c452c075e45f4fe6c213f80c70b30675fc1c5b33c7fd65",
+    "results/raw/pilot/qwen38-api-p3-v3-pilot-20261022/attempts/qwen38-api-p3-v3-pilot-20261022-b-s1-r1/attempt-1-992d1a881f/api-calls/00022-generation-634fbb6e/result.json": "bf281fcd4bcea0afad9fc0f99bf2a90f83c4fe77db6688de5d34caf6003bc15b",
+    "results/raw/pilot/qwen38-api-p3-v3-pilot-20261022/attempts/qwen38-api-p3-v3-pilot-20261022-b-s1-r1/attempt-1-992d1a881f/api-calls/00023-analysis-28457dbc/request-started.json": "30764a086cffb1892fe581c16520e85ce83089260f92d71e6c5a3d9674745a02",
+    "results/raw/pilot/qwen38-api-p3-v3-pilot-20261022/attempts/qwen38-api-p3-v3-pilot-20261022-b-s1-r1/attempt-1-992d1a881f/api-calls/00023-analysis-28457dbc/request.json": "7b4c0e7ad2ff33511312d0a2d62442f9f2715b6ea2bd5a7c3ee00c708d513757",
+    "results/raw/pilot/qwen38-api-p3-v3-pilot-20261022/attempts/qwen38-api-p3-v3-pilot-20261022-b-s1-r1/attempt-1-992d1a881f/api-calls/00023-analysis-28457dbc/result.json": "382d1d05cb2a484dc88efc7e61aa45ff1dceb0c68089783ec081152abc4e5642",
+    "results/raw/pilot/qwen38-api-p3-v3-pilot-20261022/attempts/qwen38-api-p3-v3-pilot-20261022-b-s1-r1/attempt-1-992d1a881f/api-calls/00024-generation-69515faf/request-started.json": "ffbceac057b5b33598e3de73efa041b923bfa02c689860a9d051cdbb1891c783",
+    "results/raw/pilot/qwen38-api-p3-v3-pilot-20261022/attempts/qwen38-api-p3-v3-pilot-20261022-b-s1-r1/attempt-1-992d1a881f/api-calls/00024-generation-69515faf/request.json": "1a861829900cbf6ec4d5f11e027d75b1a3eebebed90dccb7a9fc8e53b70ab9be",
+    "results/raw/pilot/qwen38-api-p3-v3-pilot-20261022/attempts/qwen38-api-p3-v3-pilot-20261022-b-s1-r1/attempt-1-992d1a881f/api-calls/00024-generation-69515faf/result.json": "9f2c3a840b1dbeef23b954957b167e4e34af815c9b7c2858c011e9b22e760027",
+    "results/raw/pilot/qwen38-api-p3-v3-pilot-20261022/attempts/qwen38-api-p3-v3-pilot-20261022-b-s1-r1/attempt-1-992d1a881f/api-calls/00025-analysis-c94afaae/request-started.json": "5876c8877aa85b89e4c9a361e917fde1064505a92de222d6f0568533af502870",
+    "results/raw/pilot/qwen38-api-p3-v3-pilot-20261022/attempts/qwen38-api-p3-v3-pilot-20261022-b-s1-r1/attempt-1-992d1a881f/api-calls/00025-analysis-c94afaae/request.json": "f92cd7c251931abed91f0a83f0a17066a4a861da0a63905eaa7904d2c2e5952e",
+    "results/raw/pilot/qwen38-api-p3-v3-pilot-20261022/attempts/qwen38-api-p3-v3-pilot-20261022-b-s1-r1/attempt-1-992d1a881f/api-calls/00025-analysis-c94afaae/result.json": "fdeb6c3b460ca11467f5a4de2bef13573818754d87fb7ca304f1c03531d035f8",
+    "results/raw/pilot/qwen38-api-p3-v3-pilot-20261022/attempts/qwen38-api-p3-v3-pilot-20261022-b-s1-r1/attempt-1-992d1a881f/api-calls/00026-generation-180bc458/request-started.json": "99ea5cb2f9b7af861431079b122db3263fc0a4ad001816ec3944fe45eb92b602",
+    "results/raw/pilot/qwen38-api-p3-v3-pilot-20261022/attempts/qwen38-api-p3-v3-pilot-20261022-b-s1-r1/attempt-1-992d1a881f/api-calls/00026-generation-180bc458/request.json": "4e06dbd8346af87fa4499b86a4fa0237d50dd8ab35a360422b06b3e5f2737c86",
+    "results/raw/pilot/qwen38-api-p3-v3-pilot-20261022/attempts/qwen38-api-p3-v3-pilot-20261022-b-s1-r1/attempt-1-992d1a881f/api-calls/00026-generation-180bc458/result.json": "9758d1f5b00f4759ec63dd9b20924f0b439d3b0c8329f207454d0daef272df87",
+    "results/raw/pilot/qwen38-api-p3-v3-pilot-20261022/attempts/qwen38-api-p3-v3-pilot-20261022-b-s1-r1/attempt-1-992d1a881f/api-calls/00027-analysis-3c56976f/request-started.json": "335190887272d8f96409d4effcdf21323b7e842dcbb7eed8269d217d246f099c",
+    "results/raw/pilot/qwen38-api-p3-v3-pilot-20261022/attempts/qwen38-api-p3-v3-pilot-20261022-b-s1-r1/attempt-1-992d1a881f/api-calls/00027-analysis-3c56976f/request.json": "668d9947efb77a2887814a155e90f4f6bd68d3ae6a00b17b8a83b4942ff560bb",
+    "results/raw/pilot/qwen38-api-p3-v3-pilot-20261022/attempts/qwen38-api-p3-v3-pilot-20261022-b-s1-r1/attempt-1-992d1a881f/api-calls/00027-analysis-3c56976f/result.json": "ed5f9abfe8d1ea145072eb042587201ff83b3619078b533de6265509014c826e",
+    "results/raw/pilot/qwen38-api-p3-v3-pilot-20261022/attempts/qwen38-api-p3-v3-pilot-20261022-b-s1-r1/attempt-1-992d1a881f/api-calls/00028-generation-a04ca147/request-started.json": "c3da10c2b456642b7a73ebf09e35193034f031cf31bee5eb6b2d199bad7061ec",
+    "results/raw/pilot/qwen38-api-p3-v3-pilot-20261022/attempts/qwen38-api-p3-v3-pilot-20261022-b-s1-r1/attempt-1-992d1a881f/api-calls/00028-generation-a04ca147/request.json": "5db56511fdbc1bf8cab5d0fd49ce8be2bb69603f994243bb50f4e9fc2cb34f4c",
+    "results/raw/pilot/qwen38-api-p3-v3-pilot-20261022/attempts/qwen38-api-p3-v3-pilot-20261022-b-s1-r1/attempt-1-992d1a881f/api-calls/00028-generation-a04ca147/result.json": "65ec342a5fb1da2442b774b7778ccc82a84db3d14afaa8c8d9b4cca7f1bbab1e",
+    "results/raw/pilot/qwen38-api-p3-v3-pilot-20261022/attempts/qwen38-api-p3-v3-pilot-20261022-b-s1-r1/attempt-1-992d1a881f/api-calls/00029-analysis-873f78b0/request-started.json": "d24210d97efeb3bb0ed78e5f68c6b406e9e019f5f4aa1ad210a23155c03f757c",
+    "results/raw/pilot/qwen38-api-p3-v3-pilot-20261022/attempts/qwen38-api-p3-v3-pilot-20261022-b-s1-r1/attempt-1-992d1a881f/api-calls/00029-analysis-873f78b0/request.json": "df17d2aac7350164bef4f2c40823f0759fb47e3c30073857d4a5c6b7879ce28f",
+    "results/raw/pilot/qwen38-api-p3-v3-pilot-20261022/attempts/qwen38-api-p3-v3-pilot-20261022-b-s1-r1/attempt-1-992d1a881f/api-calls/00029-analysis-873f78b0/result.json": "8d3da358c776a033524a9cdb1e1d0d462325e664810dfc6dcd985576be7d3824",
+    "results/raw/pilot/qwen38-api-p3-v3-pilot-20261022/attempts/qwen38-api-p3-v3-pilot-20261022-b-s1-r1/attempt-1-992d1a881f/api-calls/00030-generation-112c31bd/request-started.json": "91d4783c470a0e1c2f0b379aa5c73f07da178fe386036eb3b76c7530d9f6a89b",
+    "results/raw/pilot/qwen38-api-p3-v3-pilot-20261022/attempts/qwen38-api-p3-v3-pilot-20261022-b-s1-r1/attempt-1-992d1a881f/api-calls/00030-generation-112c31bd/request.json": "637aef2ecd296ba52a6429e49c3fbd004a7f114e7c9333d9c1dc42c48123d16a",
+    "results/raw/pilot/qwen38-api-p3-v3-pilot-20261022/attempts/qwen38-api-p3-v3-pilot-20261022-b-s1-r1/attempt-1-992d1a881f/api-calls/00030-generation-112c31bd/result.json": "51375f4f26ea46c0800478691650bf34c990cad1cf5762492940778613247fbd",
+    "results/raw/pilot/qwen38-api-p3-v3-pilot-20261022/attempts/qwen38-api-p3-v3-pilot-20261022-b-s1-r1/attempt-1-992d1a881f/api-calls/00031-analysis-386ffcaf/request-started.json": "29cb4cd94b5ffdf12b5eed1c10b26fa773ab59ffcbc0839eb1f7c64a9d67dd68",
+    "results/raw/pilot/qwen38-api-p3-v3-pilot-20261022/attempts/qwen38-api-p3-v3-pilot-20261022-b-s1-r1/attempt-1-992d1a881f/api-calls/00031-analysis-386ffcaf/request.json": "87733ebb85fed83d4f72befd8c55a54dcfcb33b17cbe5737016567b0fa6ce7ae",
+    "results/raw/pilot/qwen38-api-p3-v3-pilot-20261022/attempts/qwen38-api-p3-v3-pilot-20261022-b-s1-r1/attempt-1-992d1a881f/api-calls/00031-analysis-386ffcaf/result.json": "5c1f5ee338ea374b61fc448c20177ec630ccfa67d337317d926237364b4bbe20",
+    "results/raw/pilot/qwen38-api-p3-v3-pilot-20261022/attempts/qwen38-api-p3-v3-pilot-20261022-b-s1-r1/attempt-1-992d1a881f/api-calls/00032-generation-7981cd60/request-started.json": "ed6a6b306691f0a29196cbc354be816959270ad364eb6147edb042088e0081fb",
+    "results/raw/pilot/qwen38-api-p3-v3-pilot-20261022/attempts/qwen38-api-p3-v3-pilot-20261022-b-s1-r1/attempt-1-992d1a881f/api-calls/00032-generation-7981cd60/request.json": "4c89c6f8f377d3cdce967de4be1b0e2f1bc328fc1fe7669cbd3ff0398de46c5f",
+    "results/raw/pilot/qwen38-api-p3-v3-pilot-20261022/attempts/qwen38-api-p3-v3-pilot-20261022-b-s1-r1/attempt-1-992d1a881f/api-calls/00032-generation-7981cd60/result.json": "067b40dc703c2df3d7cd27cca23dc965692c24cf8005a41cb7226f5488f5f44c",
+    "results/raw/pilot/qwen38-api-p3-v3-pilot-20261022/attempts/qwen38-api-p3-v3-pilot-20261022-b-s1-r1/attempt-1-992d1a881f/api-calls/00033-analysis-5b9d02be/request-started.json": "bb245136a9d558c19f1bc2ceda7c6b83fe1d2c554136e85debab69bbc5fba9f9",
+    "results/raw/pilot/qwen38-api-p3-v3-pilot-20261022/attempts/qwen38-api-p3-v3-pilot-20261022-b-s1-r1/attempt-1-992d1a881f/api-calls/00033-analysis-5b9d02be/request.json": "afdf36794b9770fc09f8d5a23979e56b6643d37115a9019bf72b2ab1ff04fffe",
+    "results/raw/pilot/qwen38-api-p3-v3-pilot-20261022/attempts/qwen38-api-p3-v3-pilot-20261022-b-s1-r1/attempt-1-992d1a881f/api-calls/00033-analysis-5b9d02be/result.json": "6e06e37cde1b87f1363077f70fa40fa927171257f2310b1259f718b83ee50328",
+    "results/raw/pilot/qwen38-api-p3-v3-pilot-20261022/attempts/qwen38-api-p3-v3-pilot-20261022-b-s1-r1/attempt-1-992d1a881f/api-calls/00034-generation-c2375d34/request-started.json": "69833a45aefcc2f2bafa0870998832c13cc53414cc25028ef98fc44f62feeff5",
+    "results/raw/pilot/qwen38-api-p3-v3-pilot-20261022/attempts/qwen38-api-p3-v3-pilot-20261022-b-s1-r1/attempt-1-992d1a881f/api-calls/00034-generation-c2375d34/request.json": "34ab373b7ce428b093b48f00bc9655b29683c0f32fba0eef7dc4382f99d090f8",
+    "results/raw/pilot/qwen38-api-p3-v3-pilot-20261022/attempts/qwen38-api-p3-v3-pilot-20261022-b-s1-r1/attempt-1-992d1a881f/api-calls/00034-generation-c2375d34/result.json": "f5ca6c80c76aed0c937d89075cab40120856e9bcfdc13102aa2b3c8473455a4b",
+    "results/raw/pilot/qwen38-api-p3-v3-pilot-20261022/attempts/qwen38-api-p3-v3-pilot-20261022-b-s1-r1/attempt-1-992d1a881f/api-calls/00035-analysis-2ff2c8d8/request-started.json": "8df9cdc840cedf9c0d55d684b9d70e4eda3458695dd015554c11d4273d90f282",
+    "results/raw/pilot/qwen38-api-p3-v3-pilot-20261022/attempts/qwen38-api-p3-v3-pilot-20261022-b-s1-r1/attempt-1-992d1a881f/api-calls/00035-analysis-2ff2c8d8/request.json": "ab96b7de2a72c7023aab09f3688dd2201c1bca1623f9dcc77cbb7eb8093813b0",
+    "results/raw/pilot/qwen38-api-p3-v3-pilot-20261022/attempts/qwen38-api-p3-v3-pilot-20261022-b-s1-r1/attempt-1-992d1a881f/api-calls/00035-analysis-2ff2c8d8/result.json": "691aa395bfae2da675f233ac52e55b848a18e2e63c4775448bd44aab67958951",
+    "results/raw/pilot/qwen38-api-p3-v3-pilot-20261022/attempts/qwen38-api-p3-v3-pilot-20261022-b-s1-r1/attempt-1-992d1a881f/api-calls/00036-generation-498f341d/request-started.json": "2b697e81c35669a9ef48401852c034c1b98d8f5e41f34c1720853e4e5b151194",
+    "results/raw/pilot/qwen38-api-p3-v3-pilot-20261022/attempts/qwen38-api-p3-v3-pilot-20261022-b-s1-r1/attempt-1-992d1a881f/api-calls/00036-generation-498f341d/request.json": "96f38f999d59f82058cd58aa9f0350534d57528b6e2e0f7e0612c1997e2f5999",
+    "results/raw/pilot/qwen38-api-p3-v3-pilot-20261022/attempts/qwen38-api-p3-v3-pilot-20261022-b-s1-r1/attempt-1-992d1a881f/api-calls/00036-generation-498f341d/result.json": "52eebcc79372b600b35785a4f9a5dee7b2ad7b085a2d6c903bb0573bae5d18e9",
+    "results/raw/pilot/qwen38-api-p3-v3-pilot-20261022/attempts/qwen38-api-p3-v3-pilot-20261022-b-s1-r1/attempt-1-992d1a881f/api-calls/00037-analysis-ebde6e46/request-started.json": "ebd89a84147eb8eecacc1107abf3a9a47eabf06d34bc825f024ef1f2a99b4bea",
+    "results/raw/pilot/qwen38-api-p3-v3-pilot-20261022/attempts/qwen38-api-p3-v3-pilot-20261022-b-s1-r1/attempt-1-992d1a881f/api-calls/00037-analysis-ebde6e46/request.json": "eaae6a4070732b8de35f2880e0b1b7264ce1cea67e341a99f39eec6fba705ea2",
+    "results/raw/pilot/qwen38-api-p3-v3-pilot-20261022/attempts/qwen38-api-p3-v3-pilot-20261022-b-s1-r1/attempt-1-992d1a881f/api-calls/00037-analysis-ebde6e46/result.json": "41bd4974d89675c5c7bed44cdc174b0f8c52194dfe2120d3c82426470f87acd3",
+    "results/raw/pilot/qwen38-api-p3-v3-pilot-20261022/attempts/qwen38-api-p3-v3-pilot-20261022-b-s1-r1/attempt-1-992d1a881f/api-calls/00038-generation-c5436ae4/request-started.json": "01ba38d2736af8408843fb636c6584b9fd0f147d32aa89537dff9b4320394ca9",
+    "results/raw/pilot/qwen38-api-p3-v3-pilot-20261022/attempts/qwen38-api-p3-v3-pilot-20261022-b-s1-r1/attempt-1-992d1a881f/api-calls/00038-generation-c5436ae4/request.json": "2d640aa12b468560d5115ced4cdf0d789af9dc4028ff6876048d6129486fb153",
+    "results/raw/pilot/qwen38-api-p3-v3-pilot-20261022/attempts/qwen38-api-p3-v3-pilot-20261022-b-s1-r1/attempt-1-992d1a881f/api-calls/00038-generation-c5436ae4/result.json": "bb50303ac090fa29ac0a3f46a3e3a641d9ed10ed585f99f2d174a44234af2c6a",
+    "results/raw/pilot/qwen38-api-p3-v3-pilot-20261022/attempts/qwen38-api-p3-v3-pilot-20261022-b-s1-r1/attempt-1-992d1a881f/api-calls/00039-analysis-84aac270/request-started.json": "3ce8a55b2b401ec823b9a3cd4800bf1cb62fbe550cbe380b9b585b642d29f3fd",
+    "results/raw/pilot/qwen38-api-p3-v3-pilot-20261022/attempts/qwen38-api-p3-v3-pilot-20261022-b-s1-r1/attempt-1-992d1a881f/api-calls/00039-analysis-84aac270/request.json": "4c105c779167366966c4de5e022b91a58c97fd4ed81afd5746c83e3241a00d2a",
+    "results/raw/pilot/qwen38-api-p3-v3-pilot-20261022/attempts/qwen38-api-p3-v3-pilot-20261022-b-s1-r1/attempt-1-992d1a881f/api-calls/00039-analysis-84aac270/result.json": "a1986d51d2771e977cae374a0fb55dde0c32e7e34927617c0a62711b32fe4d6f",
+    "results/raw/pilot/qwen38-api-p3-v3-pilot-20261022/attempts/qwen38-api-p3-v3-pilot-20261022-b-s1-r1/attempt-1-992d1a881f/knowledge-index-copy/4176542f-e8f6-4a46-8652-598aedaf3721/data_level0.bin": "fc1b1cd789609447f4071a20c66ee3042904a4b11550cd159f7e6e368b301769",
+    "results/raw/pilot/qwen38-api-p3-v3-pilot-20261022/attempts/qwen38-api-p3-v3-pilot-20261022-b-s1-r1/attempt-1-992d1a881f/knowledge-index-copy/4176542f-e8f6-4a46-8652-598aedaf3721/header.bin": "03cb3ac86f3e5bcb15e88b9bf99f760ec6b33e31d64a699e129b49868db6d733",
+    "results/raw/pilot/qwen38-api-p3-v3-pilot-20261022/attempts/qwen38-api-p3-v3-pilot-20261022-b-s1-r1/attempt-1-992d1a881f/knowledge-index-copy/4176542f-e8f6-4a46-8652-598aedaf3721/length.bin": "c0a95430371eebb8065dcbcd8fc819161601e0fda5df90a28c54becb2b7a8e9e",
+    "results/raw/pilot/qwen38-api-p3-v3-pilot-20261022/attempts/qwen38-api-p3-v3-pilot-20261022-b-s1-r1/attempt-1-992d1a881f/knowledge-index-copy/4176542f-e8f6-4a46-8652-598aedaf3721/link_lists.bin": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "results/raw/pilot/qwen38-api-p3-v3-pilot-20261022/attempts/qwen38-api-p3-v3-pilot-20261022-b-s1-r1/attempt-1-992d1a881f/knowledge-index-copy/chroma.sqlite3": "7fd1155f3d176de2715c6266d40c52d372db20e21d676247aa95dbbd0690d6ca",
+    "results/raw/pilot/qwen38-api-p3-v3-pilot-20261022/attempts/qwen38-api-p3-v3-pilot-20261022-b-s1-r1/attempt-1-992d1a881f/knowledge-index-copy/manifest.json": "e00baf7e2af3e25ea6011a4e9cea2c19bd6122c7592e576ea8400e97786a24bd",
+    "results/raw/pilot/qwen38-api-p3-v3-pilot-20261022/attempts/qwen38-api-p3-v3-pilot-20261022-b-s1-r1/attempt-1-992d1a881f/qwen-api-adaptive-result.json": "8cde61d53195474f12bf125d1b4ef9a29f6ea6e9264c25dc908a512c1f4e351f",
+    "results/raw/pilot/qwen38-api-p3-v3-pilot-20261022/attempts/qwen38-api-p3-v3-pilot-20261022-b-s1-r1/attempt-1-992d1a881f/validation.jsonl": "05b1e1fa54f1219c105fc15097ce4498b1cbd78e0b088007b01e12a62fa665ab",
+    "results/raw/pilot/qwen38-api-p3-v3-pilot-20261022/attempts/qwen38-api-p3-v3-pilot-20261022-b-s2-r1/attempt-1-64bf650c63/api-calls/00040-generation-c6736e7b/request-started.json": "33533fed84064fb9a84315395a320c45ef2862d41aee7fc4016bb6775b9ad11e",
+    "results/raw/pilot/qwen38-api-p3-v3-pilot-20261022/attempts/qwen38-api-p3-v3-pilot-20261022-b-s2-r1/attempt-1-64bf650c63/api-calls/00040-generation-c6736e7b/request.json": "2869eca3d7817bdb30775429f9d4570bb3b155419956bc3630765c65a94cd673",
+    "results/raw/pilot/qwen38-api-p3-v3-pilot-20261022/attempts/qwen38-api-p3-v3-pilot-20261022-b-s2-r1/attempt-1-64bf650c63/api-calls/00040-generation-c6736e7b/result.json": "36153c4197b586418404a6ffc420307028dbcd675aed8fb65f98cd823fc330e3",
+    "results/raw/pilot/qwen38-api-p3-v3-pilot-20261022/attempts/qwen38-api-p3-v3-pilot-20261022-b-s2-r1/attempt-1-64bf650c63/api-calls/00041-analysis-addf3ab4/request-started.json": "571763b4184e8eeeaab2228731b3296d27e3b3aa4d6f15a41db6939726bb550e",
+    "results/raw/pilot/qwen38-api-p3-v3-pilot-20261022/attempts/qwen38-api-p3-v3-pilot-20261022-b-s2-r1/attempt-1-64bf650c63/api-calls/00041-analysis-addf3ab4/request.json": "40b07516c2b0307ade3d81de6fcd2fabc47caa0bfe1bddb3668290f1a1df92a1",
+    "results/raw/pilot/qwen38-api-p3-v3-pilot-20261022/attempts/qwen38-api-p3-v3-pilot-20261022-b-s2-r1/attempt-1-64bf650c63/api-calls/00041-analysis-addf3ab4/result.json": "6a05e76dfa61f723ea9d49cdd9b7526658662d0b0004e85f9ace03fb0a8b36c6",
+    "results/raw/pilot/qwen38-api-p3-v3-pilot-20261022/attempts/qwen38-api-p3-v3-pilot-20261022-b-s2-r1/attempt-1-64bf650c63/api-calls/00042-generation-b186ece7/request-started.json": "f4e73d7cc0108a90f6f7305002af39a2db12f2e51638fff36b52f11546978abe",
+    "results/raw/pilot/qwen38-api-p3-v3-pilot-20261022/attempts/qwen38-api-p3-v3-pilot-20261022-b-s2-r1/attempt-1-64bf650c63/api-calls/00042-generation-b186ece7/request.json": "c89ee83da83eb05638df7e53dbfd4aa3e7242c2c666d82ba8b0ea90b0bc9ced8",
+    "results/raw/pilot/qwen38-api-p3-v3-pilot-20261022/attempts/qwen38-api-p3-v3-pilot-20261022-b-s2-r1/attempt-1-64bf650c63/api-calls/00042-generation-b186ece7/result.json": "fffaf920acf032ea322952920e490e5ca49b40f7d5023f96e96ae329dcc31766",
+    "results/raw/pilot/qwen38-api-p3-v3-pilot-20261022/attempts/qwen38-api-p3-v3-pilot-20261022-b-s2-r1/attempt-1-64bf650c63/api-calls/00043-analysis-3963ff12/request-started.json": "b58470148fb46d071ef92a881cf6c75335071d91ffc59656e5f88c0d15d0af46",
+    "results/raw/pilot/qwen38-api-p3-v3-pilot-20261022/attempts/qwen38-api-p3-v3-pilot-20261022-b-s2-r1/attempt-1-64bf650c63/api-calls/00043-analysis-3963ff12/request.json": "2dbe3cf71ec900637b35119b46254a6f938a6b9db484f904fbf05d1ee7d5756c",
+    "results/raw/pilot/qwen38-api-p3-v3-pilot-20261022/attempts/qwen38-api-p3-v3-pilot-20261022-b-s2-r1/attempt-1-64bf650c63/api-calls/00043-analysis-3963ff12/result.json": "bc01d6a3f208d5f07bdab0c5223edd94fe6b6f6a8a0441766326156bdefd1b99",
+    "results/raw/pilot/qwen38-api-p3-v3-pilot-20261022/attempts/qwen38-api-p3-v3-pilot-20261022-b-s2-r1/attempt-1-64bf650c63/api-calls/00044-generation-5b246ad5/request-started.json": "52026c22c65d12a6917f538205c5622141b2c7229834d7abafe7696908455fe3",
+    "results/raw/pilot/qwen38-api-p3-v3-pilot-20261022/attempts/qwen38-api-p3-v3-pilot-20261022-b-s2-r1/attempt-1-64bf650c63/api-calls/00044-generation-5b246ad5/request.json": "0fe99882105b5466f96f6597fa98da756ff65e5d346723f112d53ce6a6c23bf9",
+    "results/raw/pilot/qwen38-api-p3-v3-pilot-20261022/attempts/qwen38-api-p3-v3-pilot-20261022-b-s2-r1/attempt-1-64bf650c63/api-calls/00044-generation-5b246ad5/result.json": "5c6cb3c9c108f11cfe13a5b3c1d2c9cdaace5d6dc4a2b59079d54db6ffd6dd80",
+    "results/raw/pilot/qwen38-api-p3-v3-pilot-20261022/attempts/qwen38-api-p3-v3-pilot-20261022-b-s2-r1/attempt-1-64bf650c63/api-calls/00045-analysis-4080eac3/request-started.json": "8937fc0257a5ac916008f8415e571e79b1ce02aa5f3e4793a3a08d2a94b16f3d",
+    "results/raw/pilot/qwen38-api-p3-v3-pilot-20261022/attempts/qwen38-api-p3-v3-pilot-20261022-b-s2-r1/attempt-1-64bf650c63/api-calls/00045-analysis-4080eac3/request.json": "3969765d9117dfebd1a74169d4cf2910f1259487f580809bdbb19430f46210fe",
+    "results/raw/pilot/qwen38-api-p3-v3-pilot-20261022/attempts/qwen38-api-p3-v3-pilot-20261022-b-s2-r1/attempt-1-64bf650c63/api-calls/00045-analysis-4080eac3/result.json": "ad41ed858b4e753310ee659e35494300883f065c18337cd4a2b1a51920360e4b",
+    "results/raw/pilot/qwen38-api-p3-v3-pilot-20261022/attempts/qwen38-api-p3-v3-pilot-20261022-b-s2-r1/attempt-1-64bf650c63/knowledge-index-copy/4176542f-e8f6-4a46-8652-598aedaf3721/data_level0.bin": "df00ad1f5dde53e2f66f03698cb519d68258fabe2167a4d119f5fb5422cd7c2f",
+    "results/raw/pilot/qwen38-api-p3-v3-pilot-20261022/attempts/qwen38-api-p3-v3-pilot-20261022-b-s2-r1/attempt-1-64bf650c63/knowledge-index-copy/4176542f-e8f6-4a46-8652-598aedaf3721/header.bin": "03cb3ac86f3e5bcb15e88b9bf99f760ec6b33e31d64a699e129b49868db6d733",
+    "results/raw/pilot/qwen38-api-p3-v3-pilot-20261022/attempts/qwen38-api-p3-v3-pilot-20261022-b-s2-r1/attempt-1-64bf650c63/knowledge-index-copy/4176542f-e8f6-4a46-8652-598aedaf3721/length.bin": "fcb1dae9ff0777ddad43e748fa01c59d180a8a1d1014d4acae17cd29dd9d16c3",
+    "results/raw/pilot/qwen38-api-p3-v3-pilot-20261022/attempts/qwen38-api-p3-v3-pilot-20261022-b-s2-r1/attempt-1-64bf650c63/knowledge-index-copy/4176542f-e8f6-4a46-8652-598aedaf3721/link_lists.bin": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "results/raw/pilot/qwen38-api-p3-v3-pilot-20261022/attempts/qwen38-api-p3-v3-pilot-20261022-b-s2-r1/attempt-1-64bf650c63/knowledge-index-copy/chroma.sqlite3": "7fd1155f3d176de2715c6266d40c52d372db20e21d676247aa95dbbd0690d6ca",
+    "results/raw/pilot/qwen38-api-p3-v3-pilot-20261022/attempts/qwen38-api-p3-v3-pilot-20261022-b-s2-r1/attempt-1-64bf650c63/knowledge-index-copy/manifest.json": "e00baf7e2af3e25ea6011a4e9cea2c19bd6122c7592e576ea8400e97786a24bd",
+    "results/raw/pilot/qwen38-api-p3-v3-pilot-20261022/attempts/qwen38-api-p3-v3-pilot-20261022-c-s1-r1/attempt-1-a4ce8cf4b4/candidate-id-map.json": "83314c27f89244bb79561e34c409a64273c2784d24cf96b1cae2de441bf0ef76",
+    "results/raw/pilot/qwen38-api-p3-v3-pilot-20261022/attempts/qwen38-api-p3-v3-pilot-20261022-c-s1-r1/attempt-1-a4ce8cf4b4/runner-input.json": "3b6bd67644cedf3d9146be82bdc0e96b8ca4fb7f42b4121777844f5efd781ff3",
+    "results/raw/pilot/qwen38-api-p3-v3-pilot-20261022/attempts/qwen38-api-p3-v3-pilot-20261022-c-s1-r1/attempt-1-a4ce8cf4b4/seclists-batches/S1.json": "3ab3652964e89ba6ea0ed1735033a0466eaa739c8a411a0fd3064e004046f1c3",
+    "results/raw/pilot/qwen38-api-p3-v3-pilot-20261022/attempts/qwen38-api-p3-v3-pilot-20261022-c-s1-r1/attempt-1-a4ce8cf4b4/seclists-batches/S2.json": "ae63509cfc3921d6bbfb4f554f833be55d6f86d3bd036b94dd30f21e6d5d0dd0",
+    "results/raw/pilot/qwen38-api-p3-v3-pilot-20261022/attempts/qwen38-api-p3-v3-pilot-20261022-c-s1-r1/attempt-1-a4ce8cf4b4/seclists-batches/S3.json": "7f5d24af065ae10042dfff629974868c74954e3a0cb81141d1f4d604e292b9b1",
+    "results/raw/pilot/qwen38-api-p3-v3-pilot-20261022/attempts/qwen38-api-p3-v3-pilot-20261022-c-s1-r1/attempt-1-a4ce8cf4b4/seclists-batches/S4.json": "f79ba15b66999311aea15cfca69c12a30aea3276efca3656f283cff515eec2de",
+    "results/raw/pilot/qwen38-api-p3-v3-pilot-20261022/attempts/qwen38-api-p3-v3-pilot-20261022-c-s1-r1/attempt-1-a4ce8cf4b4/seclists-batches/S5.json": "6df59dabe5b5461eedcc47ea0ff57e82821c65d3d5d5d1e835bcce37e5bd559d",
+    "results/raw/pilot/qwen38-api-p3-v3-pilot-20261022/attempts/qwen38-api-p3-v3-pilot-20261022-c-s1-r1/attempt-1-a4ce8cf4b4/seclists-batches/S6.json": "23629e47b1d8936c015c67404e391b4dbcb0ce04e9f9599a5e5eb02c86e8447b",
+    "results/raw/pilot/qwen38-api-p3-v3-pilot-20261022/attempts/qwen38-api-p3-v3-pilot-20261022-c-s1-r1/attempt-1-a4ce8cf4b4/seclists-batches/S7.json": "04e938bac6c07fa729e227a4bb3f60e2f3a4fbcf008ad049614abd4b178f1a46",
+    "results/raw/pilot/qwen38-api-p3-v3-pilot-20261022/attempts/qwen38-api-p3-v3-pilot-20261022-c-s1-r1/attempt-1-a4ce8cf4b4/seclists-batches/S8.json": "ea71e58e16ebcbdc5c471b08046d1360c253691a1a2580d35f43f4248a652103",
+    "results/raw/pilot/qwen38-api-p3-v3-pilot-20261022/attempts/qwen38-api-p3-v3-pilot-20261022-c-s1-r1/attempt-1-a4ce8cf4b4/seclists-batches/S9.json": "38a4a0e6fb7fdec741f5f7cbec53ea0b9d636bb2ec42752f65bde9621fb299e3",
+    "results/raw/pilot/qwen38-api-p3-v3-pilot-20261022/attempts/qwen38-api-p3-v3-pilot-20261022-c-s1-r1/attempt-1-a4ce8cf4b4/seclists-build-command.log": "2c96668a2cae3cb724d33e32725937bd2d0174754473b287f214cdc71c9a3e56",
+    "results/raw/pilot/qwen38-api-p3-v3-pilot-20261022/attempts/qwen38-api-p3-v3-pilot-20261022-c-s1-r1/attempt-1-a4ce8cf4b4/validation-command.log": "de415e3acf937a039fb6ee91cf7bf5a371edb4707198c9db468444ac3c786680",
+    "results/raw/pilot/qwen38-api-p3-v3-pilot-20261022/attempts/qwen38-api-p3-v3-pilot-20261022-c-s1-r1/attempt-1-a4ce8cf4b4/validation.jsonl": "33c9790dd0b48aa75cb023ba06f0aaa305d42f459056deed96c02ff1bf224b09",
+    "results/raw/pilot/qwen38-api-p3-v3-pilot-20261022/attempts/qwen38-api-p3-v3-pilot-20261022-c-s2-r1/attempt-1-a8d84accc0/candidate-id-map.json": "e59235a95ee94b4eaec89a823a55b4fe06a46936bfa1eaf58827f659f24f1868",
+    "results/raw/pilot/qwen38-api-p3-v3-pilot-20261022/attempts/qwen38-api-p3-v3-pilot-20261022-c-s2-r1/attempt-1-a8d84accc0/runner-input.json": "07e6b93afa1c85ff496c679df5313a5f406a5c1ca6cec310fb053010566b1f87",
+    "results/raw/pilot/qwen38-api-p3-v3-pilot-20261022/attempts/qwen38-api-p3-v3-pilot-20261022-c-s2-r1/attempt-1-a8d84accc0/seclists-batches/S1.json": "3ab3652964e89ba6ea0ed1735033a0466eaa739c8a411a0fd3064e004046f1c3",
+    "results/raw/pilot/qwen38-api-p3-v3-pilot-20261022/attempts/qwen38-api-p3-v3-pilot-20261022-c-s2-r1/attempt-1-a8d84accc0/seclists-batches/S2.json": "ae63509cfc3921d6bbfb4f554f833be55d6f86d3bd036b94dd30f21e6d5d0dd0",
+    "results/raw/pilot/qwen38-api-p3-v3-pilot-20261022/attempts/qwen38-api-p3-v3-pilot-20261022-c-s2-r1/attempt-1-a8d84accc0/seclists-batches/S3.json": "7f5d24af065ae10042dfff629974868c74954e3a0cb81141d1f4d604e292b9b1",
+    "results/raw/pilot/qwen38-api-p3-v3-pilot-20261022/attempts/qwen38-api-p3-v3-pilot-20261022-c-s2-r1/attempt-1-a8d84accc0/seclists-batches/S4.json": "f79ba15b66999311aea15cfca69c12a30aea3276efca3656f283cff515eec2de",
+    "results/raw/pilot/qwen38-api-p3-v3-pilot-20261022/attempts/qwen38-api-p3-v3-pilot-20261022-c-s2-r1/attempt-1-a8d84accc0/seclists-batches/S5.json": "6df59dabe5b5461eedcc47ea0ff57e82821c65d3d5d5d1e835bcce37e5bd559d",
+    "results/raw/pilot/qwen38-api-p3-v3-pilot-20261022/attempts/qwen38-api-p3-v3-pilot-20261022-c-s2-r1/attempt-1-a8d84accc0/seclists-batches/S6.json": "23629e47b1d8936c015c67404e391b4dbcb0ce04e9f9599a5e5eb02c86e8447b",
+    "results/raw/pilot/qwen38-api-p3-v3-pilot-20261022/attempts/qwen38-api-p3-v3-pilot-20261022-c-s2-r1/attempt-1-a8d84accc0/seclists-batches/S7.json": "04e938bac6c07fa729e227a4bb3f60e2f3a4fbcf008ad049614abd4b178f1a46",
+    "results/raw/pilot/qwen38-api-p3-v3-pilot-20261022/attempts/qwen38-api-p3-v3-pilot-20261022-c-s2-r1/attempt-1-a8d84accc0/seclists-batches/S8.json": "ea71e58e16ebcbdc5c471b08046d1360c253691a1a2580d35f43f4248a652103",
+    "results/raw/pilot/qwen38-api-p3-v3-pilot-20261022/attempts/qwen38-api-p3-v3-pilot-20261022-c-s2-r1/attempt-1-a8d84accc0/seclists-batches/S9.json": "38a4a0e6fb7fdec741f5f7cbec53ea0b9d636bb2ec42752f65bde9621fb299e3",
+    "results/raw/pilot/qwen38-api-p3-v3-pilot-20261022/attempts/qwen38-api-p3-v3-pilot-20261022-c-s2-r1/attempt-1-a8d84accc0/seclists-build-command.log": "ba6e59482f3d241cc20c19cb0debee31cb5f113294cf7c29826bd0afd84a55a2",
+    "results/raw/pilot/qwen38-api-p3-v3-pilot-20261022/attempts/qwen38-api-p3-v3-pilot-20261022-c-s2-r1/attempt-1-a8d84accc0/validation-command.log": "0003a097aec902481317ad4031dd5938ba2293c40336be47d2cbef3a6b33edc2",
+    "results/raw/pilot/qwen38-api-p3-v3-pilot-20261022/attempts/qwen38-api-p3-v3-pilot-20261022-c-s2-r1/attempt-1-a8d84accc0/validation.jsonl": "641b38a5de60aba4d0cffa61b71e94f77e0f1b77dd3a536d8b75f19bef772483",
+    "results/raw/pilot/qwen38-api-p3-v3-pilot-20261022/bounded-config.snapshot.json": "8a720d0768680fc9dc981acc59bd038af93122545bd77bb40e64855a749502a4",
+    "results/raw/pilot/qwen38-api-p3-v3-pilot-20261022/bounded-execution-result.json": "1556f1164154beebfc4e2a35a78c8fe58b895c7b208e4a2dd5bcbf121663b0ea",
+    "results/raw/pilot/qwen38-api-p3-v3-pilot-20261022/checkpoint.json": "8a85c810a4513c72a5aa9d6eccc050bbc04c4d142cbfd0038f5f8aea7b3dade4",
+    "results/raw/pilot/qwen38-api-p3-v3-pilot-20261022/explicit-budget.snapshot.json": "c8a8b595c1b8221629380993304cc143d5d41eadefc55a4aff795d86f036da3f",
+    "results/raw/pilot/qwen38-api-p3-v3-pilot-20261022/ledger.jsonl": "7f66519c4fad0b8f58a0cc7b0b8df3e4b86b8f9d591d5e97e651396a83381fa3",
+    "results/raw/pilot/qwen38-api-p3-v3-pilot-20261022/plan.snapshot.json": "39c95cf97dae8e8f04146edfaeb96e849fb98770ad5a418affdfe212a1561b91"
+  },
+  "approval_receipt_sha256": "0211ebb1d9320ae24b5071f8e940d579b2d5e749646f3c0acda8ff3373f1b3d8",
+  "audit_script_sha256": "662e14c24ddd1a2b974f14e46f793e5f1bfa0815202739163e21e00ce538b818"
+}

@@ -1,0 +1,20 @@
+{
+  "schema": "qwen-p3-execution-approval-v1",
+  "decision": "approved-for-pilot-execution",
+  "approval_source": "Direct researcher instruction in this conversation: \"okeh jalankan\".",
+  "experiment_id": "qwen38-api-r4-20261022",
+  "protocol_id": "qwen38-api-sqli-v5-pilot",
+  "plan_path": "development/qwen_api_p3_v5_plan.template.json",
+  "plan_sha256": "744e9bd713fb90689016f3b9bfe7181326bbecefb9f70d13c85b47a4674302c1",
+  "budget_path": "development/qwen_api_p3_v5_budget_20261022.json",
+  "budget_sha256": "f8f4c4cf70c3484da9b01637cdfeb9601bafe83fe1a871ddfb287ee9386a2487",
+  "approved_scope": "Execute one fresh bounded P3 development cohort against local DVWA using the frozen 960-request and six-hour ceilings, 90-second generation timeout, and 180-second analysis timeout.",
+  "required_execution_confirmations": {
+    "execute": true,
+    "confirm_local_dvwa": true,
+    "confirm_database_reset": true,
+    "confirm_api_spending": true
+  },
+  "execution_started": true,
+  "execution_recorded_at_utc": "2026-10-22T08:17:59+00:00"
+}

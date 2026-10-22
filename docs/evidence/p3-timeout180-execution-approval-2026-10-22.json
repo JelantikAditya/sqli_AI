@@ -1,0 +1,27 @@
+{
+  "schema": "p3-timeout180-execution-approval-v1",
+  "recorded_at_utc": "2026-10-22T07:28:25+00:00",
+  "researcher_statement": "okeh kalo gitu mari kita mencoba lagi cohort dengan batas yang baru terlebih dahulu",
+  "approval_source": "Direct user message in the current chat approving a new cohort with the prepared limits.",
+  "experiment_id": "qwen38-api-r3-20261022",
+  "protocol_id": "qwen38-api-sqli-v4-pilot",
+  "approval_scope": "One fresh bounded P3 development cohort using the frozen plan, timeout profile, and budget.",
+  "timeout_profile_id": "analysis-timeout-180s-v1",
+  "timeouts_seconds": {
+    "generation": 90,
+    "analysis": 180
+  },
+  "max_api_calls": 960,
+  "max_wall_seconds": 21600,
+  "applicable_runs": 33,
+  "planned_slots_including_design_exclusions": 36,
+  "automatic_transport_retries": 0,
+  "automatic_replacement_attempts": 0,
+  "local_dvwa_and_database_resets_authorized": true,
+  "formal_eligible": false,
+  "plan_sha256": "3afdc9c19636a3eba5ab0b86fb6dc0debf8d143fc012e6518f24dd96d67f720d",
+  "budget_sha256": "fb58e1239eb5e2e05483f3eccd01293e8cb90d5ad4c9223df0f0b5879f84c58b",
+  "launcher_sha256": "9fe33673fb348a1686a2ba3148b439b99747028c09689c297693a475db566975",
+  "profile_sha256": "ad22e6b87d296a7b948226337e609e5619cb9de11f2f8d57b180a09d01a3a920",
+  "preparation_receipt_sha256": "20deb707f9487fee7c182adbf09dc55c1182aa20a280d14f06d1f85d91c79722"
+}

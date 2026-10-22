@@ -1,0 +1,185 @@
+{
+  "schema": "bonsai2-local-smoke-audit-v1",
+  "audited_at": "2026-10-22T09:23:14.440723+00:00",
+  "model_id": "prism-ml/Ternary-Bonsai-2-9B-gguf",
+  "model_revision": "5b2abb02362efbed46bbe204014b02837778b2c2",
+  "model_sha256": "3561df7ac7d26a71ffa991ac2db740b10841c3a350aa2676ccd3ff5d428b4e8b",
+  "runtime_release": "prism-b10787-73bfe6c",
+  "server_sha256": "691d739a581712fdb1de6b9ff35a5eb52652ee58f106f4c9cffd73e31d5f3df9",
+  "hardware": {
+    "gpu": "NVIDIA GeForce RTX 3050 Laptop GPU",
+    "vram_mib": 4096,
+    "ram_gib": 15.73,
+    "cpu": "Intel Core i5-11400H",
+    "driver": "577.00"
+  },
+  "hardware_fit_observed": true,
+  "analysis_gate_passed": false,
+  "experiment_scope": "development smoke; three repeated synthetic fixtures per profile",
+  "independent_holdout": false,
+  "human_annotations": false,
+  "formal_FPR": false,
+  "formal_PSR": false,
+  "paid_api_calls": 0,
+  "dvwa_requests": 0,
+  "profiles": [
+    {
+      "directory": "results\\raw\\development\\bonsai2-9b-smoke-20261022T091829Z",
+      "profile": "non-thinking",
+      "call_count": 4,
+      "json_schema_valid_count": 4,
+      "domain_case_count": 3,
+      "domain_verdict_match_count": 1,
+      "domain_full_contract_pass_count": 1,
+      "domain_mean_wall_seconds": 6.432,
+      "decode_tokens_per_second_range": [
+        65.31,
+        68.17
+      ],
+      "peak_sampled_gpu_used_mib": 2231,
+      "startup_seconds": 3.559,
+      "server_stopped": true,
+      "cases": [
+        {
+          "case_id": "json-readiness",
+          "schema_valid": true,
+          "finish_reason": "stop",
+          "decode_tokens_per_second": 64.12051957869444,
+          "readiness_pass": true
+        },
+        {
+          "case_id": "synthetic-error-positive",
+          "schema_valid": true,
+          "finish_reason": "stop",
+          "decode_tokens_per_second": 68.16631084585376,
+          "raw_decision": "inconclusive",
+          "expected_decision": "positive",
+          "verdict_match": false,
+          "trial_outcomes_match": false,
+          "parsed_status": "analysis_error",
+          "parse_error": "missing-trial-evidence",
+          "warnings": [],
+          "full_contract_pass": false
+        },
+        {
+          "case_id": "synthetic-boolean-negative",
+          "schema_valid": true,
+          "finish_reason": "stop",
+          "decode_tokens_per_second": 68.07764787911016,
+          "raw_decision": "negative",
+          "expected_decision": "negative",
+          "verdict_match": true,
+          "trial_outcomes_match": true,
+          "parsed_status": "ok",
+          "parse_error": null,
+          "warnings": [],
+          "full_contract_pass": true
+        },
+        {
+          "case_id": "synthetic-time-mixed",
+          "schema_valid": true,
+          "finish_reason": "stop",
+          "decode_tokens_per_second": 65.31027107509807,
+          "raw_decision": "positive",
+          "expected_decision": "inconclusive",
+          "verdict_match": false,
+          "trial_outcomes_match": false,
+          "parsed_status": "ok",
+          "parse_error": null,
+          "warnings": [],
+          "full_contract_pass": false
+        }
+      ],
+      "raw_artifact_sha256": {
+        "results\\raw\\development\\bonsai2-9b-smoke-20261022T091829Z\\manifest.json": "c0c2a5936f4e071e165691f94aa63ccb8d1aeb57ac8962b9ba7fd69361d4287a",
+        "results\\raw\\development\\bonsai2-9b-smoke-20261022T091829Z\\summary.json": "1bb0c81fdb13c26255d769e08577a5d8bc9243c290964f9afb6d5ede4acfb4af",
+        "results\\raw\\development\\bonsai2-9b-smoke-20261022T091829Z\\requests.json": "a4cd3d428becd205e2db524eb2c0c14b47dbf989920b11a4228d9ddb51a7aa37",
+        "results\\raw\\development\\bonsai2-9b-smoke-20261022T091829Z\\synthetic-reference.json": "204ef17b5a995ce4c471d4e565f14e0549a6b0769a100e81d5f6d36351ff6082",
+        "results\\raw\\development\\bonsai2-9b-smoke-20261022T091829Z\\gpu-telemetry.json": "def2966f7b19a80d7b060e902c0d5300a76928dbad6bcfd07b8f464c5f2cb0d2",
+        "results\\raw\\development\\bonsai2-9b-smoke-20261022T091829Z\\json-readiness.response.json": "50db1de1ff5cd639b4b22799f6326777ce198e43fdd37bd44cd116a2f2a355ce",
+        "results\\raw\\development\\bonsai2-9b-smoke-20261022T091829Z\\synthetic-boolean-negative.response.json": "10f96b49292b761b9611ec2ba1ab521fd0e5244885dbcbed2cfafeb399082235",
+        "results\\raw\\development\\bonsai2-9b-smoke-20261022T091829Z\\synthetic-error-positive.response.json": "02ddbfc25e62f6d55d793c2ddf809473e0768c07346e821c5cefb28e3ebff683",
+        "results\\raw\\development\\bonsai2-9b-smoke-20261022T091829Z\\synthetic-time-mixed.response.json": "3f6c1696aa4f70ea06419631da8836dc4d0d479a7629345e6e2f41a48f3d205f"
+      }
+    },
+    {
+      "directory": "results\\raw\\development\\bonsai2-9b-smoke-20261022T092031Z",
+      "profile": "bounded-thinking",
+      "call_count": 4,
+      "json_schema_valid_count": 4,
+      "domain_case_count": 3,
+      "domain_verdict_match_count": 2,
+      "domain_full_contract_pass_count": 1,
+      "domain_mean_wall_seconds": 20.961,
+      "decode_tokens_per_second_range": [
+        65.43,
+        67.79
+      ],
+      "peak_sampled_gpu_used_mib": 2371,
+      "startup_seconds": 2.542,
+      "server_stopped": true,
+      "cases": [
+        {
+          "case_id": "json-readiness",
+          "schema_valid": true,
+          "finish_reason": "stop",
+          "decode_tokens_per_second": 67.46871582176895,
+          "readiness_pass": true
+        },
+        {
+          "case_id": "synthetic-error-positive",
+          "schema_valid": true,
+          "finish_reason": "stop",
+          "decode_tokens_per_second": 67.78796012427216,
+          "raw_decision": "inconclusive",
+          "expected_decision": "positive",
+          "verdict_match": false,
+          "trial_outcomes_match": false,
+          "parsed_status": "ok",
+          "parse_error": null,
+          "warnings": [],
+          "full_contract_pass": false
+        },
+        {
+          "case_id": "synthetic-boolean-negative",
+          "schema_valid": true,
+          "finish_reason": "stop",
+          "decode_tokens_per_second": 66.00833134270168,
+          "raw_decision": "negative",
+          "expected_decision": "negative",
+          "verdict_match": true,
+          "trial_outcomes_match": true,
+          "parsed_status": "ok",
+          "parse_error": null,
+          "warnings": [],
+          "full_contract_pass": true
+        },
+        {
+          "case_id": "synthetic-time-mixed",
+          "schema_valid": true,
+          "finish_reason": "stop",
+          "decode_tokens_per_second": 65.43360670040133,
+          "raw_decision": "inconclusive",
+          "expected_decision": "inconclusive",
+          "verdict_match": true,
+          "trial_outcomes_match": false,
+          "parsed_status": "ok",
+          "parse_error": null,
+          "warnings": [],
+          "full_contract_pass": false
+        }
+      ],
+      "raw_artifact_sha256": {
+        "results\\raw\\development\\bonsai2-9b-smoke-20261022T092031Z\\manifest.json": "8adda0f907cc1359768ee037dbaed8bd18dc1c3e0894b36a692edabf0c683961",
+        "results\\raw\\development\\bonsai2-9b-smoke-20261022T092031Z\\summary.json": "35ca99cd846ec26618000a846b5c4489708796dfcfd070bd4ae79f6f6310a250",
+        "results\\raw\\development\\bonsai2-9b-smoke-20261022T092031Z\\requests.json": "d8e0be63f00b65415d07f0e6c75def258ed64ec69372bfc6402ba65858561e6d",
+        "results\\raw\\development\\bonsai2-9b-smoke-20261022T092031Z\\synthetic-reference.json": "204ef17b5a995ce4c471d4e565f14e0549a6b0769a100e81d5f6d36351ff6082",
+        "results\\raw\\development\\bonsai2-9b-smoke-20261022T092031Z\\gpu-telemetry.json": "407f1b4339036dd25ad2d8842b92e8cf9027def0d1244d7a5a68527a1ab05431",
+        "results\\raw\\development\\bonsai2-9b-smoke-20261022T092031Z\\json-readiness.response.json": "3ca845b532db63c55f79d84df7e1223420c1e6c1f11b2e4af384996ae8e0cb58",
+        "results\\raw\\development\\bonsai2-9b-smoke-20261022T092031Z\\synthetic-boolean-negative.response.json": "3c255da45c750d6feb5e505a269283cd5fd6b7fe081706110e66df75ff7d613b",
+        "results\\raw\\development\\bonsai2-9b-smoke-20261022T092031Z\\synthetic-error-positive.response.json": "3b9a269d3205470ebf2e3b24082fc84b4654a6ca8505247783732ca845152511",
+        "results\\raw\\development\\bonsai2-9b-smoke-20261022T092031Z\\synthetic-time-mixed.response.json": "e235643ab04ca22b155797da3cbacc68c45578365308fea224fcacdf250131d2"
+      }
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "schema": "qwen-p3-execution-approval-v1",
+  "decision": "approved-for-pilot-execution",
+  "approval_source": "Direct researcher instruction in this conversation: \"okeh jalankan\" for the prepared fresh P3 cohort. After r4 halted on provider routing failure, continuation uses a new r5 ID and the same 960-call, six-hour cohort design; r4 results are excluded.",
+  "experiment_id": "qwen38-api-r5-20261022",
+  "protocol_id": "qwen38-api-sqli-v5-pilot",
+  "plan_path": "development/qwen_api_p3_v5_r5_plan.template.json",
+  "plan_sha256": "f963c4fb9f14e5db79b834f0924cbbf5af2928b506b8f377e47bc2f2f2299323",
+  "budget_path": "development/qwen_api_p3_v5_r5_budget_20261022.json",
+  "budget_sha256": "22ac26074c0120b3574edfb3de32d2b03c7b7fe6cca7c692f1811f029372bd27",
+  "approved_scope": "Run the fresh P3 cohort against local DVWA with the same frozen settings and explicit API, database-reset, and six-hour limits. Do not merge r4 outcomes.",
+  "required_execution_confirmations": {
+    "execute": true,
+    "confirm_local_dvwa": true,
+    "confirm_database_reset": true,
+    "confirm_api_spending": true
+  },
+  "execution_started": true,
+  "approved_at_utc": "2026-10-22T08:22:41+00:00",
+  "execution_started_at_utc": "2026-10-22T08:22:48.598061+00:00",
+  "execution_finished_at_utc": "2026-10-22T08:41:07.380702+00:00",
+  "execution_outcome": "halted-after-invalid-unit-provider-http-500",
+  "execution_result_path": "results/raw/pilot/qwen38-api-r5-20261022/bounded-execution-result.json",
+  "execution_result_sha256": "b78ad1f95850e5bbbdc402bed5f42dfe14b58fc7686b0a64c4155daf4e36ef21"
+}

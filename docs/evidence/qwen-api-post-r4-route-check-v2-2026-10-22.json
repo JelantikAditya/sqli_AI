@@ -1,0 +1,22 @@
+{
+  "schema": "qwen-api-post-r4-route-check-v2",
+  "status": "ok",
+  "http_status": 200,
+  "api_client_status": "ok",
+  "endpoint": "https://api.hcnsec.cn/v1/chat/completions",
+  "requested_model": "Qwen3.8-27B",
+  "reported_model": "self-dploy/Qwen3.8-27B",
+  "response_id": "089a577844bb4a27a65c2c58dd8685b4",
+  "finish_reason": "stop",
+  "elapsed_seconds": 1.835,
+  "error_detail": null,
+  "request_sha256": "eab6936b9da9ebb9fee021e5347378ba35ab4ccd483ea4db878f54b921ce2969",
+  "api_calls": 1,
+  "automatic_retries": 0,
+  "timeout_seconds": 30,
+  "max_tokens": 128,
+  "response_matches_expected": true,
+  "response_preview": "API_OK",
+  "evidence_directory": "results/raw/development/qwen-api-post-r4-route-check-v2-20261022T082104Z-909af9e7",
+  "checked_at_utc": "2026-10-22T08:21:06.229053+00:00"
+}

@@ -1,0 +1,28 @@
+{
+  "schema": "qwen-api-post-p3-v3-access-check-v1",
+  "status": "ok",
+  "http_status": 200,
+  "requested_model": "Qwen3.8-27B",
+  "reported_model": "self-dploy/Qwen3.8-27B",
+  "finish_reason": "stop",
+  "elapsed_seconds": 1.704,
+  "error_detail": null,
+  "api_calls": 1,
+  "automatic_retries": 0,
+  "max_api_calls": 1,
+  "timeout_seconds": 30,
+  "request_sha256": "eab6936b9da9ebb9fee021e5347378ba35ab4ccd483ea4db878f54b921ce2969",
+  "checked_at_utc": "2026-10-22T05:25:38.163+00:00",
+  "checked_at_wib": "2026-10-22T12:25:38.163+07:00",
+  "response_preview": "API_OK",
+  "evidence_directory": "results/raw/development/qwen-api-access-check-post-v3-20261022T052536459591Z-b7357983",
+  "source_artifact_sha256": {
+    "results/raw/development/qwen-api-access-check-post-v3-20261022T052536459591Z-b7357983/request-started.json": "ed461bf5a5de182d0088d556baeb25aa9090709e504b978be6ec48d07fa29fcf",
+    "results/raw/development/qwen-api-access-check-post-v3-20261022T052536459591Z-b7357983/request.json": "8ef70fbddfce6d86d178eed42038855d6f89c67621a5aad6a415aa4e920a18e6",
+    "results/raw/development/qwen-api-access-check-post-v3-20261022T052536459591Z-b7357983/result.json": "abf364d3f1ef39b60d7fecc0877336ebf26cfb065bbd7b5fe9db43074a9d8fa2",
+    "results/raw/development/qwen-api-access-check-post-v3-20261022T052536459591Z-b7357983/summary.json": "8345d3dbe9e37cdbf08dc9ca8bf4618cc783aab42060bf8c5ffdaf4133f882dc"
+  },
+  "interpretation": "One small availability request only. It does not establish sustained analysis stability or authorize a new experiment attempt.",
+  "request_started_at_utc": "2026-10-22T05:25:36.459+00:00",
+  "receipt_recorded_at_utc": "2026-10-22T05:26:04.459+00:00"
+}

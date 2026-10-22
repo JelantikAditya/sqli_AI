@@ -1,0 +1,119 @@
+{
+  "schema": "p3-timeout180-execution-audit-v1",
+  "audited_at_utc": "2026-10-22T07:28:25+00:00",
+  "experiment_id": "qwen38-api-r3-20261022",
+  "protocol_id": "qwen38-api-sqli-v4-pilot",
+  "execution": {
+    "started_at_utc": "2026-10-22T06:03:22.637247+00:00",
+    "stopped_at_utc": "2026-10-22T07:23:55.657802+00:00",
+    "elapsed_seconds": 4833.020555,
+    "max_wall_seconds": 21600,
+    "execution_result": {
+      "run_count": 36,
+      "status_counts": {
+        "planned": 13,
+        "running": 0,
+        "retried": 0,
+        "completed": 10,
+        "invalid": 1,
+        "excluded": 12
+      },
+      "condition_status_counts": {
+        "A": {
+          "planned": 5,
+          "completed": 2,
+          "excluded": 5
+        },
+        "B": {
+          "planned": 5,
+          "completed": 2,
+          "excluded": 4,
+          "invalid": 1
+        },
+        "C": {
+          "planned": 3,
+          "completed": 6,
+          "design_excluded": 3
+        }
+      },
+      "api_calls_used": 234,
+      "api_call_ceiling": 960,
+      "execution_started": true,
+      "formal_eligible": false
+    }
+  },
+  "api_requests": {
+    "count": 234,
+    "stage_counts": {
+      "generation": 133,
+      "analysis": 101
+    },
+    "api_status_counts": {
+      "ok": 233,
+      "http-error": 1
+    },
+    "http_status_counts": {
+      "200": 233,
+      "500": 1
+    },
+    "timeout_count": 0,
+    "automatic_retry_count": 0,
+    "reported_total_tokens": 361147
+  },
+  "invalid_unit": {
+    "unit_id": "qwen38-api-r3-20261022-b-s7-r1",
+    "failure_code": "api_http_error",
+    "call_id": "00234-generation-b89a4223",
+    "stage": "generation",
+    "http_status": 500,
+    "api_request_count_for_unit": 3,
+    "generated_candidate_count": 0,
+    "candidate_generation_failed_count": 10
+  },
+  "candidate_budget_exclusions": {
+    "unit_count": 9,
+    "reason": "incomplete_candidate_budget",
+    "required_candidates_per_unit": 10,
+    "generated_candidate_counts": {
+      "qwen38-api-r3-20261022-a-s1-r1": 8,
+      "qwen38-api-r3-20261022-b-s2-r1": 5,
+      "qwen38-api-r3-20261022-a-s2-r1": 5,
+      "qwen38-api-r3-20261022-a-s3-r1": 9,
+      "qwen38-api-r3-20261022-b-s3-r1": 7,
+      "qwen38-api-r3-20261022-a-s5-r1": 7,
+      "qwen38-api-r3-20261022-b-s5-r1": 5,
+      "qwen38-api-r3-20261022-b-s6-r1": 7,
+      "qwen38-api-r3-20261022-a-s6-r1": 7
+    },
+    "duplicate_structure_rejections": 31,
+    "units_with_duplicate_structure_rejections": 10,
+    "note": "Thirty rejections occurred in the nine excluded units; one occurred in completed B-S4. These are rejected suggestions and are distinct from the accepted-candidate duplicate_candidate_count field."
+  },
+  "dvwa_activity": {
+    "http_request_calls": 3197,
+    "logical_probe_submissions_known": 1236,
+    "logical_probe_count_missing_units": [
+      "qwen38-api-r3-20261022-b-s7-r1"
+    ],
+    "database_resets_recorded": 20,
+    "attempt_events_with_dvwa_activity": 20
+  },
+  "formal_metrics": {
+    "fpr_computed": false,
+    "psr_computed": false,
+    "reason": "Development pilot stopped with applicable slots planned and one invalid; protocol budget is not formal eligible."
+  },
+  "integrity_checks": {
+    "runtime_source_hashes_expected": 32,
+    "runtime_source_hashes_matched": 32,
+    "runtime_source_hash_mismatches": [],
+    "plan_sha256": "3afdc9c19636a3eba5ab0b86fb6dc0debf8d143fc012e6518f24dd96d67f720d",
+    "plan_hash_matches_frozen_budget": true,
+    "profile_sha256": "ad22e6b87d296a7b948226337e609e5619cb9de11f2f8d57b180a09d01a3a920",
+    "profile_hash_matches_frozen_budget": true,
+    "execution_result_sha256": "8e43984c6a4d16c6f0653305409b95768d8385ba50c2f6218e02bbec862c966a",
+    "checkpoint_sha256": "e61676c8c51ff29bdd22976370aa3c97ba60f853569dc6036fefe56bafaac8bf",
+    "ledger_sha256": "39d556f04de3bbca3e07e641284071160552d2a98b067b6b8c54da390caf1a23",
+    "runtime_snapshot_sha256": "35aa9a523fac6ae660209060149185115ea799e2022b87bf70216544cc82dc9c"
+  }
+}

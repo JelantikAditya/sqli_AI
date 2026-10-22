@@ -1,0 +1,31 @@
+{
+  "schema": "p3-recovery-002-execution-approval-v1",
+  "approved_at_utc": "2026-10-22T05:35:51+00:00",
+  "researcher_statement": "ya sudah jalankan pengujiannya",
+  "approval_source": "Direct user message in the current chat, approving execution of the prepared new pilot plan.",
+  "experiment_id": "qwen38-api-r2-20261022",
+  "protocol_id": "qwen38-api-sqli-v3-pilot",
+  "approval_scope": "One fresh full-cohort bounded development pilot using the attached plan and budget.",
+  "applicable_runs": 33,
+  "design_excluded_C_Impossible_slots": 3,
+  "max_api_calls": 960,
+  "max_wall_seconds": 21600,
+  "automatic_transport_retries": 0,
+  "automatic_replacement_attempts": 0,
+  "database_resets_authorized": true,
+  "formal_eligible": false,
+  "preflight_observation": {
+    "status": "ok",
+    "http_status": 200,
+    "elapsed_seconds": 1.704,
+    "separate_from_pilot_budget": true
+  },
+  "prior_partial_experiment": "qwen38-api-p3-v3-pilot-20261022",
+  "plan_sha256": "1e09747de4d728a86943ac90c10527b9c0b5418ec3cff209aa676960bc29e502",
+  "budget_sha256": "7b3ddfebe9cf33e851ec7c7ba6cdc03af4e07580e97c99dd5db5f1e871835824",
+  "launcher_sha256": "33658a548eb67626a050521f1f2b1e852f4f13cea65bdb73e3e0bb502c9acfcb",
+  "draft_preparation_receipt_sha256": "2812f907c2a60f704e37a79539ff33b1106aded557b5aa3360f64c0c3506b06d",
+  "preservation_baseline": "results/raw/development/p3-recovery-002-run-20261022/preservation-before.json",
+  "preservation_baseline_sha256": "f661d26a068075752eedea0bf317841c03bdb039229b3f5da2993c08efa5632f",
+  "preserved_file_count": 1504
+}

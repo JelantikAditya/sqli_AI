@@ -1,0 +1,22 @@
+{
+  "access_probe_passed": true,
+  "api_calls": 1,
+  "automatic_retries": 0,
+  "checked_at_utc": "2026-10-22T03:36:08+00:00",
+  "checked_at_wib": "2026-10-22T10:36:08+07:00",
+  "elapsed_seconds": 1.552,
+  "error_detail": null,
+  "finish_reason": "stop",
+  "http_status": 200,
+  "interpretation": "Availability of this small request only; does not establish P2 batch stability.",
+  "reported_model": "self-dploy/Qwen3.8-27B",
+  "requested_model": "Qwen3.8-27B",
+  "response_preview": "API_OK",
+  "schema": "qwen-api-access-check-receipt-v1",
+  "source_artifact_sha256": {
+    "results/raw/development/qwen-api-access-check-20261022T033606620890Z/request-started.json": "dd22eeb3bf2956b8f08d13f40aca0d9e6368182c0d1767a576504e0487a8e88d",
+    "results/raw/development/qwen-api-access-check-20261022T033606620890Z/result.json": "3b6a02e67e23c60bf7f73bad1d675a0090f518af3a6d951eac3ac1cf7831688f",
+    "results/raw/development/qwen-api-access-check-20261022T033606620890Z/summary.json": "81477cf8389879762caa2c3c17898cd8fa396b187a4b2961d48cae8d4d3f698a"
+  },
+  "status": "ok"
+}

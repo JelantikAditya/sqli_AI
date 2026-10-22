@@ -1,0 +1,19 @@
+{
+  "schema": "qwen-p3-transport-timeout-profile-v1",
+  "profile_id": "analysis-timeout-180s-v1",
+  "protocol_id": "qwen38-api-sqli-v4-pilot",
+  "status": "prepared-awaiting-researcher-review",
+  "scope": "P3 development pilot only",
+  "base_runtime_config_path": "development/qwen_api_runtime_config.json",
+  "base_runtime_config_sha256": "5a098538060d5f9bb6522e23dd0add037295a9e0eaed34e0a978880317068016",
+  "timeouts_seconds": {
+    "generation": 90,
+    "analysis": 180
+  },
+  "analysis_request_profile": "Same endpoint, model alias, prompt, temperature, and 2048-token limit as P2. The 180-second value changes only the local transport wait timeout and is not sent in the API request payload.",
+  "rationale": "The recovery-002 analysis request ended in a 90.153-second read timeout. A longer bounded wait may allow a slow response to complete, but does not guarantee provider availability.",
+  "wall_clock_ceiling_seconds": 21600,
+  "automatic_transport_retries": 0,
+  "automatic_replacement_attempts": 0,
+  "formal_eligible": false
+}

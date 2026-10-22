@@ -1,0 +1,26 @@
+{
+  "schema": "p3-v3-execution-approval-v1",
+  "recorded_at_utc": "2026-10-22T04:45:16+00:00",
+  "decision_source": "Direct researcher message in the current chat following the v3 recovery proposal",
+  "researcher_statement": "iyah lanjutkan",
+  "status": "approved-single-v3-pilot",
+  "experiment_id": "qwen38-api-p3-v3-pilot-20261022",
+  "protocol_id": "qwen38-api-sqli-v3-pilot",
+  "max_new_API_calls": 960,
+  "max_wall_seconds": 21600,
+  "applicable_runs": 33,
+  "design_excluded_C_Impossible_slots": 3,
+  "automatic_transport_retries": 0,
+  "automatic_replacement_attempts": 0,
+  "local_DVWA_and_database_resets_authorized": true,
+  "formal_eligible": false,
+  "budget_draft_retained_unchanged": "The frozen budget predates this approval; this receipt records the later researcher decision.",
+  "bound_artifact_sha256": {
+    "development/qwen_api_p3_v3_pilot_plan.template.json": "989cde50e1e945cf47efffe476564b4514ec7ee9eb0fb14e0e360055ed41c094",
+    "development/qwen_api_p3_v3_budget_20261022.json": "6eee4f24128fbe41406cec37a44fc7493c689dd0497aa7fed98e4c48bc68a971",
+    "development/run_bounded_qwen_p3_pilot.py": "33658a548eb67626a050521f1f2b1e852f4f13cea65bdb73e3e0bb502c9acfcb",
+    "docs/evidence/p3-generation-status-repair-2026-10-22.json": "7076c25d76210de78ebd4510de1368fcb0263f0e1b087316a2f1dcaec4e44a0c"
+  },
+  "preservation_baseline": "results/raw/development/p3-v3-recovery-20261022/preservation-before.json",
+  "preservation_baseline_sha256": "8ddea45f730648c740691c688fa223eb936ff20893f35d8e33d382a5c7c7b9f9"
+}

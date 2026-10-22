@@ -1,0 +1,672 @@
+{
+  "schema": "p3-live-readiness-receipt-v1",
+  "recorded_at_utc": "2026-10-22T04:25:57+00:00",
+  "scope": "manual executor controls and isolated active-generator smoke; no formal metrics",
+  "executor_controls": {
+    "completed_scenarios": 12,
+    "rows": [
+      {
+        "scenario_id": "S1",
+        "security_level": "low",
+        "probe_kind": "single_error",
+        "runtime_valid": true,
+        "runtime_failure_code": null,
+        "valid_confirmation_count": 3,
+        "positive_confirmation_count": 3,
+        "evidence_status": "CONSISTENT_POSITIVE",
+        "database_reset_performed": true,
+        "logical_probe_submissions": 6,
+        "http_request_calls": 21,
+        "validation_log": "results/raw/pilot/p3-executor-controls-20261022-v2/S1/validation.jsonl",
+        "validation_sha256": "2f352b55e9debc99f18ad8a5dcb471f882ea5aa519d6c4d1e150956c22ce3c69",
+        "timing_evidence": [],
+        "human_validation": "pending"
+      },
+      {
+        "scenario_id": "S2",
+        "security_level": "low",
+        "probe_kind": "boolean_pair",
+        "runtime_valid": true,
+        "runtime_failure_code": null,
+        "valid_confirmation_count": 3,
+        "positive_confirmation_count": 3,
+        "evidence_status": "CONSISTENT_POSITIVE",
+        "database_reset_performed": true,
+        "logical_probe_submissions": 9,
+        "http_request_calls": 27,
+        "validation_log": "results/raw/pilot/p3-executor-controls-20261022-v2/S2/validation.jsonl",
+        "validation_sha256": "735cb94e416aa03340a9f61a0b8b7defc82e6a0db5478bd294a950ead4c73f95",
+        "timing_evidence": [],
+        "human_validation": "pending"
+      },
+      {
+        "scenario_id": "S3",
+        "security_level": "low",
+        "probe_kind": "single_time",
+        "runtime_valid": true,
+        "runtime_failure_code": null,
+        "valid_confirmation_count": 3,
+        "positive_confirmation_count": 3,
+        "evidence_status": "CONSISTENT_POSITIVE",
+        "database_reset_performed": true,
+        "logical_probe_submissions": 9,
+        "http_request_calls": 27,
+        "validation_log": "results/raw/pilot/p3-executor-controls-20261022-v2/S3/validation.jsonl",
+        "validation_sha256": "57b964bb21425bbf688726d00c480469d132218ae071ff321500117e914cf1d3",
+        "timing_evidence": [
+          {
+            "probe_kind": "single_time",
+            "time_delta_ms": 2001.19,
+            "threshold_ms": 1500.0,
+            "matched_control_time_ms": 3.82,
+            "control_policy_id": "same-payload-sleep-zero-v1",
+            "control_payload_sha256": "3bcd1da8d842c20b2e529e140fb734833f9cd1d812f3e76888e96d8a7dd97ae8",
+            "response_pair_valid": true
+          },
+          {
+            "probe_kind": "single_time",
+            "time_delta_ms": 2013.45,
+            "threshold_ms": 1500.0,
+            "matched_control_time_ms": 4.85,
+            "control_policy_id": "same-payload-sleep-zero-v1",
+            "control_payload_sha256": "3bcd1da8d842c20b2e529e140fb734833f9cd1d812f3e76888e96d8a7dd97ae8",
+            "response_pair_valid": true
+          },
+          {
+            "probe_kind": "single_time",
+            "time_delta_ms": 2000.67,
+            "threshold_ms": 1500.0,
+            "matched_control_time_ms": 4.12,
+            "control_policy_id": "same-payload-sleep-zero-v1",
+            "control_payload_sha256": "3bcd1da8d842c20b2e529e140fb734833f9cd1d812f3e76888e96d8a7dd97ae8",
+            "response_pair_valid": true
+          }
+        ],
+        "human_validation": "pending"
+      },
+      {
+        "scenario_id": "S4",
+        "security_level": "medium",
+        "probe_kind": "single_error",
+        "runtime_valid": true,
+        "runtime_failure_code": null,
+        "valid_confirmation_count": 3,
+        "positive_confirmation_count": 3,
+        "evidence_status": "CONSISTENT_POSITIVE",
+        "database_reset_performed": true,
+        "logical_probe_submissions": 6,
+        "http_request_calls": 21,
+        "validation_log": "results/raw/pilot/p3-executor-controls-20261022-v2/S4/validation.jsonl",
+        "validation_sha256": "a945caecf0f0ac48cf4546ceba089a12904f5ff487fdafc58f86e617d7f67510",
+        "timing_evidence": [],
+        "human_validation": "pending"
+      },
+      {
+        "scenario_id": "S5",
+        "security_level": "medium",
+        "probe_kind": "boolean_pair",
+        "runtime_valid": true,
+        "runtime_failure_code": null,
+        "valid_confirmation_count": 3,
+        "positive_confirmation_count": 3,
+        "evidence_status": "CONSISTENT_POSITIVE",
+        "database_reset_performed": true,
+        "logical_probe_submissions": 9,
+        "http_request_calls": 27,
+        "validation_log": "results/raw/pilot/p3-executor-controls-20261022-v2/S5/validation.jsonl",
+        "validation_sha256": "c19f6390f10af36f0bc37dc4a2ccaff726f5fc72a3b82d6f5a8d79efbbe0fa73",
+        "timing_evidence": [],
+        "human_validation": "pending"
+      },
+      {
+        "scenario_id": "S6",
+        "security_level": "medium",
+        "probe_kind": "single_time",
+        "runtime_valid": true,
+        "runtime_failure_code": null,
+        "valid_confirmation_count": 3,
+        "positive_confirmation_count": 3,
+        "evidence_status": "CONSISTENT_POSITIVE",
+        "database_reset_performed": true,
+        "logical_probe_submissions": 9,
+        "http_request_calls": 27,
+        "validation_log": "results/raw/pilot/p3-executor-controls-20261022-v2/S6/validation.jsonl",
+        "validation_sha256": "1d1e204741a5d0476c1bdbd982b5656955860c956f82cf94624cd592bc68afbe",
+        "timing_evidence": [
+          {
+            "probe_kind": "single_time",
+            "time_delta_ms": 2000.79,
+            "threshold_ms": 1500.0,
+            "matched_control_time_ms": 4.31,
+            "control_policy_id": "same-payload-sleep-zero-v1",
+            "control_payload_sha256": "721b5eb46f981b1ec6ca20f938db5ebd673ca1bc01512a4203d3c6d64ba72083",
+            "response_pair_valid": true
+          },
+          {
+            "probe_kind": "single_time",
+            "time_delta_ms": 1999.88,
+            "threshold_ms": 1500.0,
+            "matched_control_time_ms": 18.68,
+            "control_policy_id": "same-payload-sleep-zero-v1",
+            "control_payload_sha256": "721b5eb46f981b1ec6ca20f938db5ebd673ca1bc01512a4203d3c6d64ba72083",
+            "response_pair_valid": true
+          },
+          {
+            "probe_kind": "single_time",
+            "time_delta_ms": 2000.83,
+            "threshold_ms": 1500.0,
+            "matched_control_time_ms": 4.11,
+            "control_policy_id": "same-payload-sleep-zero-v1",
+            "control_payload_sha256": "721b5eb46f981b1ec6ca20f938db5ebd673ca1bc01512a4203d3c6d64ba72083",
+            "response_pair_valid": true
+          }
+        ],
+        "human_validation": "pending"
+      },
+      {
+        "scenario_id": "S7",
+        "security_level": "high",
+        "probe_kind": "single_error",
+        "runtime_valid": true,
+        "runtime_failure_code": null,
+        "valid_confirmation_count": 3,
+        "positive_confirmation_count": 3,
+        "evidence_status": "CONSISTENT_POSITIVE",
+        "database_reset_performed": true,
+        "logical_probe_submissions": 6,
+        "http_request_calls": 27,
+        "validation_log": "results/raw/pilot/p3-executor-controls-20261022-v2/S7/validation.jsonl",
+        "validation_sha256": "3feda90a4d503d01d1abf0dd1f596aea890608814575d0d61148d43ab1974d4e",
+        "timing_evidence": [],
+        "human_validation": "pending"
+      },
+      {
+        "scenario_id": "S8",
+        "security_level": "high",
+        "probe_kind": "boolean_pair",
+        "runtime_valid": true,
+        "runtime_failure_code": null,
+        "valid_confirmation_count": 3,
+        "positive_confirmation_count": 3,
+        "evidence_status": "CONSISTENT_POSITIVE",
+        "database_reset_performed": true,
+        "logical_probe_submissions": 9,
+        "http_request_calls": 36,
+        "validation_log": "results/raw/pilot/p3-executor-controls-20261022-v2/S8/validation.jsonl",
+        "validation_sha256": "d264f5eabded670d81b4364e13b114948b791a74ff232f9659501abeb829c3ac",
+        "timing_evidence": [],
+        "human_validation": "pending"
+      },
+      {
+        "scenario_id": "S9",
+        "security_level": "high",
+        "probe_kind": "single_time",
+        "runtime_valid": true,
+        "runtime_failure_code": null,
+        "valid_confirmation_count": 3,
+        "positive_confirmation_count": 3,
+        "evidence_status": "CONSISTENT_POSITIVE",
+        "database_reset_performed": true,
+        "logical_probe_submissions": 9,
+        "http_request_calls": 36,
+        "validation_log": "results/raw/pilot/p3-executor-controls-20261022-v2/S9/validation.jsonl",
+        "validation_sha256": "8bb8f53ee71d7b511da668124899caa25807a9ea2b58aae3769352eb65d91a0a",
+        "timing_evidence": [
+          {
+            "probe_kind": "single_time",
+            "time_delta_ms": 2000.7,
+            "threshold_ms": 1500.0,
+            "matched_control_time_ms": 6.28,
+            "control_policy_id": "same-payload-sleep-zero-v1",
+            "control_payload_sha256": "3bcd1da8d842c20b2e529e140fb734833f9cd1d812f3e76888e96d8a7dd97ae8",
+            "response_pair_valid": true
+          },
+          {
+            "probe_kind": "single_time",
+            "time_delta_ms": 2000.4,
+            "threshold_ms": 1500.0,
+            "matched_control_time_ms": 6.15,
+            "control_policy_id": "same-payload-sleep-zero-v1",
+            "control_payload_sha256": "3bcd1da8d842c20b2e529e140fb734833f9cd1d812f3e76888e96d8a7dd97ae8",
+            "response_pair_valid": true
+          },
+          {
+            "probe_kind": "single_time",
+            "time_delta_ms": 2000.61,
+            "threshold_ms": 1500.0,
+            "matched_control_time_ms": 5.76,
+            "control_policy_id": "same-payload-sleep-zero-v1",
+            "control_payload_sha256": "3bcd1da8d842c20b2e529e140fb734833f9cd1d812f3e76888e96d8a7dd97ae8",
+            "response_pair_valid": true
+          }
+        ],
+        "human_validation": "pending"
+      },
+      {
+        "scenario_id": "S10",
+        "security_level": "impossible",
+        "probe_kind": "single_error",
+        "runtime_valid": true,
+        "runtime_failure_code": null,
+        "valid_confirmation_count": 3,
+        "positive_confirmation_count": 0,
+        "evidence_status": "CONSISTENT_NEGATIVE",
+        "database_reset_performed": true,
+        "logical_probe_submissions": 6,
+        "http_request_calls": 21,
+        "validation_log": "results/raw/pilot/p3-executor-controls-20261022-v2/S10/validation.jsonl",
+        "validation_sha256": "8adb772f0750c9ead11b2e98bd8f21b9e1f235f9b9d83384b32c44717d102898",
+        "timing_evidence": [],
+        "human_validation": "pending"
+      },
+      {
+        "scenario_id": "S11",
+        "security_level": "impossible",
+        "probe_kind": "boolean_pair",
+        "runtime_valid": true,
+        "runtime_failure_code": null,
+        "valid_confirmation_count": 3,
+        "positive_confirmation_count": 0,
+        "evidence_status": "CONSISTENT_NEGATIVE",
+        "database_reset_performed": true,
+        "logical_probe_submissions": 9,
+        "http_request_calls": 27,
+        "validation_log": "results/raw/pilot/p3-executor-controls-20261022-v2/S11/validation.jsonl",
+        "validation_sha256": "a9dffc4f29966643ae95106a957a7de824e6e00a8be4b0e49ffd34d3293b614e",
+        "timing_evidence": [],
+        "human_validation": "pending"
+      },
+      {
+        "scenario_id": "S12",
+        "security_level": "impossible",
+        "probe_kind": "single_time",
+        "runtime_valid": true,
+        "runtime_failure_code": null,
+        "valid_confirmation_count": 3,
+        "positive_confirmation_count": 0,
+        "evidence_status": "CONSISTENT_NEGATIVE",
+        "database_reset_performed": true,
+        "logical_probe_submissions": 9,
+        "http_request_calls": 27,
+        "validation_log": "results/raw/pilot/p3-executor-controls-20261022-v2/S12/validation.jsonl",
+        "validation_sha256": "0689e97fd60b77763d1992cddc119a53daa7740e636c0087131af1e8ee837f23",
+        "timing_evidence": [
+          {
+            "probe_kind": "single_time",
+            "time_delta_ms": -5.07,
+            "threshold_ms": 1500.0,
+            "matched_control_time_ms": 19.67,
+            "control_policy_id": "same-payload-sleep-zero-v1",
+            "control_payload_sha256": "3bcd1da8d842c20b2e529e140fb734833f9cd1d812f3e76888e96d8a7dd97ae8",
+            "response_pair_valid": true
+          },
+          {
+            "probe_kind": "single_time",
+            "time_delta_ms": 11.57,
+            "threshold_ms": 1500.0,
+            "matched_control_time_ms": 4.05,
+            "control_policy_id": "same-payload-sleep-zero-v1",
+            "control_payload_sha256": "3bcd1da8d842c20b2e529e140fb734833f9cd1d812f3e76888e96d8a7dd97ae8",
+            "response_pair_valid": true
+          },
+          {
+            "probe_kind": "single_time",
+            "time_delta_ms": -0.26,
+            "threshold_ms": 1500.0,
+            "matched_control_time_ms": 3.75,
+            "control_policy_id": "same-payload-sleep-zero-v1",
+            "control_payload_sha256": "3bcd1da8d842c20b2e529e140fb734833f9cd1d812f3e76888e96d8a7dd97ae8",
+            "response_pair_valid": true
+          }
+        ],
+        "human_validation": "pending"
+      }
+    ],
+    "total_manual_candidates": 12,
+    "confirmations_per_candidate": 3,
+    "database_resets": 12,
+    "logical_probe_submissions": 96,
+    "HTTP_request_calls": 324,
+    "expected_signal_pattern_matched": true
+  },
+  "generation_smoke": {
+    "state": "completed",
+    "all_six_valid": true,
+    "api_calls": 6,
+    "automatic_retries": 0,
+    "first_request_resent": false,
+    "generated_candidates_executed": false,
+    "scope": "S1-S3 first candidate only, A/B; not proof of full-budget diversity or payload success",
+    "mean_generation_elapsed_seconds": 3.0396666666666667,
+    "returned_total_tokens": 4871,
+    "cases": [
+      {
+        "slot": "S1-A",
+        "http_status": 200,
+        "status": "ok",
+        "reported_model": "self-dploy/Qwen3.8-27B",
+        "elapsed_seconds": 3.121,
+        "usage": {
+          "prompt_tokens": 376,
+          "total_tokens": 403,
+          "completion_tokens": 27,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0,
+            "image_tokens": 0
+          },
+          "reasoning_tokens": 0,
+          "cost": 1.505e-05,
+          "cost_details": {
+            "upstream_inference_cost": 1.505e-05,
+            "upstream_inference_prompt_cost": 1.316e-05,
+            "upstream_inference_completions_cost": 1.89e-06,
+            "total_cost": 1.505e-05,
+            "input_cost": 1.316e-05,
+            "output_cost": 1.89e-06,
+            "cached_input_cost": 0,
+            "cache_write_input_cost": 0,
+            "request_cost": 0,
+            "web_search_cost": 0,
+            "image_input_cost": null,
+            "image_output_cost": null,
+            "audio_input_cost": null,
+            "data_storage_cost": 4.0299999999999995e-06
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        },
+        "request_sha256": "0b3435f1ed4819e32552f48bba06f192ad6c3c48baa16a745f03ab760490f1ae"
+      },
+      {
+        "slot": "S1-B",
+        "http_status": 200,
+        "status": "ok",
+        "reported_model": "self-dploy/Qwen3.8-27B",
+        "elapsed_seconds": 2.919,
+        "usage": {
+          "prompt_tokens": 1049,
+          "total_tokens": 1076,
+          "completion_tokens": 27,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0,
+            "image_tokens": 0
+          },
+          "reasoning_tokens": 0,
+          "cost": 3.8605e-05,
+          "cost_details": {
+            "upstream_inference_cost": 3.8605e-05,
+            "upstream_inference_prompt_cost": 3.6715e-05,
+            "upstream_inference_completions_cost": 1.89e-06,
+            "total_cost": 3.8605e-05,
+            "input_cost": 3.6715e-05,
+            "output_cost": 1.89e-06,
+            "cached_input_cost": 0,
+            "cache_write_input_cost": 0,
+            "request_cost": 0,
+            "web_search_cost": 0,
+            "image_input_cost": null,
+            "image_output_cost": null,
+            "audio_input_cost": null,
+            "data_storage_cost": 1.0759999999999999e-05
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        },
+        "request_sha256": "df0f03dbb6e89c2c68c4d315856ba0e3ac2989c91ed22cfa9ffdb1039ea0e54a"
+      },
+      {
+        "slot": "S2-B",
+        "http_status": 200,
+        "status": "ok",
+        "reported_model": "self-dploy/Qwen3.8-27B",
+        "elapsed_seconds": 3.48,
+        "usage": {
+          "prompt_tokens": 1212,
+          "total_tokens": 1259,
+          "completion_tokens": 47,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0,
+            "image_tokens": 0
+          },
+          "reasoning_tokens": 0,
+          "cost": 4.571e-05,
+          "cost_details": {
+            "upstream_inference_cost": 4.5709999999999994e-05,
+            "upstream_inference_prompt_cost": 4.242e-05,
+            "upstream_inference_completions_cost": 3.29e-06,
+            "total_cost": 4.571e-05,
+            "input_cost": 4.242e-05,
+            "output_cost": 3.29e-06,
+            "cached_input_cost": 0,
+            "cache_write_input_cost": 0,
+            "request_cost": 0,
+            "web_search_cost": 0,
+            "image_input_cost": null,
+            "image_output_cost": null,
+            "audio_input_cost": null,
+            "data_storage_cost": 1.259e-05
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        },
+        "request_sha256": "43517545971ca2eb9b4d2194dc136b43cedbab8a5421364f9c58d5bcdf22deac"
+      },
+      {
+        "slot": "S2-A",
+        "http_status": 200,
+        "status": "ok",
+        "reported_model": "self-dploy/Qwen3.8-27B",
+        "elapsed_seconds": 2.615,
+        "usage": {
+          "prompt_tokens": 411,
+          "total_tokens": 458,
+          "completion_tokens": 47,
+          "prompt_tokens_details": {
+            "cached_tokens": 128,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0,
+            "image_tokens": 0
+          },
+          "reasoning_tokens": 0,
+          "cost": 1.32846e-05,
+          "cost_details": {
+            "upstream_inference_cost": 1.3284599999999998e-05,
+            "upstream_inference_prompt_cost": 9.994599999999999e-06,
+            "upstream_inference_completions_cost": 3.29e-06,
+            "total_cost": 1.32846e-05,
+            "input_cost": 9.905e-06,
+            "output_cost": 3.29e-06,
+            "cached_input_cost": 8.96e-08,
+            "cache_write_input_cost": 0,
+            "request_cost": 0,
+            "web_search_cost": 0,
+            "image_input_cost": null,
+            "image_output_cost": null,
+            "audio_input_cost": null,
+            "data_storage_cost": 4.58e-06
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        },
+        "request_sha256": "3c32be36934b0ceb2379824291c5a632aedfd65868b67279e15e5389eb87dc49"
+      },
+      {
+        "slot": "S3-A",
+        "http_status": 200,
+        "status": "ok",
+        "reported_model": "self-dploy/Qwen3.8-27B",
+        "elapsed_seconds": 3.466,
+        "usage": {
+          "prompt_tokens": 392,
+          "total_tokens": 424,
+          "completion_tokens": 32,
+          "prompt_tokens_details": {
+            "cached_tokens": 128,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0,
+            "image_tokens": 0
+          },
+          "reasoning_tokens": 0,
+          "cost": 1.15696e-05,
+          "cost_details": {
+            "upstream_inference_cost": 1.15696e-05,
+            "upstream_inference_prompt_cost": 9.3296e-06,
+            "upstream_inference_completions_cost": 2.24e-06,
+            "total_cost": 1.15696e-05,
+            "input_cost": 9.24e-06,
+            "output_cost": 2.24e-06,
+            "cached_input_cost": 8.96e-08,
+            "cache_write_input_cost": 0,
+            "request_cost": 0,
+            "web_search_cost": 0,
+            "image_input_cost": null,
+            "image_output_cost": null,
+            "audio_input_cost": null,
+            "data_storage_cost": 4.24e-06
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        },
+        "request_sha256": "28ed882c21d5986a2caccfcd28023870a8b27cc8a4f3fa1a0dca075d66f5b42f"
+      },
+      {
+        "slot": "S3-B",
+        "http_status": 200,
+        "status": "ok",
+        "reported_model": "self-dploy/Qwen3.8-27B",
+        "elapsed_seconds": 2.637,
+        "usage": {
+          "prompt_tokens": 1210,
+          "total_tokens": 1251,
+          "completion_tokens": 41,
+          "prompt_tokens_details": {
+            "cached_tokens": 128,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0,
+            "image_tokens": 0
+          },
+          "reasoning_tokens": 0,
+          "cost": 4.08296e-05,
+          "cost_details": {
+            "upstream_inference_cost": 4.08296e-05,
+            "upstream_inference_prompt_cost": 3.79596e-05,
+            "upstream_inference_completions_cost": 2.87e-06,
+            "total_cost": 4.08296e-05,
+            "input_cost": 3.787e-05,
+            "output_cost": 2.87e-06,
+            "cached_input_cost": 8.96e-08,
+            "cache_write_input_cost": 0,
+            "request_cost": 0,
+            "web_search_cost": 0,
+            "image_input_cost": null,
+            "image_output_cost": null,
+            "audio_input_cost": null,
+            "data_storage_cost": 1.251e-05
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        },
+        "request_sha256": "c8e85e3472b43521290e3fe859ea06ed42b8dae585a5cdd570ca891cd36391e3"
+      }
+    ],
+    "local_helper_incident": {
+      "kind": "post-response local hash assertion caused by JSON key ordering",
+      "semantic_message_data_unchanged": true,
+      "original_plan_and_first_response_preserved": true,
+      "continuation_frozen_before_remaining_five_calls": true,
+      "recorded_in": "results/raw/development/p3-readiness-20261022-r1/smoke-continuation.plan.lock.json"
+    }
+  },
+  "preservation": {
+    "checked_files": 1147,
+    "changed_files": [],
+    "source_files": 32
+  },
+  "source_artifact_sha256": {
+    "results/raw/development/p3-readiness-20261022-r1/plan.lock.json": "6d3145c734d746b692fa0af05d18a37287d80f89b3920cc126ffeeafad803f7f",
+    "results/raw/development/p3-readiness-20261022-r1/smoke-plan.lock.json": "fb7663d97b4b6f2ac9a3105e1c5b01bb72d577fbc7bbf4635e5c8e5667464bbd",
+    "results/raw/development/p3-readiness-20261022-r1/smoke-plan.receipt.json": "e5d2b7cb183741e38944712f231cb9d2c4a42da83bfc7d7b472060e4de38d5f7",
+    "results/raw/development/p3-readiness-20261022-r1/smoke-continuation.plan.lock.json": "76764567f7cafdc194dc496506e37ad9e24b3baaf1f70a7a60a299e940966ac7",
+    "results/raw/development/p3-readiness-20261022-r1/smoke-continuation.receipt.json": "500c7f90cb8e7606856b4f983dc4762a4fa26ad9c25315e68f8595260852aa18",
+    "results/raw/development/p3-readiness-20261022-r1/smoke-summary.json": "18358461e1ef6e9c4aba70fdf03df13ce862faf6793e5af89087810c6e1f0922",
+    "results/raw/development/p3-readiness-20261022-r1/preservation-before.json": "8682073e4811cf6251adca1d74484ce0a733a6407a824e61274950d5b68424ee",
+    "results/raw/pilot/p3-executor-controls-20261022-v2/pilot.summary.json": "93f348ae140c0ca10995e365e37ed8d80a53a806193accfbcf645e9f863af1fd",
+    "results/raw/development/p3-readiness-20261022-r1/attempts/S1-A/attempt-1/api-calls/00001-generation-d3b21665/request-started.json": "7ae93d877c004c5a533330144777034b4ab76f77b0ab460cbb02cfe4ea8841fe",
+    "results/raw/development/p3-readiness-20261022-r1/attempts/S1-A/attempt-1/api-calls/00001-generation-d3b21665/request.json": "df71f69d32945a66700b83e2194b337f4cfc24e6743d455d58a3ca9257c82be9",
+    "results/raw/development/p3-readiness-20261022-r1/attempts/S1-A/attempt-1/api-calls/00001-generation-d3b21665/result.json": "f07d99464afde3c6f705950d5004419c3936257ea8238e4ff67e48b9329820f3",
+    "results/raw/development/p3-readiness-20261022-r1/attempts/S1-A/attempt-1/generation-result.json": "06317f640f446f47421066a027b674a60eb4616c4c533769213daaf2d2d066a9",
+    "results/raw/development/p3-readiness-20261022-r1/attempts/S1-B/attempt-1/api-calls/00002-generation-581b7790/request-started.json": "611c449e9e9cb69a2d4cd9a9a8b4ddf2a405972022c1e8df3fd0fd5de32d584a",
+    "results/raw/development/p3-readiness-20261022-r1/attempts/S1-B/attempt-1/api-calls/00002-generation-581b7790/request.json": "5a14a79890d6354db417aaca573736a5897f92e6ee7479daaaca51310219aae6",
+    "results/raw/development/p3-readiness-20261022-r1/attempts/S1-B/attempt-1/api-calls/00002-generation-581b7790/result.json": "e602c54f66a68e78698bddaae25b5bba2974ed671b5796865ab7013545b5cb70",
+    "results/raw/development/p3-readiness-20261022-r1/attempts/S1-B/attempt-1/generation-result.json": "084bf06e0f2ad725353ba273e8a7bd01ba0a16f9f069c979508cf9da9528cebc",
+    "results/raw/development/p3-readiness-20261022-r1/attempts/S2-A/attempt-1/api-calls/00004-generation-80772346/request-started.json": "646beb005e35781a3331934d9712c303770bd1a41a34fe96f7f3df54c7e1fa56",
+    "results/raw/development/p3-readiness-20261022-r1/attempts/S2-A/attempt-1/api-calls/00004-generation-80772346/request.json": "e0991da316522d86b1d147196f7888c314b95289dba7e3c4597a1ef1d5e6da5b",
+    "results/raw/development/p3-readiness-20261022-r1/attempts/S2-A/attempt-1/api-calls/00004-generation-80772346/result.json": "b96e8c611663634a360d62b93c5bfdc0987af875c1b61df3d63f0081552c5257",
+    "results/raw/development/p3-readiness-20261022-r1/attempts/S2-A/attempt-1/generation-result.json": "4953a6e0357fbb6f3fe6b94c5c74365c320bbf39814703f2a9fd18d0b6a6dc6c",
+    "results/raw/development/p3-readiness-20261022-r1/attempts/S2-B/attempt-1/api-calls/00003-generation-4bde5014/request-started.json": "7e7f594c82c5e56aa655f6e4726a4bcff294fffd377e357f93a6966839d42cb3",
+    "results/raw/development/p3-readiness-20261022-r1/attempts/S2-B/attempt-1/api-calls/00003-generation-4bde5014/request.json": "6a82b1c2034241d803ae4f604c4db0476ddab2599380afa8a802cdec20ae58fe",
+    "results/raw/development/p3-readiness-20261022-r1/attempts/S2-B/attempt-1/api-calls/00003-generation-4bde5014/result.json": "f4dcb2e5bcba350d9630e53b6d3fc6693d9d0387b312ca674236b36eb844a7ca",
+    "results/raw/development/p3-readiness-20261022-r1/attempts/S2-B/attempt-1/generation-result.json": "8286276a0d69a13bf1e9fcfe188e81c086b15fba9d075f582c5688f23e44683e",
+    "results/raw/development/p3-readiness-20261022-r1/attempts/S3-A/attempt-1/api-calls/00005-generation-ddd05b9b/request-started.json": "9fa668c72f08a7b478d5529cfb1bddad23891e6ff967453e11575e23d389fcd2",
+    "results/raw/development/p3-readiness-20261022-r1/attempts/S3-A/attempt-1/api-calls/00005-generation-ddd05b9b/request.json": "de02b560f28ef20f6de28395dc401044876b0cf0d3f6146886867599538575b9",
+    "results/raw/development/p3-readiness-20261022-r1/attempts/S3-A/attempt-1/api-calls/00005-generation-ddd05b9b/result.json": "6475f793412bd2690c914cf2e7a52c6e655dbb3ca664e0cbe4bf2ea97064538e",
+    "results/raw/development/p3-readiness-20261022-r1/attempts/S3-A/attempt-1/generation-result.json": "34a584abaf03be7fce67ce5348e00fa0f78ec0fda44700221d6ff69f397aefd4",
+    "results/raw/development/p3-readiness-20261022-r1/attempts/S3-B/attempt-1/api-calls/00006-generation-5bf0c2d9/request-started.json": "5d0f0949a66d79738310c90500c23982fba8088559adaebd807a39226d0bea7a",
+    "results/raw/development/p3-readiness-20261022-r1/attempts/S3-B/attempt-1/api-calls/00006-generation-5bf0c2d9/request.json": "55f06ac08b22147a1dcfc0fdce86e7764cd994a043c43b0cea2ea077df0ec495",
+    "results/raw/development/p3-readiness-20261022-r1/attempts/S3-B/attempt-1/api-calls/00006-generation-5bf0c2d9/result.json": "81e8bc0ea084d7e2af9cc955aa3452bb3cdd4e805b949faae444d80b9350affa",
+    "results/raw/development/p3-readiness-20261022-r1/attempts/S3-B/attempt-1/generation-result.json": "a2aa556699d847ce282d3752c39a69caf82a9699edff0c1cea8e3430cf94e38a",
+    "results/raw/development/p3-readiness-20261022-r1/helper-source/p3_readiness_smoke_20261022.py": "841be29e17eb5ca4ae3e71ae8cc3c7f22154134889ef63400fadc693ce6c16df",
+    "results/raw/development/p3-readiness-20261022-r1/helper-source/p3_readiness_smoke_recovery_20261022.py": "a38949217f787c1052158e67909f3f9e81ab7cbca3c63a23731bb129256f428c",
+    "results/raw/pilot/p3-executor-controls-20261022-v2/S1/validation.jsonl": "2f352b55e9debc99f18ad8a5dcb471f882ea5aa519d6c4d1e150956c22ce3c69",
+    "results/raw/pilot/p3-executor-controls-20261022-v2/S10/validation.jsonl": "8adb772f0750c9ead11b2e98bd8f21b9e1f235f9b9d83384b32c44717d102898",
+    "results/raw/pilot/p3-executor-controls-20261022-v2/S11/validation.jsonl": "a9dffc4f29966643ae95106a957a7de824e6e00a8be4b0e49ffd34d3293b614e",
+    "results/raw/pilot/p3-executor-controls-20261022-v2/S12/validation.jsonl": "0689e97fd60b77763d1992cddc119a53daa7740e636c0087131af1e8ee837f23",
+    "results/raw/pilot/p3-executor-controls-20261022-v2/S2/validation.jsonl": "735cb94e416aa03340a9f61a0b8b7defc82e6a0db5478bd294a950ead4c73f95",
+    "results/raw/pilot/p3-executor-controls-20261022-v2/S3/validation.jsonl": "57b964bb21425bbf688726d00c480469d132218ae071ff321500117e914cf1d3",
+    "results/raw/pilot/p3-executor-controls-20261022-v2/S4/validation.jsonl": "a945caecf0f0ac48cf4546ceba089a12904f5ff487fdafc58f86e617d7f67510",
+    "results/raw/pilot/p3-executor-controls-20261022-v2/S5/validation.jsonl": "c19f6390f10af36f0bc37dc4a2ccaff726f5fc72a3b82d6f5a8d79efbbe0fa73",
+    "results/raw/pilot/p3-executor-controls-20261022-v2/S6/validation.jsonl": "1d1e204741a5d0476c1bdbd982b5656955860c956f82cf94624cd592bc68afbe",
+    "results/raw/pilot/p3-executor-controls-20261022-v2/S7/validation.jsonl": "3feda90a4d503d01d1abf0dd1f596aea890608814575d0d61148d43ab1974d4e",
+    "results/raw/pilot/p3-executor-controls-20261022-v2/S8/validation.jsonl": "d264f5eabded670d81b4364e13b114948b791a74ff232f9659501abeb829c3ac",
+    "results/raw/pilot/p3-executor-controls-20261022-v2/S9/validation.jsonl": "8bb8f53ee71d7b511da668124899caa25807a9ea2b58aae3769352eb65d91a0a"
+  },
+  "formal_FPR_claim": false,
+  "formal_PSR_claim": false,
+  "independent_human_review": "pending; operational controls only",
+  "pilot_budget": {
+    "path": "development/qwen_api_p3_budget_20261022.json",
+    "max_api_calls": 960,
+    "max_wall_seconds": 21600,
+    "no_automatic_replacement_attempts": true
+  }
+}

@@ -1,0 +1,242 @@
+{
+  "agreement": 1.0,
+  "analysis_error_count": 0,
+  "analysis_warning_counts": {},
+  "api_elapsed_seconds_sum": 744.694,
+  "api_status_counts": {
+    "ok": 17,
+    "transport-error": 1
+  },
+  "assessment_status": "completed",
+  "billing_status": "Returned gateway usage only; final billing of timed-out request unknown.",
+  "credential_rotation_status": "Not independently verified; credential value was never recorded.",
+  "experiment_id": "qwen38-api-p2-eval-20261022-run-005",
+  "finished_at_utc": "2026-10-22T03:49:29Z",
+  "formal_FPR_claim": false,
+  "formal_PSR_claim": false,
+  "interpretation": "Technical replication of the same previously known 18 cases, reported separately. Timeout retained as unresolved. No automatic P2 milestone closure or formal FPR/PSR claim.",
+  "metrics": {
+    "by_reference_label": {
+      "inconclusive": {
+        "coverage": 1.0,
+        "exact_agreement_count": 6,
+        "exact_agreement_on_scored": 1.0,
+        "reference_count": 6,
+        "scored_count": 6
+      },
+      "negative": {
+        "coverage": 0.833333,
+        "exact_agreement_count": 5,
+        "exact_agreement_on_scored": 1.0,
+        "reference_count": 6,
+        "scored_count": 5
+      },
+      "positive": {
+        "coverage": 1.0,
+        "exact_agreement_count": 6,
+        "exact_agreement_on_scored": 1.0,
+        "reference_count": 6,
+        "scored_count": 6
+      }
+    },
+    "by_technique": {
+      "boolean-based blind": {
+        "case_count": 6,
+        "confusion_matrix_reference_rows_prediction_columns": {
+          "inconclusive": {
+            "inconclusive": 2,
+            "negative": 0,
+            "positive": 0
+          },
+          "negative": {
+            "inconclusive": 0,
+            "negative": 2,
+            "positive": 0
+          },
+          "positive": {
+            "inconclusive": 0,
+            "negative": 0,
+            "positive": 2
+          }
+        },
+        "coverage": 1.0,
+        "exact_agreement_count": 6,
+        "exact_agreement_on_scored": 1.0,
+        "scored_count": 6
+      },
+      "error-based": {
+        "case_count": 6,
+        "confusion_matrix_reference_rows_prediction_columns": {
+          "inconclusive": {
+            "inconclusive": 2,
+            "negative": 0,
+            "positive": 0
+          },
+          "negative": {
+            "inconclusive": 0,
+            "negative": 2,
+            "positive": 0
+          },
+          "positive": {
+            "inconclusive": 0,
+            "negative": 0,
+            "positive": 2
+          }
+        },
+        "coverage": 1.0,
+        "exact_agreement_count": 6,
+        "exact_agreement_on_scored": 1.0,
+        "scored_count": 6
+      },
+      "time-based blind": {
+        "case_count": 6,
+        "confusion_matrix_reference_rows_prediction_columns": {
+          "inconclusive": {
+            "inconclusive": 2,
+            "negative": 0,
+            "positive": 0
+          },
+          "negative": {
+            "inconclusive": 0,
+            "negative": 1,
+            "positive": 0
+          },
+          "positive": {
+            "inconclusive": 0,
+            "negative": 0,
+            "positive": 2
+          }
+        },
+        "coverage": 0.833333,
+        "exact_agreement_count": 5,
+        "exact_agreement_on_scored": 1.0,
+        "scored_count": 5
+      }
+    },
+    "case_count": 18,
+    "confusion_matrix_reference_rows_prediction_columns": {
+      "inconclusive": {
+        "inconclusive": 6,
+        "negative": 0,
+        "positive": 0
+      },
+      "negative": {
+        "inconclusive": 0,
+        "negative": 5,
+        "positive": 0
+      },
+      "positive": {
+        "inconclusive": 0,
+        "negative": 0,
+        "positive": 6
+      }
+    },
+    "coverage": 0.944444,
+    "exact_agreement_count": 17,
+    "exact_agreement_on_scored": 1.0,
+    "scored_count": 17,
+    "unresolved_count": 1
+  },
+  "not_started_requests": 0,
+  "offline_parse_replays_matched": 17,
+  "original_files_preserved": 91,
+  "parsed_response_coverage": 0.944444,
+  "plan_sha256": "a5b487af131b2db272ebeda238738d7105e83032b90a6a199a1079062bc972b0",
+  "planned_requests": 18,
+  "preserved_sources": 10,
+  "prompt_version": "qwen38-api-p2-explicit-evidence-v1",
+  "recorded_at_utc": "2026-10-22T03:50:36+00:00",
+  "replacement_run_started": false,
+  "replication_summary": {
+    "changed_decision_count": 0,
+    "known_evaluation_set": true,
+    "new_independent_holdout": false,
+    "new_run": "results/raw/development/qwen38-api-p2-eval-20261022-run-005",
+    "original_run": "results/raw/development/qwen38-api-p2-eval-20261021-run-001",
+    "original_unresolved_count": 4,
+    "original_unresolved_now_correct": 3,
+    "original_unresolved_now_evaluable": 3,
+    "paired_evaluable_count": 14,
+    "pool_as_independent_samples": false,
+    "same_decision_count": 14,
+    "schema": "qwen-api-p2-technical-replication-comparison-v1"
+  },
+  "reported_models": [
+    "self-dploy/Qwen3.8-27B"
+  ],
+  "requested_model": "Qwen3.8-27B",
+  "requests_sha256": "71ccaa86eb9a563dd56815991fecd828828d2a637709c08657158997efd2dfb6",
+  "responses_with_usage": 17,
+  "responses_without_usage": 1,
+  "retries_sent": 0,
+  "returned_usage_totals": {
+    "completion_tokens": 18965,
+    "prompt_tokens": 20342,
+    "total_tokens": 39307
+  },
+  "run_state": "completed_with_ambiguity",
+  "saved_model_decisions": 17,
+  "schema": "qwen-api-p2-technical-replication-receipt-v1",
+  "separate_access_check_calls": 1,
+  "source_artifact_sha256": {
+    "results/raw/development/qwen38-api-p2-eval-20261022-run-005/evaluation-assessment.json": "338f94e8fac12acdfc87d0a5834889fba3f29786ca63567fa530300ec2898d61",
+    "results/raw/development/qwen38-api-p2-eval-20261022-run-005/evaluation-results.json": "ab8165fb048c4d13c917a957c26d2790deeb5f2f12e342b0af903d2f193b3da5",
+    "results/raw/development/qwen38-api-p2-eval-20261022-run-005/request-started/rv-0fbe823359ad.json": "7ac99c2252d834c4a76d790365f654ca6322aebae1eee735edb23e27b9d7ac42",
+    "results/raw/development/qwen38-api-p2-eval-20261022-run-005/request-started/rv-1ccec0c24fcb.json": "68beb4019656d13318f3384ef3ce3440ad3b84fdda7f4cd02f05bbf5a03c82e2",
+    "results/raw/development/qwen38-api-p2-eval-20261022-run-005/request-started/rv-3872f87bc774.json": "bef52a79da68ea70bd33847f422a6e714057848d02afaf8863a811da1d929f86",
+    "results/raw/development/qwen38-api-p2-eval-20261022-run-005/request-started/rv-43ca623c9884.json": "67d337f40c9185cccaee09f1f3345e348f67b3b71f241164255c24568bbe4a82",
+    "results/raw/development/qwen38-api-p2-eval-20261022-run-005/request-started/rv-545921f53180.json": "5d0c784ebd31f65a78346555a1ce2b50bf6a03a3014e220b811948ab46c7134c",
+    "results/raw/development/qwen38-api-p2-eval-20261022-run-005/request-started/rv-5f78754b0a57.json": "06410d91d7e92864aec88841af433a30ff409ef83e6aa0c564c9e70dc32ff109",
+    "results/raw/development/qwen38-api-p2-eval-20261022-run-005/request-started/rv-654685100001.json": "d6bf0f4cc9fc76613baf7a0728e4e8f0b6883c5d49849aef46c1474553825394",
+    "results/raw/development/qwen38-api-p2-eval-20261022-run-005/request-started/rv-797b4070416e.json": "0c1933bf232b34b4ee7a3c7866d37996191381fa410518fa3209664f084801d7",
+    "results/raw/development/qwen38-api-p2-eval-20261022-run-005/request-started/rv-82ff78a614fc.json": "2a571473efda80c895fa5be9669f2d86a349202cff642579522612c3c7e7569b",
+    "results/raw/development/qwen38-api-p2-eval-20261022-run-005/request-started/rv-8741598f9811.json": "6b13017d074b0eaa5eedc17fede6de14ebaa1b57e6a0ff93d772d51a3b8154d1",
+    "results/raw/development/qwen38-api-p2-eval-20261022-run-005/request-started/rv-8e8bcdc2e7e5.json": "a8f2e9f11c985024746a7c739aeea791a60f6bc231c6d7f7762516f3c1794ee7",
+    "results/raw/development/qwen38-api-p2-eval-20261022-run-005/request-started/rv-a1041599ad08.json": "77f8266862ffc4eed8def0cea50e4e3361f5003d4dd54b7699840756218bae74",
+    "results/raw/development/qwen38-api-p2-eval-20261022-run-005/request-started/rv-a603c5d359d7.json": "a3cfc83fd32046111c2416cb640ed7f18c6fbe09fbf565cf10da2c6ce5b17295",
+    "results/raw/development/qwen38-api-p2-eval-20261022-run-005/request-started/rv-cc2d216a7c0b.json": "170d7775448f895fcc2827e8fe3e4e83b593ef073cdebcb6cb25a834dfe6cf49",
+    "results/raw/development/qwen38-api-p2-eval-20261022-run-005/request-started/rv-d27869a9d170.json": "946d269f6fbea3b1ac2d739e7241d50cf5a4c35665a7c4e9e94a21e1d89ad283",
+    "results/raw/development/qwen38-api-p2-eval-20261022-run-005/request-started/rv-daef54447add.json": "2f82570dbd41cd094eb78fcb207b901107c63d0dbbcc82157787f0fc37ab0b9e",
+    "results/raw/development/qwen38-api-p2-eval-20261022-run-005/request-started/rv-dc98bbb53f2c.json": "2899f3b6fd3c2f906fd18febe67aefa9c701844fab3030e373e7f9c3944adc2b",
+    "results/raw/development/qwen38-api-p2-eval-20261022-run-005/request-started/rv-e6f30675d8d4.json": "bd452b9a37daf2169a05aa3f5c19d02e6da80293790052f201b849fc0dcd05ba",
+    "results/raw/development/qwen38-api-p2-eval-20261022-run-005/results/rv-0fbe823359ad.json": "7480d87e5f9be4a037938279542e701a1a40b0ae8c24ea6ce1a4bcee28704fd7",
+    "results/raw/development/qwen38-api-p2-eval-20261022-run-005/results/rv-1ccec0c24fcb.json": "e2532a00595b878155c1e6398c248ef26869eb5ebe3d74790cf2fbd577b9289d",
+    "results/raw/development/qwen38-api-p2-eval-20261022-run-005/results/rv-3872f87bc774.json": "2cd3c933c4d2209aeb2143174ca1d4919307b827a8cb59b359953d70ca60adeb",
+    "results/raw/development/qwen38-api-p2-eval-20261022-run-005/results/rv-43ca623c9884.json": "e0a12fc7d01441273ed31ef5aee849adc21b315950c81dd70642a25e62a181e7",
+    "results/raw/development/qwen38-api-p2-eval-20261022-run-005/results/rv-545921f53180.json": "ec67f7f43f5eaaf0c720be989f5857a29e53420d4b11e692e15db98d6f8de016",
+    "results/raw/development/qwen38-api-p2-eval-20261022-run-005/results/rv-5f78754b0a57.json": "7a4280954af6ef9d95eed8a9120e989819bedb1797662d7dec53762cf3c2f0f5",
+    "results/raw/development/qwen38-api-p2-eval-20261022-run-005/results/rv-654685100001.json": "43bd06d439b2efcaf0956bf82f4ed4c410e6987140c713f7a475e33cac85331c",
+    "results/raw/development/qwen38-api-p2-eval-20261022-run-005/results/rv-797b4070416e.json": "cd2f2aa6ac4e159117e20d0e214d989665b9b949fe8f6cf2d19e62fe5f1e55ab",
+    "results/raw/development/qwen38-api-p2-eval-20261022-run-005/results/rv-82ff78a614fc.json": "31ee2b40c27c532e7e105de06fbc7ed64446d21d6b3426c5b60592de641db6a6",
+    "results/raw/development/qwen38-api-p2-eval-20261022-run-005/results/rv-8741598f9811.json": "86800d005316a7a49784ec89dd6945c8d3e827f03fb409eecce6e11a4694d60f",
+    "results/raw/development/qwen38-api-p2-eval-20261022-run-005/results/rv-8e8bcdc2e7e5.json": "9dfdf420bb86d285620110534acb2520fa5ca17505edb545d3a881371f044b82",
+    "results/raw/development/qwen38-api-p2-eval-20261022-run-005/results/rv-a1041599ad08.json": "dc87efb405165c6f84dd1aacedb8602f1a4048b54d3f4c84ca2807ca758f4f1c",
+    "results/raw/development/qwen38-api-p2-eval-20261022-run-005/results/rv-a603c5d359d7.json": "10cc656713c435c00d48b9362e9aefc2af4a2996099f269818a890f0e7a6bc17",
+    "results/raw/development/qwen38-api-p2-eval-20261022-run-005/results/rv-cc2d216a7c0b.json": "54a8d59e2edcc3151b4b572135524ec6d280d5c41e548ce74b194db6c6cac425",
+    "results/raw/development/qwen38-api-p2-eval-20261022-run-005/results/rv-d27869a9d170.json": "a886127c8e4de583f55e5ce648e9b0cb30137fd042fac29ffce17d92a18420e5",
+    "results/raw/development/qwen38-api-p2-eval-20261022-run-005/results/rv-daef54447add.json": "02fb9a8a532d24163735d1d82b3a680f05356bb0c7de2c26586824f9bf44629c",
+    "results/raw/development/qwen38-api-p2-eval-20261022-run-005/results/rv-dc98bbb53f2c.json": "cd616b76e900319a88336d64eb874950470e5e4e58d09e86b0d28c1f5ffd2d1a",
+    "results/raw/development/qwen38-api-p2-eval-20261022-run-005/results/rv-e6f30675d8d4.json": "0eda15e6e8f6778e717255eed20fb9d342b699cbe74f897447a79ba9b6e70a38",
+    "results/raw/development/qwen38-api-p2-eval-20261022-run-005/run-manifest.json": "15a18f58d8a172c59de66e861924ac4ca6d0188b79c7ead9f6c3632110164eb3",
+    "results/raw/development/qwen38-api-p2-replication-run005-20261022/preservation-after.json": "fe0905c28b03ed45254f79c9278f8e3e25c3c16b2ef4fe82d8d63ea406e99a82",
+    "results/raw/development/qwen38-api-p2-replication-run005-20261022/preservation-before.json": "60af43829d5f30923e9a7bb5c2878a9e42a6719a623a262d248d568a0d749d5a",
+    "results/raw/development/qwen38-api-p2-replication-run005-20261022/replication-comparison.json": "bd0404a71ceeec55041e428213efb01d4f5b7dc51d3f5cce57f6b59e1d58d539"
+  },
+  "started_at_utc": "2026-10-22T03:37:04Z",
+  "started_requests": 18,
+  "successful_prior_access_check": "results/raw/development/qwen-api-access-check-20261022T033606620890Z/summary.json",
+  "total_API_requests_including_access_check": 19,
+  "unresolved_cases": [
+    {
+      "agreement": null,
+      "analysis_status": "not-parsed",
+      "api_status": "transport-error",
+      "model_decision": null,
+      "reference_decision": "negative",
+      "request_completion_unknown": true,
+      "review_id": "rv-e6f30675d8d4",
+      "scored": false,
+      "technique": "time-based blind"
+    }
+  ]
+}

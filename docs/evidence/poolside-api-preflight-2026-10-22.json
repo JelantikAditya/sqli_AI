@@ -1,0 +1,202 @@
+{
+  "created_at_utc": "2026-10-22T09:45:00.345007+00:00",
+  "purpose": "Poolside connectivity, contract smoke and P2 development evaluation",
+  "requested_model": "poolside/laguna-s-2.1",
+  "reference_labels_used_after_inference": true,
+  "p2_metrics": {
+    "by_reference_label": {
+      "inconclusive": {
+        "coverage": 1.0,
+        "exact_agreement_count": 6,
+        "exact_agreement_on_scored": 1.0,
+        "reference_count": 6,
+        "scored_count": 6
+      },
+      "negative": {
+        "coverage": 1.0,
+        "exact_agreement_count": 6,
+        "exact_agreement_on_scored": 1.0,
+        "reference_count": 6,
+        "scored_count": 6
+      },
+      "positive": {
+        "coverage": 1.0,
+        "exact_agreement_count": 6,
+        "exact_agreement_on_scored": 1.0,
+        "reference_count": 6,
+        "scored_count": 6
+      }
+    },
+    "by_technique": {
+      "boolean-based blind": {
+        "case_count": 6,
+        "confusion_matrix_reference_rows_prediction_columns": {
+          "inconclusive": {
+            "inconclusive": 2,
+            "negative": 0,
+            "positive": 0
+          },
+          "negative": {
+            "inconclusive": 0,
+            "negative": 2,
+            "positive": 0
+          },
+          "positive": {
+            "inconclusive": 0,
+            "negative": 0,
+            "positive": 2
+          }
+        },
+        "coverage": 1.0,
+        "exact_agreement_count": 6,
+        "exact_agreement_on_scored": 1.0,
+        "scored_count": 6
+      },
+      "error-based": {
+        "case_count": 6,
+        "confusion_matrix_reference_rows_prediction_columns": {
+          "inconclusive": {
+            "inconclusive": 2,
+            "negative": 0,
+            "positive": 0
+          },
+          "negative": {
+            "inconclusive": 0,
+            "negative": 2,
+            "positive": 0
+          },
+          "positive": {
+            "inconclusive": 0,
+            "negative": 0,
+            "positive": 2
+          }
+        },
+        "coverage": 1.0,
+        "exact_agreement_count": 6,
+        "exact_agreement_on_scored": 1.0,
+        "scored_count": 6
+      },
+      "time-based blind": {
+        "case_count": 6,
+        "confusion_matrix_reference_rows_prediction_columns": {
+          "inconclusive": {
+            "inconclusive": 2,
+            "negative": 0,
+            "positive": 0
+          },
+          "negative": {
+            "inconclusive": 0,
+            "negative": 2,
+            "positive": 0
+          },
+          "positive": {
+            "inconclusive": 0,
+            "negative": 0,
+            "positive": 2
+          }
+        },
+        "coverage": 1.0,
+        "exact_agreement_count": 6,
+        "exact_agreement_on_scored": 1.0,
+        "scored_count": 6
+      }
+    },
+    "case_count": 18,
+    "confusion_matrix_reference_rows_prediction_columns": {
+      "inconclusive": {
+        "inconclusive": 6,
+        "negative": 0,
+        "positive": 0
+      },
+      "negative": {
+        "inconclusive": 0,
+        "negative": 6,
+        "positive": 0
+      },
+      "positive": {
+        "inconclusive": 0,
+        "negative": 0,
+        "positive": 6
+      }
+    },
+    "coverage": 1.0,
+    "exact_agreement_count": 18,
+    "exact_agreement_on_scored": 1.0,
+    "scored_count": 18,
+    "unresolved_count": 0
+  },
+  "live_requests_by_phase": {
+    "connectivity_by_researcher": 2,
+    "contract_smoke": 2,
+    "p2": 18
+  },
+  "automatic_retries": 0,
+  "dvwa_requests": 0,
+  "formal_FPR_claim": false,
+  "formal_PSR_claim": false,
+  "p2_milestone_researcher_acceptance": "not recorded",
+  "offline_checks": {
+    "transport_credential_tests": 10,
+    "p2_integration_tests": 3,
+    "contract_parse_replays": 2,
+    "p2_parse_replays": 18,
+    "p2_payload_hashes_matched": 18,
+    "source_hashes_matched_each_stage": 7,
+    "archived_p2_source_files": 6
+  },
+  "artifact_sha256": {
+    "results/raw/poolside-smoke/20261022T093612947929Z.json": "ade5a62b326ef609e9a9b2da3afbd9a983fde8165fe681ec7afeb30bd38e0cb6",
+    "results/raw/poolside-contract-smoke/20261022T093837654979Z/analysis.result.json": "f1d01e2d264398f3ef0927316baf6a872ec0836ac4eed8d705769e8511fa2f51",
+    "results/raw/poolside-contract-smoke/20261022T093837654979Z/analysis.started.json": "8649a748ecb36c051c856c83dad9c16eef61ea817a194e755a596e92174d6e07",
+    "results/raw/poolside-contract-smoke/20261022T093837654979Z/generation.result.json": "b8978d983380a08ad8f1d9bb518b9c9f8389520e93f65e3c569e92edf291fa00",
+    "results/raw/poolside-contract-smoke/20261022T093837654979Z/generation.started.json": "abc3b2618bc7db1f8e4107b8ffced1102dbc553383f1b33f1f60adc9af5ea180",
+    "results/raw/poolside-contract-smoke/20261022T093837654979Z/plan.json": "d22d7b48439b2c4e303123279a003f7bc126e2d04fafe014c70c29e7bcb40324",
+    "results/raw/poolside-contract-smoke/20261022T093837654979Z/summary.json": "e976fbd2f7c94ffae3b0842325537cab6ea27ccf7e91bd88264ada268dc53f07",
+    "results/raw/poolside-p2/20261022T094120890211Z/evaluation-assessment.json": "aeb1feea23a31e2ad48dc2c3fbcc7e44d3ea1a6fbe52eb94bda00ed745d94a9c",
+    "results/raw/poolside-p2/20261022T094120890211Z/evaluation-results.json": "88d011bbb5fd50e6a19cccee19225fe2ed934eba88ffca42f93d144757e030c3",
+    "results/raw/poolside-p2/20261022T094120890211Z/plan.json": "2ef701e6ef21b6dc35261c8d51deb572afe31dd089d8a234f642b38199b27a6f",
+    "results/raw/poolside-p2/20261022T094120890211Z/request-started/rv-0fbe823359ad.json": "9817261eb51319c9b44cbc87465175af7da44ff83b969d30204bc9e9ab3e71f8",
+    "results/raw/poolside-p2/20261022T094120890211Z/request-started/rv-1ccec0c24fcb.json": "8774abfef6b36277f9916cb1a2974af128874b219787345ca3fc506ce969a6ed",
+    "results/raw/poolside-p2/20261022T094120890211Z/request-started/rv-3872f87bc774.json": "735faf2508ba70f4178819d3e01880700d413ac516bbb4ff89764b8d5dba5aed",
+    "results/raw/poolside-p2/20261022T094120890211Z/request-started/rv-43ca623c9884.json": "3cf4a0acc8b4acdc0446073dec49efae603f0bc4296f7e12eaab9c95b5c5cee0",
+    "results/raw/poolside-p2/20261022T094120890211Z/request-started/rv-545921f53180.json": "24477ec5d818dde81909c3d4db3ccd07ec33f60ccd051fa78a7574b58a2e883e",
+    "results/raw/poolside-p2/20261022T094120890211Z/request-started/rv-5f78754b0a57.json": "b3adf44a9b5671c60df482778209c1bfc0add28a0d2ff4d482bb622d0e931260",
+    "results/raw/poolside-p2/20261022T094120890211Z/request-started/rv-654685100001.json": "e4cc8565b5e6eb103584ca1ff7d6d6826be11ebc4408a992ccbcee7cc0666b9f",
+    "results/raw/poolside-p2/20261022T094120890211Z/request-started/rv-797b4070416e.json": "43e76f5dfe37e152b921baf9d6114ecb7cfcb0e10f05bf789a07dcc6d08240c8",
+    "results/raw/poolside-p2/20261022T094120890211Z/request-started/rv-82ff78a614fc.json": "d90b7bf9f2dbf848c81ab31a810576ec2b5ae342526d5e156db8ac6064d99fd9",
+    "results/raw/poolside-p2/20261022T094120890211Z/request-started/rv-8741598f9811.json": "e73c329335e0583e19fd10b9fb233f093c76a191b6bf075b4220dd7373c44415",
+    "results/raw/poolside-p2/20261022T094120890211Z/request-started/rv-8e8bcdc2e7e5.json": "1df1263fc15b803cdd51f3a2d4b7ee4149c94848b3e6d6b06adacb2a60562ad0",
+    "results/raw/poolside-p2/20261022T094120890211Z/request-started/rv-a1041599ad08.json": "6810338340a4db889d2c970b700836c73a01e68499976cf4d185d8d19814ab59",
+    "results/raw/poolside-p2/20261022T094120890211Z/request-started/rv-a603c5d359d7.json": "6cb50328d31528c62dcc93dacc3a2a3d9f3f114ac94ae1e7e41da6f40ab8da39",
+    "results/raw/poolside-p2/20261022T094120890211Z/request-started/rv-cc2d216a7c0b.json": "34a5f74d8c98ad32052f3b6529280f019248641aeda4bf8c9b03e9fa5bf1e5ff",
+    "results/raw/poolside-p2/20261022T094120890211Z/request-started/rv-d27869a9d170.json": "543d78e8df2755fb38a63acf96478524c9b2ef284c07681f9af57da798ee760d",
+    "results/raw/poolside-p2/20261022T094120890211Z/request-started/rv-daef54447add.json": "38b597330daa7ac4eec5840abed997324ca47d3a28589a58f8626e485cd7188d",
+    "results/raw/poolside-p2/20261022T094120890211Z/request-started/rv-dc98bbb53f2c.json": "71f2f4a00d83744ebfea3484cd92e84482f0a3648bdf8d5046b69837e4152cf5",
+    "results/raw/poolside-p2/20261022T094120890211Z/request-started/rv-e6f30675d8d4.json": "7f8c0783ad14e4058f387ea667cd7bfb282e4c7db3c974df52a0b598bb3bd71f",
+    "results/raw/poolside-p2/20261022T094120890211Z/results/rv-0fbe823359ad.json": "9561bce4c0de8fdaebab3f6e6a973a6019d8bcb4e7714a6b89cd93600c2ab5b8",
+    "results/raw/poolside-p2/20261022T094120890211Z/results/rv-1ccec0c24fcb.json": "616f154bb0cc8495f578f95e774be5bd581b92b493809a4f48a7a766e1628289",
+    "results/raw/poolside-p2/20261022T094120890211Z/results/rv-3872f87bc774.json": "548dd21f87c98314065fe01cb44dbc7ffea4616b9b997eaa44cd765d42e8f870",
+    "results/raw/poolside-p2/20261022T094120890211Z/results/rv-43ca623c9884.json": "6420e1709f99251b758a165350df2f0cebc176fb3cc71d02b0b4dc97164216be",
+    "results/raw/poolside-p2/20261022T094120890211Z/results/rv-545921f53180.json": "3200191587f3263a5f29854b5d5f6f7ed53a3e09d0c8f142490d8ae53702e6be",
+    "results/raw/poolside-p2/20261022T094120890211Z/results/rv-5f78754b0a57.json": "feb9a8209fbd7f7f4354822c11ccbd6bce5c0f15e26322d9db2bad3ea02dff4a",
+    "results/raw/poolside-p2/20261022T094120890211Z/results/rv-654685100001.json": "4abc2b19448089257826e3ae31376753095a2bf22ef9638f3f1a460aec78940c",
+    "results/raw/poolside-p2/20261022T094120890211Z/results/rv-797b4070416e.json": "d6fe6513649f04927c9eb5c6de33f3147648ee78f11112004f00a2426d865835",
+    "results/raw/poolside-p2/20261022T094120890211Z/results/rv-82ff78a614fc.json": "1dfc221a274ea8c65e7b56a534e8f92d79fda6edf618bc8383e68ff19c28be1c",
+    "results/raw/poolside-p2/20261022T094120890211Z/results/rv-8741598f9811.json": "a7b5436371f2bbdf0e4296eb81ef66b669717c60b2e4264bb301543db3bbae07",
+    "results/raw/poolside-p2/20261022T094120890211Z/results/rv-8e8bcdc2e7e5.json": "cc466fc5298d00eba274913a7e8f1ef8bc292165433cd58fae32e289f9f3da6a",
+    "results/raw/poolside-p2/20261022T094120890211Z/results/rv-a1041599ad08.json": "9a7ca0b3911226d73c0a87d5f30425ada356beb88a66dc9c9ab8a1c463634f05",
+    "results/raw/poolside-p2/20261022T094120890211Z/results/rv-a603c5d359d7.json": "8eb56dd59a76db901652c7135abae4772130c86579a0e7f1db168d0b69a2b257",
+    "results/raw/poolside-p2/20261022T094120890211Z/results/rv-cc2d216a7c0b.json": "f608e15729de6dde0cb2e5dd413c21bbf2dcb6aa047e0b2da027057b8c66ace6",
+    "results/raw/poolside-p2/20261022T094120890211Z/results/rv-d27869a9d170.json": "e980c3f9098d147d56e08f5c6d706670183230a43584dc985827349ad2973bc0",
+    "results/raw/poolside-p2/20261022T094120890211Z/results/rv-daef54447add.json": "12853b8ba1ab763fe5f409f4c9bd0f3f224cef7620243ce5ca49b5aa8e4f7403",
+    "results/raw/poolside-p2/20261022T094120890211Z/results/rv-dc98bbb53f2c.json": "7edbf5fc91e2c74868e1ac5656424ab31f2a5cb0c15379032c5867c548087e74",
+    "results/raw/poolside-p2/20261022T094120890211Z/results/rv-e6f30675d8d4.json": "0a4e6c8ff9147c64873282037e65948d9fe9576d7e0a066e6f4ee806ccfaf4d2",
+    "results/raw/poolside-p2/20261022T094120890211Z/run-manifest.json": "7524dab3bb286edfddcce767829efc96dd3b9c6ce051327ac9ca8c866b0aa600",
+    "results/raw/poolside-p2/20261022T094120890211Z/source/development/qwen_api_analysis.py": "38ec2abe95f201058379c71ba6ac052eea20e30ef87fc7f9c6b181c192283640",
+    "results/raw/poolside-p2/20261022T094120890211Z/source/development/qwen_api_p2_analysis.py": "0bca9b16aef1894f467ccd13faf64b9f63fbf675884f7c078cd6924851c4e9be",
+    "results/raw/poolside-p2/20261022T094120890211Z/source/development/run_poolside_contract_smoke.py": "eca0a1ad00956dde47fbddb995fe82d0a565a95512f2423602ac4fdb245b9f00",
+    "results/raw/poolside-p2/20261022T094120890211Z/source/development/run_poolside_p2_eval.py": "76807409ad8017d63943a8263e1191334a4ea3848cb61c4818d856c594660024",
+    "results/raw/poolside-p2/20261022T094120890211Z/source/development/run_poolside_smoke.py": "f1988783b2e484b5708021182c80d3b56837cbc0ea801713e4416d5be7b5a6cb",
+    "results/raw/poolside-p2/20261022T094120890211Z/source/development/run_qwen_api_p2_eval.py": "5a189b21d7df24c2ed9fec9f8b506a42e90afa55b71e625aa4ca22f2fb0a23cf"
+  }
+}

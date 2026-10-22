@@ -1,0 +1,37 @@
+{
+  "schema": "poolside-p3-execution-approval-v1",
+  "recorded_at_utc": "2026-10-22T10:03:54.666262+00:00",
+  "authorization_source": "direct user message in this chat",
+  "user_instruction": "oekh kalau begitu lanjut ke cohort P3",
+  "experiment_id": "poolside-s21-p3-r1-20261022",
+  "authorized_scope": {
+    "units": 33,
+    "candidate_target": 330,
+    "max_api_calls": 960,
+    "max_wall_seconds": 21600,
+    "target_origin": "http://127.0.0.1:4280",
+    "database_reset_per_condition": true,
+    "automatic_transport_retries": 0,
+    "automatic_replacement_attempts": 0
+  },
+  "plan_path": "development/poolside_p3_plan.template.json",
+  "plan_sha256": "6c1202696f73e7426a1e6201a38f1d90b396c5f9ff5d4c6cc7fe98795612fd5d",
+  "budget_path": "development/poolside_p3_budget_20261022.json",
+  "budget_sha256": "356cbd73c2524f0b4b7029e14052191be8f62bbd77b7afdc84413908d17f1a19",
+  "preserved_file_count": 3568,
+  "preservation_baseline": "results/raw/development/poolside-p3-execution-20261022-r1/preservation-baseline.json",
+  "pre_execution_dry_run": {
+    "experiment_id": "poolside-s21-p3-r1-20261022",
+    "protocol_id": "poolside-laguna-s21-sqli-v1-pilot",
+    "model": "poolside/laguna-s-2.1",
+    "planned_slots": 36,
+    "applicable_units": 33,
+    "llm_units": 24,
+    "candidate_budget": 330,
+    "logical_confirmations": 990,
+    "worst_case_api_calls": 960,
+    "max_wall_seconds": 21600,
+    "analysis_payloads_matching_p2": 18,
+    "execution_started": false
+  }
+}

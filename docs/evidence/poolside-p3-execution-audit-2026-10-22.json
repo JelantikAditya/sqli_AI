@@ -1,0 +1,331 @@
+{
+  "schema_version": "1.0.0",
+  "audit_type": "poolside_p3_post_execution_audit",
+  "experiment_id": "poolside-s21-p3-r1-20261022",
+  "protocol_id": "poolside-laguna-s21-sqli-v1-pilot",
+  "execution": {
+    "started_at_utc": "2026-10-22T10:04:02.761726+00:00",
+    "ended_at_utc": "2026-10-22T10:56:08.982576+00:00",
+    "started_at_wib": "2026-10-22T17:04:02.761726+07:00",
+    "ended_at_wib": "2026-10-22T17:56:08.982576+07:00",
+    "wall_duration_seconds": 3126,
+    "runner_exit_code": 0,
+    "execution_started": true,
+    "planned_slots": 36,
+    "status_counts": {
+      "planned": 0,
+      "running": 0,
+      "retried": 0,
+      "completed": 27,
+      "invalid": 0,
+      "excluded": 9
+    },
+    "attempted_units": 33,
+    "llm_units": 24,
+    "llm_units_budget_complete": 18,
+    "llm_units_incomplete": 6,
+    "design_excluded_slots": 3,
+    "incomplete_units": [
+      {
+        "scenario_id": "S1",
+        "condition_id": "A",
+        "valid_candidates": 9,
+        "candidate_budget": 10,
+        "reason": "incomplete_candidate_budget"
+      },
+      {
+        "scenario_id": "S2",
+        "condition_id": "B",
+        "valid_candidates": 7,
+        "candidate_budget": 10,
+        "reason": "incomplete_candidate_budget"
+      },
+      {
+        "scenario_id": "S4",
+        "condition_id": "B",
+        "valid_candidates": 9,
+        "candidate_budget": 10,
+        "reason": "incomplete_candidate_budget"
+      },
+      {
+        "scenario_id": "S6",
+        "condition_id": "A",
+        "valid_candidates": 9,
+        "candidate_budget": 10,
+        "reason": "incomplete_candidate_budget"
+      },
+      {
+        "scenario_id": "S7",
+        "condition_id": "A",
+        "valid_candidates": 9,
+        "candidate_budget": 10,
+        "reason": "incomplete_candidate_budget"
+      },
+      {
+        "scenario_id": "S11",
+        "condition_id": "B",
+        "valid_candidates": 5,
+        "candidate_budget": 10,
+        "reason": "incomplete_candidate_budget"
+      }
+    ],
+    "scenario_condition_candidate_counts": {
+      "S1": {
+        "A": {
+          "valid_candidates": 9,
+          "target_candidates": 10,
+          "budget_complete": false,
+          "api_requests": 21
+        },
+        "B": {
+          "valid_candidates": 10,
+          "target_candidates": 10,
+          "budget_complete": true,
+          "api_requests": 20
+        }
+      },
+      "S2": {
+        "A": {
+          "valid_candidates": 10,
+          "target_candidates": 10,
+          "budget_complete": true,
+          "api_requests": 23
+        },
+        "B": {
+          "valid_candidates": 7,
+          "target_candidates": 10,
+          "budget_complete": false,
+          "api_requests": 17
+        }
+      },
+      "S3": {
+        "A": {
+          "valid_candidates": 10,
+          "target_candidates": 10,
+          "budget_complete": true,
+          "api_requests": 23
+        },
+        "B": {
+          "valid_candidates": 10,
+          "target_candidates": 10,
+          "budget_complete": true,
+          "api_requests": 24
+        }
+      },
+      "S4": {
+        "A": {
+          "valid_candidates": 10,
+          "target_candidates": 10,
+          "budget_complete": true,
+          "api_requests": 20
+        },
+        "B": {
+          "valid_candidates": 9,
+          "target_candidates": 10,
+          "budget_complete": false,
+          "api_requests": 21
+        }
+      },
+      "S5": {
+        "A": {
+          "valid_candidates": 10,
+          "target_candidates": 10,
+          "budget_complete": true,
+          "api_requests": 23
+        },
+        "B": {
+          "valid_candidates": 10,
+          "target_candidates": 10,
+          "budget_complete": true,
+          "api_requests": 24
+        }
+      },
+      "S6": {
+        "A": {
+          "valid_candidates": 9,
+          "target_candidates": 10,
+          "budget_complete": false,
+          "api_requests": 23
+        },
+        "B": {
+          "valid_candidates": 10,
+          "target_candidates": 10,
+          "budget_complete": true,
+          "api_requests": 24
+        }
+      },
+      "S7": {
+        "A": {
+          "valid_candidates": 9,
+          "target_candidates": 10,
+          "budget_complete": false,
+          "api_requests": 21
+        },
+        "B": {
+          "valid_candidates": 10,
+          "target_candidates": 10,
+          "budget_complete": true,
+          "api_requests": 22
+        }
+      },
+      "S8": {
+        "A": {
+          "valid_candidates": 10,
+          "target_candidates": 10,
+          "budget_complete": true,
+          "api_requests": 23
+        },
+        "B": {
+          "valid_candidates": 10,
+          "target_candidates": 10,
+          "budget_complete": true,
+          "api_requests": 24
+        }
+      },
+      "S9": {
+        "A": {
+          "valid_candidates": 10,
+          "target_candidates": 10,
+          "budget_complete": true,
+          "api_requests": 23
+        },
+        "B": {
+          "valid_candidates": 10,
+          "target_candidates": 10,
+          "budget_complete": true,
+          "api_requests": 24
+        }
+      },
+      "S10": {
+        "A": {
+          "valid_candidates": 10,
+          "target_candidates": 10,
+          "budget_complete": true,
+          "api_requests": 20
+        },
+        "B": {
+          "valid_candidates": 10,
+          "target_candidates": 10,
+          "budget_complete": true,
+          "api_requests": 21
+        }
+      },
+      "S11": {
+        "A": {
+          "valid_candidates": 10,
+          "target_candidates": 10,
+          "budget_complete": true,
+          "api_requests": 21
+        },
+        "B": {
+          "valid_candidates": 5,
+          "target_candidates": 10,
+          "budget_complete": false,
+          "api_requests": 14
+        }
+      },
+      "S12": {
+        "A": {
+          "valid_candidates": 10,
+          "target_candidates": 10,
+          "budget_complete": true,
+          "api_requests": 24
+        },
+        "B": {
+          "valid_candidates": 10,
+          "target_candidates": 10,
+          "budget_complete": true,
+          "api_requests": 24
+        }
+      }
+    },
+    "candidate_totals_by_condition": {
+      "A": 117,
+      "B": 111,
+      "C": 90
+    },
+    "generation_rejection_attempts": {
+      "invalid_candidate_format": 13,
+      "no_valid_distinct_candidate": 55
+    },
+    "protocol_limits": {
+      "api_request_ceiling": 960,
+      "transport_retries": 0,
+      "automatic_replacements": 0,
+      "max_generation_attempts_per_candidate_slot": 3
+    }
+  },
+  "provider": {
+    "endpoint_base": "https://inference.poolside.ai/v1",
+    "reported_model": "poolside/laguna-s-2.1",
+    "request_count": 524,
+    "stage_counts": {
+      "generation": 296,
+      "analysis": 228
+    },
+    "http_status_counts": {
+      "200": 524
+    },
+    "transport_errors": 0,
+    "provider_errors": [],
+    "transport_retry_count": 0,
+    "api_elapsed_seconds": 2440.501,
+    "token_usage": {
+      "prompt_tokens": 613353,
+      "completion_tokens": 68552,
+      "total_tokens": 681905
+    },
+    "request_artifact_completeness": {
+      "complete_calls": 524,
+      "missing_artifact_calls": 0
+    },
+    "request_hash_chain": {
+      "verified_calls": 524,
+      "mismatches": 0,
+      "links": [
+        "request.json",
+        "request-started.json",
+        "result.json result",
+        "result.json transport"
+      ]
+    },
+    "profile": {
+      "temperature": 0,
+      "stream": false,
+      "enable_thinking": false,
+      "generation_max_tokens": 1024,
+      "analysis_max_tokens": 2048
+    },
+    "reported_model_counts": {
+      "poolside/laguna-s-2.1": 524
+    }
+  },
+  "target": {
+    "base_url": "http://127.0.0.1:4280",
+    "database_resets": 33,
+    "http_request_calls": 7026
+  },
+  "integrity": {
+    "preservation_baseline_path": "results/raw/development/poolside-p3-execution-20261022-r1/preservation-baseline.json",
+    "preservation_baseline_files": 3568,
+    "missing_files": [],
+    "changed_files": [],
+    "preservation_baseline_sha256": "33c28ac9134d08d4be6d84e628f0ec795a52bf435373204b4c9d8e3016c83eb8",
+    "generation_audit_files_verified": 24,
+    "generation_audit_digest_mismatches": 0,
+    "api_artifact_root": "results/raw/pilot/poolside-s21-p3-r1-20261022/attempts"
+  },
+  "interpretation": {
+    "status": "pilot_cohort_completed_with_incomplete_units",
+    "formal_fpr_psr_computed": false,
+    "reason": "No blind human validation or label lock was completed for this cohort; six LLM units did not meet the candidate budget.",
+    "scope": "One Poolside cohort only. Do not pool with Qwen or historical cohorts."
+  },
+  "source_artifacts": {
+    "ledger_sha256": "f4d45a3cd211a1072cf3e3557663506d204e3a0c5b3f93d7855f87ec7d6b078b",
+    "checkpoint_sha256": "21f50de7bc677c4c833b1f3a083c55b5bba1858f8307ccbc17b2ef5366823d0f",
+    "execution_result_sha256": "1445ad5b5a59c205f0426d4c3164769bbd7fe24a736b4839c03e28ffa4135c5d",
+    "execution_log_sha256": "7c3f9f8aca8960cd8a123f134c8197aefa823cfb8c81e17a2b420c4476cf3544"
+  },
+  "report_path": "docs/poolside-p3-run-2026-10-22.md"
+}

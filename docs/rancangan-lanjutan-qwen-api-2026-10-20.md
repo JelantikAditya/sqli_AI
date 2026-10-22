@@ -4,7 +4,39 @@ Disusun: 20 Oktober 2026. Tenggat peneliti: 30 Oktober 2026.
 Target internal: hasil dan naskah lengkap pada 28 Oktober; 29 Oktober untuk koreksi dan 30 Oktober untuk pengumpulan.
 Status: rancangan kerja untuk versi API. Pada 21 Oktober 2026 peneliti melaporkan pembimbing setuju mencoba API LLM. Ini belum menjadi bukti persetujuan formal amendemen proposal; batasan proposal lama tetap harus direvisi atau dijelaskan sebelum mengklaim kesesuaian formal.
 
-**Status operasional terakhir, 21 Oktober:** pengujian ulang P2 tertunda karena
+**Status operasional terakhir, 22 Oktober:** P2 ditutup oleh peneliti setelah
+run-005 menghasilkan 17/18 evaluable dengan agreement 17/17; satu timeout
+tetap unresolved sebagai keterbatasan. Perbaikan P3-01/P3-02 dan penyelarasan
+P3-03 sudah diverifikasi offline: 192 tes lulus dan replay 17 respons pada
+A/B menghasilkan 34 callback serta payload checkpoint yang cocok. Protokol
+`qwen38-api-sqli-v2-pilot` menjalankan kontrol S1-S12 dan smoke enam kandidat
+A/B yang valid. Pilot v2 berhenti pada S1-A setelah 17 request akibat bug
+status ketika duplikat ditolak. Bug diperbaiki offline pada v3: 200 tes lulus
+dan sembilan checkpoint generasi direplay tanpa crash. Pilot v3 kemudian
+menggunakan 45 request dan berhenti saat analisis S2-B mengalami timeout
+transport 90 detik. Tiga run selesai eligible, satu run kandidat tidak lengkap,
+satu invalid, dan 28 belum dimulai. Audit memastikan 1.301 file historis dan
+32 source runtime tetap utuh. P3 API masih pilot pengembangan, bukan hasil
+formal. Cek akses terpisah kemudian menerima HTTP 200 untuk satu request kecil
+dalam 1,704 detik, tanpa membuktikan kestabilan analisis berat. Cohort baru
+`qwen38-api-r2-20261022` mencakup 33 slot applicable dan sudah dieksekusi.
+Run berhenti pada analisis S1-B setelah read timeout 90,153 detik: 24 dari 25
+request API sukses, S1-A excluded dengan 8/10 kandidat, S1-B invalid, dan 31
+unit belum dimulai. Audit lulus dengan 1.504 file historis dan 32 source
+runtime utuh. Belum ada hasil formal API. Enam jam merupakan batas maksimum,
+bukan prediksi waktu run. Lihat [hasil pilot v3](p3-pilot-v3-2026-10-22.md),
+[rencana recovery-002](p3-recovery-002-plan-2026-10-22.md),
+[hasil recovery-002](p3-recovery-002-results-2026-10-22.md), dan
+[laporan kontrol serta perbaikan](p3-smoke-kontrol-2026-10-22.md).
+
+Draft P3 v4 `qwen38-api-r3-20261022` kini menyiapkan timeout transport analisis
+180 detik dengan timeout generasi dan pengaturan P2 tetap 90 detik. Tiga tes
+offline dan dry-run 36 slot/960 request lulus tanpa panggilan API atau DVWA.
+Draft menunggu review dan belum memiliki keputusan eksekusi. Masalah kandidat
+duplikat S1-A masih menjadi risiko. Lihat [rencana timeout 180 detik](p3-timeout180-plan-2026-10-22.md)
+dan [receipt persiapan](evidence/p3-timeout180-preparation-2026-10-22.json).
+
+**Checkpoint historis, 21 Oktober:** pengujian ulang P2 tertunda karena
 Qwen API belum dapat melayani request analisis P2 secara stabil. Run-002 sampai
 run-004 masing-masing berhenti pada request pertama dengan HTTP 503
 `system_cpu_overloaded`; uji singkat `API_OK` sempat berhasil di antaranya.
@@ -131,7 +163,18 @@ Belum ada dasar untuk menyatakan batch P2 bisa diselesaikan secara stabil.
 Hasil run-001 tetap utuh dan milestone P2 belum ditutup. Lihat
 [receipt run-004](evidence/qwen-api-p2-run004-receipt-2026-10-21.json).
 
+**Keputusan 22 Oktober:** peneliti menerima hasil replikasi run-005 dan menutup
+P2 dengan satu unresolved tetap dicatat. Keputusan ini tidak mengubah label,
+receipt eksekusi, atau batas interpretasi set yang sudah diketahui. Lihat
+[receipt penutupan](evidence/qwen-api-p2-closure-2026-10-22.json).
+
 ### P3. Periksa generasi payload dan pilot end-to-end
+
+**Checkpoint 22 Oktober:** ketiga temuan integrasi sudah diperbaiki dan
+diverifikasi offline. Konfigurasi analisis kini sama persis dengan P2, dan
+runtime/protocol v2 menolak resume snapshot lama yang berbeda. Sebanyak
+192 tes lulus; pilot v2 33 run applicable lolos dry-run. Pilot live tetap
+pekerjaan berikutnya, bukan hasil yang sudah dikerjakan.
 
 1. Audit kewajiban angka pembeda slot 101-110 pada generator lama. Pada versi baru, identitas kandidat disimpan sebagai metadata dan deduplikasi dilakukan pada struktur payload; angka unik tidak boleh diwajibkan mengubah makna nilai injection point. Uji perubahan ini pada development dan terapkan sama pada A/B.
 2. Verifikasi koordinat ZAP, method, helper sesi/cookie pada High, token, baseline dan kontrol dari antarmuka HTTP. Model tidak menerima label level keamanan atau label skenario.
@@ -222,7 +265,11 @@ Penurunan FPR atau kenaikan PSR bukan syarat untuk menyelesaikan penelitian. Jan
 
 ## 8. Pekerjaan pertama yang konkret
 
-Mulai dari dua keluaran: draft revisi metode API dan adapter di `development/`. Setelah keduanya tersedia, jalankan uji SQLi pada kasus development yang sudah dikenal, lalu siapkan evaluasi baru. Tidak perlu mengulang uji percakapan umum yang sudah lulus.
+Per 22 Oktober, adapter tersedia, P2 ditutup dan gate integrasi P3 telah
+diperbaiki. Lanjutkan dengan smoke generasi terisolasi serta kontrol executor
+aktual S1-S12, lalu tetapkan budget khusus dan jalankan pilot v2. Finalisasi
+amendemen akademis tetap diperlukan sebelum klaim formal API. Tidak perlu
+mengulang diagnosis atau percakapan umum yang sudah selesai.
 
 ## 9. Acuan yang diperiksa
 

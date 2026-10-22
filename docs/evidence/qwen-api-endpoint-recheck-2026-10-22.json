@@ -1,0 +1,33 @@
+{
+  "schema": "qwen-api-endpoint-recheck-v1",
+  "status": "ok",
+  "http_status": 200,
+  "supplied_endpoint_base": "https://api.hcnsec.cn",
+  "request_endpoint": "https://api.hcnsec.cn/v1/chat/completions",
+  "requested_model": "Qwen3.8-27B",
+  "reported_model": "self-dploy/Qwen3.8-27B",
+  "finish_reason": "stop",
+  "elapsed_seconds": 2.876,
+  "error_detail": null,
+  "api_calls": 1,
+  "automatic_retries": 0,
+  "max_api_calls": 1,
+  "timeout_seconds": 30,
+  "request_sha256": "eab6936b9da9ebb9fee021e5347378ba35ab4ccd483ea4db878f54b921ce2969",
+  "response_matches_expected": true,
+  "response_preview": "API_OK",
+  "key_validity": "confirmed",
+  "credential_source": "local ignored credential file",
+  "checked_at_utc": "2026-10-22T07:59:57.787702+00:00",
+  "checked_at_wib": "2026-10-22T14:59:57.787702+07:00",
+  "evidence_directory": "results/raw/development/qwen-api-endpoint-recheck-20261022T075954Z-43ce8e12",
+  "source_artifact_sha256": {
+    "results/raw/development/qwen-api-endpoint-recheck-20261022T075954Z-43ce8e12/request-started.json": "aea1af2e744e314cfbc21af72670b6e8a648f1484d909db53488df99b1313d46",
+    "results/raw/development/qwen-api-endpoint-recheck-20261022T075954Z-43ce8e12/request.json": "4ceede84ca716e14e8e4e22153633de0e6960f7dcd794931cc6bec79447f8888",
+    "results/raw/development/qwen-api-endpoint-recheck-20261022T075954Z-43ce8e12/result.json": "42aef0a21ecf79f7ebc3427cc90ee4489d9f0096996b293421422d10ef3aea81",
+    "results/raw/development/qwen-api-endpoint-recheck-20261022T075954Z-43ce8e12/summary.json": "f991912f579fa11d56b93cc632d69baa684caa3fac59c1474fe9d68cb002dda7"
+  },
+  "interpretation": "The supplied host is the same host used previously; the API path is /v1/chat/completions. One request using the saved credential returned HTTP 200 and the expected API_OK response, confirming the key and route worked at this check time. A previous HTTP 522 followed by this success is consistent with a transient availability issue, but does not establish sustained provider stability or the exact cause of the earlier 522.",
+  "request_started_at_utc": "2026-10-22T07:59:54.824672+00:00",
+  "receipt_recorded_at_utc": "2026-10-22T08:00:12.045663+00:00"
+}

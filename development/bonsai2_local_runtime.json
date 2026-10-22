@@ -1,0 +1,50 @@
+{
+  "schema": "bonsai2-local-install-v1",
+  "model_id": "prism-ml/Ternary-Bonsai-2-9B-gguf",
+  "model_revision": "5b2abb02362efbed46bbe204014b02837778b2c2",
+  "model_file": "Ternary-Bonsai-2-9B-PTQ1_0.gguf",
+  "runtime_release": "prism-b10787-73bfe6c",
+  "install_directory": "models/bonsai2-9b",
+  "host": "127.0.0.1",
+  "port": 18089,
+  "context_tokens": 4096,
+  "parallel_requests": 1,
+  "gpu_layers": 99,
+  "threads": 6,
+  "batch_size": 256,
+  "microbatch_size": 128,
+  "thinking": false,
+  "sampling": {
+    "temperature": 0.7,
+    "top_p": 0.8,
+    "top_k": 20,
+    "min_p": 0.0,
+    "presence_penalty": 1.5,
+    "repeat_penalty": 1.0,
+    "repeat_last_n": 64,
+    "seed": 42
+  },
+  "downloads": [
+    {
+      "name": "model",
+      "file": "Ternary-Bonsai-2-9B-PTQ1_0.gguf",
+      "url": "https://huggingface.co/prism-ml/Ternary-Bonsai-2-9B-gguf/resolve/5b2abb02362efbed46bbe204014b02837778b2c2/Ternary-Bonsai-2-9B-PTQ1_0.gguf",
+      "bytes": 1997486976,
+      "sha256": "3561df7ac7d26a71ffa991ac2db740b10841c3a350aa2676ccd3ff5d428b4e8b"
+    },
+    {
+      "name": "runtime",
+      "file": "llama-prism-b10787-73bfe6c-bin-win-cuda-12.4-x64.zip",
+      "url": "https://github.com/PrismML-Eng/llama.cpp/releases/download/prism-b10787-73bfe6c/llama-prism-b10787-73bfe6c-bin-win-cuda-12.4-x64.zip",
+      "bytes": 314639598,
+      "sha256": "64ca6810aae0e6bbb28d22f888bd009b9bdd0c24c5af8a6a7490b3eaf75ccd57"
+    },
+    {
+      "name": "cuda_runtime",
+      "file": "cudart-llama-bin-win-cuda-12.4-x64.zip",
+      "url": "https://github.com/PrismML-Eng/llama.cpp/releases/download/prism-b10787-73bfe6c/cudart-llama-bin-win-cuda-12.4-x64.zip",
+      "bytes": 391443627,
+      "sha256": "8c79a9b226de4b3cacfd1f83d24f962d0773be79f1e7b75c6af4ded7e32ae1d6"
+    }
+  ]
+}

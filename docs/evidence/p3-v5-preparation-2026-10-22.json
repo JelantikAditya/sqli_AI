@@ -1,0 +1,126 @@
+{
+  "schema": "qwen-p3-v5-preparation-evidence-v1",
+  "status": "prepared-awaiting-researcher-execution-request",
+  "prepared_at_utc": "2026-10-22T08:13:13+00:00",
+  "experiment_id": "qwen38-api-r4-20261022",
+  "protocol_id": "qwen38-api-sqli-v5-pilot",
+  "scope": "Development DAST pilot on the researcher local DVWA, SQL injection scenarios S1-S12, conditions A/B/C, one replicate.",
+  "cohort_policy": "Run all 33 applicable units from the first slot under a new ID. Do not resume or merge r3 results. Three C/Impossible slots remain excluded by design.",
+  "plan": {
+    "path": "development/qwen_api_p3_v5_plan.template.json",
+    "sha256": "744e9bd713fb90689016f3b9bfe7181326bbecefb9f70d13c85b47a4674302c1"
+  },
+  "budget": {
+    "path": "development/qwen_api_p3_v5_budget_20261022.json",
+    "sha256": "f8f4c4cf70c3484da9b01637cdfeb9601bafe83fe1a871ddfb287ee9386a2487",
+    "max_api_calls": 960,
+    "max_wall_seconds": 21600,
+    "transport_timeouts_seconds": {
+      "generation": 90,
+      "analysis": 180
+    },
+    "automatic_transport_retries": 0,
+    "automatic_replacement_attempts": 0
+  },
+  "retry_profile": {
+    "path": "development/qwen_api_p3_v5_retry_profile.json",
+    "sha256": "09452a6cac8daab4cf9c7418343292d3ef9107ce7dbe7995e26e2aa05aa6cd60",
+    "policy_id": "same-slot-duplicate-exclusion-v1",
+    "max_remembered_rejected_suggestions_per_slot": 3,
+    "analysis_profile_sha256": "ad22e6b87d296a7b948226337e609e5619cb9de11f2f8d57b180a09d01a3a920"
+  },
+  "runtime": {
+    "runner_path": "development/run_bounded_qwen_api_p3_v5.py",
+    "runner_sha256": "4365620414a2a1742812cd4f80d9bcc8844c3e029942968f41461f98071f5498",
+    "retry_helper_path": "development/qwen_api_p3_v5_generation.py",
+    "retry_helper_sha256": "80dc9fb45a81430f47e3693d751bad9e531294000e762e3b68f0e824d65853af",
+    "runtime_source_sha256": {
+      "development/analysis_v5_pilot_cases.py": "be34647f7f9e17f24a7bf0e1586932b10695eb44b886d26a439da3138736119a",
+      "development/analyze_response_v1.py": "269578d51ac20907f6baef62231791bf341b0d0b11112fd9a876e3cf832e7987",
+      "development/analyze_response_v2.py": "1662c057893e8c457186730009efcb8dd99dd4c8723c9dbb60ef0dcff6dbaf4f",
+      "development/qwen_api_analysis.py": "38ec2abe95f201058379c71ba6ac052eea20e30ef87fc7f9c6b181c192283640",
+      "development/qwen_api_client.py": "8f5b34403ff486d33d34f9e351542f34ef57d3a3769a791b8d443526e4d29454",
+      "development/qwen_api_credentials.py": "ae13e9fe6875a2d16b04d075e87c00cae17495a470f07f5aab92ffab39078907",
+      "development/qwen_api_generation.py": "b0fbe2d6da56dc258aa484c9f225eb158b37319af4b82be956740f9a70c225f3",
+      "development/qwen_api_p2_analysis.py": "0bca9b16aef1894f467ccd13faf64b9f63fbf675884f7c078cd6924851c4e9be",
+      "development/qwen_api_p3_timeout180_profile.json": "ad22e6b87d296a7b948226337e609e5619cb9de11f2f8d57b180a09d01a3a920",
+      "development/qwen_api_p3_v5_generation.py": "80dc9fb45a81430f47e3693d751bad9e531294000e762e3b68f0e824d65853af",
+      "development/qwen_api_p3_v5_retry_profile.json": "09452a6cac8daab4cf9c7418343292d3ef9107ce7dbe7995e26e2aa05aa6cd60",
+      "development/qwen_api_runtime.py": "64e5963fafd1447b90bc35cfbb468d8bbd7ad0ea04e144ec05bffd70eb4505de",
+      "development/qwen_api_runtime_config.json": "5a098538060d5f9bb6522e23dd0add037295a9e0eaed34e0a978880317068016",
+      "development/qwen_api_runtime_p3_timeout180.py": "e7ad902ed9a37d9a56de3a0f37898e30d44f6ca626492c62d4c4ef85ca0d267d",
+      "development/run_bounded_qwen_api_p3_v5.py": "4365620414a2a1742812cd4f80d9bcc8844c3e029942968f41461f98071f5498",
+      "development/run_qwen_api_experiments.py": "7ebb901f915c0488edfe69341253f924e4bcfee6332772c0fc19f4d2f576a4cb",
+      "dvwa/adaptive_candidate_policy.py": "afbd25d6ecb96b14c0c02b3317adbc54a59e8e68e7622a9a7bf7139921cd33a2",
+      "dvwa/adaptive_s1_loop.py": "42610de34327c4801192f402357a740a8e9674ae9bc3d33aedb4e47b69433c0a",
+      "dvwa/analyze_response.py": "ffba71043245baf3db73a09d9236bf4e2f3edb7e38737a250ec799e9c720a500",
+      "dvwa/confirmation_policy.py": "76d3f891585170f53b784523faade226a5ac4529b77de1c0937d170d1ea37cbd",
+      "dvwa/execution_order_policy.py": "d66146da5d1984dd67f427179348ba247162d52ba129b601e280e5f789784325",
+      "dvwa/experiment_protocol.py": "d6ef3b99276da687caffe4860bbaa72fa36e40c0723cb2a66083865c696403ca",
+      "dvwa/generate_candidate_batch.py": "b5532c8f41c46208ab7143579822c2f8b30aba0780e4ae41e205356917f1ee8e",
+      "dvwa/prepare_candidate_batch.py": "c8981ec339f6d2fae0f217946b402d6432beed027405069da01867f653086f18",
+      "dvwa/rag_pipeline.py": "750cbbeb9cf0240221b83121113adfcb91a1eeb970c2f0ced1b90005d20df6ef",
+      "dvwa/retrieve_structured_knowledge.py": "a04feb51c323ef5187f1dcb61d21fd34a24c010f3870cfcdfb8b4b0e569ed35f",
+      "dvwa/run_decision_policy.py": "8ece03a16a8ef8a01c115d6c65fabeb00cb690dd78c00988487c638cf2e0e9e7",
+      "dvwa/run_local_experiments.py": "e713851af20a9315338a929531a92f00908140b18f4141df14b5dd6b85055a1f",
+      "dvwa/validation_loop.py": "bada3ea7029f83d3df39c7dd86c7acff6bea89e5e5e6a2187b18ffab0d814234",
+      "schemas/analysis-ledger.schema.json": "95ef72fab2e72017856eec4a8c3a4d0679e14ddf1b7a46a5a29abb860eaf65ff",
+      "schemas/candidate-batch.schema.json": "ed38c6d52f1c73ac6425cbb414dec022272019aa2816dd48c26d8adeeb030ad1",
+      "schemas/candidate-evidence.schema.json": "79907344498893da0ad21177a82a62247ff746d78d6e79ef272952c96a182b0f",
+      "schemas/experiment-ledger-event.schema.json": "040b618354e3e42fa5acbe29ee0a01306a46ba9d9e7f9e2dbabe0c5fca1e9c1b",
+      "schemas/local-run-plan.schema.json": "0dbf1f3fbfd146f5578bfb3cd06f32ee445a6fa70fdc44770e59ce2a9231af14",
+      "schemas/qwen-analysis-input.schema.json": "a71552ff3081bff2b37db0dd55166474a179793fceeb13a176f3b22ba80249c6",
+      "schemas/qwen-analysis-output.schema.json": "f73ce369bad22c513b0f70b4dcd8e630af6daffc7295e7b67c75b162045c3e10",
+      "schemas/validation-payloads.schema.json": "afc6badd8e8f81fe2ef6eea47c422d6c97f1f484cdc893fd3c2a70ecd2448dfb"
+    }
+  },
+  "dry_run": {
+    "status": "passed",
+    "planned_slots": 36,
+    "applicable_units": 33,
+    "llm_units": 24,
+    "worst_case_api_calls": 960,
+    "api_call_ceiling": 960,
+    "execution_started": false,
+    "output_directory_exists": false
+  },
+  "verification": {
+    "focused_tests": [
+      "development.test_qwen_api_p3_v5_generation",
+      "development.test_qwen_api_p3_timeout180",
+      "development.test_qwen_api_p3_budget",
+      "development.test_qwen_api_p3_gates"
+    ],
+    "tests_passed": 21,
+    "tests_failed": 0,
+    "syntax_compile": "passed",
+    "test_file_path": "development/test_qwen_api_p3_v5_generation.py",
+    "test_file_sha256": "afc216cb009baa91d84879342b540c8f8063db1adce8cd770b5da6c7b9011b28"
+  },
+  "previous_cohort_r3": {
+    "api_calls": 234,
+    "http_200": 233,
+    "http_500": 1,
+    "completed_slots": 10,
+    "invalid_slots": 1,
+    "excluded_slots": 12,
+    "planned_slots": 13,
+    "duplicate_structure_rejections": 31,
+    "formal_metrics_eligible": false
+  },
+  "preceding_access_check": {
+    "status": "ok",
+    "http_status": 200,
+    "endpoint": "https://api.hcnsec.cn/v1/chat/completions",
+    "checked_at_utc": "2026-10-22T07:59:57.787702+00:00",
+    "elapsed_seconds": 2.876,
+    "api_calls": 1,
+    "interpretation": "Confirms the saved credential and route worked at that check time only; it does not establish sustained provider availability."
+  },
+  "this_preparation_api_calls": 0,
+  "this_preparation_dvwa_requests": 0,
+  "this_preparation_database_resets": 0,
+  "formal_eligible": false,
+  "report_path": "docs/p3-v5-preparation-2026-10-22.md",
+  "report_sha256": "23a9aa6ffec3a24a685659810a4907e3959dd739aabfc2db33e739759e353bf4"
+}

@@ -1,0 +1,22 @@
+{
+  "schema": "qwen-p3-generation-retry-profile-v1",
+  "profile_id": "same-slot-duplicate-exclusion-v1",
+  "protocol_id": "qwen38-api-sqli-v5-pilot",
+  "experiment_id": "qwen38-api-r4-20261022",
+  "status": "prepared-awaiting-researcher-review",
+  "scope": "P3 development pilot only",
+  "retry_policy_id": "same-slot-duplicate-exclusion-v1",
+  "retry_policy": "Carry structurally duplicate suggestions from rejected responses into the next prompt and parser exclusions for the same candidate slot only. Do not count them as accepted candidates, advance the slot, change the variation family, or issue replacement calls beyond the frozen retry budget.",
+  "max_remembered_rejected_suggestions_per_slot": 3,
+  "generation_requests_per_candidate_slot": 3,
+  "transport_timeouts_seconds": {
+    "generation": 90,
+    "analysis": 180
+  },
+  "base_runtime_config_path": "development/qwen_api_runtime_config.json",
+  "base_runtime_config_sha256": "5a098538060d5f9bb6522e23dd0add037295a9e0eaed34e0a978880317068016",
+  "analysis_profile_id": "analysis-timeout-180s-v1",
+  "analysis_profile_path": "development/qwen_api_p3_timeout180_profile.json",
+  "analysis_profile_sha256": "ad22e6b87d296a7b948226337e609e5619cb9de11f2f8d57b180a09d01a3a920",
+  "formal_eligible": false
+}

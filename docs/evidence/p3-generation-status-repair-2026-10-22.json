@@ -1,0 +1,131 @@
+{
+  "schema": "p3-generation-status-repair-audit-v1",
+  "audited_at_utc": "2026-10-22T04:36:08+00:00",
+  "root_cause": "A rejected generation returned rejection_code without audit.status; adaptive_s1_loop requires audit.status.",
+  "protocol_id": "qwen38-api-sqli-v3-pilot",
+  "tests": {
+    "run": 200,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "successful": true
+  },
+  "saved_generation_replays": [
+    {
+      "call_id": "00001-generation-e128567a",
+      "status": "generated",
+      "candidate_present": true,
+      "exact_wire_payload_reproduced": true
+    },
+    {
+      "call_id": "00003-generation-47293608",
+      "status": "generated",
+      "candidate_present": true,
+      "exact_wire_payload_reproduced": true
+    },
+    {
+      "call_id": "00005-generation-60dc5ab1",
+      "status": "generated",
+      "candidate_present": true,
+      "exact_wire_payload_reproduced": true
+    },
+    {
+      "call_id": "00007-generation-41ebb43c",
+      "status": "generated",
+      "candidate_present": true,
+      "exact_wire_payload_reproduced": true
+    },
+    {
+      "call_id": "00009-generation-7f932088",
+      "status": "generated",
+      "candidate_present": true,
+      "exact_wire_payload_reproduced": true
+    },
+    {
+      "call_id": "00011-generation-ef7f7f37",
+      "status": "generated",
+      "candidate_present": true,
+      "exact_wire_payload_reproduced": true
+    },
+    {
+      "call_id": "00013-generation-f342de27",
+      "status": "generated",
+      "candidate_present": true,
+      "exact_wire_payload_reproduced": true
+    },
+    {
+      "call_id": "00015-generation-3f80bdc3",
+      "status": "generated",
+      "candidate_present": true,
+      "exact_wire_payload_reproduced": true
+    },
+    {
+      "call_id": "00017-generation-b4d5a946",
+      "status": "no_valid_distinct_candidate",
+      "candidate_present": false,
+      "exact_wire_payload_reproduced": true
+    }
+  ],
+  "actual_duplicate_rejection_reproduced_without_crash": true,
+  "preserved_attempt_and_smoke_files": 109,
+  "changed_historical_artifacts": [],
+  "archived_runtime_sources": 32,
+  "legacy_archive_mismatches": [],
+  "intentional_runtime_source_changes": [
+    "development/run_qwen_api_experiments.py"
+  ],
+  "runtime_source_sha256": {
+    "development/run_qwen_api_experiments.py": "7ebb901f915c0488edfe69341253f924e4bcfee6332772c0fc19f4d2f576a4cb",
+    "development/qwen_api_runtime.py": "64e5963fafd1447b90bc35cfbb468d8bbd7ad0ea04e144ec05bffd70eb4505de",
+    "development/qwen_api_runtime_config.json": "5a098538060d5f9bb6522e23dd0add037295a9e0eaed34e0a978880317068016",
+    "development/qwen_api_client.py": "8f5b34403ff486d33d34f9e351542f34ef57d3a3769a791b8d443526e4d29454",
+    "development/qwen_api_credentials.py": "ae13e9fe6875a2d16b04d075e87c00cae17495a470f07f5aab92ffab39078907",
+    "development/qwen_api_generation.py": "b0fbe2d6da56dc258aa484c9f225eb158b37319af4b82be956740f9a70c225f3",
+    "development/qwen_api_analysis.py": "38ec2abe95f201058379c71ba6ac052eea20e30ef87fc7f9c6b181c192283640",
+    "development/qwen_api_p2_analysis.py": "0bca9b16aef1894f467ccd13faf64b9f63fbf675884f7c078cd6924851c4e9be",
+    "development/analysis_v5_pilot_cases.py": "be34647f7f9e17f24a7bf0e1586932b10695eb44b886d26a439da3138736119a",
+    "development/analyze_response_v1.py": "269578d51ac20907f6baef62231791bf341b0d0b11112fd9a876e3cf832e7987",
+    "development/analyze_response_v2.py": "1662c057893e8c457186730009efcb8dd99dd4c8723c9dbb60ef0dcff6dbaf4f",
+    "dvwa/adaptive_s1_loop.py": "42610de34327c4801192f402357a740a8e9674ae9bc3d33aedb4e47b69433c0a",
+    "dvwa/adaptive_candidate_policy.py": "afbd25d6ecb96b14c0c02b3317adbc54a59e8e68e7622a9a7bf7139921cd33a2",
+    "dvwa/analyze_response.py": "ffba71043245baf3db73a09d9236bf4e2f3edb7e38737a250ec799e9c720a500",
+    "dvwa/confirmation_policy.py": "76d3f891585170f53b784523faade226a5ac4529b77de1c0937d170d1ea37cbd",
+    "dvwa/experiment_protocol.py": "d6ef3b99276da687caffe4860bbaa72fa36e40c0723cb2a66083865c696403ca",
+    "dvwa/generate_candidate_batch.py": "b5532c8f41c46208ab7143579822c2f8b30aba0780e4ae41e205356917f1ee8e",
+    "dvwa/rag_pipeline.py": "750cbbeb9cf0240221b83121113adfcb91a1eeb970c2f0ced1b90005d20df6ef",
+    "dvwa/retrieve_structured_knowledge.py": "a04feb51c323ef5187f1dcb61d21fd34a24c010f3870cfcdfb8b4b0e569ed35f",
+    "dvwa/run_local_experiments.py": "e713851af20a9315338a929531a92f00908140b18f4141df14b5dd6b85055a1f",
+    "dvwa/validation_loop.py": "bada3ea7029f83d3df39c7dd86c7acff6bea89e5e5e6a2187b18ffab0d814234",
+    "dvwa/prepare_candidate_batch.py": "c8981ec339f6d2fae0f217946b402d6432beed027405069da01867f653086f18",
+    "dvwa/execution_order_policy.py": "d66146da5d1984dd67f427179348ba247162d52ba129b601e280e5f789784325",
+    "dvwa/run_decision_policy.py": "8ece03a16a8ef8a01c115d6c65fabeb00cb690dd78c00988487c638cf2e0e9e7",
+    "schemas/analysis-ledger.schema.json": "95ef72fab2e72017856eec4a8c3a4d0679e14ddf1b7a46a5a29abb860eaf65ff",
+    "schemas/candidate-evidence.schema.json": "79907344498893da0ad21177a82a62247ff746d78d6e79ef272952c96a182b0f",
+    "schemas/candidate-batch.schema.json": "ed38c6d52f1c73ac6425cbb414dec022272019aa2816dd48c26d8adeeb030ad1",
+    "schemas/local-run-plan.schema.json": "0dbf1f3fbfd146f5578bfb3cd06f32ee445a6fa70fdc44770e59ce2a9231af14",
+    "schemas/experiment-ledger-event.schema.json": "040b618354e3e42fa5acbe29ee0a01306a46ba9d9e7f9e2dbabe0c5fca1e9c1b",
+    "schemas/qwen-analysis-input.schema.json": "a71552ff3081bff2b37db0dd55166474a179793fceeb13a176f3b22ba80249c6",
+    "schemas/qwen-analysis-output.schema.json": "f73ce369bad22c513b0f70b4dcd8e630af6daffc7295e7b67c75b162045c3e10",
+    "schemas/validation-payloads.schema.json": "afc6badd8e8f81fe2ef6eea47c422d6c97f1f484cdc893fd3c2a70ecd2448dfb"
+  },
+  "new_generation_tests_sha256": "e15dccd244dd570287be6d0c84c0818c0e04974af79285b86a8d75e5e3872e0d",
+  "analysis_gate_tests_sha256": "4916ede9170faebe89f8057c41978edcae215e010a9c7796b65b1596e08b7f1b",
+  "audit_script_sha256": "90ffe130321c2542b830b6b3d528c0981f9be7c8cc51ae77a18f22fd8342ae57",
+  "test_log_sha256": "52e41e18a4ca50a6bcc20b9b981061d0fe466bd99dbf5bb127cd57699443de42",
+  "recovery_plan_dry_run": {
+    "experiment_id": "qwen38-api-p3-v3-pilot-20261022",
+    "protocol_id": "qwen38-api-sqli-v3-pilot",
+    "worst_case_api_calls": 960,
+    "api_call_ceiling": 960,
+    "max_wall_seconds": 21600,
+    "execution_started": false,
+    "planned_slots": 36
+  },
+  "automatic_replacement_started": false,
+  "real_API_calls": 0,
+  "real_DVWA_requests": 0,
+  "blocked_connection_attempts": 0,
+  "offline_fix_verified": true,
+  "local_audit_sha256": "dec08ce14370dcb41236eeeb542405c98edc61a014f841dd86652ddfa6abdaa7",
+  "halted_pilot_receipt_sha256": "3b66412e33c7391d7fface909533d68b71632d46afa7e7e0cf783dd1510ce270"
+}

@@ -5,6 +5,81 @@ black-box pada DVWA. Scope-nya hanya dataset `pilot`, kondisi LLM A/B, dan
 payload SQLi error-based, Boolean-based blind, atau time-based blind. Kondisi C
 opsional memakai executor SecLists lokal yang sudah ada.
 
+## Versi aktif per 22 Oktober 2026
+
+**Pembaruan terakhir:** runtime aktif `qwen38-api-sqli-v3-pilot` lulus 200 tes
+dan replay sembilan checkpoint generasi. Kontrol S1-S12 serta smoke A/B juga
+selesai. Pilot v2 berhenti pada S1-A akibat bug status ketika kandidat duplikat
+ditolak. Pilot v3 pertama berhenti pada analisis S2-B setelah 45 request; tiga
+unit lengkap eligible, satu A/S1 incomplete, satu invalid, tiga slot desain
+excluded, dan 28 planned. Cohort recovery baru `qwen38-api-r2-20261022`
+kemudian dijalankan selama sekitar 7 menit 18 detik dan berhenti pada analisis
+S1-B karena read timeout 90,153 detik. Dari 25 request, 24 sukses dan satu
+transport-error. S1-A excluded setelah 8 dari 10 kandidat; S1-B invalid; 31
+unit planned dan nol completed. Tidak ada retry. Audit memastikan 1.504 file
+historis dan 32 source runtime utuh. Batas enam jam adalah ceiling, bukan
+estimasi durasi. Tidak ada hasil PSR/FPR API. Lihat
+`docs/p3-recovery-002-results-2026-10-22.md` dan receipt audit terkait.
+
+Dry-run plan v3:
+
+```powershell
+.\.venv\Scripts\python.exe development/run_bounded_qwen_p3_pilot.py `
+  --plan development/qwen_api_p3_v3_pilot_plan.template.json `
+  --budget development/qwen_api_p3_v3_budget_20261022.json
+```
+
+Hasilnya bukan evaluasi formal. Persetujuan dan hasil rinci ada di
+`docs/evidence/p3-v3-execution-approval-2026-10-22.json`,
+`docs/evidence/p3-v3-execution-audit-r2-2026-10-22.json`, dan
+`docs/evidence/qwen-api-access-check-post-v3-2026-10-22.json`, serta
+`docs/p3-pilot-v3-2026-10-22.md`. Run berikutnya perlu keputusan baru;
+budget yang telah dipakai menetapkan nol replacement otomatis.
+
+Cohort tersebut mencakup ulang 33 unit applicable dan dry-run sebelumnya
+menghitung 960 request/36 slot. Eksekusinya berhenti sebelum unit eligible
+selesai. Jangan resume atau mengganti unit secara otomatis. Setiap run lanjutan
+memerlukan ID, plan, budget, dan keputusan eksekusi terpisah. Lihat
+`docs/p3-recovery-002-plan-2026-10-22.md` dan
+`docs/p3-recovery-002-results-2026-10-22.md`.
+
+Draft lanjutan v4 `qwen38-api-r3-20261022` menambah timeout transport analisis
+menjadi 180 detik; timeout generasi tetap 90 detik dan profil P2 tetap tidak
+berubah. Perubahan memakai adapter, profile, dan runtime hash tersendiri.
+Tiga tes offline serta dry-run bounded lulus, dengan 36 slot dan ceiling 960
+request. Belum ada panggilan API/DVWA atau izin eksekusi. Perhatikan juga
+risiko loop generasi S1-A yang kehabisan kandidat unik pada recovery-002.
+Lihat `docs/p3-timeout180-plan-2026-10-22.md` dan
+`docs/evidence/p3-timeout180-preparation-2026-10-22.json`.
+
+### Checkpoint sebelum pilot live v2
+
+Protokol aktif adalah `qwen38-api-sqli-v2-pilot`. P2 sudah ditutup peneliti
+dengan satu timeout sebagai keterbatasan. Dua gate analisis P3 diperbaiki dan
+profil analisis memakai renderer, parser serta settings P2: 2048 token,
+90 detik, temperature 0, tanpa opsi template tambahan. Generasi tetap memakai
+profil sebelumnya. Ada 192 tes offline lulus; belum ada pilot live v2.
+
+Gunakan plan dengan experiment ID baru:
+
+```powershell
+.\.venv\Scripts\python.exe development/run_qwen_api_experiments.py `
+  --plan development/qwen_api_p3_v2_pilot_plan.template.json
+```
+
+Ini dry-run 33 run applicable, bukan eksekusi. Tetapkan budget khusus sebelum
+memakai `--execute`; ceiling umum 5.760 bukan budget pilot yang otomatis
+disetujui. Smoke generasi dan kontrol executor aktual masih perlu dijalankan.
+
+Snapshot lama tidak boleh ditulis ulang agar bisa resume dengan source baru.
+Sumber v1 sebelum perubahan diarsipkan dalam
+`results/raw/development/p3-repair-20261022-v2/legacy-source/`.
+Contoh S1 dan resume pada bagian berikut adalah riwayat v1; reproduksinya
+memerlukan source/config v1 yang cocok, bukan runtime aktif v2.
+
+Laporan: `docs/perbaikan-p3-2026-10-22.md`. Audit offline dapat diulang dengan
+`maintenance/audit_p3_repairs.py --output-dir results/raw/development/p3-repair-audit-recheck`.
+
 ## Pemeriksaan rencana
 
 Template awal menguji kondisi A untuk S1 Low pada satu replikasi:

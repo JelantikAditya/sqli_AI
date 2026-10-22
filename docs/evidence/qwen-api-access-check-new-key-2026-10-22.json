@@ -1,0 +1,31 @@
+{
+  "schema": "qwen-api-new-key-access-check-v1",
+  "status": "http-error",
+  "http_status": 522,
+  "requested_model": "Qwen3.8-27B",
+  "reported_model": null,
+  "finish_reason": null,
+  "elapsed_seconds": 5.378,
+  "error_detail": null,
+  "response_body_empty": true,
+  "key_validity": "inconclusive",
+  "api_calls": 1,
+  "automatic_retries": 0,
+  "max_api_calls": 1,
+  "timeout_seconds": 30,
+  "request_sha256": "eab6936b9da9ebb9fee021e5347378ba35ab4ccd483ea4db878f54b921ce2969",
+  "checked_at_utc": "2026-10-22T07:53:01.993026+00:00",
+  "checked_at_wib": "2026-10-22T14:53:01.993026+07:00",
+  "credential_source": "local ignored credential file",
+  "evidence_directory": "results/raw/development/qwen-api-access-check-new-key-20261022T075256Z-8fe311f5",
+  "source_artifact_sha256": {
+    "results/raw/development/qwen-api-access-check-new-key-20261022T075256Z-8fe311f5/request-started.json": "89fc826e3c68bd41454df7cb25439e6fb498dea6c591dadadac919fbb6931d34",
+    "results/raw/development/qwen-api-access-check-new-key-20261022T075256Z-8fe311f5/request.json": "2de73e45bc293c51dbdd7a13c9a878b59df844397e2882dd260696e8d514e294",
+    "results/raw/development/qwen-api-access-check-new-key-20261022T075256Z-8fe311f5/result.json": "e2eecb4c1d02dd534cc19bd9583238bc9e8951ba8596639aeb0aa4c3cc22a839",
+    "results/raw/development/qwen-api-access-check-new-key-20261022T075256Z-8fe311f5/summary.json": "b26de2336af52331dd13e9073bb83a0bfa1114b504ae64f0dbaedc9349a6c12e"
+  },
+  "interpretation": "One request using the newly saved local credential received HTTP 522 after 5.378 seconds. The API client captured no response body, reported model, response ID, or model content. HTTP 522 is commonly a proxy-to-origin connection timeout; this result does not determine whether the API key is valid.",
+  "interpretation_source": "https://developers.cloudflare.com/support/troubleshooting/http-status-codes/cloudflare-5xx-errors/error-522/",
+  "request_started_at_utc": "2026-10-22T07:52:56.515501+00:00",
+  "receipt_recorded_at_utc": "2026-10-22T07:53:52.623712+00:00"
+}

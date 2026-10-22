@@ -6,7 +6,31 @@ boolean-based blind, dan time-based blind pada level Low, Medium, High, serta
 Impossible. Evaluasi utama membandingkan **FPR** sistem dengan/tanpa RAG dan
 **PSR** payload LLM terhadap SecLists.
 
-## Status proyek per 21 Oktober 2026
+## Status proyek per 22 Oktober 2026
+
+**Eksperimen formal model lokal selesai. Pengujian API Laguna masih berstatus
+pilot P3 satu replikasi, belum menjadi uji formal.** Poolside P2 mendapat
+agreement 18/18 pada paket pengembangan yang sudah diketahui, dan preflight
+generasi meloloskan 6/6 kandidat. Cohort Laguna
+`poolside-s21-p3-r1-20261022` menyelesaikan 27 dari 36 slot; enam unit LLM
+tidak mencapai 10 kandidat valid dan tiga slot C/Impossible dikecualikan oleh
+desain. Semua 524 request API P3 mendapat HTTP 200. Validasi manual buta
+VAL-01 untuk 270 kandidat lengkap telah diimpor, dengan 146 failure dan 124
+success.
+
+Satu pilot ini belum memenuhi replikasi formal. PSR B belum eligible karena
+S2 dan S4 tidak lengkap; PSR C r1 secara deskriptif 66/90 atau 73,33%.
+FPR keseluruhan belum eligible karena hanya ada satu replikasi dan kondisi B
+kehilangan keputusan S11. Hasil pilot tidak digabung dengan Qwen atau formal
+lokal. Status rinci serta gate dan checklist menuju P4 ada di
+[status dan checklist kesiapan uji formal Laguna](docs/laguna-formal-test-checklist-2026-10-22.md).
+
+Catatan teknis pendukung: [hasil P2 dan preflight Poolside](docs/hasil-preflight-poolside-2026-10-22.md),
+[hasil cohort P3](docs/poolside-p3-run-2026-10-22.md),
+[validasi manual buta](docs/poolside-p3-blind-review-2026-10-22.md), dan
+[riwayat pengujian 22 Oktober](docs/progress-2026-10-22.md).
+
+## Riwayat eksperimen Qwen API
 
 **Pengujian ulang P2 tertunda karena layanan Qwen API belum dapat melayani
 analisis P2 secara stabil.** Run-002, run-003 dan run-004 masing-masing berhenti

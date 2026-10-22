@@ -1,0 +1,26 @@
+{
+  "accepted_run": "qwen38-api-p2-eval-20261022-run-005",
+  "accepted_run_receipt": "docs/evidence/qwen-api-p2-run005-receipt-2026-10-22.json",
+  "accepted_run_receipt_sha256": "e8318bf4adf7c5b5a11922a01f75c9eb5cc01bf1dbb3ba4fdc07404e791b6c6a",
+  "agreement_count": 17,
+  "agreement_denominator": 17,
+  "case_count": 18,
+  "coverage": 0.944444,
+  "decision_source": "Direct researcher message in this chat on 22 October 2026.",
+  "formal_FPR_claim": false,
+  "formal_PSR_claim": false,
+  "historical_results_modified": false,
+  "known_evaluation_set": true,
+  "milestone": "P2",
+  "new_independent_holdout": false,
+  "next_authorized_work": "Repair offline P3 integration gates and align its analysis profile with P2; live pilot is a separate step.",
+  "recorded_at_utc": "2026-10-22T03:59:06+00:00",
+  "researcher_statement": "okeh karena hasilnya bagus, P2 sudah bisa di tutup. dan melanjutkan perbaikan P3",
+  "schema": "qwen-api-p2-researcher-closure-v1",
+  "scored_count": 17,
+  "status": "closed-with-documented-limitation",
+  "unresolved_policy": "Retain timeout without response as unresolved; no retry or inference of a negative/positive model decision.",
+  "unresolved_review_ids": [
+    "rv-e6f30675d8d4"
+  ]
+}

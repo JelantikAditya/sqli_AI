@@ -1,0 +1,809 @@
+{
+  "schema": "qwen-p3-execution-audit-v1",
+  "status": "halted-after-provider-http-500",
+  "experiment_id": "qwen38-api-r5-20261022",
+  "protocol_id": "qwen38-api-sqli-v5-pilot",
+  "retry_policy_id": "same-slot-duplicate-exclusion-v1",
+  "plan_sha256": "f963c4fb9f14e5db79b834f0924cbbf5af2928b506b8f377e47bc2f2f2299323",
+  "budget_sha256": "22ac26074c0120b3574edfb3de32d2b03c7b7fe6cca7c692f1811f029372bd27",
+  "retry_profile_sha256": "b2dfccfc5dcc179c964d36a0f81619370aaebc1e8b7d03e274217811d4db37b5",
+  "runner_sha256": "a38731e76026d271614e26c2adf2725afcf583e8be204ef2522fe8d56b8216ed",
+  "execution_approval_path": "docs/evidence/p3-v5-r5-execution-approval-2026-10-22.json",
+  "execution_approval_sha256": "38a97ee6ab7f5107ca9670f301562b95945ac0c18308305c4cf7b4d1e9aaa9bb",
+  "execution_approval_outcome": "approved-for-pilot-execution",
+  "started_at_utc": "2026-10-22T08:22:48.598061+00:00",
+  "halted_at_utc": "2026-10-22T08:41:07.380702+00:00",
+  "failed_unit": "qwen38-api-r5-20261022-a-s2-r1",
+  "failed_stage": "generation",
+  "failure_code": "api_http_error",
+  "api_call_ceiling": 960,
+  "api_calls_used": 63,
+  "api_status_counts": {
+    "200": 62,
+    "500": 1
+  },
+  "api_stage_counts": {
+    "analysis": {
+      "calls": 28,
+      "http_statuses": {
+        "200": 28
+      }
+    },
+    "generation": {
+      "calls": 35,
+      "http_statuses": {
+        "200": 34,
+        "500": 1
+      }
+    }
+  },
+  "api_calls": [
+    {
+      "call_id": "00001-generation-fff4ce37",
+      "stage": "generation",
+      "http_status": 200,
+      "requested_model": "Qwen3.8-27B",
+      "reported_model": "self-dploy/Qwen3.8-27B",
+      "response_id": "c9d2593086574f8aabd2c410e7575872",
+      "request_sha256": "3b3c70d5f40c599c3c68435541799f5afbe9a8ac3c1ef3e19f16ec245c341263",
+      "elapsed_seconds": 4.536,
+      "finish_reason": "stop"
+    },
+    {
+      "call_id": "00002-analysis-5ea90973",
+      "stage": "analysis",
+      "http_status": 200,
+      "requested_model": "Qwen3.8-27B",
+      "reported_model": "self-dploy/Qwen3.8-27B",
+      "response_id": "9e9151723c304e009a500e8a6c491e54",
+      "request_sha256": "d536fa43ff5b44f386757a0ece10bbd94b72092df8bd398c244e5816870687dd",
+      "elapsed_seconds": 19.923,
+      "finish_reason": "stop"
+    },
+    {
+      "call_id": "00003-generation-f74ef1c6",
+      "stage": "generation",
+      "http_status": 200,
+      "requested_model": "Qwen3.8-27B",
+      "reported_model": "self-dploy/Qwen3.8-27B",
+      "response_id": "21698c78b7324adc8868c7b83728d25b",
+      "request_sha256": "f833e509906beaadc71f91c1ca38af3ee73023218bba2acab795ac11dbc2460f",
+      "elapsed_seconds": 2.643,
+      "finish_reason": "stop"
+    },
+    {
+      "call_id": "00004-analysis-b84d7bd2",
+      "stage": "analysis",
+      "http_status": 200,
+      "requested_model": "Qwen3.8-27B",
+      "reported_model": "self-dploy/Qwen3.8-27B",
+      "response_id": "15c0bf7150b2498eba7aec3fb75db720",
+      "request_sha256": "5a84354426854509e926fbdbe6d0281a432f0b89673013a4c6af8866b52fddce",
+      "elapsed_seconds": 26.602,
+      "finish_reason": "stop"
+    },
+    {
+      "call_id": "00005-generation-123d6357",
+      "stage": "generation",
+      "http_status": 200,
+      "requested_model": "Qwen3.8-27B",
+      "reported_model": "self-dploy/Qwen3.8-27B",
+      "response_id": "e157aeeed1744180974878fac493533e",
+      "request_sha256": "43dc9bb46ac6002838ac379a2d972fcc4abeedcb78aec42cce96d99d60ea7d13",
+      "elapsed_seconds": 3.384,
+      "finish_reason": "stop"
+    },
+    {
+      "call_id": "00006-analysis-87981bcc",
+      "stage": "analysis",
+      "http_status": 200,
+      "requested_model": "Qwen3.8-27B",
+      "reported_model": "self-dploy/Qwen3.8-27B",
+      "response_id": "561296927beb42b696a9e4078ca3f137",
+      "request_sha256": "5a84354426854509e926fbdbe6d0281a432f0b89673013a4c6af8866b52fddce",
+      "elapsed_seconds": 24.756,
+      "finish_reason": "stop"
+    },
+    {
+      "call_id": "00007-generation-1c875599",
+      "stage": "generation",
+      "http_status": 200,
+      "requested_model": "Qwen3.8-27B",
+      "reported_model": "self-dploy/Qwen3.8-27B",
+      "response_id": "025a042626c64e968f9eebd3859ccd96",
+      "request_sha256": "4a00cc566e525183f3a23923ff02f9ea13fd25de62642b97e505623c17240a38",
+      "elapsed_seconds": 2.77,
+      "finish_reason": "stop"
+    },
+    {
+      "call_id": "00008-analysis-41141967",
+      "stage": "analysis",
+      "http_status": 200,
+      "requested_model": "Qwen3.8-27B",
+      "reported_model": "self-dploy/Qwen3.8-27B",
+      "response_id": "8d79d4ff89ad4dc1a5eff957da5f4065",
+      "request_sha256": "5a84354426854509e926fbdbe6d0281a432f0b89673013a4c6af8866b52fddce",
+      "elapsed_seconds": 25.169,
+      "finish_reason": "stop"
+    },
+    {
+      "call_id": "00009-generation-f6761c52",
+      "stage": "generation",
+      "http_status": 200,
+      "requested_model": "Qwen3.8-27B",
+      "reported_model": "self-dploy/Qwen3.8-27B",
+      "response_id": "3c856cdc7b154adc873519d710412e5c",
+      "request_sha256": "b09a970039e41b6888fadc6bd05362450eb26a6007f416ebe8537fd84c1ba47c",
+      "elapsed_seconds": 3.892,
+      "finish_reason": "stop"
+    },
+    {
+      "call_id": "00010-analysis-e30dac12",
+      "stage": "analysis",
+      "http_status": 200,
+      "requested_model": "Qwen3.8-27B",
+      "reported_model": "self-dploy/Qwen3.8-27B",
+      "response_id": "4e907210415e4f8489a964768c2494e3",
+      "request_sha256": "5a84354426854509e926fbdbe6d0281a432f0b89673013a4c6af8866b52fddce",
+      "elapsed_seconds": 26.383,
+      "finish_reason": "stop"
+    },
+    {
+      "call_id": "00011-generation-aaedef23",
+      "stage": "generation",
+      "http_status": 200,
+      "requested_model": "Qwen3.8-27B",
+      "reported_model": "self-dploy/Qwen3.8-27B",
+      "response_id": "76845565d7b74a8882a0839ae59ede6e",
+      "request_sha256": "b0892920c6764d1bb5f345308b6ae999adda01828ed786211b9a43e8c687707a",
+      "elapsed_seconds": 4.416,
+      "finish_reason": "stop"
+    },
+    {
+      "call_id": "00012-analysis-fc9b7817",
+      "stage": "analysis",
+      "http_status": 200,
+      "requested_model": "Qwen3.8-27B",
+      "reported_model": "self-dploy/Qwen3.8-27B",
+      "response_id": "33781899e836416e929d251fcbc37b68",
+      "request_sha256": "d536fa43ff5b44f386757a0ece10bbd94b72092df8bd398c244e5816870687dd",
+      "elapsed_seconds": 21.823,
+      "finish_reason": "stop"
+    },
+    {
+      "call_id": "00013-generation-cb213388",
+      "stage": "generation",
+      "http_status": 200,
+      "requested_model": "Qwen3.8-27B",
+      "reported_model": "self-dploy/Qwen3.8-27B",
+      "response_id": "14a405816f8a4305868af64cd1a6aa10",
+      "request_sha256": "77aeedb13ea653f153266a5390c16c3ff3bcb1eb8dcc703f44e1afdb703ceae3",
+      "elapsed_seconds": 3.372,
+      "finish_reason": "stop"
+    },
+    {
+      "call_id": "00014-analysis-4161b166",
+      "stage": "analysis",
+      "http_status": 200,
+      "requested_model": "Qwen3.8-27B",
+      "reported_model": "self-dploy/Qwen3.8-27B",
+      "response_id": "eec3d381eb254896839b9f0087222205",
+      "request_sha256": "5a84354426854509e926fbdbe6d0281a432f0b89673013a4c6af8866b52fddce",
+      "elapsed_seconds": 28.936,
+      "finish_reason": "stop"
+    },
+    {
+      "call_id": "00015-generation-966bb8c9",
+      "stage": "generation",
+      "http_status": 200,
+      "requested_model": "Qwen3.8-27B",
+      "reported_model": "self-dploy/Qwen3.8-27B",
+      "response_id": "0477e516e91e4a8ab1dc82cd8aee899f",
+      "request_sha256": "692e9f9ee3af894ccbdede14cf0e20616f6872a34f6722b4ba5656b7f515a1b2",
+      "elapsed_seconds": 3.089,
+      "finish_reason": "stop"
+    },
+    {
+      "call_id": "00016-analysis-e488ba00",
+      "stage": "analysis",
+      "http_status": 200,
+      "requested_model": "Qwen3.8-27B",
+      "reported_model": "self-dploy/Qwen3.8-27B",
+      "response_id": "bcc4f96001d5486e81debf76ce1b7291",
+      "request_sha256": "d536fa43ff5b44f386757a0ece10bbd94b72092df8bd398c244e5816870687dd",
+      "elapsed_seconds": 20.445,
+      "finish_reason": "stop"
+    },
+    {
+      "call_id": "00017-generation-f957cc10",
+      "stage": "generation",
+      "http_status": 200,
+      "requested_model": "Qwen3.8-27B",
+      "reported_model": "self-dploy/Qwen3.8-27B",
+      "response_id": "af7f24bc90a84e8bb452b510e5015010",
+      "request_sha256": "d28c1c0b7f8791f8291ec08d5d49a687f9197db7429b8d5a2830253630aaa6f1",
+      "elapsed_seconds": 4.405,
+      "finish_reason": "stop"
+    },
+    {
+      "call_id": "00018-generation-cdec469b",
+      "stage": "generation",
+      "http_status": 200,
+      "requested_model": "Qwen3.8-27B",
+      "reported_model": "self-dploy/Qwen3.8-27B",
+      "response_id": "d6a98527ef3d4ab0aae0a0f586f81bbe",
+      "request_sha256": "f8e014b2389e52db19069d10add27141d3c777317090f65108ca5bd40c2cba0d",
+      "elapsed_seconds": 4.015,
+      "finish_reason": "stop"
+    },
+    {
+      "call_id": "00019-analysis-767c8a2e",
+      "stage": "analysis",
+      "http_status": 200,
+      "requested_model": "Qwen3.8-27B",
+      "reported_model": "self-dploy/Qwen3.8-27B",
+      "response_id": "ee96d33aed2d41659f6861b41abfc62d",
+      "request_sha256": "5a84354426854509e926fbdbe6d0281a432f0b89673013a4c6af8866b52fddce",
+      "elapsed_seconds": 26.358,
+      "finish_reason": "stop"
+    },
+    {
+      "call_id": "00020-generation-6eac7de3",
+      "stage": "generation",
+      "http_status": 200,
+      "requested_model": "Qwen3.8-27B",
+      "reported_model": "self-dploy/Qwen3.8-27B",
+      "response_id": "574a9d86c5b94693af8c5522adfe04cd",
+      "request_sha256": "a702e21d1b20b571dc28e5a72f9dd7ecbf836aee64378df7b1bcc9e9b19e26d3",
+      "elapsed_seconds": 3.977,
+      "finish_reason": "stop"
+    },
+    {
+      "call_id": "00021-analysis-e3941504",
+      "stage": "analysis",
+      "http_status": 200,
+      "requested_model": "Qwen3.8-27B",
+      "reported_model": "self-dploy/Qwen3.8-27B",
+      "response_id": "b34b6fdac04f4a579b84f9ca93561d08",
+      "request_sha256": "5a84354426854509e926fbdbe6d0281a432f0b89673013a4c6af8866b52fddce",
+      "elapsed_seconds": 24.855,
+      "finish_reason": "stop"
+    },
+    {
+      "call_id": "00061-generation-8dc3e673",
+      "stage": "generation",
+      "http_status": 200,
+      "requested_model": "Qwen3.8-27B",
+      "reported_model": "self-dploy/Qwen3.8-27B",
+      "response_id": "1be3698766b14ebf9535710a2c5ec432",
+      "request_sha256": "4244bde30c0bbae2a1605ea7c997c570ef7d7717d67984d5eb77f0240f0773a8",
+      "elapsed_seconds": 5.345,
+      "finish_reason": "stop"
+    },
+    {
+      "call_id": "00062-analysis-043178bb",
+      "stage": "analysis",
+      "http_status": 200,
+      "requested_model": "Qwen3.8-27B",
+      "reported_model": "self-dploy/Qwen3.8-27B",
+      "response_id": "15b62fbd21be46ac962b23f2035a81f1",
+      "request_sha256": "5657ad590916ea5bb2a98781388779998fa3d757952095492a0f0ab86d4c3e3f",
+      "elapsed_seconds": 43.519,
+      "finish_reason": "stop"
+    },
+    {
+      "call_id": "00063-generation-d7da37ce",
+      "stage": "generation",
+      "http_status": 500,
+      "requested_model": "Qwen3.8-27B",
+      "reported_model": null,
+      "response_id": null,
+      "request_sha256": "96c3fba10b572d847aeddadebb29f1d2cc4455527d8b680e97bd79faf6161f4b",
+      "elapsed_seconds": 4.76,
+      "finish_reason": null
+    },
+    {
+      "call_id": "00022-generation-068c042a",
+      "stage": "generation",
+      "http_status": 200,
+      "requested_model": "Qwen3.8-27B",
+      "reported_model": "self-dploy/Qwen3.8-27B",
+      "response_id": "08faa076f90d4a2f9137f29e2fee4b7b",
+      "request_sha256": "4d9265e5476cb99a88a6bf7338d1a6d8ccecfdb026f6dd421092c9b7c6d041f7",
+      "elapsed_seconds": 2.681,
+      "finish_reason": "stop"
+    },
+    {
+      "call_id": "00023-analysis-eb5f2fba",
+      "stage": "analysis",
+      "http_status": 200,
+      "requested_model": "Qwen3.8-27B",
+      "reported_model": "self-dploy/Qwen3.8-27B",
+      "response_id": "1a1bd96cab534d0b98b6635c2c8d945a",
+      "request_sha256": "d536fa43ff5b44f386757a0ece10bbd94b72092df8bd398c244e5816870687dd",
+      "elapsed_seconds": 22.141,
+      "finish_reason": "stop"
+    },
+    {
+      "call_id": "00024-generation-1c21353b",
+      "stage": "generation",
+      "http_status": 200,
+      "requested_model": "Qwen3.8-27B",
+      "reported_model": "self-dploy/Qwen3.8-27B",
+      "response_id": "c85d03c6a5a3436797b330bfc50250e4",
+      "request_sha256": "0f7a97fb5923f49e03a3751e7ede6a068b5c72dd02d00df2f71a3e3e1e2c5854",
+      "elapsed_seconds": 3.321,
+      "finish_reason": "stop"
+    },
+    {
+      "call_id": "00025-analysis-2da178a7",
+      "stage": "analysis",
+      "http_status": 200,
+      "requested_model": "Qwen3.8-27B",
+      "reported_model": "self-dploy/Qwen3.8-27B",
+      "response_id": "36058521355f4ce196a7342190991a1b",
+      "request_sha256": "5a84354426854509e926fbdbe6d0281a432f0b89673013a4c6af8866b52fddce",
+      "elapsed_seconds": 24.782,
+      "finish_reason": "stop"
+    },
+    {
+      "call_id": "00026-generation-4a3b59e5",
+      "stage": "generation",
+      "http_status": 200,
+      "requested_model": "Qwen3.8-27B",
+      "reported_model": "self-dploy/Qwen3.8-27B",
+      "response_id": "333d4c437eef460cae332aff758a1779",
+      "request_sha256": "9797fb495a9a47c7446d47dd7ecbc68648692123ee1de9a7d28e846cbe7a1a3a",
+      "elapsed_seconds": 2.503,
+      "finish_reason": "stop"
+    },
+    {
+      "call_id": "00027-analysis-948e4242",
+      "stage": "analysis",
+      "http_status": 200,
+      "requested_model": "Qwen3.8-27B",
+      "reported_model": "self-dploy/Qwen3.8-27B",
+      "response_id": "e42b6bb0c1e54fe3bd124eb38764e817",
+      "request_sha256": "5a84354426854509e926fbdbe6d0281a432f0b89673013a4c6af8866b52fddce",
+      "elapsed_seconds": 23.739,
+      "finish_reason": "stop"
+    },
+    {
+      "call_id": "00028-generation-c1528623",
+      "stage": "generation",
+      "http_status": 200,
+      "requested_model": "Qwen3.8-27B",
+      "reported_model": "self-dploy/Qwen3.8-27B",
+      "response_id": "ed69bd7227674118ad3afa50a24c0e6a",
+      "request_sha256": "e2492a69bac39354385007621e4159b9f1c2584c5781cc45e700642a7f6a9ccb",
+      "elapsed_seconds": 4.359,
+      "finish_reason": "stop"
+    },
+    {
+      "call_id": "00029-analysis-438292bb",
+      "stage": "analysis",
+      "http_status": 200,
+      "requested_model": "Qwen3.8-27B",
+      "reported_model": "self-dploy/Qwen3.8-27B",
+      "response_id": "3c3d772161804bd6835f5d123eaa7e17",
+      "request_sha256": "5a84354426854509e926fbdbe6d0281a432f0b89673013a4c6af8866b52fddce",
+      "elapsed_seconds": 65.466,
+      "finish_reason": "stop"
+    },
+    {
+      "call_id": "00030-generation-35f0f17e",
+      "stage": "generation",
+      "http_status": 200,
+      "requested_model": "Qwen3.8-27B",
+      "reported_model": "self-dploy/Qwen3.8-27B",
+      "response_id": "9d31f459f9ed481ba6aaab489d61dbbc",
+      "request_sha256": "1ab597276812a2807b16c03951dec18fb7b492d71916e07045011d7017388243",
+      "elapsed_seconds": 3.39,
+      "finish_reason": "stop"
+    },
+    {
+      "call_id": "00031-analysis-841aa006",
+      "stage": "analysis",
+      "http_status": 200,
+      "requested_model": "Qwen3.8-27B",
+      "reported_model": "self-dploy/Qwen3.8-27B",
+      "response_id": "0cc684ebf66849ed93dbd50908377b26",
+      "request_sha256": "5a84354426854509e926fbdbe6d0281a432f0b89673013a4c6af8866b52fddce",
+      "elapsed_seconds": 30.994,
+      "finish_reason": "stop"
+    },
+    {
+      "call_id": "00032-generation-3f74efb0",
+      "stage": "generation",
+      "http_status": 200,
+      "requested_model": "Qwen3.8-27B",
+      "reported_model": "self-dploy/Qwen3.8-27B",
+      "response_id": "f8cfa811e55a4e189883aef9aa6c018b",
+      "request_sha256": "7f73beb56fa0fbabdb02df873d6aeee8a70ac6345cf6cd413cb9896a948ee557",
+      "elapsed_seconds": 5.55,
+      "finish_reason": "stop"
+    },
+    {
+      "call_id": "00033-analysis-3334132b",
+      "stage": "analysis",
+      "http_status": 200,
+      "requested_model": "Qwen3.8-27B",
+      "reported_model": "self-dploy/Qwen3.8-27B",
+      "response_id": "f8da98edd9ca4995adbd8ec67f3f2cac",
+      "request_sha256": "d536fa43ff5b44f386757a0ece10bbd94b72092df8bd398c244e5816870687dd",
+      "elapsed_seconds": 25.04,
+      "finish_reason": "stop"
+    },
+    {
+      "call_id": "00034-generation-9731baab",
+      "stage": "generation",
+      "http_status": 200,
+      "requested_model": "Qwen3.8-27B",
+      "reported_model": "self-dploy/Qwen3.8-27B",
+      "response_id": "c9af9bc5c0604c4eae932a28fe98076b",
+      "request_sha256": "e61814269652f8bbdf64b90958d414e4b8a8afd224a0fd9be1077ee76e2a00a0",
+      "elapsed_seconds": 7.913,
+      "finish_reason": "stop"
+    },
+    {
+      "call_id": "00035-analysis-2a7afa24",
+      "stage": "analysis",
+      "http_status": 200,
+      "requested_model": "Qwen3.8-27B",
+      "reported_model": "self-dploy/Qwen3.8-27B",
+      "response_id": "adb4986452184b54a1378d1d0d862e35",
+      "request_sha256": "5a84354426854509e926fbdbe6d0281a432f0b89673013a4c6af8866b52fddce",
+      "elapsed_seconds": 31.04,
+      "finish_reason": "stop"
+    },
+    {
+      "call_id": "00036-generation-e4904fbb",
+      "stage": "generation",
+      "http_status": 200,
+      "requested_model": "Qwen3.8-27B",
+      "reported_model": "self-dploy/Qwen3.8-27B",
+      "response_id": "ae21501425ca40db816df14cb86875b0",
+      "request_sha256": "4afd6c6cae81e06747dda6e0bcaff5719c844a462f9f30e7dde1bba966fdf739",
+      "elapsed_seconds": 5.222,
+      "finish_reason": "stop"
+    },
+    {
+      "call_id": "00037-analysis-eda6a167",
+      "stage": "analysis",
+      "http_status": 200,
+      "requested_model": "Qwen3.8-27B",
+      "reported_model": "self-dploy/Qwen3.8-27B",
+      "response_id": "078222b4d3004ca3ad1ea22eff0794dd",
+      "request_sha256": "d536fa43ff5b44f386757a0ece10bbd94b72092df8bd398c244e5816870687dd",
+      "elapsed_seconds": 23.774,
+      "finish_reason": "stop"
+    },
+    {
+      "call_id": "00038-generation-eb414046",
+      "stage": "generation",
+      "http_status": 200,
+      "requested_model": "Qwen3.8-27B",
+      "reported_model": "self-dploy/Qwen3.8-27B",
+      "response_id": "9eb44d1968354c3aa89351ec6cf5f95f",
+      "request_sha256": "eba1e5be70315244abdd87be7cc2428819356d77f6833dc0039583837ba199ec",
+      "elapsed_seconds": 3.84,
+      "finish_reason": "stop"
+    },
+    {
+      "call_id": "00039-analysis-53e439d7",
+      "stage": "analysis",
+      "http_status": 200,
+      "requested_model": "Qwen3.8-27B",
+      "reported_model": "self-dploy/Qwen3.8-27B",
+      "response_id": "c672f14c3ce54399b1fdbbf0915ad042",
+      "request_sha256": "5a84354426854509e926fbdbe6d0281a432f0b89673013a4c6af8866b52fddce",
+      "elapsed_seconds": 31.277,
+      "finish_reason": "stop"
+    },
+    {
+      "call_id": "00040-generation-38aff52a",
+      "stage": "generation",
+      "http_status": 200,
+      "requested_model": "Qwen3.8-27B",
+      "reported_model": "self-dploy/Qwen3.8-27B",
+      "response_id": "f62c632160644d1ebf5724bbb444f8fd",
+      "request_sha256": "a4ecfa8320c25abdbdc9bc6746ea56a2948c35763fb65d43a68bd0b96e803dfc",
+      "elapsed_seconds": 3.829,
+      "finish_reason": "stop"
+    },
+    {
+      "call_id": "00041-analysis-c6e03696",
+      "stage": "analysis",
+      "http_status": 200,
+      "requested_model": "Qwen3.8-27B",
+      "reported_model": "self-dploy/Qwen3.8-27B",
+      "response_id": "34412916484e4d438801c6662cb31279",
+      "request_sha256": "5a84354426854509e926fbdbe6d0281a432f0b89673013a4c6af8866b52fddce",
+      "elapsed_seconds": 32.176,
+      "finish_reason": "stop"
+    },
+    {
+      "call_id": "00042-generation-a578904a",
+      "stage": "generation",
+      "http_status": 200,
+      "requested_model": "Qwen3.8-27B",
+      "reported_model": "self-dploy/Qwen3.8-27B",
+      "response_id": "68e849804c8849449ed7b8106ea14275",
+      "request_sha256": "3841c554def70bad5660b350a3aed3392327bf7fab616ce77dd4f1255ddc1fa0",
+      "elapsed_seconds": 5.283,
+      "finish_reason": "stop"
+    },
+    {
+      "call_id": "00043-analysis-bdc131ec",
+      "stage": "analysis",
+      "http_status": 200,
+      "requested_model": "Qwen3.8-27B",
+      "reported_model": "self-dploy/Qwen3.8-27B",
+      "response_id": "b267665f9af747a9ac6cc6a57f591f06",
+      "request_sha256": "5657ad590916ea5bb2a98781388779998fa3d757952095492a0f0ab86d4c3e3f",
+      "elapsed_seconds": 53.639,
+      "finish_reason": "stop"
+    },
+    {
+      "call_id": "00044-generation-671a6207",
+      "stage": "generation",
+      "http_status": 200,
+      "requested_model": "Qwen3.8-27B",
+      "reported_model": "self-dploy/Qwen3.8-27B",
+      "response_id": "688dd9842f844ebbbcc3ab4628087367",
+      "request_sha256": "c24bf2d8cbf74d3f279dc800210656e1c0e896a1aad786829d1079444fccc205",
+      "elapsed_seconds": 4.447,
+      "finish_reason": "stop"
+    },
+    {
+      "call_id": "00045-analysis-4fb21dfa",
+      "stage": "analysis",
+      "http_status": 200,
+      "requested_model": "Qwen3.8-27B",
+      "reported_model": "self-dploy/Qwen3.8-27B",
+      "response_id": "bfd6ea55025c4169839791a7538ca5b4",
+      "request_sha256": "5657ad590916ea5bb2a98781388779998fa3d757952095492a0f0ab86d4c3e3f",
+      "elapsed_seconds": 44.266,
+      "finish_reason": "stop"
+    },
+    {
+      "call_id": "00046-generation-84742d66",
+      "stage": "generation",
+      "http_status": 200,
+      "requested_model": "Qwen3.8-27B",
+      "reported_model": "self-dploy/Qwen3.8-27B",
+      "response_id": "d6193410dbe846e7b98bdf3b797bdd46",
+      "request_sha256": "918cbe4099a5cb815b9dbc791375bff44df6182afd8597d20cf8082458e88c81",
+      "elapsed_seconds": 4.398,
+      "finish_reason": "stop"
+    },
+    {
+      "call_id": "00047-analysis-22f70c4e",
+      "stage": "analysis",
+      "http_status": 200,
+      "requested_model": "Qwen3.8-27B",
+      "reported_model": "self-dploy/Qwen3.8-27B",
+      "response_id": "6ba688646ec041ae88f77cdb01ee7570",
+      "request_sha256": "5657ad590916ea5bb2a98781388779998fa3d757952095492a0f0ab86d4c3e3f",
+      "elapsed_seconds": 46.327,
+      "finish_reason": "stop"
+    },
+    {
+      "call_id": "00048-generation-dcc47696",
+      "stage": "generation",
+      "http_status": 200,
+      "requested_model": "Qwen3.8-27B",
+      "reported_model": "self-dploy/Qwen3.8-27B",
+      "response_id": "380125348d584bbd90794f3f4a2adb4f",
+      "request_sha256": "503dc3d58cb7762e817fdb879c72977792f38467fbb0079f1ce48e0f758f30f0",
+      "elapsed_seconds": 4.127,
+      "finish_reason": "stop"
+    },
+    {
+      "call_id": "00049-analysis-d35490e5",
+      "stage": "analysis",
+      "http_status": 200,
+      "requested_model": "Qwen3.8-27B",
+      "reported_model": "self-dploy/Qwen3.8-27B",
+      "response_id": "b9b77445d2eb4078b42b5736c23bb257",
+      "request_sha256": "644c9c4abbbad49a6fa5154bcf9281a8527a926a47c166ff62b60d98eb1e3eab",
+      "elapsed_seconds": 32.423,
+      "finish_reason": "stop"
+    },
+    {
+      "call_id": "00050-generation-da6ef95f",
+      "stage": "generation",
+      "http_status": 200,
+      "requested_model": "Qwen3.8-27B",
+      "reported_model": "self-dploy/Qwen3.8-27B",
+      "response_id": "85ed128a24ef4fadb5cdb8d53fc1d069",
+      "request_sha256": "eac29afc129e18947df3a6e80e05b8b6d2582452515d88c40845693e1a1bbeb3",
+      "elapsed_seconds": 2.553,
+      "finish_reason": "stop"
+    },
+    {
+      "call_id": "00051-analysis-535540b2",
+      "stage": "analysis",
+      "http_status": 200,
+      "requested_model": "Qwen3.8-27B",
+      "reported_model": "self-dploy/Qwen3.8-27B",
+      "response_id": "beb7e282003240728ffe0f7f95328c4e",
+      "request_sha256": "5657ad590916ea5bb2a98781388779998fa3d757952095492a0f0ab86d4c3e3f",
+      "elapsed_seconds": 46.447,
+      "finish_reason": "stop"
+    },
+    {
+      "call_id": "00052-generation-a2ac817e",
+      "stage": "generation",
+      "http_status": 200,
+      "requested_model": "Qwen3.8-27B",
+      "reported_model": "self-dploy/Qwen3.8-27B",
+      "response_id": "f4012312dae6403fbff87f7ac67dc55e",
+      "request_sha256": "5174eb52fd6319f47bf114b10998f63cab8b9650d67bb7a4be827482f7dd540e",
+      "elapsed_seconds": 3.793,
+      "finish_reason": "stop"
+    },
+    {
+      "call_id": "00053-generation-40b23158",
+      "stage": "generation",
+      "http_status": 200,
+      "requested_model": "Qwen3.8-27B",
+      "reported_model": "self-dploy/Qwen3.8-27B",
+      "response_id": "5bef98fa79574224a515e89e658bf150",
+      "request_sha256": "40dceaab6196b7d433b3939e295f794f228e55e66bbf17b3e3c3ee3638b1919d",
+      "elapsed_seconds": 3.504,
+      "finish_reason": "stop"
+    },
+    {
+      "call_id": "00054-analysis-d69964dc",
+      "stage": "analysis",
+      "http_status": 200,
+      "requested_model": "Qwen3.8-27B",
+      "reported_model": "self-dploy/Qwen3.8-27B",
+      "response_id": "b8a587cb8e6e4cafbbfd6a8dc2fba476",
+      "request_sha256": "5657ad590916ea5bb2a98781388779998fa3d757952095492a0f0ab86d4c3e3f",
+      "elapsed_seconds": 45.476,
+      "finish_reason": "stop"
+    },
+    {
+      "call_id": "00055-generation-93e5a0e2",
+      "stage": "generation",
+      "http_status": 200,
+      "requested_model": "Qwen3.8-27B",
+      "reported_model": "self-dploy/Qwen3.8-27B",
+      "response_id": "0a362d1ee13b4c438eddfb2c8cb305b6",
+      "request_sha256": "1d957fca1c4648aa1bab3d6017c53e5e8509515e1154ab6fe9ebfd88d853d7be",
+      "elapsed_seconds": 3.721,
+      "finish_reason": "stop"
+    },
+    {
+      "call_id": "00056-generation-af0676df",
+      "stage": "generation",
+      "http_status": 200,
+      "requested_model": "Qwen3.8-27B",
+      "reported_model": "self-dploy/Qwen3.8-27B",
+      "response_id": "5fdfa08239ad49d39a9e03a9fe9c5bf8",
+      "request_sha256": "9ab9868db88e25226d471cfdf36effaa29f3259c11d6fc7cc1674ebbdca801a6",
+      "elapsed_seconds": 3.383,
+      "finish_reason": "stop"
+    },
+    {
+      "call_id": "00057-analysis-fe3fd7c9",
+      "stage": "analysis",
+      "http_status": 200,
+      "requested_model": "Qwen3.8-27B",
+      "reported_model": "self-dploy/Qwen3.8-27B",
+      "response_id": "a52026c279d5452fa476572657f203a3",
+      "request_sha256": "5657ad590916ea5bb2a98781388779998fa3d757952095492a0f0ab86d4c3e3f",
+      "elapsed_seconds": 62.55,
+      "finish_reason": "stop"
+    },
+    {
+      "call_id": "00058-generation-be5810dd",
+      "stage": "generation",
+      "http_status": 200,
+      "requested_model": "Qwen3.8-27B",
+      "reported_model": "self-dploy/Qwen3.8-27B",
+      "response_id": "c97de0bc31834210b2b89f4df9569652",
+      "request_sha256": "ea0a58f5218371650bb5ab98d109eda3a809955183583931b13f0c7d65f0aa98",
+      "elapsed_seconds": 4.868,
+      "finish_reason": "stop"
+    },
+    {
+      "call_id": "00059-generation-117d2af3",
+      "stage": "generation",
+      "http_status": 200,
+      "requested_model": "Qwen3.8-27B",
+      "reported_model": "self-dploy/Qwen3.8-27B",
+      "response_id": "01c867efed424944bafeb0fc4d8524bc",
+      "request_sha256": "b3ca5c9d4af05a5670570626ad46927d717d9268a62bfd7ca39798f531d11d57",
+      "elapsed_seconds": 3.22,
+      "finish_reason": "stop"
+    },
+    {
+      "call_id": "00060-generation-14e711e1",
+      "stage": "generation",
+      "http_status": 200,
+      "requested_model": "Qwen3.8-27B",
+      "reported_model": "self-dploy/Qwen3.8-27B",
+      "response_id": "284a82bff9fc4c728059f70fb87ed665",
+      "request_sha256": "439b8e1fe52100a821e4e1646cc9ea78bc764a4ce7bc0a196f6969d3f9a85e83",
+      "elapsed_seconds": 8.164,
+      "finish_reason": "stop"
+    }
+  ],
+  "provider_error": {
+    "http_status": 500,
+    "code": "get_channel_failed",
+    "type": "new_api_error",
+    "message": "分组 auto 下模型 Qwen3.8-27B 的可用渠道不存在（retry） (request id: 202610220841039358318168268d9d6HtZnXY58)",
+    "request_id": "202610220841039358318168268d9d6HtZnXY58",
+    "elapsed_seconds": 4.76,
+    "request_sha256": "96c3fba10b572d847aeddadebb29f1d2cc4455527d8b680e97bd79faf6161f4b",
+    "call_id": "00063-generation-d7da37ce",
+    "stage": "generation"
+  },
+  "provider_error_assessment": "Gateway returned get_channel_failed for group auto and Qwen3.8-27B. This is a provider routing/channel availability error, not a transport timeout. A successful short preflight earlier does not establish sustained availability.",
+  "runner_retry_policy": {
+    "automatic_transport_retries": 0,
+    "automatic_cross_slot_replacements": 0,
+    "generation_requests_per_candidate_slot": 3,
+    "max_remembered_rejected_suggestions_per_slot": 3,
+    "retried_attempts": 0,
+    "generation_timeout_seconds": 90,
+    "analysis_timeout_seconds": 180
+  },
+  "duplicate_retry_live_observation": {
+    "policy_exercised": true,
+    "a_s1": "One duplicate candidate was excluded and a later retry produced a novel candidate; the unit reached 10/10 valid candidates.",
+    "b_s2": "Slots 6 and 7 recovered from duplicate suggestions; slot 8 repeated the duplicate structure through all three bounded attempts, leaving 7/10 valid candidates and excluding the unit."
+  },
+  "dvwa": {
+    "http_request_calls": 876,
+    "database_reset_count": 6,
+    "attack_failure": false
+  },
+  "final_slot_status_counts": {
+    "completed": 4,
+    "excluded": 4,
+    "invalid": 1,
+    "planned": 27
+  },
+  "completed_metric_eligible_slots": [
+    "qwen38-api-r5-20261022-a-s1-r1",
+    "qwen38-api-r5-20261022-b-s1-r1",
+    "qwen38-api-r5-20261022-c-s1-r1",
+    "qwen38-api-r5-20261022-c-s2-r1"
+  ],
+  "operational_exclusions": [
+    {
+      "unit_id": "qwen38-api-r5-20261022-b-s2-r1",
+      "reason": "incomplete_candidate_budget"
+    }
+  ],
+  "design_excluded_slots": [
+    "qwen38-api-r5-20261022-c-s10-r1",
+    "qwen38-api-r5-20261022-c-s11-r1",
+    "qwen38-api-r5-20261022-c-s12-r1"
+  ],
+  "formal_metrics_eligible": false,
+  "cohort_complete": false,
+  "result_directory": "results/raw/pilot/qwen38-api-r5-20261022",
+  "ledger_path": "results/raw/pilot/qwen38-api-r5-20261022/ledger.jsonl",
+  "ledger_sha256": "ff6efc981cfb72d31f4481a04c2edaef4781b959e9a4502a7b0eaf185abfc5e9",
+  "checkpoint_path": "results/raw/pilot/qwen38-api-r5-20261022/checkpoint.json",
+  "checkpoint_sha256": "5769735cc6e9f0a36f0dde5e9c0dfcba0ec3aee28604306a117a8914feeb19d1",
+  "execution_result_path": "results/raw/pilot/qwen38-api-r5-20261022/bounded-execution-result.json",
+  "execution_result_sha256": "b78ad1f95850e5bbbdc402bed5f42dfe14b58fc7686b0a64c4155daf4e36ef21",
+  "source_snapshots": [
+    {
+      "path": "results/raw/pilot/qwen38-api-r5-20261022/api-runtime-snapshot.json",
+      "sha256": "9b4a9b78dee43e6716560de612c9150493ca19518a2a1c7e6b51538178bdcb9c"
+    },
+    {
+      "path": "results/raw/pilot/qwen38-api-r5-20261022/explicit-budget.snapshot.json",
+      "sha256": "ad482316adae7af1e57802487d4852733b0f337bbb0b747a28124b26fe6be484"
+    }
+  ],
+  "audit_recorded_at_utc": "2026-10-22T08:44:09+00:00"
+}

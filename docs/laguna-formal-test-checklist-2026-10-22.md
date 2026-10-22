@@ -1,0 +1,131 @@
+# Status dan checklist uji formal API Laguna
+
+- **Pembaruan:** 22 Oktober 2026
+- **Status P4 formal:** belum dimulai.
+- **Cakupan:** DAST black-box SQL injection pada DVWA untuk error-based,
+  boolean-based blind, dan time-based blind. Metrik utama tetap FPR untuk
+  ablasi RAG A/B dan PSR LLM terhadap SecLists.
+
+## Posisi terakhir
+
+- Koneksi dan smoke kontrak Poolside berhasil. Model yang dilaporkan API
+  adalah `poolside/laguna-s-2.1` pada endpoint Poolside.
+- Evaluasi pengembangan P2 Poolside memperoleh agreement 18/18 pada paket
+  kasus yang sudah diketahui. Preflight generasi menghasilkan 6/6 kandidat
+  yang lolos parser dan kebijakan. Keduanya belum merupakan evaluasi formal.
+- Cohort P3 pilot `poolside-s21-p3-r1-20261022` menggunakan satu replikasi.
+  Semua 524 request API mendapat HTTP 200, tetapi enam dari 24 unit LLM A/B
+  tidak mencapai kuota 10 kandidat valid. Unit parsial adalah A/S1, B/S2,
+  B/S4, A/S6, A/S7, dan B/S11. Sembilan slot lain dikecualikan atau selesai
+  sesuai desain; total 27 slot lengkap dan 9 excluded dari 36 slot.
+- Paket review buta pilot telah menerima dan mengimpor 270 anotasi VAL-01:
+  146 `failure` dan 124 `success`. Data sumber dan justifikasi tersimpan lokal
+  di bawah `results/raw/`.
+- Agregasi pilot bersifat diagnostik. PSR C r1 adalah 66/90 atau 73,33%; PSR
+  B r1 belum eligible karena S2 dan S4 tidak lengkap. FPR A r1 tercatat 0/3,
+  tetapi FPR keseluruhan belum eligible karena hanya satu replikasi dan B/S11
+  tidak lengkap. Angka pilot tidak digabung dengan Qwen atau eksperimen formal
+  lokal.
+
+Rujukan: [hasil Poolside P2 dan preflight](hasil-preflight-poolside-2026-10-22.md),
+[hasil P3](poolside-p3-run-2026-10-22.md),
+[paket validasi buta](poolside-p3-blind-review-2026-10-22.md), dan
+[progres harian](progress-2026-10-22.md). Data mentah, CSV VAL-01, mapping
+blind, hasil agregasi terperinci, serta key API tetap lokal dan diabaikan Git.
+
+## Pekerjaan sebelum P4 formal
+
+### 1. Tetapkan perubahan metode
+
+- [ ] Dokumentasikan bahwa provider/model pengujian API berubah ke Poolside
+  Laguna S 2.1, termasuk endpoint, model yang dilaporkan, tanggal, profil,
+  serta batas reprodusibilitas layanan ter-host.
+- [ ] Simpan keputusan pembimbing/peneliti untuk perubahan dari model lokal
+  yang tertulis di proposal. Persetujuan mencoba API belum dengan sendirinya
+  membuktikan amendemen metode formal telah disetujui.
+- [ ] Pisahkan hasil Laguna dari model lokal dan percobaan Qwen. Perubahan
+  provider, model, profil, dan topologi harus dilaporkan bersama; selisih
+  hasil tidak boleh diatribusikan hanya pada provider.
+
+### 2. Bekukan protokol, matriks, dan aturan kelengkapan
+
+- [ ] Tetapkan ID protokol formal dan ID cohort P4 baru. Jangan melanjutkan
+  atau menimpa ID pilot.
+- [ ] Bekukan kondisi A tanpa RAG, B dengan RAG, dan C SecLists; prompt,
+  parameter sampling, batas token, thinking, parser, kebijakan duplikasi,
+  jumlah konfirmasi, urutan run, serta aturan penghentian.
+- [ ] Bekukan perlakuan untuk output tidak valid, duplikat, error transport,
+  unit parsial, abort, dan cohort yang tidak lengkap. Jangan mengganti unit
+  gagal secara diam-diam atau menggabungkan pilot ke replikasi formal.
+- [ ] Matriks tiga replikasi berisi 99 unit yang berlaku: 72 unit A/B dan
+  27 unit C. Targetnya 990 kandidat: 720 A/B dan 270 C. Sembilan slot C pada
+  S10-S12 dikecualikan oleh desain, setara dengan 90 kandidat logis.
+- [ ] Buat budget baru dari hasil pilot aktual dan limit akun terbaru. Ceiling
+  960 request pada berkas pilot hanya berlaku untuk P3 r1, bukan persetujuan
+  atau estimasi biaya P4. Tetapkan batas biaya, token, request, waktu, dan
+  kriteria abort sebelum eksekusi.
+
+### 3. Tuntaskan risiko kelengkapan generasi
+
+- [ ] Audit enam unit parsial dan klasifikasikan penyebab per slot. Semua
+  request provider berhasil, sehingga temuan utama pilot adalah kelengkapan
+  format dan keragaman kandidat, bukan kegagalan transport API.
+- [ ] Perbaiki atau tetapkan kebijakan generasi secara offline. Jika profil
+  diubah, beri versi dan hash baru; jangan mengubahnya setelah P4 dimulai.
+- [ ] Bila perubahan generasi dianggap perlu, jalankan satu qualification
+  pilot terpisah dengan ID, budget, serta kriteria lulus yang dibekukan.
+  Pastikan kasus representatif mencakup tiga teknik dan variasi level DVWA.
+- [ ] Luluskan gate sebelum formal: semua unit qualification mencapai kuota
+  kandidat valid atau aturan eksklusi/kelengkapan yang telah dipreregistrasi
+  menunjukkan bahwa data formal tetap dapat dianalisis.
+
+### 4. Verifikasi layanan dan lingkungan eksperimen
+
+- [ ] Sebelum run, verifikasi key hanya dari penyimpanan lokal, endpoint,
+  model yang dilaporkan, batas konteks, rate limit, kuota, dan harga saat itu.
+  Jangan masukkan key ke Git, log, receipt publik, atau prompt.
+- [ ] Bekukan source hash, dependency lock, adapter, prompt, konfigurasi,
+  korpus, indeks Chroma, embedding lokal, sumber SecLists, dan skema ledger.
+- [ ] Periksa DVWA dan MariaDB lokal, versi, autentikasi, level keamanan,
+  reset database, baseline, timeout, serta urutan kontrol S1-S12.
+- [ ] Siapkan bukti discovery ZAP segar dan cocokkan cakupan empat level DVWA
+  pada tiga replikasi. Rencana awal memerlukan 12 paket discovery, yaitu
+  empat level dikali tiga replikasi.
+- [ ] Pastikan semua request target tetap menuju DVWA lokal. Penelitian tetap
+  dibatasi pada DAST black-box SQLi, bukan XSS atau SAST.
+
+### 5. Jalankan cohort formal dan validasi buta
+
+- [ ] Simpan plan, budget, persetujuan eksekusi, dan hash seluruh input
+  sebelum request pertama. Gunakan ID baru dan aturan retry yang telah
+  dipreregistrasi.
+- [ ] Jalankan tiga replikasi terpisah. Catat setiap request, respons,
+  penggunaan token, latency, reset DVWA, status unit, dan alasan eksklusi.
+- [ ] Setelah kandidat terkunci, buat paket VAL-01 baru dengan randomisasi
+  dan blind mapping baru. Jangan memakai kembali anotasi pilot.
+- [ ] Bekukan cakupan anotasi sebelum membuka mapping. Kandidat B/C untuk PSR
+  mencakup 540 kandidat pada matriks lengkap; importer harus memvalidasi
+  seluruh ID yang memang disertakan dalam paket. Keputusan negatif A/B untuk
+  FPR harus tercakup lengkap pada S10-S12 di ketiga replikasi.
+- [ ] Impor dan audit anotasi, lalu agregasikan PSR/FPR hanya saat seluruh
+  gate cakupan, kelengkapan, dan replikasi terpenuhi.
+
+### 6. Laporkan hasil dan batas interpretasi
+
+- [ ] Laporkan coverage, unit/kandidat yang dikecualikan, error API, latency,
+  token, dan hasil setiap replikasi bersama PSR/FPR.
+- [ ] Pertahankan hasil lokal, Qwen, pilot Laguna, qualification, dan P4
+  sebagai dataset terpisah. Jangan menyebut satu pilot sebagai hasil formal.
+- [ ] Nyatakan bahwa endpoint ter-host dapat berubah, termasuk routing,
+  model alias, metadata, kuota, dan harga. Simpan respons metadata tanggal
+  pengujian tanpa credential.
+- [ ] Tulis metode serta hasil TA berdasarkan implementasi dan data yang
+  benar-benar tervalidasi. Jika gate API belum tercapai, laporkan P4 belum
+  selesai dan gunakan hasil formal lokal sesuai batas proposal.
+
+## Gerbang mulai P4
+
+P4 siap dimulai setelah amendemen metode terdokumentasi, profil generasi dan
+aturan kegagalan dibekukan, kualifikasi kelengkapan lulus, budget/limit akun
+disetujui, lingkungan DVWA lolos pemeriksaan, dan plan tiga replikasi beserta
+paket review VAL-01 dapat direproduksi dari hash yang dipin.
