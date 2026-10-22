@@ -47,6 +47,11 @@
   kandidat valid, dan tiga unit B excluded: S7, S10, S11. Gate tetap gagal,
   tanpa FPR/PSR; rinciannya ada di [laporan Q2](poolside-laguna-qualification-q2-2026-10-22.md)
   dan [evidence Q2](evidence/poolside-laguna-qualification-q2-2026-10-22.json).
+- Audit offline Q2 menemukan S7/S10 gagal setelah JSON tidak valid di slot 10
+  dan dua fallback duplikat terhadap slot 1 dan 9. S11 memiliki enam duplikasi
+  lintas-slot; slot 8 kehabisan tiga percobaan. Ini menunjuk ke family fallback
+  statis dan jumlah bentuk struktural yang terbatas. Detail dan batas
+  interpretasi ada di [audit retry Q2](poolside-laguna-qualification-q2-2026-10-22.md#audit-offline-pola-retry-dan-duplikasi).
 
 Rujukan: [hasil Poolside P2 dan preflight](hasil-preflight-poolside-2026-10-22.md),
 [hasil P3](poolside-p3-run-2026-10-22.md),
@@ -102,13 +107,14 @@ blind, hasil agregasi terperinci, serta key API tetap lokal dan diabaikan Git.
   pilot r1 dan dataset formal.
 - [x] Uji profil B retrieval tanpa `payload_examples` pada cohort Q2 dengan ID
   baru. Hasilnya 21/24 unit lengkap, tetapi tiga unit B masih gagal kuota.
-- [ ] Luluskan gate sebelum formal: semua unit qualification mencapai kuota
-  kandidat valid. Qualification Q2 belum lulus karena B/S7, B/S10, dan B/S11
-  tidak mencapai kuota. Penghapusan contoh mengurangi prompt dan disertai
-  perbaikan deskriptif, tetapi belum membuktikan efek kausal atau memperbaiki
-  semua kegagalan. Audit keragaman kandidat dan fallback sebelum menentukan
-  revisi baru; setiap revisi harus dibekukan dengan ID protocol/cohort baru
-  sebelum menjalankan ulang seluruh 24 unit.
+- [x] Audit keragaman kandidat dan fallback setelah Q2. S7/S10 menunjukkan
+  fallback mengulang bentuk yang telah diterima; S11 menunjukkan duplikasi
+  lintas-slot sampai tiga retry habis. Temuan tidak membuktikan efek kausal RAG.
+- [ ] Revisi dan bekukan family/fallback dengan protocol/cohort ID baru.
+  Tambahkan uji replay offline untuk memastikan fallback memilih bentuk
+  struktural yang belum digunakan, lalu jalankan qualification baru untuk
+  seluruh 24 unit. Gate formal tetap mensyaratkan seluruh unit mencapai kuota
+  kandidat valid; hasil Q2 tidak boleh diisi secara retroaktif.
 
 ### 4. Verifikasi layanan dan lingkungan eksperimen
 

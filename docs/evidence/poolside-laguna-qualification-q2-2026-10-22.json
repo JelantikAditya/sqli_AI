@@ -115,6 +115,42 @@
     "paired_exact_two_sided_p": 0.625,
     "causal_claim": false
   },
+  "offline_failure_event_audit": {
+    "api_requests_sent": 0,
+    "dvwa_requests_sent": 0,
+    "raw_candidate_values_included": false,
+    "duplicate_key_policy": "lowercase; replace numeric literals with <n>; collapse whitespace; compare ordered candidate values",
+    "units": [
+      {
+        "unit": "B/S7",
+        "generated_candidates": 9,
+        "slot_10_primary_status": "invalid_candidate_format",
+        "fallback_statuses": ["duplicate_structure", "duplicate_structure"],
+        "fallback_duplicate_matches": ["B/S7 slot 1", "B/S7 slot 9"]
+      },
+      {
+        "unit": "B/S10",
+        "generated_candidates": 9,
+        "slot_10_primary_status": "invalid_candidate_format",
+        "fallback_statuses": ["duplicate_structure", "duplicate_structure"],
+        "fallback_duplicate_matches": ["B/S10 slot 1", "B/S10 slot 9"]
+      },
+      {
+        "unit": "B/S11",
+        "generated_candidates": 7,
+        "duplicate_rejections": 6,
+        "duplicate_match_slots_by_attempt": [
+          {"slot": 5, "retry": 0, "matches": [4]},
+          {"slot": 7, "retry": 0, "matches": [6]},
+          {"slot": 7, "retry": 1, "matches": [5]},
+          {"slot": 8, "retry": 0, "matches": [3]},
+          {"slot": 8, "retry": 1, "matches": [5]},
+          {"slot": 8, "retry": 2, "matches": [7]}
+        ]
+      }
+    ],
+    "interpretation": "static fallback families can repeat structures already accepted in the same unit; evidence does not isolate a causal RAG effect"
+  },
   "metrics": {
     "fpr_computed": false,
     "psr_computed": false,

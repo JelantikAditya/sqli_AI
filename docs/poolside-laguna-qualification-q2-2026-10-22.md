@@ -90,11 +90,45 @@ gagal. Kegagalan yang tersisa berkaitan dengan format dan keragaman kandidat,
 bukan kegagalan provider. Hasil ini tidak boleh digabung dengan Q1, pilot r1,
 Qwen, atau data model lokal dan tidak boleh disebut hasil formal.
 
-Sebelum P4, tinjau event generasi dan kebijakan keunikan untuk B/S7, B/S10, dan
-B/S11. Jika generator atau retry diubah, bekukan profil serta budget baru dan
-gunakan ID qualification baru. Jangan mengulang hanya tiga unit gagal atau
-mengisi slot Q2 secara retroaktif. Validasi buta dan penghitungan FPR/PSR belum
-dilakukan.
+Validasi buta dan penghitungan FPR/PSR belum dilakukan. Audit lanjutan untuk
+event generasi dan kebijakan keunikan ada di bawah. Jika generator atau retry
+diubah, bekukan profil serta budget baru dan gunakan ID qualification baru.
+Jangan mengulang hanya tiga unit gagal atau mengisi slot Q2 secara retroaktif.
+
+## Audit offline pola retry dan duplikasi
+
+Audit membaca event generasi dan respons API mentah yang sudah tersimpan untuk
+B/S7, B/S10, dan B/S11. Tidak ada request API atau DVWA baru. Parser menilai
+duplikasi dengan membuat structural key dari nilai kandidat: huruf dijadikan
+lowercase, literal angka dan whitespace dinormalisasi, lalu bentuk nilai
+dibandingkan. Respons mentah kandidat tidak disalin ke laporan atau evidence
+yang masuk Git.
+
+- **B/S7 dan B/S10:** masing-masing menghasilkan 9/10 kandidat. Percobaan
+  utama slot 10 menghasilkan JSON tidak valid. Fallback pertama menghasilkan
+  bentuk yang sama dengan kandidat terpilih slot 1; fallback kedua mengulang
+  bentuk slot 9. Kedua unit berhenti setelah dua fallback terkena duplikasi.
+- **B/S11:** menghasilkan 7/10 kandidat, dengan enam respons duplikat pada
+  slot 5, 7, dan 8. Duplikat slot 5 cocok dengan slot 4. Slot 7 pertama cocok
+  dengan slot 6, lalu fallback pertamanya cocok dengan kandidat yang diterima
+  di slot 5; fallback kedua berhasil. Ketiga percobaan slot 8 mengulang bentuk
+  yang telah diterima pada slot 3, 5, dan 7.
+
+Temuan ini mempersempit sumber kegagalan Q2 ke keterbatasan family dan
+penjadwalan fallback: fallback statis dapat meminta bentuk yang sudah terwakili
+di kumpulan kandidat unit, sementara parser dengan benar menolaknya. Untuk
+B/S7 dan B/S10, kegagalan format pada satu respons juga membuat slot terakhir
+bergantung pada dua fallback yang ternyata tidak baru secara struktural.
+Seluruh request provider tetap berhasil, sehingga bukti ini tidak menunjukkan
+gangguan layanan API. Bukti ini juga tidak mengisolasi pengaruh RAG terhadap
+kualitas generasi.
+
+Langkah berikut yang disarankan adalah menyiapkan revisi profil generasi
+ber-ID baru: fallback memilih family yang bentuk ternormalisasinya belum
+dipakai dalam unit, bank family diperluas untuk teknik terkait, dan uji replay
+offline memastikan tidak ada family terduplikasi sebelum plan dibekukan.
+Qualification berikutnya tetap harus menjalankan seluruh 24 unit dengan ID
+baru. Q2 tetap gagal gate dan tidak boleh dilengkapi secara retroaktif.
 
 ## Artefak
 
