@@ -1,7 +1,7 @@
 # Status dan checklist uji formal API Laguna
 
 - **Pembaruan:** 22 Oktober 2026
-- **Status P4 formal:** belum dimulai.
+- **Status P4 formal:** belum dimulai, gate qualification gagal.
 - **Cakupan:** DAST black-box SQL injection pada DVWA untuk error-based,
   boolean-based blind, dan time-based blind. Metrik utama tetap FPR untuk
   ablasi RAG A/B dan PSR LLM terhadap SecLists.
@@ -26,9 +26,14 @@
   tetapi FPR keseluruhan belum eligible karena hanya satu replikasi dan B/S11
   tidak lengkap. Angka pilot tidak digabung dengan Qwen atau eksperimen formal
   lokal.
-- Audit offline terhadap enam unit parsial selesai. Profil generasi v2 dan
-  qualification cohort terpisah sudah disiapkan, tetapi belum dikirim ke API
-  atau DVWA. Gate formal masih menunggu hasil qualification.
+- Qualification `poolside-s21-p3-q1-20261022` telah menjalankan 24/24 unit A/B.
+  Hasilnya 19 unit lengkap dan 5 excluded, dengan 229/240 kandidat valid.
+  Semua 503 request API berhasil pada HTTP 200, tetapi kelengkapan unit tidak
+  mencapai gate 24/24. Kondisi A lengkap 12/12; B hanya 7/12.
+- Qualification gate gagal, sehingga P4 formal belum eligible. Tidak ada
+  FPR/PSR formal dari cohort ini. Rincian unit, penggunaan token, serta sebab
+  eksklusi ada di [laporan qualification Q1](poolside-laguna-qualification-q1-2026-10-22.md)
+  dan [evidence mesin](evidence/poolside-laguna-qualification-q1-2026-10-22.json).
 
 Rujukan: [hasil Poolside P2 dan preflight](hasil-preflight-poolside-2026-10-22.md),
 [hasil P3](poolside-p3-run-2026-10-22.md),
@@ -79,11 +84,13 @@ blind, hasil agregasi terperinci, serta key API tetap lokal dan diabaikan Git.
 - [x] Plan qualification terpisah mencakup semua level DVWA dan tiga teknik,
   dengan 24 unit A/B serta kriteria kelulusan 10 kandidat per unit. Dry-run
   memvalidasi hash dan estimasi budget.
-- [ ] Jalankan qualification cohort terpisah dan evaluasi gate kelengkapan.
-  Hasilnya harus tetap terpisah dari pilot r1 dan dataset formal.
+- [x] Jalankan qualification cohort terpisah dan evaluasi gate kelengkapan.
+  Q1 selesai tetapi gagal gate: 19/24 unit lengkap. Hasil tetap terpisah dari
+  pilot r1 dan dataset formal.
 - [ ] Luluskan gate sebelum formal: semua unit qualification mencapai kuota
-  kandidat valid atau aturan eksklusi/kelengkapan yang telah dipreregistrasi
-  menunjukkan bahwa data formal tetap dapat dianalisis.
+  kandidat valid. Qualification Q1 belum lulus karena lima unit B tidak
+  mencapai kuota; revisi profil harus dibekukan dan diuji dengan ID cohort
+  baru sebelum P4 formal.
 
 ### 4. Verifikasi layanan dan lingkungan eksperimen
 
