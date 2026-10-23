@@ -35,3 +35,9 @@ results/processed/analysis-v5-pilot-r2-execution-20261020/** -text whitespace=cr
 docs/evidence/qwen-api-p2-run00[234]-*.json -text whitespace=cr-at-eol
 docs/evidence/p3-offline-audit-2026-10-21.json -text whitespace=cr-at-eol
 development/qwen_api_p3_pilot_plan.template.json -text whitespace=cr-at-eol
+
+# Keep hash-bound P4 evidence receipts byte-exact across Windows checkouts.
+docs/evidence/poolside-laguna-p4-*.json -text whitespace=cr-at-eol
+docs/evidence/poolside-laguna-q4-v5-live-audit-2026-10-23.json -text whitespace=cr-at-eol
+results/raw/poolside-smoke/20261023T*.json -text whitespace=cr-at-eol
+results/raw/formal-discovery/poolside-laguna-p4-20261023/** -text whitespace=cr-at-eol
