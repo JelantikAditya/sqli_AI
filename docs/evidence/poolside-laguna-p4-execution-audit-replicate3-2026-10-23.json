@@ -1,0 +1,118 @@
+{
+  "schema": "poolside-laguna-p4-replicate3-execution-audit-v1",
+  "experiment_id": "poolside-laguna-p4-20261023",
+  "cohort": "P4 Replicate 3 only",
+  "status": "completed-with-one-incomplete-unit-excluded",
+  "started_at_utc": "2026-10-23T11:43:54.234022+00:00",
+  "completed_at_utc": "2026-10-23T12:37:33.851758+00:00",
+  "authorization": {
+    "execution_approval_path": "docs/evidence/poolside-laguna-p4-execution-approval-replicate3-2026-10-23.json",
+    "execution_approval_sha256": "99c1fb61f2db014fd4194f08c095875f59d90a435a9162a40ec4d45feb573ec9",
+    "release_manifest_path": "docs/evidence/poolside-laguna-p4-release-manifest-replicate3-2026-10-23.json",
+    "release_manifest_sha256": "632ef102c6fc4c179346db15df415eb691452293eeb7611c5b33b098e7230ef7",
+    "maximum_spend_usd": 0,
+    "formal_execution_approval": true
+  },
+  "scope_and_counts": {
+    "planned_ledger_slots": 36,
+    "applicable_units_planned": 33,
+    "design_excluded_c_slots": 3,
+    "applicable_attempts_started": 33,
+    "metric_eligible_units_completed": 32,
+    "metric_eligible_units_expected": 33,
+    "incomplete_candidate_budget_units": 1,
+    "runtime_invalid_units": 0,
+    "automatic_retry_events": 0,
+    "recovered_interrupted_attempts": 0,
+    "formal_design_complete": false
+  },
+  "metric_eligibility": {
+    "eligible_candidate_slots": 320,
+    "planned_candidate_slots": 330,
+    "valid_candidates_executed_including_partial_unit": 329,
+    "partial_unit_candidates_excluded_from_metrics": 9,
+    "decision_records_including_partial_unit": 987,
+    "human_validation_status": "pending",
+    "primary_summary_status": "withheld-until-missing-unit-and-VAL01-policy-are-resolved"
+  },
+  "incomplete_unit": {
+    "scenario_id": "S5",
+    "condition_id": "B",
+    "replicate": 3,
+    "run_id": "run-2b50ac8670be4682",
+    "attempt_id": "attempt-1-1e308be94c",
+    "exclusion_reason": "incomplete_candidate_budget",
+    "expected_candidates": 10,
+    "valid_candidates_executed": 9,
+    "analysis_completed_candidates": 9,
+    "system_decision": "not_evaluable",
+    "metric_eligible": false,
+    "stop_reason": "generation_exhausted",
+    "runtime_failure_code": null,
+    "slot_10_generation_attempts": [
+      {
+        "retry_index": 0,
+        "generation_status": "no_valid_distinct_candidate",
+        "provider_status": "ok",
+        "candidate_outcome": [
+          "duplicate_structure"
+        ]
+      },
+      {
+        "retry_index": 1,
+        "generation_status": "no_valid_distinct_candidate",
+        "provider_status": "ok",
+        "candidate_outcome": [
+          "duplicate_structure"
+        ]
+      },
+      {
+        "retry_index": 2,
+        "generation_status": "no_valid_distinct_candidate",
+        "provider_status": "ok",
+        "candidate_outcome": [
+          "duplicate_structure"
+        ]
+      }
+    ],
+    "interpretation": "All three provider calls for slot 10 returned HTTP 200, but each proposal duplicated an existing candidate structure. Candidate budget was incomplete; this was not a 529 or runtime/token-budget failure."
+  },
+  "provider_and_budget": {
+    "provider": "direct Poolside API only",
+    "model": "poolside/laguna-s-2.1",
+    "openrouter_used": false,
+    "configured_maximum_spend_usd": 0,
+    "api_requests_used": 504,
+    "api_request_ceiling": 960,
+    "api_http_status_counts": {
+      "200": 504
+    },
+    "http_529_count": 0,
+    "completion_tokens_used": 68845,
+    "completion_token_ceiling": 1228800,
+    "usage_totals": {
+      "prompt_tokens": 610192,
+      "completion_tokens": 68845,
+      "total_tokens": 679037
+    },
+    "logical_probe_submissions": 2631,
+    "local_http_request_calls": 7245,
+    "database_resets": 33
+  },
+  "artifact_paths": {
+    "output_root": "results/raw/formal/poolside-laguna-p4-replicate3-20261023",
+    "ledger": "results/raw/formal/poolside-laguna-p4-replicate3-20261023/ledger.jsonl",
+    "checkpoint": "results/raw/formal/poolside-laguna-p4-replicate3-20261023/checkpoint.json",
+    "execution_result": "results/raw/formal/poolside-laguna-p4-replicate3-20261023/poolside-p4-execution-result.json",
+    "plan_snapshot": "results/raw/formal/poolside-laguna-p4-replicate3-20261023/plan.snapshot.json",
+    "runtime_snapshot": "results/raw/formal/poolside-laguna-p4-replicate3-20261023/poolside-p4-runtime.snapshot.json"
+  },
+  "artifact_sha256": {
+    "ledger": "a166bbcb4a5e9491bf192f06950e988262af19e8b75580a1fbbbfdab6274163f",
+    "checkpoint": "52757ad11a47b6297794dec7e722c2e061085c10a9d6eddf1c5d250d3c4e48d1",
+    "execution_result": "f704c0b2db7b1ada8330ff3a62b697db50c79258bc59726bc9f5b33cbc5ec137",
+    "plan_snapshot": "535186c934ee5bbb3c423b4f27757805b3af66ebfdcc7cc56b0e1a77f03de4be",
+    "runtime_snapshot": "4add2bc400351c123addef2fa204eb647dbeac4f5b7caca5417ae5015f98191f"
+  },
+  "execution_started": true
+}

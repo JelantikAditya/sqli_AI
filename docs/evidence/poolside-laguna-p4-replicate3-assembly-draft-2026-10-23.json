@@ -1,7 +1,7 @@
 {
   "schema": "poolside-laguna-p4-replicate3-assembly-v1",
   "experiment_id": "poolside-laguna-p4-20261023",
-  "status": "ready-for-execution-approval",
+  "status": "executed-with-one-unit-excluded-pending-recovery-decision",
   "researcher_requested_scope": "reuse Recovery1 replicates 1-2 and run the remaining complete replicate3 block only",
   "reuse": {
     "path": "docs/evidence/poolside-laguna-p4-reuse-audit-rep1-2-recovery1-2026-10-23.json",
@@ -24,7 +24,22 @@
     "ledger_slots": 36,
     "applicable_units": 33,
     "design_excluded_c_slots": 3,
-    "output": "results/raw/formal/poolside-laguna-p4-replicate3-20261023"
+    "output": "results/raw/formal/poolside-laguna-p4-replicate3-20261023",
+    "observed": {
+      "ledger_slots": 36,
+      "design_excluded_c_slots": 3,
+      "applicable_units_planned": 33,
+      "metric_eligible_units_completed": 32,
+      "incomplete_budget_units": 1,
+      "invalid_units": 0,
+      "valid_candidates_including_partial": 329,
+      "metric_eligible_candidates": 320,
+      "api_requests": 504,
+      "local_http_requests": 7245,
+      "database_resets": 33,
+      "execution_result_path": "results/raw/formal/poolside-laguna-p4-replicate3-20261023/poolside-p4-execution-result.json",
+      "execution_audit_path": "docs/evidence/poolside-laguna-p4-execution-audit-replicate3-2026-10-23.json"
+    }
   },
   "exclusions": {
     "recovery1_replicate3": {
@@ -47,7 +62,7 @@
     "candidate_slots": 990,
     "logical_confirmations": 2970
   },
-  "formal_execution_authorized": false,
+  "formal_execution_authorized": true,
   "api_requests_sent_during_package_prep": 2,
   "dvwa_requests_sent_during_package_prep": 79,
   "openrouter_used": false,
@@ -64,7 +79,12 @@
     "preflight_receipt": "7db31b1717a2d7c01af9ab42ffd30b9dfabdac245861d9c99f6904f293db89d1",
     "snapshot_check": "1d13d3f05f3d67fb3713f413cb3c9a876c5844bd0df36b3c04ac8a2add1edca3",
     "release_manifest": "632ef102c6fc4c179346db15df415eb691452293eeb7611c5b33b098e7230ef7",
-    "execution_ready": "4fc3a9a2a9532c926151223bc166b4fbf3b164e7febc5b2db0752e071173de17"
+    "execution_ready": "4fc3a9a2a9532c926151223bc166b4fbf3b164e7febc5b2db0752e071173de17",
+    "execution_approval": "99c1fb61f2db014fd4194f08c095875f59d90a435a9162a40ec4d45feb573ec9",
+    "execution_audit": "77ece4d4fda870c5dc4aeb45ac7cf6e77b12537dc4416540282990a4c920ac11",
+    "execution_result": "f704c0b2db7b1ada8330ff3a62b697db50c79258bc59726bc9f5b33cbc5ec137",
+    "execution_ledger": "a166bbcb4a5e9491bf192f06950e988262af19e8b75580a1fbbbfdab6274163f",
+    "execution_checkpoint": "52757ad11a47b6297794dec7e722c2e061085c10a9d6eddf1c5d250d3c4e48d1"
   },
   "freeze_receipt_candidate": {
     "formal_plan_sha256": "34a3c7fd3eefb3bd6e4fb6819816e7f659b40e2bcd10a72412ab68b1da07d025",
@@ -136,5 +156,38 @@
     "ready_for_formal": true,
     "formal_execution_authorized": false,
     "gates_passed": 10
+  },
+  "formal_execution": {
+    "status": "completed-with-one-incomplete-unit-excluded",
+    "approval_path": "docs/evidence/poolside-laguna-p4-execution-approval-replicate3-2026-10-23.json",
+    "approval_sha256": "99c1fb61f2db014fd4194f08c095875f59d90a435a9162a40ec4d45feb573ec9",
+    "release_sha256": "632ef102c6fc4c179346db15df415eb691452293eeb7611c5b33b098e7230ef7",
+    "audit_path": "docs/evidence/poolside-laguna-p4-execution-audit-replicate3-2026-10-23.json",
+    "audit_sha256": "77ece4d4fda870c5dc4aeb45ac7cf6e77b12537dc4416540282990a4c920ac11",
+    "execution_result_sha256": "f704c0b2db7b1ada8330ff3a62b697db50c79258bc59726bc9f5b33cbc5ec137",
+    "completed_units": 32,
+    "expected_applicable_units": 33,
+    "excluded_partial_units": 1,
+    "invalid_units": 0,
+    "api_requests": 504,
+    "api_529_responses": 0,
+    "completion_tokens": 68845,
+    "completion_token_ceiling": 1228800,
+    "openrouter_used": false,
+    "maximum_spend_usd": 0,
+    "human_validation": "pending"
+  },
+  "observed_composite_before_final_validation": {
+    "reused_recovery1_replicates_1_2_units": 66,
+    "new_replicate3_metric_eligible_units": 32,
+    "total_metric_eligible_units": 98,
+    "planned_composite_units": 99,
+    "incomplete_candidate_budget_unit": {
+      "scenario_id": "S5",
+      "condition_id": "B",
+      "replicate": 3,
+      "included_in_metrics": false
+    },
+    "final_analysis_validation": "pending VAL-01 and frozen inclusion rules"
   }
 }
