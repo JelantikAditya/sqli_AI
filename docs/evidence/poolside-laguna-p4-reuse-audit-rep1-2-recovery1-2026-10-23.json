@@ -7,7 +7,7 @@
   "source_release_manifest_sha256": "64768eb6389193b7cab2393aca5ac30026edf76f3b2d571ccd881db9711c755c",
   "source_stop_evidence_sha256": "bcc288e7dd7190d968164f59abd2a971ba9f5fd63b4b9ef47d1ca1791de27605",
   "audit_scope": "artifact-completeness and transport integrity for replicate 1 and replicate 2; this is not final VAL-01 adjudication",
-  "status": "audit-issues-found",
+  "status": "66-artifact-sets-complete; final-analysis-validation-pending",
   "summary": {
     "replicate_1_completed_units": 33,
     "replicate_2_completed_units": 33,
@@ -47,9 +47,10 @@
       "invalid": 1,
       "planned_not_started": 22
     },
-    "audit_issue_count": 6,
+    "audit_issue_count": 0,
     "final_analysis_ready": false,
-    "final_analysis_readiness_reason": "VAL-01/human review remains pending for 48 LLM units; per-unit eligibility outcomes must follow the frozen analysis rules."
+    "final_analysis_readiness_reason": "VAL-01/human review remains pending for 48 LLM units; per-unit eligibility outcomes must follow the frozen analysis rules.",
+    "expected_excluded_c_slots_in_replicates_1_2": 6
   },
   "future_block_assembly_policy_candidate": {
     "retain_recovery1_replicates": [
@@ -1324,36 +1325,10 @@
       "runtime_invalid_count": 0
     }
   ],
-  "audit_issues": [
-    {
-      "unit_id": "poolside-laguna-p4-20261023-c-s10-r1",
-      "issue": "status-not-completed",
-      "status": "excluded"
-    },
-    {
-      "unit_id": "poolside-laguna-p4-20261023-c-s11-r1",
-      "issue": "status-not-completed",
-      "status": "excluded"
-    },
-    {
-      "unit_id": "poolside-laguna-p4-20261023-c-s12-r1",
-      "issue": "status-not-completed",
-      "status": "excluded"
-    },
-    {
-      "unit_id": "poolside-laguna-p4-20261023-c-s10-r2",
-      "issue": "status-not-completed",
-      "status": "excluded"
-    },
-    {
-      "unit_id": "poolside-laguna-p4-20261023-c-s11-r2",
-      "issue": "status-not-completed",
-      "status": "excluded"
-    },
-    {
-      "unit_id": "poolside-laguna-p4-20261023-c-s12-r2",
-      "issue": "status-not-completed",
-      "status": "excluded"
-    }
-  ]
+  "audit_issues": [],
+  "supersedes_previous_sha256": "392b0f105d088999b95793a50bb153bfca2832bf62e3a39492aaa6a5620e1901",
+  "correction": {
+    "reason": "The initial audit pass counted six intentionally excluded condition-C slots (S10-S12 in replicates 1-2) as issues. They are expected design exclusions, not failed runs.",
+    "corrected_at_utc": "2026-10-23T11:20:00+00:00"
+  }
 }
