@@ -1,0 +1,61 @@
+{
+  "schema": "poolside-laguna-p4-a-s12-r2-execution-proposal-v1",
+  "status": "awaiting-explicit-user-formal-execution-approval",
+  "created_at_utc": "2026-10-23T14:19:25.131170+00:00",
+  "created_at_local_wib": "2026-10-23T21:19:25.131170+07:00",
+  "amendment_id": "p4-a-s12-r2-amend1",
+  "decision": "pending-user-approval",
+  "package_sha256": "cd789af2359cf1dd498d49520b6d1fb76ef842a8b365b409f3f315973d9392ba",
+  "method_approval_sha256": "e3ad476d3631d8a014ed7a9a9b1d95b2ed969792f7153e39a374be6f82b7df07",
+  "freeze_approval_path": "docs/evidence/poolside-laguna-p4-a-s12-r2-freeze-approval-2026-10-23.json",
+  "freeze_approval_sha256": "5a34f51ab4b21987e423cee2e2ee1231e70f52c9220a74289131552cb4698e22",
+  "amendment_sha256": "85008387e889533dd4236b78a3b1648fb16949852b9a30bc987177a8aa3209e0",
+  "plan_sha256": "9e24b7558bb221d6677a317f9a64ddd25385bdebc9ec5687ee2ab803c297d091",
+  "budget_sha256": "5e4ce0729c9b2f2e9c5f4521ff6805b14bbb093e9e743feaf2e0aa10bde408c3",
+  "source_protocol_sha256": "f08249f0cba6f45d01d87e560d9ef472430ab8484bcf565b8515bf63d874bf1b",
+  "sensitivity_only": true,
+  "frozen_primary_result_changes": false,
+  "maximum_spend_usd": 0,
+  "api_call_ceiling": 40,
+  "completion_token_ceiling": 51200,
+  "wall_time_ceiling_seconds": 2700,
+  "provider_model": {
+    "provider": "direct Poolside API only",
+    "api_base_url": "https://inference.poolside.ai/v1",
+    "model": "poolside/laguna-s-2.1",
+    "openrouter_allowed": false,
+    "latest_key_smoke_path": "results/raw/poolside-smoke/20261023T113310424083Z.json",
+    "latest_key_smoke_sha256": "599a064ceba6e31e448829ad5edce1e60275bba91253e041a41658c5dce7a676"
+  },
+  "unit_scope": {
+    "condition_id": "A",
+    "scenario_id": "S12",
+    "replicate": 2,
+    "database_resets": 1,
+    "candidate_budget": 10
+  },
+  "output_path": "results/raw/formal/poolside-p4-a-s12-r2-amend1-20261023",
+  "controls": {
+    "confirm_local_dvwa": false,
+    "confirm_database_reset": false,
+    "confirm_zero_spend": false,
+    "automatic_transport_retries": 0,
+    "automatic_unit_replacements": 0,
+    "model_fallback": false,
+    "openrouter_allowed": false
+  },
+  "execution_authorized": false,
+  "approval_text": "Saya menyetujui eksekusi formal sensitivitas P4 A/S12/R2 yang terikat pada hash proposal ini, dengan satu reset database DVWA lokal, maksimum 40 request API, maksimum 51.200 completion token, dan maksimum 2.700 detik. Batas biaya USD 0 bergantung pada API dan akun Poolside yang tetap gratis; saya memahami runner tidak memiliki hard cap dolar secara teknis. Tidak ada retry atau penggantian kedua, dan hasil primer U05 tidak berubah.",
+  "approval_note": "Do not start execution until the user explicitly approves this exact execution proposal. If any provider charge, quota issue, target mismatch, or hash mismatch occurs, stop.",
+  "cost_enforcement_disclosure": {
+    "maximum_spend_usd": 0,
+    "basis": "User-reported Poolside API/account is currently free.",
+    "local_hard_dollar_cap_available": false,
+    "runner_enforced_limits": [
+      "40 API calls",
+      "51,200 completion tokens",
+      "2,700 seconds"
+    ],
+    "execution_condition": "Do not run unless the Poolside endpoint and account are still free. Stop if pricing, account status, or any charge is uncertain or indicates non-free service."
+  }
+}

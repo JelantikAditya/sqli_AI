@@ -1,0 +1,77 @@
+{
+  "schema": "poolside-laguna-p4-targeted-sensitivity-budget-v1",
+  "status": "draft-not-frozen-not-executable",
+  "amendment_id": "p4-a-s12-r2-amend1",
+  "amendment_path": "development/poolside_laguna_p4_a_s12_r2_amendment_20261023.json",
+  "amendment_sha256": "85008387e889533dd4236b78a3b1648fb16949852b9a30bc987177a8aa3209e0",
+  "plan_path": "development/poolside_laguna_p4_a_s12_r2_plan_20261023.json",
+  "plan_sha256": "9e24b7558bb221d6677a317f9a64ddd25385bdebc9ec5687ee2ab803c297d091",
+  "source_release_sha256": "64768eb6389193b7cab2393aca5ac30026edf76f3b2d571ccd881db9711c755c",
+  "source_formal_plan_sha256": "4b4d5bb3a8a23801ad31bf5ba6e27cca4e9c47c4fc579c08079d39461277267e",
+  "source_protocol_sha256": "f08249f0cba6f45d01d87e560d9ef472430ab8484bcf565b8515bf63d874bf1b",
+  "source_protocol_candidate_sha256": "12b2d704c07248bedff35e9459cb074c1ffa94b3c66a09cb80b67cecb969e3ee",
+  "scope": {
+    "condition_ids": [
+      "A"
+    ],
+    "scenario_ids": [
+      "S12"
+    ],
+    "replicates": [
+      2
+    ],
+    "applicable_units": 1,
+    "candidate_budget": 10,
+    "logical_confirmations": 30,
+    "database_resets": 1
+  },
+  "provider_model": {
+    "provider": "direct Poolside API only",
+    "api_base_url": "https://inference.poolside.ai/v1",
+    "model": "poolside/laguna-s-2.1",
+    "openrouter_allowed": false,
+    "latest_key_smoke_path": "results/raw/poolside-smoke/20261023T113310424083Z.json",
+    "latest_key_smoke_sha256": "599a064ceba6e31e448829ad5edce1e60275bba91253e041a41658c5dce7a676"
+  },
+  "hard_ceilings": {
+    "api_call_ceiling": 40,
+    "generation_requests_ceiling": 30,
+    "analysis_requests_ceiling": 10,
+    "generation_max_tokens": 1024,
+    "analysis_max_tokens": 2048,
+    "completion_token_ceiling": 51200,
+    "api_wall_time_ceiling_seconds": 2700,
+    "automatic_transport_retries": 0,
+    "automatic_unit_replacements": 0,
+    "model_fallback": false
+  },
+  "token_ceiling_derivation": "30 maximum generation requests x 1,024 plus 10 maximum analysis requests x 2,048 equals 51,200 completion tokens.",
+  "spend": {
+    "maximum_spend_usd": 0,
+    "policy": "Free-only. Stop if provider status, model price, account status, or any charge indicates non-free service."
+  },
+  "execution_controls": {
+    "planned_database_reset": 1,
+    "fresh_login_required": true,
+    "read_credentials_during_dry_run": false,
+    "formal_execution_authorized": false,
+    "required_approvals": [
+      "separate researcher and adviser methodological approval for the post-result sensitivity analysis",
+      "separate hash-bound amendment freeze approval",
+      "separate hash-bound formal execution approval"
+    ]
+  },
+  "abort_conditions": [
+    "methodological approval is absent or does not bind the post-result sensitivity treatment",
+    "source ledger, original analysis, diagnostic, VAL-01 metrics, discovery report, P4 plan, budget, protocol, release, or runtime hashes differ",
+    "reported model differs from poolside/laguna-s-2.1",
+    "HTTP status, finish reason, or response schema is invalid",
+    "API request, completion-token, or wall-time ceiling is reached",
+    "provider quota or rate limit is reached",
+    "request would exceed maximum spend USD 0",
+    "local DVWA origin, authentication, Impossible level, baseline, or one reset fails",
+    "ten-candidate budget is incomplete or a candidate remains structurally duplicate",
+    "the output directory already exists"
+  ],
+  "formal_execution_authorized": false
+}

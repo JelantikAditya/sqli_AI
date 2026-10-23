@@ -1,0 +1,93 @@
+{
+  "schema": "poolside-laguna-p4-fpr-targeted-amendment-draft-v1",
+  "amendment_id": "p4-a-s12-r2-amend1",
+  "status": "draft-needs-methodological-approval-not-executable",
+  "purpose": "Prepare a separately reported amended FPR analysis for the completed but inconclusive A/S12/R2 unit without changing the frozen U05 result.",
+  "source": {
+    "diagnostic_path": "docs/evidence/poolside-p4-a-r2-s12-fpr-abstention-diagnostic-2026-10-23.json",
+    "diagnostic_sha256": "81274ae01bfa25e489ad70ccad9236bbd6fe7378a89c83d4dbdd1a6cc52e5773",
+    "current_val01_metrics_path": "results/raw/formal-review/poolside-laguna-p4-20261023-val01-batch01/metrics-P4-VAL01.json",
+    "current_val01_metrics_sha256": "fd3ffac9c06ebb941ae9bc027ea9d941b55ac902409bfe0ca6164f2bd494c136",
+    "source_execution_ledger_path": "results/raw/formal/poolside-laguna-p4-recovery1-20261023/ledger.jsonl",
+    "source_execution_ledger_sha256": "8fd08a2d093fd6f9ec5c76651554225203cc0a6cbc466b13a9763b66a746260c",
+    "source_adaptive_result_sha256": "5decd0673de618987cf9956ec6a96202422fd11caa04ada3afbf2ab90711f3d1",
+    "frozen_release_sha256": "64768eb6389193b7cab2393aca5ac30026edf76f3b2d571ccd881db9711c755c",
+    "frozen_formal_plan_sha256": "4b4d5bb3a8a23801ad31bf5ba6e27cca4e9c47c4fc579c08079d39461277267e",
+    "frozen_budget_sha256": "0944ae8e15f2c914758e546d1408148d55df7780e76b43141d8c4ab233e48aae",
+    "frozen_protocol_sha256": "f08249f0cba6f45d01d87e560d9ef472430ab8484bcf565b8515bf63d874bf1b",
+    "frozen_protocol_candidate_sha256": "12b2d704c07248bedff35e9459cb074c1ffa94b3c66a09cb80b67cecb969e3ee"
+  },
+  "source_unit": {
+    "condition_id": "A",
+    "scenario_id": "S12",
+    "replicate": 2,
+    "original_run_status": "completed",
+    "original_system_decision": "inconclusive",
+    "original_fpr_replicate_eligible": false,
+    "original_candidate_count": 10
+  },
+  "proposed_treatment": {
+    "original_artifacts": "Preserve all raw records, analyses, annotations, and hashes unchanged.",
+    "primary_frozen_result": "Keep the original A/R2/S12 abstention and current U05 FPR A withheld status unchanged.",
+    "amended_analysis": "If separately approved, exclude the original A/R2/S12 run only from the explicitly labeled amended sensitivity matrix and include one complete isolated replacement unit. Do not merge candidate sets.",
+    "replacement_inclusion": "Require ten distinct candidates, all required analyses and confirmations complete, and the frozen unit eligibility check to pass.",
+    "failure_policy": "If replacement is incomplete, invalid, or inconclusive, the amended FPR A remains ineligible. No automatic retry or second replacement is authorized.",
+    "post_result_selection_risk": "This is a post-result amendment because the original complete run was inconclusive. Retain and report the frozen primary result alongside the amendment. Obtain researcher and adviser methodological approval before freeze."
+  },
+  "unit_scope": {
+    "condition_ids": ["A"],
+    "scenario_ids": ["S12"],
+    "replicates": [2],
+    "units": 1,
+    "candidates_per_unit": 10,
+    "supplement_experiment_id": "poolside-p4-a-s12-r2-amend1",
+    "supplement_output_path": "results/raw/formal/poolside-p4-a-s12-r2-amend1-20261023"
+  },
+  "implementation_artifacts": {
+    "plan_path": "development/poolside_laguna_p4_a_s12_r2_plan_20261023.json",
+    "budget_path": "development/poolside_laguna_p4_a_s12_r2_budget_20261023.json",
+    "runner_path": "development/run_poolside_laguna_p4_a_s12_r2_amendment.py",
+    "package_path": "docs/evidence/poolside-laguna-p4-a-s12-r2-amendment-package-2026-10-23.json",
+    "readiness_path": "docs/evidence/poolside-laguna-p4-a-s12-r2-amendment-readiness-2026-10-23.json"
+  },
+  "proposed_budget": {
+    "provider": "direct Poolside API only",
+    "model": "poolside/laguna-s-2.1",
+    "openrouter_allowed": false,
+    "api_call_ceiling": 40,
+    "generation_requests_ceiling": 30,
+    "analysis_requests_ceiling": 10,
+    "generation_max_tokens": 1024,
+    "analysis_max_tokens": 2048,
+    "completion_token_ceiling": 51200,
+    "api_wall_time_ceiling_seconds": 2700,
+    "maximum_spend_usd": 0,
+    "database_resets_ceiling": 1,
+    "automatic_transport_retries": 0,
+    "automatic_unit_replacements": 0,
+    "model_fallback": false
+  },
+  "metric_outcomes_if_amended_replacement_is_eligible": {
+    "negative": "FPR A replicate 2 is 0/3 and the three-replicate A mean is 0%.",
+    "positive": "FPR A replicate 2 is 1/3 and the three-replicate A mean is 11.11%.",
+    "inconclusive_or_invalid": "FPR A remains ineligible."
+  },
+  "review_and_assembly": {
+    "val01_annotation_for_fpr_calculation": "not used by the FPR formula",
+    "full_cohort_revalidation": "If the amended cohort is used for the full 990-candidate validation report, create a blinded addendum for the ten replacement candidates and exclude the ten superseded annotations from that amended cohort mapping. Preserve both original and amended annotation files.",
+    "cohort_rule": "Keep the original frozen cohort and amended sensitivity cohort as separate, hash-bound analyses."
+  },
+  "method_changes_to_frozen_primary": false,
+  "formal_execution_authorized": false,
+  "amendment_freeze_approved": false,
+  "methodological_approval_recorded": false,
+  "required_approvals": [
+    "explicit researcher approval of the post-result amended-analysis treatment",
+    "adviser methodological approval recorded for the amended analysis",
+    "separate hash-bound amendment freeze approval",
+    "separate hash-bound formal execution approval"
+  ],
+  "api_requests_sent_during_draft_preparation": 0,
+  "dvwa_requests_sent_during_draft_preparation": 0,
+  "database_resets_during_draft_preparation": 0
+}

@@ -1,0 +1,33 @@
+{
+  "schema": "poolside-laguna-p4-a-s12-r2-researcher-method-decision-v1",
+  "status": "researcher-approved-adviser-pending",
+  "recorded_at_utc": "2026-10-23T14:14:53.851128+00:00",
+  "recorded_at_local_wib": "2026-10-23T21:14:53.851128+07:00",
+  "amendment_id": "p4-a-s12-r2-amend1",
+  "approval_level": "researcher-only; this is not joint researcher-adviser methodological approval",
+  "user_response_quote": "okeh saya setuju",
+  "decision": "approved-for-sensitivity-only-post-result-treatment",
+  "scope": {
+    "condition_id": "A",
+    "scenario_id": "S12",
+    "replicate": 2,
+    "preserve_frozen_primary_result": true,
+    "sensitivity_only": true,
+    "candidate_sets_must_remain_separate": true,
+    "allow_primary_fpr_replacement": false,
+    "automatic_retry_or_second_replacement": false
+  },
+  "package_sha256": "cd789af2359cf1dd498d49520b6d1fb76ef842a8b365b409f3f315973d9392ba",
+  "amendment_sha256": "85008387e889533dd4236b78a3b1648fb16949852b9a30bc987177a8aa3209e0",
+  "plan_sha256": "9e24b7558bb221d6677a317f9a64ddd25385bdebc9ec5687ee2ab803c297d091",
+  "budget_sha256": "5e4ce0729c9b2f2e9c5f4521ff6805b14bbb093e9e743feaf2e0aa10bde408c3",
+  "adviser_approval": {
+    "status": "pending",
+    "approval_recorded": false
+  },
+  "amendment_freeze_approved": false,
+  "formal_execution_approved": false,
+  "api_requests_sent": 0,
+  "dvwa_requests_sent": 0,
+  "database_resets": 0
+}

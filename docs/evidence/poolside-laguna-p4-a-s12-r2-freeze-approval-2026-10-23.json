@@ -1,0 +1,37 @@
+{
+  "schema": "poolside-laguna-p4-a-s12-r2-freeze-approval-v1",
+  "status": "approved-freeze-execution-not-approved",
+  "decision": "approved-for-p4-a-s12-r2-amendment-freeze",
+  "package_sha256": "cd789af2359cf1dd498d49520b6d1fb76ef842a8b365b409f3f315973d9392ba",
+  "amendment_sha256": "85008387e889533dd4236b78a3b1648fb16949852b9a30bc987177a8aa3209e0",
+  "plan_sha256": "9e24b7558bb221d6677a317f9a64ddd25385bdebc9ec5687ee2ab803c297d091",
+  "budget_sha256": "5e4ce0729c9b2f2e9c5f4521ff6805b14bbb093e9e743feaf2e0aa10bde408c3",
+  "source_protocol_sha256": "f08249f0cba6f45d01d87e560d9ef472430ab8484bcf565b8515bf63d874bf1b",
+  "sensitivity_only": true,
+  "frozen_primary_result_changes": false,
+  "formal_amendment_freeze": true,
+  "formal_execution_approval": false,
+  "method_approval_sha256": "e3ad476d3631d8a014ed7a9a9b1d95b2ed969792f7153e39a374be6f82b7df07",
+  "freeze_proposal_sha256": "09ba0d51e5bffcacd143dd1966d10ecb3b36a6587a00c2d3ccaca47d7420ad3a",
+  "approved_at_utc": "2026-10-23T14:19:25.131170+00:00",
+  "approved_at_local_wib": "2026-10-23T21:19:25.131170+07:00",
+  "scope": {
+    "condition_id": "A",
+    "scenario_id": "S12",
+    "replicate": 2,
+    "candidate_budget": 10,
+    "output_path": "results/raw/formal/poolside-p4-a-s12-r2-amend1-20261023"
+  },
+  "maximum_spend_usd": 0,
+  "authority": {
+    "role": "researcher",
+    "basis": "explicit-user-approval",
+    "approved_at_local": "2026-10-23T21:19:25.131170+07:00",
+    "quote": "saya setuju lanjutkan",
+    "context": "Explicit response to the hash-bound freeze proposal."
+  },
+  "execution_authorized": false,
+  "api_requests_sent": 0,
+  "dvwa_requests_sent": 0,
+  "database_resets": 0
+}
