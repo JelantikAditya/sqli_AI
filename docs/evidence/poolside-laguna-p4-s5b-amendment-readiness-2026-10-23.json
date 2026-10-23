@@ -1,0 +1,49 @@
+{
+  "schema": "poolside-laguna-p4-s5b-amendment-readiness-v1",
+  "created_at_utc": "2026-10-23T12:49:31.638357+00:00",
+  "status": "ready-for-amendment-freeze-review",
+  "amendment_id": "p4-s5b-r3-amend1",
+  "package_sha256": "2fb01d014eac3ac1b6cc51b9f098d5001c49fced1458f6f36137fbd8439caaae",
+  "amendment_sha256": "93d30bdc5fb27c9246161567ab096005227af5bcd671372f32d6fb3d77c27fcf",
+  "plan_sha256": "9e4c37cc13866ff7c25aa0ed59b99f487816aa961bbd5357ad9b408d0dde26cb",
+  "budget_sha256": "91d2d05847fc5c375a165111d13cc91fe5099586b14203e79901d2ceba022b5e",
+  "protocol_sha256": "f08249f0cba6f45d01d87e560d9ef472430ab8484bcf565b8515bf63d874bf1b",
+  "source_unit": {
+    "scenario_id": "S5",
+    "condition_id": "B",
+    "replicate": 3,
+    "original_candidates": 9,
+    "required_candidates": 10,
+    "original_attempt_metric_eligible": false
+  },
+  "planned_supplement_units": 1,
+  "planned_api_calls_ceiling": 40,
+  "planned_completion_token_ceiling": 51200,
+  "maximum_spend_usd": 0,
+  "planned_database_resets": 1,
+  "output_path": "results/raw/formal/poolside-p4-s5b-r3-amend1-20261023",
+  "approval_state": "pending-separate-freeze-and-execution-approval",
+  "formal_execution_authorized": false,
+  "execution_started": false,
+  "api_requests_sent": 0,
+  "dvwa_requests_sent": 0,
+  "credentials_read": false,
+  "openrouter_used": false,
+  "source_checks": {
+    "attempt_id": "attempt-1-1e308be94c",
+    "completed_candidates": 9,
+    "candidate_budget": 10,
+    "metric_eligible": false,
+    "source_ledger_sha256": "a166bbcb4a5e9491bf192f06950e988262af19e8b75580a1fbbbfdab6274163f",
+    "source_result_sha256": "f704c0b2db7b1ada8330ff3a62b697db50c79258bc59726bc9f5b33cbc5ec137"
+  },
+  "gates": {
+    "original-p4-frozen-inputs": "passed",
+    "original-partial-unit-audited": "passed",
+    "single-unit-plan-s5-b-r3": "passed",
+    "frozen-method-and-snapshot-preserved": "passed",
+    "zero-spend-bounded-budget": "passed",
+    "separate-amendment-freeze-approval": "pending",
+    "separate-formal-execution-approval": "pending"
+  }
+}

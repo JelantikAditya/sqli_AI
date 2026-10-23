@@ -38,6 +38,8 @@ development/qwen_api_p3_pilot_plan.template.json -text whitespace=cr-at-eol
 
 # Keep hash-bound P4 evidence receipts byte-exact across Windows checkouts.
 docs/evidence/poolside-laguna-p4-*.json -text whitespace=cr-at-eol
+development/poolside_laguna_p4_s5b_*.json -text whitespace=cr-at-eol
+docs/usulan-amendemen-terarah-p4-s5b-r3-2026-10-23.md -text
 docs/evidence/poolside-laguna-q4-v5-live-audit-2026-10-23.json -text whitespace=cr-at-eol
 results/raw/poolside-smoke/20261023T*.json -text whitespace=cr-at-eol
 results/raw/formal-discovery/poolside-laguna-p4-20261023/** -text whitespace=cr-at-eol
