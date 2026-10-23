@@ -1,7 +1,7 @@
 {
   "schema": "poolside-laguna-p4-replicate3-assembly-v1",
   "experiment_id": "poolside-laguna-p4-20261023",
-  "status": "targeted-amendment-prepared-awaiting-approval",
+  "status": "targeted-amendment-frozen-awaiting-execution-approval",
   "researcher_requested_scope": "reuse Recovery1 replicates 1-2 and run the remaining complete replicate3 block only",
   "reuse": {
     "path": "docs/evidence/poolside-laguna-p4-reuse-audit-rep1-2-recovery1-2026-10-23.json",
@@ -192,7 +192,7 @@
   },
   "targeted_amendment": {
     "amendment_id": "p4-s5b-r3-amend1",
-    "status": "draft-ready-for-freeze-review",
+    "status": "frozen-awaiting-separate-execution-approval",
     "document_path": "docs/usulan-amendemen-terarah-p4-s5b-r3-2026-10-23.md",
     "amendment_path": "development/poolside_laguna_p4_s5b_amendment_20261023.json",
     "amendment_sha256": "93d30bdc5fb27c9246161567ab096005227af5bcd671372f32d6fb3d77c27fcf",
@@ -213,10 +213,13 @@
     "completion_token_ceiling": 51200,
     "maximum_spend_usd": 0,
     "output_path": "results/raw/formal/poolside-p4-s5b-r3-amend1-20261023",
-    "amendment_freeze_approval": "pending",
+    "amendment_freeze_approval": "approved",
     "formal_execution_approval": "pending",
     "formal_execution_authorized": false,
     "dry_run_api_requests": 0,
-    "dry_run_dvwa_requests": 0
+    "dry_run_dvwa_requests": 0,
+    "amendment_freeze_approval_path": "docs/evidence/poolside-laguna-p4-s5b-amendment-freeze-approval-2026-10-23.json",
+    "amendment_freeze_approval_sha256": "80d606cdb5902a6daf06c93fbdf026ea2c6c202429c83a7caf091ddeeb559b49",
+    "readiness_stage": "pre-freeze dry-run; no API or DVWA calls"
   }
 }
