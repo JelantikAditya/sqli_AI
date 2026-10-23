@@ -1,0 +1,437 @@
+{
+  "schema": "poolside-laguna-p4-offline-readiness-v1",
+  "created_at_utc": "2026-10-23T08:36:28.584307+00:00",
+  "experiment_id": "poolside-laguna-p4-20261023",
+  "status": "blocked-not-execution-ready",
+  "plan_sha256": "4b4d5bb3a8a23801ad31bf5ba6e27cca4e9c47c4fc579c08079d39461277267e",
+  "budget_sha256": "b5775e38d5f4c4c50ab30e4c4ee325caecbef4827eca7e6afc5d7df02ea5fe8f",
+  "protocol_sha256": "f08249f0cba6f45d01d87e560d9ef472430ab8484bcf565b8515bf63d874bf1b",
+  "method_decision_sha256": "fe9c346d8992bdfb54877b599877d32742f72a706a03cfe3c26c7dec1ec113a7",
+  "archive_check": {
+    "passed": true,
+    "files": {
+      "data/vectorstore/sqli-knowledge-ec9d1b2feda12dd3/chroma.sqlite3": {
+        "expected_sha256": "32684a5b90b1f4ce81abfbf47b20182dcab1abe76ecdb4cdb47b8c3430f6a9d8",
+        "observed_sha256": "32684a5b90b1f4ce81abfbf47b20182dcab1abe76ecdb4cdb47b8c3430f6a9d8",
+        "matches": true
+      },
+      "data/vectorstore/sqli-knowledge-ec9d1b2feda12dd3/manifest.json": {
+        "expected_sha256": "e00baf7e2af3e25ea6011a4e9cea2c19bd6122c7592e576ea8400e97786a24bd",
+        "observed_sha256": "e00baf7e2af3e25ea6011a4e9cea2c19bd6122c7592e576ea8400e97786a24bd",
+        "matches": true
+      },
+      "data/vectorstore/sqli-knowledge-ec9d1b2feda12dd3/4176542f-e8f6-4a46-8652-598aedaf3721/data_level0.bin": {
+        "expected_sha256": "4f436e3e7f8625e846b7cff2b4532265da6926cead44b56134349ca0edbb6fdd",
+        "observed_sha256": "4f436e3e7f8625e846b7cff2b4532265da6926cead44b56134349ca0edbb6fdd",
+        "matches": true
+      },
+      "data/vectorstore/sqli-knowledge-ec9d1b2feda12dd3/4176542f-e8f6-4a46-8652-598aedaf3721/header.bin": {
+        "expected_sha256": "03cb3ac86f3e5bcb15e88b9bf99f760ec6b33e31d64a699e129b49868db6d733",
+        "observed_sha256": "03cb3ac86f3e5bcb15e88b9bf99f760ec6b33e31d64a699e129b49868db6d733",
+        "matches": true
+      },
+      "data/vectorstore/sqli-knowledge-ec9d1b2feda12dd3/4176542f-e8f6-4a46-8652-598aedaf3721/length.bin": {
+        "expected_sha256": "fcb1dae9ff0777ddad43e748fa01c59d180a8a1d1014d4acae17cd29dd9d16c3",
+        "observed_sha256": "fcb1dae9ff0777ddad43e748fa01c59d180a8a1d1014d4acae17cd29dd9d16c3",
+        "matches": true
+      },
+      "data/vectorstore/sqli-knowledge-ec9d1b2feda12dd3/4176542f-e8f6-4a46-8652-598aedaf3721/link_lists.bin": {
+        "expected_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "observed_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "matches": true
+      }
+    },
+    "copy_test": null
+  },
+  "discovery_check": {
+    "passed": true,
+    "expected_scenario_replicate_pairs": 36,
+    "unique_reports": 12,
+    "reports": {
+      "S1/r1": {
+        "passed": true,
+        "path": "results/raw/formal-discovery/poolside-laguna-p4-20261023/replicate-1/low/zap-discovery.normalized.json",
+        "sha256": "ed7fd8a0b0b2b70e1aeb3e8c2cfdf5c3b3b7b22dbd5b152f2ddb92d602d6b214",
+        "age_hours": 1.1495598808333334,
+        "authentication_status": "verified",
+        "target_origin": "http://dvwa",
+        "out_of_level_observation_count": 1
+      },
+      "S1/r2": {
+        "passed": true,
+        "path": "results/raw/formal-discovery/poolside-laguna-p4-20261023/replicate-2/low/zap-discovery.normalized.json",
+        "sha256": "de297f6719299c0e776ed45d155798fbb8301e725c427cd54771674fa4df8461",
+        "age_hours": 1.0165160727777778,
+        "authentication_status": "verified",
+        "target_origin": "http://dvwa",
+        "out_of_level_observation_count": 1
+      },
+      "S1/r3": {
+        "passed": true,
+        "path": "results/raw/formal-discovery/poolside-laguna-p4-20261023/replicate-3/low/zap-discovery.normalized.json",
+        "sha256": "6c3b52a8ad2aa3d663e3734736beda957b63914260bd43cfbd6f012081d3f53e",
+        "age_hours": 0.8875062538888888,
+        "authentication_status": "verified",
+        "target_origin": "http://dvwa",
+        "out_of_level_observation_count": 1
+      },
+      "S2/r1": {
+        "passed": true,
+        "path": "results/raw/formal-discovery/poolside-laguna-p4-20261023/replicate-1/low/zap-discovery.normalized.json",
+        "sha256": "ed7fd8a0b0b2b70e1aeb3e8c2cfdf5c3b3b7b22dbd5b152f2ddb92d602d6b214",
+        "age_hours": 1.1495598808333334,
+        "authentication_status": "verified",
+        "target_origin": "http://dvwa",
+        "out_of_level_observation_count": 1
+      },
+      "S2/r2": {
+        "passed": true,
+        "path": "results/raw/formal-discovery/poolside-laguna-p4-20261023/replicate-2/low/zap-discovery.normalized.json",
+        "sha256": "de297f6719299c0e776ed45d155798fbb8301e725c427cd54771674fa4df8461",
+        "age_hours": 1.0165160727777778,
+        "authentication_status": "verified",
+        "target_origin": "http://dvwa",
+        "out_of_level_observation_count": 1
+      },
+      "S2/r3": {
+        "passed": true,
+        "path": "results/raw/formal-discovery/poolside-laguna-p4-20261023/replicate-3/low/zap-discovery.normalized.json",
+        "sha256": "6c3b52a8ad2aa3d663e3734736beda957b63914260bd43cfbd6f012081d3f53e",
+        "age_hours": 0.8875062538888888,
+        "authentication_status": "verified",
+        "target_origin": "http://dvwa",
+        "out_of_level_observation_count": 1
+      },
+      "S3/r1": {
+        "passed": true,
+        "path": "results/raw/formal-discovery/poolside-laguna-p4-20261023/replicate-1/low/zap-discovery.normalized.json",
+        "sha256": "ed7fd8a0b0b2b70e1aeb3e8c2cfdf5c3b3b7b22dbd5b152f2ddb92d602d6b214",
+        "age_hours": 1.1495598808333334,
+        "authentication_status": "verified",
+        "target_origin": "http://dvwa",
+        "out_of_level_observation_count": 1
+      },
+      "S3/r2": {
+        "passed": true,
+        "path": "results/raw/formal-discovery/poolside-laguna-p4-20261023/replicate-2/low/zap-discovery.normalized.json",
+        "sha256": "de297f6719299c0e776ed45d155798fbb8301e725c427cd54771674fa4df8461",
+        "age_hours": 1.0165160727777778,
+        "authentication_status": "verified",
+        "target_origin": "http://dvwa",
+        "out_of_level_observation_count": 1
+      },
+      "S3/r3": {
+        "passed": true,
+        "path": "results/raw/formal-discovery/poolside-laguna-p4-20261023/replicate-3/low/zap-discovery.normalized.json",
+        "sha256": "6c3b52a8ad2aa3d663e3734736beda957b63914260bd43cfbd6f012081d3f53e",
+        "age_hours": 0.8875062538888888,
+        "authentication_status": "verified",
+        "target_origin": "http://dvwa",
+        "out_of_level_observation_count": 1
+      },
+      "S4/r1": {
+        "passed": true,
+        "path": "results/raw/formal-discovery/poolside-laguna-p4-20261023/replicate-1/medium/zap-discovery.normalized.json",
+        "sha256": "c496bf02983bd24c1e9370dd2fcaf1634feef7b902b49f341be7e13898a472dc",
+        "age_hours": 1.1121529902777778,
+        "authentication_status": "verified",
+        "target_origin": "http://dvwa",
+        "out_of_level_observation_count": 1
+      },
+      "S4/r2": {
+        "passed": true,
+        "path": "results/raw/formal-discovery/poolside-laguna-p4-20261023/replicate-2/medium/zap-discovery.normalized.json",
+        "sha256": "8b9cace9a90d9d73d34d05688e792505b65b53593b51b65f8efb1f9a132285c1",
+        "age_hours": 0.983067663888889,
+        "authentication_status": "verified",
+        "target_origin": "http://dvwa",
+        "out_of_level_observation_count": 1
+      },
+      "S4/r3": {
+        "passed": true,
+        "path": "results/raw/formal-discovery/poolside-laguna-p4-20261023/replicate-3/medium/zap-discovery.normalized.json",
+        "sha256": "0ff5b1bc8b74ff09543d0606bd27564d59728fde9bf5ccb71a1917e8936c2c6d",
+        "age_hours": 0.8551880244444444,
+        "authentication_status": "verified",
+        "target_origin": "http://dvwa",
+        "out_of_level_observation_count": 1
+      },
+      "S5/r1": {
+        "passed": true,
+        "path": "results/raw/formal-discovery/poolside-laguna-p4-20261023/replicate-1/medium/zap-discovery.normalized.json",
+        "sha256": "c496bf02983bd24c1e9370dd2fcaf1634feef7b902b49f341be7e13898a472dc",
+        "age_hours": 1.1121529902777778,
+        "authentication_status": "verified",
+        "target_origin": "http://dvwa",
+        "out_of_level_observation_count": 1
+      },
+      "S5/r2": {
+        "passed": true,
+        "path": "results/raw/formal-discovery/poolside-laguna-p4-20261023/replicate-2/medium/zap-discovery.normalized.json",
+        "sha256": "8b9cace9a90d9d73d34d05688e792505b65b53593b51b65f8efb1f9a132285c1",
+        "age_hours": 0.983067663888889,
+        "authentication_status": "verified",
+        "target_origin": "http://dvwa",
+        "out_of_level_observation_count": 1
+      },
+      "S5/r3": {
+        "passed": true,
+        "path": "results/raw/formal-discovery/poolside-laguna-p4-20261023/replicate-3/medium/zap-discovery.normalized.json",
+        "sha256": "0ff5b1bc8b74ff09543d0606bd27564d59728fde9bf5ccb71a1917e8936c2c6d",
+        "age_hours": 0.8551880244444444,
+        "authentication_status": "verified",
+        "target_origin": "http://dvwa",
+        "out_of_level_observation_count": 1
+      },
+      "S6/r1": {
+        "passed": true,
+        "path": "results/raw/formal-discovery/poolside-laguna-p4-20261023/replicate-1/medium/zap-discovery.normalized.json",
+        "sha256": "c496bf02983bd24c1e9370dd2fcaf1634feef7b902b49f341be7e13898a472dc",
+        "age_hours": 1.1121529902777778,
+        "authentication_status": "verified",
+        "target_origin": "http://dvwa",
+        "out_of_level_observation_count": 1
+      },
+      "S6/r2": {
+        "passed": true,
+        "path": "results/raw/formal-discovery/poolside-laguna-p4-20261023/replicate-2/medium/zap-discovery.normalized.json",
+        "sha256": "8b9cace9a90d9d73d34d05688e792505b65b53593b51b65f8efb1f9a132285c1",
+        "age_hours": 0.983067663888889,
+        "authentication_status": "verified",
+        "target_origin": "http://dvwa",
+        "out_of_level_observation_count": 1
+      },
+      "S6/r3": {
+        "passed": true,
+        "path": "results/raw/formal-discovery/poolside-laguna-p4-20261023/replicate-3/medium/zap-discovery.normalized.json",
+        "sha256": "0ff5b1bc8b74ff09543d0606bd27564d59728fde9bf5ccb71a1917e8936c2c6d",
+        "age_hours": 0.8551880244444444,
+        "authentication_status": "verified",
+        "target_origin": "http://dvwa",
+        "out_of_level_observation_count": 1
+      },
+      "S7/r1": {
+        "passed": true,
+        "path": "results/raw/formal-discovery/poolside-laguna-p4-20261023/replicate-1/high/zap-discovery.normalized.json",
+        "sha256": "2856944410e1505b6937bc26bb6f3fedae46a9a15c35dc0c576a64b3b9f0ab68",
+        "age_hours": 1.079592526111111,
+        "authentication_status": "verified",
+        "target_origin": "http://dvwa",
+        "out_of_level_observation_count": 0
+      },
+      "S7/r2": {
+        "passed": true,
+        "path": "results/raw/formal-discovery/poolside-laguna-p4-20261023/replicate-2/high/zap-discovery.normalized.json",
+        "sha256": "52b24dd71d0e760347565d7f433ee30deff680e16e8a63148e1d5efa6aaed118",
+        "age_hours": 0.9517183419444445,
+        "authentication_status": "verified",
+        "target_origin": "http://dvwa",
+        "out_of_level_observation_count": 0
+      },
+      "S7/r3": {
+        "passed": true,
+        "path": "results/raw/formal-discovery/poolside-laguna-p4-20261023/replicate-3/high/zap-discovery.normalized.json",
+        "sha256": "3d0d47ea0e7c21f2268b27cacd3b768fc88f237ddfd41e5c0766ffed04b02542",
+        "age_hours": 0.8238560022222222,
+        "authentication_status": "verified",
+        "target_origin": "http://dvwa",
+        "out_of_level_observation_count": 0
+      },
+      "S8/r1": {
+        "passed": true,
+        "path": "results/raw/formal-discovery/poolside-laguna-p4-20261023/replicate-1/high/zap-discovery.normalized.json",
+        "sha256": "2856944410e1505b6937bc26bb6f3fedae46a9a15c35dc0c576a64b3b9f0ab68",
+        "age_hours": 1.079592526111111,
+        "authentication_status": "verified",
+        "target_origin": "http://dvwa",
+        "out_of_level_observation_count": 0
+      },
+      "S8/r2": {
+        "passed": true,
+        "path": "results/raw/formal-discovery/poolside-laguna-p4-20261023/replicate-2/high/zap-discovery.normalized.json",
+        "sha256": "52b24dd71d0e760347565d7f433ee30deff680e16e8a63148e1d5efa6aaed118",
+        "age_hours": 0.9517183419444445,
+        "authentication_status": "verified",
+        "target_origin": "http://dvwa",
+        "out_of_level_observation_count": 0
+      },
+      "S8/r3": {
+        "passed": true,
+        "path": "results/raw/formal-discovery/poolside-laguna-p4-20261023/replicate-3/high/zap-discovery.normalized.json",
+        "sha256": "3d0d47ea0e7c21f2268b27cacd3b768fc88f237ddfd41e5c0766ffed04b02542",
+        "age_hours": 0.8238560022222222,
+        "authentication_status": "verified",
+        "target_origin": "http://dvwa",
+        "out_of_level_observation_count": 0
+      },
+      "S9/r1": {
+        "passed": true,
+        "path": "results/raw/formal-discovery/poolside-laguna-p4-20261023/replicate-1/high/zap-discovery.normalized.json",
+        "sha256": "2856944410e1505b6937bc26bb6f3fedae46a9a15c35dc0c576a64b3b9f0ab68",
+        "age_hours": 1.079592526111111,
+        "authentication_status": "verified",
+        "target_origin": "http://dvwa",
+        "out_of_level_observation_count": 0
+      },
+      "S9/r2": {
+        "passed": true,
+        "path": "results/raw/formal-discovery/poolside-laguna-p4-20261023/replicate-2/high/zap-discovery.normalized.json",
+        "sha256": "52b24dd71d0e760347565d7f433ee30deff680e16e8a63148e1d5efa6aaed118",
+        "age_hours": 0.9517183419444445,
+        "authentication_status": "verified",
+        "target_origin": "http://dvwa",
+        "out_of_level_observation_count": 0
+      },
+      "S9/r3": {
+        "passed": true,
+        "path": "results/raw/formal-discovery/poolside-laguna-p4-20261023/replicate-3/high/zap-discovery.normalized.json",
+        "sha256": "3d0d47ea0e7c21f2268b27cacd3b768fc88f237ddfd41e5c0766ffed04b02542",
+        "age_hours": 0.8238560022222222,
+        "authentication_status": "verified",
+        "target_origin": "http://dvwa",
+        "out_of_level_observation_count": 0
+      },
+      "S10/r1": {
+        "passed": true,
+        "path": "results/raw/formal-discovery/poolside-laguna-p4-20261023/replicate-1/impossible/zap-discovery.normalized.json",
+        "sha256": "a6895a0644293b203fcd0ffd84783bd0438c2b8a6f37c22c086330fac833bec3",
+        "age_hours": 1.0474962958333334,
+        "authentication_status": "verified",
+        "target_origin": "http://dvwa",
+        "out_of_level_observation_count": 3
+      },
+      "S10/r2": {
+        "passed": true,
+        "path": "results/raw/formal-discovery/poolside-laguna-p4-20261023/replicate-2/impossible/zap-discovery.normalized.json",
+        "sha256": "a3c0199ffb059e8c672d5a0b8417711cb2c31c75ec6795ad4d81f5de5d94431d",
+        "age_hours": 0.9188770466666666,
+        "authentication_status": "verified",
+        "target_origin": "http://dvwa",
+        "out_of_level_observation_count": 3
+      },
+      "S10/r3": {
+        "passed": true,
+        "path": "results/raw/formal-discovery/poolside-laguna-p4-20261023/replicate-3/impossible/zap-discovery.normalized.json",
+        "sha256": "ac12c4b830a79244ef87fd6947ccad33be41ade40d5e88fd4271a0df06de4803",
+        "age_hours": 0.7926140708333334,
+        "authentication_status": "verified",
+        "target_origin": "http://dvwa",
+        "out_of_level_observation_count": 3
+      },
+      "S11/r1": {
+        "passed": true,
+        "path": "results/raw/formal-discovery/poolside-laguna-p4-20261023/replicate-1/impossible/zap-discovery.normalized.json",
+        "sha256": "a6895a0644293b203fcd0ffd84783bd0438c2b8a6f37c22c086330fac833bec3",
+        "age_hours": 1.0474962958333334,
+        "authentication_status": "verified",
+        "target_origin": "http://dvwa",
+        "out_of_level_observation_count": 3
+      },
+      "S11/r2": {
+        "passed": true,
+        "path": "results/raw/formal-discovery/poolside-laguna-p4-20261023/replicate-2/impossible/zap-discovery.normalized.json",
+        "sha256": "a3c0199ffb059e8c672d5a0b8417711cb2c31c75ec6795ad4d81f5de5d94431d",
+        "age_hours": 0.9188770466666666,
+        "authentication_status": "verified",
+        "target_origin": "http://dvwa",
+        "out_of_level_observation_count": 3
+      },
+      "S11/r3": {
+        "passed": true,
+        "path": "results/raw/formal-discovery/poolside-laguna-p4-20261023/replicate-3/impossible/zap-discovery.normalized.json",
+        "sha256": "ac12c4b830a79244ef87fd6947ccad33be41ade40d5e88fd4271a0df06de4803",
+        "age_hours": 0.7926140708333334,
+        "authentication_status": "verified",
+        "target_origin": "http://dvwa",
+        "out_of_level_observation_count": 3
+      },
+      "S12/r1": {
+        "passed": true,
+        "path": "results/raw/formal-discovery/poolside-laguna-p4-20261023/replicate-1/impossible/zap-discovery.normalized.json",
+        "sha256": "a6895a0644293b203fcd0ffd84783bd0438c2b8a6f37c22c086330fac833bec3",
+        "age_hours": 1.0474962958333334,
+        "authentication_status": "verified",
+        "target_origin": "http://dvwa",
+        "out_of_level_observation_count": 3
+      },
+      "S12/r2": {
+        "passed": true,
+        "path": "results/raw/formal-discovery/poolside-laguna-p4-20261023/replicate-2/impossible/zap-discovery.normalized.json",
+        "sha256": "a3c0199ffb059e8c672d5a0b8417711cb2c31c75ec6795ad4d81f5de5d94431d",
+        "age_hours": 0.9188770466666666,
+        "authentication_status": "verified",
+        "target_origin": "http://dvwa",
+        "out_of_level_observation_count": 3
+      },
+      "S12/r3": {
+        "passed": true,
+        "path": "results/raw/formal-discovery/poolside-laguna-p4-20261023/replicate-3/impossible/zap-discovery.normalized.json",
+        "sha256": "ac12c4b830a79244ef87fd6947ccad33be41ade40d5e88fd4271a0df06de4803",
+        "age_hours": 0.7926140708333334,
+        "authentication_status": "verified",
+        "target_origin": "http://dvwa",
+        "out_of_level_observation_count": 3
+      }
+    }
+  },
+  "formal_output_path": "results/raw/formal/poolside-laguna-p4-recovery1-20261023",
+  "qwen_local_formal_path": "results/raw/formal/formal-sqli-v1-20261017",
+  "gates": [
+    {
+      "gate_id": "p4-runner-and-pinned-inputs",
+      "status": "passed",
+      "evidence": "P4 standard plan, separate draft protocol, budget, method receipt, and runtime source hashes validate offline."
+    },
+    {
+      "gate_id": "approved-snapshot-isolation",
+      "status": "passed",
+      "evidence": "Six archived files match their approved hashes; Chroma access is confined to per-attempt copies."
+    },
+    {
+      "gate_id": "generator-qualification",
+      "status": "passed",
+      "evidence": "Q4 v5 receipt is 24/24 but formal_eligible=false, so it remains qualification only."
+    },
+    {
+      "gate_id": "local-qwen-results-preserved",
+      "status": "passed",
+      "evidence": "The prior local-Qwen formal cohort remains at its original, separate output path."
+    },
+    {
+      "gate_id": "fresh-discovery-and-review",
+      "status": "open",
+      "evidence": "Freshness check found 12/12 unique reports; hash-bound technical review validated=False."
+    },
+    {
+      "gate_id": "direct-provider-free-quota-and-continuity",
+      "status": "passed",
+      "evidence": "Current direct smoke reports the exact model free=True; the researcher confirms the new account quota/rate limit and formal run are safe, and acknowledges the 31 October 2026 shutdown notice. Confirmation valid=True; the account console limit was not independently read. Zero spend policy=0."
+    },
+    {
+      "gate_id": "dvwa-formal-preflight",
+      "status": "passed",
+      "evidence": "P4 local preflight receipt is valid=True; target, one database reset, authenticated forms at four levels, benign baseline timing, and source hashes are checked."
+    },
+    {
+      "gate_id": "protocol-freeze",
+      "status": "open",
+      "evidence": "The P4 protocol remains a draft until its hash-bound researcher freeze approval is recorded."
+    },
+    {
+      "gate_id": "formal-execution-release",
+      "status": "open",
+      "evidence": "A released P4 manifest is present; the separate hash-bound execution approval remains the final execution check."
+    },
+    {
+      "gate_id": "val01-blind-review",
+      "status": "deferred-by-design",
+      "evidence": "The new VAL-01 packet is built only after P4 candidate IDs are locked."
+    }
+  ],
+  "execution_authorized": false,
+  "execution_started": false,
+  "api_requests_sent": 0,
+  "dvwa_requests_sent": 0,
+  "credentials_read": false,
+  "openrouter_used": false
+}

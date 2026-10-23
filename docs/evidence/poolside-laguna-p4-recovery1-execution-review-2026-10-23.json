@@ -1,0 +1,43 @@
+{
+  "schema": "poolside-laguna-p4-recovery1-execution-review-v1",
+  "created_at_utc": "2026-10-23T08:41:15.880879+00:00",
+  "status": "ready-for-hash-bound-execution-approval",
+  "experiment_id": "poolside-laguna-p4-20261023",
+  "release_manifest_path": "docs/evidence/poolside-laguna-p4-release-manifest-recovery1-2026-10-23.json",
+  "release_manifest_sha256": "64768eb6389193b7cab2393aca5ac30026edf76f3b2d571ccd881db9711c755c",
+  "freeze_receipt_sha256": "1d263649e6b74d449246bf6906a8691ee682ac2adfe8768c6cfd661307c49121",
+  "formal_plan_sha256": "4b4d5bb3a8a23801ad31bf5ba6e27cca4e9c47c4fc579c08079d39461277267e",
+  "budget_sha256": "0944ae8e15f2c914758e546d1408148d55df7780e76b43141d8c4ab233e48aae",
+  "protocol_sha256": "f08249f0cba6f45d01d87e560d9ef472430ab8484bcf565b8515bf63d874bf1b",
+  "controls": {
+    "provider": "direct Poolside API only",
+    "model": "poolside/laguna-s-2.1",
+    "maximum_spend_usd": 0,
+    "api_call_ceiling": 2880,
+    "completion_token_ceiling": 3686400,
+    "openrouter_used": false,
+    "local_target": "http://127.0.0.1:4280",
+    "database_reset_required": true,
+    "output_path": "results/raw/formal/poolside-laguna-p4-recovery1-20261023",
+    "prior_partial_attempt_reused": false
+  },
+  "verification": {
+    "release_status": "released",
+    "ready_for_formal": true,
+    "all_release_gates_passed": true,
+    "runner_readiness_status": "ready-for-execution-approval",
+    "freeze_schema_validation": "passed",
+    "execution_schema_sample_validation": "passed",
+    "execution_receipt_present": false,
+    "execution_authorized": false,
+    "execution_started": false,
+    "api_requests_sent_during_review": 0,
+    "dvwa_requests_sent_during_review": 0,
+    "credentials_read": false,
+    "openrouter_used": false
+  },
+  "requested_researcher_decision": {
+    "decision": "approve formal execution for this exact recovery release with USD 0 maximum spend",
+    "suggested_reply": "Saya menyetujui eksekusi formal recovery P4 dengan batas USD 0 dan release hash 64768eb6389193b7cab2393aca5ac30026edf76f3b2d571ccd881db9711c755c."
+  }
+}

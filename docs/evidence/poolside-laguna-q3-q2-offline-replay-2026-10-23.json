@@ -1,0 +1,315 @@
+{
+  "schema": "poolside-laguna-q2-v4-offline-replay-v1",
+  "source_experiment_id": "poolside-s21-p3-q2-20261022",
+  "replay_profile": "poolside-laguna-sqli-generation-v4-unit-wide-family-scheduler",
+  "generation_retry_policy_id": "poolside-unit-wide-unseen-family-fallback-v4",
+  "source_unit_count": 24,
+  "source_candidate_count": 235,
+  "source_generation_calls_replayed": 269,
+  "v4_family_selections": 269,
+  "v4_fallback_selections": 50,
+  "v4_family_id_collisions": 0,
+  "v4_reference_key_collisions_with_accepted_candidates": 0,
+  "unique_family_ids_within_each_unit": true,
+  "saved_response_hash_mismatches": 0,
+  "parser_replay_mismatches": [],
+  "parser_status_counts": {
+    "generated": 235,
+    "invalid_candidate_format": 7,
+    "no_valid_distinct_candidate": 27
+  },
+  "source_files_preserved": 1732,
+  "source_inventory_sha256": "cea5c21906d61be55efcec58719031e9bb9047d36dee0e5d06dd3147e0815a67",
+  "source_files_unchanged": true,
+  "api_requests_sent": 0,
+  "dvwa_requests_sent": 0,
+  "interpretation": "The replay checks saved Q2 response parsing and confirms that v4 never assigns an already-requested family or a reference key matching an accepted candidate. The saved responses were generated under the older prompt, so this replay does not predict v4 model performance or qualification success.",
+  "units": [
+    {
+      "unit": "A/S1",
+      "replayed_candidates": 10,
+      "saved_candidates": 10,
+      "saved_budget_complete": true,
+      "generation_calls_replayed": 12,
+      "v4_family_ids_unique": true,
+      "parser_status_counts": {
+        "generated": 10,
+        "invalid_candidate_format": 1,
+        "no_valid_distinct_candidate": 1
+      }
+    },
+    {
+      "unit": "A/S10",
+      "replayed_candidates": 10,
+      "saved_candidates": 10,
+      "saved_budget_complete": true,
+      "generation_calls_replayed": 12,
+      "v4_family_ids_unique": true,
+      "parser_status_counts": {
+        "generated": 10,
+        "invalid_candidate_format": 1,
+        "no_valid_distinct_candidate": 1
+      }
+    },
+    {
+      "unit": "A/S11",
+      "replayed_candidates": 10,
+      "saved_candidates": 10,
+      "saved_budget_complete": true,
+      "generation_calls_replayed": 11,
+      "v4_family_ids_unique": true,
+      "parser_status_counts": {
+        "generated": 10,
+        "no_valid_distinct_candidate": 1
+      }
+    },
+    {
+      "unit": "A/S12",
+      "replayed_candidates": 10,
+      "saved_candidates": 10,
+      "saved_budget_complete": true,
+      "generation_calls_replayed": 11,
+      "v4_family_ids_unique": true,
+      "parser_status_counts": {
+        "generated": 10,
+        "no_valid_distinct_candidate": 1
+      }
+    },
+    {
+      "unit": "A/S2",
+      "replayed_candidates": 10,
+      "saved_candidates": 10,
+      "saved_budget_complete": true,
+      "generation_calls_replayed": 11,
+      "v4_family_ids_unique": true,
+      "parser_status_counts": {
+        "generated": 10,
+        "no_valid_distinct_candidate": 1
+      }
+    },
+    {
+      "unit": "A/S3",
+      "replayed_candidates": 10,
+      "saved_candidates": 10,
+      "saved_budget_complete": true,
+      "generation_calls_replayed": 10,
+      "v4_family_ids_unique": true,
+      "parser_status_counts": {
+        "generated": 10
+      }
+    },
+    {
+      "unit": "A/S4",
+      "replayed_candidates": 10,
+      "saved_candidates": 10,
+      "saved_budget_complete": true,
+      "generation_calls_replayed": 12,
+      "v4_family_ids_unique": true,
+      "parser_status_counts": {
+        "generated": 10,
+        "invalid_candidate_format": 1,
+        "no_valid_distinct_candidate": 1
+      }
+    },
+    {
+      "unit": "A/S5",
+      "replayed_candidates": 10,
+      "saved_candidates": 10,
+      "saved_budget_complete": true,
+      "generation_calls_replayed": 10,
+      "v4_family_ids_unique": true,
+      "parser_status_counts": {
+        "generated": 10
+      }
+    },
+    {
+      "unit": "A/S6",
+      "replayed_candidates": 10,
+      "saved_candidates": 10,
+      "saved_budget_complete": true,
+      "generation_calls_replayed": 10,
+      "v4_family_ids_unique": true,
+      "parser_status_counts": {
+        "generated": 10
+      }
+    },
+    {
+      "unit": "A/S7",
+      "replayed_candidates": 10,
+      "saved_candidates": 10,
+      "saved_budget_complete": true,
+      "generation_calls_replayed": 12,
+      "v4_family_ids_unique": true,
+      "parser_status_counts": {
+        "generated": 10,
+        "invalid_candidate_format": 1,
+        "no_valid_distinct_candidate": 1
+      }
+    },
+    {
+      "unit": "A/S8",
+      "replayed_candidates": 10,
+      "saved_candidates": 10,
+      "saved_budget_complete": true,
+      "generation_calls_replayed": 10,
+      "v4_family_ids_unique": true,
+      "parser_status_counts": {
+        "generated": 10
+      }
+    },
+    {
+      "unit": "A/S9",
+      "replayed_candidates": 10,
+      "saved_candidates": 10,
+      "saved_budget_complete": true,
+      "generation_calls_replayed": 10,
+      "v4_family_ids_unique": true,
+      "parser_status_counts": {
+        "generated": 10
+      }
+    },
+    {
+      "unit": "B/S1",
+      "replayed_candidates": 10,
+      "saved_candidates": 10,
+      "saved_budget_complete": true,
+      "generation_calls_replayed": 12,
+      "v4_family_ids_unique": true,
+      "parser_status_counts": {
+        "generated": 10,
+        "invalid_candidate_format": 1,
+        "no_valid_distinct_candidate": 1
+      }
+    },
+    {
+      "unit": "B/S10",
+      "replayed_candidates": 9,
+      "saved_candidates": 9,
+      "saved_budget_complete": false,
+      "generation_calls_replayed": 12,
+      "v4_family_ids_unique": true,
+      "parser_status_counts": {
+        "generated": 9,
+        "invalid_candidate_format": 1,
+        "no_valid_distinct_candidate": 2
+      }
+    },
+    {
+      "unit": "B/S11",
+      "replayed_candidates": 7,
+      "saved_candidates": 7,
+      "saved_budget_complete": false,
+      "generation_calls_replayed": 13,
+      "v4_family_ids_unique": true,
+      "parser_status_counts": {
+        "generated": 7,
+        "no_valid_distinct_candidate": 6
+      }
+    },
+    {
+      "unit": "B/S12",
+      "replayed_candidates": 10,
+      "saved_candidates": 10,
+      "saved_budget_complete": true,
+      "generation_calls_replayed": 10,
+      "v4_family_ids_unique": true,
+      "parser_status_counts": {
+        "generated": 10
+      }
+    },
+    {
+      "unit": "B/S2",
+      "replayed_candidates": 10,
+      "saved_candidates": 10,
+      "saved_budget_complete": true,
+      "generation_calls_replayed": 11,
+      "v4_family_ids_unique": true,
+      "parser_status_counts": {
+        "generated": 10,
+        "no_valid_distinct_candidate": 1
+      }
+    },
+    {
+      "unit": "B/S3",
+      "replayed_candidates": 10,
+      "saved_candidates": 10,
+      "saved_budget_complete": true,
+      "generation_calls_replayed": 10,
+      "v4_family_ids_unique": true,
+      "parser_status_counts": {
+        "generated": 10
+      }
+    },
+    {
+      "unit": "B/S4",
+      "replayed_candidates": 10,
+      "saved_candidates": 10,
+      "saved_budget_complete": true,
+      "generation_calls_replayed": 12,
+      "v4_family_ids_unique": true,
+      "parser_status_counts": {
+        "generated": 10,
+        "no_valid_distinct_candidate": 2
+      }
+    },
+    {
+      "unit": "B/S5",
+      "replayed_candidates": 10,
+      "saved_candidates": 10,
+      "saved_budget_complete": true,
+      "generation_calls_replayed": 13,
+      "v4_family_ids_unique": true,
+      "parser_status_counts": {
+        "generated": 10,
+        "no_valid_distinct_candidate": 3
+      }
+    },
+    {
+      "unit": "B/S6",
+      "replayed_candidates": 10,
+      "saved_candidates": 10,
+      "saved_budget_complete": true,
+      "generation_calls_replayed": 10,
+      "v4_family_ids_unique": true,
+      "parser_status_counts": {
+        "generated": 10
+      }
+    },
+    {
+      "unit": "B/S7",
+      "replayed_candidates": 9,
+      "saved_candidates": 9,
+      "saved_budget_complete": false,
+      "generation_calls_replayed": 12,
+      "v4_family_ids_unique": true,
+      "parser_status_counts": {
+        "generated": 9,
+        "invalid_candidate_format": 1,
+        "no_valid_distinct_candidate": 2
+      }
+    },
+    {
+      "unit": "B/S8",
+      "replayed_candidates": 10,
+      "saved_candidates": 10,
+      "saved_budget_complete": true,
+      "generation_calls_replayed": 13,
+      "v4_family_ids_unique": true,
+      "parser_status_counts": {
+        "generated": 10,
+        "no_valid_distinct_candidate": 3
+      }
+    },
+    {
+      "unit": "B/S9",
+      "replayed_candidates": 10,
+      "saved_candidates": 10,
+      "saved_budget_complete": true,
+      "generation_calls_replayed": 10,
+      "v4_family_ids_unique": true,
+      "parser_status_counts": {
+        "generated": 10
+      }
+    }
+  ]
+}

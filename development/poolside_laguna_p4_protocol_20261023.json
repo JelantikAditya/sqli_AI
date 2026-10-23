@@ -1,0 +1,252 @@
+{
+  "schema_version": "1.0.0",
+  "protocol_id": "poolside-laguna-p4-formal-v1",
+  "status": "frozen",
+  "environment": "local-laptop",
+  "target_origin": "http://127.0.0.1:4280",
+  "method": "DAST-black-box",
+  "methodology": {
+    "decision_id": "poolside-laguna-p4-revised-formal-v1",
+    "execution_topology": "local-dvwa-and-direct-poolside-hosted-inference",
+    "experiment_controller": "custom-python",
+    "llm_pipeline_framework": "custom-serial-checkpointed-api-adapter",
+    "model_transport": "poolside-direct-openai-compatible-chat-api",
+    "knowledge_store": "persistent-local-chroma",
+    "retrieval_adapter": "existing-proposal-structured-retrieval",
+    "retrieval_frequency": "once-before-each-rag-on-condition-run",
+    "rag_usage": "generation-and-feedback-conditioned-regeneration-only",
+    "analysis_retrieval": "disabled-in-both-llm-conditions",
+    "rag_off_vectorstore_access": "forbidden",
+    "executor": "custom-dvwa-http",
+    "inference_http_timing": "serial-nonoverlapping",
+    "evidence_storage": "local-disk-separated-pilot-and-formal",
+    "external_tracing": "disabled",
+    "colab_and_tunnel": "deferred-outside-active-experiments",
+    "api_base_url": "https://inference.poolside.ai/v1",
+    "api_model_id": "poolside/laguna-s-2.1",
+    "api_generation_prompt_version": "poolside-laguna-sqli-generation-v5-explicit-structure-feedback",
+    "api_generation_retry_policy_id": "poolside-unit-wide-unseen-family-structure-feedback-v5",
+    "api_analysis_prompt_version": "qwen38-api-p2-explicit-evidence-v1",
+    "api_max_tokens": {
+      "generation": 1024,
+      "analysis": 2048
+    },
+    "api_temperature": 0,
+    "api_thinking": false,
+    "api_transport_retries": 0,
+    "api_model_fallback": false,
+    "formal_cohort_role": "primary-model-cohort-in-revised-analysis",
+    "prior_local_qwen_formal_results": "preserve-and-report-as-separate-cohort",
+    "retrieval_store": "approved-2026-10-17-archive-with-per-attempt-verified-copy",
+    "retrieval_context_policy_id": "structured-chunks-remove-payload-examples-v1",
+    "formal_release_system": "poolside-laguna-p4-hash-bound-release-v1"
+  },
+  "implementation_readiness": {
+    "local_langchain": "verified"
+  },
+  "conditions": [
+    {
+      "condition_id": "A",
+      "source": "LLM",
+      "rag_mode": "off",
+      "scenario_ids": [
+        "S1",
+        "S2",
+        "S3",
+        "S4",
+        "S5",
+        "S6",
+        "S7",
+        "S8",
+        "S9",
+        "S10",
+        "S11",
+        "S12"
+      ]
+    },
+    {
+      "condition_id": "B",
+      "source": "LLM",
+      "rag_mode": "on",
+      "scenario_ids": [
+        "S1",
+        "S2",
+        "S3",
+        "S4",
+        "S5",
+        "S6",
+        "S7",
+        "S8",
+        "S9",
+        "S10",
+        "S11",
+        "S12"
+      ]
+    },
+    {
+      "condition_id": "C",
+      "source": "SecLists",
+      "rag_mode": "not_applicable",
+      "scenario_ids": [
+        "S1",
+        "S2",
+        "S3",
+        "S4",
+        "S5",
+        "S6",
+        "S7",
+        "S8",
+        "S9"
+      ]
+    }
+  ],
+  "replicate_seeds": [
+    42,
+    43,
+    44
+  ],
+  "execution_order": {
+    "policy_id": "replicate-block-mirrored-rotation-v1",
+    "block_order": "replicate-then-scenario",
+    "scenario_order": [
+      "S1",
+      "S2",
+      "S3",
+      "S4",
+      "S5",
+      "S6",
+      "S7",
+      "S8",
+      "S9",
+      "S10",
+      "S11",
+      "S12"
+    ],
+    "odd_scenario_orders": {
+      "1": [
+        "A",
+        "B",
+        "C"
+      ],
+      "2": [
+        "B",
+        "C",
+        "A"
+      ],
+      "3": [
+        "C",
+        "A",
+        "B"
+      ]
+    },
+    "even_scenario_orders": {
+      "1": [
+        "C",
+        "B",
+        "A"
+      ],
+      "2": [
+        "A",
+        "C",
+        "B"
+      ],
+      "3": [
+        "B",
+        "A",
+        "C"
+      ]
+    },
+    "excluded_conditions": "retain-ledger-skip-execution",
+    "subset_order": "filter-canonical-schedule",
+    "resume_order": "keep-schedule-skip-completed-retry-invalid-in-original-slot"
+  },
+  "generation": {
+    "model": "poolside/laguna-s-2.1",
+    "temperature": 0,
+    "num_ctx": 4096,
+    "num_predict": 1024,
+    "top_k": 2,
+    "candidate_budget": 10,
+    "stop_on_success": false,
+    "max_generation_retries_per_slot": 2,
+    "exclude_labels_from_prompt": true
+  },
+  "validation": {
+    "request_timeout_seconds": 15,
+    "execution": "serial",
+    "confirmations_per_candidate": 3,
+    "confirmation_policy_id": "three-valid-confirmations-all-positive-v1",
+    "success_requires_positive_confirmations": 3,
+    "mixed_evidence_policy": "retain-in-psr-denominator-not-success",
+    "additional_confirmation_rounds": 0,
+    "time_signal_threshold_ms": 1500,
+    "timing_control": "matched-no-delay",
+    "benign_baseline_value": "1",
+    "error_success_definition": "new-sql-diagnostic-reproduced",
+    "error_success_indicator": "explicit-database-diagnostic",
+    "boolean_success_definition": "matched-true-false-content-reproduced",
+    "time_success_definition": "matched-delay-reproduced",
+    "invalid_session_is_attack_failure": false
+  },
+  "replication": {
+    "unit": "full-scenario-condition-run",
+    "shared_discovery_for_llm_pair": true,
+    "fresh_login_each_run": true,
+    "reset": "dvwa-setup-http-before-each-condition-run",
+    "discovery_refresh": "each-replicate"
+  },
+  "runtime_recovery": {
+    "failure_is_attack_failure": false,
+    "failed_attempt_policy": "invalidate-whole-condition-attempt",
+    "automatic_retries": 0,
+    "next_attempt_requires": "repair-environment-fresh-login-and-database-reset"
+  },
+  "run_decision": {
+    "policy_id": "any-positive-else-abstain-v1",
+    "positive": "any-positive-claim-in-complete-run",
+    "negative": "all-negative-claims-in-complete-run",
+    "inconclusive": "no-positive-and-at-least-one-inconclusive-in-complete-run",
+    "not_evaluable": "runtime-invalid-or-incomplete-budget-or-incomplete-analysis",
+    "inconclusive_retry": "none",
+    "fpr_inconclusive": "exclude-binary-counts-report-coverage-withhold-primary",
+    "psr_inconclusive": "retain-valid-candidates-with-independent-evidence-and-human-validation"
+  },
+  "metrics": {
+    "fpr_conditions": [
+      "A",
+      "B"
+    ],
+    "fpr_unit": "scenario-condition-replicate",
+    "psr_conditions": [
+      "B",
+      "C"
+    ],
+    "psr_unit": "logical-candidate",
+    "boolean_pair_counts_as": 1,
+    "timing_confirmations_count_as": 1,
+    "zero_denominator": "undefined",
+    "retain_system_prediction_before_review": true,
+    "incomplete_budget": "exclude-run-and-report",
+    "aggregation": "per-run-arithmetic-mean",
+    "stddev_ddof": 1,
+    "cross_run_success_vote": "none",
+    "primary_summary_requires_complete_replicates": true,
+    "fpr_requires_all_planned_negative_decisions": true,
+    "fpr_report_decision_coverage": true
+  },
+  "review": {
+    "corpus_researcher_review": "approved",
+    "independent_validator": "ready",
+    "blind_condition_and_source": true
+  },
+  "formal_gate": [
+    "pilot-all-techniques-and-levels-passed",
+    "researcher-corpus-decision-recorded",
+    "runtime-manifest-frozen",
+    "seclists-version-and-selection-frozen",
+    "validator-protocol-ready",
+    "local-methodology-recorded",
+    "local-langchain-integration-verified"
+  ],
+  "freeze_candidate_sha256": "12b2d704c07248bedff35e9459cb074c1ffa94b3c66a09cb80b67cecb969e3ee"
+}

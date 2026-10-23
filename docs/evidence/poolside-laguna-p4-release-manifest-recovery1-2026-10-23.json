@@ -1,0 +1,146 @@
+{
+  "schema": "poolside-laguna-p4-release-v1",
+  "experiment_id": "poolside-laguna-p4-20261023",
+  "created_at_utc": "2026-10-23T08:40:31.429259+00:00",
+  "status": "released",
+  "ready_for_formal": true,
+  "protocol_frozen": true,
+  "formal_execution_authorized": false,
+  "plan_sha256": "4b4d5bb3a8a23801ad31bf5ba6e27cca4e9c47c4fc579c08079d39461277267e",
+  "budget_sha256": "0944ae8e15f2c914758e546d1408148d55df7780e76b43141d8c4ab233e48aae",
+  "protocol_sha256": "f08249f0cba6f45d01d87e560d9ef472430ab8484bcf565b8515bf63d874bf1b",
+  "protocol_candidate_sha256": "12b2d704c07248bedff35e9459cb074c1ffa94b3c66a09cb80b67cecb969e3ee",
+  "method_decision_sha256": "fe9c346d8992bdfb54877b599877d32742f72a706a03cfe3c26c7dec1ec113a7",
+  "freeze_approval_sha256": "1d263649e6b74d449246bf6906a8691ee682ac2adfe8768c6cfd661307c49121",
+  "provider_confirmation_sha256": "3e258b7009a98aa0892e51017974564dcf220e1c25a0b3a4d802c4492a9ba508",
+  "snapshot_check_sha256": "0627675dd681d218d706fb16353ed9b76e7ae53faee8c256078d38e252986555",
+  "dvwa_preflight_sha256": "89995036e4b57065a623ea8c67478e94e606ab468b0f017a93cff210f976d549",
+  "discovery_review_sha256": "9d7eec99310171c73d5e8d8758cde7b94bc14c9fac1c984819df94cdf4d016d8",
+  "runner_readiness_sha256": "937fd98bf2531fe059df39e52ddeef17725d850bafc521de1cde5036e78c454e",
+  "preparation_dry_run_sha256": "937fd98bf2531fe059df39e52ddeef17725d850bafc521de1cde5036e78c454e",
+  "gates": {
+    "p4-runner-and-pinned-inputs": {
+      "status": "passed",
+      "evidence": "P4 standard plan, separate draft protocol, budget, method receipt, and runtime source hashes validate offline.",
+      "source": "runner-readiness"
+    },
+    "approved-snapshot-isolation": {
+      "status": "passed",
+      "evidence": "Six archived files match their approved hashes; Chroma access is confined to per-attempt copies.",
+      "source": "runner-readiness"
+    },
+    "generator-qualification": {
+      "status": "passed",
+      "evidence": "Q4 v5 receipt is 24/24 but formal_eligible=false, so it remains qualification only.",
+      "source": "runner-readiness"
+    },
+    "local-qwen-results-preserved": {
+      "status": "passed",
+      "evidence": "The prior local-Qwen formal cohort remains at its original, separate output path.",
+      "source": "runner-readiness"
+    },
+    "fresh-discovery-and-review": {
+      "status": "passed",
+      "evidence": "Freshness check found 12/12 unique reports; hash-bound technical review validated=True.",
+      "source": "runner-readiness"
+    },
+    "direct-provider-free-quota-and-continuity": {
+      "status": "passed",
+      "evidence": "Current direct smoke reports the exact model free=True; the researcher confirms the new account quota/rate limit and formal run are safe, and acknowledges the 31 October 2026 shutdown notice. Confirmation valid=True; the account console limit was not independently read. Zero spend policy=0.",
+      "source": "runner-readiness"
+    },
+    "dvwa-formal-preflight": {
+      "status": "passed",
+      "evidence": "P4 local preflight receipt is valid=True; target, one database reset, authenticated forms at four levels, benign baseline timing, and source hashes are checked.",
+      "source": "runner-readiness"
+    },
+    "protocol-freeze": {
+      "status": "passed",
+      "evidence": "The P4 protocol remains a draft until its hash-bound researcher freeze approval is recorded.",
+      "source": "runner-readiness"
+    },
+    "design-and-counts": {
+      "status": "passed",
+      "evidence": "P4 matrix has 99 applicable units, 990 candidates, and 2,970 logical confirmations.",
+      "source": "preparation-dry-run"
+    },
+    "q4-generator-qualification": {
+      "status": "passed",
+      "evidence": "Q4 v5 reached 24/24 A/B units with ten valid candidates; the Q4 receipt says formal_eligible=false.",
+      "source": "preparation-dry-run"
+    },
+    "q4-direct-model-evidence": {
+      "status": "passed",
+      "evidence": "All Q4 response receipts are checked for direct Poolside model ID and successful status.",
+      "source": "preparation-dry-run"
+    },
+    "discovery-archive-integrity": {
+      "status": "passed",
+      "evidence": "All 12 fresh P4 passive ZAP reports are pinned by hash, authenticated, level-bound, less than 24 hours old, and each verifies two injection points.",
+      "source": "preparation-dry-run"
+    },
+    "discovery-target-binding": {
+      "status": "passed",
+      "evidence": "Current compose configuration and Docker inspection map ZAP origin ['http://dvwa'] and runner origin http://127.0.0.1:4280 to the pinned DVWA service.",
+      "source": "preparation-dry-run"
+    },
+    "approved-corpus-archive": {
+      "status": "passed",
+      "evidence": "The preserved six-file archive is checked against the 17 October approved formal snapshot.",
+      "source": "preparation-dry-run"
+    },
+    "active-index-isolation": {
+      "status": "passed",
+      "evidence": "2 of 6 active index files differ from the approved snapshot; P4 retrieval uses a temporary copy. Isolated retrieval evidence passed=True.",
+      "source": "preparation-dry-run"
+    },
+    "method-amendment-decision": {
+      "status": "passed",
+      "evidence": "Researcher decision is recorded: Laguna P4 is the primary formal model cohort for the revised analysis; existing local-Qwen formal results remain preserved and separately reported. Adviser approval is reported by the researcher, with no direct adviser receipt attached. The research proposal text will be updated at the end; this decision does not freeze the P4 protocol or authorize execution.",
+      "source": "preparation-dry-run"
+    },
+    "formal-poolside-runner": {
+      "status": "passed",
+      "evidence": "Dedicated fail-closed P4 runner and pinned separate inputs validate offline; implementation evidence passed=True.",
+      "source": "preparation-dry-run"
+    },
+    "provider-account-budget": {
+      "status": "passed",
+      "evidence": "The researcher confirms the new account has sufficient quota/rate limit for the formal run; latest direct smoke reports exact model free with zero listed pricing. P4 enforces maximum_spend_usd=0. Confirmation valid=True; quota is researcher-confirmed, not independently read from the account console.",
+      "source": "preparation-dry-run"
+    },
+    "provider-continuity": {
+      "status": "passed",
+      "evidence": "The researcher confirms the direct Laguna API formal run is safe and acknowledges Poolside's 31 October 2026 inference shutdown notice. An interrupted cohort remains invalid; no provider switch is allowed.",
+      "source": "preparation-dry-run"
+    },
+    "dvwa-preflight": {
+      "status": "passed",
+      "evidence": "P4 local receipt passed=True; it verifies one database reset, session and input coordinates at all four levels, benign timing baseline, and current protocol/plan hashes.",
+      "source": "preparation-dry-run"
+    },
+    "discovery-out-of-level-review": {
+      "status": "passed",
+      "evidence": "The review receipt binds all twelve fresh reports and assesses the out-of-level input observations against the pinned passive-discovery template.",
+      "source": "preparation-dry-run"
+    },
+    "prior-partial-attempt-invalidated": {
+      "status": "passed",
+      "evidence": "The first authorized run is retained as invalid partial evidence and is excluded from recovery results; the new cohort uses a separate output directory.",
+      "source": "execution-stop-record",
+      "source_sha256": "0876fb691aec3fdbc8906520614821d97ebd5290d2c664fed903884f9a5e51d0"
+    }
+  },
+  "deferred_by_design": {
+    "val01-blind-review": "Create the blinded validation packet after P4 candidates are locked."
+  },
+  "execution_controls": {
+    "maximum_spend_usd": 0,
+    "provider": "direct Poolside API only",
+    "model": "poolside/laguna-s-2.1",
+    "openrouter_used": false,
+    "formal_execution_approval_receipt_required": true,
+    "formal_execution_started": false
+  },
+  "evidence_binding_refreshed_at_utc": "2026-10-23T08:40:48.619078+00:00"
+}

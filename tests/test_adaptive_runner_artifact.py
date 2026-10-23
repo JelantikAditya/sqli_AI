@@ -17,10 +17,12 @@ from run_local_experiments import ExecutionFailure, execute_adaptive_s1_unit, sh
 
 
 class AdaptiveArtifactTests(unittest.TestCase):
-    def aggregate(self, status):
+    def aggregate(self, status, condition="A"):
         scenario = load_catalog()["scenarios"][0]
+        rag_mode = "on" if condition == "B" else "off"
         context = {"experiment_id": "test-adaptive", "run_id": "run1", "attempt_id": "attempt1",
-                   "scenario_id": "S1", "replicate": 1, "condition_id": "A", "source": "LLM", "rag_mode": "off"}
+                   "scenario_id": "S1", "replicate": 1, "condition_id": condition,
+                   "source": "LLM", "rag_mode": rag_mode}
         def observe(payload, confirmations):
             observations = []
             for trial in (1, 2, 3):
@@ -39,16 +41,20 @@ class AdaptiveArtifactTests(unittest.TestCase):
         generated = "1'" if status == "generated" else None
         artifact = run_loop(context, lambda previous, attempted: (generated, {"status": status}),
                             observe, analyze, budget=10, slot_limit=10)
+        retrieval = None if condition == "A" else {
+            "knowledge_base_id": "test-knowledge-base",
+            "chunks": [{"chunk_id": "test-chunk"}],
+        }
         artifact["runtime"] = {"http_request_attempt_count": 23, "database_reset": {"success_markers_verified": True},
-                               "retrieval": None}
+                               "retrieval": retrieval}
         with tempfile.TemporaryDirectory(dir=ROOT / "results/raw") as temporary:
             directory = Path(temporary)
             report = directory / "report.json"
             report.write_text('{}', encoding="utf-8")
             path = directory / "adaptive.json"
             path.write_text(json.dumps(artifact), encoding="utf-8")
-            unit = {"scenario_id": "S1", "condition_id": "A", "replicate": 1, "seed": 42,
-                    "source": "LLM", "rag_mode": "off", "discovery_report": str(report),
+            unit = {"scenario_id": "S1", "condition_id": condition, "replicate": 1, "seed": 42,
+                    "source": "LLM", "rag_mode": rag_mode, "discovery_report": str(report),
                     "discovery_sha256": sha256_file(report)}
             with patch("run_local_experiments.run_command") as command:
                 details = execute_adaptive_s1_unit(unit, context, {"experiment_id": "test-adaptive"},
@@ -79,6 +85,15 @@ class AdaptiveArtifactTests(unittest.TestCase):
     def test_local_model_service_failure_still_requires_runtime_recovery(self):
         with self.assertRaisesRegex(ExecutionFailure, "local_model_service_unavailable"):
             self.aggregate("model_service_error")
+
+    def test_rag_artifact_reprocessing_skips_unused_active_manifest_validation(self):
+        with patch("run_local_experiments.adaptive_manifest_args",
+                   side_effect=AssertionError("offline artifact processing must not inspect the active index")) as manifest_args:
+            details, records = self.aggregate("generated", condition="B")
+        manifest_args.assert_not_called()
+        self.assertEqual(details["valid_candidates_executed"], 1)
+        self.assertEqual(details["candidate_generation_failed_count"], 9)
+        self.assertEqual(records[-1]["attempt_status"], "incomplete")
 
 
 if __name__ == "__main__":

@@ -1,0 +1,41 @@
+{
+  "schema": "poolside-laguna-p4-method-decision-v1",
+  "decision_id": "poolside-laguna-p4-method-decision-20261023",
+  "decision": "approved-for-poolside-laguna-p4-method",
+  "scope": "method amendment and cohort role only; not protocol release or formal execution approval",
+  "recorded_date_local": "2026-10-23",
+  "timezone": "Asia/Jakarta",
+  "researcher_decision": {
+    "role": "researcher",
+    "basis": "explicit-user-approval-in-chat",
+    "cohort_role": "Poolside Laguna P4 is the primary formal model cohort for the revised analysis.",
+    "cohort_relationship": "P4 is a separate formal cohort from the prior local-Qwen formal experiment.",
+    "local_qwen_data_policy": "Preserve all existing local-Qwen formal results and report them separately. Do not overwrite, merge, or discard them.",
+    "proposal_update_timing": "at the end of the research",
+    "proposal_update_reason": "The researcher wants to focus first on conducting the research so the results can be written.",
+    "quote": "saya sudah membaca file draf amandemen, saya akan mengganti proposal saya diakhir saja, kenapa? karena saya ingin fokus dulu terhadap penelitian ini agar bisa ditulis hasilnya, jadi pembimbing saya sudah menyetujui, saya setuju dengan laguna sebagai cohort formal tambahan, setuju juga laguna menggantikan model formal utama, yang terpenting hasil pengujian formal menggunakan qwen lokal tetap disimpan"
+  },
+  "adviser_approval": {
+    "status": "reported-by-researcher",
+    "basis": "researcher-statement-in-chat",
+    "direct_adviser_receipt_present": false,
+    "quote": "pembimbing saya sudah menyetujui"
+  },
+  "research_scope": {
+    "method": "DAST black-box",
+    "target": "local DVWA",
+    "attacks": [
+      "error-based SQL injection",
+      "boolean-based blind SQL injection",
+      "time-based blind SQL injection"
+    ],
+    "metrics": [
+      "FPR for RAG ablation",
+      "PSR for LLM versus SecLists"
+    ]
+  },
+  "execution_authorized": false,
+  "formal_protocol_frozen": false,
+  "formal_execution_approval": false,
+  "openrouter_in_scope": false
+}
