@@ -1,0 +1,103 @@
+{
+  "schema": "poolside-laguna-p4-replicate3-assembly-draft-v1",
+  "experiment_id": "poolside-laguna-p4-20261023",
+  "status": "draft-awaiting-new-replicate3-freeze-release-and-execution-approval",
+  "researcher_requested_scope": "reuse Recovery1 replicates 1-2 and run the remaining complete replicate3 block only",
+  "reuse": {
+    "path": "docs/evidence/poolside-laguna-p4-reuse-audit-rep1-2-recovery1-2026-10-23.json",
+    "sha256": "631d873fb5a17e529368c8f7c69bf23b488301b924f035accda4dbc6bc21ec57",
+    "include_replicates": [
+      1,
+      2
+    ],
+    "completed_applicable_units": 66,
+    "final_analysis_validation": "pending VAL-01 and frozen inclusion rules"
+  },
+  "new_run": {
+    "runner": "development/run_poolside_laguna_p4_replicate3.py",
+    "summary_plan": "development/poolside_laguna_p4_plan_20261023_replicate3.json",
+    "formal_plan": "development/poolside_laguna_p4_formal_plan_20261023_replicate3.json",
+    "budget": "development/poolside_laguna_p4_budget_20261023_replicate3.json",
+    "replicates": [
+      3
+    ],
+    "ledger_slots": 36,
+    "applicable_units": 33,
+    "design_excluded_c_slots": 3,
+    "output": "results/raw/formal/poolside-laguna-p4-replicate3-20261023"
+  },
+  "exclusions": {
+    "recovery1_replicate3": {
+      "include": false,
+      "completed": 10,
+      "invalid": 1,
+      "planned_or_not_started": 22,
+      "applicable_units_to_rerun": 33,
+      "design_excluded_c_slots": 3
+    },
+    "recovery2": {
+      "include": false,
+      "all_outputs_excluded": true,
+      "stop_evidence_path": "docs/evidence/poolside-laguna-p4-execution-stop-recovery2-2026-10-23.json",
+      "stop_evidence_sha256": "5a0efe2a8929fcd89a4919010abc36205955e3eda8a10fcb5456009f2c2714ee"
+    }
+  },
+  "expected_composite_after_success": {
+    "applicable_units": 99,
+    "candidate_slots": 990,
+    "logical_confirmations": 2970
+  },
+  "formal_execution_authorized": false,
+  "api_requests_sent_during_package_prep": 2,
+  "dvwa_requests_sent_during_package_prep": 0,
+  "openrouter_used": false,
+  "candidate_hashes": {
+    "runner": "457a7f587cf26daf568b936eb71e31b8fa4f46b10accade46ca3324efdc9eb7a",
+    "summary_plan": "bbda8924e8a88549510ebaad95d8f4402d29aa44a2379de03e4e78728ddf9a63",
+    "formal_runner_plan": "34a3c7fd3eefb3bd6e4fb6819816e7f659b40e2bcd10a72412ab68b1da07d025",
+    "budget": "14d569289b0807904500a800fbead212555ac8955abe476b6f5bf816f523e4bc",
+    "protocol": "f08249f0cba6f45d01d87e560d9ef472430ab8484bcf565b8515bf63d874bf1b",
+    "discovery_review": "8af3bf0d32eb8d5cee6af6fe2c47819898791ef2aae0fd1f57b923a10d10248b",
+    "offline_readiness": "13320fb2ff849f048ba9dd59f19967e9e7e7a821a9b63f7b2af73df5e9889d56",
+    "replacement_key_smoke": "599a064ceba6e31e448829ad5edce1e60275bba91253e041a41658c5dce7a676"
+  },
+  "freeze_receipt_candidate": {
+    "formal_plan_sha256": "34a3c7fd3eefb3bd6e4fb6819816e7f659b40e2bcd10a72412ab68b1da07d025",
+    "budget_sha256": "14d569289b0807904500a800fbead212555ac8955abe476b6f5bf816f523e4bc",
+    "protocol_candidate_sha256": "12b2d704c07248bedff35e9459cb074c1ffa94b3c66a09cb80b67cecb969e3ee",
+    "formal_execution_approval": false
+  },
+  "dry_run": {
+    "status": "blocked-not-execution-ready",
+    "api_requests_sent": 0,
+    "dvwa_requests_sent": 0,
+    "credentials_read": false,
+    "openrouter_used": false,
+    "gates": {
+      "p4-runner-and-pinned-inputs": "passed",
+      "approved-snapshot-isolation": "passed",
+      "generator-qualification": "passed",
+      "local-qwen-results-preserved": "passed",
+      "fresh-discovery-and-review": "passed",
+      "direct-provider-free-quota-and-continuity": "passed",
+      "replacement-api-key-smoke": "passed",
+      "dvwa-formal-preflight": "open",
+      "protocol-freeze": "open",
+      "formal-execution-release": "open",
+      "val01-blind-review": "deferred-by-design"
+    }
+  },
+  "replacement_key_smoke": {
+    "status": "ok",
+    "http_statuses": [
+      200,
+      200
+    ],
+    "reported_model": "poolside/laguna-s-2.1",
+    "requests_sent": 2,
+    "secret_or_fingerprint_saved": false,
+    "report_path": "results/raw/poolside-smoke/20261023T113310424083Z.json",
+    "report_sha256": "599a064ceba6e31e448829ad5edce1e60275bba91253e041a41658c5dce7a676"
+  },
+  "api_request_purpose": "bounded direct Poolside smoke after the user saved the replacement key; no formal generation calls"
+}
