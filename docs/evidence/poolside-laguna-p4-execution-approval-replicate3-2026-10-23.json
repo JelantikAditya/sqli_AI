@@ -1,0 +1,18 @@
+{
+  "schema_version": "1.0.0",
+  "scope": "poolside-p4-formal-execution",
+  "decision": "approved-for-p4-formal-execution",
+  "experiment_id": "poolside-laguna-p4-20261023",
+  "formal_plan_sha256": "34a3c7fd3eefb3bd6e4fb6819816e7f659b40e2bcd10a72412ab68b1da07d025",
+  "budget_sha256": "14d569289b0807904500a800fbead212555ac8955abe476b6f5bf816f523e4bc",
+  "protocol_sha256": "f08249f0cba6f45d01d87e560d9ef472430ab8484bcf565b8515bf63d874bf1b",
+  "release_manifest_sha256": "632ef102c6fc4c179346db15df415eb691452293eeb7611c5b33b098e7230ef7",
+  "maximum_spend_usd": 0,
+  "formal_execution_approval": true,
+  "authority": {
+    "role": "researcher",
+    "basis": "explicit-user-approval",
+    "approved_at_local": "2026-10-23T18:43:34+07:00",
+    "quote": "\"iya saya setuju\" sebagai persetujuan langsung atas pertanyaan: \"Apakah Anda menyetujui eksekusi P4 Replicate 3 dengan release tersebut dan batas USD 0?\" Release SHA yang dimaksud: 632ef102c6fc4c179346db15df415eb691452293eeb7611c5b33b098e7230ef7."
+  }
+}
