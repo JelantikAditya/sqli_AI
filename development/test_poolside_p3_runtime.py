@@ -125,6 +125,12 @@ class PoolsideP3Tests(unittest.TestCase):
             budget_path = temp / "budget.json"
             plan_path.write_text(json.dumps(plan, indent=2) + "\n", encoding="utf-8")
             budget["plan_sha256"] = runner.digest(plan_path)
+            # This temporary fixture models a newly bound plan. Keep the
+            # committed historical budget and its source pins untouched.
+            budget["runtime_source_sha256"] = {
+                path: runner.digest(runner.ROOT / path)
+                for path in budget["runtime_source_sha256"]
+            }
             budget_path.write_text(json.dumps(budget, indent=2) + "\n", encoding="utf-8")
             prepare = runner.prepare
             with patch.object(runner, "EXPERIMENT_ID", experiment_id), \
@@ -134,6 +140,10 @@ class PoolsideP3Tests(unittest.TestCase):
         self.assertEqual(result["applicable_units"], 33)
         self.assertEqual(result["worst_case_api_calls"], 960)
         self.assertFalse(result["execution_started"])
+
+    def test_committed_historical_budget_refuses_changed_runtime_source(self):
+        with self.assertRaisesRegex(ValueError, "Frozen runtime source changed: dvwa/run_local_experiments.py"):
+            runner.prepare()
 
     def test_execution_flags_are_required_before_creating_ledger_or_loading_key(self):
         with patch.object(runner.transport, "load_key", side_effect=AssertionError("Credential read")), \
