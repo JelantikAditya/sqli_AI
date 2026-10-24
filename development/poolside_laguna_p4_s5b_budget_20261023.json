@@ -1,0 +1,79 @@
+{
+  "schema": "poolside-laguna-p4-single-unit-budget-v1",
+  "status": "draft-not-executable",
+  "amendment_id": "p4-s5b-r3-amend1",
+  "amendment_path": "development/poolside_laguna_p4_s5b_amendment_20261023.json",
+  "amendment_sha256": "93d30bdc5fb27c9246161567ab096005227af5bcd671372f32d6fb3d77c27fcf",
+  "plan_path": "development/poolside_laguna_p4_s5b_plan_20261023.json",
+  "plan_sha256": "9e4c37cc13866ff7c25aa0ed59b99f487816aa961bbd5357ad9b408d0dde26cb",
+  "source_release_sha256": "632ef102c6fc4c179346db15df415eb691452293eeb7611c5b33b098e7230ef7",
+  "source_protocol_sha256": "f08249f0cba6f45d01d87e560d9ef472430ab8484bcf565b8515bf63d874bf1b",
+  "scope": {
+    "condition_ids": [
+      "B"
+    ],
+    "scenario_ids": [
+      "S5"
+    ],
+    "replicates": [
+      3
+    ],
+    "applicable_units": 1,
+    "candidate_budget": 10,
+    "logical_confirmations": 30,
+    "database_resets": 1
+  },
+  "provider_model": {
+    "provider": "direct Poolside API only",
+    "api_base_url": "https://inference.poolside.ai/v1",
+    "model": "poolside/laguna-s-2.1",
+    "openrouter_allowed": false
+  },
+  "hard_ceilings": {
+    "api_call_ceiling": 40,
+    "generation_requests_ceiling": 30,
+    "analysis_requests_ceiling": 10,
+    "completion_token_ceiling": 51200,
+    "generation_max_tokens": 1024,
+    "analysis_max_tokens": 2048,
+    "api_wall_time_ceiling_seconds": 2700,
+    "automatic_transport_retries": 0,
+    "automatic_unit_replacements": 0,
+    "model_fallback": false
+  },
+  "token_ceiling_derivation": "30 maximum generation requests x 1,024 plus 10 maximum analysis requests x 2,048 = 51,200 completion tokens.",
+  "historical_local_validation_reference": {
+    "source": "Original S5-B-R3 partial attempt and completed S5-B R1/R2 attempts",
+    "http_requests": {
+      "partial_nine_candidates": 198,
+      "complete_r1": 219,
+      "complete_r2": 219
+    },
+    "note": "Observed reference only; local DVWA HTTP count is recorded after execution and is not a hard enforced request ceiling."
+  },
+  "spend": {
+    "maximum_spend_usd": 0,
+    "policy": "Free-only. Stop if account status, provider response, or any charge indicates non-free service."
+  },
+  "execution_controls": {
+    "planned_database_reset": 1,
+    "fresh_login_required": true,
+    "read_credentials_during_dry_run": false,
+    "formal_execution_authorized": false,
+    "required_approvals": [
+      "separate hash-bound amendment freeze",
+      "separate hash-bound formal execution approval"
+    ]
+  },
+  "abort_conditions": [
+    "API status or response schema invalid",
+    "reported model differs from poolside/laguna-s-2.1",
+    "any charge or non-free status",
+    "API call or completion token ceiling reached",
+    "DVWA reset, authentication, security level, or baseline check fails",
+    "plan, budget, protocol, release, discovery, corpus, or runtime source hash mismatch",
+    "ten-candidate budget not completed or a candidate remains structurally duplicate"
+  ],
+  "maximum_spend_usd": 0,
+  "formal_execution_authorized": false
+}

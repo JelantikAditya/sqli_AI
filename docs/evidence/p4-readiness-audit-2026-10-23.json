@@ -1,0 +1,115 @@
+{
+  "schema": "p4-readiness-audit-v1",
+  "audit_date": "2026-10-23",
+  "experiment_id_scope": "Poolside Laguna P4 formal",
+  "p4_ready": false,
+  "qualification": {
+    "experiment_id": "poolside-s21-p3-q4-v5-20261023",
+    "passed": true,
+    "completed_ab_units": 24,
+    "expected_ab_units": 24,
+    "candidates_per_unit": 10,
+    "formal_eligible": false,
+    "api_calls_used": 506,
+    "api_call_ceiling": 960,
+    "evidence_path": "results/raw/pilot/poolside-s21-p3-q4-v5-20261023/qualification-assessment.json"
+  },
+  "formal_design": {
+    "applicable_units": 99,
+    "candidate_target": 990,
+    "logical_confirmations_target": 2970,
+    "ab_units": 72,
+    "ab_candidate_target": 720,
+    "c_units": 27,
+    "c_candidate_target": 270,
+    "replicates": 3,
+    "p4_plan_found": false,
+    "p4_budget_found": false,
+    "new_val01_packet_found": false,
+    "source_basis": "docs/laguna-formal-test-checklist-2026-10-22.md"
+  },
+  "method_gate": {
+    "status": "not_ready",
+    "proposal_model": "Qwen 2.5 7B self-hosted",
+    "proposal_excludes_third_party_llm_api": true,
+    "current_candidate_model": "poolside/laguna-s-2.1 via hosted API",
+    "poolside_specific_amendment_found": false,
+    "existing_amendment_scope": "Qwen API HCNSEC draft",
+    "written_approval_for_poolside_found": false,
+    "proposal_pdf": "sources/103062300037_I GUSTI AGUNG JELANTIK ADITYA BASKARA.pdf",
+    "proposal_pages_reviewed": [9, 21, 25, 26, 27, 28, 29, 30, 31, 32]
+  },
+  "provider_gate": {
+    "status": "high_risk_unverified",
+    "api_base_url_used_by_project": "https://inference.poolside.ai/v1",
+    "official_platform_inference_shutdown_date": "2026-10-31",
+    "endpoint_specific_shutdown_confirmed": false,
+    "official_model_page_says_free_for_limited_time": true,
+    "exact_price_rate_found": false,
+    "account_rate_limit_verified": false,
+    "account_spending_limit_verified": false,
+    "account_spending_limit_usd": null,
+    "official_sources": [
+      "https://platform.poolside.ai/",
+      "https://poolside.ai/models"
+    ]
+  },
+  "budget_scoping_estimate": {
+    "basis": "Linear extrapolation from Q4 v5; not an approved budget",
+    "q4_calls_per_ab_unit_observed": 21.083333,
+    "p4_ab_units": 72,
+    "p4_api_calls_expected_estimate": 1518,
+    "q4_calls_per_unit_ceiling": 40,
+    "p4_api_calls_ceiling_estimate": 2880,
+    "q4_completion_tokens_ceiling": 1228800,
+    "p4_completion_tokens_ceiling_estimate": 3686400,
+    "q4_completion_tokens_used": 70092,
+    "p4_completion_tokens_linear_observed_estimate": 210276,
+    "monetary_cost_estimate_usd": null,
+    "approval_status": "not_approved"
+  },
+  "local_environment": {
+    "dvwa_container": {
+      "state": "running",
+      "image": "ghcr.io/digininja/dvwa@sha256:ed35515e9111801e6e386a6fbb11165508cc7f72e0cb8da4dbb3df70182986c6",
+      "healthcheck": "not_configured"
+    },
+    "mariadb_container": {
+      "state": "running",
+      "image": "mariadb@sha256:7f22313fc130a377a44999965bcb0a08dd5b21e8502824c1b864f792f9bc66ab",
+      "healthcheck": "not_configured",
+      "read_only_ping": "alive"
+    },
+    "dvwa_login_endpoint_head_status": 200,
+    "authenticated_session_verified_during_audit": false,
+    "active_security_level_verified_during_audit": false,
+    "current_baseline_and_timing_verified": false
+  },
+  "discovery_evidence": {
+    "normalized_reports_from_2026_10_18": 12,
+    "reports_per_security_level": 3,
+    "security_levels": ["low", "medium", "high", "impossible"],
+    "authenticated_reports": 12,
+    "verified_injection_points_per_report": 2,
+    "p4_replicate_mapping_frozen": false,
+    "current_target_state_revalidated": false
+  },
+  "gate_status": {
+    "qualification": "passed",
+    "method_amendment_and_approval": "not_ready",
+    "provider_continuity": "not_ready",
+    "account_budget": "not_ready",
+    "p4_plan_and_freeze": "not_ready",
+    "dvwa_current_auth_level_baseline_timing": "partial",
+    "zap_discovery_coverage": "available_but_requires_p4_mapping_and_revalidation",
+    "blind_validation_packet": "not_ready"
+  },
+  "next_actions": [
+    "Record advisor and researcher decision for Poolside Laguna as a formal method amendment.",
+    "Verify provider endpoint continuity through the full run and recovery window, given the official 2026-10-31 shutdown notice.",
+    "Set a visible account spending limit and approved request, token, time, and monetary stop conditions.",
+    "Prepare a new frozen P4 three-replicate plan, budget, runtime hashes, and dry-run.",
+    "Reverify DVWA authentication, security level, reset, baseline, timing controls, and map ZAP evidence to P4 replicates.",
+    "Create a fresh blind VAL-01 packet and mapping after the P4 candidates are locked."
+  ]
+}

@@ -1,0 +1,39 @@
+{
+  "schema": "poolside-laguna-p4-val01-package-audit-v1",
+  "status": "ready_for_independent_formal_review",
+  "package_directory": "results/raw/formal-review/poolside-laguna-p4-20261023-val01-batch01",
+  "reviewer_zip": "results/raw/formal-review/poolside-laguna-p4-20261023-val01-batch01/paket-validator.zip",
+  "composition": {
+    "reused_replicates_1_2_completed_units": 66,
+    "replicate_3_original_completed_units": 32,
+    "targeted_b_s5_r3_replacement_units": 1,
+    "design_excluded_units_omitted_from_review": 9,
+    "superseded_partial_b_s5_r3_candidates_omitted": 9,
+    "eligible_units": 99,
+    "candidate_packets": 990,
+    "observations": 7920
+  },
+  "checks": {
+    "r1_r2_reuse_audit_verified": true,
+    "r1_r2_preserved": true,
+    "targeted_amendment_ledger_verified": true,
+    "all_candidate_trials_complete": true,
+    "all_sanitized_excerpts_present": true,
+    "review_ids_unique": true,
+    "public_packet_has_no_private_condition_or_model_labels": true,
+    "annotation_template_blank": true,
+    "zip_contains_only_public_validator_files": true,
+    "source_artifacts_unchanged": true
+  },
+  "source_ledgers": {
+    "r1_r2": "8fd08a2d093fd6f9ec5c76651554225203cc0a6cbc466b13a9763b66a746260c",
+    "replicate_3": "a166bbcb4a5e9491bf192f06950e988262af19e8b75580a1fbbbfdab6274163f",
+    "targeted_amendment": "1d8f015d770ce7e2b2c71232b5a49d57922305fd021d0e3467c8a0494f973640"
+  },
+  "package_sha256": "52fa92a88d28009504c2d68c70d08c5f117237bb171cf7dcfa314f44bd4fa51b",
+  "zip_sha256": "2e36371bfcfbc3af8262c7910c2130856c743e3674bb1a0ed72dc6bb19e19d45",
+  "source_files_checked": 6182,
+  "preparation_api_requests": 0,
+  "preparation_dvwa_requests": 0,
+  "preparation_database_resets": 0
+}

@@ -1,0 +1,101 @@
+{
+  "schema": "poolside-laguna-p4-release-v1",
+  "experiment_id": "poolside-laguna-p4-20261023",
+  "cohort": "P4 Replicate 3 only",
+  "created_at_utc": "2026-10-23T11:39:36.210166+00:00",
+  "status": "released",
+  "ready_for_formal": true,
+  "protocol_frozen": true,
+  "formal_execution_authorized": false,
+  "plan_sha256": "34a3c7fd3eefb3bd6e4fb6819816e7f659b40e2bcd10a72412ab68b1da07d025",
+  "budget_sha256": "14d569289b0807904500a800fbead212555ac8955abe476b6f5bf816f523e4bc",
+  "protocol_sha256": "f08249f0cba6f45d01d87e560d9ef472430ab8484bcf565b8515bf63d874bf1b",
+  "protocol_candidate_sha256": "12b2d704c07248bedff35e9459cb074c1ffa94b3c66a09cb80b67cecb969e3ee",
+  "method_decision_sha256": "fe9c346d8992bdfb54877b599877d32742f72a706a03cfe3c26c7dec1ec113a7",
+  "freeze_approval_sha256": "45fd12d2f64395caa6c02e9657f862da234b2cf310aaa73fd34f871390581274",
+  "provider_confirmation_sha256": "3e258b7009a98aa0892e51017974564dcf220e1c25a0b3a4d802c4492a9ba508",
+  "replacement_key_smoke_sha256": "599a064ceba6e31e448829ad5edce1e60275bba91253e041a41658c5dce7a676",
+  "snapshot_check_sha256": "1d13d3f05f3d67fb3713f413cb3c9a876c5844bd0df36b3c04ac8a2add1edca3",
+  "dvwa_preflight_sha256": "7db31b1717a2d7c01af9ab42ffd30b9dfabdac245861d9c99f6904f293db89d1",
+  "discovery_review_sha256": "8af3bf0d32eb8d5cee6af6fe2c47819898791ef2aae0fd1f57b923a10d10248b",
+  "runner_readiness_before_release_sha256": "4ec1b4b20cf603d66fa0394470b5361f11686472f227eff51213b79e79e9b30a",
+  "q4_qualification_sha256": "416e9bd6804d662ad2274609c663257c9d2835948a95505025d8f012ea480e0e",
+  "gates": {
+    "p4-runner-and-pinned-inputs": {
+      "status": "passed",
+      "evidence": "Replicate 3 runner, formal plan, budget, frozen protocol candidate, and pinned runtime hashes validate offline.",
+      "source": "runner-readiness"
+    },
+    "replicate3-scope-and-counts": {
+      "status": "passed",
+      "evidence": "The new cohort contains 36 ledger slots: 33 applicable units and three design-excluded C slots. It runs replicate 3 only; the 66 completed Recovery1 replicate 1-2 units remain separately reusable. Recovery1 replicate 3 and Recovery2 outputs are excluded.",
+      "source": "replicate3-assembly-and-plan"
+    },
+    "approved-snapshot-isolation": {
+      "status": "passed",
+      "evidence": "All six approved archive files match their hashes; isolated Chroma copy retrieval passed with two chunks, zero shortfall, and unchanged source bytes.",
+      "source": "snapshot-check"
+    },
+    "generator-qualification": {
+      "status": "passed",
+      "evidence": "Q4 v5 is recorded as qualification only, formal_eligible=false; it is not treated as part of P4 results.",
+      "source": "q4-audit-and-runner-readiness"
+    },
+    "local-qwen-results-preserved": {
+      "status": "passed",
+      "evidence": "The existing local-Qwen formal output remains at its separate preserved path.",
+      "source": "runner-readiness"
+    },
+    "fresh-discovery-and-review": {
+      "status": "passed",
+      "evidence": "All four replicate-3 discovery reports are fresh and hash-bound to the technical review; all 12 scenario-replicate mappings validate.",
+      "source": "discovery-review-and-runner-readiness"
+    },
+    "direct-provider-free-quota-and-continuity": {
+      "status": "passed",
+      "evidence": "Direct Poolside Laguna is pinned, the budget enforces USD 0, and the researcher confirmation and prior free-model smoke validate. Account quota and rate limit remain researcher-confirmed rather than independently read.",
+      "source": "budget-and-provider-confirmation"
+    },
+    "replacement-api-key-smoke": {
+      "status": "passed",
+      "evidence": "A post-replacement two-request direct smoke returned HTTP 200 twice for the exact Laguna model; no credential or fingerprint is stored in evidence.",
+      "source": "replacement-key-smoke"
+    },
+    "dvwa-formal-preflight": {
+      "status": "passed",
+      "evidence": "One authorized local database reset completed; authentication, three input paths per level, and five benign timing samples per each of four levels passed. No SQLi payload or API request was sent.",
+      "source": "dvwa-preflight"
+    },
+    "protocol-freeze": {
+      "status": "passed",
+      "evidence": "Researcher freeze receipt validates against the approved Replicate-3 plan SHA, budget SHA, and protocol candidate SHA; formal execution approval remains false.",
+      "source": "freeze-approval-receipt"
+    }
+  },
+  "deferred_by_design": {
+    "val01-blind-review": "Create the blinded validation packet after Replicate 3 candidate IDs are locked."
+  },
+  "cohort_assembly": {
+    "reused_completed_units": 66,
+    "reused_replicates": [
+      1,
+      2
+    ],
+    "new_replicates": [
+      3
+    ],
+    "new_applicable_units": 33,
+    "design_excluded_slots": 3,
+    "recovery1_replicate3_included": false,
+    "recovery2_included": false,
+    "formal_output_path": "results/raw/formal/poolside-laguna-p4-replicate3-20261023"
+  },
+  "execution_controls": {
+    "maximum_spend_usd": 0,
+    "provider": "direct Poolside API only",
+    "model": "poolside/laguna-s-2.1",
+    "openrouter_used": false,
+    "formal_execution_approval_receipt_required": true,
+    "formal_execution_started": false
+  }
+}

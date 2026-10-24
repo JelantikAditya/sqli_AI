@@ -1,0 +1,135 @@
+{
+  "schema": "poolside-laguna-p4-discovery-review-v1",
+  "experiment_id": "poolside-laguna-p4-20261023",
+  "reviewed_at_utc": "2026-10-23T11:34:38.231238+00:00",
+  "status": "reviewed",
+  "reviewer_role": "Codex technical review",
+  "review_basis": [
+    "P4 normalized ZAP report and capture hashes",
+    "DVWA scenario catalog and expected level/method coordinates",
+    "Pinned passive ZAP discovery template and normalization contract"
+  ],
+  "summary_plan_sha256": "bbda8924e8a88549510ebaad95d8f4402d29aa44a2379de03e4e78728ddf9a63",
+  "formal_runner_plan_sha256": "34a3c7fd3eefb3bd6e4fb6819816e7f659b40e2bcd10a72412ab68b1da07d025",
+  "reviewer_script_sha256": "d225ceca6a155434a466682d4fc60df629c9d2eb05daee489eb7145e8f8e606f",
+  "source_sha256": {
+    "dvwa/parse_zap_report.py": "6bd277f86ca1865cf9cf87deb85b63943657ecb70ace868c48da1ef62fd0f125",
+    "dvwa/experiment_scenarios.json": "ca73f6acb8258702140bde1cb316141d1176270d2751d9c4a66c7f2676e1da00",
+    "dvwa/zap-auth.template.yaml": "d8d7237da33506cf7cfe74bb710af137ce4e4722947a09eccfeceeea36450e05"
+  },
+  "report_hashes": {
+    "results/raw/formal-discovery/poolside-laguna-p4-20261023/replicate-3/low/zap-discovery.normalized.json": "6c3b52a8ad2aa3d663e3734736beda957b63914260bd43cfbd6f012081d3f53e",
+    "results/raw/formal-discovery/poolside-laguna-p4-20261023/replicate-3/medium/zap-discovery.normalized.json": "0ff5b1bc8b74ff09543d0606bd27564d59728fde9bf5ccb71a1917e8936c2c6d",
+    "results/raw/formal-discovery/poolside-laguna-p4-20261023/replicate-3/high/zap-discovery.normalized.json": "3d0d47ea0e7c21f2268b27cacd3b768fc88f237ddfd41e5c0766ffed04b02542",
+    "results/raw/formal-discovery/poolside-laguna-p4-20261023/replicate-3/impossible/zap-discovery.normalized.json": "ac12c4b830a79244ef87fd6947ccad33be41ade40d5e88fd4271a0df06de4803"
+  },
+  "report_count": 4,
+  "reports": [
+    {
+      "replicate": 3,
+      "level": "low",
+      "path": "results/raw/formal-discovery/poolside-laguna-p4-20261023/replicate-3/low/zap-discovery.normalized.json",
+      "sha256": "6c3b52a8ad2aa3d663e3734736beda957b63914260bd43cfbd6f012081d3f53e",
+      "authentication_status": "verified",
+      "scan_mode": "passive",
+      "verified_injection_points": 2,
+      "sql_injection_alert_group_count": 0,
+      "out_of_level_observation_count": 1,
+      "out_of_level_observations": [
+        {
+          "path": "/vulnerabilities/sqli_blind/cookie-input.php",
+          "method": "POST",
+          "parameter": "id",
+          "alert_name": "Cookie Poisoning"
+        }
+      ],
+      "passed": true
+    },
+    {
+      "replicate": 3,
+      "level": "medium",
+      "path": "results/raw/formal-discovery/poolside-laguna-p4-20261023/replicate-3/medium/zap-discovery.normalized.json",
+      "sha256": "0ff5b1bc8b74ff09543d0606bd27564d59728fde9bf5ccb71a1917e8936c2c6d",
+      "authentication_status": "verified",
+      "scan_mode": "passive",
+      "verified_injection_points": 2,
+      "sql_injection_alert_group_count": 0,
+      "out_of_level_observation_count": 1,
+      "out_of_level_observations": [
+        {
+          "path": "/vulnerabilities/sqli_blind/cookie-input.php",
+          "method": "POST",
+          "parameter": "id",
+          "alert_name": "Cookie Poisoning"
+        }
+      ],
+      "passed": true
+    },
+    {
+      "replicate": 3,
+      "level": "high",
+      "path": "results/raw/formal-discovery/poolside-laguna-p4-20261023/replicate-3/high/zap-discovery.normalized.json",
+      "sha256": "3d0d47ea0e7c21f2268b27cacd3b768fc88f237ddfd41e5c0766ffed04b02542",
+      "authentication_status": "verified",
+      "scan_mode": "passive",
+      "verified_injection_points": 2,
+      "sql_injection_alert_group_count": 0,
+      "out_of_level_observation_count": 0,
+      "out_of_level_observations": [],
+      "passed": true
+    },
+    {
+      "replicate": 3,
+      "level": "impossible",
+      "path": "results/raw/formal-discovery/poolside-laguna-p4-20261023/replicate-3/impossible/zap-discovery.normalized.json",
+      "sha256": "ac12c4b830a79244ef87fd6947ccad33be41ade40d5e88fd4271a0df06de4803",
+      "authentication_status": "verified",
+      "scan_mode": "passive",
+      "verified_injection_points": 2,
+      "sql_injection_alert_group_count": 0,
+      "out_of_level_observation_count": 3,
+      "out_of_level_observations": [
+        {
+          "path": "/vulnerabilities/sqli_blind/cookie-input.php",
+          "method": "POST",
+          "parameter": "id",
+          "alert_name": "Cookie No HttpOnly Flag"
+        },
+        {
+          "path": "/vulnerabilities/sqli_blind/cookie-input.php",
+          "method": "POST",
+          "parameter": "id",
+          "alert_name": "Cookie without SameSite Attribute"
+        },
+        {
+          "path": "/vulnerabilities/sqli_blind/cookie-input.php",
+          "method": "POST",
+          "parameter": "id",
+          "alert_name": "Cookie Poisoning"
+        }
+      ],
+      "passed": true
+    }
+  ],
+  "verified_injection_points_per_report": 2,
+  "out_of_level_counts_by_level": {
+    "low": 1,
+    "medium": 1,
+    "high": 0,
+    "impossible": 3
+  },
+  "sql_injection_alert_group_count_by_level": {
+    "low": 0,
+    "medium": 0,
+    "high": 0,
+    "impossible": 0
+  },
+  "classification": "passive-discovery-coordinate-observations-only",
+  "out_of_level_interpretation": "The repeated out-of-level observations come from the POST cookie-input helper route. The passive discovery plan seeds that helper at every security level; its input coordinate is expected only at High. Cookie-related passive alerts at Low, Medium, and Impossible therefore describe helper-route observations, not SQL injection detections or additional formal scenarios. The parser and report show zero SQL injection alert groups.",
+  "metric_policy": "Do not score ZAP discovery alerts or out-of-level observations as FPR or PSR outcomes.",
+  "review_limit": "Technical review only. It does not freeze the P4 protocol or approve formal execution.",
+  "mapping_matches_formal_plan": true,
+  "api_requests_sent": 0,
+  "dvwa_requests_sent": 0,
+  "openrouter_used": false
+}

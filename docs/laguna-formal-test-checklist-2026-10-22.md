@@ -1,12 +1,41 @@
 # Status dan checklist uji formal API Laguna
 
-- **Pembaruan:** 22 Oktober 2026
-- **Status P4 formal:** belum dimulai, gate qualification gagal.
+- **Pembaruan:** 23 Oktober 2026
+- **Status P4 formal:** belum siap. Keputusan arah amendemen telah dicatat,
+  tetapi budget akun, kontinuitas provider, runner formal, dan validasi
+  lingkungan belum ditutup.
 - **Cakupan:** DAST black-box SQL injection pada DVWA untuk error-based,
   boolean-based blind, dan time-based blind. Metrik utama tetap FPR untuk
   ablasi RAG A/B dan PSR LLM terhadap SecLists.
 
-## Posisi terakhir
+## Pembaruan terbaru, 23 Oktober
+
+- Q3 v4 hanya menyelesaikan 20/24 unit. Q4 v5 berikutnya lulus qualification
+  dengan 24/24 unit A/B dan 10 kandidat valid pada setiap unit. Q4 menggunakan
+  506 dari batas 960 panggilan; seluruh respons HTTP 200 dan `finish_reason`
+  `stop`. Hasilnya tetap bukan data formal. Lihat [audit kesiapan P4](p4-readiness-audit-2026-10-23.md)
+  dan [evidence live Q4](evidence/poolside-laguna-q4-v5-live-audit-2026-10-23.json).
+- Proposal saat ini masih menuliskan Qwen 2.5 7B mandiri. Peneliti memutuskan
+  Laguna P4 menjadi cohort formal utama untuk analisis revisi, sementara semua
+  hasil formal Qwen lokal harus tetap disimpan dan dilaporkan terpisah.
+  Persetujuan pembimbing dilaporkan oleh peneliti; receipt langsung belum
+  tersedia. Teks proposal akan diperbarui di akhir penelitian sesuai arahan
+  peneliti. Keputusan metode ini belum merupakan freeze protokol atau izin
+  eksekusi. Lihat amendemen dan
+  [receipt keputusan metode](evidence/poolside-laguna-p4-method-decision-2026-10-23.json).
+- Halaman resmi Poolside memberi notis penghentian inference pada 31 Oktober
+  2026. Pastikan endpoint project dan account memiliki jaminan ketersediaan
+  sampai run serta recovery selesai. Harga tepat dan limit belanja akun belum
+  diverifikasi.
+- Pemeriksaan lokal read-only menemukan container DVWA dan MariaDB running,
+  ping MariaDB hidup, dan endpoint `login.php` merespons HTTP 200. Sesi,
+  security level, baseline, dan timing belum diperiksa ulang.
+- Ada 12 normalized discovery ZAP tertanggal 18 Oktober, tiga per level.
+  Seluruhnya berstatus authentication verified dan mencatat dua verified
+  injection point. Bukti tersebut perlu dipetakan ke replikasi P4 dan
+  dicocokkan dengan kondisi target terkini.
+
+## Riwayat qualification sampai 22 Oktober
 
 - Koneksi dan smoke kontrak Poolside berhasil. Model yang dilaporkan API
   adalah `poolside/laguna-s-2.1` pada endpoint Poolside.
@@ -63,15 +92,20 @@ blind, hasil agregasi terperinci, serta key API tetap lokal dan diabaikan Git.
 
 ### 1. Tetapkan perubahan metode
 
-- [ ] Dokumentasikan bahwa provider/model pengujian API berubah ke Poolside
+- [x] Catat keputusan peneliti bahwa provider/model pengujian API berubah ke Poolside
   Laguna S 2.1, termasuk endpoint, model yang dilaporkan, tanggal, profil,
-  serta batas reprodusibilitas layanan ter-host.
-- [ ] Simpan keputusan pembimbing/peneliti untuk perubahan dari model lokal
-  yang tertulis di proposal. Persetujuan mencoba API belum dengan sendirinya
-  membuktikan amendemen metode formal telah disetujui.
-- [ ] Pisahkan hasil Laguna dari model lokal dan percobaan Qwen. Perubahan
-  provider, model, profil, dan topologi harus dilaporkan bersama; selisih
-  hasil tidak boleh diatribusikan hanya pada provider.
+  serta batas reprodusibilitas layanan ter-host. Keputusan tertulis di
+  [receipt metode](evidence/poolside-laguna-p4-method-decision-2026-10-23.json).
+- [x] Catat keputusan peneliti atas perubahan dari model lokal di proposal:
+  Laguna menjadi model formal utama untuk analisis revisi dan hasil formal
+  Qwen lokal tetap dipertahankan sebagai cohort terpisah. Persetujuan
+  pembimbing dilaporkan peneliti, tanpa receipt langsung. Pembaruan teks
+  proposal ditunda sampai akhir penelitian sesuai arahan peneliti.
+- [x] Tegaskan pelaporan Laguna terpisah dari Qwen lokal dan percobaan Qwen.
+  Perubahan provider, model, profil, dan topologi harus dilaporkan bersama;
+  selisih hasil tidak boleh diatribusikan hanya pada provider.
+- [ ] Bekukan protokol P4 dan catat persetujuan eksekusi formal setelah seluruh
+  gate teknis, provider, budget, dan validasi target lulus.
 
 ### 2. Bekukan protokol, matriks, dan aturan kelengkapan
 
@@ -110,16 +144,37 @@ blind, hasil agregasi terperinci, serta key API tetap lokal dan diabaikan Git.
 - [x] Audit keragaman kandidat dan fallback setelah Q2. S7/S10 menunjukkan
   fallback mengulang bentuk yang telah diterima; S11 menunjukkan duplikasi
   lintas-slot sampai tiga retry habis. Temuan tidak membuktikan efek kausal RAG.
-- [ ] Revisi dan bekukan family/fallback dengan protocol/cohort ID baru.
-  Tambahkan uji replay offline untuk memastikan fallback memilih bentuk
-  struktural yang belum digunakan, lalu jalankan qualification baru untuk
-  seluruh 24 unit. Gate formal tetap mensyaratkan seluruh unit mencapai kuota
-  kandidat valid; hasil Q2 tidak boleh diisi secara retroaktif.
+- [x] Revisi dan bekukan family/fallback dengan protocol/cohort ID baru.
+  Replay offline dan qualification Q4 v5 selesai; 24/24 unit mencapai kuota
+  kandidat valid. Gate ini menutup kelengkapan generator, bukan gate P4 formal.
 
-Titik lanjut sesi berikutnya tersimpan di [progress harian](progress-2026-10-22.md#titik-lanjut-untuk-sesi-berikutnya):
-siapkan profil v4 dan plan baru, uji replay offline, bekukan semua hash dan
-budget, lalu jalankan qualification penuh 24 unit. P4 formal, validasi buta
-baru, dan FPR/PSR belum dimulai.
+Qualification terbaru dicatat pada [catatan Q4 v5](poolside-laguna-q4-v5-preparation-2026-10-23.md).
+Titik lanjut untuk gate P4 sekarang ada pada [audit kesiapan P4](p4-readiness-audit-2026-10-23.md).
+
+### Persiapan P4 langsung Poolside, 23 Oktober
+
+- P4 memiliki runner fail-closed, plan, budget nol dolar, protocol terpisah,
+  tes offline, dan dry-run. Status masih `blocked-not-execution-ready` karena
+  kuota serta kontinuitas provider langsung belum terverifikasi, protocol belum
+  dibekukan dengan receipt peneliti, dan belum ada release serta persetujuan
+  eksekusi hash-bound.
+- Snapshot korpus resmi 17 Oktober cocok pada keenam hash. Retrieval B diuji
+  pada salinan Chroma sementara dan mengembalikan dua chunk; store aktif tetap
+  tidak berubah dan tidak dipakai P4.
+- Dua belas discovery P4 yang baru lulus autentikasi, empat level, dan dua
+  injection point per report. Review memetakan semua report ke plan formal.
+  Observasi out-of-level berasal dari helper cookie input yang sengaja di-seed
+  oleh scan passive; semua report melaporkan nol grup alert SQL injection.
+- Preflight DVWA P4 lulus dengan satu reset database, empat level terverifikasi,
+  serta 20 baseline benign. Direct Poolside smoke berstatus HTTP 200 dan katalog
+  saat ini melaporkan Laguna gratis dengan harga nol. Smoke tidak membuktikan
+  kuota 2.880 request atau kontinuitas endpoint sampai recovery.
+- Laguna ditetapkan sebagai cohort utama dalam analisis revisi; seluruh hasil
+  formal Qwen lokal tetap disimpan dan dilaporkan terpisah. Proposal akan
+  diperbarui pada akhir penelitian. OpenRouter tidak digunakan untuk P4.
+  Rincian gate dan bukti ada di [paket persiapan P4](poolside-laguna-p4-preparation-2026-10-23.md),
+  [runner readiness](evidence/poolside-laguna-p4-runner-readiness-2026-10-23.json),
+  dan [dry-run](evidence/poolside-laguna-p4-dry-run-2026-10-23.json).
 
 ### 4. Verifikasi layanan dan lingkungan eksperimen
 

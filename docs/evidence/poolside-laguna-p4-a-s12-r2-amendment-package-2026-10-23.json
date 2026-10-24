@@ -1,0 +1,56 @@
+{
+  "schema": "poolside-laguna-p4-a-s12-r2-amendment-package-v1",
+  "status": "draft-awaiting-methodological-approval-and-separate-approvals",
+  "created_at_utc": "2026-10-23T13:59:54.760480+00:00",
+  "amendment_id": "p4-a-s12-r2-amend1",
+  "sensitivity_only": true,
+  "frozen_primary_result_changes": false,
+  "formal_execution_authorized": false,
+  "scope": {
+    "condition_id": "A",
+    "scenario_id": "S12",
+    "replicate": 2,
+    "candidate_budget": 10,
+    "supplement_experiment_id": "poolside-p4-a-s12-r2-amend1",
+    "output_path": "results/raw/formal/poolside-p4-a-s12-r2-amend1-20261023"
+  },
+  "separation_rule": "Preserve the original complete-but-inconclusive unit and frozen VAL-01 result. Any replacement belongs only to a separately labeled sensitivity matrix; never merge candidate sets or overwrite primary metrics.",
+  "execution_ceilings": {
+    "provider": "direct Poolside API only",
+    "model": "poolside/laguna-s-2.1",
+    "maximum_spend_usd": 0,
+    "api_calls": 40,
+    "generation_requests": 30,
+    "analysis_requests": 10,
+    "completion_tokens": 51200,
+    "wall_time_seconds": 2700,
+    "database_resets": 1,
+    "automatic_retries": 0,
+    "automatic_replacements": 0,
+    "model_fallback": false,
+    "openrouter_allowed": false
+  },
+  "approval_state": {
+    "methodological": "pending researcher and adviser approval",
+    "amendment_freeze": "pending separate hash-bound approval",
+    "formal_execution": "pending separate hash-bound approval"
+  },
+  "artifact_sha256": {
+    "amendment": "85008387e889533dd4236b78a3b1648fb16949852b9a30bc987177a8aa3209e0",
+    "plan": "9e24b7558bb221d6677a317f9a64ddd25385bdebc9ec5687ee2ab803c297d091",
+    "budget": "5e4ce0729c9b2f2e9c5f4521ff6805b14bbb093e9e743feaf2e0aa10bde408c3",
+    "runner": "a6522eb8b1026e8d42ad689de85605fa915b07fd2f83b67cc561fb11d2915a6f",
+    "amendment_note": "086882aa934590d464a660406cc86f4c53b8d95522967505a373dc93367a2172",
+    "base_formal_plan": "4b4d5bb3a8a23801ad31bf5ba6e27cca4e9c47c4fc579c08079d39461277267e",
+    "base_budget": "0944ae8e15f2c914758e546d1408148d55df7780e76b43141d8c4ab233e48aae",
+    "base_protocol": "f08249f0cba6f45d01d87e560d9ef472430ab8484bcf565b8515bf63d874bf1b",
+    "base_release": "64768eb6389193b7cab2393aca5ac30026edf76f3b2d571ccd881db9711c755c",
+    "source_ledger": "8fd08a2d093fd6f9ec5c76651554225203cc0a6cbc466b13a9763b66a746260c",
+    "source_execution_result": "3f5f71e793edea5ea02ee07c740da621f2fca76bc2513efa4ece558584c829fc",
+    "source_adaptive_result": "5decd0673de618987cf9956ec6a96202422fd11caa04ada3afbf2ab90711f3d1",
+    "source_metrics": "fd3ffac9c06ebb941ae9bc027ea9d941b55ac902409bfe0ca6164f2bd494c136",
+    "source_diagnostic": "81274ae01bfa25e489ad70ccad9236bbd6fe7378a89c83d4dbdd1a6cc52e5773",
+    "source_discovery": "a3c0199ffb059e8c672d5a0b8417711cb2c31c75ec6795ad4d81f5de5d94431d",
+    "latest_key_smoke": "599a064ceba6e31e448829ad5edce1e60275bba91253e041a41658c5dce7a676"
+  }
+}

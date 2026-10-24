@@ -1,0 +1,25 @@
+{
+  "schema": "poolside-laguna-p4-provider-confirmation-v1",
+  "experiment_id": "poolside-laguna-p4-20261023",
+  "status": "researcher-confirmed",
+  "confirmation_date_local": "2026-10-23",
+  "account": {
+    "new_poolside_account_reported": true,
+    "new_api_key_configured": true,
+    "key_value_recorded": false
+  },
+  "provider_readiness": {
+    "free_access_currently_verified_by_smoke": true,
+    "account_quota_and_rate_limit_sufficient_for_formal_run": true,
+    "formal_laguna_api_run_confirmed_safe_by_researcher": true,
+    "poolside_shutdown_notice_acknowledged": true,
+    "planned_execution": "Direct Poolside API only; run while the endpoint is available; an interrupted or incomplete cohort remains invalid and will not switch providers."
+  },
+  "formal_runner_plan_sha256": "4b4d5bb3a8a23801ad31bf5ba6e27cca4e9c47c4fc579c08079d39461277267e",
+  "protocol_candidate_sha256": "12b2d704c07248bedff35e9459cb074c1ffa94b3c66a09cb80b67cecb969e3ee",
+  "smoke_report_path": "results/raw/poolside-smoke/20261023T081457883186Z.json",
+  "smoke_report_sha256": "37c2e123cf4a71bc90b0863971ebc4721410ede2d3f180f434ae6c7294571219",
+  "source_quote": "saya memiliki api key baru dari akun baru jadi aman saja soal masalah rate limit dari poolside dan untuk run formal API laguna saya jamin aman",
+  "protocol_freeze_approved": false,
+  "formal_execution_approved": false
+}

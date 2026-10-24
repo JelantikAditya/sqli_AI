@@ -1,0 +1,145 @@
+{
+  "schema": "poolside-laguna-p4-s5b-amendment-execution-audit-v1",
+  "amendment_id": "p4-s5b-r3-amend1",
+  "status": "completed-and-metric-eligible",
+  "completed_at_utc": "2026-10-23T12:56:31.837032+00:00",
+  "authorization": {
+    "package_sha256": "2fb01d014eac3ac1b6cc51b9f098d5001c49fced1458f6f36137fbd8439caaae",
+    "freeze_approval_path": "docs/evidence/poolside-laguna-p4-s5b-amendment-freeze-approval-2026-10-23.json",
+    "freeze_approval_sha256": "80d606cdb5902a6daf06c93fbdf026ea2c6c202429c83a7caf091ddeeb559b49",
+    "execution_approval_path": "docs/evidence/poolside-laguna-p4-s5b-amendment-execution-approval-2026-10-23.json",
+    "execution_approval_sha256": "b86cbc2ad0609b8d29b3ad1a755c18b2c781e8606a2e1b1690e29fea37128d8e",
+    "maximum_spend_usd": 0,
+    "formal_execution_approval": true
+  },
+  "scope": {
+    "condition_id": "B",
+    "scenario_id": "S5",
+    "replicate": 3,
+    "applicable_units_planned": 1,
+    "completed_units": 1,
+    "metric_eligible_units": 1,
+    "invalid_units": 0,
+    "automatic_retries": 0,
+    "automatic_replacements": 0
+  },
+  "replacement_policy": {
+    "original_partial_attempt_id": "attempt-1-1e308be94c",
+    "original_partial_candidates": 9,
+    "original_partial_attempt_included_in_metrics": false,
+    "replacement_attempt_id": "attempt-1-0bd357874f",
+    "replacement_candidate_count": 10,
+    "replacement_attempt_included_in_metrics": true,
+    "combination_of_partial_and_replacement_candidates": false
+  },
+  "unit_result": {
+    "scenario_id": "S5",
+    "condition_id": "B",
+    "replicate": 3,
+    "candidate_budget": 10,
+    "generated_candidate_count": 10,
+    "unique_candidate_count": 10,
+    "duplicate_candidate_count": 0,
+    "decision_records": 30,
+    "payload_records": 90,
+    "confirmations_per_candidate": 3,
+    "logical_probe_submissions": 90,
+    "http_request_calls": 219,
+    "database_reset_performed": true,
+    "budget_complete": true,
+    "metric_eligible": true,
+    "exclusion_reason": null,
+    "system_decision": "positive",
+    "analysis_run_status": "complete"
+  },
+  "provider_and_budget": {
+    "provider": "direct Poolside API only",
+    "model": "poolside/laguna-s-2.1",
+    "openrouter_used": false,
+    "api_requests": 20,
+    "api_request_ceiling": 40,
+    "api_http_status_counts": {
+      "200": 20
+    },
+    "reported_model_counts": {
+      "poolside/laguna-s-2.1": 20
+    },
+    "api_stage_counts": {
+      "generation": 10,
+      "analysis": 10
+    },
+    "completion_tokens_reserved": 3365,
+    "completion_token_ceiling": 51200,
+    "usage_totals": {
+      "prompt_tokens": 27495,
+      "completion_tokens": 3365,
+      "total_tokens": 30860
+    },
+    "maximum_spend_usd": 0,
+    "http_529_count": 0
+  },
+  "local_validation": {
+    "database_resets": 1,
+    "logical_probe_submissions": 90,
+    "payload_records": 90,
+    "decision_records": 30,
+    "http_request_calls": 219
+  },
+  "composite_before_final_validation": {
+    "reused_replicate1_2_metric_eligible_units": 66,
+    "replicate3_original_complete_units": 32,
+    "targeted_replacement_metric_eligible_units": 1,
+    "total_metric_eligible_units": 99,
+    "planned_applicable_units": 99,
+    "metric_eligible_candidate_slots": 990,
+    "logical_confirmations": 2970,
+    "val01_status": "pending",
+    "human_validation_status": "pending",
+    "final_primary_summary_status": "withheld-pending-VAL01-and-human-validation"
+  },
+  "artifact_paths": {
+    "ledger": "results/raw/formal/poolside-p4-s5b-r3-amend1-20261023/ledger.jsonl",
+    "checkpoint": "results/raw/formal/poolside-p4-s5b-r3-amend1-20261023/checkpoint.json",
+    "execution_result": "results/raw/formal/poolside-p4-s5b-r3-amend1-20261023/poolside-p4-s5b-amendment-result.json",
+    "plan_snapshot": "results/raw/formal/poolside-p4-s5b-r3-amend1-20261023/plan.snapshot.json",
+    "runtime_snapshot": "results/raw/formal/poolside-p4-s5b-r3-amend1-20261023/poolside-p4-amendment-runtime.snapshot.json",
+    "candidate_batch": "results/raw/formal/poolside-p4-s5b-r3-amend1-20261023/attempts/poolside-p4-s5b-r3-amend1-b-s5-r3/attempt-1-0bd357874f/adaptive-candidates.json",
+    "generation_audit": "results/raw/formal/poolside-p4-s5b-r3-amend1-20261023/attempts/poolside-p4-s5b-r3-amend1-b-s5-r3/attempt-1-0bd357874f/adaptive-generation-audit.json",
+    "validation_log": "results/raw/formal/poolside-p4-s5b-r3-amend1-20261023/attempts/poolside-p4-s5b-r3-amend1-b-s5-r3/attempt-1-0bd357874f/validation.jsonl",
+    "analysis_result": "results/raw/formal/poolside-p4-s5b-r3-amend1-20261023/attempts/poolside-p4-s5b-r3-amend1-b-s5-r3/attempt-1-0bd357874f/qwen-api-adaptive-result.json"
+  },
+  "artifact_sha256": {
+    "ledger": "1d8f015d770ce7e2b2c71232b5a49d57922305fd021d0e3467c8a0494f973640",
+    "checkpoint": "fe7642798f42a8bf799a3b8b9c0cf1433948a23762e9ed7f87f85184bf29022a",
+    "execution_result": "ef996e7922c2616618280524a78b43553b30e6a909397bf05d340886abd2f044",
+    "plan_snapshot": "2182f5c78d79ee5baa98f378605716d90ba4b6dd8d994d6348168e29987b9d72",
+    "runtime_snapshot": "8e783a6f388dd8173e51ddc1b22c6c2b6113e087bb5c556dfab9069fe84103fd",
+    "candidate_batch": "53c62300962fe1116a878caba06ecfe06319c946f80b8740ed060344c7a1f891",
+    "generation_audit": "59553387dc643ff44076a79ee426c1f4fae7664f51c02770508b36a86bd04441",
+    "validation_log": "d075ea53fa114af1d35dbfb7f13203f394721828c803f126849c0f6e3479d0c2",
+    "analysis_result": "976c1f14b2efda475738054918eb7e45278d6663d9b1ddc2d86a6f269bc4eaab"
+  },
+  "api_result_sha256": {
+    "results/raw/formal/poolside-p4-s5b-r3-amend1-20261023/attempts/poolside-p4-s5b-r3-amend1-b-s5-r3/attempt-1-0bd357874f/api-calls/00001-generation-8f7cee0b/result.json": "8e2eeebe1579fe03d944f61ab0800160e10817ae1c02b8f0ec7d21a8cc546264",
+    "results/raw/formal/poolside-p4-s5b-r3-amend1-20261023/attempts/poolside-p4-s5b-r3-amend1-b-s5-r3/attempt-1-0bd357874f/api-calls/00002-analysis-5b591de1/result.json": "a4a1d55fde4671ddb8e71114b723a0fe08476ceeb97c4270688c6ff03deed4a1",
+    "results/raw/formal/poolside-p4-s5b-r3-amend1-20261023/attempts/poolside-p4-s5b-r3-amend1-b-s5-r3/attempt-1-0bd357874f/api-calls/00003-generation-e152a4e9/result.json": "970462a297da575a9b041a81cac5f61611b3eea4a6c42bea97fbf3efa99ef405",
+    "results/raw/formal/poolside-p4-s5b-r3-amend1-20261023/attempts/poolside-p4-s5b-r3-amend1-b-s5-r3/attempt-1-0bd357874f/api-calls/00004-analysis-f9db6bba/result.json": "7446ea8f3a5f07b8c6560a62c582df1c3b1f865a7724e3dcb1832d104255ad4b",
+    "results/raw/formal/poolside-p4-s5b-r3-amend1-20261023/attempts/poolside-p4-s5b-r3-amend1-b-s5-r3/attempt-1-0bd357874f/api-calls/00005-generation-370155b8/result.json": "1a31c0b023a1f39c913477e01901551e12793a07f51f68a754c1583a3c4607c9",
+    "results/raw/formal/poolside-p4-s5b-r3-amend1-20261023/attempts/poolside-p4-s5b-r3-amend1-b-s5-r3/attempt-1-0bd357874f/api-calls/00006-analysis-7281bf68/result.json": "ace6facbabd306d922ab56c88c5b2a3d557f6138da7ccee3d6a68e7b60434f2f",
+    "results/raw/formal/poolside-p4-s5b-r3-amend1-20261023/attempts/poolside-p4-s5b-r3-amend1-b-s5-r3/attempt-1-0bd357874f/api-calls/00007-generation-30ce55e1/result.json": "36a6326e82500cb83ee8d79b0a3abc5140a8559f3695f7d4ede281a63186cc24",
+    "results/raw/formal/poolside-p4-s5b-r3-amend1-20261023/attempts/poolside-p4-s5b-r3-amend1-b-s5-r3/attempt-1-0bd357874f/api-calls/00008-analysis-0fc4d5e7/result.json": "896ac8079848df5cf598c7a5a73d61328445415cbdb59290204e33719ccb87ff",
+    "results/raw/formal/poolside-p4-s5b-r3-amend1-20261023/attempts/poolside-p4-s5b-r3-amend1-b-s5-r3/attempt-1-0bd357874f/api-calls/00009-generation-e11dc20e/result.json": "3cc28ab2aba6290a69e4cdaead7f3def6478ad81ee32869c4c063ee39ee6d9d7",
+    "results/raw/formal/poolside-p4-s5b-r3-amend1-20261023/attempts/poolside-p4-s5b-r3-amend1-b-s5-r3/attempt-1-0bd357874f/api-calls/00010-analysis-b1df92cd/result.json": "5b1ab036b149192fe1ee1d513e6da370c62968d0712ee890d0988a374b520f0e",
+    "results/raw/formal/poolside-p4-s5b-r3-amend1-20261023/attempts/poolside-p4-s5b-r3-amend1-b-s5-r3/attempt-1-0bd357874f/api-calls/00011-generation-03b0bfb3/result.json": "9307f412f278a6f4a37f133fc9bb36e897b91b764efbc859ed4dc3b7baa2dba7",
+    "results/raw/formal/poolside-p4-s5b-r3-amend1-20261023/attempts/poolside-p4-s5b-r3-amend1-b-s5-r3/attempt-1-0bd357874f/api-calls/00012-analysis-0005daf0/result.json": "b6e8bab4d55a10a750705a6a9a1a869f930577dabf9da6403cc8f0688cd5f3ff",
+    "results/raw/formal/poolside-p4-s5b-r3-amend1-20261023/attempts/poolside-p4-s5b-r3-amend1-b-s5-r3/attempt-1-0bd357874f/api-calls/00013-generation-a7764905/result.json": "b833db46df7dc3153646cdcde005f2b1ba807998e66febb65055a8b8f2756f05",
+    "results/raw/formal/poolside-p4-s5b-r3-amend1-20261023/attempts/poolside-p4-s5b-r3-amend1-b-s5-r3/attempt-1-0bd357874f/api-calls/00014-analysis-f540e56e/result.json": "3df29ac40cf6ecff5a9f6f51c2ae8881fbac09674c5153a4dbb5944fbcf410d7",
+    "results/raw/formal/poolside-p4-s5b-r3-amend1-20261023/attempts/poolside-p4-s5b-r3-amend1-b-s5-r3/attempt-1-0bd357874f/api-calls/00015-generation-b6f4a349/result.json": "54b4b4d91e23d071ef4fdc2296d27746a2c3772c77c0edc737b0ed7baf4c8113",
+    "results/raw/formal/poolside-p4-s5b-r3-amend1-20261023/attempts/poolside-p4-s5b-r3-amend1-b-s5-r3/attempt-1-0bd357874f/api-calls/00016-analysis-4ace3c81/result.json": "36722d9308943d6e95a94e575f4f21989dd97d3db1ee4962ce5847ffc5a27647",
+    "results/raw/formal/poolside-p4-s5b-r3-amend1-20261023/attempts/poolside-p4-s5b-r3-amend1-b-s5-r3/attempt-1-0bd357874f/api-calls/00017-generation-c3963771/result.json": "8a3644447d92c6aed0e1ee60b33813112f2427a06647cf7bdf01aac8b81af0b6",
+    "results/raw/formal/poolside-p4-s5b-r3-amend1-20261023/attempts/poolside-p4-s5b-r3-amend1-b-s5-r3/attempt-1-0bd357874f/api-calls/00018-analysis-3bf3bf44/result.json": "07198de9a57d0dccb5af030b3c515e320deca582f23027fad59c3d0f088098c4",
+    "results/raw/formal/poolside-p4-s5b-r3-amend1-20261023/attempts/poolside-p4-s5b-r3-amend1-b-s5-r3/attempt-1-0bd357874f/api-calls/00019-generation-2f006f5f/result.json": "28d07597ab11a79e0fece45c84c0c1b67dde61faafe73517216058253da3df28",
+    "results/raw/formal/poolside-p4-s5b-r3-amend1-20261023/attempts/poolside-p4-s5b-r3-amend1-b-s5-r3/attempt-1-0bd357874f/api-calls/00020-analysis-777a283a/result.json": "d5cdbe7a30f29918c34ba6f12152423e0446a07181b60ed021c82312d2569d96"
+  },
+  "execution_started": true
+}

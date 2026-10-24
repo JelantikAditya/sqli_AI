@@ -1,0 +1,38 @@
+{
+  "schema": "poolside-laguna-p4-s5b-amendment-package-v1",
+  "amendment_id": "p4-s5b-r3-amend1",
+  "created_at_utc": "2026-10-23",
+  "status": "draft-awaiting-separate-freeze-and-execution-approval",
+  "formal_execution_authorized": false,
+  "scope": {
+    "condition_ids": [
+      "B"
+    ],
+    "scenario_ids": [
+      "S5"
+    ],
+    "replicates": [
+      3
+    ],
+    "applicable_units": 1
+  },
+  "cohort_effect": "One replacement cell only. The original 32 complete Replicate-3 cells and 66 reused Replicate-1/2 cells are retained as-is.",
+  "output_path": "results/raw/formal/poolside-p4-s5b-r3-amend1-20261023",
+  "approval_receipts": {
+    "freeze": "docs/evidence/poolside-laguna-p4-s5b-amendment-freeze-approval-2026-10-23.json",
+    "execution": "docs/evidence/poolside-laguna-p4-s5b-amendment-execution-approval-2026-10-23.json"
+  },
+  "artifact_sha256": {
+    "runner": "c631a4435773b160a8cae0ca1877fb04e96c2828227f4e002efa9c1d47dcc4e9",
+    "amendment": "93d30bdc5fb27c9246161567ab096005227af5bcd671372f32d6fb3d77c27fcf",
+    "plan": "9e4c37cc13866ff7c25aa0ed59b99f487816aa961bbd5357ad9b408d0dde26cb",
+    "budget": "91d2d05847fc5c375a165111d13cc91fe5099586b14203e79901d2ceba022b5e",
+    "base_protocol": "f08249f0cba6f45d01d87e560d9ef472430ab8484bcf565b8515bf63d874bf1b",
+    "base_release": "632ef102c6fc4c179346db15df415eb691452293eeb7611c5b33b098e7230ef7",
+    "source_audit": "77ece4d4fda870c5dc4aeb45ac7cf6e77b12537dc4416540282990a4c920ac11",
+    "source_ledger": "a166bbcb4a5e9491bf192f06950e988262af19e8b75580a1fbbbfdab6274163f",
+    "source_result": "f704c0b2db7b1ada8330ff3a62b697db50c79258bc59726bc9f5b33cbc5ec137",
+    "s5r3_discovery": "0ff5b1bc8b74ff09543d0606bd27564d59728fde9bf5ccb71a1917e8936c2c6d",
+    "amendment_note": "ebe6c229bf48e8f6e650bec2251477cd9d777689d0d53835b012b35998e4c575"
+  }
+}

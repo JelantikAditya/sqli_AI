@@ -1,0 +1,52 @@
+{
+  "schema": "poolside-laguna-p4-execution-stop-v1",
+  "experiment_id": "poolside-laguna-p4-20261023",
+  "status": "invalid-partial-execution",
+  "release_manifest_sha256": "1365dff78ffcdfaf29503007580f23dfbf63f4e0736f37c74c015a889c9c0a63",
+  "execution_approval_sha256": "db7cb936fcde43f82f4f8002f1a3a85129cafdfed56a129b492725c559de561d",
+  "formal_output_path": "results/raw/formal/poolside-laguna-p4-20261023",
+  "summary": {
+    "unit_status_counts": {
+      "planned": 97,
+      "running": 0,
+      "retried": 0,
+      "completed": 1,
+      "invalid": 1,
+      "excluded": 9
+    },
+    "api_calls_used": 42,
+    "completion_tokens_used": 4624,
+    "prompt_tokens": 44530,
+    "total_tokens": 49154,
+    "openrouter_used": false,
+    "completed_units": [
+      "S1/A/replicate-1"
+    ],
+    "invalid_units": [
+      "S1/B/replicate-1"
+    ],
+    "remaining_units_not_started": 97,
+    "failed_condition_generation_and_analysis_completed": true,
+    "shared_formal_aggregation_finalized": false,
+    "dvwa_http_attempts": 318,
+    "database_resets": 2
+  },
+  "failure": {
+    "ledger_failure_code": "api_adaptive_artifact_processing_failed",
+    "exception_type": "ValueError",
+    "root_cause": "Offline postprocessing of the supplied RAG adaptive result unnecessarily validated the active Chroma manifest. The active index differs from the approved archive, although P4 retrieval correctly used a verified isolated archive copy.",
+    "api_or_budget_failure": false,
+    "openrouter_used": false
+  },
+  "policy": "Keep this raw attempt immutable and exclude all its units from the recovery cohort. Start a fresh cohort only after the revised package is reviewed and separately approved.",
+  "evidence_sha256": {
+    "ledger.jsonl": "155ac01428e5c41d8119fe9913d71fba3e68f9c1d6c84f27b4f33ce02ead0541",
+    "checkpoint.json": "f33734c5035acd776c47a0ec35ddf0c38aa0481584fe88f0eefeca8a2f3499a6",
+    "poolside-p4-execution-result.json": "54ae2926bfe2bce11bcc24aca12fb7d636cbc7c77e61d0f921414515d4f30a47",
+    "attempt-a-adaptive-result.json": "68aa13ea3af1ed2126137e0c5112779f1ae7fc2dcf54362d5c79085ee09e5a7b",
+    "attempt-b-adaptive-result.json": "5343a4e1175cd1dc8142773f3060fa19b81360924f863f062884d6a382287566"
+  },
+  "runtime_fix_file": "dvwa/run_local_experiments.py",
+  "runtime_fix_sha256": "c6ffa9c71bdfe3f24047cd4623bc20b98728c79c986e6ae7077802f690cad39b",
+  "offline_regression_tests": "tests.test_adaptive_runner_artifact: 4 passed; py_compile passed"
+}

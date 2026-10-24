@@ -1201,8 +1201,10 @@ def execute_adaptive_s1_unit(unit: dict, attempt: dict, plan: dict, protocol: di
                "--num-ctx", str(generation["num_ctx"]), "--num-predict", str(generation["num_predict"]),
                "--run-id", attempt["run_id"], "--attempt-id", attempt["attempt_id"],
                "--output-dir", str(adaptive_directory), "--reset-before-run", "--confirm-local-dvwa"]
-    command.extend(adaptive_manifest_args(plan, unit, root))
     if adaptive_result_path is None:
+        # A supplied adaptive result is postprocessed offline. Do not revalidate
+        # the active manifest when P4 already used its isolated archive copy.
+        command.extend(adaptive_manifest_args(plan, unit, root))
         result = run_command(command, unit_directory / "adaptive-command.log", root)
         summary = parse_summary(result.stdout)
         result_path_text = summary.get("output")

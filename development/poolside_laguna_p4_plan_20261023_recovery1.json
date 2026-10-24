@@ -1,0 +1,467 @@
+{
+  "schema": "poolside-laguna-formal-plan-draft-v1",
+  "experiment_id": "poolside-laguna-p4-20261023",
+  "status": "draft-blocked-not-frozen",
+  "dataset": "separate-formal-cohort-primary-model-in-revised-analysis",
+  "user_direction": {
+    "provider": "direct Poolside API",
+    "model": "poolside/laguna-s-2.1",
+    "openrouter": "deferred; not part of this plan"
+  },
+  "provider": {
+    "base_url": "https://inference.poolside.ai/v1",
+    "requested_model": "poolside/laguna-s-2.1",
+    "reported_model_evidence": {
+      "response_file_count": 506,
+      "reported_model_counts": {
+        "poolside/laguna-s-2.1": 506
+      },
+      "result_status_counts": {
+        "ok": 506
+      },
+      "path": "results/raw/pilot/poolside-s21-p3-q4-v5-20261023/attempts/poolside-s21-p3-q4-v5-20261023-a-s1-r1/attempt-1-c6ddf6c64f/api-calls/00001-generation-ddddb82b/result.json",
+      "sha256": "1e628e36572f8305c70d4b2d6ac49bf4466509c2eea5fe1c255d89db3ee37859"
+    },
+    "credential_source": "local environment or .env.poolside.local; never read by this preparation utility",
+    "model_fallback": false,
+    "transport_retries": 0
+  },
+  "method_amendment": {
+    "path": "docs/usulan-amendemen-metode-poolside-laguna-p4-2026-10-23.md",
+    "sha256": "c48550c2221edba54f0d93a7fba54424545037d4eef731b666104c155428c2b5",
+    "status": "researcher-decision-recorded; adviser-approval-reported-by-researcher",
+    "decision_receipt_path": "docs/evidence/poolside-laguna-p4-method-decision-2026-10-23.json",
+    "decision_receipt_sha256": "fe9c346d8992bdfb54877b599877d32742f72a706a03cfe3c26c7dec1ec113a7",
+    "cohort_role": "Poolside Laguna P4 is the primary formal model cohort for the revised analysis.",
+    "local_qwen_data_policy": "Preserve all existing local-Qwen formal results and report them separately. Do not overwrite, merge, or discard them.",
+    "proposal_update_timing": "at the end of the research",
+    "proposal_update_reason": "The researcher wants to focus first on conducting the research so the results can be written.",
+    "protocol_freeze_or_execution_approval": false
+  },
+  "method_decision": {
+    "decision_id": "poolside-laguna-p4-method-decision-20261023",
+    "decision": "approved-for-poolside-laguna-p4-method",
+    "cohort_role": "Poolside Laguna P4 is the primary formal model cohort for the revised analysis.",
+    "cohort_relationship": "P4 is a separate formal cohort from the prior local-Qwen formal experiment.",
+    "local_qwen_data_policy": "Preserve all existing local-Qwen formal results and report them separately. Do not overwrite, merge, or discard them.",
+    "adviser_approval_status": "reported-by-researcher",
+    "direct_adviser_receipt_present": false,
+    "proposal_update_timing": "at the end of the research",
+    "proposal_update_reason": "The researcher wants to focus first on conducting the research so the results can be written.",
+    "protocol_frozen": false,
+    "formal_execution_approval": false
+  },
+  "design": {
+    "target": "http://127.0.0.1:4280",
+    "method": "DAST black-box SQL injection on local DVWA",
+    "techniques": [
+      "error-based",
+      "boolean-based blind",
+      "time-based blind"
+    ],
+    "security_levels": [
+      "low",
+      "medium",
+      "high",
+      "impossible"
+    ],
+    "conditions": {
+      "A": {
+        "source": "Poolside Laguna API",
+        "rag_mode": "off",
+        "scenario_ids": [
+          "S1",
+          "S2",
+          "S3",
+          "S4",
+          "S5",
+          "S6",
+          "S7",
+          "S8",
+          "S9",
+          "S10",
+          "S11",
+          "S12"
+        ]
+      },
+      "B": {
+        "source": "Poolside Laguna API",
+        "rag_mode": "on",
+        "scenario_ids": [
+          "S1",
+          "S2",
+          "S3",
+          "S4",
+          "S5",
+          "S6",
+          "S7",
+          "S8",
+          "S9",
+          "S10",
+          "S11",
+          "S12"
+        ]
+      },
+      "C": {
+        "source": "SecLists",
+        "rag_mode": "not_applicable",
+        "scenario_ids": [
+          "S1",
+          "S2",
+          "S3",
+          "S4",
+          "S5",
+          "S6",
+          "S7",
+          "S8",
+          "S9"
+        ]
+      }
+    },
+    "replicates": [
+      1,
+      2,
+      3
+    ],
+    "candidate_budget_per_applicable_unit": 10,
+    "confirmations_per_candidate": 3,
+    "counts": {
+      "ab_api_units": 72,
+      "c_seclists_units": 27,
+      "applicable_units": 99,
+      "ab_candidates": 720,
+      "c_candidates": 270,
+      "total_candidates": 990,
+      "logical_confirmations": 2970,
+      "excluded_c_slots": 9
+    },
+    "primary_metrics": {
+      "fpr": "condition A versus B, per applicable run",
+      "psr": "conditions B and C, candidate-level"
+    }
+  },
+  "generation_profile": {
+    "generation_prompt_version": "poolside-laguna-sqli-generation-v5-explicit-structure-feedback",
+    "generation_retry_policy_id": "poolside-unit-wide-unseen-family-structure-feedback-v5",
+    "api_call_retry_policy_id": "poolside-family-fallback-and-format-feedback-v2",
+    "retrieval_context_policy_id": "structured-chunks-remove-payload-examples-v1",
+    "analysis_prompt_version": "qwen38-api-p2-explicit-evidence-v1",
+    "temperature": 0,
+    "thinking": false,
+    "generation_max_tokens": 1024,
+    "analysis_max_tokens": 2048,
+    "replicate_seed": "not sent by direct Poolside adapter; report hosted nondeterminism",
+    "runtime_source_sha256": {
+      "development/poolside_laguna_generation_v5.py": "893529cc36843fe8957d4d53b5874b116158fe035df7256b274a8fd5fa97ea66",
+      "development/run_bounded_poolside_qualification_v5.py": "e8475af74d89765d3ebd39508593027c5d7d36f567974685d906b75ff9a4ea78",
+      "development/run_bounded_poolside_qualification_v3.py": "c3303c43a2113658b7ea2ac45887fc5e9e019f8cb0def421d0503a5a55b0ad9a",
+      "development/capture_poolside_laguna_p4_discovery.py": "1b8b336f626f240586e82d4738be64eeb69ad4ccc6a3badfb16c6d80fb96c378",
+      "development/preflight_poolside_laguna_p4_dvwa.py": "a81002e94539893cb1cb158cc11f25b5c33512da9dfd380f9bb7c37a86c432eb",
+      "development/poolside_completion_budget.py": "91be55bae310a0ce65592f1a3d56aa95250484a34d3bad9f6d8be2fbffdfac9c",
+      "development/prepare_poolside_laguna_p4.py": "f48845e2c9a8f299a24dc5ab626db1ab0e961161d22df3528e7b6f4a0bd58dd1",
+      "development/poolside_p3_runtime.py": "45bb323c97eb4d6bf9dc39616342f6a842d360e5a92c0454ec85430792cbbf9c",
+      "development/run_poolside_contract_smoke.py": "eca0a1ad00956dde47fbddb995fe82d0a565a95512f2423602ac4fdb245b9f00",
+      "development/run_poolside_generation_preflight.py": "bf0e476357df27b7394ea3c6e6da871456cca312076826a018a0a1d5bd9e6394",
+      "development/run_poolside_smoke.py": "f1988783b2e484b5708021182c80d3b56837cbc0ea801713e4416d5be7b5a6cb",
+      "development/qwen_api_p2_analysis.py": "0bca9b16aef1894f467ccd13faf64b9f63fbf675884f7c078cd6924851c4e9be",
+      "development/run_qwen_api_experiments.py": "7ebb901f915c0488edfe69341253f924e4bcfee6332772c0fc19f4d2f576a4cb",
+      "dvwa/run_local_experiments.py": "c6ffa9c71bdfe3f24047cd4623bc20b98728c79c986e6ae7077802f690cad39b",
+      "dvwa/local_experiment_protocol.json": "25626a279e840c7575940635d8fa01e74e45a9757c6c2bcf198a26ed95d20f01",
+      "dvwa/experiment_scenarios.json": "ca73f6acb8258702140bde1cb316141d1176270d2751d9c4a66c7f2676e1da00",
+      "dvwa/compose.yaml": "685ee99551d451104884d53d56ed38a863306cc05e91981daa3fd2e0cc495395",
+      "dvwa/zap-auth.template.yaml": "d8d7237da33506cf7cfe74bb710af137ce4e4722947a09eccfeceeea36450e05",
+      "dvwa/rag_pipeline.py": "750cbbeb9cf0240221b83121113adfcb91a1eeb970c2f0ced1b90005d20df6ef",
+      "dvwa/retrieve_structured_knowledge.py": "a04feb51c323ef5187f1dcb61d21fd34a24c010f3870cfcdfb8b4b0e569ed35f",
+      "dvwa/analyze_response.py": "ffba71043245baf3db73a09d9236bf4e2f3edb7e38737a250ec799e9c720a500",
+      "dvwa/validation_loop.py": "bada3ea7029f83d3df39c7dd86c7acff6bea89e5e5e6a2187b18ffab0d814234",
+      "dvwa/confirmation_policy.py": "76d3f891585170f53b784523faade226a5ac4529b77de1c0937d170d1ea37cbd",
+      "dvwa/execution_order_policy.py": "d66146da5d1984dd67f427179348ba247162d52ba129b601e280e5f789784325",
+      "requirements-formal-2026-10-17.lock.txt": "29e4a87f1a2c1d3f41104cd26f16c047ae440541934a0c74aa8bcbc6e6781e73",
+      "schemas/local-run-plan.schema.json": "0dbf1f3fbfd146f5578bfb3cd06f32ee445a6fa70fdc44770e59ce2a9231af14",
+      "schemas/formal-execution-approval.schema.json": "89c2294a6715b0ac7d27a19af5a4bf91dadf6a14cefb8fdfa366bc2445b7a4ab",
+      "development/run_poolside_laguna_p4_recovery1.py": "c15d05c0470345d47cf4eba74165b0e653854e085af178d9e88f388175779793",
+      "development/review_poolside_laguna_p4_discovery_recovery1.py": "564d4d137db05f5b24aaef234272db02a0a43faff4cc514c0826987459a273dd"
+    }
+  },
+  "discovery_reports": [
+    {
+      "replicate": 1,
+      "level": "low",
+      "scenario_ids": "S1-S3",
+      "path": "results/raw/formal-discovery/poolside-laguna-p4-20261023/replicate-1/low/zap-discovery.normalized.json",
+      "sha256": "ed7fd8a0b0b2b70e1aeb3e8c2cfdf5c3b3b7b22dbd5b152f2ddb92d602d6b214",
+      "generated_at": "2026-10-23T07:27:30.103287082Z",
+      "age_days_at_preparation": 0,
+      "target_origin_in_report": "http://dvwa",
+      "authentication_status": "verified",
+      "verified_injection_point_count": 2,
+      "out_of_level_sqli_input_observation_count": 1,
+      "p4_use": "fresh P4 discovery"
+    },
+    {
+      "replicate": 1,
+      "level": "medium",
+      "scenario_ids": "S4-S6",
+      "path": "results/raw/formal-discovery/poolside-laguna-p4-20261023/replicate-1/medium/zap-discovery.normalized.json",
+      "sha256": "c496bf02983bd24c1e9370dd2fcaf1634feef7b902b49f341be7e13898a472dc",
+      "generated_at": "2026-10-23T07:29:44.768093544Z",
+      "age_days_at_preparation": 0,
+      "target_origin_in_report": "http://dvwa",
+      "authentication_status": "verified",
+      "verified_injection_point_count": 2,
+      "out_of_level_sqli_input_observation_count": 1,
+      "p4_use": "fresh P4 discovery"
+    },
+    {
+      "replicate": 1,
+      "level": "high",
+      "scenario_ids": "S7-S9",
+      "path": "results/raw/formal-discovery/poolside-laguna-p4-20261023/replicate-1/high/zap-discovery.normalized.json",
+      "sha256": "2856944410e1505b6937bc26bb6f3fedae46a9a15c35dc0c576a64b3b9f0ab68",
+      "generated_at": "2026-10-23T07:31:41.985764504Z",
+      "age_days_at_preparation": 0,
+      "target_origin_in_report": "http://dvwa",
+      "authentication_status": "verified",
+      "verified_injection_point_count": 2,
+      "out_of_level_sqli_input_observation_count": 0,
+      "p4_use": "fresh P4 discovery"
+    },
+    {
+      "replicate": 1,
+      "level": "impossible",
+      "scenario_ids": "S10-S12",
+      "path": "results/raw/formal-discovery/poolside-laguna-p4-20261023/replicate-1/impossible/zap-discovery.normalized.json",
+      "sha256": "a6895a0644293b203fcd0ffd84783bd0438c2b8a6f37c22c086330fac833bec3",
+      "generated_at": "2026-10-23T07:33:37.532193629Z",
+      "age_days_at_preparation": 0,
+      "target_origin_in_report": "http://dvwa",
+      "authentication_status": "verified",
+      "verified_injection_point_count": 2,
+      "out_of_level_sqli_input_observation_count": 3,
+      "p4_use": "fresh P4 discovery"
+    },
+    {
+      "replicate": 2,
+      "level": "low",
+      "scenario_ids": "S1-S3",
+      "path": "results/raw/formal-discovery/poolside-laguna-p4-20261023/replicate-2/low/zap-discovery.normalized.json",
+      "sha256": "de297f6719299c0e776ed45d155798fbb8301e725c427cd54771674fa4df8461",
+      "generated_at": "2026-10-23T07:35:29.060996160Z",
+      "age_days_at_preparation": 0,
+      "target_origin_in_report": "http://dvwa",
+      "authentication_status": "verified",
+      "verified_injection_point_count": 2,
+      "out_of_level_sqli_input_observation_count": 1,
+      "p4_use": "fresh P4 discovery"
+    },
+    {
+      "replicate": 2,
+      "level": "medium",
+      "scenario_ids": "S4-S6",
+      "path": "results/raw/formal-discovery/poolside-laguna-p4-20261023/replicate-2/medium/zap-discovery.normalized.json",
+      "sha256": "8b9cace9a90d9d73d34d05688e792505b65b53593b51b65f8efb1f9a132285c1",
+      "generated_at": "2026-10-23T07:37:29.475268562Z",
+      "age_days_at_preparation": 0,
+      "target_origin_in_report": "http://dvwa",
+      "authentication_status": "verified",
+      "verified_injection_point_count": 2,
+      "out_of_level_sqli_input_observation_count": 1,
+      "p4_use": "fresh P4 discovery"
+    },
+    {
+      "replicate": 2,
+      "level": "high",
+      "scenario_ids": "S7-S9",
+      "path": "results/raw/formal-discovery/poolside-laguna-p4-20261023/replicate-2/high/zap-discovery.normalized.json",
+      "sha256": "52b24dd71d0e760347565d7f433ee30deff680e16e8a63148e1d5efa6aaed118",
+      "generated_at": "2026-10-23T07:39:22.332827610Z",
+      "age_days_at_preparation": 0,
+      "target_origin_in_report": "http://dvwa",
+      "authentication_status": "verified",
+      "verified_injection_point_count": 2,
+      "out_of_level_sqli_input_observation_count": 0,
+      "p4_use": "fresh P4 discovery"
+    },
+    {
+      "replicate": 2,
+      "level": "impossible",
+      "scenario_ids": "S10-S12",
+      "path": "results/raw/formal-discovery/poolside-laguna-p4-20261023/replicate-2/impossible/zap-discovery.normalized.json",
+      "sha256": "a3c0199ffb059e8c672d5a0b8417711cb2c31c75ec6795ad4d81f5de5d94431d",
+      "generated_at": "2026-10-23T07:41:20.561490499Z",
+      "age_days_at_preparation": 0,
+      "target_origin_in_report": "http://dvwa",
+      "authentication_status": "verified",
+      "verified_injection_point_count": 2,
+      "out_of_level_sqli_input_observation_count": 3,
+      "p4_use": "fresh P4 discovery"
+    },
+    {
+      "replicate": 3,
+      "level": "low",
+      "scenario_ids": "S1-S3",
+      "path": "results/raw/formal-discovery/poolside-laguna-p4-20261023/replicate-3/low/zap-discovery.normalized.json",
+      "sha256": "6c3b52a8ad2aa3d663e3734736beda957b63914260bd43cfbd6f012081d3f53e",
+      "generated_at": "2026-10-23T07:43:13.496344614Z",
+      "age_days_at_preparation": 0,
+      "target_origin_in_report": "http://dvwa",
+      "authentication_status": "verified",
+      "verified_injection_point_count": 2,
+      "out_of_level_sqli_input_observation_count": 1,
+      "p4_use": "fresh P4 discovery"
+    },
+    {
+      "replicate": 3,
+      "level": "medium",
+      "scenario_ids": "S4-S6",
+      "path": "results/raw/formal-discovery/poolside-laguna-p4-20261023/replicate-3/medium/zap-discovery.normalized.json",
+      "sha256": "0ff5b1bc8b74ff09543d0606bd27564d59728fde9bf5ccb71a1917e8936c2c6d",
+      "generated_at": "2026-10-23T07:45:09.841970472Z",
+      "age_days_at_preparation": 0,
+      "target_origin_in_report": "http://dvwa",
+      "authentication_status": "verified",
+      "verified_injection_point_count": 2,
+      "out_of_level_sqli_input_observation_count": 1,
+      "p4_use": "fresh P4 discovery"
+    },
+    {
+      "replicate": 3,
+      "level": "high",
+      "scenario_ids": "S7-S9",
+      "path": "results/raw/formal-discovery/poolside-laguna-p4-20261023/replicate-3/high/zap-discovery.normalized.json",
+      "sha256": "3d0d47ea0e7c21f2268b27cacd3b768fc88f237ddfd41e5c0766ffed04b02542",
+      "generated_at": "2026-10-23T07:47:02.637250354Z",
+      "age_days_at_preparation": 0,
+      "target_origin_in_report": "http://dvwa",
+      "authentication_status": "verified",
+      "verified_injection_point_count": 2,
+      "out_of_level_sqli_input_observation_count": 0,
+      "p4_use": "fresh P4 discovery"
+    },
+    {
+      "replicate": 3,
+      "level": "impossible",
+      "scenario_ids": "S10-S12",
+      "path": "results/raw/formal-discovery/poolside-laguna-p4-20261023/replicate-3/impossible/zap-discovery.normalized.json",
+      "sha256": "ac12c4b830a79244ef87fd6947ccad33be41ade40d5e88fd4271a0df06de4803",
+      "generated_at": "2026-10-23T07:48:55.108203701Z",
+      "age_days_at_preparation": 0,
+      "target_origin_in_report": "http://dvwa",
+      "authentication_status": "verified",
+      "verified_injection_point_count": 2,
+      "out_of_level_sqli_input_observation_count": 3,
+      "p4_use": "fresh P4 discovery"
+    }
+  ],
+  "discovery_requirements": {
+    "expected_report_count": 12,
+    "refresh_policy": "fresh for each replicate and security level",
+    "existing_reports_are_execution_eligible": false,
+    "report_target_origin_mapping_required": true,
+    "manual_review_required_for_out_of_level_observations": true
+  },
+  "knowledge_snapshot": {
+    "corpus_sha256": "8e2aaf363b384eb686594b8968c38ae00fd078cfc9581d6a91d6617ba0ef4348",
+    "source_lock_sha256": "2c23da42f9db73c3241ca78e68da496b83ecdeb257bc46171e55fd69f3f6278b",
+    "review_decision_path": "docs/evidence/u07-formal-corpus-decision-2026-10-17.json",
+    "review_decision_sha256": "9fc84d0d0ed8f6c9d3c8ab9cf77bed1fd1e783a4e5256acb8bb3ce4b2f9e2d81",
+    "review_decision": "approved-for-formal-use",
+    "formal_execution_approval_in_receipt": false,
+    "approved_archive_root": "results/raw/formal/formal-sqli-v1-20261017/index-recovery/approved-snapshot",
+    "archive_file_hashes": {
+      "data/vectorstore/sqli-knowledge-ec9d1b2feda12dd3/chroma.sqlite3": {
+        "expected_sha256": "32684a5b90b1f4ce81abfbf47b20182dcab1abe76ecdb4cdb47b8c3430f6a9d8",
+        "archive_sha256": "32684a5b90b1f4ce81abfbf47b20182dcab1abe76ecdb4cdb47b8c3430f6a9d8",
+        "matches_approved": true,
+        "archive_path": "results/raw/formal/formal-sqli-v1-20261017/index-recovery/approved-snapshot/data/vectorstore/sqli-knowledge-ec9d1b2feda12dd3/chroma.sqlite3"
+      },
+      "data/vectorstore/sqli-knowledge-ec9d1b2feda12dd3/manifest.json": {
+        "expected_sha256": "e00baf7e2af3e25ea6011a4e9cea2c19bd6122c7592e576ea8400e97786a24bd",
+        "archive_sha256": "e00baf7e2af3e25ea6011a4e9cea2c19bd6122c7592e576ea8400e97786a24bd",
+        "matches_approved": true,
+        "archive_path": "results/raw/formal/formal-sqli-v1-20261017/index-recovery/approved-snapshot/data/vectorstore/sqli-knowledge-ec9d1b2feda12dd3/manifest.json"
+      },
+      "data/vectorstore/sqli-knowledge-ec9d1b2feda12dd3/4176542f-e8f6-4a46-8652-598aedaf3721/data_level0.bin": {
+        "expected_sha256": "4f436e3e7f8625e846b7cff2b4532265da6926cead44b56134349ca0edbb6fdd",
+        "archive_sha256": "4f436e3e7f8625e846b7cff2b4532265da6926cead44b56134349ca0edbb6fdd",
+        "matches_approved": true,
+        "archive_path": "results/raw/formal/formal-sqli-v1-20261017/index-recovery/approved-snapshot/data/vectorstore/sqli-knowledge-ec9d1b2feda12dd3/4176542f-e8f6-4a46-8652-598aedaf3721/data_level0.bin"
+      },
+      "data/vectorstore/sqli-knowledge-ec9d1b2feda12dd3/4176542f-e8f6-4a46-8652-598aedaf3721/header.bin": {
+        "expected_sha256": "03cb3ac86f3e5bcb15e88b9bf99f760ec6b33e31d64a699e129b49868db6d733",
+        "archive_sha256": "03cb3ac86f3e5bcb15e88b9bf99f760ec6b33e31d64a699e129b49868db6d733",
+        "matches_approved": true,
+        "archive_path": "results/raw/formal/formal-sqli-v1-20261017/index-recovery/approved-snapshot/data/vectorstore/sqli-knowledge-ec9d1b2feda12dd3/4176542f-e8f6-4a46-8652-598aedaf3721/header.bin"
+      },
+      "data/vectorstore/sqli-knowledge-ec9d1b2feda12dd3/4176542f-e8f6-4a46-8652-598aedaf3721/length.bin": {
+        "expected_sha256": "fcb1dae9ff0777ddad43e748fa01c59d180a8a1d1014d4acae17cd29dd9d16c3",
+        "archive_sha256": "fcb1dae9ff0777ddad43e748fa01c59d180a8a1d1014d4acae17cd29dd9d16c3",
+        "matches_approved": true,
+        "archive_path": "results/raw/formal/formal-sqli-v1-20261017/index-recovery/approved-snapshot/data/vectorstore/sqli-knowledge-ec9d1b2feda12dd3/4176542f-e8f6-4a46-8652-598aedaf3721/length.bin"
+      },
+      "data/vectorstore/sqli-knowledge-ec9d1b2feda12dd3/4176542f-e8f6-4a46-8652-598aedaf3721/link_lists.bin": {
+        "expected_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "archive_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "matches_approved": true,
+        "archive_path": "results/raw/formal/formal-sqli-v1-20261017/index-recovery/approved-snapshot/data/vectorstore/sqli-knowledge-ec9d1b2feda12dd3/4176542f-e8f6-4a46-8652-598aedaf3721/link_lists.bin"
+      }
+    },
+    "active_store_comparison": {
+      "data/vectorstore/sqli-knowledge-ec9d1b2feda12dd3/chroma.sqlite3": {
+        "expected_sha256": "32684a5b90b1f4ce81abfbf47b20182dcab1abe76ecdb4cdb47b8c3430f6a9d8",
+        "active_sha256": "7911a81a94be5c760ac93faeca0b44e5f7f95cb2a7dc0c667fd01caeb8b7454a",
+        "matches_approved": false
+      },
+      "data/vectorstore/sqli-knowledge-ec9d1b2feda12dd3/manifest.json": {
+        "expected_sha256": "e00baf7e2af3e25ea6011a4e9cea2c19bd6122c7592e576ea8400e97786a24bd",
+        "active_sha256": "e00baf7e2af3e25ea6011a4e9cea2c19bd6122c7592e576ea8400e97786a24bd",
+        "matches_approved": true
+      },
+      "data/vectorstore/sqli-knowledge-ec9d1b2feda12dd3/4176542f-e8f6-4a46-8652-598aedaf3721/data_level0.bin": {
+        "expected_sha256": "4f436e3e7f8625e846b7cff2b4532265da6926cead44b56134349ca0edbb6fdd",
+        "active_sha256": "2cdb190ca57adb64a6dcb7befde7599c710623ae4b7b948beadfff0f234bee46",
+        "matches_approved": false
+      },
+      "data/vectorstore/sqli-knowledge-ec9d1b2feda12dd3/4176542f-e8f6-4a46-8652-598aedaf3721/header.bin": {
+        "expected_sha256": "03cb3ac86f3e5bcb15e88b9bf99f760ec6b33e31d64a699e129b49868db6d733",
+        "active_sha256": "03cb3ac86f3e5bcb15e88b9bf99f760ec6b33e31d64a699e129b49868db6d733",
+        "matches_approved": true
+      },
+      "data/vectorstore/sqli-knowledge-ec9d1b2feda12dd3/4176542f-e8f6-4a46-8652-598aedaf3721/length.bin": {
+        "expected_sha256": "fcb1dae9ff0777ddad43e748fa01c59d180a8a1d1014d4acae17cd29dd9d16c3",
+        "active_sha256": "fcb1dae9ff0777ddad43e748fa01c59d180a8a1d1014d4acae17cd29dd9d16c3",
+        "matches_approved": true
+      },
+      "data/vectorstore/sqli-knowledge-ec9d1b2feda12dd3/4176542f-e8f6-4a46-8652-598aedaf3721/link_lists.bin": {
+        "expected_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "active_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "matches_approved": true
+      }
+    },
+    "active_store_may_be_overwritten": false,
+    "required_p4_execution_mode": "isolated verified snapshot or runner with an explicit read-only store path"
+  },
+  "protocol_reference": {
+    "legacy_protocol_path": "dvwa/local_experiment_protocol.json",
+    "legacy_protocol_sha256": "25626a279e840c7575940635d8fa01e74e45a9757c6c2bcf198a26ed95d20f01",
+    "legacy_protocol_model": "qwen2.5:7b",
+    "legacy_protocol_status": "frozen",
+    "reused_as_p4_approval": false
+  },
+  "execution_authorized": false,
+  "execution_approval_receipt": null,
+  "runner_status": "P4 fail-closed runner implemented; execution remains closed pending protocol freeze, release, and hash-bound execution approval",
+  "preparation_side_effects": {
+    "api_requests": 0,
+    "dvwa_requests": 0,
+    "credentials_read": false,
+    "openrouter_used": false
+  },
+  "recovery_context": {
+    "reason": "The first authorized execution stopped after S1-A completed and S1-B was marked invalid by an offline adaptive-artifact aggregation error.",
+    "prior_attempt_path": "results/raw/formal/poolside-laguna-p4-20261023",
+    "prior_attempt_policy": "preserve-as-invalid-partial-evidence; do not resume or merge its results into this cohort",
+    "recovery_output_path": "results/raw/formal/poolside-laguna-p4-recovery1-20261023",
+    "runtime_fix": "When an adaptive result is supplied for offline aggregation, skip the unused active-manifest validation; retrieval continues to use the verified archived snapshot copy."
+  }
+}

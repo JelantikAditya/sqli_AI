@@ -1,0 +1,254 @@
+{
+  "schema": "poolside-laguna-p4-replicate3-assembly-v1",
+  "experiment_id": "poolside-laguna-p4-20261023",
+  "status": "targeted-amendment-completed-pending-VAL01-and-human-validation",
+  "researcher_requested_scope": "reuse Recovery1 replicates 1-2 and run the remaining complete replicate3 block only",
+  "reuse": {
+    "path": "docs/evidence/poolside-laguna-p4-reuse-audit-rep1-2-recovery1-2026-10-23.json",
+    "sha256": "631d873fb5a17e529368c8f7c69bf23b488301b924f035accda4dbc6bc21ec57",
+    "include_replicates": [
+      1,
+      2
+    ],
+    "completed_applicable_units": 66,
+    "final_analysis_validation": "pending VAL-01 and human validation"
+  },
+  "new_run": {
+    "runner": "development/run_poolside_laguna_p4_replicate3.py",
+    "summary_plan": "development/poolside_laguna_p4_plan_20261023_replicate3.json",
+    "formal_plan": "development/poolside_laguna_p4_formal_plan_20261023_replicate3.json",
+    "budget": "development/poolside_laguna_p4_budget_20261023_replicate3.json",
+    "replicates": [
+      3
+    ],
+    "ledger_slots": 36,
+    "applicable_units": 33,
+    "design_excluded_c_slots": 3,
+    "output": "results/raw/formal/poolside-laguna-p4-replicate3-20261023",
+    "observed": {
+      "ledger_slots": 36,
+      "design_excluded_c_slots": 3,
+      "applicable_units_planned": 33,
+      "metric_eligible_units_completed": 32,
+      "incomplete_budget_units": 1,
+      "invalid_units": 0,
+      "valid_candidates_including_partial": 329,
+      "metric_eligible_candidates": 320,
+      "api_requests": 504,
+      "local_http_requests": 7245,
+      "database_resets": 33,
+      "execution_result_path": "results/raw/formal/poolside-laguna-p4-replicate3-20261023/poolside-p4-execution-result.json",
+      "execution_audit_path": "docs/evidence/poolside-laguna-p4-execution-audit-replicate3-2026-10-23.json"
+    }
+  },
+  "exclusions": {
+    "recovery1_replicate3": {
+      "include": false,
+      "completed": 10,
+      "invalid": 1,
+      "planned_or_not_started": 22,
+      "applicable_units_to_rerun": 33,
+      "design_excluded_c_slots": 3
+    },
+    "recovery2": {
+      "include": false,
+      "all_outputs_excluded": true,
+      "stop_evidence_path": "docs/evidence/poolside-laguna-p4-execution-stop-recovery2-2026-10-23.json",
+      "stop_evidence_sha256": "5a0efe2a8929fcd89a4919010abc36205955e3eda8a10fcb5456009f2c2714ee"
+    }
+  },
+  "expected_composite_after_success": {
+    "applicable_units": 99,
+    "candidate_slots": 990,
+    "logical_confirmations": 2970
+  },
+  "formal_execution_authorized": true,
+  "api_requests_sent_during_package_prep": 2,
+  "dvwa_requests_sent_during_package_prep": 79,
+  "openrouter_used": false,
+  "candidate_hashes": {
+    "runner": "457a7f587cf26daf568b936eb71e31b8fa4f46b10accade46ca3324efdc9eb7a",
+    "summary_plan": "bbda8924e8a88549510ebaad95d8f4402d29aa44a2379de03e4e78728ddf9a63",
+    "formal_runner_plan": "34a3c7fd3eefb3bd6e4fb6819816e7f659b40e2bcd10a72412ab68b1da07d025",
+    "budget": "14d569289b0807904500a800fbead212555ac8955abe476b6f5bf816f523e4bc",
+    "protocol": "f08249f0cba6f45d01d87e560d9ef472430ab8484bcf565b8515bf63d874bf1b",
+    "discovery_review": "8af3bf0d32eb8d5cee6af6fe2c47819898791ef2aae0fd1f57b923a10d10248b",
+    "offline_readiness": "13320fb2ff849f048ba9dd59f19967e9e7e7a821a9b63f7b2af73df5e9889d56",
+    "replacement_key_smoke": "599a064ceba6e31e448829ad5edce1e60275bba91253e041a41658c5dce7a676",
+    "freeze_approval": "45fd12d2f64395caa6c02e9657f862da234b2cf310aaa73fd34f871390581274",
+    "preflight_receipt": "7db31b1717a2d7c01af9ab42ffd30b9dfabdac245861d9c99f6904f293db89d1",
+    "snapshot_check": "1d13d3f05f3d67fb3713f413cb3c9a876c5844bd0df36b3c04ac8a2add1edca3",
+    "release_manifest": "632ef102c6fc4c179346db15df415eb691452293eeb7611c5b33b098e7230ef7",
+    "execution_ready": "4fc3a9a2a9532c926151223bc166b4fbf3b164e7febc5b2db0752e071173de17",
+    "execution_approval": "99c1fb61f2db014fd4194f08c095875f59d90a435a9162a40ec4d45feb573ec9",
+    "execution_audit": "77ece4d4fda870c5dc4aeb45ac7cf6e77b12537dc4416540282990a4c920ac11",
+    "execution_result": "f704c0b2db7b1ada8330ff3a62b697db50c79258bc59726bc9f5b33cbc5ec137",
+    "execution_ledger": "a166bbcb4a5e9491bf192f06950e988262af19e8b75580a1fbbbfdab6274163f",
+    "execution_checkpoint": "52757ad11a47b6297794dec7e722c2e061085c10a9d6eddf1c5d250d3c4e48d1"
+  },
+  "freeze_receipt_candidate": {
+    "formal_plan_sha256": "34a3c7fd3eefb3bd6e4fb6819816e7f659b40e2bcd10a72412ab68b1da07d025",
+    "budget_sha256": "14d569289b0807904500a800fbead212555ac8955abe476b6f5bf816f523e4bc",
+    "protocol_candidate_sha256": "12b2d704c07248bedff35e9459cb074c1ffa94b3c66a09cb80b67cecb969e3ee",
+    "formal_execution_approval": false
+  },
+  "dry_run": {
+    "status": "ready-for-execution-approval",
+    "api_requests_sent": 0,
+    "dvwa_requests_sent": 0,
+    "credentials_read": false,
+    "openrouter_used": false,
+    "execution_authorized": false,
+    "execution_started": false,
+    "gates": {
+      "p4-runner-and-pinned-inputs": "passed",
+      "approved-snapshot-isolation": "passed",
+      "generator-qualification": "passed",
+      "local-qwen-results-preserved": "passed",
+      "fresh-discovery-and-review": "passed",
+      "direct-provider-free-quota-and-continuity": "passed",
+      "replacement-api-key-smoke": "passed",
+      "dvwa-formal-preflight": "passed",
+      "protocol-freeze": "passed",
+      "formal-execution-release": "passed",
+      "val01-blind-review": "deferred-by-design"
+    }
+  },
+  "replacement_key_smoke": {
+    "status": "ok",
+    "http_statuses": [
+      200,
+      200
+    ],
+    "reported_model": "poolside/laguna-s-2.1",
+    "requests_sent": 2,
+    "secret_or_fingerprint_saved": false,
+    "report_path": "results/raw/poolside-smoke/20261023T113310424083Z.json",
+    "report_sha256": "599a064ceba6e31e448829ad5edce1e60275bba91253e041a41658c5dce7a676"
+  },
+  "api_request_purpose": "bounded direct Poolside smoke after the user saved the replacement key; no formal generation calls",
+  "freeze_approval": {
+    "path": "docs/evidence/poolside-laguna-p4-freeze-approval-replicate3-2026-10-23.json",
+    "sha256": "45fd12d2f64395caa6c02e9657f862da234b2cf310aaa73fd34f871390581274",
+    "formal_execution_approval": false
+  },
+  "preflight": {
+    "path": "docs/evidence/poolside-laguna-p4-dvwa-preflight-replicate3-2026-10-23.json",
+    "sha256": "7db31b1717a2d7c01af9ab42ffd30b9dfabdac245861d9c99f6904f293db89d1",
+    "status": "passed",
+    "database_reset_count": 1,
+    "http_requests": 79,
+    "sql_injection_payloads_sent": 0,
+    "api_requests_sent": 0,
+    "execution_started": false
+  },
+  "snapshot_check": {
+    "path": "docs/evidence/poolside-laguna-p4-snapshot-check-replicate3-2026-10-23.json",
+    "sha256": "1d13d3f05f3d67fb3713f413cb3c9a876c5844bd0df36b3c04ac8a2add1edca3",
+    "status": "passed",
+    "archive_unchanged": true,
+    "retrieved_chunks": 2,
+    "shortfall": 0
+  },
+  "release_manifest": {
+    "path": "docs/evidence/poolside-laguna-p4-release-manifest-replicate3-2026-10-23.json",
+    "sha256": "632ef102c6fc4c179346db15df415eb691452293eeb7611c5b33b098e7230ef7",
+    "ready_for_formal": true,
+    "formal_execution_authorized": false,
+    "gates_passed": 10
+  },
+  "formal_execution": {
+    "status": "completed-with-one-incomplete-unit-excluded",
+    "approval_path": "docs/evidence/poolside-laguna-p4-execution-approval-replicate3-2026-10-23.json",
+    "approval_sha256": "99c1fb61f2db014fd4194f08c095875f59d90a435a9162a40ec4d45feb573ec9",
+    "release_sha256": "632ef102c6fc4c179346db15df415eb691452293eeb7611c5b33b098e7230ef7",
+    "audit_path": "docs/evidence/poolside-laguna-p4-execution-audit-replicate3-2026-10-23.json",
+    "audit_sha256": "77ece4d4fda870c5dc4aeb45ac7cf6e77b12537dc4416540282990a4c920ac11",
+    "execution_result_sha256": "f704c0b2db7b1ada8330ff3a62b697db50c79258bc59726bc9f5b33cbc5ec137",
+    "completed_units": 32,
+    "expected_applicable_units": 33,
+    "excluded_partial_units": 1,
+    "invalid_units": 0,
+    "api_requests": 504,
+    "api_529_responses": 0,
+    "completion_tokens": 68845,
+    "completion_token_ceiling": 1228800,
+    "openrouter_used": false,
+    "maximum_spend_usd": 0,
+    "human_validation": "pending"
+  },
+  "observed_composite_before_final_validation": {
+    "reused_recovery1_replicates_1_2_units": 66,
+    "new_replicate3_original_complete_units": 32,
+    "targeted_replacement_metric_eligible_units": 1,
+    "total_metric_eligible_units": 99,
+    "planned_composite_units": 99,
+    "metric_eligible_candidate_slots": 990,
+    "logical_confirmations": 2970,
+    "superseded_partial_attempt": {
+      "scenario_id": "S5",
+      "condition_id": "B",
+      "replicate": 3,
+      "candidate_count": 9,
+      "included_in_metrics": false
+    },
+    "replacement_attempt": {
+      "attempt_id": "attempt-1-0bd357874f",
+      "candidate_count": 10,
+      "included_in_metrics": true,
+      "unit_status": "completed-and-metric-eligible"
+    },
+    "final_analysis_validation": "pending VAL-01 and human validation"
+  },
+  "targeted_amendment": {
+    "amendment_id": "p4-s5b-r3-amend1",
+    "status": "completed-and-metric-eligible-pending-VAL01",
+    "document_path": "docs/usulan-amendemen-terarah-p4-s5b-r3-2026-10-23.md",
+    "amendment_path": "development/poolside_laguna_p4_s5b_amendment_20261023.json",
+    "amendment_sha256": "93d30bdc5fb27c9246161567ab096005227af5bcd671372f32d6fb3d77c27fcf",
+    "plan_path": "development/poolside_laguna_p4_s5b_plan_20261023.json",
+    "plan_sha256": "9e4c37cc13866ff7c25aa0ed59b99f487816aa961bbd5357ad9b408d0dde26cb",
+    "budget_path": "development/poolside_laguna_p4_s5b_budget_20261023.json",
+    "budget_sha256": "91d2d05847fc5c375a165111d13cc91fe5099586b14203e79901d2ceba022b5e",
+    "package_path": "docs/evidence/poolside-laguna-p4-s5b-amendment-package-2026-10-23.json",
+    "package_sha256": "2fb01d014eac3ac1b6cc51b9f098d5001c49fced1458f6f36137fbd8439caaae",
+    "readiness_path": "docs/evidence/poolside-laguna-p4-s5b-amendment-readiness-2026-10-23.json",
+    "readiness_sha256": "8522619a2b9380c6c4a8820b4cbf7d1fc530dfb2fc64e30004e09a9a1613e4a8",
+    "unit": {
+      "condition_id": "B",
+      "scenario_id": "S5",
+      "replicate": 3
+    },
+    "api_call_ceiling": 40,
+    "completion_token_ceiling": 51200,
+    "maximum_spend_usd": 0,
+    "output_path": "results/raw/formal/poolside-p4-s5b-r3-amend1-20261023",
+    "amendment_freeze_approval": "approved",
+    "formal_execution_approval": "approved",
+    "formal_execution_authorized": true,
+    "dry_run_api_requests": 0,
+    "dry_run_dvwa_requests": 0,
+    "amendment_freeze_approval_path": "docs/evidence/poolside-laguna-p4-s5b-amendment-freeze-approval-2026-10-23.json",
+    "amendment_freeze_approval_sha256": "80d606cdb5902a6daf06c93fbdf026ea2c6c202429c83a7caf091ddeeb559b49",
+    "readiness_stage": "pre-freeze dry-run; no API or DVWA calls",
+    "execution_approval_path": "docs/evidence/poolside-laguna-p4-s5b-amendment-execution-approval-2026-10-23.json",
+    "execution_approval_sha256": "b86cbc2ad0609b8d29b3ad1a755c18b2c781e8606a2e1b1690e29fea37128d8e",
+    "execution_audit_path": "docs/evidence/poolside-laguna-p4-s5b-amendment-execution-audit-2026-10-23.json",
+    "execution_audit_sha256": "a1e094343e62ecda4dc6937a38af9e2d7783bc2263fe356b3970c2c419354bbf",
+    "execution_result_path": "results/raw/formal/poolside-p4-s5b-r3-amend1-20261023/poolside-p4-s5b-amendment-result.json",
+    "execution_result_sha256": "ef996e7922c2616618280524a78b43553b30e6a909397bf05d340886abd2f044",
+    "execution_ledger_path": "results/raw/formal/poolside-p4-s5b-r3-amend1-20261023/ledger.jsonl",
+    "execution_ledger_sha256": "1d8f015d770ce7e2b2c71232b5a49d57922305fd021d0e3467c8a0494f973640",
+    "execution_started": true,
+    "completed_units": 1,
+    "metric_eligible_units": 1,
+    "api_calls_used": 20,
+    "api_http_200_count": 20,
+    "completion_tokens_used": 3365,
+    "dvwa_http_requests": 219,
+    "database_resets": 1,
+    "system_decision": "positive",
+    "val01_status": "pending",
+    "human_validation_status": "pending"
+  }
+}

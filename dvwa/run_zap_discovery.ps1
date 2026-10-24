@@ -30,20 +30,36 @@ $utf8NoBom = New-Object System.Text.UTF8Encoding($false)
 
 $previousPlan = $env:ZAP_PLAN_FILE
 $previousLevel = $env:DVWA_SECURITY_LEVEL
+$previousZapApiKey = $env:ZAP_API_KEY
+$previousErrorActionPreference = $ErrorActionPreference
 try {
     # Recreate only the DVWA web container so new ZAP sessions start at the
     # requested level. The database container and its volume are left intact.
     $env:DVWA_SECURITY_LEVEL = $SecurityLevel
     $env:ZAP_PLAN_FILE = $planFile
+    # Compose validates inactive services too. Supply an inert interpolation
+    # value only when no ZAP API key is configured; the zap-api profile is not
+    # selected by this discovery command and this value is never used as a key.
+    if (-not $env:ZAP_API_KEY) {
+        $env:ZAP_API_KEY = "unused-zap-profile-" + [guid]::NewGuid().ToString("N")
+    }
 
-    docker compose --project-directory $PSScriptRoot --profile zap -f $composeFile up -d --force-recreate dvwa
-    if ($LASTEXITCODE -ne 0) {
+    $ErrorActionPreference = "Continue"
+    $composeOutput = docker compose --project-directory $PSScriptRoot --profile zap -f $composeFile up -d --force-recreate dvwa 2>&1
+    $composeExitCode = $LASTEXITCODE
+    $ErrorActionPreference = "Stop"
+    $composeOutput | Out-File -LiteralPath $logPath -Encoding utf8
+    if ($composeExitCode -ne 0) {
         throw "Could not prepare DVWA at level $SecurityLevel."
     }
 
-    docker compose --project-directory $PSScriptRoot --profile zap -f $composeFile run --rm zap *> $logPath
-    if ($LASTEXITCODE -ne 0) {
-        throw "ZAP automation failed with exit code $LASTEXITCODE. Inspect the local log $logPath."
+    $ErrorActionPreference = "Continue"
+    $zapOutput = docker compose --project-directory $PSScriptRoot --profile zap -f $composeFile run --rm zap 2>&1
+    $zapExitCode = $LASTEXITCODE
+    $ErrorActionPreference = "Stop"
+    $zapOutput | Out-File -LiteralPath $logPath -Append -Encoding utf8
+    if ($zapExitCode -ne 0) {
+        throw "ZAP automation failed with exit code $zapExitCode. Inspect the local log $logPath."
     }
 
     & $PythonExecutable (Join-Path $PSScriptRoot "parse_zap_report.py") `
@@ -71,4 +87,13 @@ finally {
     else {
         $env:DVWA_SECURITY_LEVEL = $previousLevel
     }
+
+    if ($null -eq $previousZapApiKey) {
+        Remove-Item Env:ZAP_API_KEY -ErrorAction SilentlyContinue
+    }
+    else {
+        $env:ZAP_API_KEY = $previousZapApiKey
+    }
+
+    $ErrorActionPreference = $previousErrorActionPreference
 }

@@ -1,0 +1,238 @@
+{
+  "schema": "poolside-laguna-p4-dvwa-preflight-v1",
+  "experiment_id": "poolside-laguna-p4-20261023",
+  "created_at_utc": "2026-10-23T07:21:10.474022+00:00",
+  "completed_at_utc": "2026-10-23T07:21:11.015063+00:00",
+  "status": "failed",
+  "scope": "local DVWA readiness only; not a formal experiment run",
+  "target_origin": "http://127.0.0.1:4280",
+  "target_host_is_loopback": true,
+  "protocol_sha256": "31f0ceabc9a0e03dcefad91b4bc7d9222e339312debf54aa805d66dfac0ba5fd",
+  "formal_runner_plan_sha256": "77eb59d7d0745fd1be34b2587d658b87097966069f6749d3035d1d1e04a46925",
+  "database_reset": {
+    "status": 200,
+    "response_sha256": "b9ec541c3575d4615ee63c7eedd602612c732544a4066528883f1ddf02f3e62d",
+    "success_markers_verified": true,
+    "endpoint": "/setup.php"
+  },
+  "database_reset_count": 1,
+  "levels": {
+    "low": {
+      "passed": true,
+      "security_page_verified": "low",
+      "security_page_sha256": "3dfeb1fb5df2c71522e61c9309a82737b024dd93915f4cc0427804a4379c0d23",
+      "input_checks": [
+        {
+          "scenario_id": "S1",
+          "input_path": "/vulnerabilities/sqli/",
+          "method": "GET",
+          "status": 200,
+          "authenticated": true,
+          "expected_parameter_present": true,
+          "response_sha256": "81cd8d3f7374b62a36d6ee31592c7ff47c2300ae478d7de782bba28708801b06"
+        },
+        {
+          "scenario_id": "S2",
+          "input_path": "/vulnerabilities/sqli_blind/",
+          "method": "GET",
+          "status": 200,
+          "authenticated": true,
+          "expected_parameter_present": true,
+          "response_sha256": "b39be765ad270d8dac67cc84abe93d90040ce0b85c89fbdcb9590465457b94e7"
+        },
+        {
+          "scenario_id": "S3",
+          "input_path": "/vulnerabilities/sqli_blind/",
+          "method": "GET",
+          "status": 200,
+          "authenticated": true,
+          "expected_parameter_present": true,
+          "response_sha256": "b39be765ad270d8dac67cc84abe93d90040ce0b85c89fbdcb9590465457b94e7"
+        }
+      ],
+      "benign_baseline": {
+        "scenario_id": "S3",
+        "request_count": 5,
+        "parameter_value": "1",
+        "sql_injection_payloads_sent": 0,
+        "latency_ms": [
+          4.61,
+          16.87,
+          4.45,
+          4.33,
+          25.6
+        ],
+        "median_latency_ms": 4.61,
+        "maximum_latency_ms": 25.6,
+        "response_control": "HTTP 200, authenticated marker, and known sample-record marker"
+      }
+    },
+    "medium": {
+      "passed": false,
+      "security_page_verified": "medium",
+      "security_page_sha256": "01e97da822a0212a020b0648ced2bf04bfc35e0edce50a9dc27cd156524733b1",
+      "input_checks": [
+        {
+          "scenario_id": "S4",
+          "input_path": "/vulnerabilities/sqli/",
+          "method": "POST",
+          "status": 200,
+          "authenticated": true,
+          "expected_parameter_present": false,
+          "response_sha256": "009bc3e6d3829fad4275689184a1308b4848519439c82128acb311dd696f168b"
+        },
+        {
+          "scenario_id": "S5",
+          "input_path": "/vulnerabilities/sqli_blind/",
+          "method": "POST",
+          "status": 200,
+          "authenticated": true,
+          "expected_parameter_present": false,
+          "response_sha256": "1b3057e69aa8da99b362717948186bcc6ff88b68aa169dfc9fea33ec12f08e8e"
+        },
+        {
+          "scenario_id": "S6",
+          "input_path": "/vulnerabilities/sqli_blind/",
+          "method": "POST",
+          "status": 200,
+          "authenticated": true,
+          "expected_parameter_present": false,
+          "response_sha256": "1b3057e69aa8da99b362717948186bcc6ff88b68aa169dfc9fea33ec12f08e8e"
+        }
+      ],
+      "benign_baseline": {
+        "scenario_id": "S6",
+        "request_count": 5,
+        "parameter_value": "1",
+        "sql_injection_payloads_sent": 0,
+        "latency_ms": [
+          4.68,
+          4.61,
+          5.01,
+          4.73,
+          4.85
+        ],
+        "median_latency_ms": 4.73,
+        "maximum_latency_ms": 5.01,
+        "response_control": "HTTP 200, authenticated marker, and known sample-record marker"
+      }
+    },
+    "high": {
+      "passed": false,
+      "security_page_verified": "high",
+      "security_page_sha256": "510e974e6aa58d446c5dde007eeb602d2577d1473abf5a9f362e7a0a07f44b32",
+      "input_checks": [
+        {
+          "scenario_id": "S7",
+          "input_path": "/vulnerabilities/sqli/session-input.php",
+          "method": "POST",
+          "status": 200,
+          "authenticated": false,
+          "expected_parameter_present": true,
+          "response_sha256": "52a2712f0064a5764f720af4c44e61aa6b0c984e4705013f9ea7ea0bed7b6194"
+        },
+        {
+          "scenario_id": "S8",
+          "input_path": "/vulnerabilities/sqli_blind/cookie-input.php",
+          "method": "POST",
+          "status": 200,
+          "authenticated": false,
+          "expected_parameter_present": true,
+          "response_sha256": "59fb6b21420a3cff6688c1ef8cc7230b907cfe58d647e8c6f5fc27128d5d1f75"
+        },
+        {
+          "scenario_id": "S9",
+          "input_path": "/vulnerabilities/sqli_blind/cookie-input.php",
+          "method": "POST",
+          "status": 200,
+          "authenticated": false,
+          "expected_parameter_present": true,
+          "response_sha256": "59fb6b21420a3cff6688c1ef8cc7230b907cfe58d647e8c6f5fc27128d5d1f75"
+        }
+      ],
+      "benign_baseline": {
+        "scenario_id": "S9",
+        "request_count": 5,
+        "parameter_value": "1",
+        "sql_injection_payloads_sent": 0,
+        "latency_ms": [
+          6.5,
+          6.09,
+          6.81,
+          7.15,
+          6.28
+        ],
+        "median_latency_ms": 6.5,
+        "maximum_latency_ms": 7.15,
+        "response_control": "HTTP 200, authenticated marker, and known sample-record marker"
+      }
+    },
+    "impossible": {
+      "passed": true,
+      "security_page_verified": "impossible",
+      "security_page_sha256": "840ad0d4c1fae93a254ce2f503c05d4d3285a893a171f3d41c78deca76507846",
+      "input_checks": [
+        {
+          "scenario_id": "S10",
+          "input_path": "/vulnerabilities/sqli/",
+          "method": "GET",
+          "status": 200,
+          "authenticated": true,
+          "expected_parameter_present": true,
+          "response_sha256": "354d258f0cc17859b05e960b69efb7b19e4feb3d1ffbf29b57e75794a327916c"
+        },
+        {
+          "scenario_id": "S11",
+          "input_path": "/vulnerabilities/sqli_blind/",
+          "method": "GET",
+          "status": 200,
+          "authenticated": true,
+          "expected_parameter_present": true,
+          "response_sha256": "78720af78939ec3bd812a65211f0f01fa49a572d44ac498920dd0a2d4e8a059b"
+        },
+        {
+          "scenario_id": "S12",
+          "input_path": "/vulnerabilities/sqli_blind/",
+          "method": "GET",
+          "status": 200,
+          "authenticated": true,
+          "expected_parameter_present": true,
+          "response_sha256": "098859b1051e298ed67f31e6d2e1820e687ed7f0f0c5ad06d76c16b4c74bcfa6"
+        }
+      ],
+      "benign_baseline": {
+        "scenario_id": "S12",
+        "request_count": 5,
+        "parameter_value": "1",
+        "sql_injection_payloads_sent": 0,
+        "latency_ms": [
+          5.12,
+          5.58,
+          4.51,
+          4.33,
+          4.73
+        ],
+        "median_latency_ms": 4.73,
+        "maximum_latency_ms": 5.58,
+        "response_control": "HTTP 200, authenticated marker, and known sample-record marker"
+      }
+    }
+  },
+  "timing_instrumentation": {
+    "method": "time.perf_counter around local HTTP request",
+    "sample_count": 20,
+    "median_latency_ms": 4.93,
+    "maximum_latency_ms": 25.6,
+    "time_signal_threshold_ms": 1500,
+    "maximum_benign_sample_below_threshold": true,
+    "scope_note": "Confirms local timing capture and benign baseline only; it does not test SQLi time-delay detection."
+  },
+  "http_request_count": 79,
+  "logical_probe_submissions": 0,
+  "sql_injection_payloads_sent": 0,
+  "api_requests_sent": 0,
+  "credentials_read": true,
+  "credential_values_recorded": false,
+  "openrouter_used": false,
+  "execution_started": false
+}

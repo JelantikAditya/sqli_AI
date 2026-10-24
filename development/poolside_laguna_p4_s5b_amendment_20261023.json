@@ -1,0 +1,38 @@
+{
+  "schema": "poolside-laguna-p4-targeted-amendment-v1",
+  "amendment_id": "p4-s5b-r3-amend1",
+  "status": "draft-awaiting-researcher-freeze-approval",
+  "purpose": "Complete the single incomplete S5 condition B unit in P4 Replicate 3 without replaying its other 32 completed units.",
+  "supplement_experiment_id": "poolside-p4-s5b-r3-amend1",
+  "supplement_plan_path": "development/poolside_laguna_p4_s5b_plan_20261023.json",
+  "supplement_budget_path": "development/poolside_laguna_p4_s5b_budget_20261023.json",
+  "source_unit": {
+    "scenario_id": "S5",
+    "condition_id": "B",
+    "replicate": 3
+  },
+  "source_attempt_id": "attempt-1-1e308be94c",
+  "source_audit_path": "docs/evidence/poolside-laguna-p4-execution-audit-replicate3-2026-10-23.json",
+  "source_audit_sha256": "77ece4d4fda870c5dc4aeb45ac7cf6e77b12537dc4416540282990a4c920ac11",
+  "source_formal_plan_sha256": "34a3c7fd3eefb3bd6e4fb6819816e7f659b40e2bcd10a72412ab68b1da07d025",
+  "source_budget_sha256": "14d569289b0807904500a800fbead212555ac8955abe476b6f5bf816f523e4bc",
+  "source_protocol_sha256": "f08249f0cba6f45d01d87e560d9ef472430ab8484bcf565b8515bf63d874bf1b",
+  "source_protocol_candidate_sha256": "12b2d704c07248bedff35e9459cb074c1ffa94b3c66a09cb80b67cecb969e3ee",
+  "source_release_sha256": "632ef102c6fc4c179346db15df415eb691452293eeb7611c5b33b098e7230ef7",
+  "source_ledger_sha256": "a166bbcb4a5e9491bf192f06950e988262af19e8b75580a1fbbbfdab6274163f",
+  "source_execution_result_sha256": "f704c0b2db7b1ada8330ff3a62b697db50c79258bc59726bc9f5b33cbc5ec137",
+  "treatment": {
+    "unit_policy": "Run one fresh, isolated replacement attempt for exactly B/S5/replicate-3 using the already-frozen P4 method and the same ten-candidate budget.",
+    "original_partial_attempt": "Retain all raw records as audit evidence but exclude its nine candidates and decisions from formal metrics.",
+    "replacement_inclusion": "Include the supplemental unit only if all ten distinct candidates are generated, all required analyses and confirmations finish, and the existing frozen eligibility rules mark the unit metric-eligible.",
+    "failure_policy": "If the supplement remains incomplete or invalid, stop and keep the unit excluded. No automatic retry or second replacement is authorized by this amendment.",
+    "composite_rule": "Preserve the 66 previously completed applicable R1-R2 units and 32 completed applicable R3 units. Replace only the missing B/S5/R3 cell in the composite matrix; never combine partial and supplemental candidate sets."
+  },
+  "method_changes": false,
+  "p4_protocol_changes": false,
+  "provider": "direct Poolside API only",
+  "model": "poolside/laguna-s-2.1",
+  "openrouter_allowed": false,
+  "formal_execution_authorized": false,
+  "approval_requirement": "Separate hash-bound amendment-freeze approval and formal execution approval are required. Existing Replicate-3 approval does not authorize this supplemental execution."
+}

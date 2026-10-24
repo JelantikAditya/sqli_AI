@@ -1,0 +1,39 @@
+{
+  "schema": "poolside-laguna-p4-github-progress-checkpoint-v1",
+  "captured_at_utc": "2026-10-23T11:06:38.988742+00:00",
+  "cohort": "recovery2",
+  "status_at_capture": "running",
+  "formal_output_path": "results/raw/formal/poolside-laguna-p4-recovery2-20261023",
+  "release_manifest_sha256": "e7c85690dabb3913e9e971571c48d32b7e90155df37f327dd467285db113597e",
+  "execution_approval_sha256": "dbde868b816bd13afea3222c0371d1db844ba8a17363d58c77d70850ffbb76eb",
+  "progress": {
+    "status_counts": {
+      "planned": 93,
+      "running": 1,
+      "retried": 0,
+      "completed": 5,
+      "invalid": 0,
+      "excluded": 9
+    },
+    "active_units": [
+      {
+        "unit_id": "poolside-laguna-p4-20261023-a-s2-r1",
+        "attempt_id": "attempt-1-58cb1a2b93"
+      }
+    ],
+    "api_results": 76,
+    "api_success_http_200": 76,
+    "api_http_529": 0,
+    "ledger_event_count": 120,
+    "checkpoint_updated_at_utc": "2026-10-23T11:05:07.976363+00:00"
+  },
+  "local_raw_evidence": {
+    "checkpoint_sha256": "949f9e3bcab79749ff4dbbac7f0333beb5ac8c4af4506d2b3ff15c67e5e7ec61",
+    "ledger_sha256": "31d7cc228efb15f625a058547f9055760199696004513be7b1f7ee84ba5347ed",
+    "note": "Raw execution output remains in the local ignored results/raw tree; hashes pin this captured state."
+  },
+  "prior_recovery1_stop_evidence": "docs/evidence/poolside-laguna-p4-execution-stop-recovery1-2026-10-23.json",
+  "prior_recovery1_http_529_sha256": "bcc288e7dd7190d968164f59abd2a971ba9f5fd63b4b9ef47d1ca1791de27605",
+  "openrouter_used": false,
+  "maximum_spend_usd": 0
+}

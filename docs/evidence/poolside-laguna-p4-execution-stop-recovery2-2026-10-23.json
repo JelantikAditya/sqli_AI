@@ -1,0 +1,55 @@
+{
+  "schema": "poolside-laguna-p4-execution-stop-v1",
+  "experiment_id": "poolside-laguna-p4-20261023",
+  "status": "incomplete-user-directed-stop",
+  "release_manifest_sha256": "e7c85690dabb3913e9e971571c48d32b7e90155df37f327dd467285db113597e",
+  "execution_approval_sha256": "dbde868b816bd13afea3222c0371d1db844ba8a17363d58c77d70850ffbb76eb",
+  "formal_output_path": "results/raw/formal/poolside-laguna-p4-recovery2-20261023",
+  "stopped_at_utc": "2026-10-23T11:18:21.419539+00:00",
+  "stop_authority": {
+    "basis": "explicit-user-instruction",
+    "quote": "jangan lanjut ke recovery kedua dulu, saya belum memerintahkan ke sana"
+  },
+  "summary": {
+    "unit_status_counts_at_stop": {
+      "planned": 86,
+      "running": 1,
+      "retried": 0,
+      "completed": 12,
+      "invalid": 0,
+      "excluded": 9
+    },
+    "run_count": 108,
+    "active_units_at_stop": [
+      {
+        "unit_id": "poolside-laguna-p4-20261023-a-s5-r1",
+        "attempt_id": "attempt-1-689f85a97f"
+      }
+    ],
+    "api_requests_started": 175,
+    "api_responses_recorded": 174,
+    "api_success_http_200": 174,
+    "api_http_529": 0,
+    "api_other_non_200": 0,
+    "api_requests_without_result": 1,
+    "reported_token_usage": {
+      "prompt_tokens": 202839,
+      "completion_tokens": 23450,
+      "total_tokens": 226289
+    },
+    "maximum_spend_usd": 0,
+    "provider": "direct Poolside API only",
+    "model": "poolside/laguna-s-2.1",
+    "openrouter_used": false,
+    "attack_failure": false
+  },
+  "recovery_policy": "Preserve recovery2 raw output as a separate incomplete cohort. Do not resume it or merge its partial units into another cohort. Any future P4 execution requires a new hash-bound release and explicit execution approval.",
+  "local_raw_evidence": {
+    "checkpoint_sha256": "9e92cad64a70058075e828ff2fa0cb9d8055d49bdb0e490d007f92d51fdac387",
+    "ledger_sha256": "0a3a23623e98b0da8b94effc36c59dec4488e1be438f77910311995d1c0cd2b8",
+    "checkpoint_updated_at_utc": "2026-10-23T11:16:16.487808+00:00",
+    "note": "Raw API and DVWA execution files remain under the ignored results/raw tree."
+  },
+  "prior_recovery1_stop_evidence": "docs/evidence/poolside-laguna-p4-execution-stop-recovery1-2026-10-23.json",
+  "local_qwen_formal_output_preserved": "results/raw/formal/formal-sqli-v1-20261017"
+}

@@ -1,0 +1,183 @@
+{
+  "schema": "poolside-laguna-p4-a-s12-r2-sensitivity-result-v1",
+  "created_at_utc": "2026-10-23T14:26:13.558009+00:00",
+  "status": "completed-post-result-sensitivity-only",
+  "amendment_id": "p4-a-s12-r2-amend1",
+  "package_sha256": "cd789af2359cf1dd498d49520b6d1fb76ef842a8b365b409f3f315973d9392ba",
+  "source_artifact_sha256": {
+    "recovery1_ledger": "8fd08a2d093fd6f9ec5c76651554225203cc0a6cbc466b13a9763b66a746260c",
+    "replicate3_ledger": "a166bbcb4a5e9491bf192f06950e988262af19e8b75580a1fbbbfdab6274163f",
+    "primary_val01_metrics": "fd3ffac9c06ebb941ae9bc027ea9d941b55ac902409bfe0ca6164f2bd494c136",
+    "original_blocker_diagnostic": "81274ae01bfa25e489ad70ccad9236bbd6fe7378a89c83d4dbdd1a6cc52e5773",
+    "frozen_package": "cd789af2359cf1dd498d49520b6d1fb76ef842a8b365b409f3f315973d9392ba",
+    "method_approval": "e3ad476d3631d8a014ed7a9a9b1d95b2ed969792f7153e39a374be6f82b7df07",
+    "freeze_approval": "5a34f51ab4b21987e423cee2e2ee1231e70f52c9220a74289131552cb4698e22",
+    "execution_proposal": "0c0a41ceedfabdd2495e8f76b7147296ea84f8b4bdaf78aa7fd70627b089535e",
+    "execution_approval": "817ce3bef3a1d5a5d803be48a71a6348166f7f43463d6851259a1c843f9bf547",
+    "supplement_ledger": "951766132d4d2a43a378c6059bc6374a32a94304b9687ed8136498191c81e06d",
+    "supplement_result": "7bd9c52a7c7625a534184353e4bba22f893c651da2d467cdd16996a92718e82b",
+    "supplement_runtime_snapshot": "b112c9aa9add3ac07b9eb0248599448ffd6449da4f9aa9158fd7adf8cd0a9592",
+    "supplement_adaptive_result": "5beb3ddbad6d116cdfe0014c1dc59d64de33439acf1c2e5c2b782ea3d563f07d",
+    "supplement_validation_log": "85a5df141b6dd4409a26f473c77e475d1ba476be87fc21f7e9fd8ba3ac826493",
+    "supplement_candidate_batch": "34840760f26e3b6dfacb9418e54824c982ad657faf7b8fea1c52cf688e04829f",
+    "discovery_report": "a3c0199ffb059e8c672d5a0b8417711cb2c31c75ec6795ad4d81f5de5d94431d"
+  },
+  "primary_result": {
+    "source_metrics_path": "results/raw/formal-review/poolside-laguna-p4-20261023-val01-batch01/metrics-P4-VAL01.json",
+    "source_metrics_sha256": "fd3ffac9c06ebb941ae9bc027ea9d941b55ac902409bfe0ca6164f2bd494c136",
+    "fpr_a_eligible": false,
+    "fpr_a_summary": {
+      "condition_id": "A",
+      "mean": null,
+      "sample_sd": null,
+      "n": 2,
+      "eligible": false
+    },
+    "original_a_r2": {
+      "decision": "inconclusive",
+      "decision_coverage": 0.6666666666666666,
+      "fpr": null,
+      "eligible": false
+    },
+    "modified": false
+  },
+  "replacement_unit": {
+    "condition_id": "A",
+    "scenario_id": "S12",
+    "replicate": 2,
+    "candidate_budget": 10,
+    "candidate_count": 10,
+    "unique_candidate_count": 10,
+    "duplicate_candidate_count": 0,
+    "analysis_completed_count": 10,
+    "system_decision": "negative",
+    "binary_decision_eligible": true,
+    "metric_eligible": true,
+    "database_reset_performed": true,
+    "logical_probe_submissions": 90,
+    "http_request_calls": 219,
+    "provider": "poolside/laguna-s-2.1",
+    "api_calls_used": 24,
+    "api_call_ceiling": 40,
+    "api_http_status_counts": {
+      "200": 24
+    },
+    "completion_tokens_used": 2939,
+    "completion_token_ceiling": 51200,
+    "usage_totals": {
+      "prompt_tokens": 27649,
+      "completion_tokens": 2939,
+      "total_tokens": 30588
+    },
+    "attempt_number": 1,
+    "automatic_retry_or_replacement": false,
+    "sensitivity_only": true
+  },
+  "sensitivity_matrix": {
+    "scope": "A/B, scenarios S10-S12, replicates 1-3; only original A/S12/R2 is replaced in this separate matrix",
+    "original_unit_remains_in_primary_source": true,
+    "candidate_sets_merged": false,
+    "human_annotations_used_for_fpr": false,
+    "fpr": {
+      "eligible": true,
+      "condition_replicates": [
+        {
+          "condition_id": "A",
+          "replicate": 1,
+          "FP": 0,
+          "TN": 3,
+          "unresolved_scenarios": [],
+          "decision_coverage": 1.0,
+          "eligible": true,
+          "reason": null,
+          "fpr": 0.0
+        },
+        {
+          "condition_id": "A",
+          "replicate": 2,
+          "FP": 0,
+          "TN": 3,
+          "unresolved_scenarios": [],
+          "decision_coverage": 1.0,
+          "eligible": true,
+          "reason": null,
+          "fpr": 0.0
+        },
+        {
+          "condition_id": "A",
+          "replicate": 3,
+          "FP": 0,
+          "TN": 3,
+          "unresolved_scenarios": [],
+          "decision_coverage": 1.0,
+          "eligible": true,
+          "reason": null,
+          "fpr": 0.0
+        },
+        {
+          "condition_id": "B",
+          "replicate": 1,
+          "FP": 0,
+          "TN": 3,
+          "unresolved_scenarios": [],
+          "decision_coverage": 1.0,
+          "eligible": true,
+          "reason": null,
+          "fpr": 0.0
+        },
+        {
+          "condition_id": "B",
+          "replicate": 2,
+          "FP": 0,
+          "TN": 3,
+          "unresolved_scenarios": [],
+          "decision_coverage": 1.0,
+          "eligible": true,
+          "reason": null,
+          "fpr": 0.0
+        },
+        {
+          "condition_id": "B",
+          "replicate": 3,
+          "FP": 0,
+          "TN": 3,
+          "unresolved_scenarios": [],
+          "decision_coverage": 1.0,
+          "eligible": true,
+          "reason": null,
+          "fpr": 0.0
+        }
+      ],
+      "summary": [
+        {
+          "condition_id": "A",
+          "mean": 0.0,
+          "sample_sd": 0.0,
+          "n": 3,
+          "eligible": true
+        },
+        {
+          "condition_id": "B",
+          "mean": 0.0,
+          "sample_sd": 0.0,
+          "n": 3,
+          "eligible": true
+        }
+      ]
+    }
+  },
+  "cost": {
+    "configured_maximum_spend_usd": 0,
+    "actual_provider_spend_usd": null,
+    "actual_spend_note": "Provider billing was not metered in the run artifacts. Execution proceeded under the user's assurance that the Poolside API/account remained free; the local runner has no hard dollar cap."
+  },
+  "interpretation": {
+    "primary_fpr_a_remains_withheld": true,
+    "sensitivity_fpr_a_mean": 0.0,
+    "sensitivity_fpr_a_sample_sd": 0.0,
+    "sensitivity_fpr_a_n": 3,
+    "not_a_confirmatory_replacement": true,
+    "psr_recalculated": false,
+    "fpr_b_unchanged_from_primary": true
+  }
+}

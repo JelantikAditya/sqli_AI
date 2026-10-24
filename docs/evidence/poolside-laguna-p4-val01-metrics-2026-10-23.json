@@ -1,0 +1,201 @@
+{
+  "schema": "poolside-laguna-p4-val01-metric-result-v1",
+  "created_at_utc": "2026-10-23T13:15:37.926120+00:00",
+  "status": "partial_metric_eligibility",
+  "cohort": {
+    "units": 108,
+    "completed_metric_eligible_units": 99,
+    "design_excluded_units": 9,
+    "candidate_annotations": 990
+  },
+  "annotations": {
+    "validator_id": "VAL-01",
+    "decision_counts": {
+      "success": 417,
+      "failure": 573
+    },
+    "source_sha256": "5cf2bc2bdeb02a12ad4ab2247ffec4221e37afe50b79cb67f14e18491fc02351",
+    "review_package_sha256": "52fa92a88d28009504c2d68c70d08c5f117237bb171cf7dcfa314f44bd4fa51b",
+    "complete": true
+  },
+  "psr": {
+    "eligible": true,
+    "summary": [
+      {
+        "condition_id": "B",
+        "mean": 0.4,
+        "sample_sd": 0.022222222222222227,
+        "n": 3,
+        "eligible": true
+      },
+      {
+        "condition_id": "C",
+        "mean": 0.7555555555555555,
+        "sample_sd": 0.011111111111111127,
+        "n": 3,
+        "eligible": true
+      }
+    ],
+    "condition_replicates": [
+      {
+        "condition_id": "B",
+        "replicate": 1,
+        "success_count": 36,
+        "valid_candidates": 90,
+        "psr": 0.4,
+        "eligible": true
+      },
+      {
+        "condition_id": "B",
+        "replicate": 2,
+        "success_count": 38,
+        "valid_candidates": 90,
+        "psr": 0.4222222222222222,
+        "eligible": true
+      },
+      {
+        "condition_id": "B",
+        "replicate": 3,
+        "success_count": 34,
+        "valid_candidates": 90,
+        "psr": 0.37777777777777777,
+        "eligible": true
+      },
+      {
+        "condition_id": "C",
+        "replicate": 1,
+        "success_count": 67,
+        "valid_candidates": 90,
+        "psr": 0.7444444444444445,
+        "eligible": true
+      },
+      {
+        "condition_id": "C",
+        "replicate": 2,
+        "success_count": 69,
+        "valid_candidates": 90,
+        "psr": 0.7666666666666667,
+        "eligible": true
+      },
+      {
+        "condition_id": "C",
+        "replicate": 3,
+        "success_count": 68,
+        "valid_candidates": 90,
+        "psr": 0.7555555555555555,
+        "eligible": true
+      }
+    ],
+    "definition": "U05: validator success intersected with consistent positive executor evidence; all eligible B/C S1-S9 candidates remain in the denominator."
+  },
+  "fpr": {
+    "eligible": false,
+    "summary": [
+      {
+        "condition_id": "A",
+        "mean": null,
+        "sample_sd": null,
+        "n": 2,
+        "eligible": false
+      },
+      {
+        "condition_id": "B",
+        "mean": 0.0,
+        "sample_sd": 0.0,
+        "n": 3,
+        "eligible": true
+      }
+    ],
+    "condition_replicates": [
+      {
+        "condition_id": "A",
+        "replicate": 1,
+        "FP": 0,
+        "TN": 3,
+        "unresolved_scenarios": [],
+        "decision_coverage": 1.0,
+        "eligible": true,
+        "fpr": 0.0
+      },
+      {
+        "condition_id": "A",
+        "replicate": 2,
+        "FP": 0,
+        "TN": 2,
+        "unresolved_scenarios": [
+          "S12"
+        ],
+        "decision_coverage": 0.6666666666666666,
+        "eligible": false,
+        "fpr": null
+      },
+      {
+        "condition_id": "A",
+        "replicate": 3,
+        "FP": 0,
+        "TN": 3,
+        "unresolved_scenarios": [],
+        "decision_coverage": 1.0,
+        "eligible": true,
+        "fpr": 0.0
+      },
+      {
+        "condition_id": "B",
+        "replicate": 1,
+        "FP": 0,
+        "TN": 3,
+        "unresolved_scenarios": [],
+        "decision_coverage": 1.0,
+        "eligible": true,
+        "fpr": 0.0
+      },
+      {
+        "condition_id": "B",
+        "replicate": 2,
+        "FP": 0,
+        "TN": 3,
+        "unresolved_scenarios": [],
+        "decision_coverage": 1.0,
+        "eligible": true,
+        "fpr": 0.0
+      },
+      {
+        "condition_id": "B",
+        "replicate": 3,
+        "FP": 0,
+        "TN": 3,
+        "unresolved_scenarios": [],
+        "decision_coverage": 1.0,
+        "eligible": true,
+        "fpr": 0.0
+      }
+    ],
+    "independent_evaluator_crosscheck": true,
+    "definition": "U05: system decisions on negative scenarios S10-S12; any missing, invalid, or inconclusive unit withholds the affected replicate.",
+    "withheld_replicate_detail": {
+      "condition_id": "A",
+      "scenario_id": "S12",
+      "replicate": 2,
+      "run_decision": "inconclusive",
+      "candidate_analysis_inconclusive_count": 1,
+      "executor_rule_signal": "CONSISTENT_NEGATIVE",
+      "analysis_warnings": [
+        "model_claim_evidence_mismatch",
+        "trial_assessment_evidence_mismatch"
+      ]
+    }
+  },
+  "outputs": {
+    "metrics_json_sha256": "fd3ffac9c06ebb941ae9bc027ea9d941b55ac902409bfe0ca6164f2bd494c136",
+    "metrics_csv_sha256": "32ac0cf6331e6e4ede74c423896573858a5fb9a5fa9d5c216f82a550095b7303",
+    "imported_annotations_sha256": "e8ab4ef418616ec1c2f421bfbb3f6a78e4236a80b3d840ae762037e32a98bf7c"
+  },
+  "source_ledgers": {
+    "R1_R2": "8fd08a2d093fd6f9ec5c76651554225203cc0a6cbc466b13a9763b66a746260c",
+    "R3_original": "a166bbcb4a5e9491bf192f06950e988262af19e8b75580a1fbbbfdab6274163f",
+    "B_S5_R3_targeted_replacement": "1d8f015d770ce7e2b2c71232b5a49d57922305fd021d0e3467c8a0494f973640"
+  },
+  "api_requests": 0,
+  "dvwa_requests": 0,
+  "database_resets": 0
+}

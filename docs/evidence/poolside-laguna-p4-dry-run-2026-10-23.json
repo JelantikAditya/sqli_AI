@@ -1,0 +1,183 @@
+{
+  "schema": "poolside-laguna-p4-offline-dry-run-v1",
+  "created_at_utc": "2026-10-23T08:22:23.635985+00:00",
+  "experiment_id": "poolside-laguna-p4-20261023",
+  "status": "blocked-not-execution-ready",
+  "plan_sha256": "4e1364fc6df2babf7e9573647c4afcd95d3453890549760d3edb3b34eebc598f",
+  "budget_sha256": "61a987f2d44b7e70822f90f02853fe33fb65bf5876471d6386cd494557e8a377",
+  "plan_hash_matches_budget": true,
+  "design_count_check_passed": true,
+  "q4_qualification_gate_passed": true,
+  "q4_direct_model_evidence_passed": true,
+  "discovery_inventory_integrity_passed": true,
+  "discovery_review_passed": true,
+  "approved_archive_integrity_passed": true,
+  "isolated_snapshot_retrieval_passed": true,
+  "isolated_snapshot_evidence_path": "docs/evidence/poolside-laguna-p4-snapshot-check-2026-10-23.json",
+  "formal_runner_readiness_passed": true,
+  "formal_runner_readiness_evidence_path": "docs/evidence/poolside-laguna-p4-runner-readiness-2026-10-23.json",
+  "dvwa_preflight_passed": true,
+  "dvwa_preflight_evidence_path": "docs/evidence/poolside-laguna-p4-dvwa-preflight-2026-10-23.json",
+  "method_decision_recorded": true,
+  "method_decision_receipt_path": "docs/evidence/poolside-laguna-p4-method-decision-2026-10-23.json",
+  "method_decision_receipt_sha256": "fe9c346d8992bdfb54877b599877d32742f72a706a03cfe3c26c7dec1ec113a7",
+  "active_index_matches_approved_snapshot": false,
+  "active_index_mismatches": [
+    "data/vectorstore/sqli-knowledge-ec9d1b2feda12dd3/chroma.sqlite3",
+    "data/vectorstore/sqli-knowledge-ec9d1b2feda12dd3/4176542f-e8f6-4a46-8652-598aedaf3721/data_level0.bin"
+  ],
+  "active_index_comparison": {
+    "data/vectorstore/sqli-knowledge-ec9d1b2feda12dd3/chroma.sqlite3": {
+      "approved_sha256": "32684a5b90b1f4ce81abfbf47b20182dcab1abe76ecdb4cdb47b8c3430f6a9d8",
+      "active_sha256": "7911a81a94be5c760ac93faeca0b44e5f7f95cb2a7dc0c667fd01caeb8b7454a",
+      "matches_approved": false
+    },
+    "data/vectorstore/sqli-knowledge-ec9d1b2feda12dd3/manifest.json": {
+      "approved_sha256": "e00baf7e2af3e25ea6011a4e9cea2c19bd6122c7592e576ea8400e97786a24bd",
+      "active_sha256": "e00baf7e2af3e25ea6011a4e9cea2c19bd6122c7592e576ea8400e97786a24bd",
+      "matches_approved": true
+    },
+    "data/vectorstore/sqli-knowledge-ec9d1b2feda12dd3/4176542f-e8f6-4a46-8652-598aedaf3721/data_level0.bin": {
+      "approved_sha256": "4f436e3e7f8625e846b7cff2b4532265da6926cead44b56134349ca0edbb6fdd",
+      "active_sha256": "2cdb190ca57adb64a6dcb7befde7599c710623ae4b7b948beadfff0f234bee46",
+      "matches_approved": false
+    },
+    "data/vectorstore/sqli-knowledge-ec9d1b2feda12dd3/4176542f-e8f6-4a46-8652-598aedaf3721/header.bin": {
+      "approved_sha256": "03cb3ac86f3e5bcb15e88b9bf99f760ec6b33e31d64a699e129b49868db6d733",
+      "active_sha256": "03cb3ac86f3e5bcb15e88b9bf99f760ec6b33e31d64a699e129b49868db6d733",
+      "matches_approved": true
+    },
+    "data/vectorstore/sqli-knowledge-ec9d1b2feda12dd3/4176542f-e8f6-4a46-8652-598aedaf3721/length.bin": {
+      "approved_sha256": "fcb1dae9ff0777ddad43e748fa01c59d180a8a1d1014d4acae17cd29dd9d16c3",
+      "active_sha256": "fcb1dae9ff0777ddad43e748fa01c59d180a8a1d1014d4acae17cd29dd9d16c3",
+      "matches_approved": true
+    },
+    "data/vectorstore/sqli-knowledge-ec9d1b2feda12dd3/4176542f-e8f6-4a46-8652-598aedaf3721/link_lists.bin": {
+      "approved_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "active_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "matches_approved": true
+    }
+  },
+  "formal_api_pilot_only_guard_found": true,
+  "discovery_target_origins": [
+    "http://dvwa"
+  ],
+  "frozen_protocol_target_origin": "http://127.0.0.1:4280",
+  "target_binding_evidence": {
+    "compose_sha256": "685ee99551d451104884d53d56ed38a863306cc05e91981daa3fd2e0cc495395",
+    "zap_template_sha256": "d8d7237da33506cf7cfe74bb710af137ce4e4722947a09eccfeceeea36450e05",
+    "report_origins": [
+      "http://dvwa"
+    ],
+    "runner_origin": "http://127.0.0.1:4280",
+    "compose_has_dvwa_host_binding": true,
+    "zap_uses_compose_service_alias": true,
+    "docker_inspect_succeeded": true,
+    "same_container_binding_verified": true,
+    "container_id": "bb6c3906b1ff7065f1bd4cb6b6d969200b270dfa25c3c39f79c3e7e74e0ae968",
+    "container_image": "ghcr.io/digininja/dvwa@sha256:ed35515e9111801e6e386a6fbb11165508cc7f72e0cb8da4dbb3df70182986c6",
+    "compose_project": "dvwa",
+    "compose_service": "dvwa",
+    "service_alias_present": true,
+    "host_binding_present": true,
+    "image_digest_matches_compose": true
+  },
+  "gates": [
+    {
+      "gate_id": "design-and-counts",
+      "status": "passed",
+      "evidence": "P4 matrix has 99 applicable units, 990 candidates, and 2,970 logical confirmations.",
+      "next_action": "Maintain these counts when freezing the protocol."
+    },
+    {
+      "gate_id": "q4-generator-qualification",
+      "status": "passed",
+      "evidence": "Q4 v5 reached 24/24 A/B units with ten valid candidates; the Q4 receipt says formal_eligible=false.",
+      "next_action": "Treat Q4 as a generator qualification gate only."
+    },
+    {
+      "gate_id": "q4-direct-model-evidence",
+      "status": "passed",
+      "evidence": "All Q4 response receipts are checked for direct Poolside model ID and successful status.",
+      "next_action": "Repeat the reported-model check on every P4 API response."
+    },
+    {
+      "gate_id": "discovery-archive-integrity",
+      "status": "passed",
+      "evidence": "All 12 fresh P4 passive ZAP reports are pinned by hash, authenticated, level-bound, less than 24 hours old, and each verifies two injection points.",
+      "next_action": "Keep the discovery report mapping fixed to this plan and refresh if any report expires or the target changes."
+    },
+    {
+      "gate_id": "discovery-target-binding",
+      "status": "passed",
+      "evidence": "Current compose configuration and Docker inspection map ZAP origin ['http://dvwa'] and runner origin http://127.0.0.1:4280 to the pinned DVWA service.",
+      "next_action": "Use one canonical origin for the 12 fresh P4 discovery scans and retain this container-binding evidence."
+    },
+    {
+      "gate_id": "approved-corpus-archive",
+      "status": "passed",
+      "evidence": "The preserved six-file archive is checked against the 17 October approved formal snapshot.",
+      "next_action": "Use an isolated read-only snapshot path in the P4 runner; do not overwrite the active index."
+    },
+    {
+      "gate_id": "active-index-isolation",
+      "status": "passed",
+      "evidence": "2 of 6 active index files differ from the approved snapshot; P4 retrieval uses a temporary copy. Isolated retrieval evidence passed=True.",
+      "next_action": "Continue to use the verified archived snapshot through per-attempt copies; never mutate the active index."
+    },
+    {
+      "gate_id": "method-amendment-decision",
+      "status": "passed",
+      "evidence": "Researcher decision is recorded: Laguna P4 is the primary formal model cohort for the revised analysis; existing local-Qwen formal results remain preserved and separately reported. Adviser approval is reported by the researcher, with no direct adviser receipt attached. The research proposal text will be updated at the end; this decision does not freeze the P4 protocol or authorize execution.",
+      "next_action": "Keep the Laguna and local-Qwen datasets separate; update the proposal at the end of the research, then obtain separate protocol-freeze and execution-approval receipts before any formal run."
+    },
+    {
+      "gate_id": "formal-poolside-runner",
+      "status": "passed",
+      "evidence": "Dedicated fail-closed P4 runner and pinned separate inputs validate offline; implementation evidence passed=True.",
+      "next_action": "Keep API and DVWA execution disabled until P4 freeze and execution receipts bind the final hashes."
+    },
+    {
+      "gate_id": "provider-account-budget",
+      "status": "passed",
+      "evidence": "The researcher confirms the new account has sufficient quota/rate limit for the formal run; latest direct smoke reports exact model free with zero listed pricing. P4 enforces maximum_spend_usd=0. Confirmation valid=True; quota is researcher-confirmed, not independently read from the account console.",
+      "next_action": "Keep the run within the provider availability window and stop if a request is limited or any charge/non-free status appears."
+    },
+    {
+      "gate_id": "provider-continuity",
+      "status": "passed",
+      "evidence": "The researcher confirms the direct Laguna API formal run is safe and acknowledges Poolside's 31 October 2026 inference shutdown notice. An interrupted cohort remains invalid; no provider switch is allowed.",
+      "next_action": "Run only while direct Poolside inference is available. Do not route through OpenRouter."
+    },
+    {
+      "gate_id": "dvwa-preflight",
+      "status": "passed",
+      "evidence": "P4 local receipt passed=True; it verifies one database reset, session and input coordinates at all four levels, benign timing baseline, and current protocol/plan hashes.",
+      "next_action": "Repeat the preflight if protocol, formal plan, DVWA image, or runtime changes."
+    },
+    {
+      "gate_id": "discovery-out-of-level-review",
+      "status": "passed",
+      "evidence": "The review receipt binds all twelve fresh reports and assesses the out-of-level input observations against the pinned passive-discovery template.",
+      "next_action": "Review out-of-level observations against the scan plan; do not treat passive alerts as SQLi detections or FPR/PSR labels."
+    },
+    {
+      "gate_id": "val01-blind-review",
+      "status": "deferred-by-design",
+      "evidence": "A fresh blind packet cannot be built until P4 candidate IDs are locked.",
+      "next_action": "After the cohort, create a new randomized VAL-01 packet and mapping; never reuse pilot annotations."
+    },
+    {
+      "gate_id": "formal-execution-approval",
+      "status": "open",
+      "evidence": "No execution receipt is bound to a P4 protocol, plan, budget, and release manifest.",
+      "next_action": "Create the P4 release manifest after every prior gate passes, then obtain explicit approval bound to its hashes."
+    }
+  ],
+  "execution_authorized": false,
+  "execution_started": false,
+  "api_requests_sent": 0,
+  "dvwa_requests_sent": 0,
+  "credentials_read": false,
+  "openrouter_used": false
+}

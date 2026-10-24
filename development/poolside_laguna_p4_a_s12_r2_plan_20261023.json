@@ -1,0 +1,20 @@
+{
+  "schema_version": "1.0.0",
+  "experiment_id": "poolside-p4-a-s12-r2-amend1",
+  "dataset": "formal",
+  "condition_ids": [
+    "A"
+  ],
+  "scenario_ids": [
+    "S12"
+  ],
+  "replicates": [
+    2
+  ],
+  "discovery_reports": {
+    "S12": {
+      "2": "results/raw/formal-discovery/poolside-laguna-p4-20261023/replicate-2/impossible/zap-discovery.normalized.json"
+    }
+  },
+  "seclists_source_root": null
+}

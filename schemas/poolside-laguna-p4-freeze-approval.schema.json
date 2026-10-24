@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "poolside-laguna-p4-freeze-approval.schema.json",
+  "title": "Researcher approval to freeze the P4 formal protocol candidate",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "scope",
+    "decision",
+    "experiment_id",
+    "formal_plan_sha256",
+    "budget_sha256",
+    "protocol_candidate_sha256",
+    "formal_protocol_freeze",
+    "formal_execution_approval",
+    "authority"
+  ],
+  "properties": {
+    "schema_version": { "const": "1.0.0" },
+    "scope": { "const": "poolside-p4-protocol-freeze" },
+    "decision": { "const": "approved-for-p4-protocol-freeze" },
+    "experiment_id": { "const": "poolside-laguna-p4-20261023" },
+    "formal_plan_sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "budget_sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "protocol_candidate_sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "formal_protocol_freeze": { "const": true },
+    "formal_execution_approval": { "const": false },
+    "authority": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["role", "basis", "approved_at_local", "quote"],
+      "properties": {
+        "role": { "const": "researcher" },
+        "basis": { "const": "explicit-user-approval" },
+        "approved_at_local": { "type": "string", "minLength": 1 },
+        "quote": { "type": "string", "minLength": 1 }
+      }
+    }
+  }
+}

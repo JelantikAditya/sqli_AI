@@ -1,0 +1,75 @@
+{
+  "schema": "poolside-laguna-q4-v5-live-audit-v1",
+  "date": "2026-10-23",
+  "experiment_id": "poolside-s21-p3-q4-v5-20261023",
+  "protocol_id": "poolside-laguna-s21-sqli-v5-qualification-structure-feedback",
+  "status": "qualification_passed",
+  "execution_started": true,
+  "formal_eligible": false,
+  "assessment_path": "results/raw/pilot/poolside-s21-p3-q4-v5-20261023/qualification-assessment.json",
+  "raw_run_path": "results/raw/pilot/poolside-s21-p3-q4-v5-20261023",
+  "qualification": {
+    "qualification_passed": true,
+    "expected_ab_units": 24,
+    "completed_ab_units": 24,
+    "full_budget_ab_units": 24,
+    "missing_or_incomplete_units": [],
+    "units_by_candidate_count": {
+      "10": 24
+    },
+    "units_by_ledger_status": {
+      "completed": 24
+    },
+    "api_calls_used": 506,
+    "api_call_ceiling": 960
+  },
+  "api_responses": {
+    "result_files": 506,
+    "http_status_counts": {
+      "200": 506
+    },
+    "finish_reason_counts": {
+      "stop": 506
+    },
+    "responses_missing_usage": 0,
+    "usage_by_kind": {
+      "generation": {
+        "calls": 266,
+        "prompt_tokens": 326331,
+        "completion_tokens": 4530,
+        "total_tokens": 330861,
+        "max_prompt_tokens": 1891,
+        "max_completion_tokens": 42
+      },
+      "analysis": {
+        "calls": 240,
+        "prompt_tokens": 284579,
+        "completion_tokens": 65562,
+        "total_tokens": 350141,
+        "max_prompt_tokens": 1310,
+        "max_completion_tokens": 356
+      }
+    },
+    "usage_total": {
+      "calls": 506,
+      "prompt_tokens": 610910,
+      "completion_tokens": 70092,
+      "total_tokens": 681002
+    },
+    "max_completion_tokens_per_response": 356,
+    "completion_token_budget": 1228800,
+    "completion_token_budget_fraction_used": 0.057041
+  },
+  "generation_attempt_outcomes": {
+    "generated": 240,
+    "no_valid_distinct_candidate": 19,
+    "invalid_candidate_format": 7
+  },
+  "account_spending_limit_verified": false,
+  "interpretation": [
+    "Semua 24 unit mencapai 10 kandidat valid dan qualification gate lulus.",
+    "Terdapat 26 percobaan generasi yang ditolak atau tidak menghasilkan struktur valid, tetapi percobaan ulang berhasil melengkapi seluruh kuota unit.",
+    "Tidak ada indikasi plafon completion token menjadi penyebab percobaan gagal: semua 506 respons berakhir stop, pemakaian completion total 70.092, dan keluaran terpanjang 356 token.",
+    "Status ini hanya qualification; data belum eligible untuk analisis formal. Batas belanja akun belum diverifikasi dan biaya uang tidak disimpulkan dari token."
+  ]
+}

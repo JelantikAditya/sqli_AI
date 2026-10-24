@@ -1,0 +1,77 @@
+{
+  "schema": "poolside-laguna-p4-a-s12-r2-amendment-readiness-v1",
+  "created_at_utc": "2026-10-23T14:00:35.308312+00:00",
+  "status": "ready-for-methodological-review",
+  "amendment_id": "p4-a-s12-r2-amend1",
+  "package_sha256": "cd789af2359cf1dd498d49520b6d1fb76ef842a8b365b409f3f315973d9392ba",
+  "amendment_sha256": "85008387e889533dd4236b78a3b1648fb16949852b9a30bc987177a8aa3209e0",
+  "plan_sha256": "9e24b7558bb221d6677a317f9a64ddd25385bdebc9ec5687ee2ab803c297d091",
+  "budget_sha256": "5e4ce0729c9b2f2e9c5f4521ff6805b14bbb093e9e743feaf2e0aa10bde408c3",
+  "source_protocol_sha256": "f08249f0cba6f45d01d87e560d9ef472430ab8484bcf565b8515bf63d874bf1b",
+  "source_release_sha256": "64768eb6389193b7cab2393aca5ac30026edf76f3b2d571ccd881db9711c755c",
+  "source_unit": {
+    "source_unit_id": "poolside-laguna-p4-20261023-a-s12-r2",
+    "original_attempt_id": "attempt-1-1fec59510e",
+    "source_ledger_sha256": "8fd08a2d093fd6f9ec5c76651554225203cc0a6cbc466b13a9763b66a746260c",
+    "source_adaptive_result_sha256": "5decd0673de618987cf9956ec6a96202422fd11caa04ada3afbf2ab90711f3d1",
+    "original_candidate_count": 10,
+    "original_run_complete": true,
+    "original_run_metric_eligible": true,
+    "original_system_decision": "inconclusive",
+    "original_fpr_a_r2": null,
+    "original_fpr_a_eligible": false,
+    "original_artifacts_preserved": true,
+    "post_result_sensitivity_only": true
+  },
+  "planned_unit": {
+    "condition_id": "A",
+    "scenario_id": "S12",
+    "replicate": 2,
+    "candidate_budget": 10
+  },
+  "discovery": {
+    "path": "results/raw/formal-discovery/poolside-laguna-p4-20261023/replicate-2/impossible/zap-discovery.normalized.json",
+    "sha256": "a3c0199ffb059e8c672d5a0b8417711cb2c31c75ec6795ad4d81f5de5d94431d",
+    "age_hours": 6.3194,
+    "authenticated": true,
+    "verified_injection_point_count": 2
+  },
+  "provider": {
+    "provider": "direct Poolside API only",
+    "api_base_url": "https://inference.poolside.ai/v1",
+    "model": "poolside/laguna-s-2.1",
+    "openrouter_allowed": false,
+    "latest_key_smoke_path": "results/raw/poolside-smoke/20261023T113310424083Z.json",
+    "latest_key_smoke_sha256": "599a064ceba6e31e448829ad5edce1e60275bba91253e041a41658c5dce7a676"
+  },
+  "api_call_ceiling": 40,
+  "completion_token_ceiling": 51200,
+  "maximum_spend_usd": 0,
+  "planned_database_resets": 1,
+  "output_path": "results/raw/formal/poolside-p4-a-s12-r2-amend1-20261023",
+  "sensitivity_only": true,
+  "frozen_primary_result_changes": false,
+  "approval_state": {
+    "methodological": "pending",
+    "amendment_freeze": "pending",
+    "formal_execution": "pending"
+  },
+  "execution_authorized": false,
+  "execution_started": false,
+  "api_requests_sent": 0,
+  "dvwa_requests_sent": 0,
+  "credentials_read": false,
+  "database_resets": 0,
+  "openrouter_used": false,
+  "gates": {
+    "original-complete-abstention-hash-verified": "passed",
+    "frozen-p4-source-release-and-runtime": "passed",
+    "one-unit-a-s12-r2-plan": "passed",
+    "fresh-authenticated-s12-r2-discovery": "passed",
+    "zero-spend-bounded-budget": "passed",
+    "current-key-direct-provider-smoke": "passed",
+    "post-result-methodological-approval": "pending",
+    "separate-amendment-freeze-approval": "pending",
+    "separate-formal-execution-approval": "pending"
+  }
+}

@@ -1,0 +1,110 @@
+{
+  "schema": "poolside-laguna-formal-budget-draft-v1",
+  "experiment_id": "poolside-laguna-p4-20261023",
+  "status": "draft-not-approved-not-executable",
+  "plan_path": "development/poolside_laguna_p4_plan_20261023.json",
+  "plan_sha256": "4e1364fc6df2babf7e9573647c4afcd95d3453890549760d3edb3b34eebc598f",
+  "formal_runner_plan_path": "development/poolside_laguna_p4_formal_plan_20261023.json",
+  "formal_runner_plan_sha256": "4b4d5bb3a8a23801ad31bf5ba6e27cca4e9c47c4fc579c08079d39461277267e",
+  "protocol_path": "development/poolside_laguna_p4_protocol_20261023.json",
+  "protocol_candidate_sha256": "12b2d704c07248bedff35e9459cb074c1ffa94b3c66a09cb80b67cecb969e3ee",
+  "scope": "72 direct API units in A/B; condition C uses local SecLists and is excluded from API-call budget",
+  "calibration_source": {
+    "experiment_id": "poolside-s21-p3-q4-v5-20261023",
+    "audit_path": "docs/evidence/poolside-laguna-q4-v5-live-audit-2026-10-23.json",
+    "audit_sha256": "416e9bd6804d662ad2274609c663257c9d2835948a95505025d8f012ea480e0e",
+    "api_calls": 506,
+    "api_call_ceiling": 960,
+    "ab_units": 24,
+    "actual_prompt_tokens": 610910,
+    "actual_completion_tokens": 70092
+  },
+  "estimates": {
+    "linear_expected_api_calls": 1518,
+    "expected_prompt_tokens_from_q4_x3": 1832730,
+    "expected_completion_tokens_from_q4_x3": 210276,
+    "expected_total_tokens_from_q4_x3": 2043006,
+    "api_wall_time_ceiling_seconds_from_q4_x3": 64800,
+    "max_api_wall_seconds": 64800,
+    "status": "projection only; full P4 duration includes DVWA validation and must be re-estimated"
+  },
+  "hard_ceilings_draft": {
+    "api_units": 72,
+    "api_calls_per_unit": 40,
+    "max_api_calls": 2880,
+    "generation_max_tokens": 1024,
+    "analysis_max_tokens": 2048,
+    "max_completion_tokens": 3686400,
+    "automatic_transport_retries": 0,
+    "automatic_unit_replacements": 0,
+    "model_fallback": false
+  },
+  "spend_and_provider_limits": {
+    "provider": "direct Poolside API only",
+    "maximum_spend_usd": 0,
+    "spend_policy": "free-only; stop if any charge or non-free status is reported",
+    "researcher_reported_current_access": "free",
+    "official_free_access_evidence": {
+      "url": "https://poolside.ai/models",
+      "statement": "Free to use for a limited time",
+      "captured_date": "2026-10-23"
+    },
+    "current_account_smoke": {
+      "report_path": "results/raw/poolside-smoke/20261023T081457883186Z.json",
+      "report_sha256": "37c2e123cf4a71bc90b0863971ebc4721410ede2d3f180f434ae6c7294571219",
+      "started_at_utc": "2026-10-23T08:14:55.401768+00:00",
+      "status": "ok",
+      "requested_model": "poolside/laguna-s-2.1",
+      "reported_model": "poolside/laguna-s-2.1",
+      "model_listed": true,
+      "model_catalog_is_free": true,
+      "model_catalog_zero_pricing": true,
+      "pricing": {
+        "image": "0",
+        "prompt": "0",
+        "request": "0",
+        "completion": "0",
+        "input_cache_read": "0"
+      },
+      "context_length": 262144,
+      "http_requests": 2,
+      "chat_usage": {
+        "prompt_tokens": 52,
+        "completion_tokens": 2,
+        "total_tokens": 54,
+        "prompt_tokens_details": {
+          "audio_tokens": 0,
+          "cached_tokens": 32
+        },
+        "completion_tokens_details": {
+          "accepted_prediction_tokens": 0,
+          "audio_tokens": 0,
+          "reasoning_tokens": 0,
+          "rejected_prediction_tokens": 0
+        }
+      },
+      "free_status_verified": true,
+      "scope_note": "Current model catalog and 1 chat request only; does not verify full-run quota, rate limit, or future continuity."
+    },
+    "account_spending_limit_usd": 0,
+    "account_spending_limit_verified": false,
+    "request_quota_verified": false,
+    "rate_limit_verified": false,
+    "continuity_through_full_run_verified": false,
+    "researcher_confirmation_receipt_path": "docs/evidence/poolside-laguna-p4-provider-confirmation-2026-10-23.json",
+    "researcher_confirmation_receipt_sha256": "3e258b7009a98aa0892e51017974564dcf220e1c25a0b3a4d802c4492a9ba508",
+    "researcher_confirmation_valid": true,
+    "execution_gate": "researcher confirmed the new account and formal run are safe; keep direct Poolside access free-only and complete the cohort while inference is available"
+  },
+  "abort_conditions": [
+    "reported model differs from poolside/laguna-s-2.1",
+    "HTTP response, finish reason, or response schema is invalid",
+    "API request or completion-token ceiling is reached",
+    "provider rate limit or account quota is reached",
+    "request would exceed the approved spend limit",
+    "DVWA origin, authentication, security level, baseline, or database reset fails",
+    "runtime, prompt, corpus, index, SecLists, plan, or budget hash changes",
+    "provider availability cannot cover the complete cohort and recovery window"
+  ],
+  "execution_authorized": false
+}
